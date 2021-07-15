@@ -1,5 +1,7 @@
 <?php
 
+use App\Events\OrderStatusUpdated;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
+    OrderStatusUpdated::dispatch(User::first());
+
     return view('welcome');
 });
