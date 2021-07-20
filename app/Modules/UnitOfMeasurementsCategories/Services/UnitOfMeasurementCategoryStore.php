@@ -8,19 +8,19 @@ use App\Models\UnitOfMeasurementCategory;
 
 class UnitOfMeasurementCategoryStore
 {
-    private $unitOfMeasurementCategory;
+    private $model;
 
-    public function __construct(UnitOfMeasurementCategory $unitOfMeasurementCategory)
+    public function __construct(UnitOfMeasurementCategory $model)
     {
-        $this->unitOfMeasurementCategory = $unitOfMeasurementCategory;
+        $this->model = $model;
     }
 
     public function store(array $data)
     {
-        $unitOfMeasurement = $this->unitOfMeasurementCategory;
-        $unitOfMeasurement = isset($data['id']) ? $unitOfMeasurement->find($data['id']) : $unitOfMeasurement;
-        $unitOfMeasurement->name = $data['name'];
-        $unitOfMeasurement->save();
-        return $unitOfMeasurement;
+        $model = $this->model;
+        $model = isset($data['id']) ? $model->find($data['id']) : $model;
+        $model->name = $data['name'];
+        $model->save();
+        return $model;
     }
 }
