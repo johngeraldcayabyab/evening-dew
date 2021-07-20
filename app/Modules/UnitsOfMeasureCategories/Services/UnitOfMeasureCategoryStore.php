@@ -1,21 +1,21 @@
 <?php
 
 
-namespace App\Modules\UnitOfMeasurementCategories\Services;
+namespace App\Modules\UnitsOfMeasureCategories\Services;
 
 
-use App\Models\UnitOfMeasurementCategory;
+use App\Models\UnitOfMeasureCategory;
 
-class UnitOfMeasurementCategoryStore
+class UnitOfMeasureCategoryStore
 {
-    private $model;
+    private UnitOfMeasureCategory $model;
 
-    public function __construct(UnitOfMeasurementCategory $model)
+    public function __construct(UnitOfMeasureCategory $model)
     {
         $this->model = $model;
     }
 
-    public function store(array $data)
+    public function store(array $data): UnitOfMeasureCategory
     {
         $model = $this->model;
         $model = isset($data['id']) ? $model->find($data['id']) : $model;
