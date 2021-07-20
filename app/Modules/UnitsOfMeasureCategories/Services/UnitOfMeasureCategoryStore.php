@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Modules\UnitOfMeasurementsCategories\Services;
+namespace App\Modules\UnitOfMeasurementCategories\Services;
 
 
 use App\Models\UnitOfMeasurementCategory;

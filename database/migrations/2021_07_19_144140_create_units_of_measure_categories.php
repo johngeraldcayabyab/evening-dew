@@ -4,11 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUnitOfMeasurementsCategories extends Migration
+class CreateUnitsOfMeasureCategories extends Migration
 {
     public function up()
     {
-        Schema::create('unit_of_measurements_categories', function (Blueprint $table) {
+        Schema::create('units_of_measure_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->softDeletes();
@@ -18,6 +18,6 @@ class CreateUnitOfMeasurementsCategories extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('unit_of_measurements_categories');
+        Schema::dropIfExists('units_of_measure_categories');
     }
 }
