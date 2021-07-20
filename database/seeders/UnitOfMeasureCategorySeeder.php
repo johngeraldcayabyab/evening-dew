@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Modules\UnitsOfMeasureCategories\Services\UnitOfMeasureCategoryStore;
 use Illuminate\Database\Seeder;
 
-class UnitsOfMeasureCategorySeeder extends Seeder
+class UnitOfMeasureCategorySeeder extends Seeder
 {
     public function run()
     {
