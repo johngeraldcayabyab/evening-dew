@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Modules\UnitOfMeasurementsCategories\Services\UnitOfMeasurementCategoryStore;
+use App\Modules\UnitsOfMeasureCategories\Services\UnitOfMeasureCategoryStore;
 use Illuminate\Database\Seeder;
 
-class UnitOfMeasurementCategorySeeder extends Seeder
+class UnitsOfMeasureCategorySeeder extends Seeder
 {
     public function run()
     {
@@ -19,7 +19,7 @@ class UnitOfMeasurementCategorySeeder extends Seeder
         ];
 
         foreach ($data as $datum) {
-            resolve(UnitOfMeasurementCategoryStore::class)->store($datum);
+            resolve(UnitOfMeasureCategoryStore::class)->store($datum);
         }
     }
 }
