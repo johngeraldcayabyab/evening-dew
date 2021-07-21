@@ -2,59 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UnitOfMeasureCategory;
 use App\Modules\UnitsOfMeasureCategories\Services\UnitOfMeasureCategoryStore;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UnitOfMeasureCategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        return response()->json([UnitOfMeasureCategory::all()]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(Request $request) : JsonResponse
     {
         $validated = $request->validate([
-            'name' => 'required'
+            'name' => 'required|unique:units_of_measure_categories,name'
         ]);
-        resolve(UnitOfMeasureCategoryStore::class)->store($validated);
-        info($request);
-        return response()->json([], 201);
+        $results = resolve(UnitOfMeasureCategoryStore::class)->store($validated);
+        return response()->json([], 201, [
+            'Location' => route('units_of_measure_categories.show', ['unit_of_measure_category' => $results->id])
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
-        //
+        return response()->json(UnitOfMeasureCategory::find($id));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'id' => 'required|exists:units_of_measure_categories,id',
+            'name' => ['required', Rule::unique('units_of_measure_categories')]
+        ]);
+        resolve(UnitOfMeasureCategoryStore::class)->store($validated);
+        return response()->json([], 204);
     }
 
     /**
