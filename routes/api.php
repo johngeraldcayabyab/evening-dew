@@ -1,5 +1,6 @@
 <?php
 
+use App\Components\RouteExtended;
 use App\Http\Controllers\UnitOfMeasureCategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,5 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('units_of_measure_categories',  UnitOfMeasureCategoryController::class);
+RouteExtended::apiResource('units_of_measure_categories',  UnitOfMeasureCategoryController::class);
+
 
