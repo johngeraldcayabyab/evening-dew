@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UnitOfMeasureCategoryRequest;
 use App\Models\UnitOfMeasureCategory;
-use App\Modules\UnitsOfMeasureCategories\Services\UnitOfMeasureCategoryStore;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class UnitOfMeasureCategoryController extends Controller
 {
@@ -15,42 +13,26 @@ class UnitOfMeasureCategoryController extends Controller
         return response()->json([UnitOfMeasureCategory::all()]);
     }
 
-    public function store(Request $request) : JsonResponse
+    public function store(UnitOfMeasureCategoryRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|unique:units_of_measure_categories,name'
-        ]);
-        $results = resolve(UnitOfMeasureCategoryStore::class)->store($validated);
-        return response()->json([], 201, [
-            'Location' => route('units_of_measure_categories.show', ['unit_of_measure_category' => $results->id])
-        ]);
+        $model = $this->persistCreate($request, new UnitOfMeasureCategory());
+        return $this->responseCreate($model);
     }
 
-
-    public function show($id)
+    public function show(UnitOfMeasureCategory $unitOfMeasureCategory)
     {
-        return response()->json(UnitOfMeasureCategory::find($id));
+        return response()->json($unitOfMeasureCategory);
     }
 
-
-    public function update(Request $request, $id)
+    public function update(UnitOfMeasureCategoryRequest $request, UnitOfMeasureCategory $unitOfMeasureCategory)
     {
-        $validated = $request->validate([
-            'id' => 'required|exists:units_of_measure_categories,id',
-            'name' => ['required', Rule::unique('units_of_measure_categories')]
-        ]);
-        resolve(UnitOfMeasureCategoryStore::class)->store($validated);
+        $this->persistUpdate($request, $unitOfMeasureCategory);
+        return $this->responseUpdate();
+    }
+
+    public function destroy(UnitOfMeasureCategory $unitOfMeasureCategory)
+    {
+        $unitOfMeasureCategory->delete();
         return response()->json([], 204);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

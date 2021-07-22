@@ -12,4 +12,5 @@ class UnitOfMeasureCategory extends Model
     use SoftDeletes;
 
     protected $table = 'units_of_measure_categories';
+    protected $guarded  = [];
 }
