@@ -38,7 +38,17 @@ class Controller extends BaseController
         ]);
     }
 
+    public function responseRead($resource)
+    {
+        return response()->json($resource);
+    }
+
     public function responseUpdate()
+    {
+        return response()->json([], 204);
+    }
+
+    public function responseDelete()
     {
         return response()->json([], 204);
     }
