@@ -6,12 +6,13 @@ use App\Http\Requests\UnitOfMeasureCategoryRequest;
 use App\Http\Resources\UnitOfMeasureCategoryResource;
 use App\Models\UnitOfMeasureCategory;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class UnitOfMeasureCategoryController extends Controller
 {
     public function index()
     {
-        return response()->json([UnitOfMeasureCategory::all()]);
+        return $this->responseRead(UnitOfMeasureCategoryResource::collection(UnitOfMeasureCategory::all()));
     }
 
     public function store(UnitOfMeasureCategoryRequest $request)
@@ -20,20 +21,20 @@ class UnitOfMeasureCategoryController extends Controller
         return $this->responseCreate($model);
     }
 
-    public function show(UnitOfMeasureCategory $unitOfMeasureCategory)
+    public function show(UnitOfMeasureCategory $model)
     {
-        return response()->json(new UnitOfMeasureCategoryResource($unitOfMeasureCategory));
+        return $this->responseRead(new UnitOfMeasureCategoryResource($model));
     }
 
-    public function update(UnitOfMeasureCategoryRequest $request, UnitOfMeasureCategory $unitOfMeasureCategory)
+    public function update(UnitOfMeasureCategoryRequest $request, UnitOfMeasureCategory $model)
     {
-        $this->persistUpdate($request, $unitOfMeasureCategory);
+        $this->persistUpdate($request, $model);
         return $this->responseUpdate();
     }
 
-    public function destroy(UnitOfMeasureCategory $unitOfMeasureCategory)
+    public function destroy(UnitOfMeasureCategory $model)
     {
-        $unitOfMeasureCategory->delete();
-        return response()->json([], 204);
+        $model->delete();
+        return $this->responseDelete();
     }
 }
