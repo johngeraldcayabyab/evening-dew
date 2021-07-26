@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UnitOfMeasureCategoryRequest;
+use App\Http\Resources\UnitOfMeasureCategoryResource;
 use App\Models\UnitOfMeasureCategory;
 use Illuminate\Http\JsonResponse;
 
@@ -21,7 +22,7 @@ class UnitOfMeasureCategoryController extends Controller
 
     public function show(UnitOfMeasureCategory $unitOfMeasureCategory)
     {
-        return response()->json($unitOfMeasureCategory);
+        return response()->json(new UnitOfMeasureCategoryResource($unitOfMeasureCategory));
     }
 
     public function update(UnitOfMeasureCategoryRequest $request, UnitOfMeasureCategory $unitOfMeasureCategory)
