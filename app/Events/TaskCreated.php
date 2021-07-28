@@ -10,10 +10,12 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class TaskCreated
+class TaskCreated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $title;
+    public $content;
 
     public function __construct()
     {
@@ -22,6 +24,6 @@ class TaskCreated
 
     public function broadcastOn()
     {
-        return new Channel('tasks');
+        return new Channel('task');
     }
 }
