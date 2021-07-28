@@ -20,11 +20,14 @@
         "postcss": "^8.1.14",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
+        "resolve-url-loader": "^4.0.0",
         "sass": "^1.32.11",
         "sass-loader": "^11.0.1"
     },
     "dependencies": {
+        "buffer": "^4.9.2",
         "laravel-echo": "^1.11.0",
-        "pusher-js": "^7.0.3"
+        "pusher-js": "^7.0.3",
+        "socket.io-client": "^2.3.0"
     }
 }

@@ -19,9 +19,7 @@ use Illuminate\Support\Facades\Redis;
 */
 
 Route::get('/', function () {
-    Redis::set('name', 'gerald');
-    echo Redis::get('name');
-//    return view('welcome');
+    return view('welcome');
 });
 
 
@@ -32,6 +30,10 @@ Route::get('/update', function (){
 
 Route::get('/tasks', function(){
    return Task::latest()->pluck('body');
+});
+
+Route::get('/fire', function(){
+    event(new TaskCreated());
 });
 
 Route::post('/tasks', function(){
