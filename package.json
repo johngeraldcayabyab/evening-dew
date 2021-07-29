@@ -25,6 +25,7 @@
         "sass-loader": "^11.0.1"
     },
     "dependencies": {
+        "antd": "^4.16.9",
         "buffer": "^4.9.2",
         "laravel-echo": "^1.11.0",
         "pusher-js": "^7.0.3",
