@@ -1,24 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState } from 'react';
+import { render } from 'react-dom';
+import { DatePicker, message } from 'antd';
+import 'antd/dist/antd.css';
+// import './index.css';
 
-function Example() {
+const App = () => {
+    const [date, setDate] = useState(null);
+    const handleChange = value => {
+        message.info(`Selected Date: ${value ? value.format('YYYY-MM-DD') : 'None'}`);
+        setDate(value);
+    };
     return (
-        <div className="container">
-            <div className="row justify-content-center">
-                <div className="col-md-8">
-                    <div className="card">
-                        <div className="card-header">Example Component</div>
-
-                        <div className="card-body">I'm an example component!</div>
-                    </div>
-                </div>
+        <div style={{ width: 400, margin: '100px auto' }}>
+            <DatePicker onChange={handleChange} />
+            <div style={{ marginTop: 16 }}>
+                Selected Date: {date ? date.format('YYYY-MM-DD') : 'None'}
             </div>
         </div>
     );
-}
+};
 
-export default Example;
-
-if (document.getElementById('example')) {
-    ReactDOM.render(<Example />, document.getElementById('example'));
-}
+render(<App />, document.getElementById('root'));
