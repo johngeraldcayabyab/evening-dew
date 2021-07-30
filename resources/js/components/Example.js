@@ -1,23 +1,17 @@
-import React, { useState } from 'react';
-import { render } from 'react-dom';
-import { DatePicker, message } from 'antd';
+import React, {useState} from 'react';
+import {render} from 'react-dom';
+import {DatePicker, message} from 'antd';
 import 'antd/dist/antd.css';
+import {UnitOfMeasureCategory} from "../UnitOfMeasureCategory/UnitOfMeasureCategory";
 // import './index.css';
 
 const App = () => {
-    const [date, setDate] = useState(null);
-    const handleChange = value => {
-        message.info(`Selected Date: ${value ? value.format('YYYY-MM-DD') : 'None'}`);
-        setDate(value);
-    };
+
     return (
-        <div style={{ width: 400, margin: '100px auto' }}>
-            <DatePicker onChange={handleChange} />
-            <div style={{ marginTop: 16 }}>
-                Selected Date: {date ? date.format('YYYY-MM-DD') : 'None'}
-            </div>
-        </div>
+        <main>
+            <UnitOfMeasureCategory/>
+        </main>
     );
 };
 
-render(<App />, document.getElementById('root'));
+render(<App/>, document.getElementById('root'));
