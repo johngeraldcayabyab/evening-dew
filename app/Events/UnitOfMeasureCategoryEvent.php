@@ -16,10 +16,12 @@ class UnitOfMeasureCategoryEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $model;
+    public $method;
 
-    public function __construct(UnitOfMeasureCategory $model)
+    public function __construct(UnitOfMeasureCategory $model, $method)
     {
         $this->model = $model;
+        $this->method = $method;
     }
 
     public function broadcastOn()

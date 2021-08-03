@@ -10299,8 +10299,28 @@ var UnitOfMeasureCategory = function UnitOfMeasureCategory() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     Echo.channel('units_of_measure_categories').listen('UnitOfMeasureCategoryEvent', function (e) {
       setDataSource(function (newDataSource) {
-        newDataSource.push(e.model);
-        return [e.model].concat(_toConsumableArray(newDataSource));
+        var arr = [];
+
+        if (e.method === 'created') {
+          arr = [e.model].concat(_toConsumableArray(newDataSource));
+        }
+
+        if (e.method === 'updated') {
+          var index = newDataSource.findIndex(function (x) {
+            return x.id === e.model.id;
+          });
+          newDataSource[index] = e.model;
+          arr = newDataSource;
+          console.log(e.method);
+          console.log(arr);
+        }
+
+        if (e.method === 'deleted') {} // let arr = [e.model, ...newDataSource];
+        // newDataSource.push(e.model);
+        // return [e.model, ...newDataSource];
+
+
+        return arr;
       });
     });
     return function () {

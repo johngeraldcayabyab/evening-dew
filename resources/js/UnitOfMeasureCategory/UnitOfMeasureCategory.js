@@ -9,8 +9,30 @@ export const UnitOfMeasureCategory = () => {
         Echo.channel('units_of_measure_categories')
             .listen('UnitOfMeasureCategoryEvent', e => {
                 setDataSource(newDataSource => {
-                    newDataSource.push(e.model);
-                    return [e.model, ...newDataSource];
+                    let arr = [];
+
+                    if (e.method === 'created') {
+                        arr = [e.model, ...newDataSource];
+                    }
+
+                    if (e.method === 'updated') {
+                        let index = newDataSource.findIndex(x => x.id === e.model.id);
+                        newDataSource[index] = e.model;
+                        arr = newDataSource;
+                        console.log(e.method);
+                        console.log(arr);
+                    }
+
+                    if (e.method === 'deleted') {
+
+                    }
+
+                    // let arr = [e.model, ...newDataSource];
+
+                    // newDataSource.push(e.model);
+                    // return [e.model, ...newDataSource];
+
+                    return arr;
                 });
             });
         return () => {
