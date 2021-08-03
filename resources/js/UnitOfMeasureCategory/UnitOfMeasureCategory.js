@@ -1,21 +1,22 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {Table} from "antd";
+import useFetch from "../Hooks/useFetch";
 
 export const UnitOfMeasureCategory = () => {
-
-    const [dataSource, setDataSource] = useState([]);
+    const [dataSource, setDataSource] = useFetch('api/units_of_measure_categories');
 
     useEffect(() => {
-
-        fetch('api/units_of_measure_categories')
-            .then(response => response.json())
-            .then(data => () => {
-                setDataSource(data);
+        Echo.channel('units_of_measure_categories')
+            .listen('UnitOfMeasureCategoryEvent', e => {
+                setDataSource(newDataSource => {
+                    newDataSource.push(e.model);
+                    return [e.model, ...newDataSource];
+                });
             });
-
-
-    }, [dataSource]);
-
+        return () => {
+            Echo.leaveChannel('units_of_measure_categories');
+        };
+    }, []);
 
     const columns = [
         {
@@ -26,7 +27,11 @@ export const UnitOfMeasureCategory = () => {
     ];
 
     return (
-        <Table dataSource={dataSource} columns={columns}/>
+        <Table
+            dataSource={dataSource}
+            columns={columns}
+            rowKey={'id'}
+        />
     )
 };
 

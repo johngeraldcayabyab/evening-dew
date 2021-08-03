@@ -11,7 +11,7 @@ class UnitOfMeasureCategoryController extends Controller
 {
     public function index(): JsonResponse
     {
-        return $this->responseRead(UnitOfMeasureCategoryResource::collection(UnitOfMeasureCategory::all()));
+        return $this->responseRead(UnitOfMeasureCategoryResource::collection(UnitOfMeasureCategory::orderBy('created_at', 'desc')->get()));
     }
 
     public function store(UnitOfMeasureCategoryRequest $request): JsonResponse
