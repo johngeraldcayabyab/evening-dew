@@ -10309,10 +10309,13 @@ var UnitOfMeasureCategory = function UnitOfMeasureCategory() {
           var index = newDataSource.findIndex(function (x) {
             return x.id === e.model.id;
           });
-          newDataSource[index] = e.model;
+          newDataSource[index] = {
+            'id': e.model.id,
+            'name': e.model.name
+          };
           arr = newDataSource;
           console.log(e.method);
-          console.log(arr);
+          console.log(newDataSource);
         }
 
         if (e.method === 'deleted') {} // let arr = [e.model, ...newDataSource];

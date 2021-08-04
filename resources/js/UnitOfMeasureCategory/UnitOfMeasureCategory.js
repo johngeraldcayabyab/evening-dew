@@ -17,10 +17,13 @@ export const UnitOfMeasureCategory = () => {
 
                     if (e.method === 'updated') {
                         let index = newDataSource.findIndex(x => x.id === e.model.id);
-                        newDataSource[index] = e.model;
+                        newDataSource[index] = {
+                            'id' : e.model.id,
+                            'name' : e.model.name
+                        };
                         arr = newDataSource;
                         console.log(e.method);
-                        console.log(arr);
+                        console.log(newDataSource);
                     }
 
                     if (e.method === 'deleted') {

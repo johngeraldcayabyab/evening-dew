@@ -20,20 +20,20 @@ class UnitOfMeasureCategoryController extends Controller
         return $this->responseCreate($model);
     }
 
-    public function show(UnitOfMeasureCategory $model): JsonResponse
+    public function show(UnitOfMeasureCategory $unitOfMeasureCategory): JsonResponse
     {
-        return $this->responseRead(new UnitOfMeasureCategoryResource($model));
+        return $this->responseRead(new UnitOfMeasureCategoryResource($unitOfMeasureCategory));
     }
 
-    public function update(UnitOfMeasureCategoryRequest $request, UnitOfMeasureCategory $model): JsonResponse
+    public function update(UnitOfMeasureCategoryRequest $request, UnitOfMeasureCategory $unitOfMeasureCategory): JsonResponse
     {
-        $this->persistUpdate($request, $model);
+        $this->persistUpdate($request, $unitOfMeasureCategory);
         return $this->responseUpdate();
     }
 
-    public function destroy(UnitOfMeasureCategory $model): JsonResponse
+    public function destroy(UnitOfMeasureCategory $unitOfMeasureCategory): JsonResponse
     {
-        $model->delete();
+        $unitOfMeasureCategory->delete();
         return $this->responseDelete();
     }
 }
