@@ -16,24 +16,17 @@ export const UnitOfMeasureCategory = () => {
                     }
 
                     if (e.method === 'updated') {
-                        let index = newDataSource.findIndex(x => x.id === e.model.id);
-                        newDataSource[index] = {
-                            'id' : e.model.id,
-                            'name' : e.model.name
-                        };
-                        arr = newDataSource;
-                        console.log(e.method);
-                        console.log(newDataSource);
+                        arr = [...newDataSource.map((data) => {
+                            if (data.id === e.model.id) {
+                                data = e.model;
+                            }
+                            return data;
+                        })]
                     }
 
                     if (e.method === 'deleted') {
-
+                        arr = [...newDataSource.filter(index => index.id !== e.model.id)];
                     }
-
-                    // let arr = [e.model, ...newDataSource];
-
-                    // newDataSource.push(e.model);
-                    // return [e.model, ...newDataSource];
 
                     return arr;
                 });
