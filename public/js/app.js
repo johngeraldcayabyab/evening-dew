@@ -10306,22 +10306,20 @@ var UnitOfMeasureCategory = function UnitOfMeasureCategory() {
         }
 
         if (e.method === 'updated') {
-          var index = newDataSource.findIndex(function (x) {
-            return x.id === e.model.id;
-          });
-          newDataSource[index] = {
-            'id': e.model.id,
-            'name': e.model.name
-          };
-          arr = newDataSource;
-          console.log(e.method);
-          console.log(newDataSource);
+          arr = _toConsumableArray(newDataSource.map(function (data) {
+            if (data.id === e.model.id) {
+              data = e.model;
+            }
+
+            return data;
+          }));
         }
 
-        if (e.method === 'deleted') {} // let arr = [e.model, ...newDataSource];
-        // newDataSource.push(e.model);
-        // return [e.model, ...newDataSource];
-
+        if (e.method === 'deleted') {
+          arr = _toConsumableArray(newDataSource.filter(function (index) {
+            return index.id !== e.model.id;
+          }));
+        }
 
         return arr;
       });
