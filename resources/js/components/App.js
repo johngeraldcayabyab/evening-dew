@@ -14,25 +14,33 @@ const App = () => {
             <div>
                 <ul>
                     <li>
-                        <Link to="/">Unit Of Measures Category Table</Link>
+                        <Link to="/">Home</Link>
                     </li>
                     <li>
-                        <Link to="/form">Unit Of Measures Category Form</Link>
+                        <Link to="/units_of_measure_categories">Unit Of Measures Category Table</Link>
+                    </li>
+                    <li>
+                        <Link to="/units_of_measure_categories/create">Unit Of Measures Category Form</Link>
                     </li>
                 </ul>
 
                 <hr/>
 
                 <Switch>
+
                     <Route exact path="/">
+                        <h1>Home</h1>
+                    </Route>
+
+                    <Route exact path="/units_of_measure_categories">
                         <UnitOfMeasureCategory/>
                     </Route>
 
-                    <Route exact path="/form">
+                    <Route exact path="/units_of_measure_categories/create">
                         <UnitOfMeasureCategoryForm/>
                     </Route>
 
-                    <Route exact path="/form/:id">
+                    <Route exact path="/units_of_measure_categories/:id">
                         <UnitOfMeasureCategoryForm/>
                     </Route>
 
