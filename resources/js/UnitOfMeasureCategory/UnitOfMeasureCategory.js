@@ -58,7 +58,7 @@ export const UnitOfMeasureCategory = () => {
                         <React.Fragment>
 
                             <Button size={"small"} type="primary">
-                                <Link to={`/form/${data.id}`}>Edit</Link>
+                                <Link to={`/units_of_measure_categories/${data.id}`}>Edit</Link>
                             </Button>
 
                             <Button size={"small"} type="primary" danger onClick={() => {
