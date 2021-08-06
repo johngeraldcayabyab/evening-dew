@@ -1,6 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import {Button, Table} from "antd";
 import useFetch from "../Hooks/useFetch";
+import {Link} from "react-router-dom";
 
 export const UnitOfMeasureCategory = () => {
         const [dataSource, setDataSource] = useFetch('api/units_of_measure_categories');
@@ -54,11 +55,19 @@ export const UnitOfMeasureCategory = () => {
                 key: 'x',
                 render: (data) => {
                     return (
-                        <Button size={"small"} type="primary" danger onClick={() => {
-                            handleDelete(data.id);
-                        }}>
-                            Delete
-                        </Button>
+                        <React.Fragment>
+
+                            <Button size={"small"} type="primary">
+                                <Link to={`/form/${data.id}`}>Edit</Link>
+                            </Button>
+
+                            <Button size={"small"} type="primary" danger onClick={() => {
+                                handleDelete(data.id);
+                            }}>
+                                Delete
+                            </Button>
+                        </React.Fragment>
+
                     );
                 }
             },
