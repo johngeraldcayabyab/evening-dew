@@ -40,6 +40,7 @@ const UnitOfMeasureCategoryForm = () => {
         console.log('Failed:', errorInfo);
     };
 
+
     return (
         <Form
             form={form}
@@ -56,7 +57,6 @@ const UnitOfMeasureCategoryForm = () => {
             >
                 <Input/>
             </Form.Item>
-
 
             <Form.Item wrapperCol={{offset: 8, span: 16}}>
                 <Button type="primary" htmlType="submit">
