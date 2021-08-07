@@ -15093,7 +15093,7 @@ var UnitOfMeasureCategoryForm = function UnitOfMeasureCategoryForm() {
 
             case 5:
               response = _context2.sent;
-              console.log(response.headers);
+              console.log(response.headers.get('Location'));
 
             case 7:
             case "end":
