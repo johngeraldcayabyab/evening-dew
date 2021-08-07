@@ -33,7 +33,7 @@ const UnitOfMeasureCategoryForm = () => {
             method: method,
             body: JSON.stringify(values)
         });
-        console.log(response.headers);
+        console.log(response.headers.get('Location'));
     };
 
     const onFinishFailed = (errorInfo) => {
