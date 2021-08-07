@@ -1,47 +1,54 @@
 import React, {useEffect} from 'react';
 import {Button, Form, Input} from "antd";
-import {useParams} from "react-router-dom";
-import useFetch from "../Hooks/useFetch";
+import {useHistory, useParams,} from "react-router-dom";
 
 const UnitOfMeasureCategoryForm = () => {
-
     let {id} = useParams();
+    const [form] = Form.useForm();
+    const history = useHistory();
 
-    const [dataSource, setDataSource] = useFetch(`/api/units_of_measure_categories/${id}`);
+    useEffect(async () => {
+        if (id) {
+            let responseData = await fetch(`/api/units_of_measure_categories/${id}`)
+                .then(response => response.json())
+                .then(data => (data));
+            form.setFieldsValue(responseData);
+        }
+    }, []);
 
     const onFinish = async (values) => {
-        await fetch(`/api/units_of_measure_categories`, {
+        let url = `/api/units_of_measure_categories/`;
+        let method = 'POST';
+
+        if (id) {
+            url += id;
+            method = 'PUT';
+        }
+
+        let response = await fetch(url, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            method: 'POST',
+            method: method,
             body: JSON.stringify(values)
         });
+        console.log(response.headers);
     };
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
-    console.log(dataSource);
-
     return (
         <Form
+            form={form}
             name="basic"
             labelCol={{span: 8}}
             wrapperCol={{span: 16}}
-            initialValues={dataSource}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
         >
-            <Form.Item
-                name={"id"}
-                hidden
-            >
-                <Input/>
-            </Form.Item>
-
             <Form.Item
                 label="Name"
                 name="name"

@@ -1,10 +1,10 @@
 import React, {useEffect, useRef} from 'react';
 import {Button, Table} from "antd";
-import useFetch from "../Hooks/useFetch";
+import useDataSource from "../Hooks/useDataSource";
 import {Link} from "react-router-dom";
 
 export const UnitOfMeasureCategory = () => {
-        const [dataSource, setDataSource] = useFetch('api/units_of_measure_categories');
+        const [dataSource, setDataSource] = useDataSource('api/units_of_measure_categories');
 
         useEffect(() => {
             Echo.channel('units_of_measure_categories')
