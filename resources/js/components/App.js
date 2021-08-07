@@ -32,17 +32,17 @@ const App = () => {
                         <h1>Home</h1>
                     </Route>
 
-                    <Route exact path="/units_of_measure_categories">
-                        <UnitOfMeasureCategory/>
-                    </Route>
-
-                    <Route exact path="/units_of_measure_categories/create">
-                        <UnitOfMeasureCategoryForm/>
-                    </Route>
-
-                    <Route exact path="/units_of_measure_categories/:id">
-                        <UnitOfMeasureCategoryForm/>
-                    </Route>
+                    <Switch>
+                        <Route exact key={'units_of_measure_categories'} path="/units_of_measure_categories">
+                            <UnitOfMeasureCategory/>
+                        </Route>
+                        <Route exact key={'units_of_measure_categories_create'} path="/units_of_measure_categories/create">
+                            <UnitOfMeasureCategoryForm/>
+                        </Route>
+                        <Route exact key={'units_of_measure_categories_update'} path="/units_of_measure_categories/:id">
+                            <UnitOfMeasureCategoryForm/>
+                        </Route>
+                    </Switch>
 
                 </Switch>
             </div>

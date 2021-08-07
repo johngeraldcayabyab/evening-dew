@@ -20,6 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-RouteExtended::apiResource('units_of_measure_categories',  UnitOfMeasureCategoryController::class);
+Route::group(['middleware' => ['api', 'cors']], function () {
+    RouteExtended::apiResource('units_of_measure_categories', UnitOfMeasureCategoryController::class);
+});
+
 
 
