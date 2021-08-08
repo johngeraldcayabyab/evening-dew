@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Button, Form, Input} from "antd";
-import {useHistory, useParams,} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 
 const UnitOfMeasureCategoryForm = () => {
     let {id} = useParams();
@@ -33,13 +33,16 @@ const UnitOfMeasureCategoryForm = () => {
             method: method,
             body: JSON.stringify(values)
         });
-        console.log(response.headers.get('Location'));
+
+        let headerLocation = response.headers.get('Location');
+        if (headerLocation) {
+            history.push(headerLocation);
+        }
     };
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-
 
     return (
         <Form

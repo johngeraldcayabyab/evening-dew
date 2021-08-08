@@ -27,6 +27,7 @@
     "dependencies": {
         "antd": "^4.16.9",
         "buffer": "^4.9.2",
+        "history": "^4.10.1",
         "laravel-echo": "^1.11.0",
         "pusher-js": "^7.0.3",
         "react-router": "^5.2.0",
