@@ -1,16 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {render} from 'react-dom';
-import {DatePicker, message} from 'antd';
-import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Link, Route, Switch} from 'react-router-dom';
 import 'antd/dist/antd.css';
 import {UnitOfMeasureCategory} from "../UnitOfMeasureCategory/UnitOfMeasureCategory";
 import UnitOfMeasureCategoryForm from "../UnitOfMeasureCategory/UnitOfMeasureCategoryForm";
-// import './index.css';
 
 const App = () => {
-
     return (
-        <Router>
+        <BrowserRouter>
             <div>
                 <ul>
                     <li>
@@ -36,17 +33,19 @@ const App = () => {
                         <Route exact key={'units_of_measure_categories'} path="/units_of_measure_categories">
                             <UnitOfMeasureCategory/>
                         </Route>
-                        <Route exact key={'units_of_measure_categories_create'} path="/units_of_measure_categories/create">
+                        <Route exact key={'units_of_measure_categories_create'}
+                               path="/units_of_measure_categories/create">
                             <UnitOfMeasureCategoryForm/>
                         </Route>
-                        <Route exact key={'units_of_measure_categories_update'} path="/units_of_measure_categories/:id">
+                        <Route exact key={'units_of_measure_categories_update'}
+                               path="/units_of_measure_categories/:id">
                             <UnitOfMeasureCategoryForm/>
                         </Route>
                     </Switch>
 
                 </Switch>
             </div>
-        </Router>
+        </BrowserRouter>
     )
 };
 

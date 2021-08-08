@@ -15068,7 +15068,7 @@ var UnitOfMeasureCategoryForm = function UnitOfMeasureCategoryForm() {
 
   var onFinish = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(values) {
-      var url, method, response;
+      var url, method, response, headerLocation;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -15093,9 +15093,13 @@ var UnitOfMeasureCategoryForm = function UnitOfMeasureCategoryForm() {
 
             case 5:
               response = _context2.sent;
-              console.log(response.headers.get('Location'));
+              headerLocation = response.headers.get('Location');
 
-            case 7:
+              if (headerLocation) {
+                history.push(headerLocation);
+              }
+
+            case 8:
             case "end":
               return _context2.stop();
           }
@@ -15203,8 +15207,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
- // import './index.css';
 
 
 
