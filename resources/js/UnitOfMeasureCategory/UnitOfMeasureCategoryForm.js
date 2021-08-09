@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Form, Input} from "antd";
+import {Button, Form, Input, message} from "antd";
 import {useHistory, useParams} from "react-router-dom";
 
 const UnitOfMeasureCategoryForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const history = useHistory();
-    const [errors, setErrors] = useState({
-        'name': null,
-    });
+    const [errors, setErrors] = useState({});
 
     useEffect(async () => {
         if (id) {
@@ -44,13 +42,14 @@ const UnitOfMeasureCategoryForm = () => {
                 history.push(headerLocation);
             }
         }).catch(error => {
-            // if(error.status === 422){
-            //     console.log(error.body);
-            // }
+            let status = error.status;
             error.json().then((body) => {
-                setErrors({
-                    'name': body.errors.name
-                });
+                if (status === 422) {
+                    message.warning(body.message);
+                } else if (status === 500) {
+                    message.error(body.message);
+                }
+                setErrors(body.errors);
             });
         });
     };
