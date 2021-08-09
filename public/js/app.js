@@ -15036,6 +15036,14 @@ var UnitOfMeasureCategoryForm = function UnitOfMeasureCategoryForm() {
       form = _Form$useForm2[0];
 
   var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_3__.useHistory)();
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
+    'name': null
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      errors = _useState2[0],
+      setErrors = _useState2[1];
+
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
     var responseData;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -15068,7 +15076,7 @@ var UnitOfMeasureCategoryForm = function UnitOfMeasureCategoryForm() {
 
   var onFinish = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(values) {
-      var url, method, response, headerLocation;
+      var url, method;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -15089,17 +15097,30 @@ var UnitOfMeasureCategoryForm = function UnitOfMeasureCategoryForm() {
                 },
                 method: method,
                 body: JSON.stringify(values)
+              }).then(function (response) {
+                if (response.ok) {
+                  return response;
+                }
+
+                throw response;
+              }).then(function (result) {
+                var headerLocation = result.headers.get('Location');
+
+                if (headerLocation) {
+                  history.push(headerLocation);
+                }
+              })["catch"](function (error) {
+                // if(error.status === 422){
+                //     console.log(error.body);
+                // }
+                error.json().then(function (body) {
+                  setErrors({
+                    'name': body.errors.name
+                  });
+                });
               });
 
             case 5:
-              response = _context2.sent;
-              headerLocation = response.headers.get('Location');
-
-              if (headerLocation) {
-                history.push(headerLocation);
-              }
-
-            case 8:
             case "end":
               return _context2.stop();
           }
@@ -15112,10 +15133,6 @@ var UnitOfMeasureCategoryForm = function UnitOfMeasureCategoryForm() {
     };
   }();
 
-  var onFinishFailed = function onFinishFailed(errorInfo) {
-    console.log('Failed:', errorInfo);
-  };
-
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__.default, {
     form: form,
     name: "basic",
@@ -15126,13 +15143,14 @@ var UnitOfMeasureCategoryForm = function UnitOfMeasureCategoryForm() {
       span: 16
     },
     onFinish: onFinish,
-    onFinishFailed: onFinishFailed,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__.default.Item, {
       label: "Name",
       name: "name",
+      validateStatus: errors.name ? 'error' : false,
+      help: errors.name ? errors.name : false,
       rules: [{
         required: true,
-        message: 'Please input name!'
+        message: 'Please input measure name'
       }],
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__.default, {})
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__.default.Item, {
