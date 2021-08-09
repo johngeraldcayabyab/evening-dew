@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Form, Input} from "antd";
 import {useHistory, useParams} from "react-router-dom";
 
@@ -6,6 +6,9 @@ const UnitOfMeasureCategoryForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const history = useHistory();
+    const [errors, setErrors] = useState({
+        'name': null,
+    });
 
     useEffect(async () => {
         if (id) {
@@ -19,29 +22,37 @@ const UnitOfMeasureCategoryForm = () => {
     const onFinish = async (values) => {
         let url = `/api/units_of_measure_categories/`;
         let method = 'POST';
-
         if (id) {
             url += id;
             method = 'PUT';
         }
-
-        let response = await fetch(url, {
+        await fetch(url, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             method: method,
             body: JSON.stringify(values)
+        }).then(response => {
+            if (response.ok) {
+                return response;
+            }
+            throw response;
+        }).then(result => {
+            let headerLocation = result.headers.get('Location');
+            if (headerLocation) {
+                history.push(headerLocation);
+            }
+        }).catch(error => {
+            // if(error.status === 422){
+            //     console.log(error.body);
+            // }
+            error.json().then((body) => {
+                setErrors({
+                    'name': body.errors.name
+                });
+            });
         });
-
-        let headerLocation = response.headers.get('Location');
-        if (headerLocation) {
-            history.push(headerLocation);
-        }
-    };
-
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
     };
 
     return (
@@ -51,12 +62,13 @@ const UnitOfMeasureCategoryForm = () => {
             labelCol={{span: 8}}
             wrapperCol={{span: 16}}
             onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
         >
             <Form.Item
                 label="Name"
                 name="name"
-                rules={[{required: true, message: 'Please input name!'}]}
+                validateStatus={errors.name ? 'error' : false}
+                help={errors.name ? errors.name : false}
+                rules={[{required: true, message: 'Please input measure name'}]}
             >
                 <Input/>
             </Form.Item>
