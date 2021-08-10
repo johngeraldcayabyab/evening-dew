@@ -10,6 +10,33 @@ const useDataSource = (url) => {
         setDataSource(responseData);
     }, []);
 
+    useEffect(() => {
+        Echo.channel('measures_categories')
+            .listen('MeasureCategoryEvent', e => {
+                setDataSource(newDataSource => {
+                    let arr = [];
+                    if (e.method === 'created') {
+                        arr = [e.model, ...newDataSource];
+                    }
+                    if (e.method === 'updated') {
+                        arr = [...newDataSource.map((data) => {
+                            if (data.id === e.model.id) {
+                                data = e.model;
+                            }
+                            return data;
+                        })]
+                    }
+                    if (e.method === 'deleted') {
+                        arr = [...newDataSource.filter(index => index.id !== e.model.id)];
+                    }
+                    return arr;
+                });
+            });
+        return () => {
+            Echo.leaveChannel('measures_categories');
+        };
+    }, []);
+
     return [dataSource, setDataSource]
 };
 
