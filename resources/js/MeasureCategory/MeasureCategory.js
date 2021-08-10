@@ -3,12 +3,12 @@ import {Button, Table} from "antd";
 import useDataSource from "../Hooks/useDataSource";
 import {Link} from "react-router-dom";
 
-export const UnitOfMeasureCategory = () => {
-        const [dataSource, setDataSource] = useDataSource('api/units_of_measure_categories');
+export const MeasureCategory = () => {
+        const [dataSource, setDataSource] = useDataSource('api/measures_categories');
 
         useEffect(() => {
-            Echo.channel('units_of_measure_categories')
-                .listen('UnitOfMeasureCategoryEvent', e => {
+            Echo.channel('measures_categories')
+                .listen('MeasureCategoryEvent', e => {
                     setDataSource(newDataSource => {
                         let arr = [];
 
@@ -33,12 +33,12 @@ export const UnitOfMeasureCategory = () => {
                     });
                 });
             return () => {
-                Echo.leaveChannel('units_of_measure_categories');
+                Echo.leaveChannel('measures_categories');
             };
         }, []);
 
         let handleDelete = async (id) => {
-            await fetch(`api/units_of_measure_categories/${id}`, {
+            await fetch(`api/measures_categories/${id}`, {
                 method: 'DELETE'
             });
         };
@@ -58,7 +58,7 @@ export const UnitOfMeasureCategory = () => {
                         <React.Fragment>
 
                             <Button size={"small"} type="primary">
-                                <Link to={`/units_of_measure_categories/${data.id}`}>Edit</Link>
+                                <Link to={`/measures_categories/${data.id}`}>Edit</Link>
                             </Button>
 
                             <Button size={"small"} type="primary" danger onClick={() => {

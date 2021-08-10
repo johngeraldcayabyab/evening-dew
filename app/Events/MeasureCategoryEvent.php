@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Models\UnitOfMeasureCategory;
+use App\Models\MeasureCategory;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -11,14 +11,14 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class UnitOfMeasureCategoryEvent implements ShouldBroadcast
+class MeasureCategoryEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $model;
     public $method;
 
-    public function __construct(UnitOfMeasureCategory $model, $method)
+    public function __construct(MeasureCategory $model, $method)
     {
         $this->model = $model;
         $this->method = $method;
@@ -26,6 +26,6 @@ class UnitOfMeasureCategoryEvent implements ShouldBroadcast
 
     public function broadcastOn()
     {
-        return new Channel('units_of_measure_categories');
+        return new Channel('measures_categories');
     }
 }

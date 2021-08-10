@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UnitOfMeasureCategoryResource extends JsonResource
+class MeasureCategoryResource extends JsonResource
 {
     public function toArray($request)
     {

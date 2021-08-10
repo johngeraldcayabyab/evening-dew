@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\UnitOfMeasureCategory;
+use App\Models\MeasureCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class UnitOfMeasureCategoryFactory extends Factory
+class MeasureCategoryFactory extends Factory
 {
-    protected $model = UnitOfMeasureCategory::class;
+    protected $model = MeasureCategory::class;
 
 
     public function definition()
