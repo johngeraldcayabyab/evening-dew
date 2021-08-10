@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Form, Input, message} from "antd";
 import {useHistory, useParams} from "react-router-dom";
 
-const UnitOfMeasureCategoryForm = () => {
+const MeasureCategoryForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const history = useHistory();
@@ -10,7 +10,7 @@ const UnitOfMeasureCategoryForm = () => {
 
     useEffect(async () => {
         if (id) {
-            let responseData = await fetch(`/api/units_of_measure_categories/${id}`)
+            let responseData = await fetch(`/api/measures_categories/${id}`)
                 .then(response => response.json())
                 .then(data => (data));
             form.setFieldsValue(responseData);
@@ -18,7 +18,7 @@ const UnitOfMeasureCategoryForm = () => {
     }, []);
 
     const onFinish = async (values) => {
-        let url = `/api/units_of_measure_categories/`;
+        let url = `/api/measures_categories/`;
         let method = 'POST';
         if (id) {
             url += id;
@@ -81,4 +81,4 @@ const UnitOfMeasureCategoryForm = () => {
     );
 };
 
-export default UnitOfMeasureCategoryForm;
+export default MeasureCategoryForm;

@@ -1,7 +1,7 @@
 <?php
 
 use App\Components\RouteExtended;
-use App\Http\Controllers\UnitOfMeasureCategoryController;
+use App\Http\Controllers\MeasureCategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['api', 'cors']], function () {
-    RouteExtended::apiResource('units_of_measure_categories', UnitOfMeasureCategoryController::class);
+    RouteExtended::apiResource('measures_categories', MeasureCategoryController::class);
 });
 
 

@@ -16182,16 +16182,16 @@ var useDataSource = function useDataSource(url) {
 
 /***/ }),
 
-/***/ "./resources/js/UnitOfMeasureCategory/UnitOfMeasureCategory.js":
-/*!*********************************************************************!*\
-  !*** ./resources/js/UnitOfMeasureCategory/UnitOfMeasureCategory.js ***!
-  \*********************************************************************/
+/***/ "./resources/js/MeasureCategory/MeasureCategory.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/MeasureCategory/MeasureCategory.js ***!
+  \*********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "UnitOfMeasureCategory": () => (/* binding */ UnitOfMeasureCategory)
+/* harmony export */   "MeasureCategory": () => (/* binding */ MeasureCategory)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
@@ -16233,14 +16233,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var UnitOfMeasureCategory = function UnitOfMeasureCategory() {
-  var _useDataSource = (0,_Hooks_useDataSource__WEBPACK_IMPORTED_MODULE_2__.default)('api/units_of_measure_categories'),
+var MeasureCategory = function MeasureCategory() {
+  var _useDataSource = (0,_Hooks_useDataSource__WEBPACK_IMPORTED_MODULE_2__.default)('api/measures_categories'),
       _useDataSource2 = _slicedToArray(_useDataSource, 2),
       dataSource = _useDataSource2[0],
       setDataSource = _useDataSource2[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    Echo.channel('units_of_measure_categories').listen('UnitOfMeasureCategoryEvent', function (e) {
+    Echo.channel('measures_categories').listen('MeasureCategoryEvent', function (e) {
       setDataSource(function (newDataSource) {
         var arr = [];
 
@@ -16268,7 +16268,7 @@ var UnitOfMeasureCategory = function UnitOfMeasureCategory() {
       });
     });
     return function () {
-      Echo.leaveChannel('units_of_measure_categories');
+      Echo.leaveChannel('measures_categories');
     };
   }, []);
 
@@ -16279,7 +16279,7 @@ var UnitOfMeasureCategory = function UnitOfMeasureCategory() {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return fetch("api/units_of_measure_categories/".concat(id), {
+              return fetch("api/measures_categories/".concat(id), {
                 method: 'DELETE'
               });
 
@@ -16310,7 +16310,7 @@ var UnitOfMeasureCategory = function UnitOfMeasureCategory() {
           size: "small",
           type: "primary",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
-            to: "/units_of_measure_categories/".concat(data.id),
+            to: "/measures_categories/".concat(data.id),
             children: "Edit"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__.default, {
@@ -16335,10 +16335,10 @@ var UnitOfMeasureCategory = function UnitOfMeasureCategory() {
 
 /***/ }),
 
-/***/ "./resources/js/UnitOfMeasureCategory/UnitOfMeasureCategoryForm.js":
-/*!*************************************************************************!*\
-  !*** ./resources/js/UnitOfMeasureCategory/UnitOfMeasureCategoryForm.js ***!
-  \*************************************************************************/
+/***/ "./resources/js/MeasureCategory/MeasureCategoryForm.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/MeasureCategory/MeasureCategoryForm.js ***!
+  \*************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16379,7 +16379,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var UnitOfMeasureCategoryForm = function UnitOfMeasureCategoryForm() {
+var MeasureCategoryForm = function MeasureCategoryForm() {
   var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_3__.useParams)(),
       id = _useParams.id;
 
@@ -16406,7 +16406,7 @@ var UnitOfMeasureCategoryForm = function UnitOfMeasureCategoryForm() {
             }
 
             _context.next = 3;
-            return fetch("/api/units_of_measure_categories/".concat(id)).then(function (response) {
+            return fetch("/api/measures_categories/".concat(id)).then(function (response) {
               return response.json();
             }).then(function (data) {
               return data;
@@ -16431,7 +16431,7 @@ var UnitOfMeasureCategoryForm = function UnitOfMeasureCategoryForm() {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              url = "/api/units_of_measure_categories/";
+              url = "/api/measures_categories/";
               method = 'POST';
 
               if (id) {
@@ -16519,7 +16519,7 @@ var UnitOfMeasureCategoryForm = function UnitOfMeasureCategoryForm() {
   });
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UnitOfMeasureCategoryForm);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MeasureCategoryForm);
 
 /***/ }),
 
@@ -16569,8 +16569,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var antd_dist_antd_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! antd/dist/antd.css */ "./node_modules/antd/dist/antd.css");
-/* harmony import */ var _UnitOfMeasureCategory_UnitOfMeasureCategory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../UnitOfMeasureCategory/UnitOfMeasureCategory */ "./resources/js/UnitOfMeasureCategory/UnitOfMeasureCategory.js");
-/* harmony import */ var _UnitOfMeasureCategory_UnitOfMeasureCategoryForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../UnitOfMeasureCategory/UnitOfMeasureCategoryForm */ "./resources/js/UnitOfMeasureCategory/UnitOfMeasureCategoryForm.js");
+/* harmony import */ var _MeasureCategory_MeasureCategory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../MeasureCategory/MeasureCategory */ "./resources/js/MeasureCategory/MeasureCategory.js");
+/* harmony import */ var _MeasureCategory_MeasureCategoryForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../MeasureCategory/MeasureCategoryForm */ "./resources/js/MeasureCategory/MeasureCategoryForm.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -16592,13 +16592,13 @@ var App = function App() {
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("li", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
-            to: "/units_of_measure_categories",
-            children: "Unit Of Measures Category Table"
+            to: "/measures_categories",
+            children: "Measures Category Table"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("li", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
-            to: "/units_of_measure_categories/create",
-            children: "Unit Of Measures Category Form"
+            to: "/measures_categories/create",
+            children: "Measures Category Form"
           })
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Switch, {
@@ -16611,17 +16611,17 @@ var App = function App() {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Switch, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
             exact: true,
-            path: "/units_of_measure_categories",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_UnitOfMeasureCategory_UnitOfMeasureCategory__WEBPACK_IMPORTED_MODULE_3__.UnitOfMeasureCategory, {})
-          }, 'units_of_measure_categories'), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
+            path: "/measures_categories",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_MeasureCategory_MeasureCategory__WEBPACK_IMPORTED_MODULE_3__.MeasureCategory, {})
+          }, 'measures_categories'), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
             exact: true,
-            path: "/units_of_measure_categories/create",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_UnitOfMeasureCategory_UnitOfMeasureCategoryForm__WEBPACK_IMPORTED_MODULE_4__.default, {})
-          }, 'units_of_measure_categories_create'), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
+            path: "/measures_categories/create",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_MeasureCategory_MeasureCategoryForm__WEBPACK_IMPORTED_MODULE_4__.default, {})
+          }, 'measures_categories_create'), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
             exact: true,
-            path: "/units_of_measure_categories/:id",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_UnitOfMeasureCategory_UnitOfMeasureCategoryForm__WEBPACK_IMPORTED_MODULE_4__.default, {})
-          }, 'units_of_measure_categories_update')]
+            path: "/measures_categories/:id",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_MeasureCategory_MeasureCategoryForm__WEBPACK_IMPORTED_MODULE_4__.default, {})
+          }, 'measures_categories_update')]
         })]
       })]
     })

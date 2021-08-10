@@ -2,8 +2,8 @@ import React from 'react';
 import {render} from 'react-dom';
 import {BrowserRouter, Link, Route, Switch} from 'react-router-dom';
 import 'antd/dist/antd.css';
-import {UnitOfMeasureCategory} from "../UnitOfMeasureCategory/UnitOfMeasureCategory";
-import UnitOfMeasureCategoryForm from "../UnitOfMeasureCategory/UnitOfMeasureCategoryForm";
+import {MeasureCategory} from "../MeasureCategory/MeasureCategory";
+import MeasureCategoryForm from "../MeasureCategory/MeasureCategoryForm";
 
 const App = () => {
     return (
@@ -14,10 +14,10 @@ const App = () => {
                         <Link to="/">Home</Link>
                     </li>
                     <li>
-                        <Link to="/units_of_measure_categories">Unit Of Measures Category Table</Link>
+                        <Link to="/measures_categories">Measures Category Table</Link>
                     </li>
                     <li>
-                        <Link to="/units_of_measure_categories/create">Unit Of Measures Category Form</Link>
+                        <Link to="/measures_categories/create">Measures Category Form</Link>
                     </li>
                 </ul>
 
@@ -30,16 +30,16 @@ const App = () => {
                     </Route>
 
                     <Switch>
-                        <Route exact key={'units_of_measure_categories'} path="/units_of_measure_categories">
-                            <UnitOfMeasureCategory/>
+                        <Route exact key={'measures_categories'} path="/measures_categories">
+                            <MeasureCategory/>
                         </Route>
-                        <Route exact key={'units_of_measure_categories_create'}
-                               path="/units_of_measure_categories/create">
-                            <UnitOfMeasureCategoryForm/>
+                        <Route exact key={'measures_categories_create'}
+                               path="/measures_categories/create">
+                            <MeasureCategoryForm/>
                         </Route>
-                        <Route exact key={'units_of_measure_categories_update'}
-                               path="/units_of_measure_categories/:id">
-                            <UnitOfMeasureCategoryForm/>
+                        <Route exact key={'measures_categories_update'}
+                               path="/measures_categories/:id">
+                            <MeasureCategoryForm/>
                         </Route>
                     </Switch>
 
