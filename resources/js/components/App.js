@@ -4,6 +4,7 @@ import {BrowserRouter, Link, Route, Switch} from 'react-router-dom';
 import 'antd/dist/antd.css';
 import {MeasureCategory} from "../MeasureCategory/MeasureCategory";
 import MeasureCategoryForm from "../MeasureCategory/MeasureCategoryForm";
+import MeasureCategoryRoute from "../MeasureCategory/MeasureCategoryRoute";
 
 const App = () => {
     return (
@@ -24,25 +25,10 @@ const App = () => {
                 <hr/>
 
                 <Switch>
-
                     <Route exact path="/">
                         <h1>Home</h1>
                     </Route>
-
-                    <Switch>
-                        <Route exact key={'measures_categories'} path="/measures_categories">
-                            <MeasureCategory/>
-                        </Route>
-                        <Route exact key={'measures_categories_create'}
-                               path="/measures_categories/create">
-                            <MeasureCategoryForm/>
-                        </Route>
-                        <Route exact key={'measures_categories_update'}
-                               path="/measures_categories/:id">
-                            <MeasureCategoryForm/>
-                        </Route>
-                    </Switch>
-
+                    <MeasureCategoryRoute/>
                 </Switch>
             </div>
         </BrowserRouter>

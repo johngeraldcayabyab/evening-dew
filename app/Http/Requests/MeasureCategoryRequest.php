@@ -10,7 +10,7 @@ class MeasureCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', Rule::unique('measures_categories')]
+            'name' => ['required', Rule::unique('measures_categories')->ignoreModel($this->measure_category)]
         ];
     }
 }
