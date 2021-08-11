@@ -1,17 +1,23 @@
 import {useEffect, useState} from "react";
 
-const useDataSource = (url) => {
+const useDataSource = (moduleName) => {
     const [dataSource, setDataSource] = useState([]);
 
     useEffect(async () => {
-        let responseData = await fetch(url)
+        let responseData = await fetch(`api/${moduleName}`)
             .then(response => response.json())
             .then(data => (data));
         setDataSource(responseData);
     }, []);
 
+    let handleDelete = async (id) => {
+        await fetch(`api/${moduleName}/${id}`, {
+            method: 'DELETE'
+        });
+    };
+
     useEffect(() => {
-        Echo.channel('measures_categories')
+        Echo.channel(moduleName)
             .listen('MeasureCategoryEvent', e => {
                 setDataSource(newDataSource => {
                     let arr = [];
@@ -33,11 +39,11 @@ const useDataSource = (url) => {
                 });
             });
         return () => {
-            Echo.leaveChannel('measures_categories');
+            Echo.leaveChannel(moduleName);
         };
     }, []);
 
-    return [dataSource, setDataSource]
+    return [dataSource, handleDelete, setDataSource]
 };
 
 export default useDataSource;

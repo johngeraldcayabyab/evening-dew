@@ -4,13 +4,7 @@ import useDataSource from "../Hooks/useDataSource";
 import {Link} from "react-router-dom";
 
 export const MeasureCategory = () => {
-        const [dataSource] = useDataSource('api/measures_categories');
-
-        let handleDelete = async (id) => {
-            await fetch(`api/measures_categories/${id}`, {
-                method: 'DELETE'
-            });
-        };
+        const [dataSource, handleDelete] = useDataSource('measures_categories');
 
         const columns = [
             {

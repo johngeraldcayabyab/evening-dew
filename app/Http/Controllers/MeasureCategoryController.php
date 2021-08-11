@@ -14,15 +14,15 @@ class MeasureCategoryController extends Controller
         return $this->responseRead(MeasureCategoryResource::collection(MeasureCategory::orderBy('created_at', 'desc')->get()));
     }
 
+    public function show(MeasureCategory $measureCategory): JsonResponse
+    {
+        return $this->responseRead(new MeasureCategoryResource($measureCategory));
+    }
+
     public function store(MeasureCategoryRequest $request): JsonResponse
     {
         $model = $this->persistCreate($request, new MeasureCategory());
         return $this->responseCreate($model);
-    }
-
-    public function show(MeasureCategory $measureCategory): JsonResponse
-    {
-        return $this->responseRead(new MeasureCategoryResource($measureCategory));
     }
 
     public function update(MeasureCategoryRequest $request, MeasureCategory $measureCategory): JsonResponse
