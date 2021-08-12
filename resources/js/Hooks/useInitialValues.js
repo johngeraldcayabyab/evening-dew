@@ -2,20 +2,21 @@ import {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {message} from "antd";
 
-const useInitialValues = (id, form) => {
+const useInitialValues = (id, form, manifest) => {
     const history = useHistory();
     const [errors, setErrors] = useState({});
     useEffect(async () => {
         if (id) {
-            let responseData = await fetch(`/api/measures_categories/${id}`)
+            let responseData = await fetch(`/api/${manifest.moduleName}/${id}`)
                 .then(response => response.json())
                 .then(data => (data));
             form.setFieldsValue(responseData);
         }
+
     }, []);
 
     const onFinish = async (values) => {
-        let url = `/api/measures_categories/`;
+        let url = `/api/${manifest.moduleName}/`;
         let method = 'POST';
         if (id) {
             url += id;

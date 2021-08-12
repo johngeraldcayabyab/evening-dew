@@ -2,11 +2,12 @@ import React from 'react';
 import {Button, Form, Input} from "antd";
 import {useParams} from "react-router-dom";
 import useInitialValues from "../Hooks/useInitialValues";
+import manifest from "./__manifest__.json";
 
 const MeasureCategoryForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [errors, onFinish] = useInitialValues(id, form);
+    const [errors, onFinish] = useInitialValues(id, form, manifest);
 
     return (
         <Form
