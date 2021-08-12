@@ -16288,7 +16288,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var useInitialValues = function useInitialValues(id, form) {
+var useInitialValues = function useInitialValues(id, form, manifest) {
   var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_2__.useHistory)();
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({}),
@@ -16308,7 +16308,7 @@ var useInitialValues = function useInitialValues(id, form) {
             }
 
             _context.next = 3;
-            return fetch("/api/measures_categories/".concat(id)).then(function (response) {
+            return fetch("/api/".concat(manifest.moduleName, "/").concat(id)).then(function (response) {
               return response.json();
             }).then(function (data) {
               return data;
@@ -16333,7 +16333,7 @@ var useInitialValues = function useInitialValues(id, form) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              url = "/api/measures_categories/";
+              url = "/api/".concat(manifest.moduleName, "/");
               method = 'POST';
 
               if (id) {
@@ -16394,28 +16394,6 @@ var useInitialValues = function useInitialValues(id, form) {
 
 /***/ }),
 
-/***/ "./resources/js/MeasureCategory/Manifest.js":
-/*!**************************************************!*\
-  !*** ./resources/js/MeasureCategory/Manifest.js ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-var MeasureCategoryManifest = function MeasureCategoryManifest() {
-  return {
-    moduleName: 'measures_categories',
-    event: 'MeasureCategoryEvent'
-  };
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MeasureCategoryManifest);
-
-/***/ }),
-
 /***/ "./resources/js/MeasureCategory/MeasureCategory.js":
 /*!*********************************************************!*\
   !*** ./resources/js/MeasureCategory/MeasureCategory.js ***!
@@ -16432,7 +16410,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/table/index.js");
 /* harmony import */ var _Hooks_useDataSource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Hooks/useDataSource */ "./resources/js/Hooks/useDataSource.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _Manifest__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Manifest */ "./resources/js/MeasureCategory/Manifest.js");
+/* harmony import */ var _manifest_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./__manifest__.json */ "./resources/js/MeasureCategory/__manifest__.json");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -16454,7 +16432,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var MeasureCategory = function MeasureCategory() {
-  var _useDataSource = (0,_Hooks_useDataSource__WEBPACK_IMPORTED_MODULE_1__.default)(_Manifest__WEBPACK_IMPORTED_MODULE_2__.default),
+  console.log(_manifest_json__WEBPACK_IMPORTED_MODULE_2__);
+
+  var _useDataSource = (0,_Hooks_useDataSource__WEBPACK_IMPORTED_MODULE_1__.default)(_manifest_json__WEBPACK_IMPORTED_MODULE_2__),
       _useDataSource2 = _slicedToArray(_useDataSource, 2),
       dataSource = _useDataSource2[0],
       handleDelete = _useDataSource2[1];
@@ -16473,7 +16453,7 @@ var MeasureCategory = function MeasureCategory() {
           size: "small",
           type: "primary",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
-            to: "/".concat(_Manifest__WEBPACK_IMPORTED_MODULE_2__.default.moduleName, "/").concat(data.id),
+            to: "/".concat(_manifest_json__WEBPACK_IMPORTED_MODULE_2__.moduleName, "/").concat(data.id),
             children: "Edit"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__.default, {
@@ -16510,12 +16490,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/form/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/form/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _Hooks_useInitialValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Hooks/useInitialValues */ "./resources/js/Hooks/useInitialValues.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _manifest_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./__manifest__.json */ "./resources/js/MeasureCategory/__manifest__.json");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -16535,20 +16516,21 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var MeasureCategoryForm = function MeasureCategoryForm() {
-  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_3__.useParams)(),
+  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useParams)(),
       id = _useParams.id;
 
-  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_4__.default.useForm(),
+  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_5__.default.useForm(),
       _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
       form = _Form$useForm2[0];
 
-  var _useInitialValues = (0,_Hooks_useInitialValues__WEBPACK_IMPORTED_MODULE_1__.default)(id, form),
+  var _useInitialValues = (0,_Hooks_useInitialValues__WEBPACK_IMPORTED_MODULE_1__.default)(id, form, _manifest_json__WEBPACK_IMPORTED_MODULE_2__),
       _useInitialValues2 = _slicedToArray(_useInitialValues, 2),
       errors = _useInitialValues2[0],
       onFinish = _useInitialValues2[1];
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_4__.default, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_5__.default, {
     form: form,
     name: "basic",
     labelCol: {
@@ -16558,7 +16540,7 @@ var MeasureCategoryForm = function MeasureCategoryForm() {
       span: 16
     },
     onFinish: onFinish,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__.default.Item, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__.default.Item, {
       label: "Name",
       name: "name",
       validateStatus: errors.name ? 'error' : false,
@@ -16567,13 +16549,13 @@ var MeasureCategoryForm = function MeasureCategoryForm() {
         required: true,
         message: 'Please input measure name'
       }],
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__.default, {})
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__.default.Item, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__.default, {})
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__.default.Item, {
       wrapperCol: {
         offset: 8,
         span: 16
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__.default, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__.default, {
         type: "primary",
         htmlType: "submit",
         children: "Submit"
@@ -16601,7 +16583,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _MeasureCategory__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MeasureCategory */ "./resources/js/MeasureCategory/MeasureCategory.js");
 /* harmony import */ var _MeasureCategoryForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MeasureCategoryForm */ "./resources/js/MeasureCategory/MeasureCategoryForm.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _Manifest__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Manifest */ "./resources/js/MeasureCategory/Manifest.js");
+/* harmony import */ var _manifest_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./__manifest__.json */ "./resources/js/MeasureCategory/__manifest__.json");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -16612,7 +16594,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var MeasureCategoryRoute = function MeasureCategoryRoute() {
-  var moduleName = _Manifest__WEBPACK_IMPORTED_MODULE_3__.default.moduleName;
+  var moduleName = _manifest_json__WEBPACK_IMPORTED_MODULE_3__.moduleName;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Switch, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
       exact: true,
@@ -91811,6 +91793,17 @@ yeast.encode = encode;
 yeast.decode = decode;
 module.exports = yeast;
 
+
+/***/ }),
+
+/***/ "./resources/js/MeasureCategory/__manifest__.json":
+/*!********************************************************!*\
+  !*** ./resources/js/MeasureCategory/__manifest__.json ***!
+  \********************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"moduleName":"measures_categories","eventName":"MeasureCategoryEvent"}');
 
 /***/ }),
 

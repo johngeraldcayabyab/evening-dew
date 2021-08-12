@@ -2,10 +2,11 @@ import React, {useEffect, useRef} from 'react';
 import {Button, Table} from "antd";
 import useDataSource from "../Hooks/useDataSource";
 import {Link} from "react-router-dom";
-import MeasureCategoryManifest from "./Manifest";
+import manifest from "./__manifest__.json";
 
 export const MeasureCategory = () => {
-        const [dataSource, handleDelete] = useDataSource(MeasureCategoryManifest);
+        console.log(manifest);
+        const [dataSource, handleDelete] = useDataSource(manifest);
 
         const columns = [
             {
@@ -21,7 +22,7 @@ export const MeasureCategory = () => {
                     return (
                         <React.Fragment>
                             <Button size={"small"} type="primary">
-                                <Link to={`/${MeasureCategoryManifest.moduleName}/${data.id}`}>Edit</Link>
+                                <Link to={`/${manifest.moduleName}/${data.id}`}>Edit</Link>
                             </Button>
                             <Button size={"small"} type="primary" danger onClick={() => {
                                 handleDelete(data.id);
