@@ -1,6 +1,8 @@
 import {useEffect, useState} from "react";
 
-const useDataSource = (moduleName) => {
+const useDataSource = (manifest) => {
+    const moduleName = manifest.moduleName;
+    const eventName = manifest.eventName;
     const [dataSource, setDataSource] = useState([]);
 
     useEffect(async () => {
@@ -18,7 +20,7 @@ const useDataSource = (moduleName) => {
 
     useEffect(() => {
         Echo.channel(moduleName)
-            .listen('MeasureCategoryEvent', e => {
+            .listen(eventName, e => {
                 setDataSource(newDataSource => {
                     let arr = [];
                     if (e.method === 'created') {
