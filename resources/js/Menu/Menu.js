@@ -9,9 +9,14 @@ const Menu = () => {
 
     const columns = [
         {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
+            title: 'Label',
+            dataIndex: 'label',
+            key: 'label',
+        },
+        {
+            title: 'Url',
+            dataIndex: 'url',
+            key: 'url',
         },
         {
             title: 'Action',

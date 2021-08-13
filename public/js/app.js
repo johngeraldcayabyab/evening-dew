@@ -16581,10 +16581,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var _MeasureCategory__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MeasureCategory */ "./resources/js/MeasureCategory/MeasureCategory.js");
-/* harmony import */ var _MeasureCategoryForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MeasureCategoryForm */ "./resources/js/MeasureCategory/MeasureCategoryForm.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _manifest_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./__manifest__.json */ "./resources/js/MeasureCategory/__manifest__.json");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _manifest_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./__manifest__.json */ "./resources/js/MeasureCategory/__manifest__.json");
+/* harmony import */ var _MeasureCategory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MeasureCategory */ "./resources/js/MeasureCategory/MeasureCategory.js");
+/* harmony import */ var _MeasureCategoryForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MeasureCategoryForm */ "./resources/js/MeasureCategory/MeasureCategoryForm.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -16595,20 +16595,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var MeasureCategoryRoute = function MeasureCategoryRoute() {
-  var moduleName = _manifest_json__WEBPACK_IMPORTED_MODULE_3__.moduleName;
+  var moduleName = _manifest_json__WEBPACK_IMPORTED_MODULE_1__.moduleName;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Switch, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
       exact: true,
       path: "/".concat(moduleName),
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_MeasureCategory__WEBPACK_IMPORTED_MODULE_0__.MeasureCategory, {})
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_MeasureCategory__WEBPACK_IMPORTED_MODULE_2__.default, {})
     }, "".concat(moduleName, "_table")), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
       exact: true,
       path: "/".concat(moduleName, "/create"),
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_MeasureCategoryForm__WEBPACK_IMPORTED_MODULE_1__.default, {})
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_MeasureCategoryForm__WEBPACK_IMPORTED_MODULE_3__.default, {})
     }, "".concat(moduleName, "_create")), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
       exact: true,
       path: "/".concat(moduleName, "/:id"),
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_MeasureCategoryForm__WEBPACK_IMPORTED_MODULE_1__.default, {})
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_MeasureCategoryForm__WEBPACK_IMPORTED_MODULE_3__.default, {})
     }, "".concat(moduleName, "_update"))]
   });
 };
@@ -16662,9 +16662,13 @@ var Menu = function Menu() {
       handleDelete = _useDataSource2[1];
 
   var columns = [{
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name'
+    title: 'Label',
+    dataIndex: 'label',
+    key: 'label'
+  }, {
+    title: 'Url',
+    dataIndex: 'url',
+    key: 'url'
   }, {
     title: 'Action',
     dataIndex: '',
@@ -16765,10 +16769,20 @@ var MenuForm = function MenuForm() {
     },
     onFinish: onFinish,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__.default.Item, {
-      label: "Name",
-      name: "name",
-      validateStatus: errors.name ? 'error' : false,
-      help: errors.name ? errors.name : false,
+      label: "Label",
+      name: "label",
+      validateStatus: errors.label ? 'error' : false,
+      help: errors.label ? errors.label : false,
+      rules: [{
+        required: true,
+        message: 'Please input measure name'
+      }],
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__.default, {})
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__.default.Item, {
+      label: "Link",
+      name: "link",
+      validateStatus: errors.link ? 'error' : false,
+      help: errors.link ? errors.link : false,
       rules: [{
         required: true,
         message: 'Please input measure name'
@@ -16804,10 +16818,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var _Menu__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Menu */ "./resources/js/Menu/Menu.js");
-/* harmony import */ var _MenuForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MenuForm */ "./resources/js/Menu/MenuForm.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _manifest_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./__manifest__.json */ "./resources/js/Menu/__manifest__.json");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _manifest_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./__manifest__.json */ "./resources/js/Menu/__manifest__.json");
+/* harmony import */ var _Menu__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Menu */ "./resources/js/Menu/Menu.js");
+/* harmony import */ var _MenuForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MenuForm */ "./resources/js/Menu/MenuForm.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -16818,20 +16832,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var MenuRoute = function MenuRoute() {
-  var moduleName = _manifest_json__WEBPACK_IMPORTED_MODULE_3__.moduleName;
+  var moduleName = _manifest_json__WEBPACK_IMPORTED_MODULE_1__.moduleName;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Switch, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
       exact: true,
       path: "/".concat(moduleName),
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Menu__WEBPACK_IMPORTED_MODULE_0__.Menu, {})
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Menu__WEBPACK_IMPORTED_MODULE_2__.default, {})
     }, "".concat(moduleName, "_table")), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
       exact: true,
       path: "/".concat(moduleName, "/create"),
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_MenuForm__WEBPACK_IMPORTED_MODULE_1__.default, {})
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_MenuForm__WEBPACK_IMPORTED_MODULE_3__.default, {})
     }, "".concat(moduleName, "_create")), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
       exact: true,
       path: "/".concat(moduleName, "/:id"),
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_MenuForm__WEBPACK_IMPORTED_MODULE_1__.default, {})
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_MenuForm__WEBPACK_IMPORTED_MODULE_3__.default, {})
     }, "".concat(moduleName, "_update"))]
   });
 };

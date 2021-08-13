@@ -1,8 +1,8 @@
 import {Route, Switch} from "react-router-dom";
-import {Menu} from "./Menu";
-import MenuForm from "./MenuForm";
 import React from "react";
 import manifest from "./__manifest__.json";
+import Menu from "./Menu";
+import MenuForm from "./MenuForm";
 
 const MenuRoute = () => {
     const moduleName = manifest.moduleName;

@@ -18,10 +18,20 @@ const MenuForm = () => {
             onFinish={onFinish}
         >
             <Form.Item
-                label="Name"
-                name="name"
-                validateStatus={errors.name ? 'error' : false}
-                help={errors.name ? errors.name : false}
+                label="Label"
+                name="label"
+                validateStatus={errors.label ? 'error' : false}
+                help={errors.label ? errors.label : false}
+                rules={[{required: true, message: 'Please input measure name'}]}
+            >
+                <Input/>
+            </Form.Item>
+
+            <Form.Item
+                label="Link"
+                name="link"
+                validateStatus={errors.link ? 'error' : false}
+                help={errors.link ? errors.link : false}
                 rules={[{required: true, message: 'Please input measure name'}]}
             >
                 <Input/>
