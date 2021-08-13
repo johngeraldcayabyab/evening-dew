@@ -4,7 +4,7 @@ import useDataSource from "../Hooks/useDataSource";
 import {Link} from "react-router-dom";
 import manifest from "./__manifest__.json";
 
-const MeasureCategory = () => {
+const Menu = () => {
     const [dataSource, handleDelete] = useDataSource(manifest);
 
     const columns = [
@@ -45,5 +45,5 @@ const MeasureCategory = () => {
     )
 };
 
-export default MeasureCategory;
+export default Menu;
 
