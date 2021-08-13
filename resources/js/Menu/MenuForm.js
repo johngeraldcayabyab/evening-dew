@@ -28,10 +28,10 @@ const MenuForm = () => {
             </Form.Item>
 
             <Form.Item
-                label="Link"
-                name="link"
-                validateStatus={errors.link ? 'error' : false}
-                help={errors.link ? errors.link : false}
+                label="Url"
+                name="url"
+                validateStatus={errors.url ? 'error' : false}
+                help={errors.url ? errors.url : false}
                 rules={[{required: true, message: 'Please input measure name'}]}
             >
                 <Input/>

@@ -30,13 +30,13 @@ const App = () => {
 
                 <hr/>
 
-                <Switch>
-                    <Route exact path="/">
-                        <h1>Home</h1>
-                    </Route>
-                    <MeasureCategoryRoute/>
-                    <MenuRoute/>
-                </Switch>
+
+                <Route exact path="/">
+                    <h1>Home</h1>
+                </Route>
+                <MeasureCategoryRoute/>
+                <MenuRoute/>
+
             </div>
         </BrowserRouter>
     )
