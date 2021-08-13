@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\MenuRequest;
+use App\Http\Resources\MenuResource;
+use App\Models\Menu;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class MenuController extends Controller
+{
+    public function index(): JsonResponse
+    {
+        return $this->responseRead(MenuResource::collection(Menu::orderBy('created_at', 'desc')->get()));
+    }
+
+    public function show(Menu $Menu): JsonResponse
+    {
+        return $this->responseRead(new MenuResource($Menu));
+    }
+
+    public function store(MenuRequest $request): JsonResponse
+    {
+        $model = $this->persistCreate($request, new Menu());
+        return $this->responseCreate($model);
+    }
+
+    public function update(MenuRequest $request, Menu $menu): JsonResponse
+    {
+        $this->persistUpdate($request, $menu);
+        return $this->responseUpdate();
+    }
+
+    public function destroy(Menu $menu): JsonResponse
+    {
+        $menu->delete();
+        return $this->responseDelete();
+    }
+}
