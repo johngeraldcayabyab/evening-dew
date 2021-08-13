@@ -1,8 +1,8 @@
 import {Route, Switch} from "react-router-dom";
-import {MeasureCategory} from "./MeasureCategory";
-import MeasureCategoryForm from "./MeasureCategoryForm";
 import React from "react";
 import manifest from "./__manifest__.json";
+import MeasureCategory from "./MeasureCategory";
+import MeasureCategoryForm from "./MeasureCategoryForm";
 
 const MeasureCategoryRoute = () => {
     const moduleName = manifest.moduleName;
