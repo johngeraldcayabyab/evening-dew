@@ -1,12 +1,12 @@
 import React from 'react';
 import {Button, Table} from "antd";
-import useDataSource from "../Hooks/useDataSource";
+import useTableState from "../Hooks/useTableState";
 import {Link} from "react-router-dom";
 import manifest from "./__manifest__.json";
 import {DeleteOutlined, EyeOutlined} from "@ant-design/icons";
 
 const MeasureCategory = () => {
-    const [dataSource, handleDelete] = useDataSource(manifest);
+    const [tableState, tableActions] = useTableState(manifest);
 
     const columns = [
         {
@@ -25,7 +25,7 @@ const MeasureCategory = () => {
                             <Link to={`/${manifest.moduleName}/${data.id}`}><EyeOutlined/></Link>
                         </Button>
                         <Button size={"small"} type="primary" danger onClick={() => {
-                            handleDelete(data.id);
+                            tableActions.handleDelete(data.id);
                         }}>
                             <DeleteOutlined/>
                         </Button>
@@ -38,8 +38,9 @@ const MeasureCategory = () => {
 
     return (
         <Table
+            loading={tableState.loading}
             size={'small'}
-            dataSource={dataSource}
+            dataSource={tableState.dataSource}
             columns={columns}
             rowKey={'id'}
         />

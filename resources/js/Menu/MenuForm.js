@@ -1,13 +1,13 @@
 import React from 'react';
 import {Button, Form, Input} from "antd";
 import {useParams} from "react-router-dom";
-import useInitialValues from "../Hooks/useInitialValues";
+import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
 
 const MenuForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [errors, onFinish] = useInitialValues(id, form, manifest);
+    const [formState, formActions] = useFormState(id, form, manifest);
 
     return (
         <Form
@@ -15,13 +15,13 @@ const MenuForm = () => {
             name="basic"
             labelCol={{span: 8}}
             wrapperCol={{span: 16}}
-            onFinish={onFinish}
+            onFinish={formActions.onFinish}
         >
             <Form.Item
                 label="Label"
                 name="label"
-                validateStatus={errors.label ? 'error' : false}
-                help={errors.label ? errors.label : false}
+                validateStatus={formState.errors.label ? 'error' : false}
+                help={formState.errors.label ? formState.errors.label : false}
                 rules={[{required: true, message: 'Please input measure name'}]}
             >
                 <Input/>
@@ -30,8 +30,8 @@ const MenuForm = () => {
             <Form.Item
                 label="Url"
                 name="url"
-                validateStatus={errors.url ? 'error' : false}
-                help={errors.url ? errors.url : false}
+                validateStatus={formState.errors.url ? 'error' : false}
+                help={formState.errors.url ? formState.errors.url : false}
                 rules={[{required: true, message: 'Please input measure name'}]}
             >
                 <Input/>

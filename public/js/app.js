@@ -16722,9 +16722,176 @@ Schema.validators = validators;
 
 /***/ }),
 
-/***/ "./resources/js/Hooks/useDataSource.js":
+/***/ "./resources/js/Hooks/useFormState.js":
+/*!********************************************!*\
+  !*** ./resources/js/Hooks/useFormState.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/message/index.js");
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+var useFormState = function useFormState(id, form, manifest) {
+  var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_2__.useHistory)();
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
+    loading: id && true,
+    errors: {}
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      formState = _useState2[0],
+      setFormState = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
+    onFinish: function () {
+      var _onFinish = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(values) {
+        var url, method;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                url = "/api/".concat(manifest.moduleName, "/");
+                method = 'POST';
+
+                if (id) {
+                  url += id;
+                  method = 'PUT';
+                }
+
+                _context.next = 5;
+                return fetch(url, {
+                  headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  },
+                  method: method,
+                  body: JSON.stringify(values)
+                }).then(function (response) {
+                  if (response.ok) {
+                    return response;
+                  }
+
+                  throw response;
+                }).then(function (result) {
+                  var headerLocation = result.headers.get('Location');
+
+                  if (headerLocation) {
+                    history.push(headerLocation);
+                  }
+                })["catch"](function (error) {
+                  var status = error.status;
+                  error.json().then(function (body) {
+                    if (status === 422) {
+                      antd__WEBPACK_IMPORTED_MODULE_3__.default.warning(body.message);
+                    } else if (status === 500) {
+                      antd__WEBPACK_IMPORTED_MODULE_3__.default.error(body.message);
+                    }
+
+                    setFormState(function (state) {
+                      return _objectSpread(_objectSpread({}, state), {}, {
+                        errors: body.errors
+                      });
+                    });
+                  });
+                });
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function onFinish(_x) {
+        return _onFinish.apply(this, arguments);
+      }
+
+      return onFinish;
+    }()
+  }),
+      _useState4 = _slicedToArray(_useState3, 1),
+      formActions = _useState4[0];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+    var responseData;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            if (!id) {
+              _context2.next = 6;
+              break;
+            }
+
+            _context2.next = 3;
+            return fetch("/api/".concat(manifest.moduleName, "/").concat(id)).then(function (response) {
+              return response.json();
+            }).then(function (data) {
+              return data;
+            });
+
+          case 3:
+            responseData = _context2.sent;
+            form.setFieldsValue(responseData);
+            setFormState(function (state) {
+              return _objectSpread(_objectSpread({}, state), {}, {
+                loading: false
+              });
+            });
+
+          case 6:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  })), []);
+  return [formState, formActions];
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useFormState);
+
+/***/ }),
+
+/***/ "./resources/js/Hooks/useTableState.js":
 /*!*********************************************!*\
-  !*** ./resources/js/Hooks/useDataSource.js ***!
+  !*** ./resources/js/Hooks/useTableState.js ***!
   \*********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -16744,6 +16911,12 @@ function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symb
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -16764,22 +16937,55 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var useDataSource = function useDataSource(manifest) {
+var useTableState = function useTableState(manifest) {
   var moduleName = manifest.moduleName;
   var eventName = manifest.eventName;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
+    loading: true,
+    dataSource: []
+  }),
       _useState2 = _slicedToArray(_useState, 2),
-      dataSource = _useState2[0],
-      setDataSource = _useState2[1];
+      tableState = _useState2[0],
+      setTableState = _useState2[1];
 
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
+    handleDelete: function () {
+      var _handleDelete = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(id) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return fetch("api/".concat(moduleName, "/").concat(id), {
+                  method: 'DELETE'
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function handleDelete(_x) {
+        return _handleDelete.apply(this, arguments);
+      }
+
+      return handleDelete;
+    }()
+  }),
+      _useState4 = _slicedToArray(_useState3, 1),
+      tableActions = _useState4[0];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
     var responseData;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
       while (1) {
-        switch (_context.prev = _context.next) {
+        switch (_context2.prev = _context2.next) {
           case 0:
-            _context.next = 2;
+            _context2.next = 2;
             return fetch("api/".concat(moduleName)).then(function (response) {
               return response.json();
             }).then(function (data) {
@@ -16787,52 +16993,34 @@ var useDataSource = function useDataSource(manifest) {
             });
 
           case 2:
-            responseData = _context.sent;
-            setDataSource(responseData);
+            responseData = _context2.sent;
+            setTableState(function (state) {
+              return _objectSpread(_objectSpread({}, state), {}, {
+                loading: false,
+                dataSource: responseData
+              });
+            });
 
           case 4:
           case "end":
-            return _context.stop();
+            return _context2.stop();
         }
       }
-    }, _callee);
+    }, _callee2);
   })), []);
-
-  var handleDelete = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(id) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              _context2.next = 2;
-              return fetch("api/".concat(moduleName, "/").concat(id), {
-                method: 'DELETE'
-              });
-
-            case 2:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }));
-
-    return function handleDelete(_x) {
-      return _ref2.apply(this, arguments);
-    };
-  }();
-
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     Echo.channel(moduleName).listen(eventName, function (e) {
-      setDataSource(function (newDataSource) {
-        var arr = [];
+      setTableState(function (state) {
+        var newState = _objectSpread(_objectSpread({}, state), {}, {
+          loading: false
+        });
 
         if (e.method === 'created') {
-          arr = [e.model].concat(_toConsumableArray(newDataSource));
+          newState.dataSource = [e.model].concat(_toConsumableArray(state.dataSource));
         }
 
         if (e.method === 'updated') {
-          arr = _toConsumableArray(newDataSource.map(function (data) {
+          newState.dataSource = _toConsumableArray(state.dataSource.map(function (data) {
             if (data.id === e.model.id) {
               data = e.model;
             }
@@ -16842,166 +17030,22 @@ var useDataSource = function useDataSource(manifest) {
         }
 
         if (e.method === 'deleted') {
-          arr = _toConsumableArray(newDataSource.filter(function (index) {
+          newState.dataSource = _toConsumableArray(state.dataSource.filter(function (index) {
             return index.id !== e.model.id;
           }));
         }
 
-        return arr;
+        return newState;
       });
     });
     return function () {
       Echo.leaveChannel(moduleName);
     };
   }, []);
-  return [dataSource, handleDelete, setDataSource];
+  return [tableState, tableActions];
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useDataSource);
-
-/***/ }),
-
-/***/ "./resources/js/Hooks/useInitialValues.js":
-/*!************************************************!*\
-  !*** ./resources/js/Hooks/useInitialValues.js ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/message/index.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-
-
-
-var useInitialValues = function useInitialValues(id, form, manifest) {
-  var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_2__.useHistory)();
-
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({}),
-      _useState2 = _slicedToArray(_useState, 2),
-      errors = _useState2[0],
-      setErrors = _useState2[1];
-
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-    var responseData;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            if (!id) {
-              _context.next = 5;
-              break;
-            }
-
-            _context.next = 3;
-            return fetch("/api/".concat(manifest.moduleName, "/").concat(id)).then(function (response) {
-              return response.json();
-            }).then(function (data) {
-              return data;
-            });
-
-          case 3:
-            responseData = _context.sent;
-            form.setFieldsValue(responseData);
-
-          case 5:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  })), []);
-
-  var onFinish = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(values) {
-      var url, method;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              url = "/api/".concat(manifest.moduleName, "/");
-              method = 'POST';
-
-              if (id) {
-                url += id;
-                method = 'PUT';
-              }
-
-              _context2.next = 5;
-              return fetch(url, {
-                headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json'
-                },
-                method: method,
-                body: JSON.stringify(values)
-              }).then(function (response) {
-                if (response.ok) {
-                  return response;
-                }
-
-                throw response;
-              }).then(function (result) {
-                var headerLocation = result.headers.get('Location');
-
-                if (headerLocation) {
-                  history.push(headerLocation);
-                }
-              })["catch"](function (error) {
-                var status = error.status;
-                error.json().then(function (body) {
-                  if (status === 422) {
-                    antd__WEBPACK_IMPORTED_MODULE_3__.default.warning(body.message);
-                  } else if (status === 500) {
-                    antd__WEBPACK_IMPORTED_MODULE_3__.default.error(body.message);
-                  }
-
-                  setErrors(body.errors);
-                });
-              });
-
-            case 5:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }));
-
-    return function onFinish(_x) {
-      return _ref2.apply(this, arguments);
-    };
-  }();
-
-  return [errors, onFinish];
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useInitialValues);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useTableState);
 
 /***/ }),
 
@@ -17019,7 +17063,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/table/index.js");
-/* harmony import */ var _Hooks_useDataSource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Hooks/useDataSource */ "./resources/js/Hooks/useDataSource.js");
+/* harmony import */ var _Hooks_useTableState__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Hooks/useTableState */ "./resources/js/Hooks/useTableState.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _manifest_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./__manifest__.json */ "./resources/js/MeasureCategory/__manifest__.json");
 /* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/EyeOutlined.js");
@@ -17047,10 +17091,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var MeasureCategory = function MeasureCategory() {
-  var _useDataSource = (0,_Hooks_useDataSource__WEBPACK_IMPORTED_MODULE_1__.default)(_manifest_json__WEBPACK_IMPORTED_MODULE_2__),
-      _useDataSource2 = _slicedToArray(_useDataSource, 2),
-      dataSource = _useDataSource2[0],
-      handleDelete = _useDataSource2[1];
+  var _useTableState = (0,_Hooks_useTableState__WEBPACK_IMPORTED_MODULE_1__.default)(_manifest_json__WEBPACK_IMPORTED_MODULE_2__),
+      _useTableState2 = _slicedToArray(_useTableState, 2),
+      tableState = _useTableState2[0],
+      tableActions = _useTableState2[1];
 
   var columns = [{
     title: 'Name',
@@ -17074,7 +17118,7 @@ var MeasureCategory = function MeasureCategory() {
           type: "primary",
           danger: true,
           onClick: function onClick() {
-            handleDelete(data.id);
+            tableActions.handleDelete(data.id);
           },
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_7__.default, {})
         })]
@@ -17082,8 +17126,9 @@ var MeasureCategory = function MeasureCategory() {
     }
   }];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__.default, {
+    loading: tableState.loading,
     size: 'small',
-    dataSource: dataSource,
+    dataSource: tableState.dataSource,
     columns: columns,
     rowKey: 'id'
   });
@@ -17106,10 +17151,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/form/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/skeleton/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var _Hooks_useInitialValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Hooks/useInitialValues */ "./resources/js/Hooks/useInitialValues.js");
+/* harmony import */ var _Hooks_useFormState__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Hooks/useFormState */ "./resources/js/Hooks/useFormState.js");
 /* harmony import */ var _manifest_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./__manifest__.json */ "./resources/js/MeasureCategory/__manifest__.json");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -17140,42 +17186,45 @@ var MeasureCategoryForm = function MeasureCategoryForm() {
       _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
       form = _Form$useForm2[0];
 
-  var _useInitialValues = (0,_Hooks_useInitialValues__WEBPACK_IMPORTED_MODULE_1__.default)(id, form, _manifest_json__WEBPACK_IMPORTED_MODULE_2__),
-      _useInitialValues2 = _slicedToArray(_useInitialValues, 2),
-      errors = _useInitialValues2[0],
-      onFinish = _useInitialValues2[1];
+  var _useFormState = (0,_Hooks_useFormState__WEBPACK_IMPORTED_MODULE_1__.default)(id, form, _manifest_json__WEBPACK_IMPORTED_MODULE_2__),
+      _useFormState2 = _slicedToArray(_useFormState, 2),
+      formState = _useFormState2[0],
+      formActions = _useFormState2[1];
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_5__.default, {
-    form: form,
-    name: "basic",
-    labelCol: {
-      span: 8
-    },
-    wrapperCol: {
-      span: 16
-    },
-    onFinish: onFinish,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__.default.Item, {
-      label: "Name",
-      name: "name",
-      validateStatus: errors.name ? 'error' : false,
-      help: errors.name ? errors.name : false,
-      rules: [{
-        required: true,
-        message: 'Please input measure name'
-      }],
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__.default, {})
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__.default.Item, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__.default, {
+    loading: formState.loading,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_5__.default, {
+      form: form,
+      name: "basic",
+      labelCol: {
+        span: 8
+      },
       wrapperCol: {
-        offset: 8,
         span: 16
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__.default, {
-        type: "primary",
-        htmlType: "submit",
-        children: "Submit"
-      })
-    })]
+      onFinish: formActions.onFinish,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__.default.Item, {
+        label: "Name",
+        name: "name",
+        validateStatus: formState.errors.name ? 'error' : false,
+        help: formState.errors.name ? formState.errors.name : false,
+        rules: [{
+          required: true,
+          message: 'Please input measure name'
+        }],
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__.default, {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__.default.Item, {
+        wrapperCol: {
+          offset: 8,
+          span: 16
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__.default, {
+          type: "primary",
+          htmlType: "submit",
+          children: "Submit"
+        })
+      })]
+    })
   });
 };
 
@@ -17245,7 +17294,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/table/index.js");
-/* harmony import */ var _Hooks_useDataSource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Hooks/useDataSource */ "./resources/js/Hooks/useDataSource.js");
+/* harmony import */ var _Hooks_useTableState__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Hooks/useTableState */ "./resources/js/Hooks/useTableState.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _manifest_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./__manifest__.json */ "./resources/js/Menu/__manifest__.json");
 /* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/EyeOutlined.js");
@@ -17273,10 +17322,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var Menu = function Menu() {
-  var _useDataSource = (0,_Hooks_useDataSource__WEBPACK_IMPORTED_MODULE_1__.default)(_manifest_json__WEBPACK_IMPORTED_MODULE_2__),
-      _useDataSource2 = _slicedToArray(_useDataSource, 2),
-      dataSource = _useDataSource2[0],
-      handleDelete = _useDataSource2[1];
+  var _useTableState = (0,_Hooks_useTableState__WEBPACK_IMPORTED_MODULE_1__.default)(_manifest_json__WEBPACK_IMPORTED_MODULE_2__),
+      _useTableState2 = _slicedToArray(_useTableState, 2),
+      tableState = _useTableState2[0],
+      tableActions = _useTableState2[1];
 
   var columns = [{
     title: 'Label',
@@ -17304,7 +17353,7 @@ var Menu = function Menu() {
           type: "primary",
           danger: true,
           onClick: function onClick() {
-            handleDelete(data.id);
+            tableActions.handleDelete(data.id);
           },
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_7__.default, {})
         })]
@@ -17312,8 +17361,9 @@ var Menu = function Menu() {
     }
   }];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__.default, {
+    loading: tableState.loading,
     size: 'small',
-    dataSource: dataSource,
+    dataSource: tableState.dataSource,
     columns: columns,
     rowKey: 'id'
   });
@@ -17339,7 +17389,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var _Hooks_useInitialValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Hooks/useInitialValues */ "./resources/js/Hooks/useInitialValues.js");
+/* harmony import */ var _Hooks_useFormState__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Hooks/useFormState */ "./resources/js/Hooks/useFormState.js");
 /* harmony import */ var _manifest_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./__manifest__.json */ "./resources/js/Menu/__manifest__.json");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -17370,10 +17420,10 @@ var MenuForm = function MenuForm() {
       _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
       form = _Form$useForm2[0];
 
-  var _useInitialValues = (0,_Hooks_useInitialValues__WEBPACK_IMPORTED_MODULE_1__.default)(id, form, _manifest_json__WEBPACK_IMPORTED_MODULE_2__),
-      _useInitialValues2 = _slicedToArray(_useInitialValues, 2),
-      errors = _useInitialValues2[0],
-      onFinish = _useInitialValues2[1];
+  var _useFormState = (0,_Hooks_useFormState__WEBPACK_IMPORTED_MODULE_1__.default)(id, form, _manifest_json__WEBPACK_IMPORTED_MODULE_2__),
+      _useFormState2 = _slicedToArray(_useFormState, 2),
+      formState = _useFormState2[0],
+      formActions = _useFormState2[1];
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_5__.default, {
     form: form,
@@ -17384,12 +17434,12 @@ var MenuForm = function MenuForm() {
     wrapperCol: {
       span: 16
     },
-    onFinish: onFinish,
+    onFinish: formActions.onFinish,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__.default.Item, {
       label: "Label",
       name: "label",
-      validateStatus: errors.label ? 'error' : false,
-      help: errors.label ? errors.label : false,
+      validateStatus: formState.errors.label ? 'error' : false,
+      help: formState.errors.label ? formState.errors.label : false,
       rules: [{
         required: true,
         message: 'Please input measure name'
@@ -17398,8 +17448,8 @@ var MenuForm = function MenuForm() {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__.default.Item, {
       label: "Url",
       name: "url",
-      validateStatus: errors.url ? 'error' : false,
-      help: errors.url ? errors.url : false,
+      validateStatus: formState.errors.url ? 'error' : false,
+      help: formState.errors.url ? formState.errors.url : false,
       rules: [{
         required: true,
         message: 'Please input measure name'
@@ -17475,11 +17525,14 @@ var MenuRoute = function MenuRoute() {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+/* harmony import */ var _components_App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/App */ "./resources/js/components/App.js");
 
-__webpack_require__(/*! ./components/App */ "./resources/js/components/App.js");
+
 
 /***/ }),
 
