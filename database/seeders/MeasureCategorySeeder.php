@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\MeasureCategory;
 use Illuminate\Database\Seeder;
 
 class MeasureCategorySeeder extends Seeder
@@ -18,7 +19,7 @@ class MeasureCategorySeeder extends Seeder
         ];
 
         foreach ($data as $datum) {
-
+            MeasureCategory::create($datum);
         }
     }
 }
