@@ -16778,13 +16778,60 @@ var useFormState = function useFormState(id, form, manifest) {
       setFormState = _useState2[1];
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
-    onFinish: function () {
-      var _onFinish = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(values) {
-        var url, method;
+    fetchData: function () {
+      var _fetchData = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var responseData;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                if (!id) {
+                  _context.next = 6;
+                  break;
+                }
+
+                _context.next = 3;
+                return fetch("/api/".concat(manifest.moduleName, "/").concat(id)).then(function (response) {
+                  return response.json();
+                }).then(function (data) {
+                  return data;
+                });
+
+              case 3:
+                responseData = _context.sent;
+                form.setFieldsValue(responseData);
+                setFormState(function (state) {
+                  return _objectSpread(_objectSpread({}, state), {}, {
+                    loading: false
+                  });
+                });
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function fetchData() {
+        return _fetchData.apply(this, arguments);
+      }
+
+      return fetchData;
+    }(),
+    onFinish: function () {
+      var _onFinish = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(values) {
+        var url, method;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                setFormState(function (state) {
+                  return _objectSpread(_objectSpread({}, state), {}, {
+                    loading: true
+                  });
+                });
                 url = "/api/".concat(manifest.moduleName, "/");
                 method = 'POST';
 
@@ -16793,7 +16840,7 @@ var useFormState = function useFormState(id, form, manifest) {
                   method = 'PUT';
                 }
 
-                _context.next = 5;
+                _context2.next = 6;
                 return fetch(url, {
                   headers: {
                     'Accept': 'application/json',
@@ -16813,6 +16860,8 @@ var useFormState = function useFormState(id, form, manifest) {
                   if (headerLocation) {
                     history.push(headerLocation);
                   }
+
+                  formActions.fetchData();
                 })["catch"](function (error) {
                   var status = error.status;
                   error.json().then(function (body) {
@@ -16830,12 +16879,12 @@ var useFormState = function useFormState(id, form, manifest) {
                   });
                 });
 
-              case 5:
+              case 6:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }));
 
       function onFinish(_x) {
@@ -16848,40 +16897,7 @@ var useFormState = function useFormState(id, form, manifest) {
       _useState4 = _slicedToArray(_useState3, 1),
       formActions = _useState4[0];
 
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-    var responseData;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            if (!id) {
-              _context2.next = 6;
-              break;
-            }
-
-            _context2.next = 3;
-            return fetch("/api/".concat(manifest.moduleName, "/").concat(id)).then(function (response) {
-              return response.json();
-            }).then(function (data) {
-              return data;
-            });
-
-          case 3:
-            responseData = _context2.sent;
-            form.setFieldsValue(responseData);
-            setFormState(function (state) {
-              return _objectSpread(_objectSpread({}, state), {}, {
-                loading: false
-              });
-            });
-
-          case 6:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  })), []);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(formActions.fetchData, []);
   return [formState, formActions];
 };
 
@@ -17386,8 +17402,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/form/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/skeleton/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _Hooks_useFormState__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Hooks/useFormState */ "./resources/js/Hooks/useFormState.js");
 /* harmony import */ var _manifest_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./__manifest__.json */ "./resources/js/Menu/__manifest__.json");
@@ -17425,47 +17442,50 @@ var MenuForm = function MenuForm() {
       formState = _useFormState2[0],
       formActions = _useFormState2[1];
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_5__.default, {
-    form: form,
-    name: "basic",
-    labelCol: {
-      span: 8
-    },
-    wrapperCol: {
-      span: 16
-    },
-    onFinish: formActions.onFinish,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__.default.Item, {
-      label: "Label",
-      name: "label",
-      validateStatus: formState.errors.label ? 'error' : false,
-      help: formState.errors.label ? formState.errors.label : false,
-      rules: [{
-        required: true,
-        message: 'Please input measure name'
-      }],
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__.default, {})
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__.default.Item, {
-      label: "Url",
-      name: "url",
-      validateStatus: formState.errors.url ? 'error' : false,
-      help: formState.errors.url ? formState.errors.url : false,
-      rules: [{
-        required: true,
-        message: 'Please input measure name'
-      }],
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__.default, {})
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__.default.Item, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__.default, {
+    loading: formState.loading,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_5__.default, {
+      form: form,
+      name: "basic",
+      labelCol: {
+        span: 8
+      },
       wrapperCol: {
-        offset: 8,
         span: 16
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__.default, {
-        type: "primary",
-        htmlType: "submit",
-        children: "Submit"
-      })
-    })]
+      onFinish: formActions.onFinish,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__.default.Item, {
+        label: "Label",
+        name: "label",
+        validateStatus: formState.errors.label ? 'error' : false,
+        help: formState.errors.label ? formState.errors.label : false,
+        rules: [{
+          required: true,
+          message: 'Please input measure name'
+        }],
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__.default, {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__.default.Item, {
+        label: "Url",
+        name: "url",
+        validateStatus: formState.errors.url ? 'error' : false,
+        help: formState.errors.url ? formState.errors.url : false,
+        rules: [{
+          required: true,
+          message: 'Please input measure name'
+        }],
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__.default, {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__.default.Item, {
+        wrapperCol: {
+          offset: 8,
+          span: 16
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__.default, {
+          type: "primary",
+          htmlType: "submit",
+          children: "Submit"
+        })
+      })]
+    })
   });
 };
 

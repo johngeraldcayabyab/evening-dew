@@ -11,7 +11,23 @@ const useFormState = (id, form, manifest) => {
     });
 
     const [formActions] = useState({
+        fetchData: async () => {
+            if (id) {
+                let responseData = await fetch(`/api/${manifest.moduleName}/${id}`)
+                    .then(response => response.json())
+                    .then(data => (data));
+                form.setFieldsValue(responseData);
+                setFormState(state => ({
+                    ...state,
+                    loading: false
+                }))
+            }
+        },
         onFinish: async (values) => {
+            setFormState(state => ({
+                ...state,
+                loading: true
+            }));
             let url = `/api/${manifest.moduleName}/`;
             let method = 'POST';
             if (id) {
@@ -35,6 +51,7 @@ const useFormState = (id, form, manifest) => {
                 if (headerLocation) {
                     history.push(headerLocation);
                 }
+                formActions.fetchData();
             }).catch(error => {
                 let status = error.status;
                 error.json().then((body) => {
@@ -52,18 +69,7 @@ const useFormState = (id, form, manifest) => {
         }
     });
 
-    useEffect(async () => {
-        if (id) {
-            let responseData = await fetch(`/api/${manifest.moduleName}/${id}`)
-                .then(response => response.json())
-                .then(data => (data));
-            form.setFieldsValue(responseData);
-            setFormState(state => ({
-                ...state,
-                loading: false
-            }))
-        }
-    }, []);
+    useEffect(formActions.fetchData, []);
 
 
     return [formState, formActions];
