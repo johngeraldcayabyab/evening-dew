@@ -25,6 +25,7 @@
         "sass-loader": "^11.0.1"
     },
     "dependencies": {
+        "@ant-design/icons": "^4.6.2",
         "antd": "^4.16.9",
         "buffer": "^4.9.2",
         "history": "^4.10.1",
