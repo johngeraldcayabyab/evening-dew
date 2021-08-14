@@ -1,4 +1,3 @@
-require('./bootstrap');
+import bootstrap from "./bootstrap";
 
-
-require('./components/App');
+import components from "./components/App";
