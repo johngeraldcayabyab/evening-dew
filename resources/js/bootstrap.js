@@ -1,7 +1,7 @@
-import 'antd/dist/antd.css';
-import '../css/app.css';
+import '../css/App.scss';
 
-import Echo from "laravel-echo"
+import Echo from "laravel-echo";
+
 window.io = require('socket.io-client');
 
 window.Echo = new Echo({

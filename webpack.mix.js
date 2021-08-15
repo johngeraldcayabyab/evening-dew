@@ -17,4 +17,4 @@ mix.options({
 
 mix.js('resources/js/app.js', 'public/js')
     .react()
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/App.scss', 'public/css');
