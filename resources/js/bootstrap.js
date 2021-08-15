@@ -1,4 +1,5 @@
 import 'antd/dist/antd.css';
+import '../css/app.css';
 
 import Echo from "laravel-echo"
 window.io = require('socket.io-client');

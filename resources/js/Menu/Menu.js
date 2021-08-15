@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Table} from "antd";
+import {Button, Card, Layout, Popconfirm, Space, Table} from "antd";
 import useTableState from "../Hooks/useTableState";
 import {Link} from "react-router-dom";
 import manifest from "./__manifest__.json";
@@ -25,16 +25,19 @@ const Menu = () => {
             key: 'x',
             render: (data) => {
                 return (
-                    <React.Fragment>
+                    <Space>
                         <Button size={"small"} type="primary">
                             <Link to={`/${manifest.moduleName}/${data.id}`}><EyeOutlined/></Link>
                         </Button>
-                        <Button size={"small"} type="primary" danger onClick={() => {
+                        <Popconfirm title={`Are you sure delete this ${manifest.moduleName}?`} okText="Yes"
+                                    cancelText="No" onConfirm={() => {
                             tableActions.handleDelete(data.id);
                         }}>
-                            <DeleteOutlined/>
-                        </Button>
-                    </React.Fragment>
+                            <Button size={"small"} type="primary" danger>
+                                <DeleteOutlined/>
+                            </Button>
+                        </Popconfirm>
+                    </Space>
 
                 );
             }
@@ -42,13 +45,22 @@ const Menu = () => {
     ];
 
     return (
-        <Table
-            loading={tableState.loading}
-            size={'small'}
-            dataSource={tableState.dataSource}
-            columns={columns}
-            rowKey={'id'}
-        />
+        <React.Fragment>
+            <Layout.Content style={{padding:'5px 5px 5px 0'}}>
+                <Space>
+                    <Button type="primary" size={'small'}>Create</Button>
+                    <Button type="primary" size={'small'}>Create</Button>
+                    <Button type="primary" size={'small'}>Create</Button>
+                </Space>
+            </Layout.Content>
+            <Table
+                loading={tableState.loading}
+                size={'small'}
+                dataSource={tableState.dataSource}
+                columns={columns}
+                rowKey={'id'}
+            />
+        </React.Fragment>
     )
 };
 
