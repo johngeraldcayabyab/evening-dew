@@ -9,8 +9,17 @@ const useTableState = (manifest) => {
     });
     const [tableActions] = useState({
         handleDelete: async (id) => {
+            setTableState(state => ({
+                ...state,
+                loading: true,
+            }));
             await fetch(`api/${moduleName}/${id}`, {
                 method: 'DELETE'
+            }).then(() => {
+                setTableState(state => ({
+                    ...state,
+                    loading: false,
+                }));
             });
         }
     })
