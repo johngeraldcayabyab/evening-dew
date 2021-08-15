@@ -4,6 +4,7 @@ import useTableState from "../Hooks/useTableState";
 import {Link} from "react-router-dom";
 import manifest from "./__manifest__.json";
 import {DeleteOutlined, EyeOutlined} from "@ant-design/icons";
+import CreateButton from "../components/CreateButton";
 
 const MeasureCategory = () => {
     const [tableState, tableActions] = useTableState(manifest);
@@ -40,11 +41,9 @@ const MeasureCategory = () => {
 
     return (
         <React.Fragment>
-            <Layout.Content style={{padding:'5px 5px 5px 0'}}>
+            <Layout.Content style={{padding: '5px 5px 5px 0'}}>
                 <Space>
-                    <Button type="primary" size={'small'}>Create</Button>
-                    <Button type="primary" size={'small'}>Create</Button>
-                    <Button type="primary" size={'small'}>Create</Button>
+                    <CreateButton manifest={manifest}/>
                 </Space>
             </Layout.Content>
             <Table

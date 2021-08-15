@@ -30,6 +30,7 @@
         "buffer": "^4.9.2",
         "history": "^4.10.1",
         "laravel-echo": "^1.11.0",
+        "node-sass": "^6.0.1",
         "pusher-js": "^7.0.3",
         "react-router": "^5.2.0",
         "react-router-dom": "^5.2.0",

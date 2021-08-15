@@ -6,8 +6,10 @@ const useFormState = (id, form, manifest) => {
     const history = useHistory();
 
     const [formState, setFormState] = useState({
+        initialValues: {},
         loading: id && true,
-        errors: {}
+        errors: {},
+        formDisabled: true
     });
 
     const [formActions] = useState({
@@ -19,7 +21,9 @@ const useFormState = (id, form, manifest) => {
                 form.setFieldsValue(responseData);
                 setFormState(state => ({
                     ...state,
-                    loading: false
+                    initialValues: responseData,
+                    loading: false,
+                    formDisabled: true
                 }))
             }
         },
@@ -66,6 +70,12 @@ const useFormState = (id, form, manifest) => {
                     }));
                 });
             });
+        },
+        toggleEditMode: () => {
+            setFormState(state => ({
+                ...state,
+                formDisabled: state.formDisabled !== true
+            }));
         }
     });
 
