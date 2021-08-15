@@ -13,9 +13,7 @@ const MeasureCategoryForm = () => {
         <Skeleton loading={formState.loading}>
             <Form
                 form={form}
-                name="basic"
-                labelCol={{span: 8}}
-                wrapperCol={{span: 16}}
+                size={'small'}
                 onFinish={formActions.onFinish}
             >
                 <Form.Item

@@ -6,13 +6,16 @@ use App\Http\Requests\MenuRequest;
 use App\Http\Resources\MenuResource;
 use App\Models\Menu;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class MenuController extends Controller
 {
     public function index(): JsonResponse
     {
-        return $this->responseRead(MenuResource::collection(Menu::orderBy('created_at', 'desc')->get()));
+        $cache = Cache::rememberForever('menus.all', function () {
+            return Menu::orderBy('created_at', 'desc')->get();
+        });
+        return $this->responseRead(MenuResource::collection($cache));
     }
 
     public function show(Menu $Menu): JsonResponse

@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Events\MenuEvent;
 use App\Models\Menu;
+use Illuminate\Support\Facades\Redis;
 
 class MenuObserver
 {
