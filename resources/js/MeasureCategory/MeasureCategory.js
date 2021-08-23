@@ -4,7 +4,7 @@ import useTableState from "../Hooks/useTableState";
 import {Link} from "react-router-dom";
 import manifest from "./__manifest__.json";
 import {DeleteOutlined, EyeOutlined} from "@ant-design/icons";
-import CreateButton from "../components/CreateButton";
+import CreateButton from "../components/ActionButtons/CreateButton";
 
 const MeasureCategory = () => {
     const [tableState, tableActions] = useTableState(manifest);

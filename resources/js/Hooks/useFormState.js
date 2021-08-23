@@ -9,7 +9,7 @@ const useFormState = (id, form, manifest) => {
         initialValues: {},
         loading: id && true,
         errors: {},
-        formDisabled: true
+        formDisabled: id && true
     });
 
     const [formActions] = useState({
