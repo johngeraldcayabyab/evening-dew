@@ -1,12 +1,9 @@
 import React from 'react';
-import {Button, Card, Form, Input, Layout, Skeleton, Space} from "antd";
+import {Card, Form, Input, Layout, Skeleton, Space} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
-import CreateButton from "../components/CreateButton";
-import EditButton from "../components/EditButton";
-import SaveButton from "../components/SaveButton";
-import DiscardButton from "../components/DiscardButton";
+import ActionButtons from "../components/ActionButtons/ActionButtons";
 
 const MeasureCategoryForm = () => {
     let {id} = useParams();
@@ -23,10 +20,7 @@ const MeasureCategoryForm = () => {
                 >
                     <Layout.Content style={{padding: '5px 5px 5px 0'}}>
                         <Space>
-                            <EditButton id={id} form={form} formState={formState} formActions={formActions} manifest={manifest}/>
-                            <SaveButton id={id} form={form} formState={formState} formActions={formActions} manifest={manifest}/>
-                            <DiscardButton id={id} form={form} formState={formState} formActions={formActions} manifest={manifest}/>
-                            <CreateButton id={id} form={form} formState={formState} formActions={formActions} manifest={manifest}/>
+                            <ActionButtons id={id} form={form} formState={formState} formActions={formActions} manifest={manifest} />
                         </Space>
                     </Layout.Content>
                     <Card>

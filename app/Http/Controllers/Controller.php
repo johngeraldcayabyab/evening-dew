@@ -35,7 +35,6 @@ class Controller extends BaseController
         $parameter = Str::snake($parameter);
         return response()->json([], 201, [
             'Location' => "/$tableName/$model->id"
-//            'Location' => route("$tableName.show", [$parameter => $model->id])
         ]);
     }
 
