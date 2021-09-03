@@ -6,6 +6,7 @@ const useFormState = (id, form, manifest) => {
     const history = useHistory();
 
     const [formState, setFormState] = useState({
+        initialLoad: true,
         initialValues: {},
         loading: id && true,
         errors: {},
@@ -14,18 +15,26 @@ const useFormState = (id, form, manifest) => {
 
     const [formActions] = useState({
         fetchData: async () => {
+            let newState = {};
+            if (formState.initialLoad) {
+                newState.initialLoad = false;
+            }
             if (id) {
                 let responseData = await fetch(`/api/${manifest.moduleName}/${id}`)
                     .then(response => response.json())
                     .then(data => (data));
                 form.setFieldsValue(responseData);
-                setFormState(state => ({
-                    ...state,
+                newState = {
                     initialValues: responseData,
                     loading: false,
-                    formDisabled: true
-                }))
+                    formDisabled: true,
+                    initialLoad: false
+                };
             }
+            setFormState(state => ({
+                ...state,
+                ...newState
+            }));
         },
         onFinish: async (values) => {
             setFormState(state => ({
@@ -66,6 +75,7 @@ const useFormState = (id, form, manifest) => {
                     }
                     setFormState(state => ({
                         ...state,
+                        loading: false,
                         errors: body.errors
                     }));
                 });
