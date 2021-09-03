@@ -1,10 +1,10 @@
 import React from 'react';
-import {Button, Card, Layout, Popconfirm, Space, Table} from "antd";
+import {Button, Layout, Popconfirm, Space, Table} from "antd";
 import useTableState from "../Hooks/useTableState";
 import {Link} from "react-router-dom";
 import manifest from "./__manifest__.json";
 import {DeleteOutlined, EyeOutlined} from "@ant-design/icons";
-import CreateButton from "../components/ActionButtons/CreateButton";
+import TableCreateButton from "../components/ActionButtons/TableCreateButton";
 
 const MeasureCategory = () => {
     const [tableState, tableActions] = useTableState(manifest);
@@ -43,7 +43,7 @@ const MeasureCategory = () => {
         <React.Fragment>
             <Layout.Content style={{padding: '5px 5px 5px 0'}}>
                 <Space>
-                    <CreateButton manifest={manifest}/>
+                    <TableCreateButton manifest={manifest}/>
                 </Space>
             </Layout.Content>
             <Table

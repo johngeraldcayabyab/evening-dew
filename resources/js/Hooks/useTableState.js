@@ -22,7 +22,7 @@ const useTableState = (manifest) => {
                 }));
             });
         }
-    })
+    });
 
     useEffect(async () => {
         let responseData = await fetch(`api/${moduleName}`)
