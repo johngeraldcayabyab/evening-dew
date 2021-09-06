@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MenuRequest;
 use App\Http\Resources\MenuResource;
+use App\Http\Resources\MenuSlugResource;
 use App\Models\Menu;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
@@ -39,5 +40,15 @@ class MenuController extends Controller
     {
         $menu->delete();
         return $this->responseDelete();
+    }
+
+    public function slug(Menu $menu): JsonResponse
+    {
+        return $this->responseRead(new MenuSlugResource($menu));
+    }
+
+    public function tree()
+    {
+
     }
 }

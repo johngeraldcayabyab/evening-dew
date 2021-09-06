@@ -52,4 +52,9 @@ class Controller extends BaseController
     {
         return response()->json([], 204);
     }
+
+    public function slugGenerate()
+    {
+
+    }
 }

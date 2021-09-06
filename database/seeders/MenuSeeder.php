@@ -19,16 +19,8 @@ class MenuSeeder extends Seeder
                 'url' => '/measures_categories',
             ],
             [
-                'label' => 'Measures Categories Create',
-                'url' => '/measures_categories/create',
-            ],
-            [
                 'label' => 'Menus',
                 'url' => '/menus',
-            ],
-            [
-                'label' => 'Menus Create',
-                'url' => '/menus/create',
             ],
         ];
 

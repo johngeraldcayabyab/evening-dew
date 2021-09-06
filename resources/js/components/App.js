@@ -5,6 +5,7 @@ import {BrowserRouter, Link, Route, Switch} from 'react-router-dom';
 import MeasureCategoryRoute from "../MeasureCategory/MeasureCategoryRoute";
 import MenuRoute from "../Menu/MenuRoute";
 import {Content, Footer, Header} from "antd/lib/layout/layout";
+import DynamicBreadcrumbs from "./DynamicBreadcrumbs";
 
 const {SubMenu} = Menu;
 
@@ -45,11 +46,7 @@ const App = () => {
                 </Skeleton>
 
                 <Content className="site-layout" style={{padding: '0 25px', marginTop: 64}}>
-                    <Breadcrumb style={{margin: '16px 0'}}>
-                        <Breadcrumb.Item>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item>List</Breadcrumb.Item>
-                        <Breadcrumb.Item>App</Breadcrumb.Item>
-                    </Breadcrumb>
+                    <DynamicBreadcrumbs/>
                     <div className="site-layout-background" style={{minHeight: 380}}>
                         <Route exact path="/">
                             <h1>Home</h1>
