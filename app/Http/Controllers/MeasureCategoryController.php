@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MeasureCategoryRequest;
 use App\Http\Resources\MeasureCategoryResource;
+use App\Http\Resources\MeasureCategorySlugResource;
 use App\Models\MeasureCategory;
 use Illuminate\Http\JsonResponse;
 
@@ -35,5 +36,10 @@ class MeasureCategoryController extends Controller
     {
         $measureCategory->delete();
         return $this->responseDelete();
+    }
+
+    public function slug(MeasureCategory $measureCategory): JsonResponse
+    {
+        return $this->responseRead(new MeasureCategorySlugResource($measureCategory));
     }
 }

@@ -12,6 +12,7 @@ class CreateMenusTable extends Migration
             $table->id();
             $table->string('label');
             $table->string('url');
+            $table->bigInteger('parent_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
