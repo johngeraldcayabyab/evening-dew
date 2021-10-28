@@ -12,5 +12,5 @@ class MeasureCategory extends Model
     use SoftDeletes;
 
     protected $table = 'measures_categories';
-    protected $guarded  = [];
+    protected $guarded = [];
 }
