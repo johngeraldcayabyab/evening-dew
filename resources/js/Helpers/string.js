@@ -13,14 +13,12 @@ export const titleCase = (string) => {
         }
         return splitStr.join(' ');
     }
+    return string;
 };
 
-export const replaceUnderscoreWithSpace = (string, toTitleCase = false) => {
+export const replaceUnderscoreWithSpace = (string) => {
     if (string) {
-        let theReturn = string.replace(/_/g, ' ');
-        if (toTitleCase) {
-            theReturn = titleCase(theReturn);
-        }
-        return theReturn;
+        return string.replace(/_/g, ' ');
     }
+    return string;
 };
