@@ -11,12 +11,6 @@
 </div>
 
 <script src="{{ asset('/js/app.js') }}"></script>
-<script>
-    Echo.channel('task')
-        .listen('TaskCreated', e => {
-            console.log(e)
-        })
-</script>
 
 </body>
 </html>
