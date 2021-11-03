@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Database\Factories\MeasureCategoryFactory;
+use Database\Factories\MeasurementCategoryFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -18,8 +18,8 @@ class MeasureCategoryTest extends TestCase
 
     public function test_create()
     {
-        $factory = new MeasureCategoryFactory();
-        $response = $this->postJson(route('measures_categories.index'), $factory->make()->toArray());
+        $factory = new MeasurementCategoryFactory();
+        $response = $this->postJson(route('measurement_categories.index'), $factory->make()->toArray());
         $response->assertStatus(201);
     }
 }

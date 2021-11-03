@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {render} from 'react-dom';
 import {Skeleton, Menu, Layout, Breadcrumb} from "antd";
 import {BrowserRouter, Link, Route, Switch} from 'react-router-dom';
-import MeasureCategoryRoute from "../MeasureCategory/MeasureCategoryRoute";
+import MeasurementCategoryRoute from "../MeasurementCategory/MeasurementCategoryRoute";
 import MenuRoute from "../Menu/MenuRoute";
 import {Content, Footer, Header} from "antd/lib/layout/layout";
 import DynamicBreadcrumbs from "./DynamicBreadcrumbs";
@@ -51,7 +51,7 @@ const App = () => {
                         <Route exact path="/">
                             <h1>Home</h1>
                         </Route>
-                        <MeasureCategoryRoute/>
+                        <MeasurementCategoryRoute/>
                         <MenuRoute/>
                     </div>
                 </Content>
