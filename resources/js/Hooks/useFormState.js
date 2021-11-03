@@ -10,11 +10,15 @@ const useFormState = (id, form, manifest) => {
         initialValues: {},
         loading: id && true,
         errors: {},
-        formDisabled: id && true
+        formDisabled: id && true,
+        pathname: location.pathname
     });
 
     const [formActions] = useState({
         fetchData: async () => {
+
+            console.log(id, formState.pathname, location.pathname);
+
             let newState = {};
             if (formState.initialLoad) {
                 newState.initialLoad = false;
@@ -91,6 +95,20 @@ const useFormState = (id, form, manifest) => {
 
     useEffect(formActions.fetchData, []);
 
+    useEffect(() => {
+        if (id && formState.pathname !== location.pathname) {
+            history.push(location.pathname);
+            let newState = {
+                pathname: location.pathname
+            };
+            setFormState(state => ({
+                ...state,
+                ...newState
+            }));
+            // console.log(formState);
+            formActions.fetchData();
+        }
+    });
 
     return [formState, formActions];
 };

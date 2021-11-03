@@ -9,7 +9,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            MeasureCategorySeeder::class,
+            MeasurementCategorySeeder::class,
             MenuSeeder::class
         ]);
     }
