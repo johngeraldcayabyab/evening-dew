@@ -6,6 +6,8 @@ const useFormState = (id, form, manifest) => {
     const history = useHistory();
 
     const [formState, setFormState] = useState({
+        id: id,
+        backtrack: false,
         initialLoad: true,
         initialValues: {},
         loading: id && true,
@@ -16,15 +18,12 @@ const useFormState = (id, form, manifest) => {
 
     const [formActions] = useState({
         fetchData: async () => {
-
-            console.log(id, formState.pathname, location.pathname);
-
             let newState = {};
             if (formState.initialLoad) {
                 newState.initialLoad = false;
             }
-            if (id) {
-                let responseData = await fetch(`/api/${manifest.moduleName}/${id}`)
+            if (formState.id) {
+                let responseData = await fetch(`/api/${manifest.moduleName}/${formState.id}`)
                     .then(response => response.json())
                     .then(data => (data));
                 form.setFieldsValue(responseData);
@@ -47,8 +46,8 @@ const useFormState = (id, form, manifest) => {
             }));
             let url = `/api/${manifest.moduleName}/`;
             let method = 'POST';
-            if (id) {
-                url += id;
+            if (formState.id) {
+                url += formState.id;
                 method = 'PUT';
             }
             await fetch(url, {
@@ -96,17 +95,22 @@ const useFormState = (id, form, manifest) => {
     useEffect(formActions.fetchData, []);
 
     useEffect(() => {
-        if (id && formState.pathname !== location.pathname) {
-            history.push(location.pathname);
-            let newState = {
-                pathname: location.pathname
-            };
+        if (formState.backtrack) {
+            setFormState((state) => ({
+                ...state,
+                id: id,
+            }));
+            formActions.fetchData();
+        }
+    }, [formState.pathname]);
+
+    useEffect(() => {
+        if (formState.pathname !== location.pathname) {
             setFormState(state => ({
                 ...state,
-                ...newState
+                pathname: location.pathname,
+                backtrack: true,
             }));
-            // console.log(formState);
-            formActions.fetchData();
         }
     });
 
