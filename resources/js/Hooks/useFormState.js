@@ -17,13 +17,16 @@ const useFormState = (id, form, manifest) => {
     });
 
     const [formActions] = useState({
-        fetchData: async () => {
+        fetchData: async (overrideId = null) => {
+            if (overrideId) {
+                id = overrideId;
+            }
             let newState = {};
             if (formState.initialLoad) {
                 newState.initialLoad = false;
             }
-            if (formState.id) {
-                let responseData = await fetch(`/api/${manifest.moduleName}/${formState.id}`)
+            if (id) {
+                let responseData = await fetch(`/api/${manifest.moduleName}/${id}`)
                     .then(response => response.json())
                     .then(data => (data));
                 form.setFieldsValue(responseData);
@@ -46,8 +49,8 @@ const useFormState = (id, form, manifest) => {
             }));
             let url = `/api/${manifest.moduleName}/`;
             let method = 'POST';
-            if (formState.id) {
-                url += formState.id;
+            if (id) {
+                url += id;
                 method = 'PUT';
             }
             await fetch(url, {
@@ -95,16 +98,6 @@ const useFormState = (id, form, manifest) => {
     useEffect(formActions.fetchData, []);
 
     useEffect(() => {
-        if (formState.backtrack) {
-            setFormState((state) => ({
-                ...state,
-                id: id,
-            }));
-            formActions.fetchData();
-        }
-    }, [formState.pathname]);
-
-    useEffect(() => {
         if (formState.pathname !== location.pathname) {
             setFormState(state => ({
                 ...state,
@@ -113,6 +106,21 @@ const useFormState = (id, form, manifest) => {
             }));
         }
     });
+
+    useEffect(() => {
+        if (formState.backtrack) {
+            setFormState((state) => ({
+                ...state,
+                id: id,
+            }));
+        }
+    }, [formState.pathname]);
+
+    useEffect(() => {
+        if (formState.backtrack) {
+            formActions.fetchData(formState.id);
+        }
+    }, [formState.id]);
 
     return [formState, formActions];
 };
