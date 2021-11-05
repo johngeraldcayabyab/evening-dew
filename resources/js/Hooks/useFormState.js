@@ -97,6 +97,10 @@ const useFormState = (id, form, manifest) => {
 
     useEffect(formActions.fetchData, []);
 
+    /**
+     * three use effects just for redirect
+     * there must be some way to shorten this
+     */
     useEffect(() => {
         if (formState.pathname !== location.pathname) {
             setFormState(state => ({
