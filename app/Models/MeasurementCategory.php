@@ -13,4 +13,9 @@ class MeasurementCategory extends Model
 
     protected $table = 'measurement_categories';
     protected $guarded = [];
+
+    public function measurements()
+    {
+        return $this->hasMany(Measurement::class);
+    }
 }
