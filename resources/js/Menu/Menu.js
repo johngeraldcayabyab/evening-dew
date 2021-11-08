@@ -4,6 +4,7 @@ import useTableState from "../Hooks/useTableState";
 import {Link} from "react-router-dom";
 import manifest from "./__manifest__.json";
 import {EyeOutlined, DeleteOutlined} from '@ant-design/icons';
+import TableCreateButton from "../components/ActionButtons/TableCreateButton";
 
 const Menu = () => {
     const [tableState, tableActions] = useTableState(manifest);
@@ -48,9 +49,9 @@ const Menu = () => {
         <React.Fragment>
             <Layout.Content style={{padding:'5px 5px 5px 0'}}>
                 <Space>
-                    <Button type="primary" size={'small'}>Create</Button>
-                    <Button type="primary" size={'small'}>Create</Button>
-                    <Button type="primary" size={'small'}>Create</Button>
+                    <Space>
+                        <TableCreateButton manifest={manifest}/>
+                    </Space>
                 </Space>
             </Layout.Content>
             <Table

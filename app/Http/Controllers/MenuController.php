@@ -46,9 +46,4 @@ class MenuController extends Controller
     {
         return $this->responseRead(new MenuSlugResource($menu));
     }
-
-    public function tree()
-    {
-
-    }
 }
