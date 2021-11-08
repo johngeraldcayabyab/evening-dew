@@ -17,7 +17,12 @@ const App = () => {
     const [menus, setMenus] = useState([]);
 
     useEffect(async () => {
-        let responseData = await fetch(`/api/menus`)
+        let responseData = await fetch(`/api/menus`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
             .then(response => response.json())
             .then(data => (data));
         setMenus(responseData);

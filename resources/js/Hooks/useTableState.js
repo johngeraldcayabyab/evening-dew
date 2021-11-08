@@ -14,7 +14,11 @@ const useTableState = (manifest) => {
                 loading: true,
             }));
             await fetch(`api/${moduleName}/${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
             }).then(() => {
                 setTableState(state => ({
                     ...state,
@@ -25,7 +29,12 @@ const useTableState = (manifest) => {
     });
 
     useEffect(async () => {
-        let responseData = await fetch(`api/${moduleName}`)
+        let responseData = await fetch(`api/${moduleName}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
             .then(response => response.json())
             .then(data => (data));
         setTableState(state => ({
