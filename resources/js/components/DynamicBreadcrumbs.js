@@ -18,7 +18,12 @@ const DynamicBreadcrumbs = () => {
         let isMainPath = splitPathName.length === 2;
 
         if (isEditPagePath) {
-            let responseData = await fetch(`/api${splitPathName.join('/')}/slug`)
+            let responseData = await fetch(`/api${splitPathName.join('/')}/slug`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
                 .then(response => response.json())
                 .then(data => (data));
             responseData.link = pathname;

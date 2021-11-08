@@ -26,7 +26,12 @@ const useFormState = (id, form, manifest) => {
                 newState.initialLoad = false;
             }
             if (id) {
-                let responseData = await fetch(`/api/${manifest.moduleName}/${id}`)
+                let responseData = await fetch(`/api/${manifest.moduleName}/${id}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                })
                     .then(response => response.json())
                     .then(data => (data));
                 form.setFieldsValue(responseData);
@@ -55,8 +60,8 @@ const useFormState = (id, form, manifest) => {
             }
             await fetch(url, {
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
                 method: method,
                 body: JSON.stringify(values)
