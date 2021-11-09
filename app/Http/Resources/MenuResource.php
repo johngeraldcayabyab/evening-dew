@@ -10,8 +10,10 @@ class MenuResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'label' => $this->label,
-            'url' => $this->url
+            'name' => $this->name,
+            'type' => $this->type,
+            'ratio' => $this->ratio,
+            'rounding_precision' => $this->rounding_precision,
         ];
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 class MenuRoute
 {
-    public function initialize()
+    public static function initialize()
     {
         Route::get('menus/{menu}/slug', [MenuController::class, 'slug']);
         Route::get('menus/{menu}', [MenuController::class, 'show']);

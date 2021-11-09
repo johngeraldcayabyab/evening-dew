@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Measurement;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -11,10 +12,10 @@ class MeasurementRequest extends FormRequest
     {
         $uniqueName = Rule::unique('measurements');
         $model = $this->measurement;
+        $types = implode(',', Measurement::getTypes());
         return [
             'name' => ['required', $model ? $uniqueName->ignore($model->id) : $uniqueName],
-            'measurement_category_id' => ['required'],
-            'type' => ['required'],
+            'type' => ['required', "in:$types"],
             'ratio' => ['required'],
             'rounding_precision' => ['required'],
         ];
