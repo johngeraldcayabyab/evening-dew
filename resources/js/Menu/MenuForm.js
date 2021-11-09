@@ -54,11 +54,6 @@ const MenuForm = () => {
                                     >
                                         <Input disabled={formState.formDisabled}/>
                                     </Form.Item>
-                                    <Form.Item>
-                                        <Button type="primary" htmlType="submit">
-                                            Submit
-                                        </Button>
-                                    </Form.Item>
                                 </ColForm>
                             </RowForm>
                         </Card>

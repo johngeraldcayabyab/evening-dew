@@ -11,7 +11,7 @@ class MenuSlugResource extends JsonResource
     {
         return [
             'key' => Str::uuid(),
-            'slug' => $this->name
+            'slug' => $this->label
         ];
     }
 }

@@ -13,10 +13,7 @@ class MenuController extends Controller
 {
     public function index(): JsonResponse
     {
-        $cache = Cache::rememberForever('menus.all', function () {
-            return Menu::orderBy('created_at', 'desc')->get();
-        });
-        return $this->responseRead(MenuResource::collection($cache));
+        return $this->responseRead(MenuResource::collection(Menu::orderBy('created_at', 'desc')->get()));
     }
 
     public function show(Menu $Menu): JsonResponse
@@ -45,5 +42,12 @@ class MenuController extends Controller
     public function slug(Menu $menu): JsonResponse
     {
         return $this->responseRead(new MenuSlugResource($menu));
+    }
+
+    public function appMenu()
+    {
+        $cache = Cache::rememberForever('menus.all', function () {
+            return Menu::orderBy('created_at', 'desc')->get();
+        });
     }
 }
