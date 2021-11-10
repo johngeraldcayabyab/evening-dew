@@ -11,6 +11,9 @@ class MeasurementResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'type' => $this->type,
+            'ratio' => $this->ratio,
+            'rounding_precision' => $this->rounding_precision,
         ];
     }
 }

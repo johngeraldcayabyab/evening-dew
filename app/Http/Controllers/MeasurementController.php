@@ -15,9 +15,9 @@ class MeasurementController extends Controller
         return $this->responseRead(MeasurementResource::collection(Measurement::orderBy('created_at', 'desc')->get()));
     }
 
-    public function show(Measurement $measurementCategory): JsonResponse
+    public function show(Measurement $measurement): JsonResponse
     {
-        return $this->responseRead(new MeasurementResource($measurementCategory));
+        return $this->responseRead(new MeasurementResource($measurement));
     }
 
     public function store(MeasurementRequest $request): JsonResponse
@@ -26,20 +26,20 @@ class MeasurementController extends Controller
         return $this->responseCreate($model);
     }
 
-    public function update(MeasurementRequest $request, Measurement $measurementCategory): JsonResponse
+    public function update(MeasurementRequest $request, Measurement $measurement): JsonResponse
     {
-        $this->persistUpdate($request, $measurementCategory);
+        $this->persistUpdate($request, $measurement);
         return $this->responseUpdate();
     }
 
-    public function destroy(Measurement $measurementCategory): JsonResponse
+    public function destroy(Measurement $measurement): JsonResponse
     {
-        $measurementCategory->delete();
+        $measurement->delete();
         return $this->responseDelete();
     }
 
-    public function slug(Measurement $measurementCategory): JsonResponse
+    public function slug(Measurement $measurement): JsonResponse
     {
-        return $this->responseRead(new MeasurementSlugResource($measurementCategory));
+        return $this->responseRead(new MeasurementSlugResource($measurement));
     }
 }
