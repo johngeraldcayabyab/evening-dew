@@ -12,8 +12,8 @@ class CreateMeasurementsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('type');
-            $table->unsignedFloat('ratio');
-            $table->unsignedFloat('rounding_precision');
+            $table->unsignedDouble('ratio');
+            $table->unsignedDouble('rounding_precision');
             $table->bigInteger('measurement_category_id')->nullable();
             $table->softDeletes();
             $table->timestamps();

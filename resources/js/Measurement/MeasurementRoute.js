@@ -1,9 +1,11 @@
 import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
+import MeasurementForm from "./MeasurementForm";
+import Measurement from "./Measurement";
 
 
-const MeasurementCategoryRoute = () => {
+const MeasurementRoute = () => {
     const moduleName = manifest.moduleName;
     return (
         <Switch>
@@ -20,4 +22,4 @@ const MeasurementCategoryRoute = () => {
     );
 };
 
-export default MeasurementCategoryRoute;
+export default MeasurementRoute;

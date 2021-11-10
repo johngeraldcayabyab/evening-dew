@@ -6,6 +6,8 @@ import MeasurementCategoryRoute from "../MeasurementCategory/MeasurementCategory
 import MenuRoute from "../Menu/MenuRoute";
 import {Content, Footer, Header} from "antd/lib/layout/layout";
 import DynamicBreadcrumbs from "./DynamicBreadcrumbs";
+import Measurement from "../Measurement/Measurement";
+import MeasurementRoute from "../Measurement/MeasurementRoute";
 
 const {SubMenu} = Menu;
 
@@ -57,6 +59,7 @@ const App = () => {
                             <h1>Home</h1>
                         </Route>
                         <MeasurementCategoryRoute/>
+                        <MeasurementRoute/>
                         <MenuRoute/>
                     </div>
                 </Content>

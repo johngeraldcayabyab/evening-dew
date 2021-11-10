@@ -15,7 +15,7 @@ class Measurement extends Model
     const SMALLER = 'smaller';
     const REFERENCE = 'reference';
 
-    protected $table = 'measurement';
+    protected $table = 'measurements';
     protected $guarded = [];
 
     public function measurementCategory()

@@ -4,7 +4,7 @@ import {Row} from "antd";
 const RowForm = (props) => {
     return (
         <Row
-            gutter={48}
+            gutter={[8, 8]}
         >
             {props.children}
         </Row>
