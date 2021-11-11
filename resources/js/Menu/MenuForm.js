@@ -6,6 +6,7 @@ import manifest from "./__manifest__.json";
 import FormButtons from "../components/ActionButtons/FormButtons";
 import RowForm from "../components/Grid/RowForm";
 import ColForm from "../components/Grid/ColForm";
+import FormLabel from "../components/Typography/FormLabel";
 
 const MenuForm = () => {
     let {id} = useParams();
@@ -18,9 +19,12 @@ const MenuForm = () => {
                 <Spin spinning={formState.initialLoad === false && formState.loading === true}>
                     <Form
                         form={form}
-                        size={'small'}
                         onFinish={formActions.onFinish}
                         initialValues={formState.initialValues}
+                        size={'small'}
+                        labelAlign={'left'}
+                        labelCol={{span: 8}}
+                        wrapperCol={{span: 16}}
                     >
                         <Layout.Content style={{padding: '5px 5px 5px 0'}}>
                             <Space>
@@ -37,7 +41,7 @@ const MenuForm = () => {
                             <RowForm>
                                 <ColForm>
                                     <Form.Item
-                                        label="Label"
+                                        label={<FormLabel>Label</FormLabel>}
                                         name="label"
                                         validateStatus={formState.errors.label ? 'error' : false}
                                         help={formState.errors.label ? formState.errors.label : false}
@@ -46,7 +50,7 @@ const MenuForm = () => {
                                         <Input disabled={formState.formDisabled}/>
                                     </Form.Item>
                                     <Form.Item
-                                        label="Url"
+                                        label={<FormLabel>Url</FormLabel>}
                                         name="url"
                                         validateStatus={formState.errors.url ? 'error' : false}
                                         help={formState.errors.url ? formState.errors.url : false}

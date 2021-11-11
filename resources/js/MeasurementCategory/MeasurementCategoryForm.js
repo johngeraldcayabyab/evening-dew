@@ -6,6 +6,7 @@ import manifest from "./__manifest__.json";
 import FormButtons from "../components/ActionButtons/FormButtons";
 import RowForm from "../components/Grid/RowForm";
 import ColForm from "../components/Grid/ColForm";
+import FormLabel from "../components/Typography/FormLabel";
 
 const MeasurementCategoryForm = () => {
     let {id} = useParams();
@@ -17,9 +18,12 @@ const MeasurementCategoryForm = () => {
                 <Spin spinning={formState.initialLoad === false && formState.loading === true}>
                     <Form
                         form={form}
-                        size={'small'}
                         onFinish={formActions.onFinish}
                         initialValues={formState.initialValues}
+                        size={'small'}
+                        labelAlign={'left'}
+                        labelCol={{span: 8}}
+                        wrapperCol={{span: 16}}
                     >
                         <Layout.Content style={{padding: '5px 5px 5px 0'}}>
                             <Space>
@@ -36,7 +40,7 @@ const MeasurementCategoryForm = () => {
                             <RowForm>
                                 <ColForm>
                                     <Form.Item
-                                        label="Name"
+                                        label={<FormLabel>Name</FormLabel>}
                                         name="name"
                                         validateStatus={formState.errors.name ? 'error' : false}
                                         help={formState.errors.name ? formState.errors.name : false}

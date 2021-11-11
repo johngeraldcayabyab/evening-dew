@@ -1,36 +1,36 @@
 @import '~antd/dist/antd.css';
-@import "Variables.scss";
-
-.custom-button {
-    background: $bayo;
-    border-color: $bayo;
-    margin-right: 3px;
-
-    &:hover {
-        background: $bayo-light;
-        border-color: $bayo-light;
-    }
-
-    &:active {
-        background: $bayo-light;
-        border-color: $bayo-light;
-    }
-
-    &:focus {
-        background: $bayo-light;
-        border-color: $bayo-light;
-    }
-}
-
-
-.logo {
-    float: left;
-    width: 120px;
-    height: 31px;
-    margin: 16px 24px 0 0;
-    background: rgba(255, 255, 255, 0.2);
-}
-
-.site-layout .site-layout-background {
-    /*background: #fff;*/
-}
+//@import "Variables.scss";
+//
+//.custom-button {
+//    background: $bayo;
+//    border-color: $bayo;
+//    margin-right: 3px;
+//
+//    &:hover {
+//        background: $bayo-light;
+//        border-color: $bayo-light;
+//    }
+//
+//    &:active {
+//        background: $bayo-light;
+//        border-color: $bayo-light;
+//    }
+//
+//    &:focus {
+//        background: $bayo-light;
+//        border-color: $bayo-light;
+//    }
+//}
+//
+//
+//.logo {
+//    float: left;
+//    width: 120px;
+//    height: 31px;
+//    margin: 16px 24px 0 0;
+//    background: rgba(255, 255, 255, 0.2);
+//}
+//
+//.site-layout .site-layout-background {
+//    /*background: #fff;*/
+//}
