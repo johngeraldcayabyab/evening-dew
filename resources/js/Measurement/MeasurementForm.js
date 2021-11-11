@@ -6,6 +6,7 @@ import manifest from "./__manifest__.json";
 import FormButtons from "../components/ActionButtons/FormButtons";
 import RowForm from "../components/Grid/RowForm";
 import ColForm from "../components/Grid/ColForm";
+import FormLabel from "../components/Typography/FormLabel";
 
 const MeasurementForm = () => {
     let {id} = useParams();
@@ -17,12 +18,10 @@ const MeasurementForm = () => {
                 <Spin spinning={formState.initialLoad === false && formState.loading === true}>
                     <Form
                         form={form}
-                        size={'small'}
                         onFinish={formActions.onFinish}
                         initialValues={formState.initialValues}
+                        size={'small'}
                         labelAlign={'left'}
-
-
                         labelCol={{span: 8}}
                         wrapperCol={{span: 16}}
                     >
@@ -41,8 +40,7 @@ const MeasurementForm = () => {
                             <RowForm>
                                 <ColForm>
                                     <Form.Item
-                                        label={<Typography.Text strong
-                                                                style={{fontSize: "13px"}}>Name</Typography.Text>}
+                                        label={<FormLabel>Name</FormLabel>}
                                         name="name"
                                         validateStatus={formState.errors.name ? 'error' : false}
                                         help={formState.errors.name ? formState.errors.name : false}
@@ -53,8 +51,8 @@ const MeasurementForm = () => {
                                     </Form.Item>
 
                                     <Form.Item
+                                        label={<FormLabel>Type</FormLabel>}
                                         name="type"
-                                        label={<Typography.Text strong>Type</Typography.Text>}
                                         validateStatus={formState.errors.type ? 'error' : false}
                                         help={formState.errors.type ? formState.errors.type : false}
                                         rules={[{required: true}]}
@@ -74,7 +72,7 @@ const MeasurementForm = () => {
                                     </Form.Item>
 
                                     <Form.Item
-                                        label={<Typography.Text strong>Ratio</Typography.Text>}
+                                        label={<FormLabel>Ratio</FormLabel>}
                                         name="ratio"
                                         validateStatus={formState.errors.ratio ? 'error' : false}
                                         help={formState.errors.ratio ? formState.errors.ratio : false}
@@ -92,7 +90,7 @@ const MeasurementForm = () => {
                                     </Form.Item>
 
                                     <Form.Item
-                                        label={<Typography.Text strong>Rounding precision</Typography.Text>}
+                                        label={<FormLabel>Rounding precision</FormLabel>}
                                         name="rounding_precision"
                                         validateStatus={formState.errors.rounding_precision ? 'error' : false}
                                         help={formState.errors.rounding_precision ? formState.errors.rounding_precision : false}
@@ -102,13 +100,9 @@ const MeasurementForm = () => {
                                         <InputNumber
                                             disabled={formState.formDisabled}
                                             style={{width: "100%"}}
-                                            // defaultValue="1"
-                                            // min=""
-                                            // max="10"
                                             step="0.00000000000001"
                                         />
                                     </Form.Item>
-
                                 </ColForm>
                             </RowForm>
                         </Card>
