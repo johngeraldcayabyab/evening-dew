@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Card, Form, Input, InputNumber, Layout, Select, Skeleton, Space, Spin, Typography} from "antd";
+import React from 'react';
+import {Card, Form, Input, InputNumber, Layout, Select, Skeleton, Space, Spin} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
@@ -7,6 +7,7 @@ import FormButtons from "../components/ActionButtons/FormButtons";
 import RowForm from "../components/Grid/RowForm";
 import ColForm from "../components/Grid/ColForm";
 import FormLabel from "../components/Typography/FormLabel";
+import CustomForm from "../components/CustomForm";
 
 const MeasurementForm = () => {
     let {id} = useParams();
@@ -16,25 +17,19 @@ const MeasurementForm = () => {
         <React.Fragment>
             <Skeleton loading={formState.initialLoad}>
                 <Spin spinning={formState.initialLoad === false && formState.loading === true}>
-                    <Form
+                    <CustomForm
                         form={form}
                         onFinish={formActions.onFinish}
                         initialValues={formState.initialValues}
-                        size={'small'}
-                        labelAlign={'left'}
-                        labelCol={{span: 8}}
-                        wrapperCol={{span: 16}}
                     >
                         <Layout.Content style={{padding: '5px 5px 5px 0'}}>
-                            <Space>
-                                <FormButtons
-                                    id={id}
-                                    form={form}
-                                    formState={formState}
-                                    formActions={formActions}
-                                    manifest={manifest}
-                                />
-                            </Space>
+                            <FormButtons
+                                id={id}
+                                form={form}
+                                formState={formState}
+                                formActions={formActions}
+                                manifest={manifest}
+                            />
                         </Layout.Content>
                         <Card>
                             <RowForm>
@@ -88,7 +83,6 @@ const MeasurementForm = () => {
                                             step="0.00000000000001"
                                         />
                                     </Form.Item>
-
                                     <Form.Item
                                         label={<FormLabel>Rounding precision</FormLabel>}
                                         name="rounding_precision"
@@ -106,7 +100,7 @@ const MeasurementForm = () => {
                                 </ColForm>
                             </RowForm>
                         </Card>
-                    </Form>
+                    </CustomForm>
                 </Spin>
             </Skeleton>
         </React.Fragment>
