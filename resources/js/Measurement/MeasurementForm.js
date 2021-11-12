@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, Form, Input, InputNumber, Layout, Select, Skeleton, Space, Spin} from "antd";
+import {Card, Form, Layout, Select, Skeleton, Spin} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
@@ -8,6 +8,8 @@ import RowForm from "../components/Grid/RowForm";
 import ColForm from "../components/Grid/ColForm";
 import FormLabel from "../components/Typography/FormLabel";
 import CustomForm from "../components/CustomForm";
+import FormItemText from "../components/FormItem/FormItemText";
+import FormItemNumber from "../components/FormItem/FormItemNumber";
 
 const MeasurementForm = () => {
     let {id} = useParams();
@@ -34,16 +36,14 @@ const MeasurementForm = () => {
                         <Card>
                             <RowForm>
                                 <ColForm>
-                                    <Form.Item
-                                        label={<FormLabel>Name</FormLabel>}
-                                        name="name"
-                                        validateStatus={formState.errors.name ? 'error' : false}
-                                        help={formState.errors.name ? formState.errors.name : false}
-                                        rules={[{required: true, message: 'Please input measurement category name'}]}
-                                        colon={false}
-                                    >
-                                        <Input disabled={formState.formDisabled}/>
-                                    </Form.Item>
+                                    <FormItemText
+                                        label={'Name'}
+                                        name={'name'}
+                                        errors={formState.errors}
+                                        message={'Please input measurement category name'}
+                                        required={true}
+                                        formDisabled={formState.formDisabled}
+                                    />
 
                                     <Form.Item
                                         label={<FormLabel>Type</FormLabel>}
@@ -66,37 +66,23 @@ const MeasurementForm = () => {
                                         </Select>
                                     </Form.Item>
 
-                                    <Form.Item
-                                        label={<FormLabel>Ratio</FormLabel>}
-                                        name="ratio"
-                                        validateStatus={formState.errors.ratio ? 'error' : false}
-                                        help={formState.errors.ratio ? formState.errors.ratio : false}
-                                        rules={[{required: true, message: 'Please input ratio'}]}
-                                        colon={false}
-                                    >
-                                        <InputNumber
-                                            disabled={formState.formDisabled}
-                                            style={{width: "100%"}}
-                                            // defaultValue="1"
-                                            // min=""
-                                            // max="10"
-                                            step="0.00000000000001"
-                                        />
-                                    </Form.Item>
-                                    <Form.Item
-                                        label={<FormLabel>Rounding precision</FormLabel>}
-                                        name="rounding_precision"
-                                        validateStatus={formState.errors.rounding_precision ? 'error' : false}
-                                        help={formState.errors.rounding_precision ? formState.errors.rounding_precision : false}
-                                        rules={[{required: true, message: 'Please input rounding precision'}]}
-                                        colon={false}
-                                    >
-                                        <InputNumber
-                                            disabled={formState.formDisabled}
-                                            style={{width: "100%"}}
-                                            step="0.00000000000001"
-                                        />
-                                    </Form.Item>
+                                    <FormItemNumber
+                                        label={'Ratio'}
+                                        name={'ratio'}
+                                        errors={formState.errors}
+                                        message={'Please input ratio'}
+                                        required={true}
+                                        formDisabled={formState.formDisabled}
+                                    />
+
+                                    <FormItemNumber
+                                        label={'Rounding precision'}
+                                        name={'rounding_precision'}
+                                        errors={formState.errors}
+                                        message={'Please input rounding precision'}
+                                        required={true}
+                                        formDisabled={formState.formDisabled}
+                                    />
                                 </ColForm>
                             </RowForm>
                         </Card>
