@@ -1,0 +1,5 @@
+<?php
+
+const STATUS_CREATE = 201;
+const STATUS_UPDATE = 204;
+const STATUS_DELETE = 204;
