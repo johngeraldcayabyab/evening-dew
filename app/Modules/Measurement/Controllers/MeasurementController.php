@@ -1,0 +1,45 @@
+<?php
+
+namespace App\Modules\Measurement\Controllers;
+
+use App\Modules\Measurement\Models\Measurement;
+use App\Modules\Measurement\Requests\MeasurementRequest;
+use App\Modules\Measurement\Resources\MeasurementResource;
+use App\Modules\Measurement\Resources\MeasurementSlugResource;
+use Illuminate\Http\JsonResponse;
+
+class MeasurementController
+{
+    public function index(): JsonResponse
+    {
+        return response()->json(MeasurementResource::collection(Measurement::orderBy('created_at', 'desc')->get()));
+    }
+
+    public function show(Measurement $measurement): JsonResponse
+    {
+        return response()->json(new MeasurementResource($measurement));
+    }
+
+    public function store(MeasurementRequest $request): JsonResponse
+    {
+        Measurement::create($request->validated());
+        return response()->json([], STATUS_CREATE);
+    }
+
+    public function update(MeasurementRequest $request, Measurement $measurement): JsonResponse
+    {
+        $measurement->update($request->validated());
+        return response()->json([], STATUS_UPDATE);
+    }
+
+    public function destroy(Measurement $measurement): JsonResponse
+    {
+        $measurement->delete();
+        return response()->json([], STATUS_DELETE);
+    }
+
+    public function slug(Measurement $measurement): JsonResponse
+    {
+        return response()->json(new MeasurementSlugResource($measurement));
+    }
+}
