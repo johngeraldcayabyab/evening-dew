@@ -3,7 +3,8 @@
 namespace App\Modules\MeasurementCategory\Controllers;
 
 use App\Modules\MeasurementCategory\Models\MeasurementCategory;
-use App\Modules\MeasurementCategory\Requests\MeasurementCategoryRequest;
+use App\Modules\MeasurementCategory\Requests\MeasurementCategoryStoreRequest;
+use App\Modules\MeasurementCategory\Requests\MeasurementCategoryUpdateRequest;
 use App\Modules\MeasurementCategory\Resources\MeasurementCategoryResource;
 use App\Modules\MeasurementCategory\Resources\MeasurementCategorySlugResource;
 use Illuminate\Http\JsonResponse;
@@ -20,13 +21,13 @@ class MeasurementCategoryController
         return response()->json(new MeasurementCategoryResource($measurementCategory));
     }
 
-    public function store(MeasurementCategoryRequest $request): JsonResponse
+    public function store(MeasurementCategoryStoreRequest $request): JsonResponse
     {
         MeasurementCategory::create($request->validated());
         return response()->json([], STATUS_CREATE);
     }
 
-    public function update(MeasurementCategoryRequest $request, MeasurementCategory $measurementCategory): JsonResponse
+    public function update(MeasurementCategoryUpdateRequest $request, MeasurementCategory $measurementCategory): JsonResponse
     {
         $measurementCategory->update($request->validated());
         return response()->json([], STATUS_UPDATE);

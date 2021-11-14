@@ -5,7 +5,7 @@ namespace App\Modules\MeasurementCategory\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class MeasurementCategoryRequest extends FormRequest
+class MeasurementCategoryStoreRequest extends FormRequest
 {
     public function rules()
     {
