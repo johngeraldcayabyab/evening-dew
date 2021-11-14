@@ -2,13 +2,7 @@
 
 namespace App\Providers;
 
-use App\Modules\Measurement\Models\Measurement;
-use App\Modules\Measurement\Observers\MeasurementObserver;
-use App\Modules\MeasurementCategory\Models\MeasurementCategory;
-use App\Modules\MeasurementCategory\Observers\MeasurementCategoryObserver;
 
-//use App\Modules\Menu\Models\Menu;
-//use App\Modules\Menu\Observers\MenuObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -24,6 +18,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->observe();
+        $this->migration();
     }
 
     private function observe()
@@ -42,5 +37,12 @@ class EventServiceProvider extends ServiceProvider
             $observerNamespace = get_class($observerNamespace);
             $modelNamespace::observe($observerNamespace);
         }
+    }
+
+    private function migration()
+    {
+        $this->loadMigrationsFrom('app/Modules/MeasurementCategory');
+        $this->loadMigrationsFrom('app/Modules/Measurement');
+        $this->loadMigrationsFrom('app/Modules/Menu');
     }
 }

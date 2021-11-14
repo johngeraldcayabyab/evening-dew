@@ -4,7 +4,7 @@ namespace App\Modules\Menu\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MenuRequest extends FormRequest
+class MenuUpdateRequest extends FormRequest
 {
     public function rules()
     {

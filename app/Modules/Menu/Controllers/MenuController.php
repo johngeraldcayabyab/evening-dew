@@ -4,7 +4,8 @@ namespace App\Modules\Menu\Controllers;
 
 
 use App\Modules\Menu\Models\Menu;
-use App\Modules\Menu\Requests\MenuRequest;
+use App\Modules\Menu\Requests\MenuStoreRequest;
+use App\Modules\Menu\Requests\MenuUpdateRequest;
 use App\Modules\Menu\Resources\MenuResource;
 use App\Modules\Menu\Resources\MenuSlugResource;
 use Illuminate\Http\JsonResponse;
@@ -22,13 +23,13 @@ class MenuController
         return response()->json(new MenuResource($Menu));
     }
 
-    public function store(MenuRequest $request): JsonResponse
+    public function store(MenuStoreRequest $request): JsonResponse
     {
         Menu::create($request->validated());
         return response()->json([], STATUS_CREATE);
     }
 
-    public function update(MenuRequest $request, Menu $menu): JsonResponse
+    public function update(MenuUpdateRequest $request, Menu $menu): JsonResponse
     {
         $menu->update($request->validated());
         return response()->json([], STATUS_UPDATE);

@@ -3,7 +3,8 @@
 namespace App\Modules\Measurement\Controllers;
 
 use App\Modules\Measurement\Models\Measurement;
-use App\Modules\Measurement\Requests\MeasurementRequest;
+use App\Modules\Measurement\Requests\MeasurementStoreRequest;
+use App\Modules\Measurement\Requests\MeasurementUpdateRequest;
 use App\Modules\Measurement\Resources\MeasurementResource;
 use App\Modules\Measurement\Resources\MeasurementSlugResource;
 use Illuminate\Http\JsonResponse;
@@ -20,13 +21,13 @@ class MeasurementController
         return response()->json(new MeasurementResource($measurement));
     }
 
-    public function store(MeasurementRequest $request): JsonResponse
+    public function store(MeasurementStoreRequest $request): JsonResponse
     {
         Measurement::create($request->validated());
         return response()->json([], STATUS_CREATE);
     }
 
-    public function update(MeasurementRequest $request, Measurement $measurement): JsonResponse
+    public function update(MeasurementUpdateRequest $request, Measurement $measurement): JsonResponse
     {
         $measurement->update($request->validated());
         return response()->json([], STATUS_UPDATE);
