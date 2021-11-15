@@ -23,8 +23,8 @@ class MeasurementController
 
     public function store(MeasurementStoreRequest $request): JsonResponse
     {
-        Measurement::create($request->validated());
-        return response()->json([], STATUS_CREATE);
+        $headers = ['Location' => route('menus.show', Measurement::create($request->validated()))];
+        return response()->json([], STATUS_CREATE, $headers);
     }
 
     public function update(MeasurementUpdateRequest $request, Measurement $measurement): JsonResponse
