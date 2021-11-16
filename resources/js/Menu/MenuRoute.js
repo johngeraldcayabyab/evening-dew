@@ -1,7 +1,7 @@
 import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
-import Menu from "./Menu";
+import MenuList from "./MenuList";
 import MenuForm from "./MenuForm";
 
 const MenuRoute = () => {
@@ -9,7 +9,7 @@ const MenuRoute = () => {
     return (
         <Switch>
             <Route exact key={`${moduleName}_table`} path={`/${moduleName}`}>
-                <Menu/>
+                <MenuList/>
             </Route>
             <Route exact key={`${moduleName}_create`} path={`/${moduleName}/create`}>
                 <MenuForm/>

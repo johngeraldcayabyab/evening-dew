@@ -1,34 +1,19 @@
 import React from 'react';
 import {Button, Layout, Popconfirm, Space, Table} from "antd";
-import useTableState from "../Hooks/useTableState";
+import useListState from "../Hooks/useListState";
 import {Link} from "react-router-dom";
 import manifest from "./__manifest__.json";
 import {DeleteOutlined, EyeOutlined} from "@ant-design/icons";
 import TableCreateButton from "../components/ActionButtons/TableCreateButton";
 
-const Measurement = () => {
-    const [tableState, tableActions] = useTableState(manifest);
+const MeasurementCategoryList = () => {
+    const [tableState, tableActions] = useListState(manifest);
 
     const columns = [
         {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
-        },
-        {
-            title: 'Type',
-            dataIndex: 'type',
-            key: 'type',
-        },
-        {
-            title: 'Ratio',
-            dataIndex: 'ratio',
-            key: 'ratio',
-        },
-        {
-            title: 'Rounding Precision',
-            dataIndex: 'rounding_precision',
-            key: 'rounding_precision',
         },
         {
             title: 'Action',
@@ -72,5 +57,5 @@ const Measurement = () => {
     )
 };
 
-export default Measurement;
+export default MeasurementCategoryList;
 

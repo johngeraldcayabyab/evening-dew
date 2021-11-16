@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-const useTableState = (manifest) => {
+const useListState = (manifest) => {
     const moduleName = manifest.moduleName;
     const eventName = manifest.eventName;
     const [tableState, setTableState] = useState({
@@ -78,4 +78,4 @@ const useTableState = (manifest) => {
     return [tableState, tableActions]
 };
 
-export default useTableState;
+export default useListState;
