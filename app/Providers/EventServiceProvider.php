@@ -14,35 +14,4 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
     ];
-
-    public function boot()
-    {
-        $this->observe();
-        $this->migration();
-    }
-
-    private function observe()
-    {
-        $modules = [
-            'MeasurementCategory',
-            'Measurement',
-            'Menu'
-        ];
-
-        foreach ($modules as $module) {
-            $modulePath = "\\App\Modules\\$module\\";
-            $modelNamespace = $modulePath . "Models\\" . $module;
-            $observerNamespace = $modulePath . "Observers\\" . $module . "Observer";
-            $observerNamespace = new $observerNamespace;
-            $observerNamespace = get_class($observerNamespace);
-            $modelNamespace::observe($observerNamespace);
-        }
-    }
-
-    private function migration()
-    {
-        $this->loadMigrationsFrom('app/Modules/MeasurementCategory');
-        $this->loadMigrationsFrom('app/Modules/Measurement');
-        $this->loadMigrationsFrom('app/Modules/Menu');
-    }
 }

@@ -1,9 +1,10 @@
 <?php
 
 if (!function_exists('get_modules_path')) {
-    function get_modules_path()
+    function get_modules_path($module = null)
     {
-        return app_path('Modules');
+        $module = $module ? '\\' . $module : '';
+        return app_path("Modules{$module}");
     }
 }
 
