@@ -15,12 +15,9 @@ const App = () => {
         <BrowserRouter>
             <Layout style={{height: '100%'}}>
                 <CustomMenu/>
-                <Content className="site-layout" style={{padding: '0 25px', marginTop: 64}}>
+                <Content className="site-layout" style={{padding: '0 25px', marginTop: '50px'}}>
                     <CustomBreadcrumb/>
-                    <div className="site-layout-background" style={{minHeight: 380}}>
-                        <Route exact path="/">
-                            <h1>Home</h1>
-                        </Route>
+                    <div>
                         <MeasurementCategoryRoute/>
                         <MeasurementRoute/>
                         <MenuRoute/>

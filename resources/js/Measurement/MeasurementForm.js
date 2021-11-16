@@ -10,6 +10,7 @@ import FormLabel from "../components/Typography/FormLabel";
 import CustomForm from "../components/CustomForm";
 import FormItemText from "../components/FormItem/FormItemText";
 import FormItemNumber from "../components/FormItem/FormItemNumber";
+import FormItemSelect from "../components/FormItem/FormItemSelect";
 
 const MeasurementForm = () => {
     let {id} = useParams();
@@ -45,26 +46,19 @@ const MeasurementForm = () => {
                                         formDisabled={formState.formDisabled}
                                     />
 
-                                    <Form.Item
-                                        label={<FormLabel>Type</FormLabel>}
-                                        name="type"
-                                        validateStatus={formState.errors.type ? 'error' : false}
-                                        help={formState.errors.type ? formState.errors.type : false}
-                                        rules={[{required: true}]}
-                                        colon={false}
-                                    >
-                                        <Select
-                                            allowClear
-                                            disabled={formState.formDisabled}
-                                        >
-                                            <Select.Option value="reference">Reference measurement for this
-                                                category</Select.Option>
-                                            <Select.Option value="smaller">Smaller than the reference
-                                                measurement</Select.Option>
-                                            <Select.Option value="bigger" default>Bigger than the reference
-                                                measurement</Select.Option>
-                                        </Select>
-                                    </Form.Item>
+                                    <FormItemSelect
+                                        label={'Type'}
+                                        name={'type'}
+                                        errors={formState.errors}
+                                        message={'Please select a type'}
+                                        required={true}
+                                        formDisabled={formState.formDisabled}
+                                        options={[
+                                            {value: 'reference', label: 'Reference measurement for this category'},
+                                            {value: 'smaller', label: 'Smaller than the reference measurement'},
+                                            {value: 'bigger', label: 'Bigger than the reference measurement'},
+                                        ]}
+                                    />
 
                                     <FormItemNumber
                                         label={'Ratio'}
