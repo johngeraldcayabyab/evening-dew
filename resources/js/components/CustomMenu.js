@@ -30,7 +30,7 @@ const CustomMenu = () => {
 
     return (
         <Skeleton loading={appState.loading} paragraph={{rows: 0, width: '100%'}} active>
-            <Header style={{position: 'fixed', zIndex: 1, width: '100%', padding: 0}}>
+            <Header style={{position: 'fixed', zIndex: 1, width: '100%', padding: 0, height: '50px', lineHeight: '50px'}}>
                 <Menu theme={'dark'} mode={'horizontal'}>
                     <Menu.Item key={uuidv4()}>
                         <AppstoreOutlined/>

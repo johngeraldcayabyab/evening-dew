@@ -11,11 +11,7 @@ class MenuSeeder extends Seeder
     {
         $data = [
             [
-                'label' => 'Home',
-                'url' => '/',
-            ],
-            [
-                'label' => 'MeasurementList Categories',
+                'label' => 'Measurement Categories',
                 'url' => '/measurement_categories',
             ],
             [

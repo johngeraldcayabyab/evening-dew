@@ -73,7 +73,8 @@ const useFormState = (id, form, manifest) => {
             }).then(result => {
                 let headerLocation = result.headers.get('Location');
                 if (headerLocation) {
-                    history.push(headerLocation);
+                    let locationId = headerLocation.split('/').pop();
+                    history.push(`/${manifest.moduleName}/${locationId}`);
                 }
                 formActions.fetchData();
             }).catch(error => {
