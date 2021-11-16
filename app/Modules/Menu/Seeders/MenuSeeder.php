@@ -15,7 +15,7 @@ class MenuSeeder extends Seeder
                 'url' => '/',
             ],
             [
-                'label' => 'Measurement Categories',
+                'label' => 'MeasurementList Categories',
                 'url' => '/measurement_categories',
             ],
             [

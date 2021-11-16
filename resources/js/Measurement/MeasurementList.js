@@ -1,24 +1,34 @@
 import React from 'react';
-import {Button, Card, Layout, Popconfirm, Space, Table} from "antd";
-import useTableState from "../Hooks/useTableState";
+import {Button, Layout, Popconfirm, Space, Table} from "antd";
+import useListState from "../Hooks/useListState";
 import {Link} from "react-router-dom";
 import manifest from "./__manifest__.json";
-import {EyeOutlined, DeleteOutlined} from '@ant-design/icons';
+import {DeleteOutlined, EyeOutlined} from "@ant-design/icons";
 import TableCreateButton from "../components/ActionButtons/TableCreateButton";
 
-const Menu = () => {
-    const [tableState, tableActions] = useTableState(manifest);
+const MeasurementList = () => {
+    const [tableState, tableActions] = useListState(manifest);
 
     const columns = [
         {
-            title: 'Label',
-            dataIndex: 'label',
-            key: 'label',
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
         },
         {
-            title: 'Url',
-            dataIndex: 'url',
-            key: 'url',
+            title: 'Type',
+            dataIndex: 'type',
+            key: 'type',
+        },
+        {
+            title: 'Ratio',
+            dataIndex: 'ratio',
+            key: 'ratio',
+        },
+        {
+            title: 'Rounding Precision',
+            dataIndex: 'rounding_precision',
+            key: 'rounding_precision',
         },
         {
             title: 'Action',
@@ -39,7 +49,6 @@ const Menu = () => {
                             </Button>
                         </Popconfirm>
                     </Space>
-
                 );
             }
         },
@@ -47,11 +56,9 @@ const Menu = () => {
 
     return (
         <React.Fragment>
-            <Layout.Content style={{padding:'5px 5px 5px 0'}}>
+            <Layout.Content style={{padding: '5px 5px 5px 0'}}>
                 <Space>
-                    <Space>
-                        <TableCreateButton manifest={manifest}/>
-                    </Space>
+                    <TableCreateButton manifest={manifest}/>
                 </Space>
             </Layout.Content>
             <Table
@@ -65,5 +72,5 @@ const Menu = () => {
     )
 };
 
-export default Menu;
+export default MeasurementList;
 

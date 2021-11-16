@@ -1,7 +1,7 @@
 import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
-import MeasurementCategory from "./MeasurementCategory";
+import MeasurementCategoryList from "./MeasurementCategoryList";
 import MeasurementCategoryForm from "./MeasurementCategoryForm";
 
 const MeasurementCategoryRoute = () => {
@@ -9,7 +9,7 @@ const MeasurementCategoryRoute = () => {
     return (
         <Switch>
             <Route exact key={`${moduleName}_table`} path={`/${moduleName}`}>
-                <MeasurementCategory/>
+                <MeasurementCategoryList/>
             </Route>
             <Route exact key={`${moduleName}_create`} path={`/${moduleName}/create`}>
                 <MeasurementCategoryForm/>

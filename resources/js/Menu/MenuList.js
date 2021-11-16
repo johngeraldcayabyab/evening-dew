@@ -1,19 +1,24 @@
 import React from 'react';
-import {Button, Layout, Popconfirm, Space, Table} from "antd";
-import useTableState from "../Hooks/useTableState";
+import {Button, Card, Layout, Popconfirm, Space, Table} from "antd";
+import useListState from "../Hooks/useListState";
 import {Link} from "react-router-dom";
 import manifest from "./__manifest__.json";
-import {DeleteOutlined, EyeOutlined} from "@ant-design/icons";
+import {EyeOutlined, DeleteOutlined} from '@ant-design/icons';
 import TableCreateButton from "../components/ActionButtons/TableCreateButton";
 
-const MeasurementCategory = () => {
-    const [tableState, tableActions] = useTableState(manifest);
+const MenuList = () => {
+    const [tableState, tableActions] = useListState(manifest);
 
     const columns = [
         {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
+            title: 'Label',
+            dataIndex: 'label',
+            key: 'label',
+        },
+        {
+            title: 'Url',
+            dataIndex: 'url',
+            key: 'url',
         },
         {
             title: 'Action',
@@ -34,6 +39,7 @@ const MeasurementCategory = () => {
                             </Button>
                         </Popconfirm>
                     </Space>
+
                 );
             }
         },
@@ -41,9 +47,11 @@ const MeasurementCategory = () => {
 
     return (
         <React.Fragment>
-            <Layout.Content style={{padding: '5px 5px 5px 0'}}>
+            <Layout.Content style={{padding:'5px 5px 5px 0'}}>
                 <Space>
-                    <TableCreateButton manifest={manifest}/>
+                    <Space>
+                        <TableCreateButton manifest={manifest}/>
+                    </Space>
                 </Space>
             </Layout.Content>
             <Table
@@ -57,5 +65,5 @@ const MeasurementCategory = () => {
     )
 };
 
-export default MeasurementCategory;
+export default MenuList;
 
