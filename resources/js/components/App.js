@@ -15,13 +15,11 @@ const App = () => {
         <BrowserRouter>
             <Layout style={{height: '100%'}}>
                 <CustomMenu/>
-                <Content className="site-layout" style={{padding: '0 25px', marginTop: '50px'}}>
-                    <CustomBreadcrumb/>
-                    <div>
-                        <MeasurementCategoryRoute/>
-                        <MeasurementRoute/>
-                        <MenuRoute/>
-                    </div>
+                {/*<Content className="site-layout" style={{padding: '0 25px', marginTop: '50px'}}>*/}
+                <Content className="site-layout" style={{marginTop: '50px'}}>
+                    <MeasurementCategoryRoute/>
+                    <MeasurementRoute/>
+                    <MenuRoute/>
                 </Content>
             </Layout>
         </BrowserRouter>
