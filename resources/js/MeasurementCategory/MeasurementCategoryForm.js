@@ -16,8 +16,8 @@ const MeasurementCategoryForm = () => {
     const [formState, formActions] = useFormState(id, form, manifest);
     return (
         <React.Fragment>
-            <Skeleton loading={formState.initialLoad}>
-                <Spin spinning={formState.initialLoad === false && formState.loading === true}>
+            {/*<Skeleton loading={formState.initialLoad}>*/}
+                {/*<Spin spinning={formState.initialLoad === false && formState.loading === true}>*/}
                     <CustomForm
                         form={form}
                         onFinish={formActions.onFinish}
@@ -56,8 +56,8 @@ const MeasurementCategoryForm = () => {
                             </RowForm>
                         </Card>
                     </CustomForm>
-                </Spin>
-            </Skeleton>
+                {/*</Spin>*/}
+            {/*</Skeleton>*/}
         </React.Fragment>
     );
 };
