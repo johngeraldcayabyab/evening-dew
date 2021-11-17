@@ -3,6 +3,7 @@ import {useLocation} from "react-router";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
+import Title from "antd/lib/typography/Title";
 
 const CustomBreadcrumb = () => {
     const location = useLocation();
@@ -95,22 +96,23 @@ const CustomBreadcrumb = () => {
 
     }, [location.pathname]);
 
-
     return (
-        <Breadcrumb style={{margin: '16px 0'}}>
+        <Breadcrumb>
             {breadcrumbs.map((breadcrumb) => {
                 if (breadcrumb.isLink) {
                     return (
                         <Breadcrumb.Item key={`breadcrumb-${breadcrumb.key}`}>
-                            <Link key={`link-${breadcrumb.key}`} to={breadcrumb.link}>
-                                {breadcrumb.slug}
-                            </Link>
+                            <Title level={5} style={{display: 'inline-block'}}>
+                                <Link key={`link-${breadcrumb.key}`} to={breadcrumb.link}>
+                                    {breadcrumb.slug}
+                                </Link>
+                            </Title>
                         </Breadcrumb.Item>
                     )
                 } else {
                     return (
                         <Breadcrumb.Item key={`breadcrumb-${breadcrumb.key}`}>
-                            {breadcrumb.slug}
+                            <Title level={5} style={{display: 'inline-block'}}>{breadcrumb.slug}</Title>
                         </Breadcrumb.Item>
                     )
                 }

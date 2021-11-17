@@ -7,8 +7,8 @@ const TableExportButton = (props) => {
         <Button
             htmlType={"submit"}
             type={"primary"}
-            className={"custom-button"}
-            size={'small'}
+            // className={"custom-button"}
+            // size={'small'}
         >
             <Link to={`/${props.manifest.moduleName}/create`}>
                 Export

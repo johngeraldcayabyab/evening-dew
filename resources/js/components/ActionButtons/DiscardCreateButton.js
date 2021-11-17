@@ -8,8 +8,8 @@ const DiscardCreateButton = (props) => {
             <Button
                 htmlType={"button"}
                 type={"primary"}
-                className={"custom-button"}
-                size={'small'}
+                // className={"custom-button"}
+                // size={'small'}
             >
                 <Link to={`/${props.manifest.moduleName}`}>
                     Discard
