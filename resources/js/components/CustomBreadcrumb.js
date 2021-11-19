@@ -43,28 +43,33 @@ const CustomBreadcrumb = () => {
             };
         }
 
-        setBreadcrumbs(previousState => {
-            let newState = [...previousState];
+        setBreadcrumbs(() => {
+            let breadcrumbs = [];
+            if (localStorage.getItem("breadcrumbs")) {
+                breadcrumbs = JSON.parse(localStorage.getItem("breadcrumbs"));
+            }
+
+            let breadcrumbsState = [...breadcrumbs];
             if (isMainPath) {
-                newState = [];
+                breadcrumbsState = [];
             }
 
             /**
              *Cuts path back if path exists;
              */
-            let isNewPathExists = previousState.findIndex(state => state.link === newSlug.link);
+            let isNewPathExists = breadcrumbs.findIndex(state => state.link === newSlug.link);
             if (Math.max(0, isNewPathExists)) {
-                newState = newState.slice(0, isNewPathExists);
+                breadcrumbsState = breadcrumbsState.slice(0, isNewPathExists);
             }
 
             /**
-             * Adds a parent breadcrumb if path is lonely
+             * Adds a parent breadcrumb if path is lonely on page refresh
              */
-            if (newState.length === 0 && !isMainPath) {
+            if (breadcrumbsState.length === 0 && !isMainPath) {
                 let newPathname = pathname.split('/');
                 newPathname.pop();
                 newPathname = newPathname.join('/');
-                newState.push({
+                breadcrumbsState.push({
                     key: uuidv4(),
                     slug: titleCase(replaceUnderscoreWithSpace(splitPathName[1])),
                     link: newPathname
@@ -76,23 +81,24 @@ const CustomBreadcrumb = () => {
              * the created page
              */
             if (isEditPagePath) {
-                newState = newState.filter((state) => {
+                breadcrumbsState = breadcrumbsState.filter((state) => {
                     if (state.slug !== 'New') {
                         return state;
                     }
                 });
             }
 
-            newState = newState.map((state) => {
+            breadcrumbsState = breadcrumbsState.map((state) => {
                 state.isLink = true;
                 return state;
             });
             newSlug.isLink = false;
 
-            newState.push(newSlug);
-            return newState;
-        });
+            breadcrumbsState.push(newSlug);
 
+            localStorage.setItem("breadcrumbs", JSON.stringify(breadcrumbsState));
+            return breadcrumbsState;
+        });
 
     }, [location.pathname]);
 
