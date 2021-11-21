@@ -123,6 +123,11 @@ const CustomBreadcrumb = () => {
                     )
                 }
             })}
+
+            {!breadcrumbs.length ? <Breadcrumb.Item><Title level={5} style={{
+                display: 'inline-block',
+                visibility: 'hidden'
+            }}>placeholder for UX</Title></Breadcrumb.Item> : null}
         </Breadcrumb>
     )
 };

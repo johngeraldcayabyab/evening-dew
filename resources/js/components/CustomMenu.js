@@ -6,10 +6,6 @@ import {Link} from "react-router-dom";
 import {uuidv4} from "../Helpers/string";
 
 const CustomMenu = () => {
-    const [appState, setAppState] = useState({
-        menus: [],
-        loading: true
-    });
     const [menus, setMenus] = useState([]);
 
     useEffect(async () => {
@@ -22,20 +18,15 @@ const CustomMenu = () => {
             .then(response => response.json())
             .then(data => (data));
         setMenus(responseData);
-        setAppState({
-            menus: responseData,
-            loading: false
-        })
     }, []);
 
     return (
-        // <Skeleton loading={appState.loading} paragraph={{rows: 0, width: '100%'}} active>
         <Header style={{position: 'fixed', zIndex: 1, width: '100%', padding: 0, height: '50px', lineHeight: '50px'}}>
             <Menu theme={'dark'} mode={'horizontal'}>
                 <Menu.Item key={uuidv4()}>
                     <AppstoreOutlined/>
                 </Menu.Item>
-                {menus.length && menus.map((menu) => {
+                {menus.map((menu) => {
                     return (
                         <Menu.Item key={menu.id}>
                             <Link to={menu.url}>{menu.label}</Link>
@@ -44,7 +35,6 @@ const CustomMenu = () => {
                 })}
             </Menu>
         </Header>
-        // </Skeleton>
     );
 }
 

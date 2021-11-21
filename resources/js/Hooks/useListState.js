@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-const useListState = (manifest) => {
+const useListState = (manifest, columns) => {
     const moduleName = manifest.moduleName;
     const eventName = manifest.eventName;
     const [tableState, setTableState] = useState({
@@ -25,6 +25,23 @@ const useListState = (manifest) => {
                     loading: false,
                 }));
             });
+        },
+        onRow: (record, rowIndex) => {
+            console.log(rowIndex);
+            return {
+                onClick: event => {
+                    console.log(record.id);
+                }, // click row
+                // onDoubleClick: event => {}, // double click row
+                // onContextMenu: event => {}, // right button click row
+                onMouseHover: event => {
+                    // console.log(
+                    //     1
+                    // );
+                    window.status = `http://bla.com/bla.htm${record.id}`;
+                }, // mouse enter row
+                // onMouseLeave: event => {}, // mouse leave row
+            };
         }
     });
 
@@ -40,7 +57,8 @@ const useListState = (manifest) => {
         setTableState(state => ({
             ...state,
             loading: false,
-            dataSource: responseData
+            dataSource: responseData,
+            columns: columns
         }));
     }, []);
 

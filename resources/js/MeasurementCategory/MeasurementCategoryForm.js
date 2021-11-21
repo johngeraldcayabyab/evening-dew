@@ -1,64 +1,52 @@
 import React from 'react';
-import {Card, Form, Input, Skeleton, Spin} from "antd";
+import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
 import FormButtons from "../components/ActionButtons/FormButtons";
 import RowForm from "../components/Grid/RowForm";
 import ColForm from "../components/Grid/ColForm";
-import FormLabel from "../components/Typography/FormLabel";
 import CustomForm from "../components/CustomForm";
 import ControlPanel from "../components/ControlPanel";
+import FormCard from "../components/FormCard";
+import FormItemText from "../components/FormItem/FormItemText";
 
 const MeasurementCategoryForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormState(id, form, manifest);
     return (
-        <React.Fragment>
-            {/*<Skeleton loading={formState.initialLoad}>*/}
-                {/*<Spin spinning={formState.initialLoad === false && formState.loading === true}>*/}
-                    <CustomForm
+        <CustomForm
+            form={form}
+            onFinish={formActions.onFinish}
+            initialValues={formState.initialValues}
+        >
+            <ControlPanel
+                bottomColOneLeft={
+                    <FormButtons
+                        id={id}
                         form={form}
-                        onFinish={formActions.onFinish}
-                        initialValues={formState.initialValues}
-                    >
-                        <ControlPanel
-                            bottomLeft={
-                                <FormButtons
-                                    id={id}
-                                    form={form}
-                                    formState={formState}
-                                    formActions={formActions}
-                                    manifest={manifest}
-                                />
-                            }
+                        formState={formState}
+                        formActions={formActions}
+                        manifest={manifest}
+                    />
+                }
+            />
+            <FormCard>
+                <RowForm>
+                    <ColForm>
+                        <FormItemText
+                            label={'Name'}
+                            name={'name'}
+                            errors={formState.errors}
+                            message={'Please input measurement category name'}
+                            required={true}
+                            formDisabled={formState.formDisabled}
                         />
-
-                        <Card style={{
-                            minWidth: '650px',
-                            maxWidth: '1140px',
-                            minHeight: '330px',
-                            margin: '12px auto 0 auto',
-                        }}>
-                            <RowForm>
-                                <ColForm>
-                                    <Form.Item
-                                        label={<FormLabel>Name</FormLabel>}
-                                        name="name"
-                                        validateStatus={formState.errors.name ? 'error' : false}
-                                        help={formState.errors.name ? formState.errors.name : false}
-                                        rules={[{required: true, message: 'Please input measurement category name'}]}
-                                    >
-                                        <Input disabled={formState.formDisabled}/>
-                                    </Form.Item>
-                                </ColForm>
-                            </RowForm>
-                        </Card>
-                    </CustomForm>
-                {/*</Spin>*/}
-            {/*</Skeleton>*/}
-        </React.Fragment>
+                    </ColForm>
+                </RowForm>
+            </FormCard>
+        </CustomForm>
     );
 };
 
