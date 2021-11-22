@@ -9,28 +9,28 @@ const ControlPanel = (props) => {
                 <Col span={6}>
                     <CustomBreadcrumb/>
                 </Col>
-                <Col span={6}>
-                    {props.topRight}
+                <Col span={6} style={{textAlign: 'right', paddingRight: '8px'}}>
+                    {props.topColOneRight}
                 </Col>
                 <Col span={6}>
-                    {props.topRight}
+                    {props.topColTwoLeft}
                 </Col>
-                <Col span={6}>
-                    {props.topRight}
+                <Col span={6} style={{textAlign: 'right'}}>
+                    {props.topColTwoRight}
                 </Col>
             </Row>
             <Row align={'middle'} style={{marginTop: '5px', marginBottom: '5px'}}>
                 <Col span={6}>
-                    {props.bottomLeft}
+                    {props.bottomColOneLeft}
                 </Col>
                 <Col span={6}>
-                    {props.bottomRight}
+                    {props.bottomColOneRight}
                 </Col>
                 <Col span={6}>
-                    {props.bottomRight}
+                    {props.bottomColTwoLeft}
                 </Col>
                 <Col span={6}>
-                    {props.bottomRight}
+                    {props.bottomColTwoRight}
                 </Col>
             </Row>
         </div>

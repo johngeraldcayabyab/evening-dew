@@ -5,11 +5,10 @@ import {Link} from "react-router-dom";
 import manifest from "./__manifest__.json";
 import {EyeOutlined, DeleteOutlined} from '@ant-design/icons';
 import TableCreateButton from "../components/ActionButtons/TableCreateButton";
+import ControlPanel from "../components/ControlPanel";
 
 const MenuList = () => {
-    const [tableState, tableActions] = useListState(manifest);
-
-    const columns = [
+    const [tableState, tableActions] = useListState(manifest, [
         {
             title: 'Label',
             dataIndex: 'label',
@@ -43,23 +42,20 @@ const MenuList = () => {
                 );
             }
         },
-    ];
+    ]);
 
     return (
         <React.Fragment>
-            <Layout.Content style={{padding:'5px 5px 5px 0'}}>
-                <Space>
-                    <Space>
-                        <TableCreateButton manifest={manifest}/>
-                    </Space>
-                </Space>
-            </Layout.Content>
+            <ControlPanel
+                bottomColOneLeft={<TableCreateButton manifest={manifest}/>}
+            />
             <Table
                 loading={tableState.loading}
                 size={'small'}
                 dataSource={tableState.dataSource}
-                columns={columns}
+                columns={tableState.columns}
                 rowKey={'id'}
+                onRow={tableState.onRow}
             />
         </React.Fragment>
     )

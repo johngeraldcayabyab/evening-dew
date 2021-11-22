@@ -8,7 +8,7 @@ const TableCreateButton = (props) => {
             htmlType={"submit"}
             type={"primary"}
             // className={"custom-button"}
-            // size={'small'}
+            size={'default'}
         >
             <Link to={`/${props.manifest.moduleName}/create`}>
                 Create

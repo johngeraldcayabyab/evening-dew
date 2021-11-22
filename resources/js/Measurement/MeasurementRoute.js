@@ -4,7 +4,6 @@ import manifest from "./__manifest__.json";
 import MeasurementForm from "./MeasurementForm";
 import MeasurementList from "./MeasurementList";
 
-
 const MeasurementRoute = () => {
     const moduleName = manifest.moduleName;
     return (
