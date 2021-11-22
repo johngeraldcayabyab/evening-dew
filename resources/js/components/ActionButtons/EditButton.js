@@ -8,7 +8,7 @@ const EditButton = (props) => {
                 htmlType={"submit"}
                 type={"primary"}
                 // className={"custom-button"}
-                // size={'small'}
+                size={'default'}
                 onClick={() => {
                     props.formActions.toggleEditMode();
                 }}

@@ -7,8 +7,8 @@ const FormItemText = (props) => {
         <Form.Item
             label={<FormLabel>{props.label}</FormLabel>}
             name={props.name}
-            validateStatus={props.errors[props.name] ? 'error' : false}
-            help={props.errors[props.name] ? props.errors[props.name] : false}
+            validateStatus={props.errors[props.name] ? 'error' : null}
+            help={props.errors[props.name] ? props.errors[props.name] : null}
             rules={[{required: props.required, message: props.message}]}
             colon={false}
         >

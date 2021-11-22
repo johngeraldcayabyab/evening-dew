@@ -7,7 +7,7 @@ const SaveCreateButton = (props) => {
                 htmlType={"submit"}
                 type={"primary"}
                 // className={"custom-button"}
-                // size={'small'}
+                size={'default'}
             >
                 Save
             </Button>

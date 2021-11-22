@@ -1,17 +1,14 @@
 import React from 'react';
-import {Button, Col, Layout, Popconfirm, Row, Space, Table} from "antd";
+import {Button, Popconfirm, Space, Table} from "antd";
 import useListState from "../Hooks/useListState";
 import {Link} from "react-router-dom";
 import manifest from "./__manifest__.json";
 import {DeleteOutlined, EyeOutlined} from "@ant-design/icons";
 import TableCreateButton from "../components/ActionButtons/TableCreateButton";
-import CustomBreadcrumb from "../components/CustomBreadcrumb";
 import ControlPanel from "../components/ControlPanel";
 
 const MeasurementCategoryList = () => {
-    const [tableState, tableActions] = useListState(manifest);
-
-    const columns = [
+    const [tableState, tableActions] = useListState(manifest, [
         {
             title: 'Name',
             dataIndex: 'name',
@@ -39,20 +36,20 @@ const MeasurementCategoryList = () => {
                 );
             }
         },
-    ];
+    ]);
 
     return (
         <React.Fragment>
             <ControlPanel
-                bottomLeft={<TableCreateButton manifest={manifest}/>}
+                bottomColOneLeft={<TableCreateButton manifest={manifest}/>}
             />
-
             <Table
                 loading={tableState.loading}
                 size={'small'}
                 dataSource={tableState.dataSource}
-                columns={columns}
+                columns={tableState.columns}
                 rowKey={'id'}
+                onRow={tableState.onRow}
             />
         </React.Fragment>
     )
