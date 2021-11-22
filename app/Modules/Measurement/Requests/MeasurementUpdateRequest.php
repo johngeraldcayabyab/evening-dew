@@ -15,6 +15,7 @@ class MeasurementUpdateRequest extends FormRequest
             'type' => ['required', "in:$types"],
             'ratio' => ['required'],
             'rounding_precision' => ['required'],
+            'measurement_category_id' => ['required', "exists:measurement_categories,id"]
         ];
     }
 }

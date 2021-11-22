@@ -6,7 +6,6 @@ const SaveEditButton = (props) => {
             <Button
                 htmlType={"submit"}
                 type={"primary"}
-                // className={"custom-button"}
                 size={'default'}
             >
                 Save

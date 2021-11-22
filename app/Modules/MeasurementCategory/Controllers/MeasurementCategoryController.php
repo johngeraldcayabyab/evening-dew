@@ -43,4 +43,9 @@ class MeasurementCategoryController
     {
         return response()->json(new MeasurementCategorySlugResource($measurementCategory));
     }
+
+    public function option()
+    {
+        return response()->json(MeasurementCategorySlugResource::collection(MeasurementCategory::get()));
+    }
 }

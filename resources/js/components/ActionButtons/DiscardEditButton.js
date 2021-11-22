@@ -6,7 +6,6 @@ const DiscardEditButton = (props) => {
             <Button
                 htmlType={"button"}
                 type={"primary"}
-                // className={"custom-button"}
                 size={'default'}
                 onClick={() => {
                     props.formActions.toggleEditMode();
