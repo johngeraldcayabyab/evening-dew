@@ -14,6 +14,7 @@ class MeasurementResource extends JsonResource
             'type' => $this->type,
             'ratio' => $this->ratio,
             'rounding_precision' => $this->rounding_precision,
+            'measurement_category_id' => $this->measurement_category_id,
         ];
     }
 }

@@ -12,6 +12,7 @@ import FormItemNumber from "../components/FormItem/FormItemNumber";
 import FormItemSelect from "../components/FormItem/FormItemSelect";
 import ControlPanel from "../components/ControlPanel";
 import FormCard from "../components/FormCard";
+import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
 
 const MeasurementForm = () => {
     let {id} = useParams();
@@ -76,6 +77,16 @@ const MeasurementForm = () => {
                             message={'Please input rounding precision'}
                             required={true}
                             formDisabled={formState.formDisabled}
+                        />
+
+                        <FormItemSelectAjax
+                            label={'Measurement Category'}
+                            name={'measurement_category_id'}
+                            errors={formState.errors}
+                            message={'Please select a measurement category'}
+                            required={true}
+                            formDisabled={formState.formDisabled}
+                            url={'/api/measurement_categories/option'}
                         />
                     </ColForm>
                 </RowForm>

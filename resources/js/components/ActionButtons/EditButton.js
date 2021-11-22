@@ -7,7 +7,6 @@ const EditButton = (props) => {
             <Button
                 htmlType={"submit"}
                 type={"primary"}
-                // className={"custom-button"}
                 size={'default'}
                 onClick={() => {
                     props.formActions.toggleEditMode();
