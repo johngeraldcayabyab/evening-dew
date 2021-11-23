@@ -8,5 +8,9 @@
 seeds.</p>
 
 
+<h5>API Responses</h5>
+<p>"option" method should define the fields that is used for getting the data</p>
+
+
 
 
