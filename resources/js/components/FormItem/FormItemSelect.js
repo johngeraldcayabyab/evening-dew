@@ -1,6 +1,7 @@
 import FormLabel from "../Typography/FormLabel";
 import {Form, Select} from "antd";
 import {useEffect, useState} from "react";
+import {uuidv4} from "../../Helpers/string";
 
 const FormItemSelect = (props) => {
 
@@ -32,7 +33,7 @@ const FormItemSelect = (props) => {
             >
                 {state.options.map((option) => {
                     return (
-                        <Select.Option value={option.value}>{option.label}</Select.Option>
+                        <Select.Option key={uuidv4()} value={option.value}>{option.label}</Select.Option>
                     )
                 })}
             </Select>

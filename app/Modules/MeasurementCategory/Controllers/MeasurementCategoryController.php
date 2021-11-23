@@ -2,12 +2,14 @@
 
 namespace App\Modules\MeasurementCategory\Controllers;
 
+use App\Data\SystemSetting;
 use App\Modules\MeasurementCategory\Models\MeasurementCategory;
 use App\Modules\MeasurementCategory\Requests\MeasurementCategoryStoreRequest;
 use App\Modules\MeasurementCategory\Requests\MeasurementCategoryUpdateRequest;
 use App\Modules\MeasurementCategory\Resources\MeasurementCategoryResource;
 use App\Modules\MeasurementCategory\Resources\MeasurementCategorySlugResource;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class MeasurementCategoryController
 {
@@ -23,7 +25,7 @@ class MeasurementCategoryController
 
     public function store(MeasurementCategoryStoreRequest $request): JsonResponse
     {
-        $headers = ['Location' => route('menus.show', MeasurementCategory::create($request->validated()))];
+        $headers = location_header(route('menus.show', MeasurementCategory::create($request->validated())));
         return response()->json([], STATUS_CREATE, $headers);
     }
 
@@ -44,8 +46,15 @@ class MeasurementCategoryController
         return response()->json(new MeasurementCategorySlugResource($measurementCategory));
     }
 
-    public function option()
+    public function option(Request $request)
     {
-        return response()->json(MeasurementCategorySlugResource::collection(MeasurementCategory::get()));
+        $measurementCategory = new MeasurementCategory();
+        if ($request->search) {
+//            info($request->search);
+//            $measurementCategory = $measurementCategory->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'name']);
+            response()->json(MeasurementCategorySlugResource::collection($measurementCategory));
+        }
+        $measurementCategory = $measurementCategory->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'name']);
+        return response()->json(MeasurementCategorySlugResource::collection($measurementCategory));
     }
 }
