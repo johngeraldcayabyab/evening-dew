@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import {fetchGet} from "../Helpers/fetcher";
 
 const useListState = (manifest, columns) => {
     const moduleName = manifest.moduleName;
@@ -46,12 +47,7 @@ const useListState = (manifest, columns) => {
     });
 
     useEffect(async () => {
-        let responseData = await fetch(`api/${moduleName}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        })
+        let responseData = await fetchGet(`api/${moduleName}`)
             .then(response => response.json())
             .then(data => (data));
         setTableState(state => ({
