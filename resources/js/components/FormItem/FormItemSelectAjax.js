@@ -2,6 +2,7 @@ import FormLabel from "../Typography/FormLabel";
 import {Form, Select} from "antd";
 import {useEffect, useState} from "react";
 import {uuidv4} from "../../Helpers/string";
+import {fetchGet} from "../../Helpers/fetcher";
 
 const FormItemSelectAjax = (props) => {
 
@@ -12,12 +13,24 @@ const FormItemSelectAjax = (props) => {
 
     useEffect(() => {
         if (props.url) {
-            fetch(`${props.url}`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
-            }).then(response => response.json()).then((data) => {
+            fetchGet(`${props.url}`)
+                .then(response => response.json())
+                .then((data) => {
+                    setState((prevState) => ({
+                        ...prevState,
+                        options: data.map((option) => ({
+                            value: option.id,
+                            label: option.slug
+                        }))
+                    }));
+                });
+        }
+    }, []);
+
+    function onSearch(search) {
+        fetchGet(`${props.url}?search=${search}`)
+            .then(response => response.json())
+            .then((data) => {
                 setState((prevState) => ({
                     ...prevState,
                     options: data.map((option) => ({
@@ -26,24 +39,6 @@ const FormItemSelectAjax = (props) => {
                     }))
                 }));
             });
-        }
-    }, []);
-
-    function onSearch(search) {
-        fetch(`${props.url}?search=${search}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        }).then(response => response.json()).then((data) => {
-            // setState((prevState) => ({
-            //     ...prevState,
-            //     options: data.map((option) => ({
-            //         value: option.id,
-            //         label: option.slug
-            //     }))
-            // }));
-        });
     }
 
     return (
@@ -61,7 +56,7 @@ const FormItemSelectAjax = (props) => {
                 showSearch
                 onSearch={onSearch}
                 optionFilterProp="children"
-                filterOption={state.options}
+                filterOption={state.filterOption}
             >
                 {state.options.map((option) => {
                     return (
