@@ -49,48 +49,37 @@ const useFormState = (id, form, manifest) => {
                 loading: true
             }));
 
+            let fetchMethod;
+
             if (id) {
-                await fetchPut(`/api/${manifest.moduleName}/${id}`, values)
-                    .then(() => {
-                        formActions.fetchData();
-                    }).catch(error => {
-                        let status = error.status;
-                        error.json().then((body) => {
-                            if (status === 422) {
-                                message.warning(body.message);
-                            } else if (status === 500) {
-                                message.error(body.message);
-                            }
-                            setFormState(state => ({
-                                ...state,
-                                loading: false,
-                                errors: body.errors
-                            }));
-                        });
-                    });
+                fetchMethod = await fetchPut(`/api/${manifest.moduleName}/${id}`, values).then(() => {
+                    formActions.fetchData();
+                });
             } else {
-                await fetchPost(`/api/${manifest.moduleName}`, values).then(result => {
+                fetchMethod = await fetchPost(`/api/${manifest.moduleName}`, values).then(result => {
                     let headerLocation = result.headers.get('Location');
                     if (headerLocation) {
                         let locationId = headerLocation.split('/').pop();
                         history.push(`/${manifest.moduleName}/${locationId}`);
                     }
-                }).catch(error => {
-                    let status = error.status;
-                    error.json().then((body) => {
-                        if (status === 422) {
-                            message.warning(body.message);
-                        } else if (status === 500) {
-                            message.error(body.message);
-                        }
-                        setFormState(state => ({
-                            ...state,
-                            loading: false,
-                            errors: body.errors
-                        }));
-                    });
                 });
             }
+
+            fetchMethod.catch(error => {
+                let status = error.status;
+                error.json().then((body) => {
+                    if (status === 422) {
+                        message.warning(body.message);
+                    } else if (status === 500) {
+                        message.error(body.message);
+                    }
+                    setFormState(state => ({
+                        ...state,
+                        loading: false,
+                        errors: body.errors
+                    }));
+                });
+            });
 
         },
         toggleEditMode: () => {
