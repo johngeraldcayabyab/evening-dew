@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {fetchGet} from "../Helpers/fetcher";
+import {fetchDelete, fetchGet} from "../Helpers/fetcher";
 
 const useListState = (manifest, columns) => {
     const moduleName = manifest.moduleName;
@@ -14,36 +14,13 @@ const useListState = (manifest, columns) => {
                 ...state,
                 loading: true,
             }));
-            await fetch(`api/${moduleName}/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
-            }).then(() => {
+            await fetchDelete(`api/${moduleName}/${id}`).then(() => {
                 setTableState(state => ({
                     ...state,
                     loading: false,
                 }));
             });
         },
-        onRow: (record, rowIndex) => {
-            console.log(rowIndex);
-            return {
-                onClick: event => {
-                    console.log(record.id);
-                }, // click row
-                // onDoubleClick: event => {}, // double click row
-                // onContextMenu: event => {}, // right button click row
-                onMouseHover: event => {
-                    // console.log(
-                    //     1
-                    // );
-                    window.status = `http://bla.com/bla.htm${record.id}`;
-                }, // mouse enter row
-                // onMouseLeave: event => {}, // mouse leave row
-            };
-        }
     });
 
     useEffect(async () => {
