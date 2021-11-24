@@ -18,7 +18,7 @@ const FormItemNumber = (props) => {
                 // defaultValue="1"
                 // min=""
                 // max="10"
-                step="0.00000000000001"
+                step="0.010"
             />
         </Form.Item>
     )
