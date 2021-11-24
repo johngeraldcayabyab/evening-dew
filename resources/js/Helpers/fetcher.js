@@ -15,6 +15,11 @@ export const fetchPost = (url, values) => {
         headers,
         method: 'POST',
         body: JSON.stringify(values)
+    }).then(response => {
+        if (response.ok) {
+            return response;
+        }
+        throw response;
     });
 }
 
@@ -23,6 +28,11 @@ export const fetchPut = (url, values) => {
         headers,
         method: 'PUT',
         body: JSON.stringify(values)
+    }).then(response => {
+        if (response.ok) {
+            return response;
+        }
+        throw response;
     });
 }
 
@@ -30,5 +40,10 @@ export const fetchDelete = (url) => {
     return fetch(url, {
         headers,
         method: 'DELETE',
+    }).then(response => {
+        if (response.ok) {
+            return response;
+        }
+        throw response;
     });
 }
