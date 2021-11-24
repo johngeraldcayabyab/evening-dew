@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {message} from "antd";
+import {fetchGet} from "../Helpers/fetcher";
 
 const useFormState = (id, form, manifest) => {
     const history = useHistory();
@@ -26,12 +27,7 @@ const useFormState = (id, form, manifest) => {
                 newState.initialLoad = false;
             }
             if (id) {
-                let responseData = await fetch(`/api/${manifest.moduleName}/${id}`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    }
-                })
+                let responseData = await fetchGet(`/api/${manifest.moduleName}/${id}`)
                     .then(response => response.json())
                     .then(data => (data));
                 form.setFieldsValue(responseData);
@@ -53,11 +49,14 @@ const useFormState = (id, form, manifest) => {
                 loading: true
             }));
             let url = `/api/${manifest.moduleName}/`;
+
             let method = 'POST';
             if (id) {
                 url += id;
                 method = 'PUT';
             }
+
+
             await fetch(url, {
                 headers: {
                     'Content-Type': 'application/json',
