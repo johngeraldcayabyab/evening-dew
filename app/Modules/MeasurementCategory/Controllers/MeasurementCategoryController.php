@@ -50,9 +50,7 @@ class MeasurementCategoryController
     {
         $measurementCategory = new MeasurementCategory();
         if ($request->search) {
-//            info($request->search);
-//            $measurementCategory = $measurementCategory->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'name']);
-            response()->json(MeasurementCategorySlugResource::collection($measurementCategory));
+            $measurementCategory = $measurementCategory->where('name', 'like', "%$request->search");
         }
         $measurementCategory = $measurementCategory->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'name']);
         return response()->json(MeasurementCategorySlugResource::collection($measurementCategory));
