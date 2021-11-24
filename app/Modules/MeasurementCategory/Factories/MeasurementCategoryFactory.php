@@ -12,7 +12,7 @@ class MeasurementCategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->firstName()
+            'name' => $this->faker->name()
         ];
     }
 }
