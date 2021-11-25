@@ -7,6 +7,7 @@ const useListState = (manifest, columns) => {
     const [tableState, setTableState] = useState({
         loading: true,
         dataSource: [],
+        selectedRows: []
     });
     const [tableActions] = useState({
         handleDelete: async (id) => {
@@ -21,6 +22,14 @@ const useListState = (manifest, columns) => {
                 }));
             });
         },
+        rowSelection: {
+            onChange: (selectedRowKeys, selectedRows) => {
+                setTableState(state => ({
+                    ...state,
+                    selectedRows: selectedRows
+                }));
+            }
+        }
     });
 
     useEffect(async () => {
