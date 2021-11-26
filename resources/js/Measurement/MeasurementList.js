@@ -7,6 +7,7 @@ import {DeleteOutlined, EyeOutlined} from "@ant-design/icons";
 import TableCreateButton from "../components/ActionButtons/TableCreateButton";
 import ControlPanel from "../components/ControlPanel";
 import CustomTable from "../components/CustomTable";
+import ActionsDropdownButton from "../components/ActionButtons/ActionsDropdownButton";
 
 const MeasurementList = () => {
 
@@ -60,7 +61,7 @@ const MeasurementList = () => {
         <React.Fragment>
             <ControlPanel
                 bottomColOneLeft={<TableCreateButton manifest={manifest}/>}
-                bottomColOneRight={}
+                bottomColOneRight={<ActionsDropdownButton {...tableState} {...tableActions} manifest={manifest}/>}
             />
             <CustomTable {...tableState} {...tableActions} manifest={manifest}/>
         </React.Fragment>

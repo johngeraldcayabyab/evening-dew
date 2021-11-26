@@ -2,7 +2,7 @@ import {Table} from "antd";
 import React from "react";
 import {useHistory} from "react-router-dom";
 
-const CustomTable = (props, manifest) => {
+const CustomTable = (props) => {
     const history = useHistory();
 
     return (

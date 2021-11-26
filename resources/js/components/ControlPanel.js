@@ -23,13 +23,13 @@ const ControlPanel = (props) => {
                 <Col span={6}>
                     {props.bottomColOneLeft}
                 </Col>
-                <Col span={6}>
+                <Col span={6} style={{textAlign: 'right'}}>
                     {props.bottomColOneRight}
                 </Col>
                 <Col span={6}>
                     {props.bottomColTwoLeft}
                 </Col>
-                <Col span={6}>
+                <Col span={6} style={{textAlign: 'right'}}>
                     {props.bottomColTwoRight}
                 </Col>
             </Row>

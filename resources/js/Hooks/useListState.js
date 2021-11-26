@@ -22,6 +22,9 @@ const useListState = (manifest, columns) => {
                 }));
             });
         },
+        handleMassDelete: async () => {
+
+        },
         rowSelection: {
             onChange: (selectedRowKeys, selectedRows) => {
                 setTableState(state => ({
