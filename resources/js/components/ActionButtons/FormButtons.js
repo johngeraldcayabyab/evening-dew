@@ -8,15 +8,24 @@ import DiscardCreateButton from "./DiscardCreateButton";
 import {Space} from "antd";
 
 const FormButtons = (props) => {
+
+    let passedProps = {
+        id: props.id,
+        form: props.form,
+        formState: props.formState,
+        formActions: props.formActions,
+        manifest: props.manifest
+    };
+
     return (
         <Space size={'small'}>
-            <EditButton id={props.id} form={props.form} formState={props.formState} formActions={props.formActions} manifest={props.manifest}/>
-            <SaveEditButton id={props.id} form={props.form} formState={props.formState} formActions={props.formActions} manifest={props.manifest}/>
-            <DiscardEditButton id={props.id} form={props.form} formState={props.formState} formActions={props.formActions} manifest={props.manifest}/>
+            <EditButton {...passedProps}/>
+            <SaveEditButton {...passedProps}/>
+            <DiscardEditButton {...passedProps}/>
 
-            <FormCreateButton id={props.id} form={props.form} formState={props.formState} formActions={props.formActions} manifest={props.manifest}/>
-            <SaveCreateButton id={props.id} form={props.form} formState={props.formState} formActions={props.formActions} manifest={props.manifest}/>
-            <DiscardCreateButton id={props.id} form={props.form} formState={props.formState} formActions={props.formActions} manifest={props.manifest}/>
+            <FormCreateButton {...passedProps}/>
+            <SaveCreateButton {...passedProps}/>
+            <DiscardCreateButton {...passedProps}/>
         </Space>
     )
 };

@@ -3,6 +3,7 @@
 namespace App\Modules\Measurement\Controllers;
 
 use App\Modules\Measurement\Models\Measurement;
+use App\Modules\Measurement\Requests\MeasurementMassDestroyRequest;
 use App\Modules\Measurement\Requests\MeasurementStoreRequest;
 use App\Modules\Measurement\Requests\MeasurementUpdateRequest;
 use App\Modules\Measurement\Resources\MeasurementResource;
@@ -37,6 +38,12 @@ class MeasurementController
     {
         $measurement->delete();
         return response()->json([], STATUS_DELETE);
+    }
+
+    public function mass_destroy(MeasurementMassDestroyRequest $request)
+    {
+        Measurement::whereIn('id', $request->validated()['ids'])->delete();
+        return response()->json([]);
     }
 
     public function slug(Measurement $measurement): JsonResponse
