@@ -23,7 +23,7 @@ const useListState = (manifest, columns) => {
             });
         },
         handleMassDelete: async () => {
-
+            alert(123);
         },
         rowSelection: {
             onChange: (selectedRowKeys, selectedRows) => {
