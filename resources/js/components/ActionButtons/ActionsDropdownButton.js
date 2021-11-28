@@ -2,10 +2,9 @@ import {Menu, Dropdown} from "antd";
 import ListDeleteButton from "./ListDeleteButton";
 
 const ActionsDropdownButton = (props) => {
-    console.log(props);
 
     function handleMenuClick(e) {
-        console.log('click', e);
+        // console.log('click', e);
     }
 
     const menu = (
