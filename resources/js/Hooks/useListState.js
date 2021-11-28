@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {fetchDelete, fetchGet} from "../Helpers/fetcher";
+import {fetchDelete, fetchGet, fetchPost} from "../Helpers/fetcher";
 
 const useListState = (manifest, columns) => {
     const moduleName = manifest.moduleName;
@@ -23,7 +23,11 @@ const useListState = (manifest, columns) => {
             });
         },
         handleMassDelete: async () => {
-            alert(123);
+            setTableState(state => ({
+                ...state,
+                loading: true,
+            }));
+            await fetchPost(`api/${moduleName}/mass_destroy`);
         },
         rowSelection: {
             onChange: (selectedRowKeys, selectedRows) => {
