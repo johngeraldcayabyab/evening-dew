@@ -8,9 +8,11 @@ const ListDeleteButton = (props) => {
                 title={`Are you sure you want to delete the selected items?`}
                 okText="Yes"
                 cancelText="No" onConfirm={() => {
-                console.log(props.handleMassDelete());
-                // props.tableActions.handleMassDelete();
-            }}>
+                let ids = props.selectedRows.map((row) => (row.id));
+                console.log(ids);
+                props.handleMassDelete(ids);
+            }}
+            >
                 Delete
             </Popconfirm>
         </Menu.Item>
