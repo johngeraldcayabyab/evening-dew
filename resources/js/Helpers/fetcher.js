@@ -11,7 +11,6 @@ export const fetchGet = (url) => {
 }
 
 export const fetchPost = (url, values) => {
-    console.log(JSON.stringify(values));
     return fetch(url, {
         headers,
         method: 'POST',
