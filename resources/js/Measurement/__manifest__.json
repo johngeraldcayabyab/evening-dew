@@ -1,6 +1,6 @@
 {
     "moduleName": "measurements",
-    "eventName": "MeasurementCrudEvent"
+    "eventName": "MeasurementEvent"
 }
 
 
