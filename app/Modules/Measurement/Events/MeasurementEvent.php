@@ -13,6 +13,8 @@ class MeasurementEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $connection = 'redis';
+
     public $model;
     public $method;
 
