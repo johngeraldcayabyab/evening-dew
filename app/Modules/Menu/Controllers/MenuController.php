@@ -4,6 +4,7 @@ namespace App\Modules\Menu\Controllers;
 
 
 use App\Modules\Menu\Models\Menu;
+use App\Modules\Menu\Requests\MenuMassDestroyRequest;
 use App\Modules\Menu\Requests\MenuStoreRequest;
 use App\Modules\Menu\Requests\MenuUpdateRequest;
 use App\Modules\Menu\Resources\MenuResource;
@@ -38,6 +39,12 @@ class MenuController
     public function destroy(Menu $menu): JsonResponse
     {
         $menu->delete();
+        return response()->json([], STATUS_DELETE);
+    }
+
+    public function mass_destroy(MenuMassDestroyRequest $request)
+    {
+        Menu::whereIn('id', $request->validated()['ids'])->delete();
         return response()->json([], STATUS_DELETE);
     }
 
