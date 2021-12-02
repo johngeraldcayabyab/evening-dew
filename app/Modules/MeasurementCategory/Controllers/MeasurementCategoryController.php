@@ -4,6 +4,7 @@ namespace App\Modules\MeasurementCategory\Controllers;
 
 use App\Data\SystemSetting;
 use App\Modules\MeasurementCategory\Models\MeasurementCategory;
+use App\Modules\MeasurementCategory\Requests\MeasurementCategoryMassDestroyRequest;
 use App\Modules\MeasurementCategory\Requests\MeasurementCategoryStoreRequest;
 use App\Modules\MeasurementCategory\Requests\MeasurementCategoryUpdateRequest;
 use App\Modules\MeasurementCategory\Resources\MeasurementCategoryResource;
@@ -38,6 +39,12 @@ class MeasurementCategoryController
     public function destroy(MeasurementCategory $measurementCategory): JsonResponse
     {
         $measurementCategory->delete();
+        return response()->json([], STATUS_DELETE);
+    }
+
+    public function mass_destroy(MeasurementCategoryMassDestroyRequest $request)
+    {
+        MeasurementCategory::whereIn('id', $request->validated()['ids'])->delete();
         return response()->json([], STATUS_DELETE);
     }
 
