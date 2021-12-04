@@ -65,21 +65,21 @@ const useFormState = (id, form, manifest) => {
                 });
             }
 
-            fetchMethod.catch(error => {
-                let status = error.status;
-                error.json().then((body) => {
-                    if (status === 422) {
-                        message.warning(body.message);
-                    } else if (status === 500) {
-                        message.error(body.message);
-                    }
-                    setFormState(state => ({
-                        ...state,
-                        loading: false,
-                        errors: body.errors
-                    }));
-                });
-            });
+            // fetchMethod.catch(error => {
+            //     let status = error.status;
+            //     error.json().then((body) => {
+            //         if (status === 422) {
+            //             message.warning(body.message);
+            //         } else if (status === 500) {
+            //             message.error(body.message);
+            //         }
+            //         setFormState(state => ({
+            //             ...state,
+            //             loading: false,
+            //             errors: body.errors
+            //         }));
+            //     });
+            // });
 
         },
         toggleEditMode: () => {

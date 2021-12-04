@@ -2,7 +2,7 @@
 
 namespace App\Modules\Measurement\Observers;
 
-use App\Modules\Measurement\Events\MeasurementEvent;
+use App\Events\MeasurementEvent;
 use App\Modules\Measurement\Models\Measurement;
 
 class MeasurementObserver

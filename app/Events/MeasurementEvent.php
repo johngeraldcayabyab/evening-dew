@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Measurement\Events;
+namespace App\Events;
 
 use App\Modules\Measurement\Models\Measurement;
 use Illuminate\Broadcasting\Channel;
@@ -12,8 +12,6 @@ use Illuminate\Queue\SerializesModels;
 class MeasurementEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
-    public $connection = 'redis';
 
     public $model;
     public $method;
@@ -28,5 +26,10 @@ class MeasurementEvent implements ShouldBroadcast
     public function broadcastOn()
     {
         return new Channel('measurements');
+    }
+
+    public function broadcastAs()
+    {
+        return 'measurements';
     }
 }
