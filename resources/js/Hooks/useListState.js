@@ -62,30 +62,30 @@ const useListState = (manifest, columns) => {
 
 
     useEffect(() => {
-        Echo.channel(moduleName)
-            .listen(eventName, e => {
-                setTableState(state => {
-                    let newState = {
-                        ...state,
-                        loading: false,
-                    };
-                    if (e.method === 'created') {
-                        newState.dataSource = [e.model, ...state.dataSource];
-                    }
-                    if (e.method === 'updated') {
-                        newState.dataSource = [...state.dataSource.map((data) => {
-                            if (data.id === e.model.id) {
-                                data = e.model;
-                            }
-                            return data;
-                        })]
-                    }
-                    if (e.method === 'deleted') {
-                        newState.dataSource = [...state.dataSource.filter(index => index.id !== e.model.id)];
-                    }
-                    return newState;
-                });
+        console.log(moduleName, eventName);
+        Echo.channel(`measurements`).listen(`.measurements`, e => {
+            setTableState(state => {
+                let newState = {
+                    ...state,
+                    loading: false,
+                };
+                if (e.method === 'created') {
+                    newState.dataSource = [e.model, ...state.dataSource];
+                }
+                if (e.method === 'updated') {
+                    newState.dataSource = [...state.dataSource.map((data) => {
+                        if (data.id === e.model.id) {
+                            data = e.model;
+                        }
+                        return data;
+                    })]
+                }
+                if (e.method === 'deleted') {
+                    newState.dataSource = [...state.dataSource.filter(index => index.id !== e.model.id)];
+                }
+                return newState;
             });
+        });
         return () => {
             Echo.leaveChannel(moduleName);
         };
