@@ -24,6 +24,7 @@ class MeasurementController
 
     public function store(MeasurementStoreRequest $request): JsonResponse
     {
+        info('egg bert');
         $headers = location_header(route('menus.show', Measurement::create($request->validated())));
         return response()->json([], STATUS_CREATE, $headers);
     }
@@ -43,7 +44,7 @@ class MeasurementController
     public function mass_destroy(MeasurementMassDestroyRequest $request)
     {
         Measurement::whereIn('id', $request->validated()['ids'])->delete();
-        return response()->json([]);
+        return response()->json([], STATUS_DELETE);
     }
 
     public function slug(Measurement $measurement): JsonResponse

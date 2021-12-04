@@ -37,5 +37,4 @@ const CustomMenu = () => {
         </Header>
     );
 }
-
 export default CustomMenu;
