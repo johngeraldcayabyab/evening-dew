@@ -22,12 +22,21 @@ const useListState = (manifest, columns) => {
                 }));
             });
         },
-        handleMassDelete: async () => {
+
+        handleMassDelete: async (ids) => {
+
             setTableState(state => ({
                 ...state,
                 loading: true,
             }));
-            await fetchPost(`api/${moduleName}/mass_destroy`);
+
+            await fetchPost(`api/${moduleName}/mass_destroy`, {ids: ids}).then(() => {
+                setTableState(state => ({
+                    ...state,
+                    loading: false,
+                }));
+            });
+
         },
         rowSelection: {
             onChange: (selectedRowKeys, selectedRows) => {

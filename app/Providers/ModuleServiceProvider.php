@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Modules\Measurement\Models\Measurement;
+use App\Modules\Measurement\Observers\MeasurementObserver;
 use Carbon\Laravel\ServiceProvider;
 
 class ModuleServiceProvider extends ServiceProvider
@@ -17,14 +19,15 @@ class ModuleServiceProvider extends ServiceProvider
 
     private function observe()
     {
-        foreach ($this->modules as $module) {
-            $modulePath = "\\App\Modules\\$module\\";
-            $modelNamespace = $modulePath . "Models\\" . $module;
-            $observerNamespace = $modulePath . "Observers\\" . $module . "Observer";
-            $observerNamespace = new $observerNamespace;
-            $observerNamespace = get_class($observerNamespace);
-            $modelNamespace::observe($observerNamespace);
-        }
+        Measurement::observe(new MeasurementObserver());
+//        foreach ($this->modules as $module) {
+//            $modulePath = "\\App\Modules\\$module\\";
+//            $modelNamespace = $modulePath . "Models\\" . $module;
+//            $observerNamespace = $modulePath . "Observers\\" . $module . "Observer";
+//            $observerNamespace = new $observerNamespace;
+//            $observerNamespace = get_class($observerNamespace);
+//            $modelNamespace::observe($observerNamespace);
+//        }
     }
 
     private function migration()

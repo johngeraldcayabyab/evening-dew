@@ -11,51 +11,29 @@ import ActionsDropdownButton from "../components/ActionButtons/ActionsDropdownBu
 
 const MeasurementList = () => {
 
-
     const [tableState, tableActions] = useListState(manifest, [
-        {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
-        },
-        {
-            title: 'Type',
-            dataIndex: 'type',
-            key: 'type',
-        },
-        {
-            title: 'Ratio',
-            dataIndex: 'ratio',
-            key: 'ratio',
-        },
-        {
-            title: 'Rounding Precision',
-            dataIndex: 'rounding_precision',
-            key: 'rounding_precision',
-        },
-        // {
-        //     title: 'Action',
-        //     dataIndex: '',
-        //     key: 'x',
-        //     render: (data) => {
-        //         return (
-        //             <Space>
-        //                 <Button size={"small"} type="primary">
-        //                     <Link to={`/${manifest.moduleName}/${data.id}`}><EyeOutlined/></Link>
-        //                 </Button>
-        //                 <Popconfirm title={`Are you sure delete this ${manifest.moduleName}?`} okText="Yes"
-        //                             cancelText="No" onConfirm={() => {
-        //                     tableActions.handleDelete(data.id);
-        //                 }}>
-        //                     <Button size={"small"} type="primary" danger>
-        //                         <DeleteOutlined/>
-        //                     </Button>
-        //                 </Popconfirm>
-        //             </Space>
-        //         );
-        //     }
-        // },
-    ]);
+            {
+                title: 'Name',
+                dataIndex: 'name',
+                key: 'name',
+            },
+            {
+                title: 'Type',
+                dataIndex: 'type',
+                key: 'type',
+            },
+            {
+                title: 'Ratio',
+                dataIndex: 'ratio',
+                key: 'ratio',
+            },
+            {
+                title: 'Rounding Precision',
+                dataIndex: 'rounding_precision',
+                key: 'rounding_precision',
+            },
+        ])
+    ;
 
     return (
         <React.Fragment>
