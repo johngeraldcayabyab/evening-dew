@@ -62,8 +62,8 @@ const useListState = (manifest, columns) => {
 
 
     useEffect(() => {
-        console.log(moduleName, eventName);
-        Echo.channel(`measurements`).listen(`.measurements`, e => {
+        Echo.channel(`${moduleName}_channel`).listen(`.${moduleName}_event`, e => {
+            console.log(e);
             setTableState(state => {
                 let newState = {
                     ...state,

@@ -1,15 +1,16 @@
 import '../css/App.scss';
 
-import Echo from "laravel-echo";
-
-console.log('ur shit');
-// window.io = require('socket.io-client');
+import Echo from 'laravel-echo';
 
 window.Pusher = require('pusher-js');
 
+console.log(process.env.MIX_PUSHER_APP_KEY);
+
+console.log('egg');
+
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: process.env.MIX_PUSHER_APP_KEY,
-    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-    forceTLS: true,
+    key: "123",
+    cluster: "123",
+    forceTLS: true
 });

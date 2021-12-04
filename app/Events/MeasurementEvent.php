@@ -25,11 +25,11 @@ class MeasurementEvent implements ShouldBroadcast
 
     public function broadcastOn()
     {
-        return new Channel('measurements');
+        return new Channel('measurements_channel');
     }
 
     public function broadcastAs()
     {
-        return 'measurements';
+        return 'measurements_event';
     }
 }
