@@ -2,6 +2,8 @@
 
 namespace App\Modules\Measurement\Controllers;
 
+use App\Contracts\ControllerInterface;
+use App\Data\SystemSetting;
 use App\Modules\Measurement\Models\Measurement;
 use App\Modules\Measurement\Requests\MeasurementMassDestroyRequest;
 use App\Modules\Measurement\Requests\MeasurementStoreRequest;
@@ -9,8 +11,9 @@ use App\Modules\Measurement\Requests\MeasurementUpdateRequest;
 use App\Modules\Measurement\Resources\MeasurementResource;
 use App\Modules\Measurement\Resources\MeasurementSlugResource;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
-class MeasurementController
+class MeasurementController implements ControllerInterface
 {
     public function index(): JsonResponse
     {
@@ -49,5 +52,15 @@ class MeasurementController
     public function slug(Measurement $measurement): JsonResponse
     {
         return response()->json(new MeasurementSlugResource($measurement));
+    }
+
+    public function option(Request $request)
+    {
+        $measurement = new Measurement();
+        if ($request->search) {
+            $measurement = $measurement->where('label', 'like', "%$request->search%");
+        }
+        $measurement = $measurement->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'name']);
+        return response()->json(MeasurementSlugResource::collection($measurement));
     }
 }

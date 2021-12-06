@@ -3,6 +3,7 @@
 namespace App\Modules\Menu\Controllers;
 
 
+use App\Data\SystemSetting;
 use App\Modules\Menu\Models\Menu;
 use App\Modules\Menu\Requests\MenuMassDestroyRequest;
 use App\Modules\Menu\Requests\MenuStoreRequest;
@@ -10,6 +11,7 @@ use App\Modules\Menu\Requests\MenuUpdateRequest;
 use App\Modules\Menu\Resources\MenuResource;
 use App\Modules\Menu\Resources\MenuSlugResource;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class MenuController
@@ -51,6 +53,16 @@ class MenuController
     public function slug(Menu $menu): JsonResponse
     {
         return response()->json(new MenuSlugResource($menu));
+    }
+
+    public function option(Request $request)
+    {
+        $menu = new Menu();
+        if ($request->search) {
+            $menu = $menu->where('label', 'like', "%$request->search%");
+        }
+        $menu = $menu->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'name']);
+        return response()->json(MenuSlugResource::collection($menu));
     }
 
     public function appMenu()
