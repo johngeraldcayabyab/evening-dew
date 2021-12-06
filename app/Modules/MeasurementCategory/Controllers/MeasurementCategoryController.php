@@ -53,7 +53,7 @@ class MeasurementCategoryController
         return response()->json(new MeasurementCategorySlugResource($measurementCategory));
     }
 
-    public function option(Request $request)
+    public function option(Request $request): JsonResponse
     {
         $measurementCategory = new MeasurementCategory();
         if ($request->search) {
