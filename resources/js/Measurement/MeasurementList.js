@@ -1,9 +1,6 @@
 import React from 'react';
-import {Button, Layout, Popconfirm, Space, Table} from "antd";
 import useListState from "../Hooks/useListState";
-import {Link, useHistory} from "react-router-dom";
 import manifest from "./__manifest__.json";
-import {DeleteOutlined, EyeOutlined} from "@ant-design/icons";
 import TableCreateButton from "../components/ActionButtons/TableCreateButton";
 import ControlPanel from "../components/ControlPanel";
 import CustomTable from "../components/CustomTable";
