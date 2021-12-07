@@ -64,11 +64,4 @@ class MenuController
         $menu = $menu->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'name']);
         return response()->json(MenuSlugResource::collection($menu));
     }
-
-    public function appMenu()
-    {
-        $cache = Cache::rememberForever('menus.all', function () {
-            return Menu::orderBy('created_at', 'desc')->get();
-        });
-    }
 }
