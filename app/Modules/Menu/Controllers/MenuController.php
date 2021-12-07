@@ -21,9 +21,9 @@ class MenuController
         return response()->json(MenuResource::collection(Menu::orderBy('created_at', 'desc')->get()));
     }
 
-    public function show(Menu $Menu): JsonResponse
+    public function show(Menu $model): JsonResponse
     {
-        return response()->json(new MenuResource($Menu));
+        return response()->json(new MenuResource($model));
     }
 
     public function store(MenuStoreRequest $request): JsonResponse
@@ -32,30 +32,30 @@ class MenuController
         return response()->json([], STATUS_CREATE, $headers);
     }
 
-    public function update(MenuUpdateRequest $request, Menu $menu): JsonResponse
+    public function update(MenuUpdateRequest $request, Menu $model): JsonResponse
     {
-        $menu->update($request->validated());
+        $model->update($request->validated());
         return response()->json([], STATUS_UPDATE);
     }
 
-    public function destroy(Menu $menu): JsonResponse
+    public function destroy(Menu $model): JsonResponse
     {
-        $menu->delete();
+        $model->delete();
         return response()->json([], STATUS_DELETE);
     }
 
-    public function mass_destroy(MenuMassDestroyRequest $request)
+    public function mass_destroy(MenuMassDestroyRequest $request): JsonResponse
     {
         Menu::whereIn('id', $request->validated()['ids'])->delete();
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(Menu $menu): JsonResponse
+    public function slug(Menu $model): JsonResponse
     {
-        return response()->json(new MenuSlugResource($menu));
+        return response()->json(new MenuSlugResource($model));
     }
 
-    public function option(Request $request)
+    public function option(Request $request): JsonResponse
     {
         $menu = new Menu();
         if ($request->search) {
