@@ -2,7 +2,6 @@
 
 namespace App\Modules\Measurement\Controllers;
 
-use App\Contracts\ControllerInterface;
 use App\Data\SystemSetting;
 use App\Modules\Measurement\Models\Measurement;
 use App\Modules\Measurement\Requests\MeasurementMassDestroyRequest;
@@ -13,16 +12,16 @@ use App\Modules\Measurement\Resources\MeasurementSlugResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class MeasurementController implements ControllerInterface
+class MeasurementController
 {
     public function index(): JsonResponse
     {
         return response()->json(MeasurementResource::collection(Measurement::orderBy('created_at', 'desc')->get()));
     }
 
-    public function show(Measurement $measurement): JsonResponse
+    public function show(Measurement $model): JsonResponse
     {
-        return response()->json(new MeasurementResource($measurement));
+        return response()->json(new MeasurementResource($model));
     }
 
     public function store(MeasurementStoreRequest $request): JsonResponse
@@ -31,36 +30,36 @@ class MeasurementController implements ControllerInterface
         return response()->json([], STATUS_CREATE, $headers);
     }
 
-    public function update(MeasurementUpdateRequest $request, Measurement $measurement): JsonResponse
+    public function update(MeasurementUpdateRequest $request, Measurement $model): JsonResponse
     {
-        $measurement->update($request->validated());
+        $model->update($request->validated());
         return response()->json([], STATUS_UPDATE);
     }
 
-    public function destroy(Measurement $measurement): JsonResponse
+    public function destroy(Measurement $model): JsonResponse
     {
-        $measurement->delete();
+        $model->delete();
         return response()->json([], STATUS_DELETE);
     }
 
-    public function mass_destroy(MeasurementMassDestroyRequest $request)
+    public function mass_destroy(MeasurementMassDestroyRequest $request): JsonResponse
     {
         Measurement::whereIn('id', $request->validated()['ids'])->delete();
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(Measurement $measurement): JsonResponse
+    public function slug(Measurement $model): JsonResponse
     {
-        return response()->json(new MeasurementSlugResource($measurement));
+        return response()->json(new MeasurementSlugResource($model));
     }
 
-    public function option(Request $request)
+    public function option(Request $request): JsonResponse
     {
-        $measurement = new Measurement();
+        $model = new Measurement();
         if ($request->search) {
-            $measurement = $measurement->where('label', 'like', "%$request->search%");
+            $model = $model->where('label', 'like', "%$request->search%");
         }
-        $measurement = $measurement->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'name']);
-        return response()->json(MeasurementSlugResource::collection($measurement));
+        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'name']);
+        return response()->json(MeasurementSlugResource::collection($model));
     }
 }
