@@ -1,15 +1,15 @@
 import React from 'react';
-import {Form, Input} from "antd";
+import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
 import FormButtons from "../components/ActionButtons/FormButtons";
 import RowForm from "../components/Grid/RowForm";
 import ColForm from "../components/Grid/ColForm";
-import FormLabel from "../components/Typography/FormLabel";
 import CustomForm from "../components/CustomForm";
 import ControlPanel from "../components/ControlPanel";
 import FormCard from "../components/FormCard";
+import FormItemText from "../components/FormItem/FormItemText";
 
 const MenuForm = () => {
     let {id} = useParams();
@@ -36,24 +36,23 @@ const MenuForm = () => {
             <FormCard>
                 <RowForm>
                     <ColForm>
-                        <Form.Item
-                            label={<FormLabel>Label</FormLabel>}
-                            name="label"
-                            validateStatus={formState.errors.label ? 'error' : false}
-                            help={formState.errors.label ? formState.errors.label : false}
-                            rules={[{required: true, message: 'Please input label name'}]}
-                        >
-                            <Input disabled={formState.formDisabled}/>
-                        </Form.Item>
-                        <Form.Item
-                            label={<FormLabel>Url</FormLabel>}
-                            name="url"
-                            validateStatus={formState.errors.url ? 'error' : false}
-                            help={formState.errors.url ? formState.errors.url : false}
-                            rules={[{required: true, message: 'Please input url'}]}
-                        >
-                            <Input disabled={formState.formDisabled}/>
-                        </Form.Item>
+                        <FormItemText
+                            label={'Label'}
+                            name={'name'}
+                            errors={formState.errors}
+                            message={'Please input label name'}
+                            required={true}
+                            formDisabled={formState.formDisabled}
+                        />
+
+                        <FormItemText
+                            label={'Url'}
+                            name={'url'}
+                            errors={formState.errors}
+                            message={'Please input url'}
+                            required={true}
+                            formDisabled={formState.formDisabled}
+                        />
                     </ColForm>
                 </RowForm>
             </FormCard>
