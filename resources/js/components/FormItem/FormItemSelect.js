@@ -30,10 +30,13 @@ const FormItemSelect = (props) => {
             <Select
                 allowClear
                 disabled={props.formDisabled}
+                showSearch
             >
                 {state.options.map((option) => {
                     return (
-                        <Select.Option key={uuidv4()} value={option.value}>{option.label}</Select.Option>
+                        <Select.Option key={uuidv4()} value={option.value}>
+                            {option.label}
+                        </Select.Option>
                     )
                 })}
             </Select>
