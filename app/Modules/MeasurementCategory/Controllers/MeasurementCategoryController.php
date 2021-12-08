@@ -20,9 +20,9 @@ class MeasurementCategoryController
         return response()->json(MeasurementCategoryResource::collection(MeasurementCategory::orderBy('created_at', 'desc')->get()));
     }
 
-    public function show(MeasurementCategory $model): JsonResponse
+    public function show(MeasurementCategory $measurementCategory): JsonResponse
     {
-        return response()->json(new MeasurementCategoryResource($model));
+        return response()->json(new MeasurementCategoryResource($measurementCategory));
     }
 
     public function store(MeasurementCategoryStoreRequest $request): JsonResponse
@@ -31,15 +31,15 @@ class MeasurementCategoryController
         return response()->json([], STATUS_CREATE, $headers);
     }
 
-    public function update(MeasurementCategoryUpdateRequest $request, MeasurementCategory $model): JsonResponse
+    public function update(MeasurementCategoryUpdateRequest $request, MeasurementCategory $measurementCategory): JsonResponse
     {
-        $model->update($request->validated());
+        $measurementCategory->update($request->validated());
         return response()->json([], STATUS_UPDATE);
     }
 
-    public function destroy(MeasurementCategory $model): JsonResponse
+    public function destroy(MeasurementCategory $measurementCategory): JsonResponse
     {
-        $model->delete();
+        $measurementCategory->delete();
         return response()->json([], STATUS_DELETE);
     }
 
@@ -49,9 +49,9 @@ class MeasurementCategoryController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(MeasurementCategory $model): JsonResponse
+    public function slug(MeasurementCategory $measurementCategory): JsonResponse
     {
-        return response()->json(new MeasurementCategorySlugResource($model));
+        return response()->json(new MeasurementCategorySlugResource($measurementCategory));
     }
 
     public function option(Request $request): JsonResponse

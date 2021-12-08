@@ -22,7 +22,12 @@ const MeasurementForm = () => {
         <CustomForm
             form={form}
             onFinish={formActions.onFinish}
-            initialValues={formState.initialValues}
+            initialValues={{
+                type: 'reference',
+                ratio: 1,
+                rounding_precision: 0.01,
+                ...formState.initialValues
+            }}
         >
             <ControlPanel
                 bottomColOneLeft={
@@ -92,7 +97,6 @@ const MeasurementForm = () => {
                 </RowForm>
             </FormCard>
         </CustomForm>
-
     );
 };
 
