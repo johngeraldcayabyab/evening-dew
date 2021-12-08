@@ -15,10 +15,9 @@ const FormItemNumber = (props) => {
             <InputNumber
                 disabled={props.formDisabled}
                 style={{width: "100%"}}
-                // defaultValue="1"
+                step={props.step}
                 // min=""
                 // max="10"
-                step="0.010"
             />
         </Form.Item>
     )
