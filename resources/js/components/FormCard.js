@@ -8,7 +8,7 @@ const FormCard = (props) => {
             minHeight: '330px',
             margin: '12px auto 0 auto',
         }}>
-            {props.children}
+            {props.loading ? null : props.children}
         </Card>
     )
 }
