@@ -38,9 +38,9 @@ const MenuForm = () => {
                     <ColForm>
                         <FormItemText
                             label={'Label'}
-                            name={'name'}
+                            name={'label'}
                             errors={formState.errors}
-                            message={'Please input label name'}
+                            message={'Please input label'}
                             required={true}
                             formDisabled={formState.formDisabled}
                         />
