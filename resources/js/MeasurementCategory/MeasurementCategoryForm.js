@@ -32,7 +32,7 @@ const MeasurementCategoryForm = () => {
                     />
                 }
             />
-            <FormCard>
+            <FormCard {...formState}>
                 <RowForm>
                     <ColForm>
                         <FormItemText

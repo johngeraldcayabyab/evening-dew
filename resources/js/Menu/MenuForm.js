@@ -33,7 +33,7 @@ const MenuForm = () => {
                     />
                 }
             />
-            <FormCard>
+            <FormCard {...formState}>
                 <RowForm>
                     <ColForm>
                         <FormItemText

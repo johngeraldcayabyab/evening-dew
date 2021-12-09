@@ -40,7 +40,7 @@ const MeasurementForm = () => {
                     />
                 }
             />
-            <FormCard>
+            <FormCard {...formState}>
                 <RowForm>
                     <ColForm>
                         <FormItemText
