@@ -47,18 +47,19 @@ const MeasurementForm = () => {
                             label={'Name'}
                             name={'name'}
                             errors={formState.errors}
+                            formDisabled={formState.formDisabled}
                             message={'Please input measurement category name'}
                             required={true}
-                            formDisabled={formState.formDisabled}
+
                         />
 
                         <FormItemSelect
                             label={'Type'}
                             name={'type'}
                             errors={formState.errors}
+                            formDisabled={formState.formDisabled}
                             message={'Please select a type'}
                             required={true}
-                            formDisabled={formState.formDisabled}
                             options={[
                                 {value: 'reference', label: 'Reference measurement for this category'},
                                 {value: 'smaller', label: 'Smaller than the reference measurement'},
@@ -69,28 +70,25 @@ const MeasurementForm = () => {
                         <FormItemNumber
                             label={'Ratio'}
                             name={'ratio'}
-                            errors={formState.errors}
+                            {...formState}
                             message={'Please input ratio'}
                             required={true}
-                            formDisabled={formState.formDisabled}
                         />
 
                         <FormItemNumber
                             label={'Rounding precision'}
                             name={'rounding_precision'}
-                            errors={formState.errors}
+                            {...formState}
                             message={'Please input rounding precision'}
                             required={true}
-                            formDisabled={formState.formDisabled}
                         />
 
                         <FormItemSelectAjax
                             label={'Measurement Category'}
                             name={'measurement_category_id'}
-                            errors={formState.errors}
+                            {...formState}
                             message={'Please select a measurement category'}
                             required={true}
-                            formDisabled={formState.formDisabled}
                             url={'/api/measurement_categories/option'}
                         />
                     </ColForm>

@@ -39,19 +39,17 @@ const MenuForm = () => {
                         <FormItemText
                             label={'Label'}
                             name={'label'}
-                            errors={formState.errors}
+                            {...formState}
                             message={'Please input label'}
                             required={true}
-                            formDisabled={formState.formDisabled}
                         />
 
                         <FormItemText
                             label={'Url'}
                             name={'url'}
-                            errors={formState.errors}
+                            {...formState}
                             message={'Please input url'}
                             required={true}
-                            formDisabled={formState.formDisabled}
                         />
                     </ColForm>
                 </RowForm>
