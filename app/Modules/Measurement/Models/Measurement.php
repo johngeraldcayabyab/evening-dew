@@ -3,6 +3,7 @@
 namespace App\Modules\Measurement\Models;
 
 use App\Modules\MeasurementCategory\Models\MeasurementCategory;
+use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,6 +12,7 @@ class Measurement extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use BroadcastsEvents;
 
     const BIGGER = 'bigger';
     const SMALLER = 'smaller';
