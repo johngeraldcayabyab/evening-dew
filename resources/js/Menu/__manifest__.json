@@ -1,6 +1,7 @@
 {
     "moduleName": "menus",
-    "eventName": "MenuCrudEvent"
+    "eventName": "MenuCrudEvent",
+    "modelName": "Menu"
 }
 
 

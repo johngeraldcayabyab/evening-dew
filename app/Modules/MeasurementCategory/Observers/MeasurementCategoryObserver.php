@@ -9,16 +9,16 @@ class MeasurementCategoryObserver
 {
     public function created(MeasurementCategory $model)
     {
-        MeasurementCategoryCrudEvent::dispatch($model, 'created');
+//        MeasurementCategoryCrudEvent::dispatch($model, 'created');
     }
 
     public function updated(MeasurementCategory $model)
     {
-        MeasurementCategoryCrudEvent::dispatch($model, 'updated');
+//        MeasurementCategoryCrudEvent::dispatch($model, 'updated');
     }
 
     public function deleted(MeasurementCategory $model)
     {
-        MeasurementCategoryCrudEvent::dispatch($model, 'deleted');
+//        MeasurementCategoryCrudEvent::dispatch($model, 'deleted');
     }
 }

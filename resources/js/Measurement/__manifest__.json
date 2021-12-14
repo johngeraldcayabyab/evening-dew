@@ -1,6 +1,7 @@
 {
     "moduleName": "measurements",
-    "eventName": "measurements"
+    "eventName": "measurements",
+    "modelName": "Measurement"
 }
 
 

@@ -1,6 +1,7 @@
 {
     "moduleName": "measurement_categories",
-    "eventName": "MeasurementCategoryCrudEvent"
+    "eventName": "MeasurementCategoryCrudEvent",
+    "modelName": "MeasurementCategory"
 }
 
 

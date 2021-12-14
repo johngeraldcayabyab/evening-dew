@@ -3,6 +3,7 @@
 namespace App\Modules\Measurement\Models;
 
 use App\Modules\MeasurementCategory\Models\MeasurementCategory;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,5 +30,10 @@ class Measurement extends Model
     public static function getTypes()
     {
         return [self::BIGGER, self::SMALLER, self::REFERENCE];
+    }
+
+    public function broadcastOn($event)
+    {
+        return new Channel('measurement');
     }
 }
