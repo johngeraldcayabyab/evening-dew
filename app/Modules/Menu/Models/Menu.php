@@ -15,4 +15,14 @@ class Menu extends Model
 
     protected $table = 'menus';
     protected $guarded = [];
+
+    public function scopeLabel($query)
+    {
+
+    }
+
+    public function scopeUrl($query)
+    {
+
+    }
 }

@@ -36,4 +36,29 @@ class Measurement extends Model
     {
         return new Channel('measurement');
     }
+
+    public function scopeName($query)
+    {
+
+    }
+
+    public function scopeType($query)
+    {
+
+    }
+
+    public function scopeRatio($query)
+    {
+
+    }
+
+    public function scopeRoundingPrecision($query)
+    {
+
+    }
+
+    public function scopeMeasurementCategory($query)
+    {
+
+    }
 }
