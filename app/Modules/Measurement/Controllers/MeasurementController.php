@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 
 class MeasurementController
 {
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         return response()->json(MeasurementResource::collection(Measurement::orderBy('created_at', 'desc')->get()));
     }
