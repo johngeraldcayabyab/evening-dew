@@ -16,7 +16,23 @@ class MeasurementController
 {
     public function index(Request $request): JsonResponse
     {
-        return response()->json(MeasurementResource::collection(Measurement::orderBy('created_at', 'desc')->get()));
+        $model = new Measurement();
+        if ($request->name) {
+            $model = $model->name($request->name);
+        }
+        if ($request->type) {
+            $model = $model->type($request->type);
+        }
+        if ($request->ratio) {
+            $model = $model->ratio($request->ratio);
+        }
+        if ($request->rounding_precision) {
+            $model = $model->roundingPrecision($request->rounding_precision);
+        }
+        if ($request->measurement_category) {
+            $model = $model->measurementCategory($request->measurement_category);
+        }
+        return response()->json(MeasurementResource::collection($model->orderBy('created_at', 'desc')->get()));
     }
 
     public function show(Measurement $measurement): JsonResponse

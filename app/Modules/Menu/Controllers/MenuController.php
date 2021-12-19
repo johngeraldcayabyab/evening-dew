@@ -17,7 +17,14 @@ class MenuController
 {
     public function index(Request $request): JsonResponse
     {
-        return response()->json(MenuResource::collection(Menu::orderBy('created_at', 'desc')->get()));
+        $model = new Menu();
+        if ($request->label) {
+            $model = $model->label($request->label);
+        }
+        if ($request->url) {
+            $model = $model->url($request->url);
+        }
+        return response()->json(MenuResource::collection($model->orderBy('created_at', 'desc')->get()));
     }
 
     public function show(Menu $menu): JsonResponse

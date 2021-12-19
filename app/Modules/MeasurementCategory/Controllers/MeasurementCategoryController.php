@@ -17,7 +17,11 @@ class MeasurementCategoryController
 {
     public function index(Request $request): JsonResponse
     {
-        return response()->json(MeasurementCategoryResource::collection(MeasurementCategory::orderBy('created_at', 'desc')->get()));
+        $model = new MeasurementCategory();
+        if ($request->name) {
+            $model = $model->name($request->name);
+        }
+        return response()->json(MeasurementCategoryResource::collection($model->orderBy('created_at', 'desc')->get()));
     }
 
     public function show(MeasurementCategory $measurementCategory): JsonResponse
