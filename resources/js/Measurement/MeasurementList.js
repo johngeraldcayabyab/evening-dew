@@ -13,6 +13,11 @@ const MeasurementList = () => {
                 title: 'Name',
                 dataIndex: 'name',
                 key: 'name',
+                filterDropdown: (setSelectedKeys, selectedKeys, confirm, clearFilters) => {
+                    return (
+                        <div>hello</div>
+                    )
+                }
             },
             {
                 title: 'Type',
