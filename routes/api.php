@@ -1,9 +1,8 @@
 <?php
 
-use App\Modules\Measurement\Routes\MeasurementRoute;
-use App\Modules\MeasurementCategory\Routes\MeasurementCategoryRoute;
-use App\Modules\Menu\Controllers\MenuController;
-use App\Modules\Menu\Routes\MenuRoute;
+use App\Routes\MeasurementCategoryRoute;
+use App\Routes\MeasurementRoute;
+use App\Routes\MenuRoute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
