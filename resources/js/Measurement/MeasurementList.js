@@ -49,4 +49,3 @@ const MeasurementList = () => {
 };
 
 export default MeasurementList;
-

@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Modules\Measurement\Models\Measurement;
+use App\Models\Measurement;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
