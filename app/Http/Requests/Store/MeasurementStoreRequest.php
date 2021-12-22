@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests\Measurement;
+namespace App\Http\Requests\Store;
 
 use App\Models\Measurement;
 use Illuminate\Foundation\Http\FormRequest;
 
-class MeasurementUpdateRequest extends FormRequest
+class MeasurementStoreRequest extends FormRequest
 {
     public function rules()
     {
         $types = implode(',', Measurement::getTypes());
         return [
-            'name' => ['required', "unique:measurements,name,{$this->measurement->id}"],
+            'name' => ['required', "unique:measurements,name"],
             'type' => ['required', "in:$types"],
             'ratio' => ['required'],
             'rounding_precision' => ['required'],
