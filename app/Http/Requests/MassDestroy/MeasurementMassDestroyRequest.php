@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Measurement;
+namespace App\Http\Requests\MassDestroy;
 
 use Illuminate\Foundation\Http\FormRequest;
 

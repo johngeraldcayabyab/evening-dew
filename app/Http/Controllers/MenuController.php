@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 
 use App\Data\SystemSetting;
-use App\Http\Requests\Menu\MenuMassDestroyRequest;
-use App\Http\Requests\Menu\MenuStoreRequest;
-use App\Http\Requests\Menu\MenuUpdateRequest;
+use App\Http\Requests\MassDestroy\MenuMassDestroyRequest;
+use App\Http\Requests\Store\MenuStoreRequest;
+use App\Http\Requests\Update\MenuUpdateRequest;
 use App\Http\Resources\Menu\MenuResource;
 use App\Http\Resources\Menu\MenuSlugResource;
 use App\Models\Menu;

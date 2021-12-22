@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 
 use App\Data\SystemSetting;
-use App\Http\Requests\MeasurementCategory\MeasurementCategoryMassDestroyRequest;
-use App\Http\Requests\MeasurementCategory\MeasurementCategoryStoreRequest;
-use App\Http\Requests\MeasurementCategory\MeasurementCategoryUpdateRequest;
+use App\Http\Requests\MassDestroy\MeasurementCategoryMassDestroyRequest;
+use App\Http\Requests\Store\MeasurementCategoryStoreRequest;
+use App\Http\Requests\Update\MeasurementCategoryUpdateRequest;
 use App\Http\Resources\MeasurementCategory\MeasurementCategoryResource;
 use App\Http\Resources\MeasurementCategory\MeasurementCategorySlugResource;
 use App\Models\MeasurementCategory;
