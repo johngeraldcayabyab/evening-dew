@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Menu;
+namespace App\Http\Resources\Slug;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;

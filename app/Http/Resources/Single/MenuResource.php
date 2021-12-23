@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Resources\MeasurementCategory;
+namespace App\Http\Resources\Single;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MeasurementCategoryResource extends JsonResource
+class MenuResource extends JsonResource
 {
     public function toArray($request)
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'label' => $this->label,
+            'url' => $this->url
         ];
     }
 }
