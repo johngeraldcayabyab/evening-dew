@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\MeasurementCategory;
+namespace App\Http\Resources\Slug;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
 
-class MeasurementCategorySlugResource extends JsonResource
+class MeasurementSlugResource extends JsonResource
 {
     public function toArray($request)
     {
