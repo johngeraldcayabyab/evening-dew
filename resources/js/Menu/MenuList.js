@@ -24,9 +24,19 @@ const MenuList = () => {
         <React.Fragment>
             <ControlPanel
                 bottomColOneLeft={<TableCreateButton manifest={manifest}/>}
-                bottomColOneRight={<ActionsDropdownButton {...tableState} {...tableActions} manifest={manifest}/>}
+                bottomColOneRight={
+                    <ActionsDropdownButton
+                        {...tableState}
+                        {...tableActions}
+                        manifest={manifest}
+                    />
+                }
             />
-            <CustomTable {...tableState} {...tableActions} manifest={manifest}/>
+            <CustomTable
+                {...tableState}
+                {...tableActions}
+                manifest={manifest}
+            />
         </React.Fragment>
     )
 };
