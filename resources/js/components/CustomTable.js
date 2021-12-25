@@ -1,9 +1,15 @@
 import {Table} from "antd";
-import React from "react";
+import React, {useEffect} from "react";
 import {useHistory} from "react-router-dom";
 
 const CustomTable = (props) => {
     const history = useHistory();
+
+    useEffect(() => {
+        return (() => {
+            document.body.style.cursor = "default";
+        })
+    }, []);
 
     return (
         <Table
