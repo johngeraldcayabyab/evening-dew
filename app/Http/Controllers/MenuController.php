@@ -7,7 +7,8 @@ use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\MenuMassDestroyRequest;
 use App\Http\Requests\Store\MenuStoreRequest;
 use App\Http\Requests\Update\MenuUpdateRequest;
-use App\Http\Resources\Single\MenuResource;
+use App\Http\Resources\Collection\MenuCollection;
+use App\Http\Resources\Resource\MenuResource;
 use App\Http\Resources\Slug\MenuSlugResource;
 use App\Models\Menu;
 use Illuminate\Http\JsonResponse;
@@ -24,7 +25,7 @@ class MenuController
         if ($request->url) {
             $model = $model->url($request->url);
         }
-        return response()->json(MenuResource::collection($model->orderBy('created_at', 'desc')->get()));
+        return response()->json(new MenuCollection($model->orderBy('created_at', 'desc')->paginate()));
     }
 
     public function show(Menu $menu): JsonResponse

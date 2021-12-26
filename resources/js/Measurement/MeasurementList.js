@@ -5,6 +5,8 @@ import TableCreateButton from "../components/ActionButtons/TableCreateButton";
 import ControlPanel from "../components/ControlPanel";
 import CustomTable from "../components/CustomTable";
 import ActionsDropdownButton from "../components/ActionButtons/ActionsDropdownButton";
+import {Pagination} from "antd";
+import CustomPagination from "../components/CustomPagination";
 
 const MeasurementList = () => {
 
@@ -41,9 +43,26 @@ const MeasurementList = () => {
         <React.Fragment>
             <ControlPanel
                 bottomColOneLeft={<TableCreateButton manifest={manifest}/>}
-                bottomColOneRight={<ActionsDropdownButton {...tableState} {...tableActions} manifest={manifest}/>}
+                bottomColOneRight={
+                    <ActionsDropdownButton
+                        {...tableState}
+                        {...tableActions}
+                        manifest={manifest}
+                    />
+                }
+                bottomColTwoRight={
+                    <CustomPagination
+                        {...tableState}
+                        {...tableActions}
+                        manifest={manifest}
+                    />
+                }
             />
-            <CustomTable {...tableState} {...tableActions} manifest={manifest}/>
+            <CustomTable
+                {...tableState}
+                {...tableActions}
+                manifest={manifest}
+            />
         </React.Fragment>
     )
 };

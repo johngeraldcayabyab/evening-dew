@@ -6,7 +6,8 @@ use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\MeasurementMassDestroyRequest;
 use App\Http\Requests\Store\MeasurementStoreRequest;
 use App\Http\Requests\Update\MeasurementUpdateRequest;
-use App\Http\Resources\Single\MeasurementResource;
+use App\Http\Resources\Collection\MeasurementCollection;
+use App\Http\Resources\Resource\MeasurementResource;
 use App\Http\Resources\Slug\MeasurementSlugResource;
 use App\Models\Measurement;
 use Illuminate\Http\JsonResponse;
@@ -32,7 +33,7 @@ class MeasurementController
         if ($request->measurement_category) {
             $model = $model->measurementCategory($request->measurement_category);
         }
-        return response()->json(MeasurementResource::collection($model->orderBy('created_at', 'desc')->get()));
+        return response()->json(new MeasurementCollection($model->orderBy('created_at', 'desc')->paginate()));
     }
 
     public function show(Measurement $measurement): JsonResponse

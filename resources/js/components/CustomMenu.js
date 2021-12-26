@@ -16,7 +16,7 @@ const CustomMenu = () => {
             }
         })
             .then(response => response.json())
-            .then(data => (data));
+            .then(responseJson => (responseJson.data));
         setMenus(responseData);
     }, []);
 

@@ -36,6 +36,7 @@ const CustomTable = (props) => {
                     },
                 };
             }}
+            pagination={false}
         />
     )
 };

@@ -51,7 +51,10 @@ const useListState = (manifest, columns) => {
     useEffect(async () => {
         let responseData = await fetchGet(`api/${moduleName}`)
             .then(response => response.json())
-            .then(data => (data));
+            .then(responseJson => {
+                return responseJson.data;
+            });
+        console.log(responseData, 'the data');
         setTableState(state => ({
             ...state,
             loading: false,
