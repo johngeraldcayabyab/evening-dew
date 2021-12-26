@@ -7,7 +7,8 @@ use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\MeasurementCategoryMassDestroyRequest;
 use App\Http\Requests\Store\MeasurementCategoryStoreRequest;
 use App\Http\Requests\Update\MeasurementCategoryUpdateRequest;
-use App\Http\Resources\Single\MeasurementCategoryResource;
+use App\Http\Resources\Collection\MeasurementCategoryCollection;
+use App\Http\Resources\Resource\MeasurementCategoryResource;
 use App\Http\Resources\Slug\MeasurementCategorySlugResource;
 use App\Models\MeasurementCategory;
 use Illuminate\Http\JsonResponse;
@@ -21,7 +22,7 @@ class MeasurementCategoryController
         if ($request->name) {
             $model = $model->name($request->name);
         }
-        return response()->json(MeasurementCategoryResource::collection($model->orderBy('created_at', 'desc')->get()));
+        return response()->json(new MeasurementCategoryCollection($model->orderBy('created_at', 'desc')->paginate()));
     }
 
     public function show(MeasurementCategory $measurementCategory): JsonResponse
