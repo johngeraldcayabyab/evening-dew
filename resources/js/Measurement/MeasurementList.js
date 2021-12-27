@@ -7,6 +7,7 @@ import CustomTable from "../components/CustomTable";
 import ActionsDropdownButton from "../components/ActionButtons/ActionsDropdownButton";
 import {Pagination} from "antd";
 import CustomPagination from "../components/CustomPagination";
+import TableSearchInput from "../components/TableSearchInput";
 
 const MeasurementList = () => {
 
@@ -42,6 +43,7 @@ const MeasurementList = () => {
     return (
         <React.Fragment>
             <ControlPanel
+                topColTwoRight={<TableSearchInput/>}
                 bottomColOneLeft={<TableCreateButton manifest={manifest}/>}
                 bottomColOneRight={
                     <ActionsDropdownButton
