@@ -5,6 +5,7 @@ import TableCreateButton from "../components/ActionButtons/TableCreateButton";
 import ControlPanel from "../components/ControlPanel";
 import CustomTable from "../components/CustomTable";
 import ActionsDropdownButton from "../components/ActionButtons/ActionsDropdownButton";
+import TableSearchInput from "../components/TableSearchInput";
 
 const MeasurementCategoryList = () => {
     const [tableState, tableActions] = useListState(manifest, [
@@ -18,6 +19,13 @@ const MeasurementCategoryList = () => {
     return (
         <React.Fragment>
             <ControlPanel
+                topColTwoRight={
+                    <TableSearchInput
+                        {...tableState}
+                        {...tableActions}
+                        manifest={manifest}
+                    />
+                }
                 bottomColOneLeft={<TableCreateButton manifest={manifest}/>}
                 bottomColOneRight={
                     <ActionsDropdownButton
@@ -37,4 +45,3 @@ const MeasurementCategoryList = () => {
 };
 
 export default MeasurementCategoryList;
-

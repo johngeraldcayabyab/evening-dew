@@ -22,21 +22,17 @@ const useListState = (manifest, columns) => {
                 }));
             });
         },
-
         handleMassDelete: async (ids) => {
-
             setTableState(state => ({
                 ...state,
                 loading: true,
             }));
-
             await fetchPost(`api/${moduleName}/mass_destroy`, {ids: ids}).then(() => {
                 setTableState(state => ({
                     ...state,
                     loading: false,
                 }));
             });
-
         },
         rowSelection: {
             onChange: (selectedRowKeys, selectedRows) => {
@@ -45,22 +41,24 @@ const useListState = (manifest, columns) => {
                     selectedRows: selectedRows
                 }));
             }
+        },
+        renderData: async () => {
+            let responseData = await fetchGet(`api/${moduleName}`)
+                .then(response => response.json())
+                .then(responseJson => {
+                    return responseJson.data;
+                });
+            setTableState(state => ({
+                ...state,
+                loading: false,
+                dataSource: responseData,
+                columns: columns
+            }));
         }
     });
 
-    useEffect(async () => {
-        let responseData = await fetchGet(`api/${moduleName}`)
-            .then(response => response.json())
-            .then(responseJson => {
-                return responseJson.data;
-            });
-        console.log(responseData, 'the data');
-        setTableState(state => ({
-            ...state,
-            loading: false,
-            dataSource: responseData,
-            columns: columns
-        }));
+    useEffect(() => {
+        tableActions.renderData();
     }, []);
 
 

@@ -43,7 +43,13 @@ const MeasurementList = () => {
     return (
         <React.Fragment>
             <ControlPanel
-                topColTwoRight={<TableSearchInput/>}
+                topColTwoRight={
+                    <TableSearchInput
+                        {...tableState}
+                        {...tableActions}
+                        manifest={manifest}
+                    />
+                }
                 bottomColOneLeft={<TableCreateButton manifest={manifest}/>}
                 bottomColOneRight={
                     <ActionsDropdownButton
