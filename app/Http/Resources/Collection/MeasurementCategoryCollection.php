@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class MeasurementCategoryCollection extends ResourceCollection
 {
-    public $collection = MeasurementCategoryResource::class;
+    public $collects = MeasurementCategoryResource::class;
 
     public function toArray($request)
     {

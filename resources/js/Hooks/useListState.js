@@ -63,10 +63,10 @@ const useListState = (manifest, columns) => {
 
 
     useEffect(() => {
-        console.log(123);
-        Echo.channel(`measurement`).listen('Illuminate\\Database\\Eloquent\\BroadcastableModelEventOccurred', (event) => {
-            console.log(event);
-        });
+        // console.log(123);
+        // Echo.channel(`measurement`).listen('Illuminate\\Database\\Eloquent\\BroadcastableModelEventOccurred', (event) => {
+        //     console.log(event);
+        // });
 
         // Echo.channel(`${moduleName}_channel`).listen(`.${moduleName}_event`, e => {
         //     console.log(e);

@@ -13,12 +13,20 @@ const MenuList = () => {
             title: 'Label',
             dataIndex: 'label',
             key: 'label',
+            sorter: true,
         },
         {
             title: 'Url',
             dataIndex: 'url',
             key: 'url',
+            sorter: true,
         },
+        {
+            title: 'Created At',
+            dataIndex: 'created_at',
+            key: 'created_at',
+            sorter: true,
+        }
     ]);
 
     return (

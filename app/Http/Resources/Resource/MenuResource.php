@@ -11,7 +11,8 @@ class MenuResource extends JsonResource
         return [
             'id' => $this->id,
             'label' => $this->label,
-            'url' => $this->url
+            'url' => $this->url,
+            'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
         ];
     }
 }
