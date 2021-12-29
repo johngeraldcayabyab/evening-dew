@@ -5,40 +5,48 @@ import TableCreateButton from "../components/ActionButtons/TableCreateButton";
 import ControlPanel from "../components/ControlPanel";
 import CustomTable from "../components/CustomTable";
 import ActionsDropdownButton from "../components/ActionButtons/ActionsDropdownButton";
-import {Pagination} from "antd";
 import CustomPagination from "../components/CustomPagination";
 import TableSearchInput from "../components/TableSearchInput";
 
 const MeasurementList = () => {
 
     const [tableState, tableActions] = useListState(manifest, [
-            {
-                title: 'Name',
-                dataIndex: 'name',
-                key: 'name',
-                filterDropdown: (setSelectedKeys, selectedKeys, confirm, clearFilters) => {
-                    return (
-                        <div>hello</div>
-                    )
-                }
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
+            filterDropdown: (setSelectedKeys, selectedKeys, confirm, clearFilters) => {
+                return (
+                    <div>hello</div>
+                )
             },
-            {
-                title: 'Type',
-                dataIndex: 'type',
-                key: 'type',
-            },
-            {
-                title: 'Ratio',
-                dataIndex: 'ratio',
-                key: 'ratio',
-            },
-            {
-                title: 'Rounding Precision',
-                dataIndex: 'rounding_precision',
-                key: 'rounding_precision',
-            },
-        ])
-    ;
+            sorter: true,
+        },
+        {
+            title: 'Type',
+            dataIndex: 'type',
+            key: 'type',
+            sorter: true,
+        },
+        {
+            title: 'Ratio',
+            dataIndex: 'ratio',
+            key: 'ratio',
+            sorter: true,
+        },
+        {
+            title: 'Rounding Precision',
+            dataIndex: 'rounding_precision',
+            key: 'rounding_precision',
+            sorter: true,
+        },
+        {
+            title: 'Created At',
+            dataIndex: 'created_at',
+            key: 'created_at',
+            sorter: true
+        }
+    ]);
 
     return (
         <React.Fragment>

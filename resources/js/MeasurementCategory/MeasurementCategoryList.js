@@ -13,7 +13,14 @@ const MeasurementCategoryList = () => {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
+            sorter: true,
         },
+        {
+            title: 'Created At',
+            dataIndex: 'created_at',
+            key: 'created_at',
+            sorter: true
+        }
     ]);
 
     return (

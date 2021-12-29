@@ -37,6 +37,9 @@ const CustomTable = (props) => {
                 };
             }}
             pagination={false}
+            onChange={(pagination, filters, sorter) => {
+                console.log(sorter);
+            }}
         />
     )
 };
