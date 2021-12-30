@@ -31,4 +31,14 @@ class MeasurementCategory extends Model
     {
 
     }
+
+    public function scopeOrderByName($query, $order)
+    {
+
+    }
+
+    public function scopeOrderByCreatedAt($query, $order)
+    {
+
+    }
 }
