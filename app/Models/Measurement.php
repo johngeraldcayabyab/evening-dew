@@ -60,4 +60,34 @@ class Measurement extends Model
     {
 
     }
+
+    public function scopeOrderByName($query, $order)
+    {
+
+    }
+
+    public function scopeOrderByType($query, $order)
+    {
+
+    }
+
+    public function scopeOrderByRatio($query, $order)
+    {
+
+    }
+
+    public function scopeOrderByRoundingPrecision($query, $order)
+    {
+
+    }
+
+    public function scopeOrderByMeasurementCategory($query, $order)
+    {
+
+    }
+
+    public function scopeOrderByCreatedAt($query, $order)
+    {
+
+    }
 }

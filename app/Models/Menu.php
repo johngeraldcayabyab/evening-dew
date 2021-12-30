@@ -25,4 +25,19 @@ class Menu extends Model
     {
 
     }
+
+    public function scopeOrderByLabel($query, $order)
+    {
+
+    }
+
+    public function scopeOrderByUrl($query, $order)
+    {
+
+    }
+
+    public function scopeOrderByCreatedAt($query, $order)
+    {
+
+    }
 }
