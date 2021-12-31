@@ -63,31 +63,31 @@ class Measurement extends Model
 
     public function scopeOrderByName($query, $order)
     {
-
+        return $query->orderBy('name', $order);
     }
 
     public function scopeOrderByType($query, $order)
     {
-
+        return $query->orderBy('type', $order);
     }
 
     public function scopeOrderByRatio($query, $order)
     {
-
+        return $query->orderBy('ratio', $order);
     }
 
     public function scopeOrderByRoundingPrecision($query, $order)
     {
-
+        return $query->orderBy('rounding_precision', $order);
     }
 
     public function scopeOrderByMeasurementCategory($query, $order)
     {
-
+        return $query->orderBy('measurement_category', $order);
     }
 
     public function scopeOrderByCreatedAt($query, $order)
     {
-
+        return $query->orderBy('created_at', $order);
     }
 }

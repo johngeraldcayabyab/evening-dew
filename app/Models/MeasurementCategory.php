@@ -34,11 +34,11 @@ class MeasurementCategory extends Model
 
     public function scopeOrderByName($query, $order)
     {
-
+        return $query->orderBy('name', $order);
     }
 
     public function scopeOrderByCreatedAt($query, $order)
     {
-
+        return $query->orderBy('created_at', $order);
     }
 }

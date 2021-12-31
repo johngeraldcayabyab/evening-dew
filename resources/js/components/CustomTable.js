@@ -11,6 +11,7 @@ const CustomTable = (props) => {
         })
     }, []);
 
+
     return (
         <Table
             rowSelection={props.rowSelection}
@@ -38,6 +39,24 @@ const CustomTable = (props) => {
             }}
             pagination={false}
             onChange={(pagination, filters, sorter) => {
+
+                let orderByDirection = sorter.order;
+
+                if (orderByDirection === 'ascend') {
+                    orderByDirection = 'asc';
+                } else if (orderByDirection === 'descend') {
+                    orderByDirection = 'desc';
+                }
+
+                let params = {
+                    orderByColumn: sorter.column ? sorter.column.dataIndex : null,
+                    orderByDirection: orderByDirection
+                };
+
+
+                props.renderData(params);
+
+
                 console.log(sorter);
             }}
         />

@@ -22,7 +22,17 @@ class MeasurementCategoryController
         if ($request->name) {
             $model = $model->name($request->name);
         }
-        return response()->json(new MeasurementCategoryCollection($model->orderBy('created_at', 'desc')->paginate()));
+        if ($request->orderByColumn && $request->orderByDirection) {
+            if ($request->orderByColumn === 'name') {
+                $model = $model->orderByName($request->orderByDirection);
+            }
+            if ($request->orderByColumn === 'created_at') {
+                $model = $model->orderByCreatedAt($request->orderByDirection);
+            }
+        } else {
+            $model = $model->orderByCreatedAt('desc');
+        }
+        return response()->json(new MeasurementCategoryCollection($model->paginate()));
     }
 
     public function show(MeasurementCategory $measurementCategory): JsonResponse

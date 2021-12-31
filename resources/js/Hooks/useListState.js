@@ -7,7 +7,7 @@ const useListState = (manifest, columns) => {
     const [tableState, setTableState] = useState({
         loading: true,
         dataSource: [],
-        selectedRows: []
+        selectedRows: [],
     });
     const [tableActions] = useState({
         handleDelete: async (id) => {
@@ -42,20 +42,33 @@ const useListState = (manifest, columns) => {
                 }));
             }
         },
-        renderData: async () => {
-            let responseData = await fetchGet(`api/${moduleName}`)
+        renderData: async (params = {}) => {
+            let responseData = await fetchGet(`api/${moduleName}`, params)
                 .then(response => response.json())
                 .then(responseJson => {
                     return responseJson.data;
                 });
+
+            // columns = columnsInitialize(columns);
+
             setTableState(state => ({
                 ...state,
                 loading: false,
                 dataSource: responseData,
-                columns: columns
+                // columns: columns
             }));
         }
     });
+
+    function columnsInitialize(columns) {
+        // columns = columns.map((column) => {
+        //     if (tableState.orderByColumn === column.dataIndex && tableState.orderByDirection) {
+        //         column.sortOrder = tableState.orderByDirection;
+        //     }
+        //     return column;
+        // });
+        return columns;
+    }
 
     useEffect(() => {
         tableActions.renderData();
@@ -97,7 +110,7 @@ const useListState = (manifest, columns) => {
         // };
     }, []);
 
-    return [tableState, tableActions]
+    return [tableState, tableActions, columns]
 };
 
 export default useListState;

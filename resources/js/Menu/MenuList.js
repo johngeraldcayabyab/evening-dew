@@ -8,7 +8,7 @@ import CustomTable from "../components/CustomTable";
 import TableSearchInput from "../components/TableSearchInput";
 
 const MenuList = () => {
-    const [tableState, tableActions] = useListState(manifest, [
+    const [tableState, tableActions, columns] = useListState(manifest, [
         {
             title: 'Label',
             dataIndex: 'label',
@@ -26,7 +26,7 @@ const MenuList = () => {
             dataIndex: 'created_at',
             key: 'created_at',
             sorter: true,
-        }
+        },
     ]);
 
     return (
@@ -51,6 +51,7 @@ const MenuList = () => {
             <CustomTable
                 {...tableState}
                 {...tableActions}
+                columns={columns}
                 manifest={manifest}
             />
         </React.Fragment>
