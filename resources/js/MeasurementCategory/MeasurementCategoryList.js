@@ -8,20 +8,21 @@ import ActionsDropdownButton from "../components/ActionButtons/ActionsDropdownBu
 import TableSearchInput from "../components/TableSearchInput";
 
 const MeasurementCategoryList = () => {
-    const [tableState, tableActions] = useListState(manifest, [
-        {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
-            sorter: true,
-        },
-        {
-            title: 'Created At',
-            dataIndex: 'created_at',
-            key: 'created_at',
-            sorter: true
-        }
-    ]);
+    const [tableState, tableActions, columns] = useListState(manifest, [
+            {
+                title: 'Name',
+                dataIndex: 'name',
+                key: 'name',
+                sorter: true,
+            },
+            {
+                title: 'Created At',
+                dataIndex: 'created_at',
+                key: 'created_at',
+                sorter: true,
+            }
+        ]
+    );
 
     return (
         <React.Fragment>
@@ -45,6 +46,7 @@ const MeasurementCategoryList = () => {
             <CustomTable
                 {...tableState}
                 {...tableActions}
+                columns={columns}
                 manifest={manifest}
             />
         </React.Fragment>

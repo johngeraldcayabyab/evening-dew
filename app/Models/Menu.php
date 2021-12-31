@@ -28,16 +28,16 @@ class Menu extends Model
 
     public function scopeOrderByLabel($query, $order)
     {
-
+        return $query->orderBy('label', $order);
     }
 
     public function scopeOrderByUrl($query, $order)
     {
-
+        return $query->orderBy('url', $order);
     }
 
     public function scopeOrderByCreatedAt($query, $order)
     {
-
+        return $query->orderBy('created_at', $order);
     }
 }

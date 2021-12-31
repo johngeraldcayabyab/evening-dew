@@ -25,7 +25,20 @@ class MenuController
         if ($request->url) {
             $model = $model->url($request->url);
         }
-        return response()->json(new MenuCollection($model->orderBy('created_at', 'desc')->paginate()));
+        if ($request->orderByColumn && $request->orderByDirection) {
+            if ($request->orderByColumn === 'label') {
+                $model = $model->orderByLabel($request->orderByDirection);
+            }
+            if ($request->orderByColumn === 'url') {
+                $model = $model->orderByUrl($request->orderByDirection);
+            }
+            if ($request->orderByColumn === 'created_at') {
+                $model = $model->orderByCreatedAt($request->orderByDirection);
+            }
+        } else {
+            $model = $model->orderByCreatedAt('desc');
+        }
+        return response()->json(new MenuCollection($model->paginate()));
     }
 
     public function show(Menu $menu): JsonResponse

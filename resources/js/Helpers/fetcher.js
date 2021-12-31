@@ -3,8 +3,9 @@ let headers = {
     'Accept': 'application/json'
 };
 
-export const fetchGet = (url) => {
-    return fetch(url, {
+export const fetchGet = (url, params = {}) => {
+    params = Object.entries(params).map(e => e.join('=')).join('&');
+    return fetch(`${url}?${params}`, {
         headers,
         method: 'GET'
     });
