@@ -6,6 +6,7 @@ import ControlPanel from "../components/ControlPanel";
 import ActionsDropdownButton from "../components/ActionButtons/ActionsDropdownButton";
 import CustomTable from "../components/CustomTable";
 import TableSearchInput from "../components/TableSearchInput";
+import CustomPagination from "../components/CustomPagination";
 
 const MenuList = () => {
     const [tableState, tableActions, columns] = useListState(manifest, [
@@ -42,6 +43,13 @@ const MenuList = () => {
                 bottomColOneLeft={<TableCreateButton manifest={manifest}/>}
                 bottomColOneRight={
                     <ActionsDropdownButton
+                        {...tableState}
+                        {...tableActions}
+                        manifest={manifest}
+                    />
+                }
+                bottomColTwoRight={
+                    <CustomPagination
                         {...tableState}
                         {...tableActions}
                         manifest={manifest}

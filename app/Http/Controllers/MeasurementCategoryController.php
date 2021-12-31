@@ -13,10 +13,11 @@ use App\Http\Resources\Slug\MeasurementCategorySlugResource;
 use App\Models\MeasurementCategory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class MeasurementCategoryController
 {
-    public function index(Request $request): JsonResponse
+    public function index(Request $request): ResourceCollection
     {
         $model = new MeasurementCategory();
         if ($request->name) {
@@ -32,7 +33,7 @@ class MeasurementCategoryController
         } else {
             $model = $model->orderByCreatedAt('desc');
         }
-        return response()->json(new MeasurementCategoryCollection($model->paginate()));
+        return new MeasurementCategoryCollection($model->paginate(SystemSetting::PAGE_SIZE));
     }
 
     public function show(MeasurementCategory $measurementCategory): JsonResponse

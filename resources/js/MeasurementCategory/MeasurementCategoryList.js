@@ -6,6 +6,7 @@ import ControlPanel from "../components/ControlPanel";
 import CustomTable from "../components/CustomTable";
 import ActionsDropdownButton from "../components/ActionButtons/ActionsDropdownButton";
 import TableSearchInput from "../components/TableSearchInput";
+import CustomPagination from "../components/CustomPagination";
 
 const MeasurementCategoryList = () => {
     const [tableState, tableActions, columns] = useListState(manifest, [
@@ -37,6 +38,13 @@ const MeasurementCategoryList = () => {
                 bottomColOneLeft={<TableCreateButton manifest={manifest}/>}
                 bottomColOneRight={
                     <ActionsDropdownButton
+                        {...tableState}
+                        {...tableActions}
+                        manifest={manifest}
+                    />
+                }
+                bottomColTwoRight={
+                    <CustomPagination
                         {...tableState}
                         {...tableActions}
                         manifest={manifest}

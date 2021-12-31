@@ -1,13 +1,18 @@
 import {Pagination} from "antd";
 
-const CustomPagination = () => {
+const CustomPagination = (props) => {
     return (
         <Pagination
             size={'small'}
-            defaultCurrent={2}
-            total={50}
-            pageSize={30}
-            pageSizeOptions={[30, 50, 60, 100]}
+            current={props.meta ? props.meta.current_page : 1}
+            total={props.meta ? props.meta.total : 1}
+            pageSize={80} // not respecting meta condition if null
+            showSizeChanger={false}
+            showQuickJumper
+            onChange={(page, pageSize) => {
+                props.params.page = page;
+                props.renderData(props.params);
+            }}
         />
     )
 }

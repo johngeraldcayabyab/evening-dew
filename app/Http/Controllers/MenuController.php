@@ -13,10 +13,11 @@ use App\Http\Resources\Slug\MenuSlugResource;
 use App\Models\Menu;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class MenuController
 {
-    public function index(Request $request): JsonResponse
+    public function index(Request $request): ResourceCollection
     {
         $model = new Menu();
         if ($request->label) {
@@ -38,7 +39,7 @@ class MenuController
         } else {
             $model = $model->orderByCreatedAt('desc');
         }
-        return response()->json(new MenuCollection($model->paginate()));
+        return new MenuCollection($model->paginate(SystemSetting::PAGE_SIZE));
     }
 
     public function show(Menu $menu): JsonResponse
