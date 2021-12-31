@@ -12,10 +12,11 @@ use App\Http\Resources\Slug\MeasurementSlugResource;
 use App\Models\Measurement;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class MeasurementController
 {
-    public function index(Request $request): JsonResponse
+    public function index(Request $request): ResourceCollection
     {
         $model = new Measurement();
         if ($request->name) {
@@ -55,7 +56,7 @@ class MeasurementController
         } else {
             $model = $model->orderByCreatedAt('desc');
         }
-        return response()->json(new MeasurementCollection($model->paginate()));
+        return new MeasurementCollection($model->paginate(SystemSetting::PAGE_SIZE));
     }
 
     public function show(Measurement $measurement): JsonResponse

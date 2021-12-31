@@ -8,6 +8,8 @@ const useListState = (manifest, columns) => {
         loading: true,
         dataSource: [],
         selectedRows: [],
+        meta: {},
+        params: {},
     });
     const [tableActions] = useState({
         handleDelete: async (id) => {
@@ -43,10 +45,10 @@ const useListState = (manifest, columns) => {
             }
         },
         renderData: async (params = {}) => {
-            let responseData = await fetchGet(`api/${moduleName}`, params)
+            let responseJson = await fetchGet(`api/${moduleName}`, params)
                 .then(response => response.json())
                 .then(responseJson => {
-                    return responseJson.data;
+                    return responseJson;
                 });
 
             // columns = columnsInitialize(columns);
@@ -54,7 +56,9 @@ const useListState = (manifest, columns) => {
             setTableState(state => ({
                 ...state,
                 loading: false,
-                dataSource: responseData,
+                dataSource: responseJson.data,
+                meta: responseJson.meta,
+                params: params,
                 // columns: columns
             }));
         }

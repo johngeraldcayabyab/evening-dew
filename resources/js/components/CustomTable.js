@@ -48,13 +48,10 @@ const CustomTable = (props) => {
                     orderByDirection = 'desc';
                 }
 
-                let params = {
-                    orderByColumn: sorter.column ? sorter.column.dataIndex : null,
-                    orderByDirection: orderByDirection
-                };
+                props.params.orderByColumn  = sorter.column ? sorter.column.dataIndex : null;
+                props.params.orderByDirection = orderByDirection;
 
-
-                props.renderData(params);
+                props.renderData(props.params);
 
 
                 console.log(sorter);
