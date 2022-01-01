@@ -2,6 +2,7 @@ import FormLabel from "../Typography/FormLabel";
 import {Form, Select} from "antd";
 import {useEffect, useState} from "react";
 import {uuidv4} from "../../Helpers/string";
+import CustomInputSkeleton from "../CustomInputSkeleton";
 
 const FormItemSelect = (props) => {
 
@@ -27,19 +28,21 @@ const FormItemSelect = (props) => {
             rules={[{required: props.required, message: props.message}]}
             colon={false}
         >
-            <Select
-                allowClear
-                disabled={props.formDisabled}
-                showSearch
-            >
-                {state.options.map((option) => {
-                    return (
-                        <Select.Option key={uuidv4()} value={option.value}>
-                            {option.label}
-                        </Select.Option>
-                    )
-                })}
-            </Select>
+            {props.loading ? <CustomInputSkeleton/> :
+                <Select
+                    allowClear
+                    disabled={props.formDisabled}
+                    showSearch
+                >
+                    {state.options.map((option) => {
+                        return (
+                            <Select.Option key={uuidv4()} value={option.value}>
+                                {option.label}
+                            </Select.Option>
+                        )
+                    })}
+                </Select>
+            }
         </Form.Item>
     )
 }

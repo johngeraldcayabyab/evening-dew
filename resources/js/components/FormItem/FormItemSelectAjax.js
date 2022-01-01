@@ -3,6 +3,7 @@ import {Form, Select} from "antd";
 import {useEffect, useState} from "react";
 import {uuidv4} from "../../Helpers/string";
 import {fetchGet} from "../../Helpers/fetcher";
+import CustomInputSkeleton from "../CustomInputSkeleton";
 
 const FormItemSelectAjax = (props) => {
 
@@ -50,22 +51,24 @@ const FormItemSelectAjax = (props) => {
             rules={[{required: props.required, message: props.message}]}
             colon={false}
         >
-            <Select
-                allowClear
-                disabled={props.formDisabled}
-                showSearch
-                onSearch={onSearch}
-                optionFilterProp="children"
-                filterOption={state.filterOption}
-            >
-                {state.options.map((option) => {
-                    return (
-                        <Select.Option key={uuidv4()} value={option.value}>
-                            {option.label}
-                        </Select.Option>
-                    )
-                })}
-            </Select>
+            {props.loading ? <CustomInputSkeleton/> :
+                <Select
+                    allowClear
+                    disabled={props.formDisabled}
+                    showSearch
+                    onSearch={onSearch}
+                    optionFilterProp="children"
+                    filterOption={state.filterOption}
+                >
+                    {state.options.map((option) => {
+                        return (
+                            <Select.Option key={uuidv4()} value={option.value}>
+                                {option.label}
+                            </Select.Option>
+                        )
+                    })}
+                </Select>
+            }
         </Form.Item>
     )
 }

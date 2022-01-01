@@ -1,6 +1,7 @@
 import FormLabel from "../Typography/FormLabel";
-import {Form, Input} from "antd";
+import {Form, Input, Skeleton} from "antd";
 import React from "react";
+import CustomInputSkeleton from "../CustomInputSkeleton";
 
 const FormItemText = (props) => {
     return (
@@ -12,7 +13,9 @@ const FormItemText = (props) => {
             rules={[{required: props.required, message: props.message}]}
             colon={false}
         >
-            <Input disabled={props.formDisabled}/>
+            {props.loading ? <CustomInputSkeleton/> :
+                <Input disabled={props.formDisabled}/>
+            }
         </Form.Item>
     )
 };

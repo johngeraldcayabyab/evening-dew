@@ -1,6 +1,7 @@
 import FormLabel from "../Typography/FormLabel";
 import {Form, InputNumber} from "antd";
 import React from "react";
+import CustomInputSkeleton from "../CustomInputSkeleton";
 
 const FormItemNumber = (props) => {
     return (
@@ -12,13 +13,15 @@ const FormItemNumber = (props) => {
             rules={[{required: props.required, message: props.message}]}
             colon={false}
         >
-            <InputNumber
-                disabled={props.formDisabled}
-                style={{width: "100%"}}
-                step={props.step}
-                // min=""
-                // max="10"
-            />
+            {props.loading ? <CustomInputSkeleton/> :
+                <InputNumber
+                    disabled={props.formDisabled}
+                    style={{width: "100%"}}
+                    step={props.step}
+                    // min=""
+                    // max="10"
+                />
+            }
         </Form.Item>
     )
 };
