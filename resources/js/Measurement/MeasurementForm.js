@@ -46,18 +46,14 @@ const MeasurementForm = () => {
                         <FormItemText
                             label={'Name'}
                             name={'name'}
-                            errors={formState.errors}
-                            formDisabled={formState.formDisabled}
                             message={'Please input measurement category name'}
                             required={true}
-
+                            {...formState}
                         />
 
                         <FormItemSelect
                             label={'Type'}
                             name={'type'}
-                            errors={formState.errors}
-                            formDisabled={formState.formDisabled}
                             message={'Please select a type'}
                             required={true}
                             options={[
@@ -65,31 +61,32 @@ const MeasurementForm = () => {
                                 {value: 'smaller', label: 'Smaller than the reference measurement'},
                                 {value: 'bigger', label: 'Bigger than the reference measurement'},
                             ]}
+                            {...formState}
                         />
 
                         <FormItemNumber
                             label={'Ratio'}
                             name={'ratio'}
-                            {...formState}
                             message={'Please input ratio'}
                             required={true}
+                            {...formState}
                         />
 
                         <FormItemNumber
                             label={'Rounding precision'}
                             name={'rounding_precision'}
-                            {...formState}
                             message={'Please input rounding precision'}
                             required={true}
+                            {...formState}
                         />
 
                         <FormItemSelectAjax
                             label={'Measurement Category'}
                             name={'measurement_category_id'}
-                            {...formState}
                             message={'Please select a measurement category'}
                             required={true}
                             url={'/api/measurement_categories/option'}
+                            {...formState}
                         />
                     </ColForm>
                 </RowForm>
