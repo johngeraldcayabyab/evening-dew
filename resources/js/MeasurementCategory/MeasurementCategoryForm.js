@@ -38,10 +38,9 @@ const MeasurementCategoryForm = () => {
                         <FormItemText
                             label={'Name'}
                             name={'name'}
-                            errors={formState.errors}
-                            formDisabled={formState.formDisabled}
                             message={'Please input measurement category name'}
                             required={true}
+                            {...formState}
                         />
                     </ColForm>
                 </RowForm>
