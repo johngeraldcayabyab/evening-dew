@@ -29,7 +29,6 @@ const MenuList = () => {
             sorter: true,
         },
     ]);
-
     return (
         <React.Fragment>
             <ControlPanel

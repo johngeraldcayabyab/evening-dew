@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Data\SystemSetting;
+use App\Http\Query\MenuQuery;
 use App\Http\Requests\MassDestroy\MenuMassDestroyRequest;
 use App\Http\Requests\Store\MenuStoreRequest;
 use App\Http\Requests\Update\MenuUpdateRequest;
@@ -26,19 +27,8 @@ class MenuController
         if ($request->url) {
             $model = $model->url($request->url);
         }
-        if ($request->orderByColumn && $request->orderByDirection) {
-            if ($request->orderByColumn === 'label') {
-                $model = $model->orderByLabel($request->orderByDirection);
-            }
-            if ($request->orderByColumn === 'url') {
-                $model = $model->orderByUrl($request->orderByDirection);
-            }
-            if ($request->orderByColumn === 'created_at') {
-                $model = $model->orderByCreatedAt($request->orderByDirection);
-            }
-        } else {
-            $model = $model->orderByCreatedAt('desc');
-        }
+        $requestQuery = new MenuQuery();
+        $model = $requestQuery->sort($model, $request);
         return new MenuCollection($model->paginate(SystemSetting::PAGE_SIZE));
     }
 
