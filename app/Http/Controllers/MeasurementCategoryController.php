@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Data\SystemSetting;
+use App\Http\Query\MeasurementCategoryQuery;
 use App\Http\Requests\MassDestroy\MeasurementCategoryMassDestroyRequest;
 use App\Http\Requests\Store\MeasurementCategoryStoreRequest;
 use App\Http\Requests\Update\MeasurementCategoryUpdateRequest;
@@ -23,16 +24,8 @@ class MeasurementCategoryController
         if ($request->name) {
             $model = $model->name($request->name);
         }
-        if ($request->orderByColumn && $request->orderByDirection) {
-            if ($request->orderByColumn === 'name') {
-                $model = $model->orderByName($request->orderByDirection);
-            }
-            if ($request->orderByColumn === 'created_at') {
-                $model = $model->orderByCreatedAt($request->orderByDirection);
-            }
-        } else {
-            $model = $model->orderByCreatedAt('desc');
-        }
+        $requestQuery = new MeasurementCategoryQuery();
+        $model = $requestQuery->sort($model, $request);
         return new MeasurementCategoryCollection($model->paginate(SystemSetting::PAGE_SIZE));
     }
 
