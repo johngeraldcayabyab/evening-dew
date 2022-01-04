@@ -41,6 +41,15 @@ const MeasurementList = () => {
                 sorter: true,
             },
             {
+                title: 'Category',
+                dataIndex: 'measurement_category',
+                key: 'measurement_category',
+                sorter: true,
+                render: (text, record) => {
+                    return record.measurement_category.name;
+                }
+            },
+            {
                 title: 'Created At',
                 dataIndex: 'created_at',
                 key: 'created_at',
