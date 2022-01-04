@@ -83,7 +83,7 @@ class Measurement extends Model
 
     public function scopeOrderByMeasurementCategory($query, $order)
     {
-        return $query->orderBy('measurement_category', $order);
+        return $query->orderBy(MeasurementCategory::select('name')->whereColumn('measurement_categories.id', 'measurements.measurement_category_id'), $order);
     }
 
     public function scopeOrderByCreatedAt($query, $order)
