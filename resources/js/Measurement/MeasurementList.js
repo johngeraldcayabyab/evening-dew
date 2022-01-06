@@ -12,87 +12,6 @@ import {SearchOutlined} from "@ant-design/icons";
 
 const MeasurementList = () => {
 
-    const searchInput = useRef(null);
-
-    function getColumnSearchProps(dataIndex) {
-        return {
-            filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
-                <div style={{padding: 8}}>
-                    <Input
-                        ref={searchInput}
-                        placeholder={`Search ${dataIndex}`}
-                        value={selectedKeys[0]}
-                        onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-                        onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-                        style={{marginBottom: 8, display: 'block'}}
-                    />
-                    <Space>
-                        <Button
-                            type="primary"
-                            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-                            icon={<SearchOutlined/>}
-                            size="small"
-                            style={{width: 90}}
-                        >
-                            Search
-                        </Button>
-                        <Button onClick={() => handleReset(clearFilters)} size="small" style={{width: 90}}>
-                            Reset
-                        </Button>
-                        <Button
-                            type="link"
-                            size="small"
-                            onClick={() => {
-                                confirm({closeDropdown: false});
-                                // this.setState({
-                                //     searchText: selectedKeys[0],
-                                //     searchedColumn: dataIndex,
-                                // });
-                            }}
-                        >
-                            Filter
-                        </Button>
-                    </Space>
-                </div>
-            ),
-            filterIcon: filtered => <SearchOutlined style={{color: filtered ? '#1890ff' : undefined}}/>,
-            onFilter: (value, record) => {
-                return true;
-                console.log(value);
-                // return record[dataIndex] ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()) : '';
-            },
-            onFilterDropdownVisibleChange: visible => {
-                if (visible) {
-                    setTimeout(() => searchInput.select(), 100);
-                }
-            },
-            // render: text =>
-            //     this.state.searchedColumn === dataIndex ? (
-            //         <Highlighter
-            //             highlightStyle={{backgroundColor: '#ffc069', padding: 0}}
-            //             searchWords={[this.state.searchText]}
-            //             autoEscape
-            //             textToHighlight={text ? text.toString() : ''}
-            //         />
-            //     ) : (
-            //         text
-            //     ),
-        }
-    }
-
-    function handleSearch(selectedKeys, confirm, dataIndex) {
-        confirm();
-        // this.setState({
-        //     searchText: selectedKeys[0],
-        //     searchedColumn: dataIndex,
-        // });
-    }
-
-    function handleReset(clearFilters) {
-        clearFilters();
-        // this.setState({searchText: ''});
-    }
-
     const [tableState, tableActions, columns] = useListState(manifest, [
             {
                 title: 'Name',
@@ -106,6 +25,7 @@ const MeasurementList = () => {
                 dataIndex: 'type',
                 key: 'type',
                 sorter: true,
+                ...getColumnSearchProps('type')
             },
             {
                 title: 'Ratio',
@@ -136,6 +56,48 @@ const MeasurementList = () => {
             }
         ]
     );
+
+    function getColumnSearchProps(dataIndex) {
+        return {
+            filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
+                <div style={{padding: 8}}>
+                    <Input
+                        placeholder={`Search ${dataIndex}`}
+                        value={selectedKeys}
+                        onChange={e => setSelectedKeys(e.target.value ? e.target.value : null)}
+                        onPressEnter={() => {
+                            confirm();
+                        }}
+                        style={{marginBottom: 8, display: 'block'}}
+                    />
+                    <Space>
+                        <Button
+                            type="primary"
+                            onClick={() => {
+                                confirm();
+                            }}
+                            icon={<SearchOutlined/>}
+                            size="small"
+                            style={{width: 90}}
+                        >
+                            Search
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                clearFilters();
+                                // confirm();
+                            }}
+                            size={"small"}
+                            style={{width: 90}}
+                        >
+                            Reset
+                        </Button>
+                    </Space>
+                </div>
+            ),
+            filterIcon: filtered => <SearchOutlined style={{color: filtered ? '#1890ff' : undefined}}/>,
+        }
+    }
 
     return (
         <React.Fragment>

@@ -1,6 +1,7 @@
 import {Table} from "antd";
 import React, {useEffect} from "react";
 import {useHistory} from "react-router-dom";
+import {cleanObject} from "../Helpers/object";
 
 const CustomTable = (props) => {
     const history = useHistory();
@@ -39,22 +40,22 @@ const CustomTable = (props) => {
             }}
             pagination={false}
             onChange={(pagination, filters, sorter) => {
-
                 let orderByDirection = sorter.order;
-
                 if (orderByDirection === 'ascend') {
                     orderByDirection = 'asc';
                 } else if (orderByDirection === 'descend') {
                     orderByDirection = 'desc';
                 }
-
-                props.params.orderByColumn  = sorter.column ? sorter.column.dataIndex : null;
+                props.params.orderByColumn = sorter.column ? sorter.column.dataIndex : null;
                 props.params.orderByDirection = orderByDirection;
-
+                filters = cleanObject(filters);
+                for (let key in filters) {
+                    if (filters.hasOwnProperty(key)) {
+                        props.params[key] = filters[key];
+                    }
+                }
                 props.renderData(props.params);
-
-
-                console.log(sorter);
+                console.log(filters);
             }}
         />
     )
