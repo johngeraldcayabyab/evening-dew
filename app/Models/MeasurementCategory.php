@@ -27,9 +27,9 @@ class MeasurementCategory extends Model
         return $this->hasMany(Measurement::class);
     }
 
-    public function scopeName($query)
+    public function scopeName($query, $name)
     {
-
+        return $query->where('name', 'like', "%$name%");
     }
 
     public function scopeOrderByName($query, $order)

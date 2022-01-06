@@ -38,22 +38,22 @@ class Measurement extends Model
 
     public function scopeName($query, $name)
     {
-        return $query->where('like', "%$name%");
+        return $query->where('name', 'like', "%$name%");
     }
 
     public function scopeType($query, $type)
     {
-        return $query->where('like', "%$type%");
+        return $query->where('type', 'like', "%$type%");
     }
 
     public function scopeRatio($query, $ratio)
     {
-        return $query->where('like', "%$ratio%");
+        return $query->where('ratio', 'like', "%$ratio%");
     }
 
     public function scopeRoundingPrecision($query, $roundingPrecision)
     {
-        return $query->where('like', "%$roundingPrecision");
+        return $query->where('rounding_precision', 'like', "%$roundingPrecision");
     }
 
     public function scopeMeasurementCategory($query)
