@@ -15,12 +15,14 @@ const MeasurementCategoryList = () => {
                 dataIndex: 'name',
                 key: 'name',
                 sorter: true,
+                searchFilter: true,
             },
             {
                 title: 'Created At',
                 dataIndex: 'created_at',
                 key: 'created_at',
                 sorter: true,
+                searchFilter: true,
             }
         ]
     );
