@@ -21,16 +21,16 @@ class MeasurementController
     {
         $model = new Measurement();
         if ($request->name) {
-            $model = $model->name($request->name);
+            $model = $model->whereName($request->name);
         }
         if ($request->type) {
-            $model = $model->type($request->type);
+            $model = $model->whereType($request->type);
         }
         if ($request->ratio) {
-            $model = $model->ratio($request->ratio);
+            $model = $model->whereRatio($request->ratio);
         }
         if ($request->rounding_precision) {
-            $model = $model->roundingPrecision($request->rounding_precision);
+            $model = $model->whereRoundingPrecision($request->rounding_precision);
         }
         if ($request->measurement_category) {
             info('controllr');

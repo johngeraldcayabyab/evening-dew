@@ -22,7 +22,7 @@ class MeasurementCategoryController
     {
         $model = new MeasurementCategory();
         if ($request->name) {
-            $model = $model->name($request->name);
+            $model = $model->whereName($request->name);
         }
         $requestQuery = new MeasurementCategoryQuery();
         $model = $requestQuery->sort($model, $request);
