@@ -15,18 +15,21 @@ const MenuList = () => {
             dataIndex: 'label',
             key: 'label',
             sorter: true,
+            searchFilter: true,
         },
         {
             title: 'Url',
             dataIndex: 'url',
             key: 'url',
             sorter: true,
+            searchFilter: true,
         },
         {
             title: 'Created At',
             dataIndex: 'created_at',
             key: 'created_at',
             sorter: true,
+            searchFilter: true,
         },
     ]);
     return (

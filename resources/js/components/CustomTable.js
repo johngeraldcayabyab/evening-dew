@@ -1,10 +1,13 @@
-import {Table} from "antd";
-import React, {useEffect} from "react";
+import {Button, Input, Space, Table} from "antd";
+import React, {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {cleanObject} from "../Helpers/object";
+import {SearchOutlined} from "@ant-design/icons";
 
 const CustomTable = (props) => {
     const history = useHistory();
+
+    const [columns, setColumns] = useState(props.columns);
 
     useEffect(() => {
         return (() => {
@@ -13,13 +16,72 @@ const CustomTable = (props) => {
     }, []);
 
 
+    useEffect(() => {
+
+        setColumns((previousColumns) => {
+
+            previousColumns = previousColumns.map((column) => {
+                if (column.hasOwnProperty('searchFilter')) {
+                    column = {...column, ...getColumnSearchProps(column.dataIndex)};
+                }
+                return column;
+            });
+
+            return previousColumns;
+        });
+    }, []);
+
+
+    function getColumnSearchProps(dataIndex) {
+        return {
+            filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
+                <div style={{padding: 8}}>
+                    <Input
+                        placeholder={`Search ${dataIndex}`}
+                        value={selectedKeys}
+                        onChange={e => setSelectedKeys(e.target.value ? e.target.value : null)}
+                        onPressEnter={() => {
+                            confirm();
+                        }}
+                        style={{marginBottom: 8, display: 'block'}}
+                    />
+                    <Space>
+                        <Button
+                            type="primary"
+                            onClick={() => {
+                                confirm();
+                            }}
+                            icon={<SearchOutlined/>}
+                            size="small"
+                            style={{width: 90}}
+                        >
+                            Search
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                clearFilters();
+                                // confirm();
+                            }}
+                            size={"small"}
+                            style={{width: 90}}
+                        >
+                            Reset
+                        </Button>
+                    </Space>
+                </div>
+            ),
+            filterIcon: filtered => <SearchOutlined style={{color: filtered ? '#1890ff' : undefined}}/>,
+        }
+    }
+
+
     return (
         <Table
             rowSelection={props.rowSelection}
             loading={props.loading}
             size={'small'}
             dataSource={props.dataSource}
-            columns={props.columns}
+            columns={columns}
             rowKey={'id'}
             onRow={(record, rowIndex) => {
                 return {

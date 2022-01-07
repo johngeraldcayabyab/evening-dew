@@ -18,33 +18,35 @@ const MeasurementList = () => {
                 dataIndex: 'name',
                 key: 'name',
                 sorter: true,
-                ...getColumnSearchProps('name')
+                searchFilter: true,
             },
             {
                 title: 'Type',
                 dataIndex: 'type',
                 key: 'type',
                 sorter: true,
-                ...getColumnSearchProps('type')
+                searchFilter: true,
             },
             {
                 title: 'Ratio',
                 dataIndex: 'ratio',
                 key: 'ratio',
                 sorter: true,
+                searchFilter: true,
             },
             {
                 title: 'Rounding Precision',
                 dataIndex: 'rounding_precision',
                 key: 'rounding_precision',
                 sorter: true,
+                searchFilter: true,
             },
             {
                 title: 'Category',
                 dataIndex: 'measurement_category',
                 key: 'measurement_category',
                 sorter: true,
-                ...getColumnSearchProps('measurement_category'),
+                searchFilter: true,
                 render: (text, record) => {
                     return record.measurement_category.name;
                 }
@@ -57,48 +59,6 @@ const MeasurementList = () => {
             }
         ]
     );
-
-    function getColumnSearchProps(dataIndex) {
-        return {
-            filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
-                <div style={{padding: 8}}>
-                    <Input
-                        placeholder={`Search ${dataIndex}`}
-                        value={selectedKeys}
-                        onChange={e => setSelectedKeys(e.target.value ? e.target.value : null)}
-                        onPressEnter={() => {
-                            confirm();
-                        }}
-                        style={{marginBottom: 8, display: 'block'}}
-                    />
-                    <Space>
-                        <Button
-                            type="primary"
-                            onClick={() => {
-                                confirm();
-                            }}
-                            icon={<SearchOutlined/>}
-                            size="small"
-                            style={{width: 90}}
-                        >
-                            Search
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                clearFilters();
-                                // confirm();
-                            }}
-                            size={"small"}
-                            style={{width: 90}}
-                        >
-                            Reset
-                        </Button>
-                    </Space>
-                </div>
-            ),
-            filterIcon: filtered => <SearchOutlined style={{color: filtered ? '#1890ff' : undefined}}/>,
-        }
-    }
 
     return (
         <React.Fragment>
