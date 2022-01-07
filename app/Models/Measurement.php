@@ -56,9 +56,12 @@ class Measurement extends Model
         return $query->where('rounding_precision', 'like', "%$roundingPrecision");
     }
 
-    public function scopeMeasurementCategory($query)
+    public function scopeWhereMeasurementCategory($query, $measurementCategory)
     {
-
+        info('reach papi');
+        return $query->whereHas('measurementCategory', function ($query) use ($measurementCategory) {
+            return $query->where('name', 'like', "%$measurementCategory%");
+        });
     }
 
     public function scopeOrderByName($query, $order)
