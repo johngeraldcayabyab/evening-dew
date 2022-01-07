@@ -21,4 +21,15 @@ class MenuQuery
         }
         return $model;
     }
+
+    public function search($model, $request)
+    {
+        if ($request->label) {
+            $model = $model->whereLabel($request->label);
+        }
+        if ($request->url) {
+            $model = $model->whereUrl($request->url);
+        }
+        return $model;
+    }
 }
