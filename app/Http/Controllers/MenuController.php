@@ -22,10 +22,10 @@ class MenuController
     {
         $model = new Menu();
         if ($request->label) {
-            $model = $model->label($request->label);
+            $model = $model->whereLabel($request->label);
         }
         if ($request->url) {
-            $model = $model->url($request->url);
+            $model = $model->whereUrl($request->url);
         }
         $requestQuery = new MenuQuery();
         $model = $requestQuery->sort($model, $request);

@@ -16,12 +16,12 @@ class Menu extends Model
     protected $table = 'menus';
     protected $guarded = [];
 
-    public function scopeLabel($query, $label)
+    public function scopeWhereLabel($query, $label)
     {
         return $query->where('label', 'like', "%$label%");
     }
 
-    public function scopeUrl($query, $url)
+    public function scopeWhereUrl($query, $url)
     {
         return $query->where('url', 'like', "%$url%");
     }

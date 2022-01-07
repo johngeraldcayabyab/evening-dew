@@ -36,22 +36,22 @@ class Measurement extends Model
         return new Channel('measurement');
     }
 
-    public function scopeName($query, $name)
+    public function scopeWhereName($query, $name)
     {
         return $query->where('name', 'like', "%$name%");
     }
 
-    public function scopeType($query, $type)
+    public function scopeWhereType($query, $type)
     {
         return $query->where('type', 'like', "%$type%");
     }
 
-    public function scopeRatio($query, $ratio)
+    public function scopeWhereRatio($query, $ratio)
     {
         return $query->where('ratio', 'like', "%$ratio%");
     }
 
-    public function scopeRoundingPrecision($query, $roundingPrecision)
+    public function scopeWhereRoundingPrecision($query, $roundingPrecision)
     {
         return $query->where('rounding_precision', 'like', "%$roundingPrecision");
     }
