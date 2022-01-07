@@ -44,6 +44,7 @@ const MeasurementList = () => {
                 dataIndex: 'measurement_category',
                 key: 'measurement_category',
                 sorter: true,
+                ...getColumnSearchProps('measurement_category'),
                 render: (text, record) => {
                     return record.measurement_category.name;
                 }

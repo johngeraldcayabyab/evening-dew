@@ -33,7 +33,8 @@ class MeasurementController
             $model = $model->roundingPrecision($request->rounding_precision);
         }
         if ($request->measurement_category) {
-            $model = $model->measurementCategory($request->measurement_category);
+            info('controllr');
+            $model = $model->whereMeasurementCategory($request->measurement_category);
         }
         $requestQuery = new MeasurementQuery();
         $model = $requestQuery->sort($model, $request);
