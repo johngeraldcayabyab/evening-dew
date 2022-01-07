@@ -20,23 +20,8 @@ class MeasurementController
     public function index(Request $request): ResourceCollection
     {
         $model = new Measurement();
-        if ($request->name) {
-            $model = $model->whereName($request->name);
-        }
-        if ($request->type) {
-            $model = $model->whereType($request->type);
-        }
-        if ($request->ratio) {
-            $model = $model->whereRatio($request->ratio);
-        }
-        if ($request->rounding_precision) {
-            $model = $model->whereRoundingPrecision($request->rounding_precision);
-        }
-        if ($request->measurement_category) {
-            info('controllr');
-            $model = $model->whereMeasurementCategory($request->measurement_category);
-        }
         $requestQuery = new MeasurementQuery();
+        $model = $requestQuery->search($model, $request);
         $model = $requestQuery->sort($model, $request);
         return new MeasurementCollection($model->paginate(SystemSetting::PAGE_SIZE));
     }

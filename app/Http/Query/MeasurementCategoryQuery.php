@@ -18,4 +18,12 @@ class MeasurementCategoryQuery
         }
         return $model;
     }
+
+    public function search($model, $request)
+    {
+        if ($request->name) {
+            $model = $model->whereName($request->name);
+        }
+        return $model;
+    }
 }

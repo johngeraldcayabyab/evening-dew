@@ -21,13 +21,8 @@ class MenuController
     public function index(Request $request): ResourceCollection
     {
         $model = new Menu();
-        if ($request->label) {
-            $model = $model->whereLabel($request->label);
-        }
-        if ($request->url) {
-            $model = $model->whereUrl($request->url);
-        }
         $requestQuery = new MenuQuery();
+        $model = $requestQuery->search($model, $request);
         $model = $requestQuery->sort($model, $request);
         return new MenuCollection($model->paginate(SystemSetting::PAGE_SIZE));
     }

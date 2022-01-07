@@ -21,10 +21,8 @@ class MeasurementCategoryController
     public function index(Request $request): ResourceCollection
     {
         $model = new MeasurementCategory();
-        if ($request->name) {
-            $model = $model->whereName($request->name);
-        }
         $requestQuery = new MeasurementCategoryQuery();
+        $model = $requestQuery->search($model, $request);
         $model = $requestQuery->sort($model, $request);
         return new MeasurementCategoryCollection($model->paginate(SystemSetting::PAGE_SIZE));
     }
