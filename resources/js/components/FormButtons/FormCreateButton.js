@@ -1,5 +1,5 @@
 import React from 'react';
-import TableCreateButton from "./TableCreateButton";
+import TableCreateButton from "../TableButtons/TableCreateButton";
 
 const FormCreateButton = (props) => {
     if (props.id && props.formState.formDisabled) {
