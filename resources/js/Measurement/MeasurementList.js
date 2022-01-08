@@ -1,10 +1,10 @@
 import React, {useRef} from 'react';
 import useListState from "../Hooks/useListState";
 import manifest from "./__manifest__.json";
-import TableCreateButton from "../components/ActionButtons/TableCreateButton";
+import TableCreateButton from "../components/TableButtons/TableCreateButton";
 import ControlPanel from "../components/ControlPanel";
 import CustomTable from "../components/CustomTable";
-import ActionsDropdownButton from "../components/ActionButtons/ActionsDropdownButton";
+import ActionsDropdownButton from "../components/TableButtons/ActionsDropdownButton";
 import CustomPagination from "../components/CustomPagination";
 import TableSearchInput from "../components/TableSearchInput";
 import {Button, Input, Space} from "antd";

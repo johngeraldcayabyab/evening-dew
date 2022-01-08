@@ -3,7 +3,7 @@ import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
-import FormButtons from "../components/ActionButtons/FormButtons";
+import FormButtons from "../components/FormButtons/FormButtons";
 import RowForm from "../components/Grid/RowForm";
 import ColForm from "../components/Grid/ColForm";
 import CustomForm from "../components/CustomForm";
@@ -11,8 +11,8 @@ import FormItemText from "../components/FormItem/FormItemText";
 import FormItemNumber from "../components/FormItem/FormItemNumber";
 import FormItemSelect from "../components/FormItem/FormItemSelect";
 import ControlPanel from "../components/ControlPanel";
-import FormCard from "../components/FormCard";
 import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
+import FormCard from "../components/FormCard";
 
 const MeasurementForm = () => {
     let {id} = useParams();

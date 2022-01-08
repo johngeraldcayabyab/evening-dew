@@ -3,7 +3,7 @@ import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
-import FormButtons from "../components/ActionButtons/FormButtons";
+import FormButtons from "../components/FormButtons/FormButtons";
 import RowForm from "../components/Grid/RowForm";
 import ColForm from "../components/Grid/ColForm";
 import CustomForm from "../components/CustomForm";
