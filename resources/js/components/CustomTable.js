@@ -117,7 +117,7 @@ const CustomTable = (props) => {
                     }
                 }
                 props.renderData(props.params);
-                console.log(filters);
+                // console.log(filters);
             }}
         />
     )

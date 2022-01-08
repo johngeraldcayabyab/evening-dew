@@ -9,7 +9,6 @@ const ListDeleteButton = (props) => {
                 okText="Yes"
                 cancelText="No" onConfirm={() => {
                 let ids = props.selectedRows.map((row) => (row.id));
-                console.log(ids);
                 props.handleMassDelete(ids);
             }}
             >

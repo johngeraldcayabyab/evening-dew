@@ -4,7 +4,7 @@ import ListDeleteButton from "./ListDeleteButton";
 const ActionsDropdownButton = (props) => {
 
     function handleMenuClick(e) {
-        // console.log('click', e);
+
     }
 
     const menu = (
