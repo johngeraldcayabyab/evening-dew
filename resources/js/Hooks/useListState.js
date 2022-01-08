@@ -30,10 +30,7 @@ const useListState = (manifest, columns) => {
                 loading: true,
             }));
             await fetchPost(`api/${moduleName}/mass_destroy`, {ids: ids}).then(() => {
-                setTableState(state => ({
-                    ...state,
-                    loading: false,
-                }));
+                tableActions.renderData(tableState.params);
             });
         },
         rowSelection: {
@@ -45,13 +42,12 @@ const useListState = (manifest, columns) => {
             }
         },
         renderData: async (params = {}) => {
+            console.log(params);
             let responseJson = await fetchGet(`api/${moduleName}`, params)
                 .then(response => response.json())
                 .then(responseJson => {
                     return responseJson;
                 });
-
-            // columns = columnsInitialize(columns);
 
             setTableState(state => ({
                 ...state,
@@ -59,34 +55,23 @@ const useListState = (manifest, columns) => {
                 dataSource: responseJson.data,
                 meta: responseJson.meta,
                 params: params,
-                // columns: columns
             }));
         }
     });
 
-    function columnsInitialize(columns) {
-        // columns = columns.map((column) => {
-        //     if (tableState.orderByColumn === column.dataIndex && tableState.orderByDirection) {
-        //         column.sortOrder = tableState.orderByDirection;
-        //     }
-        //     return column;
-        // });
-        return columns;
-    }
 
     useEffect(() => {
-        tableActions.renderData();
+        tableActions.renderData(tableState.params);
     }, []);
 
 
     useEffect(() => {
-        // console.log(123);
         // Echo.channel(`measurement`).listen('Illuminate\\Database\\Eloquent\\BroadcastableModelEventOccurred', (event) => {
-        //     console.log(event);
+        //
         // });
 
         // Echo.channel(`${moduleName}_channel`).listen(`.${moduleName}_event`, e => {
-        //     console.log(e);
+        //
         //     setTableState(state => {
         //         let newState = {
         //             ...state,

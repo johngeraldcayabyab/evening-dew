@@ -19,7 +19,7 @@ const TableSearchInput = (props) => {
     };
 
     const handleChange = (value) => {
-        props.renderData();
+        // props.renderData();
     };
 
     const optimizedFn = useCallback(debounce(handleChange), []);
