@@ -13,8 +13,13 @@
 Login
  */
 
+#components-form-demo-normal-login{
+    height: 100%;
+}
+
 #components-form-demo-normal-login .login-form {
     max-width: 300px;
+    margin: 0 auto;
 }
 #components-form-demo-normal-login .login-form-forgot {
     float: right;
