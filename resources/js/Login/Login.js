@@ -2,6 +2,7 @@ import {Button, Card, Checkbox, Form, Input} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {useEffect, useState} from "react";
 import {fetchGet} from "../Helpers/fetcher";
+import {getCookie} from "../Helpers/cookie";
 
 const Login = () => {
     const onFinish = (values) => {
@@ -13,8 +14,10 @@ const Login = () => {
     });
 
     useEffect(async () => {
+
         fetchGet(`/sanctum/csrf-cookie`, {}).then(result => {
             console.log(result.headers.get('Set-Cookie'));
+            console.log(getCookie('XSRF-TOKEN'));
         });
     }, []);
 
