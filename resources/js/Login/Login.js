@@ -1,10 +1,22 @@
 import {Button, Card, Checkbox, Form, Input} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
+import {useEffect, useState} from "react";
+import {fetchGet} from "../Helpers/fetcher";
 
 const Login = () => {
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
     };
+
+    const [loginState, setLoginState] = useState({
+        // X-XSRF-TOKEN :
+    });
+
+    useEffect(async () => {
+        fetchGet(`/sanctum/csrf-cookie`, {}).then(result => {
+            console.log(result.headers.get('Set-Cookie'));
+        });
+    }, []);
 
     return (
         <Card id={'components-form-demo-normal-login'}>
