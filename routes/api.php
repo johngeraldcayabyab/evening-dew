@@ -17,6 +17,9 @@ Route::post('/tokens/create', function (Request $request) {
     return ['token' => $token->plainTextToken];
 });
 
+Route::post('/sanctum/token', );
+
+
 Route::get('password/reset', function (Request $request) {
 
 })->name('password.reset');
