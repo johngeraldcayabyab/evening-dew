@@ -1,19 +1,25 @@
-let headers = {
+import {getCookie} from "./cookie";
+
+let defaultHeaders = {
     'Content-Type': 'application/json',
-    'Accept': 'application/json'
+    'Accept': 'application/json',
+    'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
 };
 
 export const fetchGet = (url, params = {}) => {
     params = Object.entries(params).map(e => e.join('=')).join('&');
     return fetch(`${url}?${params}`, {
-        headers,
+        defaultHeaders,
         method: 'GET'
     });
 }
 
-export const fetchPost = (url, values) => {
+export const fetchPost = (url, values, headers = {}) => {
     return fetch(url, {
-        headers,
+        headers: {
+            ...defaultHeaders,
+            ...headers
+        },
         method: 'POST',
         body: JSON.stringify(values)
     }).then(response => {
@@ -26,7 +32,7 @@ export const fetchPost = (url, values) => {
 
 export const fetchPut = (url, values) => {
     return fetch(url, {
-        headers,
+        defaultHeaders,
         method: 'PUT',
         body: JSON.stringify(values)
     }).then(response => {
@@ -39,7 +45,7 @@ export const fetchPut = (url, values) => {
 
 export const fetchDelete = (url) => {
     return fetch(url, {
-        headers,
+        defaultHeaders,
         method: 'DELETE',
     }).then(response => {
         if (response.ok) {

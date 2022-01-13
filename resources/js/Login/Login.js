@@ -1,20 +1,28 @@
 import {Button, Card, Checkbox, Form, Input} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {useEffect, useState} from "react";
-import {fetchGet} from "../Helpers/fetcher";
+import {fetchGet, fetchPost} from "../Helpers/fetcher";
 import {getCookie} from "../Helpers/cookie";
 
 const Login = () => {
-    const onFinish = (values) => {
-        console.log('Received values of form: ', values);
-    };
-
     const [loginState, setLoginState] = useState({
         // X-XSRF-TOKEN :
     });
 
-    useEffect(async () => {
+    const onFinish = (values) => {
+        fetchPost(`/api/sanctum/token`, {
+            'email': values.email,
+            'password': values.password,
+            'remember_me': values.remember_me,
+            'device_name': 'egg',
+        }).then(result => {
+            console.log(result);
+            // console.log(result.headers.get('Set-Cookie'));
+            // console.log(getCookie('XSRF-TOKEN'));
+        });
+    };
 
+    useEffect(async () => {
         fetchGet(`/sanctum/csrf-cookie`, {}).then(result => {
             console.log(result.headers.get('Set-Cookie'));
             console.log(getCookie('XSRF-TOKEN'));
@@ -32,15 +40,15 @@ const Login = () => {
                 onFinish={onFinish}
             >
                 <Form.Item
-                    name="username"
+                    name="email"
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your Username!',
+                            message: 'Please input your email!',
                         },
                     ]}
                 >
-                    <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="Username"/>
+                    <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="Email"/>
                 </Form.Item>
                 <Form.Item
                     name="password"

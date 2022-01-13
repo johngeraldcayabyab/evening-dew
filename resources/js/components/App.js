@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {render} from 'react-dom';
 import {Layout} from "antd";
 import {BrowserRouter} from 'react-router-dom';
@@ -11,6 +11,10 @@ import LoginRoute from "../Login/LoginRoute";
 
 
 const App = () => {
+    const [appState, setAppState] = useState({
+        token: null
+    });
+
     return (
         <BrowserRouter>
             <Layout style={{height: '100%'}}>

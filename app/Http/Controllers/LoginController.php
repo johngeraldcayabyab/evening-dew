@@ -25,6 +25,4 @@ class LoginController
             'email' => ['The provided credentials are incorrect.'],
         ]);
     }
-
-
 }
