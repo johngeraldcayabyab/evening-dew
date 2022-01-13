@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use App\Routes\MeasurementCategoryRoute;
 use App\Routes\MeasurementRoute;
 use App\Routes\MenuRoute;
@@ -17,7 +18,7 @@ Route::post('/tokens/create', function (Request $request) {
     return ['token' => $token->plainTextToken];
 });
 
-Route::post('/sanctum/token', );
+Route::post('/sanctum/token', [LoginController::class, 'authenticate']);
 
 
 Route::get('password/reset', function (Request $request) {
