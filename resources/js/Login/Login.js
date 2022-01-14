@@ -3,6 +3,7 @@ import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {useEffect, useState} from "react";
 import {fetchGet, fetchPost} from "../Helpers/fetcher";
 import {getCookie} from "../Helpers/cookie";
+import {getDevice} from "../Helpers/device";
 
 const Login = () => {
     const [loginState, setLoginState] = useState({
@@ -22,10 +23,9 @@ const Login = () => {
         });
     };
 
-    useEffect(async () => {
-        fetchGet(`/sanctum/csrf-cookie`, {}).then(result => {
-            console.log(result.headers.get('Set-Cookie'));
-            console.log(getCookie('XSRF-TOKEN'));
+    useEffect(() => {
+        fetchGet(`/sanctum/csrf-cookie`).then(() => {
+            console.log(getDevice());
         });
     }, []);
 
