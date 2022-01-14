@@ -4,11 +4,15 @@ import {Menu, Skeleton} from "antd";
 import {AppstoreOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 import {uuidv4} from "../Helpers/string";
+import {getCookie} from "../Helpers/cookie";
 
 const CustomMenu = () => {
     const [menus, setMenus] = useState([]);
 
     useEffect(async () => {
+        if (getCookie('Ber')) {
+
+        }
         let responseData = await fetch(`/api/menus`, {
             headers: {
                 'Content-Type': 'application/json',
