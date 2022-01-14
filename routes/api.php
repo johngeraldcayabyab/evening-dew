@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Routes\LoginRoute;
 use App\Routes\MeasurementCategoryRoute;
 use App\Routes\MeasurementRoute;
 use App\Routes\MenuRoute;
@@ -12,20 +13,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/tokens/create', function (Request $request) {
-    $token = $request->user()->createToken($request->token_name);
-
-    return ['token' => $token->plainTextToken];
-});
-
-Route::post('/sanctum/token', [LoginController::class, 'authenticate']);
-
 
 Route::get('password/reset', function (Request $request) {
 
 })->name('password.reset');
 
 Route::group(['middleware' => ['api', 'cors']], function () {
+    LoginRoute::initialize();
     MeasurementCategoryRoute::initialize();
     MeasurementRoute::initialize();
     MenuRoute::initialize();

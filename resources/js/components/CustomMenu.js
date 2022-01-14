@@ -5,24 +5,23 @@ import {AppstoreOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 import {uuidv4} from "../Helpers/string";
 import {getCookie} from "../Helpers/cookie";
+import {fetchGet} from "../Helpers/fetcher";
 
 const CustomMenu = () => {
     const [menus, setMenus] = useState([]);
 
     useEffect(async () => {
-        if (getCookie('Ber')) {
-
+        if (getCookie('Authorization')) {
+            let responseData = await fetchGet(`/api/menus`)
+                .then(response => response.json())
+                .then(responseJson => (responseJson.data));
+            setMenus(responseData);
         }
-        let responseData = await fetch(`/api/menus`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        })
-            .then(response => response.json())
-            .then(responseJson => (responseJson.data));
-        setMenus(responseData);
     }, []);
+
+    if (!getCookie('Authorization')) {
+        return null;
+    }
 
     return (
         <Header style={{position: 'fixed', zIndex: 1, width: '100%', padding: 0, height: '50px', lineHeight: '50px'}}>
