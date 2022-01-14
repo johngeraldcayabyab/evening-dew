@@ -82,10 +82,10 @@ export const getDevice = () => {
     debug += e.os.version + ' ';
     debug += e.browser.name + ' ';
     debug += e.browser.version + ' ';
-    debug += navigator.userAgent + ' ';
-    debug += navigator.appVersion + ' ';
-    debug += navigator.platform + ' ';
-    debug += navigator.vendor + ' ';
+    // debug += navigator.userAgent + ' ';
+    // debug += navigator.appVersion + ' ';
+    // debug += navigator.platform + ' ';
+    // debug += navigator.vendor + ' ';
 
     return debug;
 };

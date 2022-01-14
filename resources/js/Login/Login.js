@@ -2,12 +2,12 @@ import {Button, Card, Checkbox, Form, Input} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {useEffect, useState} from "react";
 import {fetchGet, fetchPost} from "../Helpers/fetcher";
-import {getCookie} from "../Helpers/cookie";
+import {getCookie, setCookie} from "../Helpers/cookie";
 import {getDevice} from "../Helpers/device";
 
 const Login = () => {
-    const [loginState, setLoginState] = useState({
-        // X-XSRF-TOKEN :
+    const [loginState] = useState({
+        deviceName: getDevice(),
     });
 
     const onFinish = (values) => {
@@ -15,18 +15,16 @@ const Login = () => {
             'email': values.email,
             'password': values.password,
             'remember_me': values.remember_me,
-            'device_name': 'egg',
-        }).then(result => {
-            console.log(result);
-            // console.log(result.headers.get('Set-Cookie'));
-            // console.log(getCookie('XSRF-TOKEN'));
+            'device_name': loginState.deviceName,
+        }).then((response) => {
+            return response.text();
+        }).then((text) => {
+            setCookie('Authorization', `Bearer ${text}`, 365);
         });
     };
 
     useEffect(() => {
-        fetchGet(`/sanctum/csrf-cookie`).then(() => {
-            console.log(getDevice());
-        });
+        fetchGet(`/api/sanctum/csrf-cookie`);
     }, []);
 
     return (

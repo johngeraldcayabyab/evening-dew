@@ -9,6 +9,12 @@ use Illuminate\Validation\ValidationException;
 
 class LoginController
 {
+    public function tokensCreate(Request $request)
+    {
+        $token = $request->user()->createToken($request->token_name);
+        return ['token' => $token->plainTextToken];
+    }
+
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
