@@ -10,24 +10,32 @@ import CustomMenu from "./CustomMenu";
 import LoginRoute from "../Login/LoginRoute";
 
 
+const AppContext = React.createContext({});
+
+export const AppContextProvider = AppContext.Provider;
+
 const App = () => {
     const [appState, setAppState] = useState({
-        token: null
+        isLogin: false
     });
 
     return (
         <BrowserRouter>
-            <Layout style={{height: '100%'}}>
-                <CustomMenu/>
-                <Content style={{marginTop: '50px'}}>
-                    <LoginRoute/>
-                    <MeasurementCategoryRoute/>
-                    <MeasurementRoute/>
-                    <MenuRoute/>
-                </Content>
-            </Layout>
+            <AppContextProvider value={appState}>
+                <Layout style={{height: '100%'}}>
+                    <CustomMenu/>
+                    <Content style={{marginTop: '50px'}}>
+                        <LoginRoute/>
+                        <MeasurementCategoryRoute/>
+                        <MeasurementRoute/>
+                        <MenuRoute/>
+                    </Content>
+                </Layout>
+            </AppContextProvider>
         </BrowserRouter>
     )
 };
 
-render(<App/>, document.getElementById('root'));
+render(
+    <App/>
+    , document.getElementById('root'));
