@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import Title from "antd/lib/typography/Title";
+import {fetchGet} from "../Helpers/fetcher";
 
 const CustomBreadcrumb = () => {
     const location = useLocation();
@@ -19,12 +20,7 @@ const CustomBreadcrumb = () => {
         let isMainPath = splitPathName.length === 2;
 
         if (isEditPagePath) {
-            let responseData = await fetch(`/api${splitPathName.join('/')}/slug`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
-            })
+            let responseData = await fetchGet(`/api${splitPathName.join('/')}/slug`)
                 .then(response => response.json())
                 .then(data => (data));
             responseData.link = pathname;

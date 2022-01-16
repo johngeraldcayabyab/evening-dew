@@ -24,7 +24,7 @@ class LoginController
 
         if (Auth::attempt($credentials)) {
             $user = User::where('email', $request->email)->first();
-            return $user->createToken($request->device_name)->plainTextToken;
+            return $user->createToken($request->device_name, ['server:update'])->plainTextToken;
         }
 
         throw ValidationException::withMessages([
