@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {render} from 'react-dom';
 import {Layout} from "antd";
 import {BrowserRouter} from 'react-router-dom';
@@ -10,7 +10,7 @@ import CustomMenu from "./CustomMenu";
 import LoginRoute from "../Login/LoginRoute";
 
 
-const AppContext = React.createContext({});
+export const AppContext = React.createContext({});
 
 export const AppContextProvider = AppContext.Provider;
 
@@ -19,9 +19,13 @@ const App = () => {
         isLogin: false
     });
 
+    useEffect(() => {
+
+    });
+
     return (
         <BrowserRouter>
-            <AppContextProvider value={appState}>
+            <AppContextProvider value={{appState: appState, setAppState: setAppState}}>
                 <Layout style={{height: '100%'}}>
                     <CustomMenu/>
                     <Content style={{marginTop: '50px'}}>

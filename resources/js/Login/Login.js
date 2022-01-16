@@ -1,13 +1,17 @@
 import {Button, Card, Checkbox, Form, Input} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {fetchGet, fetchPost} from "../Helpers/fetcher";
 import {getCookie, setCookie} from "../Helpers/cookie";
 import {getDevice} from "../Helpers/device";
+import {AppContext} from "../components/App";
 
 const Login = () => {
-    const [loginState] = useState({
-        deviceName: getDevice(),
+
+    const appState = useContext(AppContext);
+
+    useEffect(() => {
+        console.log(appState);
     });
 
     const onFinish = (values) => {
@@ -15,11 +19,15 @@ const Login = () => {
             'email': values.email,
             'password': values.password,
             'remember_me': values.remember_me,
-            'device_name': loginState.deviceName,
+            'device_name': getDevice(),
         }).then((response) => {
             return response.text();
         }).then((text) => {
             setCookie('Authorization', `Bearer ${text}`, 365);
+            appState.setAppState((state) => ({
+                ...state,
+                isLogin: true,
+            }));
         });
     };
 

@@ -9,7 +9,7 @@ class MeasurementRoute
 {
     public static function initialize()
     {
-        Route::middleware('auth:sanctum')->group(function () {
+        Route::middleware(['auth:sanctum', 'ability:check-status'])->group(function () {
             Route::get('measurements/{measurement}/slug', [MeasurementController::class, 'slug'])->name('measurements.slug');
             Route::get('measurements/{measurement}', [MeasurementController::class, 'show'])->name('measurements.show');
             Route::put('measurements/{measurement}', [MeasurementController::class, 'update'])->name('measurements.update');
