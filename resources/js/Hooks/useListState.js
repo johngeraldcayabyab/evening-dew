@@ -42,7 +42,6 @@ const useListState = (manifest, columns) => {
             }
         },
         renderData: async (params = {}) => {
-            console.log(params);
             let responseJson = await fetchGet(`api/${moduleName}`, params)
                 .then(responseJson => {
                     return responseJson;

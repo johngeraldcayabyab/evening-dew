@@ -11,6 +11,12 @@ seeds.</p>
 <h5>API Responses</h5>
 <p>"option" method should define the fields that is used for getting the data</p>
 
+<ul>
+<li>401 unauthorized</li>
+<li>403 authorized but not allowed</li>
+<li>422 incorrect payload</li>
+</ul>
+
 
 
 
