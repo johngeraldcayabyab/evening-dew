@@ -21,7 +21,6 @@ const CustomBreadcrumb = () => {
 
         if (isEditPagePath) {
             let responseData = await fetchGet(`/api${splitPathName.join('/')}/slug`)
-                .then(response => response.json())
                 .then(data => (data));
             responseData.link = pathname;
             newSlug = responseData;

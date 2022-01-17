@@ -20,6 +20,15 @@ export const fetchGet = (url, params = {}, headers) => {
             return response;
         }
         throw response;
+    }).then(responseOk => {
+        const contentType = responseOk.headers.get('Content-Type');
+        if (contentType === 'text/html; charset=UTF-8') {
+            return responseOk.text();
+        } else if (contentType === 'application/json') {
+            return responseOk.json();
+        } else {
+            alert('Undefined response ok type!');
+        }
     });
 }
 

@@ -28,7 +28,6 @@ const useFormState = (id, form, manifest) => {
             }
             if (id) {
                 let responseData = await fetchGet(`/api/${manifest.moduleName}/${id}`)
-                    .then(response => response.json())
                     .then(data => (data));
                 form.setFieldsValue(responseData);
                 newState = {

@@ -8,6 +8,7 @@ import {Content} from "antd/lib/layout/layout";
 import MeasurementRoute from "../Measurement/MeasurementRoute";
 import CustomMenu from "./CustomMenu";
 import LoginRoute from "../Login/LoginRoute";
+import {fetchGet} from "../Helpers/fetcher";
 
 
 export const AppContext = React.createContext({});
@@ -19,8 +20,14 @@ const App = () => {
         isLogin: false
     });
 
-    useEffect(() => {
+    useEffect(async () => {
 
+        const systemSettings = await fetchGet(`/api/system_settings`)
+            .then(data => {
+                return data;
+            });
+
+        console.log(systemSettings);
     });
 
     return (
