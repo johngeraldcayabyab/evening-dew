@@ -42,9 +42,9 @@ const App = () => {
     return (
         <BrowserRouter>
             <AppContextProvider value={{appState: appState, setAppState: setAppState}}>
-                <Layout style={{height: '100%'}}>
+                <Layout style={{height: '100%', background: '#ffffff'}}>
                     <CustomMenu/>
-                    <Content style={{marginTop: '50px'}}>
+                    <Content style={{marginTop: '50px', borderTop: 'none'}}>
                         <LoginRoute/>
                         <MeasurementCategoryRoute/>
                         <MeasurementRoute/>

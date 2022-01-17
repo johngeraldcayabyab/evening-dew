@@ -5,8 +5,11 @@ import {fetchGet, fetchPost} from "../Helpers/fetcher";
 import {getCookie, setCookie} from "../Helpers/cookie";
 import {getDevice} from "../Helpers/device";
 import {AppContext} from "../components/App";
+import {useHistory} from "react-router";
 
 const Login = () => {
+
+    const history = useHistory();
 
     const appState = useContext(AppContext);
 
@@ -28,6 +31,7 @@ const Login = () => {
                 ...state,
                 isLogin: true,
             }));
+            history.push('/measurements');
         });
     };
 

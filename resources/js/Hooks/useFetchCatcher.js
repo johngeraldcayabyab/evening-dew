@@ -12,9 +12,8 @@ const useFetchCatcher = () => {
             } else if (response.status === 403) {
                 message.error('You cant do this action! Please ask your admin for permission');
             }
-        }
+        },
     });
-
 
 
     return handle;
