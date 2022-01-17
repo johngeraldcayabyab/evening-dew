@@ -1,7 +1,6 @@
 import {Button, Input, Space, Table} from "antd";
 import React, {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
-import {cleanObject} from "../Helpers/object";
 import {SearchOutlined} from "@ant-design/icons";
 
 const CustomTable = (props) => {
@@ -110,14 +109,12 @@ const CustomTable = (props) => {
                 }
                 props.params.orderByColumn = sorter.column ? sorter.column.dataIndex : null;
                 props.params.orderByDirection = orderByDirection;
-                // filters = cleanObject(filters);
                 for (let key in filters) {
                     if (filters.hasOwnProperty(key)) {
                         props.params[key] = filters[key];
                     }
                 }
                 props.renderData(props.params);
-                // console.log(filters);
             }}
         />
     )
