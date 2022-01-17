@@ -5,6 +5,7 @@ use App\Routes\LoginRoute;
 use App\Routes\MeasurementCategoryRoute;
 use App\Routes\MeasurementRoute;
 use App\Routes\MenuRoute;
+use App\Routes\SystemSettingRoute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,7 @@ Route::get('password/reset', function (Request $request) {
 
 Route::group(['middleware' => ['api', 'cors']], function () {
     LoginRoute::initialize();
+    SystemSettingRoute::initialize();
     MeasurementCategoryRoute::initialize();
     MeasurementRoute::initialize();
     MenuRoute::initialize();

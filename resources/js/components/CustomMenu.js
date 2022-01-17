@@ -15,7 +15,6 @@ const CustomMenu = () => {
     useEffect(async () => {
         if (appState.isLogin) {
             let responseData = await fetchGet(`/api/menus`)
-                .then(response => response.json())
                 .then(responseJson => (responseJson.data));
             setMenus(responseData);
         }

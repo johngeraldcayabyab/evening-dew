@@ -15,7 +15,6 @@ const FormItemSelectAjax = (props) => {
     useEffect(() => {
         if (props.url) {
             fetchGet(`${props.url}`)
-                .then(response => response.json())
                 .then((data) => {
                     setState((prevState) => ({
                         ...prevState,
@@ -30,7 +29,6 @@ const FormItemSelectAjax = (props) => {
 
     function onSearch(search) {
         fetchGet(`${props.url}?search=${search}`)
-            .then(response => response.json())
             .then((data) => {
                 setState((prevState) => ({
                     ...prevState,
