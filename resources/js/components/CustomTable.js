@@ -78,7 +78,6 @@ const CustomTable = (props) => {
         <Table
             rowSelection={props.rowSelection}
             loading={props.loading}
-            size={'small'}
             dataSource={props.dataSource}
             columns={columns}
             rowKey={'id'}
@@ -116,6 +115,7 @@ const CustomTable = (props) => {
                 }
                 props.renderData(props.params);
             }}
+            size={'small'}
         />
     )
 };
