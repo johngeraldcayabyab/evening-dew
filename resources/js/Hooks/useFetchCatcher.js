@@ -14,6 +14,9 @@ const useFetchCatcher = () => {
                 message.error('You cant do this action! Please ask your admin for permission');
             }
         },
+        post: (response) => {
+
+        }
     });
 
     return handle;

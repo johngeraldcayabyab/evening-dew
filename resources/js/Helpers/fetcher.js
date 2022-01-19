@@ -7,14 +7,15 @@ let defaultHeaders = {
     'Authorization': getCookie('Authorization')
 };
 
-export const fetchGet = (url, params = {}, headers) => {
+export const fetchGet = (url, params = {}, headers, signal) => {
     params = Object.entries(params).map(e => e.join('=')).join('&');
     return fetch(`${url}?${params}`, {
         headers: {
             ...defaultHeaders,
             ...headers
         },
-        method: 'GET'
+        method: 'GET',
+        signal: signal
     }).then(response => {
         if (response.ok) {
             return response;

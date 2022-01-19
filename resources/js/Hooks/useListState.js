@@ -3,6 +3,10 @@ import {fetchDelete, fetchGet, fetchPost} from "../Helpers/fetcher";
 import useFetchCatcher from "./useFetchCatcher";
 
 const useListState = (manifest, columns) => {
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     const fetchCatcher = useFetchCatcher();
     const moduleName = manifest.moduleName;
     const eventName = manifest.eventName;
@@ -44,7 +48,7 @@ const useListState = (manifest, columns) => {
             }
         },
         renderData: async (params = {}) => {
-            let responseJson = await fetchGet(`api/${moduleName}`, params)
+            let responseJson = await fetchGet(`api/${moduleName}`, params, signal)
                 .then(responseJson => {
                     return responseJson;
                 }).catch((responseErr) => {
@@ -64,6 +68,13 @@ const useListState = (manifest, columns) => {
 
     useEffect(() => {
         tableActions.renderData(tableState.params);
+    }, []);
+
+    useEffect(() => {
+        console.log('unmounted');
+        return () => {
+            controller.abort();
+        };
     }, []);
 
 
