@@ -5,8 +5,10 @@ import {Link} from "react-router-dom";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import Title from "antd/lib/typography/Title";
 import {fetchGet} from "../Helpers/fetcher";
+import useFetchCatcher from "../Hooks/useFetchCatcher";
 
 const CustomBreadcrumb = () => {
+    const fetchCatcher = useFetchCatcher();
     const location = useLocation();
     const [breadcrumbs, setBreadcrumbs] = useState([]);
 
@@ -21,7 +23,9 @@ const CustomBreadcrumb = () => {
 
         if (isEditPagePath) {
             let responseData = await fetchGet(`/api${splitPathName.join('/')}/slug`)
-                .then(data => (data));
+                .then(data => (data)).catch((responseErr) => {
+                    fetchCatcher.get(responseErr);
+                });
             responseData.link = pathname;
             newSlug = responseData;
         } else if (isCreatePagePath) {

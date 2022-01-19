@@ -2,8 +2,10 @@ import {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {message} from "antd";
 import {fetchGet, fetchPost, fetchPut} from "../Helpers/fetcher";
+import useFetchCatcher from "./useFetchCatcher";
 
 const useFormState = (id, form, manifest) => {
+    const fetchCatcher = useFetchCatcher();
     const history = useHistory();
 
     const [formState, setFormState] = useState({
@@ -28,7 +30,10 @@ const useFormState = (id, form, manifest) => {
             }
             if (id) {
                 let responseData = await fetchGet(`/api/${manifest.moduleName}/${id}`)
-                    .then(data => (data));
+                    .then(data => (data))
+                    .catch((responseErr) => {
+                        fetchCatcher.get(responseErr);
+                    });
                 form.setFieldsValue(responseData);
                 newState = {
                     initialValues: responseData,

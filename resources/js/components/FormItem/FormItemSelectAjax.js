@@ -4,9 +4,10 @@ import {useEffect, useState} from "react";
 import {uuidv4} from "../../Helpers/string";
 import {fetchGet} from "../../Helpers/fetcher";
 import CustomInputSkeleton from "../CustomInputSkeleton";
+import useFetchCatcher from "../../Hooks/useFetchCatcher";
 
 const FormItemSelectAjax = (props) => {
-
+    const fetchCatcher = useFetchCatcher();
     const [state, setState] = useState({
         options: [],
         filterOption: []
@@ -23,7 +24,9 @@ const FormItemSelectAjax = (props) => {
                             label: option.slug
                         }))
                     }));
-                });
+                }).catch((responseErr) => {
+                fetchCatcher.get(responseErr);
+            });
         }
     }, []);
 

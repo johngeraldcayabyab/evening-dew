@@ -1,20 +1,18 @@
 import {Button, Card, Checkbox, Form, Input} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
-import {useContext, useEffect, useState} from "react";
+import {useContext, useEffect} from "react";
 import {fetchGet, fetchPost} from "../Helpers/fetcher";
-import {getCookie, setCookie} from "../Helpers/cookie";
+import {setCookie} from "../Helpers/cookie";
 import {getDevice} from "../Helpers/device";
 import {AppContext} from "../components/App";
 import {useHistory} from "react-router";
 
 const Login = () => {
-
     const history = useHistory();
-
     const appState = useContext(AppContext);
 
     useEffect(() => {
-        console.log(appState);
+        // console.log(appState);
     });
 
     const onFinish = (values) => {
