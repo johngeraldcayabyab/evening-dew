@@ -1,7 +1,9 @@
 import {useEffect, useState} from "react";
 import {fetchDelete, fetchGet, fetchPost} from "../Helpers/fetcher";
+import useFetchCatcher from "./useFetchCatcher";
 
 const useListState = (manifest, columns) => {
+    const fetchCatcher = useFetchCatcher();
     const moduleName = manifest.moduleName;
     const eventName = manifest.eventName;
     const [tableState, setTableState] = useState({
@@ -45,6 +47,8 @@ const useListState = (manifest, columns) => {
             let responseJson = await fetchGet(`api/${moduleName}`, params)
                 .then(responseJson => {
                     return responseJson;
+                }).catch((responseErr) => {
+                    fetchCatcher.get(responseErr);
                 });
 
             setTableState(state => ({
