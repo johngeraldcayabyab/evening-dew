@@ -15,11 +15,13 @@ const CustomMenu = () => {
     const [menus, setMenus] = useState([]);
 
     useEffect(async () => {
-        fetchGet('/api/menus').then(response => {
-            setMenus(response.data);
-        }).catch((responseErr) => {
-            fetchCatcher.get(responseErr);
-        });
+        if (appContext.appState.isLogin) {
+            fetchGet('/api/menus').then(response => {
+                setMenus(response.data);
+            }).catch((responseErr) => {
+                fetchCatcher.get(responseErr);
+            });
+        }
     }, []);
 
     if (appContext.appState.isLogin) {
