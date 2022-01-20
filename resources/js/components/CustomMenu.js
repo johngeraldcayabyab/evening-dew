@@ -7,21 +7,40 @@ import {uuidv4} from "../Helpers/string";
 import {fetchGet} from "../Helpers/fetcher";
 import {AppContext} from "./App";
 import useFetchCatcher from "../Hooks/useFetchCatcher";
+import useFetch from "../Hooks/useFetch";
 
 const CustomMenu = () => {
     const fetchCatcher = useFetchCatcher();
     const appContext = useContext(AppContext);
-
+    const [lefetch, abort] = useFetch();
     const [menus, setMenus] = useState([]);
 
-    useEffect(async () => {
+    useEffect(() => {
+        console.log(appContext.appState);
         if (appContext.appState.isLogin) {
-            fetchGet('/api/menus').then(response => {
+            console.log('WHY THE FUCK ARE YOU GETTING TRIGGERED');
+            lefetch('/api/menus').then((response) => {
                 setMenus(response.data);
+                console.log(response, 'so it works');
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
             });
         }
+        return () => {
+            if (appContext.appState.isLogin) {
+                abort();
+            }
+        };
+    }, []);
+
+    useEffect(async () => {
+        // if (appContext.appState.isLogin) {
+        //     fetchGet('/api/menus').then(response => {
+        //         setMenus(response.data);
+        //     }).catch((responseErr) => {
+        //         fetchCatcher.get(responseErr);
+        //     });
+        // }
     }, []);
 
     if (appContext.appState.isLogin) {

@@ -8,6 +8,7 @@ import {Content} from "antd/lib/layout/layout";
 import MeasurementRoute from "../Measurement/MeasurementRoute";
 import CustomMenu from "./CustomMenu";
 import LoginRoute from "../Login/LoginRoute";
+import {getCookie} from "../Helpers/cookie";
 
 
 export const AppContext = React.createContext({});
@@ -15,7 +16,7 @@ export const AppContextProvider = AppContext.Provider;
 
 const App = () => {
     const [appState, setAppState] = useState({
-        isLogin: false
+        isLogin: getCookie('Authorization'),
     });
 
     useEffect(async () => {
