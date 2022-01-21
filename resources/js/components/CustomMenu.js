@@ -4,10 +4,10 @@ import {Menu} from "antd";
 import {AppstoreOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 import {uuidv4} from "../Helpers/string";
-import {fetchGet} from "../Helpers/fetcher";
 import {AppContext} from "./App";
 import useFetchCatcher from "../Hooks/useFetchCatcher";
 import useFetch from "../Hooks/useFetch";
+import {GET} from "../consts";
 
 const CustomMenu = () => {
     const fetchCatcher = useFetchCatcher();
@@ -16,12 +16,10 @@ const CustomMenu = () => {
     const [menus, setMenus] = useState([]);
 
     useEffect(() => {
-        console.log(appContext.appState);
         if (appContext.appState.isLogin) {
-            console.log('WHY THE FUCK ARE YOU GETTING TRIGGERED');
-            lefetch('/api/menus').then((response) => {
-                setMenus(response.data);
-                console.log(response, 'so it works');
+            lefetch('/api/menus', GET).then((response) => {
+                console.log(response);
+                // setMenus(response.data);
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
             });
@@ -31,16 +29,6 @@ const CustomMenu = () => {
                 abort();
             }
         };
-    }, []);
-
-    useEffect(async () => {
-        // if (appContext.appState.isLogin) {
-        //     fetchGet('/api/menus').then(response => {
-        //         setMenus(response.data);
-        //     }).catch((responseErr) => {
-        //         fetchCatcher.get(responseErr);
-        //     });
-        // }
     }, []);
 
     if (appContext.appState.isLogin) {
