@@ -6,27 +6,26 @@ import {Link} from "react-router-dom";
 import {uuidv4} from "../Helpers/string";
 import {AppContext} from "./App";
 import useFetchCatcher from "../Hooks/useFetchCatcher";
-import useFetch from "../Hooks/useFetch";
+import useFetchHook from "../Hooks/useFetchHook";
 import {GET} from "../consts";
 
 const CustomMenu = () => {
     const fetchCatcher = useFetchCatcher();
     const appContext = useContext(AppContext);
-    const [lefetch, abort] = useFetch();
+    const [useFetch, fetchAbort] = useFetchHook();
     const [menus, setMenus] = useState([]);
 
     useEffect(() => {
         if (appContext.appState.isLogin) {
-            lefetch('/api/menus', GET).then((response) => {
-                console.log(response);
-                // setMenus(response.data);
+            useFetch('/api/menus', GET).then((response) => {
+                setMenus(response.data);
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
             });
         }
         return () => {
             if (appContext.appState.isLogin) {
-                abort();
+                fetchAbort();
             }
         };
     }, []);

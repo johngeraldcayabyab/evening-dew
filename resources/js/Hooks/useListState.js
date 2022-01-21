@@ -1,12 +1,11 @@
 import {useEffect, useState} from "react";
-import {fetchDelete, fetchGet, fetchPost} from "../Helpers/fetcher";
+import {fetchDelete, fetchPost} from "../Helpers/fetcher";
 import useFetchCatcher from "./useFetchCatcher";
+import useFetchHook from "./useFetchHook";
+import {GET} from "../consts";
 
 const useListState = (manifest, columns) => {
-
-    const controller = new AbortController();
-    const signal = controller.signal;
-
+    const [useFetch, fetchAbort] = useFetchHook();
     const fetchCatcher = useFetchCatcher();
     const moduleName = manifest.moduleName;
     const eventName = manifest.eventName;
@@ -47,21 +46,18 @@ const useListState = (manifest, columns) => {
                 }));
             }
         },
-        renderData: async (params = {}) => {
-            let responseJson = await fetchGet(`api/${moduleName}`, params, signal)
-                .then(responseJson => {
-                    return responseJson;
-                }).catch((responseErr) => {
-                    fetchCatcher.get(responseErr);
-                });
-
-            setTableState(state => ({
-                ...state,
-                loading: false,
-                dataSource: responseJson.data,
-                meta: responseJson.meta,
-                params: params,
-            }));
+        renderData: (params = {}) => {
+            useFetch(`api/${moduleName}`, GET, params).then((response) => {
+                setTableState(state => ({
+                    ...state,
+                    loading: false,
+                    dataSource: response.data,
+                    meta: response.meta,
+                    params: params,
+                }));
+            }).catch((responseErr) => {
+                fetchCatcher.get(responseErr);
+            });
         }
     });
 
@@ -71,9 +67,8 @@ const useListState = (manifest, columns) => {
     }, []);
 
     useEffect(() => {
-        console.log('unmounted');
         return () => {
-            controller.abort();
+            fetchAbort();
         };
     }, []);
 
