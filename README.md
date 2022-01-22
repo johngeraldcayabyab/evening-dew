@@ -20,3 +20,8 @@ seeds.</p>
 
 
 
+NEED to improve form. incorrect details doesnt remove loading
+Form doesnt highlight error message
+
+
+

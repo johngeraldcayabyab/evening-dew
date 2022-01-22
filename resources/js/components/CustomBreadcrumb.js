@@ -6,8 +6,11 @@ import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import Title from "antd/lib/typography/Title";
 import {fetchGet} from "../Helpers/fetcher";
 import useFetchCatcher from "../Hooks/useFetchCatcher";
+import useFetchHook from "../Hooks/useFetchHook";
+import {GET} from "../consts";
 
 const CustomBreadcrumb = () => {
+    const [useFetch, fetchAbort] = useFetchHook();
     const fetchCatcher = useFetchCatcher();
     const location = useLocation();
     const [breadcrumbs, setBreadcrumbs] = useState([]);
@@ -22,26 +25,47 @@ const CustomBreadcrumb = () => {
         let isMainPath = splitPathName.length === 2;
 
         if (isEditPagePath) {
-            let responseData = await fetchGet(`/api${splitPathName.join('/')}/slug`)
-                .then(data => (data)).catch((responseErr) => {
-                    fetchCatcher.get(responseErr);
-                });
-            responseData.link = pathname;
-            newSlug = responseData;
+            // let responseData = await fetchGet(`/api${splitPathName.join('/')}/slug`)
+            //     .then(data => (data)).catch((responseErr) => {
+            //         fetchCatcher.get(responseErr);
+            //     });
+            // responseData.link = pathname;
+            // newSlug = responseData;
+
+
+            useFetch(`/api${splitPathName.join('/')}/slug`, GET).then((response) => {
+                response.link = pathname;
+                newSlug = pathname;
+                leSetBread(isMainPath, newSlug, pathname, splitPathName, isEditPagePath);
+            }).catch((responseErr) => {
+                fetchCatcher.get(responseErr);
+            });
+
+
         } else if (isCreatePagePath) {
             newSlug = {
                 key: uuidv4(),
                 slug: 'New',
                 link: pathname
             };
+            leSetBread(isMainPath, newSlug, pathname, splitPathName, isEditPagePath);
         } else if (isMainPath) {
             newSlug = {
                 key: uuidv4(),
                 slug: titleCase(replaceUnderscoreWithSpace(splitPathName[1])),
                 link: pathname
             };
+            leSetBread(isMainPath, newSlug, pathname, splitPathName, isEditPagePath);
         }
 
+
+        return () => {
+            fetchAbort();
+        };
+
+    }, [location.pathname]);
+
+    function leSetBread(isMainPath, newSlug, pathname, splitPathName, isEditPagePath) {
         setBreadcrumbs(() => {
             let breadcrumbs = [];
             if (localStorage.getItem("breadcrumbs")) {
@@ -98,8 +122,7 @@ const CustomBreadcrumb = () => {
             localStorage.setItem("breadcrumbs", JSON.stringify(breadcrumbsState));
             return breadcrumbsState;
         });
-
-    }, [location.pathname]);
+    }
 
     return (
         <Breadcrumb>
