@@ -28,11 +28,13 @@ const CustomMenu = () => {
                 fetchAbort();
             }
         };
-    }, []);
+    }, [appContext.appState.isLogin]);
+
 
     if (appContext.appState.isLogin) {
         return (
-            <Header style={{position: 'fixed', zIndex: 1, width: '100%', padding: 0, height: '50px', lineHeight: '50px'}}>
+            <Header
+                style={{position: 'fixed', zIndex: 1, width: '100%', padding: 0, height: '50px', lineHeight: '50px'}}>
                 <Menu theme={'dark'} mode={'horizontal'}>
                     <Menu.Item key={uuidv4()}>
                         <AppstoreOutlined/>
