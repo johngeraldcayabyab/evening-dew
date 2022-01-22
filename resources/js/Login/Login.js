@@ -1,19 +1,20 @@
 import {Button, Card, Checkbox, Form, Input} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {useContext, useEffect} from "react";
-import {fetchGet, fetchPost} from "../Helpers/fetcher";
+import {fetchPost} from "../Helpers/fetcher";
 import {setCookie} from "../Helpers/cookie";
 import {getDevice} from "../Helpers/device";
 import {AppContext} from "../components/App";
 import {useHistory} from "react-router";
+import useFetchHook from "../Hooks/useFetchHook";
+import {GET} from "../consts";
+import useFetchCatcher from "../Hooks/useFetchCatcher";
 
 const Login = () => {
+    const [useFetch, fetchAbort] = useFetchHook();
+    const fetchCatcher = useFetchCatcher();
     const history = useHistory();
     const appState = useContext(AppContext);
-
-    useEffect(() => {
-        // console.log(appState);
-    });
 
     const onFinish = (values) => {
         fetchPost(`/api/sanctum/token`, {
@@ -34,7 +35,12 @@ const Login = () => {
     };
 
     useEffect(() => {
-        fetchGet(`/api/sanctum/csrf-cookie`);
+        useFetch(`/api/sanctum/csrf-cookie`, GET).catch((responseErr) => {
+            fetchCatcher.get(responseErr);
+        });
+        return () => {
+            fetchAbort();
+        };
     }, []);
 
     return (
