@@ -7,32 +7,6 @@ let defaultHeaders = {
     'Authorization': getCookie('Authorization')
 };
 
-export const fetchGet = (url, params = {}, headers, signal) => {
-    params = Object.entries(params).map(e => e.join('=')).join('&');
-    return fetch(`${url}?${params}`, {
-        headers: {
-            ...defaultHeaders,
-            ...headers
-        },
-        method: 'GET',
-        signal: signal
-    }).then(response => {
-        if (response.ok) {
-            return response;
-        }
-        throw response;
-    }).then(responseOk => {
-        const contentType = responseOk.headers.get('Content-Type');
-        if (contentType === 'text/html; charset=UTF-8') {
-            return responseOk.text();
-        } else if (contentType === 'application/json') {
-            return responseOk.json();
-        } else {
-            alert('Undefined response ok type!');
-        }
-    });
-}
-
 export const fetchPost = (url, values, headers = {}) => {
     return fetch(url, {
         headers: {

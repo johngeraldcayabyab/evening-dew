@@ -45,11 +45,13 @@ const CustomBreadcrumb = () => {
             };
             setBreadcrumbsState(isMainPath, newSlug, pathname, splitPathName, isEditPagePath);
         }
+    }, [location.pathname]);
+
+    useEffect(() => {
         return () => {
             fetchAbort();
         };
-
-    }, [location.pathname]);
+    }, []);
 
     function setBreadcrumbsState(isMainPath, newSlug, pathname, splitPathName, isEditPagePath) {
         setBreadcrumbs(() => {
