@@ -2,11 +2,13 @@ import FormLabel from "../Typography/FormLabel";
 import {Form, Select} from "antd";
 import {useEffect, useState} from "react";
 import {uuidv4} from "../../Helpers/string";
-import {fetchGet} from "../../Helpers/fetcher";
 import CustomInputSkeleton from "../CustomInputSkeleton";
 import useFetchCatcher from "../../Hooks/useFetchCatcher";
+import useFetchHook from "../../Hooks/useFetchHook";
+import {GET} from "../../consts";
 
 const FormItemSelectAjax = (props) => {
+    const [useFetch, fetchAbort] = useFetchHook();
     const fetchCatcher = useFetchCatcher();
     const [state, setState] = useState({
         options: [],
@@ -15,32 +17,35 @@ const FormItemSelectAjax = (props) => {
 
     useEffect(() => {
         if (props.url) {
-            fetchGet(`${props.url}`)
-                .then((data) => {
-                    setState((prevState) => ({
-                        ...prevState,
-                        options: data.map((option) => ({
-                            value: option.id,
-                            label: option.slug
-                        }))
-                    }));
-                }).catch((responseErr) => {
-                fetchCatcher.get(responseErr);
-            });
-        }
-    }, []);
-
-    function onSearch(search) {
-        fetchGet(`${props.url}?search=${search}`)
-            .then((data) => {
+            useFetch(`${props.url}`, GET).then((response) => {
                 setState((prevState) => ({
                     ...prevState,
-                    options: data.map((option) => ({
+                    options: response.map((option) => ({
                         value: option.id,
                         label: option.slug
                     }))
                 }));
+            }).catch((responseErr) => {
+                fetchCatcher.get(responseErr);
             });
+        }
+        return () => {
+            fetchAbort();
+        };
+    }, []);
+
+    function onSearch(search) {
+        useFetch(`${props.url}`, GET, {search: search}).then((response) => {
+            setState((prevState) => ({
+                ...prevState,
+                options: response.map((option) => ({
+                    value: option.id,
+                    label: option.slug
+                }))
+            }));
+        }).catch((responseErr) => {
+            fetchCatcher.get(responseErr);
+        });
     }
 
     return (
