@@ -48,6 +48,22 @@ const FormItemSelectAjax = (props) => {
         });
     }
 
+    function onClear() {
+        if (props.url) {
+            useFetch(`${props.url}`, GET).then((response) => {
+                setState((prevState) => ({
+                    ...prevState,
+                    options: response.map((option) => ({
+                        value: option.id,
+                        label: option.slug
+                    }))
+                }));
+            }).catch((responseErr) => {
+                fetchCatcher.get(responseErr);
+            });
+        }
+    }
+
     return (
         <Form.Item
             label={<FormLabel>{props.label}</FormLabel>}
@@ -65,6 +81,7 @@ const FormItemSelectAjax = (props) => {
                     onSearch={onSearch}
                     optionFilterProp="children"
                     filterOption={state.filterOption}
+                    onClear={onClear}
                 >
                     {state.options.map((option) => {
                         return (
