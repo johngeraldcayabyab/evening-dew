@@ -3,8 +3,11 @@ import {useHistory} from "react-router-dom";
 import {message} from "antd";
 import {fetchGet, fetchPost, fetchPut} from "../Helpers/fetcher";
 import useFetchCatcher from "./useFetchCatcher";
+import useFetchHook from "./useFetchHook";
+import {GET} from "../consts";
 
 const useFormState = (id, form, manifest) => {
+    const [useFetch, fetchAbort] = useFetchHook();
     const fetchCatcher = useFetchCatcher();
     const history = useHistory();
 
@@ -20,7 +23,7 @@ const useFormState = (id, form, manifest) => {
     });
 
     const [formActions] = useState({
-        fetchData: async (overrideId = null) => {
+        fetchData: (overrideId = null) => {
             if (overrideId) {
                 id = overrideId;
             }
@@ -29,23 +32,27 @@ const useFormState = (id, form, manifest) => {
                 newState.initialLoad = false;
             }
             if (id) {
-                let responseData = await fetchGet(`/api/${manifest.moduleName}/${id}`)
-                    .then(data => (data))
-                    .catch((responseErr) => {
-                        fetchCatcher.get(responseErr);
-                    });
-                form.setFieldsValue(responseData);
-                newState = {
-                    initialValues: responseData,
-                    loading: false,
-                    formDisabled: true,
-                    initialLoad: false
-                };
+                useFetch(`/api/${manifest.moduleName}/${id}`, GET).then((response) => {
+                    form.setFieldsValue(response);
+                    newState = {
+                        initialValues: response,
+                        loading: false,
+                        formDisabled: true,
+                        initialLoad: false
+                    };
+                    setFormState(state => ({
+                        ...state,
+                        ...newState
+                    }));
+                }).catch((responseErr) => {
+                    fetchCatcher.get(responseErr);
+                });
+            } else {
+                setFormState(state => ({
+                    ...state,
+                    ...newState
+                }));
             }
-            setFormState(state => ({
-                ...state,
-                ...newState
-            }));
         },
         onFinish: async (values) => {
             setFormState(state => ({
@@ -95,6 +102,12 @@ const useFormState = (id, form, manifest) => {
     });
 
     useEffect(formActions.fetchData, []);
+
+    useEffect(() => {
+        return () => {
+            fetchAbort();
+        };
+    }, []);
 
     /**
      * three use effects just for redirect
