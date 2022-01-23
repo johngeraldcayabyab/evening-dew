@@ -19,13 +19,13 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class MeasurementCategoryController
 {
     public function index(Request $request): ResourceCollection
-    {
-        $model = new MeasurementCategory();
-        $requestQuery = new MeasurementCategoryQuery();
-        $model = $requestQuery->search($model, $request);
-        $model = $requestQuery->sort($model, $request);
-        return new MeasurementCategoryCollection($model->paginate(SystemSetting::PAGE_SIZE));
-    }
+{
+    $model = new MeasurementCategory();
+    $requestQuery = new MeasurementCategoryQuery();
+    $model = $requestQuery->search($model, $request);
+    $model = $requestQuery->sort($model, $request);
+    return new MeasurementCategoryCollection($model->paginate(SystemSetting::PAGE_SIZE));
+}
 
     public function show(MeasurementCategory $measurementCategory): JsonResponse
     {
