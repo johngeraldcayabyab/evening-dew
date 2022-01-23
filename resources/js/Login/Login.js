@@ -14,7 +14,7 @@ const Login = () => {
     const [useFetch, fetchAbort] = useFetchHook();
     const fetchCatcher = useFetchCatcher();
     const history = useHistory();
-    const appState = useContext(AppContext);
+    const appContext = useContext(AppContext);
 
     const onFinish = (values) => {
         fetchPost(`/api/sanctum/token`, {
@@ -26,7 +26,7 @@ const Login = () => {
             return response.text();
         }).then((text) => {
             setCookie('Authorization', `Bearer ${text}`, 365);
-            appState.setAppState((state) => ({
+            appContext.setAppState((state) => ({
                 ...state,
                 isLogin: true,
             }));
@@ -35,6 +35,9 @@ const Login = () => {
     };
 
     useEffect(() => {
+        if (appContext.appState.isLogin) {
+            history.push('/');
+        }
         useFetch(`/api/sanctum/csrf-cookie`, GET).catch((responseErr) => {
             fetchCatcher.get(responseErr);
         });
