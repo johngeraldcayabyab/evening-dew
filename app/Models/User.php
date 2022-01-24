@@ -12,6 +12,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = 'users';
     protected $fillable = [
         'name',
         'email',
@@ -26,4 +27,34 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function scopeWhereName($query, $name)
+    {
+        return $query->where('name', 'like', "%$name%");
+    }
+
+    public function scopeWhereEmail($query, $email)
+    {
+        return $query->where('email', 'like', "%$email%");
+    }
+
+    public function scopeOrderByName($query, $order)
+    {
+        return $query->orderBy('name', $order);
+    }
+
+    public function scopeOrderByEmail($query, $order)
+    {
+        return $query->orderBy('email', $order);
+    }
+
+    public function scopeOrderByEmailVerifiedAt($query, $order)
+    {
+        return $query->orderBy('email_verified_at', $order);
+    }
+
+    public function scopeOrderByCreatedAt($query, $order)
+    {
+        return $query->orderBy('created_at', $order);
+    }
 }
