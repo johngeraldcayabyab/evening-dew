@@ -9,6 +9,7 @@ import MeasurementRoute from "../Measurement/MeasurementRoute";
 import CustomMenu from "./CustomMenu";
 import LoginRoute from "../Login/LoginRoute";
 import {getCookie} from "../Helpers/cookie";
+import UserRoute from "../User/UserRoute";
 
 
 export const AppContext = React.createContext({});
@@ -45,6 +46,7 @@ const App = () => {
                         <MeasurementCategoryRoute/>
                         <MeasurementRoute/>
                         <MenuRoute/>
+                        <UserRoute/>
                     </Content>
                 </Layout>
             </AppContextProvider>
