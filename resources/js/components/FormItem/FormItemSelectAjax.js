@@ -72,6 +72,8 @@ const FormItemSelectAjax = (props) => {
             help={props.errors.ratio ? props.errors[props.name] : false}
             rules={[{required: props.required, message: props.message}]}
             colon={false}
+            labelCol={props.size === 'large' || props.size === 'medium' ? {span: 24} : null}
+            wrapperCol={props.size === 'large' || props.size === 'medium' ? {span: 24} : null}
         >
             {props.loading ? <CustomInputSkeleton/> :
                 <Select
@@ -82,6 +84,7 @@ const FormItemSelectAjax = (props) => {
                     optionFilterProp="children"
                     filterOption={state.filterOption}
                     onClear={onClear}
+                    size={props.size ? props.size : 'small'}
                 >
                     {state.options.map((option) => {
                         return (
