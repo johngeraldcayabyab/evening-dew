@@ -12,9 +12,14 @@ const FormItemText = (props) => {
             help={props.errors[props.name] ? props.errors[props.name] : null}
             rules={[{required: props.required, message: props.message}]}
             colon={false}
+            labelCol={props.size === 'large' || props.size === 'medium' ? {span: 24} : null}
+            wrapperCol={props.size === 'large' || props.size === 'medium' ? {span: 24} : null}
         >
             {props.loading ? <CustomInputSkeleton/> :
-                <Input disabled={props.formDisabled}/>
+                <Input
+                    disabled={props.formDisabled}
+                    size={props.size ? props.size : 'small'}
+                />
             }
         </Form.Item>
     )

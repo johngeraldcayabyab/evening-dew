@@ -36,21 +36,23 @@ const UserForm = () => {
             <FormCard {...formState}>
                 <RowForm>
                     <ColForm>
-                        {/*<FormItemText*/}
-                        {/*    label={'Label'}*/}
-                        {/*    name={'label'}*/}
-                        {/*    message={'Please input label'}*/}
-                        {/*    required={true}*/}
-                        {/*    {...formState}*/}
-                        {/*/>*/}
+                        <FormItemText
+                            label={'Name'}
+                            name={'name'}
+                            message={'Please input name'}
+                            required={true}
+                            size={'large'}
+                            {...formState}
+                        />
 
-                        {/*<FormItemText*/}
-                        {/*    label={'Url'}*/}
-                        {/*    name={'url'}*/}
-                        {/*    message={'Please input url'}*/}
-                        {/*    required={true}*/}
-                        {/*    {...formState}*/}
-                        {/*/>*/}
+                        <FormItemText
+                            label={'Email'}
+                            name={'email'}
+                            message={'Please input email'}
+                            required={true}
+                            size={'medium'}
+                            {...formState}
+                        />
                     </ColForm>
                 </RowForm>
             </FormCard>

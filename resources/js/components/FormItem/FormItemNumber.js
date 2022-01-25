@@ -12,12 +12,15 @@ const FormItemNumber = (props) => {
             help={props.errors.ratio ? props.errors[props.name] : false}
             rules={[{required: props.required, message: props.message}]}
             colon={false}
+            labelCol={props.size === 'large' || props.size === 'medium' ? {span: 24} : null}
+            wrapperCol={props.size === 'large' || props.size === 'medium' ? {span: 24} : null}
         >
             {props.loading ? <CustomInputSkeleton/> :
                 <InputNumber
                     disabled={props.formDisabled}
                     style={{width: "100%"}}
                     step={props.step}
+                    size={props.size ? props.size : 'small'}
                     // min=""
                     // max="10"
                 />
