@@ -15,7 +15,7 @@ const FormItemNumber = (props) => {
             labelCol={props.size === 'large' || props.size === 'medium' ? {span: 24} : null}
             wrapperCol={props.size === 'large' || props.size === 'medium' ? {span: 24} : null}
         >
-            {props.loading ? <CustomInputSkeleton/> :
+            {props.loading ? <CustomInputSkeleton {...props}/> :
                 <InputNumber
                     disabled={props.formDisabled}
                     style={{width: "100%"}}

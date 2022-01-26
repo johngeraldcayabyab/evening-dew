@@ -15,7 +15,7 @@ const FormItemText = (props) => {
             labelCol={props.size === 'large' || props.size === 'medium' ? {span: 24} : null}
             wrapperCol={props.size === 'large' || props.size === 'medium' ? {span: 24} : null}
         >
-            {props.loading ? <CustomInputSkeleton/> :
+            {props.loading ? <CustomInputSkeleton {...props}/> :
                 <Input
                     disabled={props.formDisabled}
                     size={props.size ? props.size : 'small'}

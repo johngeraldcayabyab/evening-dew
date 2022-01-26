@@ -30,7 +30,7 @@ const FormItemSelect = (props) => {
             labelCol={props.size === 'large' || props.size === 'medium' ? {span: 24} : null}
             wrapperCol={props.size === 'large' || props.size === 'medium' ? {span: 24} : null}
         >
-            {props.loading ? <CustomInputSkeleton/> :
+            {props.loading ? <CustomInputSkeleton {...props}/> :
                 <Select
                     allowClear
                     disabled={props.formDisabled}
