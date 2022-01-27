@@ -1,5 +1,5 @@
 import FormLabel from "../Typography/FormLabel";
-import {Form, Input, Skeleton} from "antd";
+import {Form, Input} from "antd";
 import React from "react";
 import CustomInputSkeleton from "../CustomInputSkeleton";
 
@@ -12,8 +12,8 @@ const FormItemText = (props) => {
             help={props.errors[props.name] ? props.errors[props.name] : null}
             rules={[{required: props.required, message: props.message}]}
             colon={false}
-            labelCol={props.size === 'large' || props.size === 'medium' ? {span: 24} : null}
-            wrapperCol={props.size === 'large' || props.size === 'medium' ? {span: 24} : null}
+            labelCol={props.size === 'large' || props.size === 'medium' ? {span: 24} : {span: 8}}
+            wrapperCol={props.size === 'large' || props.size === 'medium' ? {span: 24, style: {flex: '0 0 100%'}} : {span: 16}}
         >
             {props.loading ? <CustomInputSkeleton {...props}/> :
                 <Input
