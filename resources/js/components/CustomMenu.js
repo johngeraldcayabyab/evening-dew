@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Header} from "antd/lib/layout/layout";
-import {Menu} from "antd";
-import {AppstoreOutlined} from "@ant-design/icons";
+import {Avatar, Menu} from "antd";
+import {AppstoreOutlined, UserOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 import {uuidv4} from "../Helpers/string";
 import {AppContext} from "./App";
@@ -46,6 +46,28 @@ const CustomMenu = () => {
                             </Menu.Item>
                         );
                     })}
+
+                    <Menu.SubMenu
+                        title={
+                            <React.Fragment>
+                                <Avatar><UserOutlined/></Avatar>
+                            </React.Fragment>
+                        }
+                        className={'top-nav-avatar'}
+                        key={'menu-profile-sub-menu'}
+                    >
+                        <Menu.Item key="menu-profile">
+                            <a href="#">Profile</a>
+                        </Menu.Item>
+                        <Menu.Item key="menu-activity-logs">
+                            <a href="#">Activity Logs</a>
+                        </Menu.Item>
+                        <Menu.Divider/>
+                        <Menu.Item key="menu-logout" onClick={() => {
+                            // logOut()
+                        }}>Log out</Menu.Item>
+                    </Menu.SubMenu>
+
                 </Menu>
             </Header>
         );
