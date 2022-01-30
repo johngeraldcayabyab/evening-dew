@@ -60,38 +60,36 @@ const useFormState = (id, form, manifest) => {
                 loading: true
             }));
 
-            let fetchMethod;
 
             if (id) {
-                fetchMethod = await fetchPut(`/api/${manifest.moduleName}/${id}`, values).then(() => {
+                await fetchPut(`/api/${manifest.moduleName}/${id}`, values).then(() => {
                     formActions.fetchData();
+                }).catch(error => {
+                    fetchCatcher.get(error).then((errors) => {
+                        setFormState(state => ({
+                            ...state,
+                            loading: false,
+                            errors: errors
+                        }));
+                    });
                 });
             } else {
-                fetchMethod = await fetchPost(`/api/${manifest.moduleName}`, values).then(result => {
+                await fetchPost(`/api/${manifest.moduleName}`, values).then(result => {
                     let headerLocation = result.headers.get('Location');
                     if (headerLocation) {
                         let locationId = headerLocation.split('/').pop();
                         history.push(`/${manifest.moduleName}/${locationId}`);
                     }
+                }).catch(error => {
+                    fetchCatcher.get(error).then((errors) => {
+                        setFormState(state => ({
+                            ...state,
+                            loading: false,
+                            errors: errors
+                        }));
+                    });
                 });
             }
-
-            // fetchMethod.catch(error => {
-            //     let status = error.status;
-            //     error.json().then((body) => {
-            //         if (status === 422) {
-            //             message.warning(body.message);
-            //         } else if (status === 500) {
-            //             message.error(body.message);
-            //         }
-            //         setFormState(state => ({
-            //             ...state,
-            //             loading: false,
-            //             errors: body.errors
-            //         }));
-            //     });
-            // });
-
         },
         toggleEditMode: () => {
             setFormState(state => ({
