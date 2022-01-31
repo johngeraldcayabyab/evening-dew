@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form} from "antd";
+import {Divider, Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
@@ -53,8 +53,38 @@ const UserForm = () => {
                             size={'medium'}
                             {...formState}
                         />
+
+
                     </ColForm>
                 </RowForm>
+
+
+                {!formState.id &&
+                <>
+                    <Divider/>
+                    <RowForm>
+                        <ColForm>
+                            <FormItemText
+                                label={'Password'}
+                                name={'password'}
+                                message={'Please input password'}
+                                required={true}
+                                {...formState}
+                            />
+                        </ColForm>
+                        <ColForm>
+                            <FormItemText
+                                label={'Confirm Password'}
+                                name={'password_confirmation'}
+                                message={'Please input password'}
+                                required={true}
+                                {...formState}
+                            />
+                        </ColForm>
+                    </RowForm>
+                </>
+                }
+
             </FormCard>
         </CustomForm>
     );

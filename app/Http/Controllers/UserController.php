@@ -14,6 +14,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Facades\Hash;
 
 class UserController
 {
@@ -33,7 +34,9 @@ class UserController
 
     public function store(UserStoreRequest $request): JsonResponse
     {
-        $headers = location_header(route('users.show', User::create($request->validated())));
+        $data = $request->validated();
+        $data['password'] = Hash::make($data['password']);
+        $headers = location_header(route('users.show', User::create($data)));
         return response()->json([], STATUS_CREATE, $headers);
     }
 
