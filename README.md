@@ -18,10 +18,9 @@ seeds.</p>
 </ul>
 
 
+php artisan storage:link
 
-
-NEED to improve form. incorrect details doesnt remove loading
-Form doesnt highlight error message
+NEED to improve form. incorrect details doesnt remove loading Form doesnt highlight error message
 
 
 
