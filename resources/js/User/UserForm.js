@@ -10,6 +10,7 @@ import CustomForm from "../components/CustomForm";
 import ControlPanel from "../components/ControlPanel";
 import FormCard from "../components/FormCard";
 import FormItemText from "../components/FormItem/FormItemText";
+import FormItemUpload from "../components/FormItem/FormItemUpload";
 
 const UserForm = () => {
     let {id} = useParams();
@@ -53,8 +54,10 @@ const UserForm = () => {
                             size={'medium'}
                             {...formState}
                         />
+                    </ColForm>
 
-
+                    <ColForm>
+                        <FormItemUpload name={'avatar'} {...formState}/>
                     </ColForm>
                 </RowForm>
 

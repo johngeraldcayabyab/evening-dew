@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {message, Upload} from 'antd';
+import {Form} from "antd";
 import {LoadingOutlined, PlusOutlined} from '@ant-design/icons';
+import FormLabel from "../Typography/FormLabel";
 
 function getBase64(img, callback) {
     const reader = new FileReader();
@@ -21,7 +23,7 @@ function beforeUpload(file) {
 }
 
 
-const FormItemUpload = () => {
+const FormItemUpload = (props) => {
     const [state, setState] = useState({
         loading: false,
     });
@@ -46,22 +48,32 @@ const FormItemUpload = () => {
     }
 
     return (
-        <Upload
-            name="avatar"
-            listType="picture-card"
-            className="avatar-uploader"
-            showUploadList={false}
-            action="api/uploads/images"
-            beforeUpload={beforeUpload}
-            onChange={handleChange}
+        <Form.Item
+            label={<FormLabel/>}
+            name={props.name}
+            rules={[{required: props.required, message: props.message}]}
+            colon={false}
+            labelCol={{span: 20}}
+            wrapperCol={{span: 4}}
         >
-            {state.imageUrl ? <img src={state.imageUrl} alt="avatar" style={{width: '100%'}}/> :
-                <div>
-                    {state.loading ? <LoadingOutlined/> : <PlusOutlined/>}
-                    <div style={{marginTop: 8}}>Upload</div>
-                </div>
-            }
-        </Upload>
+            <Upload
+                name={props.name}
+                listType="picture-card"
+                showUploadList={false}
+                action="/api/uploads/images"
+                beforeUpload={beforeUpload}
+                onChange={handleChange}
+                className={'form-item-upload'}
+                disabled={props.formDisabled}
+            >
+                {state.imageUrl ? <img src={state.imageUrl} alt="avatar" style={{maxWidth: '100%', maxHeight: '100%'}}/> :
+                    <div>
+                        {state.loading ? <LoadingOutlined/> : <PlusOutlined/>}
+                        <div style={{marginTop: 8}}>Upload</div>
+                    </div>
+                }
+            </Upload>
+        </Form.Item>
     )
 };
 
