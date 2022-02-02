@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class UploadController
 {
     public function image(Request $request)
     {
-        info($request->file('avatar')->store(Str::uuid()));
+        $fileName = sha1(now()->toString() . $request->file('avatar')->getFilename()) . '.' . $request->file('avatar')->guessExtension();
+        info($request->file('avatar')->storeAs('images', $fileName));
     }
 }
