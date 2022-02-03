@@ -1,4 +1,4 @@
-<h3>Modules<h3>
+<h3>Modules <h3>
 
 <h5>Models</h5>
 <p>Models are allowed to define relationships from other modules. <i>Strictly for relationships only.</i></p>
