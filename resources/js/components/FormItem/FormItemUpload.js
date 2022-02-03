@@ -1,32 +1,61 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {message, Upload} from 'antd';
 import {Form} from "antd";
 import {LoadingOutlined, PlusOutlined} from '@ant-design/icons';
 import FormLabel from "../Typography/FormLabel";
 
-function getBase64(img, callback) {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result));
-    reader.readAsDataURL(img);
-}
-
-function beforeUpload(file) {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-    if (!isJpgOrPng) {
-        message.error('You can only upload JPG/PNG file!');
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-        message.error('Image must smaller than 2MB!');
-    }
-    return isJpgOrPng && isLt2M;
-}
-
 
 const FormItemUpload = (props) => {
+
+    console.log(props);
+
     const [state, setState] = useState({
+        defaultFileList: [{
+            'uid': -1,
+            'name': 'test.jpg',
+            'status': 'done',
+            'url': 'http://localhost:8000/storage/images/ec6d62d596de929969add7fd13b0aef936bd013b.jpg',
+            'thumbUrl': 'http://localhost:8000/storage/images/ec6d62d596de929969add7fd13b0aef936bd013b.jpg',
+        }],
+        fileList: [{
+            'uid': -1,
+            'name': 'test.jpg',
+            'status': 'done',
+            'url': 'http://localhost:8000/storage/images/ec6d62d596de929969add7fd13b0aef936bd013b.jpg',
+            'thumbUrl': 'http://localhost:8000/storage/images/ec6d62d596de929969add7fd13b0aef936bd013b.jpg',
+        }],
         loading: false,
     });
+
+    useEffect(() => {
+        // setState((...prevState) => ({
+        //     ...prevState,
+        //     fileList: [{
+        //         'uid': -1,
+        //         'name': props.initialValues.avatar,
+        //         'status': 'done',
+        //         'url': props.initialValues.avatar,
+        //     }]
+        // }));
+    }, [props.initialValues]);
+
+    function getBase64(img, callback) {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => callback(reader.result));
+        reader.readAsDataURL(img);
+    }
+
+    function beforeUpload(file) {
+        const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+        if (!isJpgOrPng) {
+            message.error('You can only upload JPG/PNG file!');
+        }
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        if (!isLt2M) {
+            message.error('Image must smaller than 2MB!');
+        }
+        return isJpgOrPng && isLt2M;
+    }
 
     function handleChange(info) {
         if (info.file.status === 'uploading') {
@@ -37,6 +66,7 @@ const FormItemUpload = (props) => {
             return;
         }
         if (info.file.status === 'done') {
+            console.log(info);
             getBase64(info.file.originFileObj, (imageUrl) => {
                 setState((...prevState) => ({
                     ...prevState,
@@ -59,19 +89,30 @@ const FormItemUpload = (props) => {
             <Upload
                 name={props.name}
                 listType="picture-card"
-                showUploadList={false}
+                // showUploadList={false}
                 action="/api/uploads/images"
                 beforeUpload={beforeUpload}
                 onChange={handleChange}
+                defaultFileList={state.defaultFileList}
+                // fileList={state.fileList}
                 className={'form-item-upload'}
                 disabled={props.formDisabled}
             >
-                {state.imageUrl ? <img src={state.imageUrl} alt="avatar" style={{maxWidth: '100%', maxHeight: '100%'}}/> :
-                    <div>
-                        {state.loading ? <LoadingOutlined/> : <PlusOutlined/>}
-                        <div style={{marginTop: 8}}>Upload</div>
-                    </div>
+                {/*{props.formDisabled ? <img src={Object.keys(props.initialValues).length ? props.initialValues.avatar : '/images/no-image.jpg'} alt="avatar" style={{maxWidth: '100%', maxHeight: '100%'}}/> :*/}
+                {/*    state.imageUrl ? <img src={state.imageUrl} alt="avatar" style={{maxWidth: '100%', maxHeight: '100%'}}/> :*/}
+                {/*        <div>*/}
+                {/*            {state.loading ? <LoadingOutlined/> : <PlusOutlined/>}*/}
+                {/*            <div style={{marginTop: 8}}>Upload</div>*/}
+                {/*        </div>*/}
+                {/*}*/}
+                {
+                    state.imageUrl ? <img src={state.imageUrl} alt="avatar" style={{maxWidth: '100%', maxHeight: '100%'}}/> :
+                        <div>
+                            {state.loading ? <LoadingOutlined/> : <PlusOutlined/>}
+                            <div style={{marginTop: 8}}>Upload</div>
+                        </div>
                 }
+
             </Upload>
         </Form.Item>
     )
