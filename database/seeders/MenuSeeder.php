@@ -22,6 +22,10 @@ class MenuSeeder extends Seeder
                 'label' => 'Menus',
                 'url' => '/menus',
             ],
+            [
+                'label' => 'Users',
+                'url' => '/users',
+            ],
         ];
 
         foreach ($data as $datum) {
