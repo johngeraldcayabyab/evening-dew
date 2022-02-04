@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {render} from 'react-dom';
-import {Layout} from "antd";
 import {BrowserRouter} from 'react-router-dom';
 import MeasurementCategoryRoute from "../MeasurementCategory/MeasurementCategoryRoute";
 import MenuRoute from "../Menu/MenuRoute";
@@ -10,6 +9,7 @@ import CustomMenu from "./CustomMenu";
 import LoginRoute from "../Login/LoginRoute";
 import {getCookie} from "../Helpers/cookie";
 import UserRoute from "../User/UserRoute";
+import AppContainer from "./AppContainer";
 
 
 export const AppContext = React.createContext({});
@@ -39,7 +39,7 @@ const App = () => {
     return (
         <BrowserRouter>
             <AppContextProvider value={{appState: appState, setAppState: setAppState}}>
-                <Layout style={{height: '100%', background: '#ffffff'}}>
+                <AppContainer>
                     <CustomMenu/>
                     <Content style={{marginTop: '50px', borderTop: 'none'}}>
                         <LoginRoute/>
@@ -48,7 +48,7 @@ const App = () => {
                         <MenuRoute/>
                         <UserRoute/>
                     </Content>
-                </Layout>
+                </AppContainer>
             </AppContextProvider>
         </BrowserRouter>
     )
