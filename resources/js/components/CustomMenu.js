@@ -68,12 +68,12 @@ const CustomMenu = () => {
                         <Menu.Divider/>
                         <Menu.Item key="menu-logout" onClick={() => {
                             useFetch('/api/logout', POST).then((response) => {
-                                // eraseCookie('Authorization');
-                                // appContext.setAppState((prevState) => ({
-                                //     ...prevState,
-                                //     isLogin: false,
-                                // }));
-                                // history.push('/login');
+                                eraseCookie('Authorization');
+                                appContext.setAppState((prevState) => ({
+                                    ...prevState,
+                                    isLogin: false,
+                                }));
+                                history.push('/login');
                             }).catch((responseErr) => {
                                 fetchCatcher.get(responseErr);
                             });
