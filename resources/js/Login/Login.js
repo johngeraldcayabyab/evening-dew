@@ -1,6 +1,6 @@
-import {Button, Card, Checkbox, Form, Input, message} from "antd";
+import {Button, Card, Checkbox, Form, Input, message, Spin} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import {fetchPost} from "../Helpers/fetcher";
 import {setCookie} from "../Helpers/cookie";
 import {getDevice} from "../Helpers/device";
@@ -11,12 +11,20 @@ import {GET} from "../consts";
 import useFetchCatcher from "../Hooks/useFetchCatcher";
 
 const Login = () => {
+    const [state, setState] = useState({
+        loading: false,
+        errors: {},
+    });
     const [useFetch, fetchAbort] = useFetchHook();
     const fetchCatcher = useFetchCatcher();
     const history = useHistory();
     const appContext = useContext(AppContext);
 
     const onFinish = (values) => {
+        setState(prevState => ({
+            ...prevState,
+            loading: true,
+        }));
         fetchPost(`/api/sanctum/token`, {
             'email': values.email,
             'password': values.password,
@@ -32,6 +40,14 @@ const Login = () => {
                 isLogin: true,
             }));
             history.push('/');
+        }).catch(error => {
+            fetchCatcher.get(error).then((errors) => {
+                setState(prevState => ({
+                    ...prevState,
+                    loading: false,
+                    errors: errors
+                }));
+            });
         });
     };
 
@@ -48,54 +64,61 @@ const Login = () => {
     }, []);
 
     return (
-        <Card id={'components-form-demo-normal-login'}>
-            <Form
-                name="normal_login"
-                className="login-form"
-                initialValues={{
-                    remember: true,
-                }}
-                onFinish={onFinish}
-            >
-                <Form.Item
-                    name="email"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your email!',
-                        },
-                    ]}
+        <Spin spinning={state.loading}>
+            <Card id={'components-form-demo-normal-login'}>
+                <Form
+                    name="normal_login"
+                    className="login-form"
+                    initialValues={{
+                        remember: true,
+                    }}
+                    onFinish={onFinish}
                 >
-                    <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="Email"/>
-                </Form.Item>
-                <Form.Item
-                    name="password"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your Password!',
-                        },
-                    ]}
-                >
-                    <Input
-                        prefix={<LockOutlined className="site-form-item-icon"/>}
-                        type="password"
-                        placeholder="Password"
-                    />
-                </Form.Item>
-                <Form.Item>
-                    <Form.Item name="remember" valuePropName="checked" noStyle>
-                        <Checkbox>Remember me</Checkbox>
+                    <Form.Item
+                        name="email"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your email!',
+                            },
+                        ]}
+                        validateStatus={state.errors['email'] ? 'error' : null}
+                        help={state.errors['email'] ? state.errors['email'] : null}
+                    >
+                        <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="Email"/>
                     </Form.Item>
-                </Form.Item>
+                    <Form.Item
+                        name="password"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your Password!',
+                            },
+                        ]}
+                        validateStatus={state.errors['password'] ? 'error' : null}
+                        help={state.errors['password'] ? state.errors['password'] : null}
+                    >
+                        <Input
+                            prefix={<LockOutlined className="site-form-item-icon"/>}
+                            type="password"
+                            placeholder="Password"
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <Form.Item name="remember" valuePropName="checked" noStyle>
+                            <Checkbox>Remember me</Checkbox>
+                        </Form.Item>
+                    </Form.Item>
 
-                <Form.Item>
-                    <Button type="primary" htmlType="submit" className="login-form-button">
-                        Log in
-                    </Button>
-                </Form.Item>
-            </Form>
-        </Card>
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit" className="login-form-button">
+                            Log in
+                        </Button>
+                    </Form.Item>
+                </Form>
+
+            </Card>
+        </Spin>
     )
 };
 
