@@ -19,7 +19,7 @@ const FormItemUpload = (props) => {
                 imageUrl: objectHasValue(props.initialValues) && props.initialValues.avatar ? props.initialValues.avatar : null
             };
         });
-    }, [props.initialValues]);
+    }, [props.initialValues, props.formDisabled]);
 
     function getBase64(img, callback) {
         const reader = new FileReader();
@@ -82,7 +82,11 @@ const FormItemUpload = (props) => {
             labelCol={{span: 20}}
             wrapperCol={{span: 4}}
         >
-            <Popover content={<Button onClick={removeImage}>Remove</Button>}>
+            <PopoverImage
+                formDisabled={props.formDisabled}
+                imageUrl={state.imageUrl}
+                content={<Button onClick={removeImage}>Remove</Button>}
+            >
                 <Upload
                     name={props.name}
                     listType="picture-card"
@@ -99,6 +103,7 @@ const FormItemUpload = (props) => {
                                 src={objectHasValue(props.initialValues) && props.initialValues.avatar ? props.initialValues.avatar : '/images/no-image.jpg'}
                                 alt="avatar"
                                 style={{maxWidth: '100%', maxHeight: '100%'}}
+                                preview={!!(objectHasValue(props.initialValues) && props.initialValues.avatar)}
                             /> : state.imageUrl ?
                                 <>
                                     <Image
@@ -113,9 +118,22 @@ const FormItemUpload = (props) => {
                                 </div>
                     }
                 </Upload>
-            </Popover>
+            </PopoverImage>
         </Form.Item>
     )
 };
+
+const PopoverImage = (props) => {
+    if (!props.formDisabled && props.imageUrl) {
+        return (
+            <Popover content={props.content}>{props.children}</Popover>
+        )
+    } else {
+        return (
+            <>{props.children}</>
+        )
+    }
+};
+
 
 export default FormItemUpload;
