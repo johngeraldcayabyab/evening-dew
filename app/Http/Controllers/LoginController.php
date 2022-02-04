@@ -34,7 +34,7 @@ class LoginController
 
     public function logout(Request $request)
     {
-        info(Auth::user());
-//        info(Auth::user());g
+        auth()->user()->tokens()->delete();
+        return response()->json();
     }
 }
