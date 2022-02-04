@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Header} from "antd/lib/layout/layout";
-import {Avatar, Menu} from "antd";
+import {Avatar, Menu, message} from "antd";
 import {AppstoreOutlined, UserOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 import {uuidv4} from "../Helpers/string";
@@ -74,6 +74,7 @@ const CustomMenu = () => {
                                     isLogin: false,
                                 }));
                                 history.push('/login');
+                                message.success('Logged Out!');
                             }).catch((responseErr) => {
                                 fetchCatcher.get(responseErr);
                             });

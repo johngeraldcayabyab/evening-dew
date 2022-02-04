@@ -1,4 +1,4 @@
-import {Button, Card, Checkbox, Form, Input} from "antd";
+import {Button, Card, Checkbox, Form, Input, message} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {useContext, useEffect} from "react";
 import {fetchPost} from "../Helpers/fetcher";
@@ -25,12 +25,13 @@ const Login = () => {
         }).then((response) => {
             return response.text();
         }).then((text) => {
+            message.success('Welcome back!');
             setCookie('Authorization', `Bearer ${text}`, 365);
             appContext.setAppState((state) => ({
                 ...state,
                 isLogin: true,
             }));
-            history.push('/measurements');
+            history.push('/');
         });
     };
 
