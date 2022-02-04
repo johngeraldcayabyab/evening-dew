@@ -1,13 +1,21 @@
 import {message} from "antd";
 import {useHistory} from "react-router-dom";
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {eraseCookie, getCookie} from "../Helpers/cookie";
+import {AppContext} from "../components/App";
 
 const useFetchCatcher = () => {
+    const appContext = useContext(AppContext);
     const history = useHistory();
 
     const [handle] = useState({
         get: (response) => {
             if (response.status === 401) {
+                eraseCookie('Authorization');
+                appContext.setAppState((prevState) => ({
+                    ...prevState,
+                    isLogin: false,
+                }));
                 history.push('/login');
                 message.error('Please login first!');
             } else if (response.status === 403) {
