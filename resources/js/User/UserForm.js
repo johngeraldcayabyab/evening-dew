@@ -59,6 +59,7 @@ const UserForm = () => {
                     <ColForm>
                         <FormItemUpload
                             name={'avatar'}
+                            form={form}
                             {...formState}
                         />
                     </ColForm>

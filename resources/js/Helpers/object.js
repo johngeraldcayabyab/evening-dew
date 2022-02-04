@@ -6,3 +6,7 @@ export const cleanObject = (obj) => {
     }
     return obj;
 }
+
+export const objectHasValue = (obj) => {
+    return obj && Object.keys(obj).length;
+}

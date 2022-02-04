@@ -1,42 +1,24 @@
 import React, {useEffect, useState} from 'react';
-import {message, Upload} from 'antd';
+import {Button, Image, message, Popover, Upload} from 'antd';
 import {Form} from "antd";
-import {LoadingOutlined, PlusOutlined} from '@ant-design/icons';
+import {DeleteOutlined, LoadingOutlined, PlusOutlined} from '@ant-design/icons';
 import FormLabel from "../Typography/FormLabel";
+import {objectHasValue} from "../../Helpers/object";
 
 
 const FormItemUpload = (props) => {
-
-    console.log(props);
-
     const [state, setState] = useState({
-        defaultFileList: [{
-            'uid': -1,
-            'name': 'test.jpg',
-            'status': 'done',
-            'url': 'http://localhost:8000/storage/images/ec6d62d596de929969add7fd13b0aef936bd013b.jpg',
-            'thumbUrl': 'http://localhost:8000/storage/images/ec6d62d596de929969add7fd13b0aef936bd013b.jpg',
-        }],
-        fileList: [{
-            'uid': -1,
-            'name': 'test.jpg',
-            'status': 'done',
-            'url': 'http://localhost:8000/storage/images/ec6d62d596de929969add7fd13b0aef936bd013b.jpg',
-            'thumbUrl': 'http://localhost:8000/storage/images/ec6d62d596de929969add7fd13b0aef936bd013b.jpg',
-        }],
+        imageUrl: null,
         loading: false,
     });
 
     useEffect(() => {
-        // setState((...prevState) => ({
-        //     ...prevState,
-        //     fileList: [{
-        //         'uid': -1,
-        //         'name': props.initialValues.avatar,
-        //         'status': 'done',
-        //         'url': props.initialValues.avatar,
-        //     }]
-        // }));
+        setState((prevState) => {
+            return {
+                ...prevState,
+                imageUrl: objectHasValue(props.initialValues) && props.initialValues.avatar ? props.initialValues.avatar : null
+            };
+        });
     }, [props.initialValues]);
 
     function getBase64(img, callback) {
@@ -66,7 +48,9 @@ const FormItemUpload = (props) => {
             return;
         }
         if (info.file.status === 'done') {
-            console.log(info);
+            let fields = {};
+            fields[props.name] = info.file.response.name;
+            props.form.setFieldsValue(fields);
             getBase64(info.file.originFileObj, (imageUrl) => {
                 setState((...prevState) => ({
                     ...prevState,
@@ -75,6 +59,18 @@ const FormItemUpload = (props) => {
                 }));
             });
         }
+    }
+
+    function removeImage() {
+        let fields = {};
+        fields[props.name] = null;
+        props.form.setFieldsValue(fields);
+        setState((prevState) => {
+            return {
+                ...prevState,
+                imageUrl: null
+            };
+        });
     }
 
     return (
@@ -86,34 +82,38 @@ const FormItemUpload = (props) => {
             labelCol={{span: 20}}
             wrapperCol={{span: 4}}
         >
-            <Upload
-                name={props.name}
-                listType="picture-card"
-                // showUploadList={false}
-                action="/api/uploads/images"
-                beforeUpload={beforeUpload}
-                onChange={handleChange}
-                defaultFileList={state.defaultFileList}
-                // fileList={state.fileList}
-                className={'form-item-upload'}
-                disabled={props.formDisabled}
-            >
-                {/*{props.formDisabled ? <img src={Object.keys(props.initialValues).length ? props.initialValues.avatar : '/images/no-image.jpg'} alt="avatar" style={{maxWidth: '100%', maxHeight: '100%'}}/> :*/}
-                {/*    state.imageUrl ? <img src={state.imageUrl} alt="avatar" style={{maxWidth: '100%', maxHeight: '100%'}}/> :*/}
-                {/*        <div>*/}
-                {/*            {state.loading ? <LoadingOutlined/> : <PlusOutlined/>}*/}
-                {/*            <div style={{marginTop: 8}}>Upload</div>*/}
-                {/*        </div>*/}
-                {/*}*/}
-                {
-                    state.imageUrl ? <img src={state.imageUrl} alt="avatar" style={{maxWidth: '100%', maxHeight: '100%'}}/> :
-                        <div>
-                            {state.loading ? <LoadingOutlined/> : <PlusOutlined/>}
-                            <div style={{marginTop: 8}}>Upload</div>
-                        </div>
-                }
-
-            </Upload>
+            <Popover content={<Button onClick={removeImage}>Remove</Button>}>
+                <Upload
+                    name={props.name}
+                    listType="picture-card"
+                    showUploadList={false}
+                    action="/api/uploads/images"
+                    beforeUpload={beforeUpload}
+                    onChange={handleChange}
+                    className={'form-item-upload'}
+                    disabled={props.formDisabled}
+                >
+                    {
+                        props.formDisabled ?
+                            <Image
+                                src={objectHasValue(props.initialValues) && props.initialValues.avatar ? props.initialValues.avatar : '/images/no-image.jpg'}
+                                alt="avatar"
+                                style={{maxWidth: '100%', maxHeight: '100%'}}
+                            /> : state.imageUrl ?
+                                <>
+                                    <Image
+                                        src={state.imageUrl} alt="avatar" style={{maxWidth: '100%', maxHeight: '100%'}}
+                                        preview={false}
+                                    />
+                                    <DeleteOutlined style={{position: 'absolute', color: '#fff'}}/>
+                                </> :
+                                <div>
+                                    {state.loading ? <LoadingOutlined/> : <PlusOutlined/>}
+                                    <div style={{marginTop: 8}}>Upload</div>
+                                </div>
+                    }
+                </Upload>
+            </Popover>
         </Form.Item>
     )
 };

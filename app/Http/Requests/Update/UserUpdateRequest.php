@@ -11,6 +11,7 @@ class UserUpdateRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required',
+            'avatar' => 'nullable',
         ];
     }
 }
