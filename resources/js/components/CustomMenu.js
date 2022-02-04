@@ -7,13 +7,16 @@ import {uuidv4} from "../Helpers/string";
 import {AppContext} from "./App";
 import useFetchCatcher from "../Hooks/useFetchCatcher";
 import useFetchHook from "../Hooks/useFetchHook";
-import {GET} from "../consts";
+import {GET, POST} from "../consts";
+import {eraseCookie} from "../Helpers/cookie";
+import {useHistory} from "react-router";
 
 const CustomMenu = () => {
     const fetchCatcher = useFetchCatcher();
     const appContext = useContext(AppContext);
     const [useFetch, fetchAbort] = useFetchHook();
     const [menus, setMenus] = useState([]);
+    const history = useHistory();
 
     useEffect(() => {
         if (appContext.appState.isLogin) {
@@ -64,10 +67,18 @@ const CustomMenu = () => {
                         </Menu.Item>
                         <Menu.Divider/>
                         <Menu.Item key="menu-logout" onClick={() => {
-                            // logOut()
+                            useFetch('/api/logout', POST).then((response) => {
+                                // eraseCookie('Authorization');
+                                // appContext.setAppState((prevState) => ({
+                                //     ...prevState,
+                                //     isLogin: false,
+                                // }));
+                                // history.push('/login');
+                            }).catch((responseErr) => {
+                                fetchCatcher.get(responseErr);
+                            });
                         }}>Log out</Menu.Item>
                     </Menu.SubMenu>
-
                 </Menu>
             </Header>
         );
