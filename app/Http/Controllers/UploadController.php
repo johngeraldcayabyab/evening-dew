@@ -9,9 +9,8 @@ class UploadController
 {
     public function image(Request $request)
     {
-        info($request->file('avatar'));
         $fileName = sha1(now()->toString() . $request->file('avatar')->getFilename()) . '.' . $request->file('avatar')->guessExtension();
-        info($request->file('avatar')->storeAs('public/images', $fileName));
+        $request->file('avatar')->storeAs('public/images', $fileName);
 
         return response()->json([
             'uid' => Str::uuid(),
