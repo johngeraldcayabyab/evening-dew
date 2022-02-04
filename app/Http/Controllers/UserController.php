@@ -36,18 +36,14 @@ class UserController
     {
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
-        if ($request->avatar) {
-            info($request->avatar['file']['response']['name']);
-            $data['avatar'] = $request->avatar['file']['response']['name'];
-        }
-        info($data);
         $headers = location_header(route('users.show', User::create($data)));
         return response()->json([], STATUS_CREATE, $headers);
     }
 
     public function update(UserUpdateRequest $request, User $user): JsonResponse
     {
-        $user->update($request->validated());
+        $data = $request->validated();
+        $user->update($data);
         return response()->json([], STATUS_UPDATE);
     }
 
