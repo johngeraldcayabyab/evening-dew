@@ -1,4 +1,4 @@
-import {Layout} from "antd";
+import {Layout, message} from "antd";
 import {AppContext} from "./App";
 import React, {useContext, useEffect} from "react";
 import {useHistory} from "react-router";
@@ -9,7 +9,10 @@ const AppContainer = (props) => {
 
     useEffect(() => {
         if (!appContext.appState.isLogin) {
-            history.push('/login');
+            if (location.pathname !== '/login') {
+                message.error('Please login first!');
+                history.push('/login');
+            }
         }
     }, []);
 
