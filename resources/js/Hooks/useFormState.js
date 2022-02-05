@@ -4,7 +4,7 @@ import {message} from "antd";
 import {fetchGet, fetchPost, fetchPut} from "../Helpers/fetcher";
 import useFetchCatcher from "./useFetchCatcher";
 import useFetchHook from "./useFetchHook";
-import {GET} from "../consts";
+import {GET, POST} from "../consts";
 
 const useFormState = (id, form, manifest) => {
     const [useFetch, fetchAbort] = useFetchHook();
@@ -74,6 +74,23 @@ const useFormState = (id, form, manifest) => {
                     });
                 });
             } else {
+                // useFetch(`/api/${manifest.moduleName}`, POST, values).then((response) => {
+                //     console.log(response);
+                //     // let headerLocation = response.headers.get('Location');
+                //     // if (headerLocation) {
+                //     //     let locationId = headerLocation.split('/').pop();
+                //     //     history.push(`/${manifest.moduleName}/${locationId}`);
+                //     // }
+                // }).catch((responseErr) => {
+                //     fetchCatcher.get(responseErr).then((errors) => {
+                //         setFormState(state => ({
+                //             ...state,
+                //             loading: false,
+                //             errors: errors
+                //         }));
+                //     });
+                // });
+
                 await fetchPost(`/api/${manifest.moduleName}`, values).then(result => {
                     let headerLocation = result.headers.get('Location');
                     if (headerLocation) {
