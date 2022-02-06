@@ -13,11 +13,10 @@ const useFetchHook = () => {
     };
 
     return [
-        (url, method, values = {}, headers = {}) => {
+        (url, method, values = {}, withHeaders = false) => {
             const fetchInit = {
                 headers: {
                     ...defaultHeaders,
-                    ...headers
                 },
                 signal,
                 method: method,
@@ -36,8 +35,14 @@ const useFetchHook = () => {
             }).then((responseOk) => {
                 const contentType = responseOk.headers.get('Content-Type');
                 if (contentType === 'text/html; charset=UTF-8') {
+                    if (withHeaders) {
+                        return responseOk;
+                    }
                     return responseOk.text();
                 } else if (contentType === 'application/json') {
+                    if (withHeaders) {
+                        return responseOk;
+                    }
                     return responseOk.json();
                 } else {
                     alert('Undefined response ok type!');

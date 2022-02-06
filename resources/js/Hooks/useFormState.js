@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
-import {message} from "antd";
-import {fetchGet, fetchPost, fetchPut} from "../Helpers/fetcher";
+import {fetchPut} from "../Helpers/fetcher";
 import useFetchCatcher from "./useFetchCatcher";
 import useFetchHook from "./useFetchHook";
 import {GET, POST} from "../consts";
@@ -74,31 +73,14 @@ const useFormState = (id, form, manifest) => {
                     });
                 });
             } else {
-                // useFetch(`/api/${manifest.moduleName}`, POST, values).then((response) => {
-                //     console.log(response);
-                //     // let headerLocation = response.headers.get('Location');
-                //     // if (headerLocation) {
-                //     //     let locationId = headerLocation.split('/').pop();
-                //     //     history.push(`/${manifest.moduleName}/${locationId}`);
-                //     // }
-                // }).catch((responseErr) => {
-                //     fetchCatcher.get(responseErr).then((errors) => {
-                //         setFormState(state => ({
-                //             ...state,
-                //             loading: false,
-                //             errors: errors
-                //         }));
-                //     });
-                // });
-
-                await fetchPost(`/api/${manifest.moduleName}`, values).then(result => {
-                    let headerLocation = result.headers.get('Location');
+                useFetch(`/api/${manifest.moduleName}`, POST, values, true).then((response) => {
+                    let headerLocation = response.headers.get('Location');
                     if (headerLocation) {
                         let locationId = headerLocation.split('/').pop();
                         history.push(`/${manifest.moduleName}/${locationId}`);
                     }
-                }).catch(error => {
-                    fetchCatcher.get(error).then((errors) => {
+                }).catch((responseErr) => {
+                    fetchCatcher.get(responseErr).then((errors) => {
                         setFormState(state => ({
                             ...state,
                             loading: false,
