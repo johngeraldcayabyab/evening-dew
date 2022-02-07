@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\TimeStampOrderTrait;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,6 +14,7 @@ class Measurement extends Model
     use HasFactory;
     use SoftDeletes;
     use BroadcastsEvents;
+    use TimeStampOrderTrait;
 
     const BIGGER = 'bigger';
     const SMALLER = 'smaller';
@@ -86,10 +88,5 @@ class Measurement extends Model
     public function scopeOrderByMeasurementCategory($query, $order)
     {
         return $query->orderBy(MeasurementCategory::select('name')->whereColumn('measurement_categories.id', 'measurements.measurement_category_id'), $order);
-    }
-
-    public function scopeOrderByCreatedAt($query, $order)
-    {
-        return $query->orderBy('created_at', $order);
     }
 }

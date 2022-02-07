@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\TimeStampOrderTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +13,7 @@ class Menu extends Model
     use HasFactory;
     use SoftDeletes;
     use BroadcastsEvents;
+    use TimeStampOrderTrait;
 
     protected $table = 'menus';
     protected $guarded = [];
@@ -34,10 +36,5 @@ class Menu extends Model
     public function scopeOrderByUrl($query, $order)
     {
         return $query->orderBy('url', $order);
-    }
-
-    public function scopeOrderByCreatedAt($query, $order)
-    {
-        return $query->orderBy('created_at', $order);
     }
 }
