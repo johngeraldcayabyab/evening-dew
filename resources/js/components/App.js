@@ -20,20 +20,7 @@ const App = () => {
         isLogin: getCookie('Authorization'),
     });
 
-    useEffect(async () => {
-        // const systemSettings = await fetchGet(`/api/system_settings`)
-        //     .then(data => {
-        //         return data;
-        //     }).catch(response => {
-        //         fetchCatcher.get(response);
-        //         // if (response.status === 401) {
-        //         //     history.push('/login')
-        //         // } else if (response.status === 403) {
-        //         //     message.error('You cant do this action! Please ask your admin for permission');
-        //         // }
-        //         // console.log(response.status, 'eggira');
-        //     });
-        // console.log(systemSettings);
+    useEffect(() => {
     });
 
     return (

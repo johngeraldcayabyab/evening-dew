@@ -14,7 +14,7 @@ const CustomBreadcrumb = () => {
     const location = useLocation();
     const [breadcrumbs, setBreadcrumbs] = useState([]);
 
-    useEffect(async () => {
+    useEffect(() => {
         let pathname = location.pathname;
         let newSlug = {};
         let splitPathName = pathname.split('/');

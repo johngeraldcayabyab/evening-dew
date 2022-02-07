@@ -30,11 +30,11 @@ const useFetchCatcher = () => {
                     message.error(body.message);
                     return body.errors;
                 });
+            } else if (response.status === 404) {
+                message.error("This endpoint doesn't exist!");
             }
+            return response;
         },
-        post: (response) => {
-
-        }
     });
 
     return handle;
