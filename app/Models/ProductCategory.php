@@ -15,4 +15,14 @@ class ProductCategory extends Model
 
     protected $table = 'product_category';
     protected $guarded = [];
+
+    public function scopeWhereCategory($query, $category)
+    {
+        return $query->where('category', 'like', "%$category");
+    }
+
+    public function scopeOrderByCreatedAt($query, $order)
+    {
+        return $query->orderBy('created_at', $order);
+    }
 }
