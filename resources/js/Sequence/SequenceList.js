@@ -71,7 +71,6 @@ const SequenceList = () => {
             dataIndex: 'created_at',
             key: 'created_at',
             sorter: true,
-            searchFilter: true,
         },
     ]);
     return (
