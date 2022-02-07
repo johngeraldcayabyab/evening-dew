@@ -23,6 +23,10 @@ class MenuSeeder extends Seeder
                 'url' => '/menus',
             ],
             [
+                'label' => 'Sequences',
+                'url' => '/sequences',
+            ],
+            [
                 'label' => 'Users',
                 'url' => '/users',
             ],
