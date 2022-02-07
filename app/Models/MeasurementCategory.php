@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\TimeStampOrderTrait;
 use Database\Factories\MeasurementCategoryFactory;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,6 +14,7 @@ class MeasurementCategory extends Model
     use HasFactory;
     use SoftDeletes;
     use BroadcastsEvents;
+    use TimeStampOrderTrait;
 
     protected $table = 'measurement_categories';
     protected $guarded = [];
@@ -35,10 +37,5 @@ class MeasurementCategory extends Model
     public function scopeOrderByName($query, $order)
     {
         return $query->orderBy('name', $order);
-    }
-
-    public function scopeOrderByCreatedAt($query, $order)
-    {
-        return $query->orderBy('created_at', $order);
     }
 }
