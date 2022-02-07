@@ -35,13 +35,13 @@ class CreateSequencesTable extends Migration
              */
             $table->id();
             $table->string('name');
-            $table->string('sequence_code');
+            $table->string('sequence_code')->nullable();
             $table->string('implementation');
-            $table->string('prefix');
-            $table->string('suffix');
-            $table->unsignedInteger('sequence_size');
-            $table->unsignedInteger('step');
-            $table->unsignedInteger('next_number');
+            $table->string('prefix')->nullable();
+            $table->string('suffix')->nullable();
+            $table->unsignedInteger('sequence_size'); // add zero on the left side of the next number for the padding side
+            $table->unsignedInteger('step'); //  next number increment by this number
+            $table->unsignedInteger('next_number'); // the next number of the current sequence
             $table->softDeletes();
             $table->timestamps();
         });

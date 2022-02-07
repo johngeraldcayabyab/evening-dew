@@ -16,7 +16,7 @@ class SequenceStoreRequest extends FormRequest
             'suffix' => 'nullable',
             'sequence_size' => 'required',
             'step' => 'required',
-            'next_number' => 'nullable',
+            'next_number' => 'required',
         ];
     }
 }

@@ -11,6 +11,7 @@ import ControlPanel from "../components/ControlPanel";
 import FormCard from "../components/FormCard";
 import FormItemText from "../components/FormItem/FormItemText";
 import FormItemSelect from "../components/FormItem/FormItemSelect";
+import FormItemNumber from "../components/FormItem/FormItemNumber";
 
 const SequenceForm = () => {
     let {id} = useParams();
@@ -21,7 +22,13 @@ const SequenceForm = () => {
         <CustomForm
             form={form}
             onFinish={formActions.onFinish}
-            initialValues={formState.initialValues}
+            initialValues={{
+                implementation: 'standard',
+                sequence_size: 0,
+                step: 1,
+                next_number: 0,
+                ...formState.initialValues
+            }}
         >
             <ControlPanel
                 bottomColOneLeft={
@@ -85,21 +92,21 @@ const SequenceForm = () => {
                         />
                     </ColForm>
                     <ColForm>
-                        <FormItemText
+                        <FormItemNumber
                             label={'Sequence Size'}
                             name={'sequence_size'}
                             message={'Please input sequence size'}
                             required={true}
                             {...formState}
                         />
-                        <FormItemText
+                        <FormItemNumber
                             label={'Step'}
                             name={'step'}
                             message={'Please input step'}
                             required={true}
                             {...formState}
                         />
-                        <FormItemText
+                        <FormItemNumber
                             label={'Next number'}
                             name={'next_number'}
                             message={'Please input next number'}
