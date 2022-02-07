@@ -103,4 +103,9 @@ class Sequence extends Model
     {
         return $query->orderBy('next_number', $order);
     }
+
+    public function scopeOrderByCreatedAt($query, $order)
+    {
+        return $query->orderBy('created_at', $order);
+    }
 }

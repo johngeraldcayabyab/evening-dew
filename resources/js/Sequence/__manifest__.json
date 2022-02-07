@@ -1,0 +1,7 @@
+{
+    "moduleName": "sequences",
+    "eventName": "SequenceCrudEvent",
+    "modelName": "Sequence"
+}
+
+
