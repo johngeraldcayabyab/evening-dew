@@ -20,6 +20,11 @@ class ProductCategory extends Model
 
     public function scopeWhereCategory($query, $category)
     {
-        return $query->where('category', 'like', "%$category");
+        return $query->where('category', 'like', "%$category%");
+    }
+
+    public function scopeOrderByCategory($query, $order)
+    {
+        return $query->orderBy('category', $order);
     }
 }
