@@ -71,7 +71,6 @@ const MeasurementForm = () => {
                             required={true}
                             {...formState}
                         />
-
                         <FormItemNumber
                             label={'Rounding precision'}
                             name={'rounding_precision'}
