@@ -4,6 +4,7 @@ use App\Routes\LoginRoute;
 use App\Routes\MeasurementCategoryRoute;
 use App\Routes\MeasurementRoute;
 use App\Routes\MenuRoute;
+use App\Routes\SequenceRoute;
 use App\Routes\SystemSettingRoute;
 use App\Routes\UploadRoute;
 use App\Routes\UserRoute;
@@ -26,6 +27,7 @@ Route::group(['middleware' => ['api', 'cors']], function () {
     MeasurementCategoryRoute::initialize();
     MeasurementRoute::initialize();
     MenuRoute::initialize();
+    SequenceRoute::initialize();
     UploadRoute::initialize();
     UserRoute::initialize();
 });

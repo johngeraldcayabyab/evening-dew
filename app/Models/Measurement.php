@@ -58,7 +58,6 @@ class Measurement extends Model
 
     public function scopeWhereMeasurementCategory($query, $measurementCategory)
     {
-        info('reach papi');
         return $query->whereHas('measurementCategory', function ($query) use ($measurementCategory) {
             return $query->where('name', 'like', "%$measurementCategory%");
         });
