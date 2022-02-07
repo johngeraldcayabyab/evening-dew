@@ -1,8 +1,7 @@
 import {useEffect, useState} from "react";
-import {fetchDelete, fetchPost} from "../Helpers/fetcher";
 import useFetchCatcher from "./useFetchCatcher";
 import useFetchHook from "./useFetchHook";
-import {GET} from "../consts";
+import {DELETE, GET, POST} from "../consts";
 
 const useListState = (manifest, columns) => {
     const [useFetch, fetchAbort] = useFetchHook();
@@ -17,25 +16,30 @@ const useListState = (manifest, columns) => {
         params: {},
     });
     const [tableActions] = useState({
-        handleDelete: async (id) => {
-            setTableState(state => ({
-                ...state,
-                loading: true,
-            }));
-            await fetchDelete(`api/${moduleName}/${id}`).then(() => {
-                setTableState(state => ({
-                    ...state,
-                    loading: false,
-                }));
+        handleDelete: (id) => {
+            useFetch(`api/${moduleName}/${id}`, DELETE).then(() => {
+                // haven't decided yet what to do if an individual data is deleted
+                // maybe you can use this endpoint in the table for single data delete
+                // maybe delete data in the form page and redirect to the nearest neighbour
+                // maybe delete data and redirect to empty list of table is blank
+            }).catch((responseErr) => {
+
             });
         },
-        handleMassDelete: async (ids) => {
+        handleMassDelete: (ids) => {
             setTableState(state => ({
                 ...state,
                 loading: true,
             }));
-            await fetchPost(`api/${moduleName}/mass_destroy`, {ids: ids}).then(() => {
+            useFetch(`api/${moduleName}/mass_destroy`, POST, {ids: ids}).then(() => {
                 tableActions.renderData(tableState.params);
+            }).catch((responseErr) => {
+                fetchCatcher.get(responseErr).then(() => {
+                    setTableState(state => ({
+                        ...state,
+                        loading: false,
+                    }));
+                });
             });
         },
         rowSelection: {

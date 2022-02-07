@@ -3,7 +3,7 @@ import {useHistory} from "react-router-dom";
 import {fetchPut} from "../Helpers/fetcher";
 import useFetchCatcher from "./useFetchCatcher";
 import useFetchHook from "./useFetchHook";
-import {GET, POST} from "../consts";
+import {GET, POST, PUT} from "../consts";
 
 const useFormState = (id, form, manifest) => {
     const [useFetch, fetchAbort] = useFetchHook();
@@ -53,18 +53,17 @@ const useFormState = (id, form, manifest) => {
                 }));
             }
         },
-        onFinish: async (values) => {
+        onFinish: (values) => {
             setFormState(state => ({
                 ...state,
                 loading: true
             }));
 
-
             if (id) {
-                await fetchPut(`/api/${manifest.moduleName}/${id}`, values).then(() => {
+                useFetch(`/api/${manifest.moduleName}/${id}`, PUT, values).then(() => {
                     formActions.fetchData();
-                }).catch(error => {
-                    fetchCatcher.get(error).then((errors) => {
+                }).catch((responseErr) => {
+                    fetchCatcher.get(responseErr).then((errors) => {
                         setFormState(state => ({
                             ...state,
                             loading: false,

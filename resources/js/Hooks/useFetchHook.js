@@ -44,9 +44,10 @@ const useFetchHook = () => {
                         return responseOk;
                     }
                     return responseOk.json();
-                } else {
-                    alert('Undefined response ok type!');
                 }
+                console.log('HOTDOG');
+                // for 204 response it has a blank content type. so for now return all the response
+                return responseOk;
             });
         },
         controller.abort.bind(controller)
