@@ -11,7 +11,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             MeasurementCategorySeeder::class,
-            MenuSeeder::class
+            MenuSeeder::class,
+            ProductCategorySeeder::class
         ]);
     }
 }
