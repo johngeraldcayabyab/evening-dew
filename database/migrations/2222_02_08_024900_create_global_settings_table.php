@@ -11,6 +11,7 @@ class CreateGlobalSettingsTable extends Migration
         Schema::create('global_settings', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('inventory_default_measurement_id')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

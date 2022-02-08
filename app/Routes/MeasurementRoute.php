@@ -10,6 +10,7 @@ class MeasurementRoute
     public static function initialize()
     {
         Route::middleware('auth:sanctum')->group(function () {
+            Route::get('measurements/option', [MeasurementController::class, 'option'])->name('measurements.option');
             Route::get('measurements/{measurement}/slug', [MeasurementController::class, 'slug'])->name('measurements.slug');
             Route::get('measurements/{measurement}', [MeasurementController::class, 'show'])->name('measurements.show');
             Route::put('measurements/{measurement}', [MeasurementController::class, 'update'])->name('measurements.update');

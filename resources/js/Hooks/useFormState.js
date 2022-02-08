@@ -1,11 +1,10 @@
 import {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
-import {fetchPut} from "../Helpers/fetcher";
 import useFetchCatcher from "./useFetchCatcher";
 import useFetchHook from "./useFetchHook";
 import {GET, POST, PUT} from "../consts";
 
-const useFormState = (id, form, manifest) => {
+const useFormState = (id, form, manifest, getInitialValues = false) => {
     const [useFetch, fetchAbort] = useFetchHook();
     const fetchCatcher = useFetchCatcher();
     const history = useHistory();
@@ -47,10 +46,20 @@ const useFormState = (id, form, manifest) => {
                     fetchCatcher.get(responseErr);
                 });
             } else {
-                setFormState(state => ({
-                    ...state,
-                    ...newState
-                }));
+                if (getInitialValues) {
+                    useFetch(`/api/${manifest.moduleName}/initial_values`, GET).then((response) => {
+                        form.setFieldsValue(response);
+                        newState = {
+                            initialValues: response,
+                            loading: false,
+                        };
+                    });
+                } else {
+                    setFormState(state => ({
+                        ...state,
+                        ...newState
+                    }));
+                }
             }
         },
         onFinish: (values) => {
@@ -76,7 +85,10 @@ const useFormState = (id, form, manifest) => {
                     let headerLocation = response.headers.get('Location');
                     if (headerLocation) {
                         let locationId = headerLocation.split('/').pop();
-                        history.push(`/${manifest.moduleName}/${locationId}`);
+                        if (locationId) {
+                            history.push(`/${manifest.moduleName}/${locationId}`);
+                        }
+                        history.push(`/${manifest.moduleName}`);
                     }
                 }).catch((responseErr) => {
                     fetchCatcher.get(responseErr).then((errors) => {
