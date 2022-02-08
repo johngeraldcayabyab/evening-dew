@@ -12,6 +12,7 @@ import UserRoute from "../User/UserRoute";
 import AppContainer from "./AppContainer";
 import SequenceRoute from "../Sequence/SequenceRoute";
 import ProductCategoryRoute from "../ProductCategory/ProductCategoryRoute";
+import GlobalSettingRoute from "../GlobalSetting/GlobalSettingRoute";
 
 
 export const AppContext = React.createContext({});
@@ -31,6 +32,7 @@ const App = () => {
                 <AppContainer>
                     <CustomMenu/>
                     <Content style={{marginTop: '50px', borderTop: 'none'}}>
+                        <GlobalSettingRoute/>
                         <LoginRoute/>
                         <MeasurementCategoryRoute/>
                         <MeasurementRoute/>

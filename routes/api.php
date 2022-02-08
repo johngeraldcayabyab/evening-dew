@@ -1,5 +1,6 @@
 <?php
 
+use App\Routes\GlobalSettingRoute;
 use App\Routes\LoginRoute;
 use App\Routes\MeasurementCategoryRoute;
 use App\Routes\MeasurementRoute;
@@ -23,6 +24,7 @@ Route::get('password/reset', function (Request $request) {
 })->name('password.reset');
 
 Route::group(['middleware' => ['api', 'cors']], function () {
+    GlobalSettingRoute::initialize();
     LoginRoute::initialize();
     SystemSettingRoute::initialize();
     MeasurementCategoryRoute::initialize();

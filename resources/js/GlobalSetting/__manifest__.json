@@ -1,0 +1,7 @@
+{
+    "moduleName": "global_settings",
+    "eventName": "GlobalSettingCrudEvent",
+    "modelName": "GlobalSetting"
+}
+
+

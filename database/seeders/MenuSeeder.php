@@ -34,6 +34,10 @@ class MenuSeeder extends Seeder
                 'label' => 'Users',
                 'url' => '/users',
             ],
+            [
+                'label' => 'Global Settings',
+                'url' => '/global_settings',
+            ],
         ];
 
         foreach ($data as $datum) {
