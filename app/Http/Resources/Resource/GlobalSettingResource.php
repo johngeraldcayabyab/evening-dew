@@ -10,6 +10,7 @@ class GlobalSettingResource extends JsonResource
     {
         return [
             'inventory_default_measurement_id' => $this->inventory_default_measurement_id,
+            'inventory_default_measurement_category_id' => $this->inventory_default_measurement_category_id,
         ];
     }
 }

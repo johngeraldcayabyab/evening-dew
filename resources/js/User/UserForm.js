@@ -21,7 +21,6 @@ const UserForm = () => {
         <CustomForm
             form={form}
             onFinish={formActions.onFinish}
-            initialValues={formState.initialValues}
         >
             <ControlPanel
                 bottomColOneLeft={
