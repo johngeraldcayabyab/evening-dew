@@ -12,12 +12,7 @@ class MeasurementCategorySeeder extends Seeder
         $data = [
             ['name' => 'Units'],
             ['name' => 'Weight'],
-            ['name' => 'Working Time'],
-            ['name' => 'Length / Distance'],
-            ['name' => 'Volume'],
-            ['name' => 'Time'],
         ];
-
         foreach ($data as $datum) {
             MeasurementCategory::create($datum);
         }

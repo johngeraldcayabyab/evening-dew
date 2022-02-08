@@ -7,7 +7,7 @@ class ProductCategoryQuery
     public function sort($model, $request)
     {
         if ($request->orderByColumn && $request->orderByDirection) {
-            if ($request->orderByColumn === 'category') {
+            if ($request->orderByColumn === 'with_parents') {
                 $model = $model->orderByCategory($request->orderByDirection);
             }
             if ($request->orderByColumn === 'created_at') {
@@ -21,8 +21,8 @@ class ProductCategoryQuery
 
     public function search($model, $request)
     {
-        if ($request->category) {
-            $model = $model->whereCategory($request->category);
+        if ($request->with_parents) {
+            $model = $model->whereCategory($request->with_parents);
         }
         return $model;
     }
