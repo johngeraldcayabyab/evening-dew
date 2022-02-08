@@ -4,11 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductCategoriesTables extends Migration
+class CreateProductCategoriesTable extends Migration
 {
     public function up()
     {
-        Schema::create('product_categories_tables', function (Blueprint $table) {
+        Schema::create('product_categories', function (Blueprint $table) {
             $table->id();
             $table->string('category');
             $table->bigInteger('parent_category_id')->nullable();
@@ -19,6 +19,6 @@ class CreateProductCategoriesTables extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('product_categories_tables');
+        Schema::dropIfExists('product_categories');
     }
 }

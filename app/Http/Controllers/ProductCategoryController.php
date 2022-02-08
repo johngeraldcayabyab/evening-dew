@@ -59,4 +59,14 @@ class ProductCategoryController
     {
         return response()->json(new ProductCategorySlugResource($productCategory));
     }
+
+    public function option(Request $request): JsonResponse
+    {
+        $productCategory = new ProductCategory();
+        if ($request->search) {
+            $productCategory = $productCategory->where('category', 'like', "%$request->search%");
+        }
+        $productCategory = $productCategory->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'category']);
+        return response()->json(ProductCategorySlugResource::collection($productCategory));
+    }
 }
