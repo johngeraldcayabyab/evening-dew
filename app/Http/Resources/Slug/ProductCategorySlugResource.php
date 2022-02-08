@@ -12,7 +12,7 @@ class ProductCategorySlugResource extends JsonResource
         return [
             'id' => $this->id,
             'key' => Str::uuid(),
-            'slug' => $this->category
+            'slug' => $this->with_parents
         ];
     }
 }

@@ -20,6 +20,11 @@ class ProductCategory extends Model
     protected $table = 'product_categories';
     protected $guarded = [];
 
+    public function getWithParentsAttribute()
+    {
+        return $this->getWithParents('category');
+    }
+
     public function scopeWhereCategory($query, $category)
     {
         return $query->where('category', 'like', "%$category%");
