@@ -10,7 +10,7 @@ class ProductCategoryUpdateRequest extends FormRequest
     {
         return [
             'category' => 'required',
-            'parent_category_id' => ['nullable', "exists:product_categories,id"],
+            'product_category_id' => ['nullable', "exists:product_categories,id"],
         ];
     }
 }

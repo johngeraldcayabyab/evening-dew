@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HierarchyTrait;
 use App\Traits\TimeStampOrderTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,6 +15,7 @@ class ProductCategory extends Model
     use SoftDeletes;
     use BroadcastsEvents;
     use TimeStampOrderTrait;
+    use HierarchyTrait;
 
     protected $table = 'product_categories';
     protected $guarded = [];
