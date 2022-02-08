@@ -20,7 +20,6 @@ const GlobalSettingForm = () => {
         <CustomForm
             form={form}
             onFinish={formActions.onFinish}
-            initialValues={formState.initialValues}
         >
             <ControlPanel
                 bottomColOneLeft={
@@ -43,6 +42,13 @@ const GlobalSettingForm = () => {
                             label={'Default Measurement'}
                             name={'inventory_default_measurement_id'}
                             url={'/api/measurements/option'}
+                            {...formState}
+                        />
+
+                        <FormItemSelectAjax
+                            label={'Default Measurement Category'}
+                            name={'inventory_default_measurement_category_id'}
+                            url={'/api/measurement_categories/option'}
                             {...formState}
                         />
                     </ColForm>

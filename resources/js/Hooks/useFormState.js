@@ -46,19 +46,10 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
                     fetchCatcher.get(responseErr);
                 });
             } else {
-                if (getInitialValues) {
+                if (getInitialValues && formState.initialLoad) {
                     useFetch(`/api/${manifest.moduleName}/initial_values`, GET).then((response) => {
                         form.setFieldsValue(response);
-                        newState = {
-                            initialValues: response,
-                            loading: false,
-                        };
                     });
-                } else {
-                    setFormState(state => ({
-                        ...state,
-                        ...newState
-                    }));
                 }
             }
         },
@@ -82,13 +73,18 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
                 });
             } else {
                 useFetch(`/api/${manifest.moduleName}`, POST, values, true).then((response) => {
+                    setFormState(prevState => ({
+                        ...prevState,
+                        loading: false
+                    }));
                     let headerLocation = response.headers.get('Location');
                     if (headerLocation) {
                         let locationId = headerLocation.split('/').pop();
-                        if (locationId) {
+                        if (parseInt(locationId)) {
                             history.push(`/${manifest.moduleName}/${locationId}`);
+                        } else {
+                            history.push(`/${manifest.moduleName}`);
                         }
-                        history.push(`/${manifest.moduleName}`);
                     }
                 }).catch((responseErr) => {
                     fetchCatcher.get(responseErr).then((errors) => {

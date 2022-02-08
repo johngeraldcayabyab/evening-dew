@@ -10,6 +10,7 @@ use App\Http\Requests\Update\MeasurementUpdateRequest;
 use App\Http\Resources\Collection\MeasurementCollection;
 use App\Http\Resources\Resource\MeasurementResource;
 use App\Http\Resources\Slug\MeasurementSlugResource;
+use App\Models\GlobalSetting;
 use App\Models\Measurement;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -68,5 +69,15 @@ class MeasurementController
         }
         $model = $model->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'name']);
         return response()->json(MeasurementSlugResource::collection($model));
+    }
+
+    public function initial_values()
+    {
+        return [
+            'type' => Measurement::REFERENCE,
+            'ratio' => 1,
+            'rounding_precision' => 0.01,
+            'measurement_category_id' => GlobalSetting::inventoryDefaultMeasurementCategory()
+        ];
     }
 }

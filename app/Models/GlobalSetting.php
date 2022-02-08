@@ -18,8 +18,13 @@ class GlobalSetting extends Model
     protected $table = 'global_settings';
     protected $guarded = [];
 
-    public function inventoryDefaultMeasurement()
+    public function scopeInventoryDefaultMeasurement($query)
     {
-        return $this->hasOne(Measurement::class, 'inventory_default_measurement_id', 'id');
+        return $query->latest()->first()->inventory_default_measurement_id;
+    }
+
+    public function scopeInventoryDefaultMeasurementCategory($query)
+    {
+        return $query->latest()->first()->inventory_default_measurement_category_id;
     }
 }

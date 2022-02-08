@@ -16,19 +16,12 @@ import FormItemNumber from "../components/FormItem/FormItemNumber";
 const SequenceForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormState(id, form, manifest);
+    const [formState, formActions] = useFormState(id, form, manifest, true);
 
     return (
         <CustomForm
             form={form}
             onFinish={formActions.onFinish}
-            initialValues={{
-                implementation: 'standard',
-                sequence_size: 0,
-                step: 1,
-                next_number: 0,
-                ...formState.initialValues
-            }}
         >
             <ControlPanel
                 bottomColOneLeft={

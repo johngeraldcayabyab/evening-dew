@@ -59,4 +59,14 @@ class SequenceController
     {
         return response()->json(new SequenceSlugResource($sequence));
     }
+
+    public function initial_values()
+    {
+        return [
+            'implementation' => Sequence::STANDARD,
+            'sequence_size' => 0,
+            'step' => 1,
+            'next_number' => 0,
+        ];
+    }
 }

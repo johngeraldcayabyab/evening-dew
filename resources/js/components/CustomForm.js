@@ -5,7 +5,6 @@ const CustomForm = (props) => {
         <Form
             form={props.form}
             onFinish={props.onFinish}
-            initialValues={props.initialValues}
             size={'small'}
             labelAlign={'left'}
             labelCol={{span: 8}}

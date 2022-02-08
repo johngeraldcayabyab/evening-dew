@@ -17,17 +17,11 @@ import FormCard from "../components/FormCard";
 const MeasurementForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormState(id, form, manifest);
+    const [formState, formActions] = useFormState(id, form, manifest, true);
     return (
         <CustomForm
             form={form}
             onFinish={formActions.onFinish}
-            initialValues={{
-                type: 'reference',
-                ratio: 1,
-                rounding_precision: 0.01,
-                ...formState.initialValues
-            }}
         >
             <ControlPanel
                 bottomColOneLeft={
