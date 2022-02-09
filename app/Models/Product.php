@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Products extends Model
+class Product extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -45,12 +45,12 @@ class Products extends Model
         return $this->belongsTo(ProductCategory::class);
     }
 
-    public function getProductTypes()
+    public static function getProductTypes()
     {
         return [self::STORABLE, self::CONSUMABLE, self::SERVICE];
     }
 
-    public function getInvoicingPolicy()
+    public static function getInvoicingPolicies()
     {
         return [self::ORDERED_QUANTITIES, self::DELIVERED_QUANTITIES];
     }
