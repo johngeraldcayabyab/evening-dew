@@ -2,11 +2,11 @@
 
 namespace App\Http\Query;
 
-class SequenceQuery
+class SequenceQuery extends HttpQuery
 {
     public function sort($model, $request)
     {
-        if ($request->orderByColumn && $request->orderByDirection) {
+        if ($this->isSort($request)) {
             if ($request->orderByColumn === 'name') {
                 $model = $model->orderByName($request->orderByDirection);
             }

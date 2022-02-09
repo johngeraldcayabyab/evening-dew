@@ -2,11 +2,11 @@
 
 namespace App\Http\Query;
 
-class MenuQuery
+class MenuQuery extends HttpQuery
 {
     public function sort($model, $request)
     {
-        if ($request->orderByColumn && $request->orderByDirection) {
+        if ($this->isSort($request)) {
             if ($request->orderByColumn === 'label') {
                 $model = $model->orderByLabel($request->orderByDirection);
             }
