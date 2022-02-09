@@ -15,6 +15,7 @@ import ProductCategoryRoute from "./ProductCategory/ProductCategoryRoute";
 import SequenceRoute from "./Sequence/SequenceRoute";
 import UserRoute from "./User/UserRoute";
 import {getCookie} from "./Helpers/cookie";
+import ProductRoute from "./Product/ProductRoute";
 
 export const AppContext = React.createContext({});
 export const AppContextProvider = AppContext.Provider;
@@ -38,6 +39,7 @@ const App = () => {
                         <MeasurementCategoryRoute/>
                         <MeasurementRoute/>
                         <MenuRoute/>
+                        <ProductRoute/>
                         <ProductCategoryRoute/>
                         <SequenceRoute/>
                         <UserRoute/>

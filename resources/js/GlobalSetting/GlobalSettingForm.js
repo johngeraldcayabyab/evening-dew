@@ -41,6 +41,8 @@ const GlobalSettingForm = () => {
                         <FormItemSelectAjax
                             label={'Default Measurement Category'}
                             name={'inventory_default_measurement_category_id'}
+                            message={'Please select a default measurement category'}
+                            required={true}
                             url={'/api/measurement_categories/option'}
                             {...formState}
                         />
@@ -48,6 +50,8 @@ const GlobalSettingForm = () => {
                         <FormItemSelectAjax
                             label={'Default Measurement'}
                             name={'inventory_default_measurement_id'}
+                            message={'Please select a default measurement'}
+                            required={true}
                             url={'/api/measurements/option'}
                             {...formState}
                         />
@@ -55,6 +59,8 @@ const GlobalSettingForm = () => {
                         <FormItemSelectAjax
                             label={'Default Purchase Measurement'}
                             name={'inventory_default_purchase_measurement_id'}
+                            message={'Please select a default purchase measurement'}
+                            required={true}
                             url={'/api/measurements/option'}
                             {...formState}
                         />
@@ -62,6 +68,8 @@ const GlobalSettingForm = () => {
                         <FormItemSelectAjax
                             label={'Default Sales Measurement'}
                             name={'inventory_default_sales_measurement_id'}
+                            message={'Please select a default sales measurement'}
+                            required={true}
                             url={'/api/measurements/option'}
                             {...formState}
                         />
@@ -72,6 +80,8 @@ const GlobalSettingForm = () => {
                         <FormItemSelectAjax
                             label={'Default Product Category'}
                             name={'inventory_default_product_category_id'}
+                            message={'Please select a default product category'}
+                            required={true}
                             url={'/api/product_categories/option'}
                             {...formState}
                         />
