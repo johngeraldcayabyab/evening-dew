@@ -2,11 +2,11 @@
 
 namespace App\Http\Query;
 
-class ProductQuery
+class ProductQuery extends HttpQuery
 {
     public function sort($model, $request)
     {
-        if ($request->orderByColumn && $request->orderByDirection) {
+        if ($this->isSort($request)) {
             if ($request->orderByColumn === 'with_parents') {
                 $model = $model->orderByCategory($request->orderByDirection);
             }
