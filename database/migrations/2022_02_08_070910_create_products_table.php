@@ -14,8 +14,8 @@ class CreateProductsTable extends Migration
             $table->string('product_type');
             $table->string('invoicing_policy');
 
-            $table->double('cost');
             $table->double('sales_price');
+            $table->double('cost');
 
             $table->bigInteger('measurement_id')->nullable();
             $table->bigInteger('purchase_measurement_id')->nullable();
@@ -24,7 +24,7 @@ class CreateProductsTable extends Migration
 
             $table->bigInteger('product_category_id')->nullable();
 
-            $table->string('internal_reference');
+            $table->string('internal_reference')->nullable();
             $table->string('avatar')->nullable();
             $table->softDeletes();
             $table->timestamps();

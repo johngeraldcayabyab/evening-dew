@@ -9,8 +9,8 @@ class ProductUpdateRequest extends FormRequest
 {
     public function rules()
     {
-        $productTypes = Product::getProductTypes();
-        $invoicingPolicies = Product::getInvoicingPolicies();
+        $productTypes = implode(',', Product::getProductTypes());
+        $invoicingPolicies = implode(',', Product::getInvoicingPolicies());
 
         return [
             'name' => 'required',
@@ -22,7 +22,7 @@ class ProductUpdateRequest extends FormRequest
             'purchase_measurement_id' => ['required', "exists:measurements,id"],
             'sales_measurement_id' => ['required', "exists:measurements,id"],
             'product_category_id' => ['required', "exists:product_categories,id"],
-            'internal_reference' => 'required',
+            'internal_reference' => 'nullable',
             'avatar' => 'nullable',
         ];
     }
