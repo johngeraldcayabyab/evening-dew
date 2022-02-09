@@ -51,7 +51,7 @@ class SequenceController
 
     public function mass_destroy(SequenceMassDestroyRequest $request): JsonResponse
     {
-        Sequence::whereIn('id', $request->validated()['ids'])->delete();
+        Sequence::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
     }
 

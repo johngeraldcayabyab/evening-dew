@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Traits\TimeStampOrderTrait;
+use App\Traits\ModelHelperTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +13,7 @@ class Currency extends Model
     use HasFactory;
     use SoftDeletes;
     use BroadcastsEvents;
-    use TimeStampOrderTrait;
+    use ModelHelperTrait;
 
     const BEFORE_AMOUNT = 'before_amount';
     const AFTER_AMOUNT = 'after_amount';

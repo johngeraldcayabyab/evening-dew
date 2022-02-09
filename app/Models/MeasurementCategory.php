@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Traits\TimeStampOrderTrait;
+use App\Traits\ModelHelperTrait;
 use Database\Factories\MeasurementCategoryFactory;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +14,7 @@ class MeasurementCategory extends Model
     use HasFactory;
     use SoftDeletes;
     use BroadcastsEvents;
-    use TimeStampOrderTrait;
+    use ModelHelperTrait;
 
     protected $table = 'measurement_categories';
     protected $guarded = [];

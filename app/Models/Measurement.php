@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Traits\TimeStampOrderTrait;
+use App\Traits\ModelHelperTrait;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +14,7 @@ class Measurement extends Model
     use HasFactory;
     use SoftDeletes;
     use BroadcastsEvents;
-    use TimeStampOrderTrait;
+    use ModelHelperTrait;
 
     const BIGGER = 'bigger';
     const SMALLER = 'smaller';

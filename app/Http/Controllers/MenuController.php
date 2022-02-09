@@ -52,7 +52,7 @@ class MenuController
 
     public function mass_destroy(MenuMassDestroyRequest $request): JsonResponse
     {
-        Menu::whereIn('id', $request->validated()['ids'])->delete();
+        Menu::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
     }
 

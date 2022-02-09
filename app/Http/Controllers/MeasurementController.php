@@ -52,7 +52,7 @@ class MeasurementController
 
     public function mass_destroy(MeasurementMassDestroyRequest $request): JsonResponse
     {
-        Measurement::whereIn('id', $request->validated()['ids'])->delete();
+        Measurement::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
     }
 

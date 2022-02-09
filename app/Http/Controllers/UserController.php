@@ -55,7 +55,7 @@ class UserController
 
     public function mass_destroy(UserMassDestroyRequest $request): JsonResponse
     {
-        User::whereIn('id', $request->validated()['ids'])->delete();
+        User::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
     }
 
