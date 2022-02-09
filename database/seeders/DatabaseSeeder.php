@@ -9,6 +9,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            CurrencySeeder::class,
             GlobalSettingSeeder::class,
             MeasurementCategorySeeder::class,
             MeasurementSeeder::class,

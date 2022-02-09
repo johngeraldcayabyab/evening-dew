@@ -71,15 +71,10 @@ class CurrencyController
 
     public function initial_values()
     {
-//        return [
-//            'Currency_type' => Currency::STORABLE,
-//            'invoicing_policy' => Currency::ORDERED_QUANTITIES,
-//            'sales_price' => 1.00,
-//            'cost' => 1.00,
-//            'measurement_id' => GlobalSetting::inventoryDefaultMeasurement(),
-//            'purchase_measurement_id' => GlobalSetting::inventoryDefaultPurchaseMeasurement(),
-//            'sales_measurement_id' => GlobalSetting::inventoryDefaultSalesMeasurement(),
-//            'Currency_category_id' => GlobalSetting::inventoryDefaultCurrencyCategory(),
-//        ];
+        return [
+            'symbol_position' => Currency::AFTER_AMOUNT,
+            'rounding_factor' => 0.010000,
+            'decimal_places' => 2,
+        ];
     }
 }
