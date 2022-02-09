@@ -45,7 +45,6 @@ const useFetchHook = () => {
                     }
                     return responseOk.json();
                 }
-                console.log('HOTDOG');
                 // for 204 response it has a blank content type. so for now return all the response
                 return responseOk;
             });
