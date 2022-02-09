@@ -1,5 +1,6 @@
 <?php
 
+use App\Routes\CurrencyRoute;
 use App\Routes\GlobalSettingRoute;
 use App\Routes\LoginRoute;
 use App\Routes\MeasurementCategoryRoute;
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['middleware' => ['api', 'cors']], function () {
+    CurrencyRoute::initialize();
     GlobalSettingRoute::initialize();
     LoginRoute::initialize();
     SystemSettingRoute::initialize();
