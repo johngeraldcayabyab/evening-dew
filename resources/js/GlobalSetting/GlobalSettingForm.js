@@ -39,6 +39,13 @@ const GlobalSettingForm = () => {
                 <RowForm>
                     <ColForm>
                         <FormItemSelectAjax
+                            label={'Default Measurement Category'}
+                            name={'inventory_default_measurement_category_id'}
+                            url={'/api/measurement_categories/option'}
+                            {...formState}
+                        />
+
+                        <FormItemSelectAjax
                             label={'Default Measurement'}
                             name={'inventory_default_measurement_id'}
                             url={'/api/measurements/option'}
@@ -46,9 +53,26 @@ const GlobalSettingForm = () => {
                         />
 
                         <FormItemSelectAjax
-                            label={'Default Measurement Category'}
-                            name={'inventory_default_measurement_category_id'}
-                            url={'/api/measurement_categories/option'}
+                            label={'Default Purchase Measurement'}
+                            name={'inventory_default_purchase_measurement_id'}
+                            url={'/api/measurements/option'}
+                            {...formState}
+                        />
+
+                        <FormItemSelectAjax
+                            label={'Default Sales Measurement'}
+                            name={'inventory_default_sales_measurement_id'}
+                            url={'/api/measurements/option'}
+                            {...formState}
+                        />
+
+                    </ColForm>
+
+                    <ColForm>
+                        <FormItemSelectAjax
+                            label={'Default Product Category'}
+                            name={'inventory_default_product_category_id'}
+                            url={'/api/product_categories/option'}
                             {...formState}
                         />
                     </ColForm>

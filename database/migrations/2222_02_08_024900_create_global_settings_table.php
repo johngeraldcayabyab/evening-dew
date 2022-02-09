@@ -12,6 +12,9 @@ class CreateGlobalSettingsTable extends Migration
             $table->id();
             $table->unsignedInteger('inventory_default_measurement_category_id')->nullable();
             $table->unsignedInteger('inventory_default_measurement_id')->nullable();
+            $table->unsignedInteger('inventory_default_purchase_measurement_id')->nullable();
+            $table->unsignedInteger('inventory_default_sales_measurement_id')->nullable();
+            $table->unsignedInteger('inventory_default_product_category_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
