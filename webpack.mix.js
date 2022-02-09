@@ -4,6 +4,6 @@ mix.options({
     legacyNodePolyfills: false
 });
 
-mix.js('resources/js/app.js', 'public/js')
+mix.js('resources/js/App.js', 'public/js')
     .react()
     .sass('resources/sass/App.scss', 'public/css');

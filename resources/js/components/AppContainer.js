@@ -1,7 +1,7 @@
 import {Layout, message} from "antd";
-import {AppContext} from "./App";
 import React, {useContext, useEffect} from "react";
 import {useHistory} from "react-router";
+import {AppContext} from "../App";
 
 const AppContainer = (props) => {
     const appContext = useContext(AppContext);

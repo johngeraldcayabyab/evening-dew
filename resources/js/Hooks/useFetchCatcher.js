@@ -2,7 +2,7 @@ import {message} from "antd";
 import {useHistory} from "react-router-dom";
 import {useContext, useState} from "react";
 import {eraseCookie, getCookie} from "../Helpers/cookie";
-import {AppContext} from "../components/App";
+import {AppContext} from "../App";
 
 const useFetchCatcher = () => {
     const appContext = useContext(AppContext);

@@ -10,7 +10,7 @@
 <div id="root" style="height: 100%;">
 </div>
 
-<script src="{{ asset('/js/app.js') }}"></script>
+<script src="{{ asset('/js/App.js') }}"></script>
 
 </body>
 </html>

@@ -4,12 +4,12 @@ import {Avatar, Menu, message} from "antd";
 import {AppstoreOutlined, UserOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 import {uuidv4} from "../Helpers/string";
-import {AppContext} from "./App";
 import useFetchCatcher from "../Hooks/useFetchCatcher";
 import useFetchHook from "../Hooks/useFetchHook";
 import {GET, POST} from "../consts";
 import {eraseCookie} from "../Helpers/cookie";
 import {useHistory} from "react-router";
+import {AppContext} from "../App";
 
 const CustomMenu = () => {
     const fetchCatcher = useFetchCatcher();
