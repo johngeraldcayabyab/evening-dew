@@ -50,7 +50,7 @@ class CurrencyController
 
     public function mass_destroy(CurrencyMassDestroyRequest $request): JsonResponse
     {
-        Currency::whereIn('id', $request->validated()['ids'])->delete();
+        Currency::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
     }
 

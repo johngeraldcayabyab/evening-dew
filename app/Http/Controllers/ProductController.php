@@ -51,7 +51,7 @@ class ProductController
 
     public function mass_destroy(ProductMassDestroyRequest $request): JsonResponse
     {
-        Product::whereIn('id', $request->validated()['ids'])->delete();
+        Product::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
     }
 
