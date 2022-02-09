@@ -6,22 +6,18 @@ use App\Routes\MeasurementCategoryRoute;
 use App\Routes\MeasurementRoute;
 use App\Routes\MenuRoute;
 use App\Routes\ProductCategoryRoute;
+use App\Routes\ProductRoute;
 use App\Routes\SequenceRoute;
 use App\Routes\SystemSettingRoute;
 use App\Routes\UploadRoute;
 use App\Routes\UserRoute;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
 
-
-Route::get('password/reset', function (Request $request) {
-
-})->name('password.reset');
 
 Route::group(['middleware' => ['api', 'cors']], function () {
     GlobalSettingRoute::initialize();
@@ -31,6 +27,7 @@ Route::group(['middleware' => ['api', 'cors']], function () {
     MeasurementRoute::initialize();
     MenuRoute::initialize();
     ProductCategoryRoute::initialize();
+    ProductRoute::initialize();
     SequenceRoute::initialize();
     UploadRoute::initialize();
     UserRoute::initialize();
