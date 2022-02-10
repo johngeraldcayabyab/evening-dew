@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Data\SystemSetting;
-use App\Http\Query\AddressQuery;
 use App\Http\Requests\MassDestroy\AddressMassDestroyRequest;
 use App\Http\Requests\Store\AddressStoreRequest;
 use App\Http\Requests\Update\AddressUpdateRequest;
@@ -11,17 +10,18 @@ use App\Http\Resources\Collection\AddressCollection;
 use App\Http\Resources\Resource\AddressResource;
 use App\Http\Resources\Slug\AddressSlugResource;
 use App\Models\Address;
+use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AddressController
 {
+    use ControllerHelperTrait;
+
     public function index(Request $request): AddressCollection
     {
         $model = new Address();
-        $requestQuery = new AddressQuery();
-        $model = $requestQuery->search($model, $request);
-        $model = $requestQuery->sort($model, $request);
+        $model = $this->searchThenSort($model, $request);
         return new AddressCollection($model->paginate(SystemSetting::PAGE_SIZE));
     }
 

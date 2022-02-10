@@ -20,6 +20,21 @@ class ProductCategory extends Model
     protected $table = 'product_categories';
     protected $guarded = [];
 
+    public function getSearchableFields()
+    {
+        return [
+            'with_parents',
+        ];
+    }
+
+    public function getSortableFields()
+    {
+        return [
+            'with_parents',
+            'created_at',
+        ];
+    }
+
     public function getWithParentsAttribute()
     {
         return $this->getWithParents('category');
