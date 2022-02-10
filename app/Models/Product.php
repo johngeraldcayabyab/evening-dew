@@ -25,6 +25,39 @@ class Product extends Model
     protected $table = 'products';
     protected $guarded = [];
 
+    public function getSearchableFields()
+    {
+        return [
+            'name',
+            'product_type',
+            'invoicing_policy',
+            'cost',
+            'sales_price',
+            'measurement',
+            'purchase_measurement',
+            'sales_measurement',
+            'product_category',
+            'internal_reference',
+        ];
+    }
+
+    public function getSortableFields()
+    {
+        return [
+            'name',
+            'product_type',
+            'invoicing_policy',
+            'cost',
+            'sales_price',
+            'measurement',
+            'purchase_measurement',
+            'sales_measurement',
+            'product_category',
+            'internal_reference',
+            'created_at',
+        ];
+    }
+
     public function measurement()
     {
         return $this->belongsTo(Measurement::class);

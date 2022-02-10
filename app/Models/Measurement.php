@@ -23,9 +23,27 @@ class Measurement extends Model
     protected $table = 'measurements';
     protected $guarded = [];
 
-    public function measurementCategory()
+    public function getSearchableFields()
     {
-        return $this->belongsTo(MeasurementCategory::class);
+        return [
+            'name',
+            'type',
+            'ratio',
+            'rounding_precision',
+            'measurement_category',
+        ];
+    }
+
+    public function getSortableFields()
+    {
+        return [
+            'name',
+            'type',
+            'ratio',
+            'rounding_precision',
+            'measurement_category',
+            'created_at',
+        ];
     }
 
     public static function getTypes()
@@ -36,6 +54,11 @@ class Measurement extends Model
     public function broadcastOn($event)
     {
         return new Channel('measurement');
+    }
+
+    public function measurementCategory()
+    {
+        return $this->belongsTo(MeasurementCategory::class);
     }
 
     public function scopeWhereName($query, $name)

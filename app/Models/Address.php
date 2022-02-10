@@ -29,6 +29,37 @@ class Address extends Model
         return [self::DEFAULT, self::INVOICE, self::DELIVERY, self::OTHERS, self::PRIVATE];
     }
 
+    public function getSearchableFields()
+    {
+        return [
+            'address_name',
+            'street_1',
+            'street_2',
+            'city',
+            'state',
+            'zip',
+            'country',
+            'contact',
+            'type',
+        ];
+    }
+
+    public function getSortableFields()
+    {
+        return [
+            'address_name',
+            'street_1',
+            'street_2',
+            'city',
+            'state',
+            'zip',
+            'country',
+            'contact',
+            'type',
+            'created_at',
+        ];
+    }
+
     public function country()
     {
         return $this->belongsTo(Country::class);

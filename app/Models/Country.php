@@ -18,6 +18,30 @@ class Country extends Model
     protected $table = 'countries';
     protected $guarded = [];
 
+    public function getSearchableFields()
+    {
+        return [
+            'country_name',
+            'currency',
+            'country_code',
+            'country_calling_code',
+            'vat_label',
+            'measurement_category',
+        ];
+    }
+
+    public function getSortableFields()
+    {
+        return [
+            'country_name',
+            'currency',
+            'country_code',
+            'country_calling_code',
+            'vat_label',
+            'created_at',
+        ];
+    }
+
     public function currency()
     {
         return $this->belongsTo(Currency::class);

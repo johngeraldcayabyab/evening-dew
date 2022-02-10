@@ -21,6 +21,35 @@ class Sequence extends Model
     const NO_GAP = 'no_gap';
     const STANDARD = 'standard';
 
+    public function getSearchableFields()
+    {
+        return [
+            'name',
+            'sequence_code',
+            'implementation',
+            'prefix',
+            'suffix',
+            'sequence_size',
+            'step',
+            'next_number',
+        ];
+    }
+
+    public function getSortableFields()
+    {
+        return [
+            'name',
+            'sequence_code',
+            'implementation',
+            'prefix',
+            'suffix',
+            'sequence_size',
+            'step',
+            'next_number',
+            'created_at',
+        ];
+    }
+
     public static function getImplementations()
     {
         return [self::NO_GAP, self::STANDARD];

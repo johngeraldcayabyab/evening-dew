@@ -33,6 +33,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getSearchableFields()
+    {
+        return [
+            'name',
+            'email',
+        ];
+    }
+
+    public function getSortableFields()
+    {
+        return [
+            'name',
+            'email',
+            'email_verified_at',
+            'created_at',
+        ];
+    }
+
     public function scopeWhereName($query, $name)
     {
         return $query->where('name', 'like', "%$name%");
