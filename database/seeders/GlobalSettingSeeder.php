@@ -16,8 +16,8 @@ class GlobalSettingSeeder extends Seeder
                 'inventory_default_purchase_measurement_id' => 1,
                 'inventory_default_sales_measurement_id' => 1,
                 'inventory_default_product_category_id' => 1,
-
                 'accounting_default_currency_id' => 1,
+                'general_default_country_id' => 1,
             ],
         ];
         foreach ($data as $datum) {
