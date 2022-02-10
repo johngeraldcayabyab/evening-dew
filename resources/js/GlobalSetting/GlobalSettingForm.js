@@ -34,6 +34,23 @@ const GlobalSettingForm = () => {
             />
             <FormCard {...formState}>
                 <Divider orientation={'left'}>
+                    General
+                </Divider>
+                <RowForm>
+                    <ColForm>
+                        <FormItemSelectAjax
+                            label={'Default Country'}
+                            name={'general_default_country_id'}
+                            message={'Please select a default country'}
+                            required={true}
+                            url={'/api/countries/option'}
+                            {...formState}
+                        />
+                    </ColForm>
+                </RowForm>
+
+
+                <Divider orientation={'left'}>
                     Inventory
                 </Divider>
                 <RowForm>
