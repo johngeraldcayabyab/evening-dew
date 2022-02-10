@@ -7,12 +7,19 @@ class ProductQuery extends HttpQuery
     public function sort($model, $request)
     {
         if ($this->isSort($request)) {
-            if ($request->orderByColumn === 'with_parents') {
-                $model = $model->orderByCategory($request->orderByDirection);
-            }
-            if ($request->orderByColumn === 'created_at') {
-                $model = $model->orderByCreatedAt($request->orderByDirection);
-            }
+            $model = $this->isSortField($model, $request, [
+                'name',
+                'product_type',
+                'invoicing_policy',
+                'cost',
+                'sales_price',
+                'measurement',
+                'purchase_measurement',
+                'sales_measurement',
+                'product_category',
+                'internal_reference',
+                'created_at',
+            ]);
         } else {
             $model = $model->orderByCreatedAt('desc');
         }
@@ -21,9 +28,17 @@ class ProductQuery extends HttpQuery
 
     public function search($model, $request)
     {
-        if ($request->with_parents) {
-            $model = $model->whereCategory($request->with_parents);
-        }
-        return $model;
+        return $this->isSearchField($model, $request, [
+            'name',
+            'product_type',
+            'invoicing_policy',
+            'cost',
+            'sales_price',
+            'measurement',
+            'purchase_measurement',
+            'sales_measurement',
+            'product_category',
+            'internal_reference',
+        ]);
     }
 }

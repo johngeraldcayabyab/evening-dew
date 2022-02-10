@@ -25,13 +25,6 @@ const ProductList = () => {
             searchFilter: true,
         },
         {
-            title: 'Internal Reference',
-            dataIndex: 'internal_reference',
-            key: 'internal_reference',
-            sorter: true,
-            searchFilter: true,
-        },
-        {
             title: 'Sales Price',
             dataIndex: 'sales_price',
             key: 'sales_price',
