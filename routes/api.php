@@ -1,5 +1,6 @@
 <?php
 
+use App\Routes\CountryRoute;
 use App\Routes\CurrencyRoute;
 use App\Routes\GlobalSettingRoute;
 use App\Routes\LoginRoute;
@@ -15,12 +16,8 @@ use App\Routes\UserRoute;
 use Illuminate\Support\Facades\Route;
 
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
-
 Route::group(['middleware' => ['api', 'cors']], function () {
+    CountryRoute::initialize();
     CurrencyRoute::initialize();
     GlobalSettingRoute::initialize();
     LoginRoute::initialize();

@@ -1,0 +1,71 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Data\SystemSetting;
+use App\Http\Query\CountryQuery;
+use App\Http\Requests\MassDestroy\CountryMassDestroyRequest;
+use App\Http\Requests\Store\CountryStoreRequest;
+use App\Http\Requests\Update\CountryUpdateRequest;
+use App\Http\Resources\Collection\CountryCollection;
+use App\Http\Resources\Resource\CountryResource;
+use App\Http\Resources\Slug\CountrySlugResource;
+use App\Models\Country;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class CountryController
+{
+    public function index(Request $request): CountryCollection
+    {
+        $model = new Country();
+        $requestQuery = new CountryQuery();
+        $model = $requestQuery->search($model, $request);
+        $model = $requestQuery->sort($model, $request);
+        return new CountryCollection($model->paginate(SystemSetting::PAGE_SIZE));
+    }
+
+    public function show(Country $Country): JsonResponse
+    {
+        return response()->json(new CountryResource($Country));
+    }
+
+    public function store(CountryStoreRequest $request): JsonResponse
+    {
+        $headers = location_header(route('countries.show', Country::create($request->validated())));
+        return response()->json([], STATUS_CREATE, $headers);
+    }
+
+    public function update(CountryUpdateRequest $request, Country $country): JsonResponse
+    {
+        $country->update($request->validated());
+        return response()->json([], STATUS_UPDATE);
+    }
+
+    public function destroy(Country $country): JsonResponse
+    {
+        $country->delete();
+        return response()->json([], STATUS_DELETE);
+    }
+
+    public function mass_destroy(CountryMassDestroyRequest $request): JsonResponse
+    {
+        Country::massDelete($request->validated()['ids']);
+        return response()->json([], STATUS_DELETE);
+    }
+
+    public function slug(Country $Country): JsonResponse
+    {
+        return response()->json(new CountrySlugResource($Country));
+    }
+
+    public function option(Request $request): JsonResponse
+    {
+        $country = new Country();
+        if ($request->search) {
+            $country = $country->where('country_name', 'like', "%$request->search%");
+        }
+        $country = $country->limit(SystemSetting::OPTION_LIMIT)->get();
+        return response()->json(CountrySlugResource::collection($country));
+    }
+}

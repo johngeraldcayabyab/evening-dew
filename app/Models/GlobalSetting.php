@@ -42,4 +42,9 @@ class GlobalSetting extends Model
     {
         return $query->latest()->first()->inventory_default_product_category_id;
     }
+
+    public function scopeAccountingDefaultCurrency($query)
+    {
+        return $query->latest()->first()->accounting_default_currency_id;
+    }
 }

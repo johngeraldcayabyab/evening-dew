@@ -87,6 +87,22 @@ const GlobalSettingForm = () => {
                         />
                     </ColForm>
                 </RowForm>
+
+                <Divider orientation={'left'}>
+                    Accounting
+                </Divider>
+                <RowForm>
+                    <ColForm>
+                        <FormItemSelectAjax
+                            label={'Default Currency'}
+                            name={'accounting_default_currency_id'}
+                            message={'Please select a default currency'}
+                            required={true}
+                            url={'/api/currencies/option'}
+                            {...formState}
+                        />
+                    </ColForm>
+                </RowForm>
             </FormCard>
         </CustomForm>
     );

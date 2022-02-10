@@ -14,6 +14,8 @@ class GlobalSettingStoreRequest extends FormRequest
             'inventory_default_purchase_measurement_id' => ['required', "exists:measurements,id"],
             'inventory_default_sales_measurement_id' => ['required', "exists:measurements,id"],
             'inventory_default_product_category_id' => ['required', "exists:product_categories,id"],
+
+            'accounting_default_currency_id' => ['required', "exists:currencies,id"],
         ];
     }
 }

@@ -11,6 +11,7 @@ class CurrencyRoute
     {
         Route::middleware('auth:sanctum')->group(function () {
             Route::get('currencies/initial_values', [CurrencyController::class, 'initial_values'])->name('currencies.initial_values');
+            Route::get('currencies/option', [CurrencyController::class, 'option'])->name('currencies.option');
             Route::get('currencies/{currency}/slug', [CurrencyController::class, 'slug'])->name('currencies.slug');
             Route::get('currencies/{currency}', [CurrencyController::class, 'show'])->name('currencies.show');
             Route::put('currencies/{currency}', [CurrencyController::class, 'update'])->name('currencies.update');
