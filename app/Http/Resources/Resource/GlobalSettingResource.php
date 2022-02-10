@@ -14,6 +14,7 @@ class GlobalSettingResource extends JsonResource
             'inventory_default_purchase_measurement_id' => $this->inventory_default_purchase_measurement_id,
             'inventory_default_sales_measurement_id' => $this->inventory_default_sales_measurement_id,
             'inventory_default_product_category_id' => $this->inventory_default_product_category_id,
+            'accounting_default_currency_id' => $this->accounting_default_currency_id,
         ];
     }
 }
