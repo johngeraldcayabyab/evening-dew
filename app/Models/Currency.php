@@ -21,6 +21,11 @@ class Currency extends Model
     protected $table = 'currencies';
     protected $guarded = [];
 
+    public function country()
+    {
+        return $this->hasMany(Country::class);
+    }
+
     public static function getSymbolPositions()
     {
         return [self::BEFORE_AMOUNT, self::AFTER_AMOUNT];

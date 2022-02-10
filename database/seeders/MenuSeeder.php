@@ -11,6 +11,10 @@ class MenuSeeder extends Seeder
     {
         $data = [
             [
+                'label' => 'Countries',
+                'url' => '/countries',
+            ],
+            [
                 'label' => 'Currencies',
                 'url' => '/currencies',
             ],
