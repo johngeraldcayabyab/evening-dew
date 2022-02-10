@@ -1,5 +1,6 @@
 <?php
 
+use App\Routes\AddressRoute;
 use App\Routes\CountryRoute;
 use App\Routes\CurrencyRoute;
 use App\Routes\GlobalSettingRoute;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['middleware' => ['api', 'cors']], function () {
+    AddressRoute::initialize();
     CountryRoute::initialize();
     CurrencyRoute::initialize();
     GlobalSettingRoute::initialize();

@@ -8,6 +8,7 @@ const CustomForm = (props) => {
             size={'small'}
             labelAlign={'left'}
             labelCol={{span: 8}}
+            labelWrap={true}
             wrapperCol={{span: 16}}
         >
             {props.children}
