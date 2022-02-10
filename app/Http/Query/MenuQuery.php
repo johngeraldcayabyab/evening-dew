@@ -7,15 +7,11 @@ class MenuQuery extends HttpQuery
     public function sort($model, $request)
     {
         if ($this->isSort($request)) {
-            if ($request->orderByColumn === 'label') {
-                $model = $model->orderByLabel($request->orderByDirection);
-            }
-            if ($request->orderByColumn === 'url') {
-                $model = $model->orderByUrl($request->orderByDirection);
-            }
-            if ($request->orderByColumn === 'created_at') {
-                $model = $model->orderByCreatedAt($request->orderByDirection);
-            }
+            $model = $this->isSortField($model, $request, [
+                'label',
+                'url',
+                'created_at',
+            ]);
         } else {
             $model = $model->orderByCreatedAt('desc');
         }
@@ -24,12 +20,9 @@ class MenuQuery extends HttpQuery
 
     public function search($model, $request)
     {
-        if ($request->label) {
-            $model = $model->whereLabel($request->label);
-        }
-        if ($request->url) {
-            $model = $model->whereUrl($request->url);
-        }
-        return $model;
+        return $this->isSearchField($model, $request, [
+            'label',
+            'url',
+        ]);
     }
 }

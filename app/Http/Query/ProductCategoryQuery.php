@@ -7,12 +7,10 @@ class ProductCategoryQuery extends HttpQuery
     public function sort($model, $request)
     {
         if ($this->isSort($request)) {
-            if ($request->orderByColumn === 'with_parents') {
-                $model = $model->orderByCategory($request->orderByDirection);
-            }
-            if ($request->orderByColumn === 'created_at') {
-                $model = $model->orderByCreatedAt($request->orderByDirection);
-            }
+            $model = $this->isSortField($model, $request, [
+                'with_parents',
+                'created_at',
+            ]);
         } else {
             $model = $model->orderByCreatedAt('desc');
         }
@@ -21,9 +19,8 @@ class ProductCategoryQuery extends HttpQuery
 
     public function search($model, $request)
     {
-        if ($request->with_parents) {
-            $model = $model->whereCategory($request->with_parents);
-        }
-        return $model;
+        return $this->isSearchField($model, $request, [
+            'with_parents',
+        ]);
     }
 }

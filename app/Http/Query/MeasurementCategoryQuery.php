@@ -7,12 +7,10 @@ class MeasurementCategoryQuery extends HttpQuery
     public function sort($model, $request)
     {
         if ($this->isSort($request)) {
-            if ($request->orderByColumn === 'name') {
-                $model = $model->orderByName($request->orderByDirection);
-            }
-            if ($request->orderByColumn === 'created_at') {
-                $model = $model->orderByCreatedAt($request->orderByDirection);
-            }
+            $model = $this->isSortField($model, $request, [
+                'name',
+                'created_at',
+            ]);
         } else {
             $model = $model->orderByCreatedAt('desc');
         }
@@ -21,9 +19,8 @@ class MeasurementCategoryQuery extends HttpQuery
 
     public function search($model, $request)
     {
-        if ($request->name) {
-            $model = $model->whereName($request->name);
-        }
-        return $model;
+        return $this->isSearchField($model, $request, [
+            'name',
+        ]);
     }
 }

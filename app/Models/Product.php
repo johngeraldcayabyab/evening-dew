@@ -89,21 +89,21 @@ class Product extends Model
 
     public function scopeWherePurchaseMeasurement($query, $purchaseMeasurement)
     {
-        return $query->whereHas('purchase_measurement', function ($query) use ($purchaseMeasurement) {
+        return $query->whereHas('purchaseMeasurement', function ($query) use ($purchaseMeasurement) {
             return $query->where('name', 'like', "%$purchaseMeasurement%");
         });
     }
 
     public function scopeWhereSalesMeasurement($query, $salesMeasurement)
     {
-        return $query->whereHas('purchase_measurement', function ($query) use ($salesMeasurement) {
+        return $query->whereHas('salesMeasurement', function ($query) use ($salesMeasurement) {
             return $query->where('name', 'like', "%$salesMeasurement%");
         });
     }
 
     public function scopeWhereProductCategory($query, $productCategory)
     {
-        return $query->whereHas('product_category', function ($query) use ($productCategory) {
+        return $query->whereHas('productCategory', function ($query) use ($productCategory) {
             return $query->where('category', 'like', "%$productCategory%");
         });
     }
