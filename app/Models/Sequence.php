@@ -119,4 +119,19 @@ class Sequence extends Model
     {
         return $query->orderBy('next_number', $order);
     }
+
+    public function scopeGenerateSalesOrderSequence()
+    {
+        $sequence = Sequence::find(GlobalSetting::salesOrderDefaultSequence());
+        $generatedSequence = "";
+        if ($sequence->prefix) {
+            $generatedSequence .= $sequence->prefix;
+        }
+        $newNum = $sequence->next_number + $sequence->step;
+        $generatedSequence .= sprintf("%0{$sequence->sequence_size}d", $newNum);
+        if ($sequence->suffix) {
+            $generatedSequence .= $sequence->suffix;
+        }
+        return $generatedSequence;
+    }
 }

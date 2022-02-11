@@ -11,6 +11,7 @@ class SequenceRoute
     {
         Route::middleware('auth:sanctum')->group(function () {
             Route::get('sequences/initial_values', [SequenceController::class, 'initial_values'])->name('sequences.initial_values');
+            Route::get('sequences/option', [SequenceController::class, 'option'])->name('sequences.option');
             Route::get('sequences/{sequence}/slug', [SequenceController::class, 'slug'])->name('sequences.slug');
             Route::get('sequences/{sequence}', [SequenceController::class, 'show'])->name('sequences.show');
             Route::put('sequences/{sequence}', [SequenceController::class, 'update'])->name('sequences.update');

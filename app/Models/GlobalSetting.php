@@ -52,4 +52,9 @@ class GlobalSetting extends Model
     {
         return $query->latest()->first()->general_default_country_id;
     }
+
+    public function scopeSalesOrderDefaultSequence($query)
+    {
+        return $query->latest()->first()->sales_order_default_sequence_id;
+    }
 }

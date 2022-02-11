@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React from 'react';
 import {Divider, Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
@@ -116,6 +116,20 @@ const GlobalSettingForm = () => {
                             message={'Please select a default currency'}
                             required={true}
                             url={'/api/currencies/option'}
+                            {...formState}
+                        />
+                    </ColForm>
+                </RowForm>
+
+                <Divider orientation={'left'}>
+                    Sales
+                </Divider>
+                <RowForm>
+                    <ColForm>
+                        <FormItemSelectAjax
+                            label={'Sales Default Sequence'}
+                            name={'sales_order_default_sequence_id'}
+                            url={'/api/sequences/option'}
                             {...formState}
                         />
                     </ColForm>
