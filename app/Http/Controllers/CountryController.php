@@ -11,17 +11,18 @@ use App\Http\Resources\Collection\CountryCollection;
 use App\Http\Resources\Resource\CountryResource;
 use App\Http\Resources\Slug\CountrySlugResource;
 use App\Models\Country;
+use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CountryController
 {
+    use ControllerHelperTrait;
+
     public function index(Request $request): CountryCollection
     {
         $model = new Country();
-        $requestQuery = new CountryQuery();
-        $model = $requestQuery->search($model, $request);
-        $model = $requestQuery->sort($model, $request);
+        $model = $this->searchThenSort($model, $request);
         return new CountryCollection($model->paginate(SystemSetting::PAGE_SIZE));
     }
 

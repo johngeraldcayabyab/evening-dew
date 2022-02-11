@@ -12,18 +12,19 @@ use App\Http\Resources\Collection\MeasurementCategoryCollection;
 use App\Http\Resources\Resource\MeasurementCategoryResource;
 use App\Http\Resources\Slug\MeasurementCategorySlugResource;
 use App\Models\MeasurementCategory;
+use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class MeasurementCategoryController
 {
+    use ControllerHelperTrait;
+
     public function index(Request $request): ResourceCollection
     {
         $model = new MeasurementCategory();
-        $requestQuery = new MeasurementCategoryQuery();
-        $model = $requestQuery->search($model, $request);
-        $model = $requestQuery->sort($model, $request);
+        $model = $this->searchThenSort($model, $request);
         return new MeasurementCategoryCollection($model->paginate(SystemSetting::PAGE_SIZE));
     }
 

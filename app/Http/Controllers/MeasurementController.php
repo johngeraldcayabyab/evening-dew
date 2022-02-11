@@ -12,18 +12,19 @@ use App\Http\Resources\Resource\MeasurementResource;
 use App\Http\Resources\Slug\MeasurementSlugResource;
 use App\Models\GlobalSetting;
 use App\Models\Measurement;
+use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class MeasurementController
 {
+    use ControllerHelperTrait;
+
     public function index(Request $request): ResourceCollection
     {
         $model = new Measurement();
-        $requestQuery = new MeasurementQuery();
-        $model = $requestQuery->search($model, $request);
-        $model = $requestQuery->sort($model, $request);
+        $model = $this->searchThenSort($model, $request);
         return new MeasurementCollection($model->paginate(SystemSetting::PAGE_SIZE));
     }
 

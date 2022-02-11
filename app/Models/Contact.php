@@ -17,4 +17,89 @@ class Contact extends Model
 
     protected $table = 'countries';
     protected $guarded = [];
+
+    public function getSearchableFields()
+    {
+        return [
+            'name',
+            'phone',
+            'mobile',
+            'email',
+            'website',
+            'tax_id',
+        ];
+    }
+
+    public function getSortableFields()
+    {
+        return [
+            'name',
+            'phone',
+            'mobile',
+            'email',
+            'website',
+            'tax_id',
+            'created_at',
+        ];
+    }
+
+    public function scopeWhereName($query, $name)
+    {
+        return $query->where('name', 'like', "%$name%");
+    }
+
+    public function scopeWherePhone($query, $phone)
+    {
+        return $query->where('phone', 'like', "%$phone%");
+    }
+
+    public function scopeWhereMobile($query, $mobile)
+    {
+        return $query->where('mobile', 'like', "%$mobile%");
+    }
+
+    public function scopeWhereEmail($query, $email)
+    {
+        return $query->where('email', 'like', "%$email%");
+    }
+
+    public function scopeWhereWebsite($query, $website)
+    {
+        return $query->where('website', 'like', "%$website%");
+    }
+
+    public function scopeWhereTaxId($query, $taxId)
+    {
+        return $query->where('tax_id', 'like', "%$taxId%");
+    }
+
+    public function scopeOrderByName($query, $order)
+    {
+        return $query->orderBy('name', $order);
+    }
+
+    public function scopeOrderByPhone($query, $order)
+    {
+        return $query->orderBy('phone', $order);
+    }
+
+    public function scopeOrderByMobile($query, $order)
+    {
+        return $query->orderBy('mobile', $order);
+    }
+
+    public function scopeOrderByEmail($query, $order)
+    {
+        return $query->orderBy('email', $order);
+    }
+
+    public function scopeOrderByWebsite($query, $order)
+    {
+        return $query->orderBy('website', $order);
+    }
+
+    public function scopeOrderByTaxId($query, $order)
+    {
+        return $query->orderBy('tax_id', $order);
+    }
 }

@@ -11,17 +11,18 @@ use App\Http\Resources\Collection\ContactCollection;
 use App\Http\Resources\Resource\ContactResource;
 use App\Http\Resources\Slug\ContactSlugResource;
 use App\Models\Contact;
+use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ContactController
 {
+    use ControllerHelperTrait;
+
     public function index(Request $request): ContactCollection
     {
         $model = new Contact();
-        $requestQuery = new ContactQuery();
-        $model = $requestQuery->search($model, $request);
-        $model = $requestQuery->sort($model, $request);
+        $model = $this->searchThenSort($model, $request);
         return new ContactCollection($model->paginate(SystemSetting::PAGE_SIZE));
     }
 

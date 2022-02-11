@@ -11,18 +11,19 @@ use App\Http\Resources\Collection\ProductCategoryCollection;
 use App\Http\Resources\Resource\ProductCategoryResource;
 use App\Http\Resources\Slug\ProductCategorySlugResource;
 use App\Models\ProductCategory;
+use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ProductCategoryController
 {
+    use ControllerHelperTrait;
+
     public function index(Request $request): ResourceCollection
     {
         $model = new ProductCategory();
-        $requestQuery = new ProductCategoryQuery();
-        $model = $requestQuery->search($model, $request);
-        $model = $requestQuery->sort($model, $request);
+        $model = $this->searchThenSort($model, $request);
         return new ProductCategoryCollection($model->paginate(SystemSetting::PAGE_SIZE));
     }
 

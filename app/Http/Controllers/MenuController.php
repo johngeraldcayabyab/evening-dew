@@ -12,18 +12,19 @@ use App\Http\Resources\Collection\MenuCollection;
 use App\Http\Resources\Resource\MenuResource;
 use App\Http\Resources\Slug\MenuSlugResource;
 use App\Models\Menu;
+use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class MenuController
 {
+    use ControllerHelperTrait;
+
     public function index(Request $request): ResourceCollection
     {
         $model = new Menu();
-        $requestQuery = new MenuQuery();
-        $model = $requestQuery->search($model, $request);
-        $model = $requestQuery->sort($model, $request);
+        $model = $this->searchThenSort($model, $request);
         return new MenuCollection($model->paginate(SystemSetting::PAGE_SIZE));
     }
 
