@@ -9,6 +9,7 @@ use App\Routes\LoginRoute;
 use App\Routes\MeasurementCategoryRoute;
 use App\Routes\MeasurementRoute;
 use App\Routes\MenuRoute;
+use App\Routes\PaymentTermRoute;
 use App\Routes\ProductCategoryRoute;
 use App\Routes\ProductRoute;
 use App\Routes\SequenceRoute;
@@ -27,6 +28,7 @@ Route::group(['middleware' => ['api', 'cors']], function () {
     MeasurementCategoryRoute::initialize();
     MeasurementRoute::initialize();
     MenuRoute::initialize();
+    PaymentTermRoute::initialize();
     ProductCategoryRoute::initialize();
     ProductRoute::initialize();
     SequenceRoute::initialize();

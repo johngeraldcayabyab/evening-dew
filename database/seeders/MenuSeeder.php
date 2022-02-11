@@ -39,6 +39,10 @@ class MenuSeeder extends Seeder
                 'url' => '/menus',
             ],
             [
+                'label' => 'Payment Terms',
+                'url' => '/payment_terms',
+            ],
+            [
                 'label' => 'Product Categories',
                 'url' => '/product_categories',
             ],
