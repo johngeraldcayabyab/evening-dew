@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Data\SystemSetting;
-use App\Http\Query\MeasurementQuery;
 use App\Http\Requests\MassDestroy\MeasurementMassDestroyRequest;
 use App\Http\Requests\Store\MeasurementStoreRequest;
 use App\Http\Requests\Update\MeasurementUpdateRequest;

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Data\SystemSetting;
-use App\Http\Query\SequenceQuery;
 use App\Http\Requests\MassDestroy\SequenceMassDestroyRequest;
 use App\Http\Requests\Store\SequenceStoreRequest;
 use App\Http\Requests\Update\SequenceUpdateRequest;

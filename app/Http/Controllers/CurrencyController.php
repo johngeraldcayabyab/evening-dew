@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Data\SystemSetting;
-use App\Http\Query\CurrencyQuery;
 use App\Http\Requests\MassDestroy\CurrencyMassDestroyRequest;
 use App\Http\Requests\Store\CurrencyStoreRequest;
 use App\Http\Requests\Update\CurrencyUpdateRequest;
