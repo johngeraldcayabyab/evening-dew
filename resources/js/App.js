@@ -21,6 +21,7 @@ import CountryRoute from "./Country/CountryRoute";
 import AddressRoute from "./Address/AddressRoute";
 import ContactRoute from "./Contact/ContactRoute";
 import PaymentTermRoute from "./PaymentTerm/PaymentTermRoute";
+import SalesOrderRoute from "./SalesOrder/SalesOrderRoute";
 
 export const AppContext = React.createContext({});
 export const AppContextProvider = AppContext.Provider;
@@ -51,6 +52,7 @@ const App = () => {
                         <PaymentTermRoute/>
                         <ProductRoute/>
                         <ProductCategoryRoute/>
+                        <SalesOrderRoute/>
                         <SequenceRoute/>
                         <UserRoute/>
                     </Content>
