@@ -73,7 +73,7 @@ class AddressController
     public function initial_values()
     {
         return [
-//            'sales_measurement_id' => GlobalSetting::inventoryDefaultSalesMeasurement(),
+            'country_id' => GlobalSetting::generalDefaultCountry(),
             'type' => Address::DEFAULT
         ];
     }

@@ -47,4 +47,9 @@ class GlobalSetting extends Model
     {
         return $query->latest()->first()->accounting_default_currency_id;
     }
+
+    public function scopeGeneralDefaultCountry($query)
+    {
+        return $query->latest()->first()->general_default_country_id;
+    }
 }
