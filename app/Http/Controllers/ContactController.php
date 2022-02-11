@@ -56,7 +56,21 @@ class ContactController
 
     public function update(ContactUpdateRequest $request, Contact $contact): JsonResponse
     {
-        $contact->update($request->validated());
+        $data = $request->validated();
+        $contactData = Arr::except($data, ['street_1', 'street_2', 'city', 'state', 'zip', 'country_id']);
+        $contact->update($contactData);
+        $addressData = Arr::except($data, ['name', 'phone', 'mobile', 'email', 'website', 'tax_id', 'avatar']);
+        $addressData['address_name'] = $contact->name . " " . Address::DEFAULT . " address";
+        $addressData['type'] = Address::DEFAULT;
+        $addressData['contact_id'] = $contact->id;
+        $put = 'url';
+        if (config('app.env') === 'production') {
+            $put = '';
+        } else {
+            $defaultAddressId = $contact->defaultAddress()->id;
+            $put = "http://localhost:8800/api/addresses/{$defaultAddressId}";
+        }
+        Http::withToken($request->bearerToken())->put($put, $addressData);
         return response()->json([], STATUS_UPDATE);
     }
 
