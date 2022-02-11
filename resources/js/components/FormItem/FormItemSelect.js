@@ -23,8 +23,8 @@ const FormItemSelect = (props) => {
         <Form.Item
             label={<FormLabel>{props.label}</FormLabel>}
             name={props.name}
-            validateStatus={props.errors[props.name] ? 'error' : false}
-            help={props.errors.ratio ? props.errors[props.name] : false}
+            validateStatus={props.errors[props.name] ? 'error' : null}
+            help={props.errors.name ? props.errors[props.name] : null}
             rules={[{required: props.required, message: props.message}]}
             colon={false}
             labelCol={props.size === 'large' || props.size === 'medium' ? {span: 24} : null}
