@@ -5,5 +5,5 @@ mix.options({
 });
 
 mix.js('resources/js/App.js', 'public/js')
-    .react()
-    .sass('resources/sass/App.scss', 'public/css');
+    .react();
+// .sass('resources/sass/App.scss', 'public/css');
