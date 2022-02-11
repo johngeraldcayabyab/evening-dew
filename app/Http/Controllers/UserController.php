@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Data\SystemSetting;
-use App\Http\Query\UserQuery;
 use App\Http\Requests\MassDestroy\UserMassDestroyRequest;
 use App\Http\Requests\Store\UserStoreRequest;
 use App\Http\Requests\Update\UserUpdateRequest;

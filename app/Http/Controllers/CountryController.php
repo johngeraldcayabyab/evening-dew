@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Data\SystemSetting;
-use App\Http\Query\CountryQuery;
 use App\Http\Requests\MassDestroy\CountryMassDestroyRequest;
 use App\Http\Requests\Store\CountryStoreRequest;
 use App\Http\Requests\Update\CountryUpdateRequest;

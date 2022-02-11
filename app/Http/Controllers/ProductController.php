@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Data\SystemSetting;
-use App\Http\Query\ProductQuery;
 use App\Http\Requests\MassDestroy\ProductMassDestroyRequest;
 use App\Http\Requests\Store\ProductStoreRequest;
 use App\Http\Requests\Update\ProductUpdateRequest;

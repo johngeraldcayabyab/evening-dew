@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 
 use App\Data\SystemSetting;
-use App\Http\Query\MenuQuery;
 use App\Http\Requests\MassDestroy\MenuMassDestroyRequest;
 use App\Http\Requests\Store\MenuStoreRequest;
 use App\Http\Requests\Update\MenuUpdateRequest;

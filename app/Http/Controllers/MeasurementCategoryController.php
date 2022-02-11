@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 
 use App\Data\SystemSetting;
-use App\Http\Query\MeasurementCategoryQuery;
 use App\Http\Requests\MassDestroy\MeasurementCategoryMassDestroyRequest;
 use App\Http\Requests\Store\MeasurementCategoryStoreRequest;
 use App\Http\Requests\Update\MeasurementCategoryUpdateRequest;
