@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Data\SystemSetting;
-use App\Http\Query\ContactQuery;
 use App\Http\Requests\MassDestroy\ContactMassDestroyRequest;
 use App\Http\Requests\Store\ContactStoreRequest;
 use App\Http\Requests\Update\ContactUpdateRequest;
@@ -62,12 +61,12 @@ class ContactController
 
     public function option(Request $request): JsonResponse
     {
-        $Contact = new Contact();
+        $contact = new Contact();
         if ($request->search) {
-            $Contact = $Contact->where('Contact', 'like', "%$request->search%");
+            $contact = $contact->where('name', 'like', "%$request->search%");
         }
-        $Contact = $Contact->limit(SystemSetting::OPTION_LIMIT)->get();
-        return response()->json(ContactSlugResource::collection($Contact));
+        $contact = $contact->limit(SystemSetting::OPTION_LIMIT)->get();
+        return response()->json(ContactSlugResource::collection($contact));
     }
 
     public function initial_values()

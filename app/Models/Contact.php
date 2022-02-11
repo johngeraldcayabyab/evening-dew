@@ -15,7 +15,7 @@ class Contact extends Model
     use BroadcastsEvents;
     use ModelHelperTrait;
 
-    protected $table = 'countries';
+    protected $table = 'contacts';
     protected $guarded = [];
 
     public function getSearchableFields()
