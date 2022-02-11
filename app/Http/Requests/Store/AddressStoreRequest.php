@@ -12,13 +12,13 @@ class AddressStoreRequest extends FormRequest
         $types = implode(',', Address::getTypes());
         return [
             'address_name' => ['required'],
-            'street_1' => ['required'],
-            'street_2' => ['required'],
-            'city' => ['required'],
-            'state' => ['required'],
-            'zip' => ['required'],
-            'country_id' => ['required', "exists:countries,id"],
-            'contact_id' => ['nullable'],
+            'street_1' => ['nullable'],
+            'street_2' => ['nullable'],
+            'city' => ['nullable'],
+            'state' => ['nullable'],
+            'zip' => ['nullable'],
+            'country_id' => ['nullable', "exists:countries,id"],
+            'contact_id' => ['required', "exists:contacts,id"],
             'type' => ['required', "in:$types"],
         ];
     }

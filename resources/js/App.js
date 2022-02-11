@@ -18,6 +18,7 @@ import {getCookie} from "./Helpers/cookie";
 import ProductRoute from "./Product/ProductRoute";
 import CurrencyRoute from "./Currency/CurrencyRoute";
 import CountryRoute from "./Country/CountryRoute";
+import AddressRoute from "./Address/AddressRoute";
 
 export const AppContext = React.createContext({});
 export const AppContextProvider = AppContext.Provider;
@@ -36,6 +37,7 @@ const App = () => {
                 <AppContainer>
                     <CustomMenu/>
                     <Content style={{marginTop: '50px', borderTop: 'none'}}>
+                        <AddressRoute/>
                         <CountryRoute/>
                         <CurrencyRoute/>
                         <GlobalSettingRoute/>
