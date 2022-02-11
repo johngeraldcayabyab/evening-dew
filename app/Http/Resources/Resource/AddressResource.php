@@ -19,8 +19,7 @@ class AddressResource extends JsonResource
             'country_id' => $this->country_id,
             'country' => new CountryResource($this->country),
             'contact_id' => $this->contact_id,
-//            'contact' => new CountryResource($this->country),
-            'contact' => 'placeholder',
+            'contact' => new CountryResource($this->contact),
             'type' => $this->type,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
         ];
