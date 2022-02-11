@@ -73,27 +73,27 @@ class Product extends Model
 
     public function scopeWhereName($query, $name)
     {
-        return $query->where('type', 'name', "%$name%");
+        return $query->where('name', 'like', "%$name%");
     }
 
     public function scopeWhereProductType($query, $productType)
     {
-        return $query->where('type', 'product_type', "%$productType%");
+        return $query->where('product_type', 'like', "%$productType%");
     }
 
     public function scopeWhereInvoicingPolicy($query, $invoicingPolicy)
     {
-        return $query->where('type', 'invoicing_policy', "%$invoicingPolicy%");
+        return $query->where('invoicing_policy', 'like', "%$invoicingPolicy%");
     }
 
     public function scopeWhereCost($query, $cost)
     {
-        return $query->where('type', 'cost', "%$cost%");
+        return $query->where('cost', 'like', "%$cost%");
     }
 
     public function scopeWhereSalesPrice($query, $salesPrice)
     {
-        return $query->where('type', 'sales_price', "%$salesPrice%");
+        return $query->where('sales_price', 'like', "%$salesPrice%");
     }
 
     public function scopeWhereMeasurement($query, $measurement)
@@ -126,7 +126,7 @@ class Product extends Model
 
     public function scopeWhereInternalReference($query, $internalReference)
     {
-        return $query->where('type', 'internal_reference', "%$internalReference%");
+        return $query->where('internal_reference', 'like', "%$internalReference%");
     }
 
     public function scopeOrderByName($query, $order)
