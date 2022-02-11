@@ -10,6 +10,7 @@ use App\Http\Resources\Collection\AddressCollection;
 use App\Http\Resources\Resource\AddressResource;
 use App\Http\Resources\Slug\AddressSlugResource;
 use App\Models\Address;
+use App\Models\GlobalSetting;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -67,5 +68,13 @@ class AddressController
         }
         $address = $address->limit(SystemSetting::OPTION_LIMIT)->get();
         return response()->json(AddressSlugResource::collection($address));
+    }
+
+    public function initial_values()
+    {
+        return [
+//            'sales_measurement_id' => GlobalSetting::inventoryDefaultSalesMeasurement(),
+            'type' => Address::DEFAULT
+        ];
     }
 }

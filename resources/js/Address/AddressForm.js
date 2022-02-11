@@ -16,7 +16,7 @@ import FormItemSelect from "../components/FormItem/FormItemSelect";
 const AddressForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormState(id, form, manifest);
+    const [formState, formActions] = useFormState(id, form, manifest, true);
     return (
         <CustomForm
             form={form}
@@ -92,6 +92,8 @@ const AddressForm = () => {
                         <FormItemSelectAjax
                             label={'Contact'}
                             name={'contact_id'}
+                            message={'Please select a contact'}
+                            required={true}
                             url={'/api/contacts/option'}
                             {...formState}
                         />
