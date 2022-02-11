@@ -9,10 +9,14 @@ use App\Http\Requests\Update\ContactUpdateRequest;
 use App\Http\Resources\Collection\ContactCollection;
 use App\Http\Resources\Resource\ContactResource;
 use App\Http\Resources\Slug\ContactSlugResource;
+use App\Models\Address;
 use App\Models\Contact;
+use App\Models\GlobalSetting;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Http;
 
 class ContactController
 {
@@ -32,7 +36,21 @@ class ContactController
 
     public function store(ContactStoreRequest $request): JsonResponse
     {
-        $headers = location_header(route('contacts.show', Contact::create($request->validated())));
+        $data = $request->validated();
+        $contactData = Arr::except($data, ['street_1', 'street_2', 'city', 'state', 'zip', 'country_id']);
+        $contact = Contact::create($contactData);
+        $addressData = Arr::except($data, ['name', 'phone', 'mobile', 'email', 'website', 'tax_id', 'avatar']);
+        $addressData['address_name'] = $contact->name . " " . Address::DEFAULT . " address";
+        $addressData['type'] = Address::DEFAULT;
+        $addressData['contact_id'] = $contact->id;
+        $post = 'url';
+        if (config('app.env') === 'production') {
+            $post = '';
+        } else {
+            $post = 'http://localhost:8800/api/addresses';
+        }
+        Http::withToken($request->bearerToken())->post($post, $addressData);
+        $headers = location_header(route('contacts.show', $contact));
         return response()->json([], STATUS_CREATE, $headers);
     }
 
@@ -72,9 +90,7 @@ class ContactController
     public function initial_values()
     {
         return [
-//            'symbol_position' => Contact::AFTER_AMOUNT,
-//            'rounding_factor' => 0.010000,
-//            'decimal_places' => 2,
+            'country_id' => GlobalSetting::generalDefaultCountry(),
         ];
     }
 }

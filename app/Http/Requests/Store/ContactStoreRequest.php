@@ -17,6 +17,13 @@ class ContactStoreRequest extends FormRequest
             'website' => ['nullable'],
             'tax_id' => ['nullable'],
             'avatar' => ['nullable'],
+
+            'street_1' => ['nullable'],
+            'street_2' => ['nullable'],
+            'city' => ['nullable'],
+            'state' => ['nullable'],
+            'zip' => ['nullable'],
+            'country_id' => ['nullable', "exists:countries,id"],
         ];
     }
 }
