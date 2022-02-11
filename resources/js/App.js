@@ -19,6 +19,7 @@ import ProductRoute from "./Product/ProductRoute";
 import CurrencyRoute from "./Currency/CurrencyRoute";
 import CountryRoute from "./Country/CountryRoute";
 import AddressRoute from "./Address/AddressRoute";
+import ContactRoute from "./Contact/ContactRoute";
 
 export const AppContext = React.createContext({});
 export const AppContextProvider = AppContext.Provider;
@@ -38,6 +39,7 @@ const App = () => {
                     <CustomMenu/>
                     <Content style={{marginTop: '50px', borderTop: 'none'}}>
                         <AddressRoute/>
+                        <ContactRoute/>
                         <CountryRoute/>
                         <CurrencyRoute/>
                         <GlobalSettingRoute/>
