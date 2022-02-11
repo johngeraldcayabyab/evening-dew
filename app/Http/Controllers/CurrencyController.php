@@ -11,17 +11,18 @@ use App\Http\Resources\Collection\CurrencyCollection;
 use App\Http\Resources\Resource\CurrencyResource;
 use App\Http\Resources\Slug\CurrencySlugResource;
 use App\Models\Currency;
+use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CurrencyController
 {
+    use ControllerHelperTrait;
+
     public function index(Request $request): CurrencyCollection
     {
         $model = new Currency();
-        $requestQuery = new CurrencyQuery();
-        $model = $requestQuery->search($model, $request);
-        $model = $requestQuery->sort($model, $request);
+        $model = $this->searchThenSort($model, $request);
         return new CurrencyCollection($model->paginate(SystemSetting::PAGE_SIZE));
     }
 

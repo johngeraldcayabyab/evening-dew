@@ -11,18 +11,19 @@ use App\Http\Resources\Collection\SequenceCollection;
 use App\Http\Resources\Resource\SequenceResource;
 use App\Http\Resources\Slug\SequenceSlugResource;
 use App\Models\Sequence;
+use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class SequenceController
 {
+    use ControllerHelperTrait;
+
     public function index(Request $request): ResourceCollection
     {
         $model = new Sequence();
-        $requestQuery = new SequenceQuery();
-        $model = $requestQuery->search($model, $request);
-        $model = $requestQuery->sort($model, $request);
+        $model = $this->searchThenSort($model, $request);
         return new SequenceCollection($model->paginate(SystemSetting::PAGE_SIZE));
     }
 

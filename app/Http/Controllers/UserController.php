@@ -11,6 +11,7 @@ use App\Http\Resources\Collection\UserCollection;
 use App\Http\Resources\Resource\UserResource;
 use App\Http\Resources\Slug\UserSlugResource;
 use App\Models\User;
+use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -18,12 +19,12 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController
 {
+    use ControllerHelperTrait;
+
     public function index(Request $request): ResourceCollection
     {
         $model = new User();
-        $requestQuery = new UserQuery();
-        $model = $requestQuery->search($model, $request);
-        $model = $requestQuery->sort($model, $request);
+        $model = $this->searchThenSort($model, $request);
         return new UserCollection($model->paginate(SystemSetting::PAGE_SIZE));
     }
 

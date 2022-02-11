@@ -12,17 +12,18 @@ use App\Http\Resources\Resource\ProductResource;
 use App\Http\Resources\Slug\ProductSlugResource;
 use App\Models\GlobalSetting;
 use App\Models\Product;
+use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ProductController
 {
+    use ControllerHelperTrait;
+
     public function index(Request $request): ProductCollection
     {
         $model = new Product();
-        $requestQuery = new ProductQuery();
-        $model = $requestQuery->search($model, $request);
-        $model = $requestQuery->sort($model, $request);
+        $model = $this->searchThenSort($model, $request);
         return new ProductCollection($model->paginate(SystemSetting::PAGE_SIZE));
     }
 
