@@ -11,11 +11,12 @@ import FormItemText from "../components/FormItem/FormItemText";
 import ControlPanel from "../components/ControlPanel";
 import FormCard from "../components/FormCard";
 import FormItemUpload from "../components/FormItem/FormItemUpload";
+import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
 
 const ContactForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormState(id, form, manifest);
+    const [formState, formActions] = useFormState(id, form, manifest, true);
     return (
         <CustomForm
             form={form}
@@ -57,6 +58,43 @@ const ContactForm = () => {
 
                 <RowForm>
                     <ColForm>
+                        <FormItemText
+                            label={'Street 1'}
+                            name={'street_1'}
+                            {...formState}
+                        />
+
+                        <FormItemText
+                            label={'Street 2'}
+                            name={'street_2'}
+                            {...formState}
+                        />
+
+                        <FormItemText
+                            label={'City'}
+                            name={'city'}
+                            {...formState}
+                        />
+
+                        <FormItemText
+                            label={'State'}
+                            name={'state'}
+                            {...formState}
+                        />
+
+                        <FormItemText
+                            label={'Zip'}
+                            name={'zip'}
+                            {...formState}
+                        />
+
+                        <FormItemSelectAjax
+                            label={'Country'}
+                            name={'country_id'}
+                            url={'/api/countries/option'}
+                            {...formState}
+                        />
+
                         <FormItemText
                             label={'Tax ID'}
                             name={'tax_id'}
