@@ -30,6 +30,36 @@ class Contact extends Model
         ];
     }
 
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
+
+    public function defaultAddress()
+    {
+        return $this->addresses->where('type', Address::DEFAULT)->last();
+    }
+
+    public function scopeInvoiceAddress()
+    {
+        return $this->addresses->where('type', Address::INVOICE)->last();
+    }
+
+    public function scopeDeliveryAddress()
+    {
+        return $this->addresses->where('type', Address::DELIVERY)->last();
+    }
+
+    public function scopeOthersAddress()
+    {
+        return $this->addresses->where('type', Address::OTHERS)->last();
+    }
+
+    public function scopePrivateAddress()
+    {
+        return $this->addresses->where('type', Address::PRIVATE)->last();
+    }
+
     public function scopeWhereName($query, $name)
     {
         return $query->where('name', 'like', "%$name%");
