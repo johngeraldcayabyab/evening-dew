@@ -46,7 +46,7 @@ class SalesOrder extends Model
 
     public function paymentTerm()
     {
-        return $this->belongsTo(PaymentTerm::class);
+        return $this->belongsTo(PaymentTerm::class, 'payment_term_id', 'id');
     }
 
     public function scopeWhereNumber($query, $number)

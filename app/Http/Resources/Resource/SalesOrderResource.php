@@ -11,14 +11,14 @@ class SalesOrderResource extends JsonResource
         return [
             'id' => $this->id,
             'number' => $this->number,
-            'contact_id' => $this->contact_id,
-            'contact' => new ContactResource($this->contact),
-            'invoicing_address_id' => $this->invoicing_address_id,
-            'invoicing_address' => new AddressResource($this->invoicingAddress),
+            'customer_id' => $this->customer_id,
+            'customer' => new ContactResource($this->customer),
+            'invoice_address_id' => $this->invoice_address_id,
+            'invoice_address' => new AddressResource($this->invoiceAddress),
             'delivery_address_id' => $this->delivery_address_id,
             'delivery_address' => new AddressResource($this->deliveryAddress),
             'payment_term_id' => $this->payment_term_id,
-            'payment_term' => new PaymentTermResource($this->paymentTerm),
+            'payment_term' => $this->payment_term_id ? new PaymentTermResource($this->paymentTerm) : null,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
         ];
     }

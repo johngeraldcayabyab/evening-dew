@@ -1,0 +1,7 @@
+{
+    "moduleName": "sales_orders",
+    "eventName": "sales_orders",
+    "modelName": "SalesOrder"
+}
+
+
