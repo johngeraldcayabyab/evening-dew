@@ -21,7 +21,7 @@ class Currency extends Model
     protected $table = 'currencies';
     protected $guarded = [];
 
-    public function getSearchableFields()
+    public function getSearchableAndSortableFields()
     {
         return [
             'currency',
@@ -32,21 +32,6 @@ class Currency extends Model
             'decimal_places',
             'symbol',
             'symbol_position',
-        ];
-    }
-
-    public function getSortableFields()
-    {
-        return [
-            'currency',
-            'name',
-            'unit',
-            'sub_unit',
-            'rounding_factor',
-            'decimal_places',
-            'symbol',
-            'symbol_position',
-            'created_at',
         ];
     }
 

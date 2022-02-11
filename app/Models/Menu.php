@@ -18,20 +18,11 @@ class Menu extends Model
     protected $table = 'menus';
     protected $guarded = [];
 
-    public function getSearchableFields()
+    public function getSearchableAndSortableFields()
     {
         return [
             'label',
             'url',
-        ];
-    }
-
-    public function getSortableFields()
-    {
-        return [
-            'label',
-            'url',
-            'created_at',
         ];
     }
 

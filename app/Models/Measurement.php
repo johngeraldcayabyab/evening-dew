@@ -23,7 +23,7 @@ class Measurement extends Model
     protected $table = 'measurements';
     protected $guarded = [];
 
-    public function getSearchableFields()
+    public function getSearchableAndSortableFields()
     {
         return [
             'name',
@@ -31,18 +31,6 @@ class Measurement extends Model
             'ratio',
             'rounding_precision',
             'measurement_category',
-        ];
-    }
-
-    public function getSortableFields()
-    {
-        return [
-            'name',
-            'type',
-            'ratio',
-            'rounding_precision',
-            'measurement_category',
-            'created_at',
         ];
     }
 

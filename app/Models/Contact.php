@@ -18,7 +18,7 @@ class Contact extends Model
     protected $table = 'contacts';
     protected $guarded = [];
 
-    public function getSearchableFields()
+    public function getSearchableAndSortableFields()
     {
         return [
             'name',
@@ -27,19 +27,6 @@ class Contact extends Model
             'email',
             'website',
             'tax_id',
-        ];
-    }
-
-    public function getSortableFields()
-    {
-        return [
-            'name',
-            'phone',
-            'mobile',
-            'email',
-            'website',
-            'tax_id',
-            'created_at',
         ];
     }
 

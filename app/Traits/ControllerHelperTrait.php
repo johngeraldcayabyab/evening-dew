@@ -8,8 +8,10 @@ trait ControllerHelperTrait
 {
     public function searchThenSort($model, $request)
     {
-        $searchableFields = $model->getSearchableFields();
-        $sortableFields = $model->getSortableFields();
+        $searchableAndSortableFields = $model->getSearchableAndSortableFields();
+        $searchableFields = $searchableAndSortableFields;
+        $sortableFields = $searchableFields;
+        $sortableFields[] = 'created_at';
         $model = $this->search($model, $request, $searchableFields);
         return $this->sort($model, $request, $sortableFields);
     }
