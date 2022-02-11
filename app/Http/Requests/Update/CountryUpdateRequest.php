@@ -10,7 +10,7 @@ class CountryUpdateRequest extends FormRequest
     {
         return [
             'country_name' => ['required'],
-            'currency_id' => ['required', "exists:currencies,id"],
+            'currency_id' => ['nullable', "exists:currencies,id"],
             'country_code' => ['nullable'],
             'country_calling_code' => ['nullable'],
             'vat_label' => ['nullable'],

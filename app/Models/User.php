@@ -29,25 +29,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    public function getSearchableFields()
+    public function getSearchableAndSortableFields()
     {
         return [
             'name',
             'email',
-        ];
-    }
-
-    public function getSortableFields()
-    {
-        return [
-            'name',
-            'email',
-            'email_verified_at',
-            'created_at',
         ];
     }
 
@@ -69,10 +55,5 @@ class User extends Authenticatable
     public function scopeOrderByEmail($query, $order)
     {
         return $query->orderBy('email', $order);
-    }
-
-    public function scopeOrderByEmailVerifiedAt($query, $order)
-    {
-        return $query->orderBy('email_verified_at', $order);
     }
 }

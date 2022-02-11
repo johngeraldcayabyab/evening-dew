@@ -21,7 +21,7 @@ class Sequence extends Model
     const NO_GAP = 'no_gap';
     const STANDARD = 'standard';
 
-    public function getSearchableFields()
+    public function getSearchableAndSortableFields()
     {
         return [
             'name',
@@ -32,21 +32,6 @@ class Sequence extends Model
             'sequence_size',
             'step',
             'next_number',
-        ];
-    }
-
-    public function getSortableFields()
-    {
-        return [
-            'name',
-            'sequence_code',
-            'implementation',
-            'prefix',
-            'suffix',
-            'sequence_size',
-            'step',
-            'next_number',
-            'created_at',
         ];
     }
 

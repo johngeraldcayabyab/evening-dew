@@ -25,13 +25,6 @@ const UserList = () => {
             searchFilter: true,
         },
         {
-            title: 'Verified At',
-            dataIndex: 'email_verified_at',
-            key: 'email_verified_at',
-            sorter: true,
-            searchFilter: true,
-        },
-        {
             title: 'Created At',
             dataIndex: 'created_at',
             key: 'created_at',

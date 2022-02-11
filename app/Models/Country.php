@@ -18,7 +18,7 @@ class Country extends Model
     protected $table = 'countries';
     protected $guarded = [];
 
-    public function getSearchableFields()
+    public function getSearchableAndSortableFields()
     {
         return [
             'country_name',
@@ -27,18 +27,6 @@ class Country extends Model
             'country_calling_code',
             'vat_label',
             'measurement_category',
-        ];
-    }
-
-    public function getSortableFields()
-    {
-        return [
-            'country_name',
-            'currency',
-            'country_code',
-            'country_calling_code',
-            'vat_label',
-            'created_at',
         ];
     }
 
