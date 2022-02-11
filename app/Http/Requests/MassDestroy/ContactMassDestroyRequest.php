@@ -4,12 +4,12 @@ namespace App\Http\Requests\MassDestroy;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddressMassDestroyRequest extends FormRequest
+class ContactMassDestroyRequest extends FormRequest
 {
     public function rules()
     {
         return [
-            'ids.*' => 'exists:addresses,id'
+            'ids.*' => 'exists:contacts,id'
         ];
     }
 }
