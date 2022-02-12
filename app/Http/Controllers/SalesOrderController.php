@@ -10,6 +10,7 @@ use App\Http\Resources\Collection\SalesOrderCollection;
 use App\Http\Resources\Resource\SalesOrderResource;
 use App\Http\Resources\Slug\SalesOrderSlugResource;
 use App\Models\SalesOrder;
+use App\Models\Sequence;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -73,10 +74,7 @@ class SalesOrderController
     public function initial_values()
     {
         return [
-//            'type' => SalesOrder::REFERENCE,
-//            'ratio' => 1,
-//            'rounding_precision' => 0.01,
-//            'SalesOrder_category_id' => GlobalSetting::inventoryDefaultSalesOrderCategory()
+            'number' => Sequence::generateSalesOrderSequence()
         ];
     }
 }
