@@ -22,8 +22,8 @@ class PaymentTermController
     public function index(Request $request): ResourceCollection
     {
         $model = new PaymentTerm();
-        $model = $this->searchThenSort($model, $request);
-        return new PaymentTermCollection($model->paginate(SystemSetting::PAGE_SIZE));
+        $model = $this->searchSortThenPaginate($model, $request);
+        return new PaymentTermCollection($model);
     }
 
     public function show(PaymentTerm $paymentTerm): JsonResponse

@@ -23,8 +23,8 @@ class SalesOrderController
     public function index(Request $request): ResourceCollection
     {
         $model = new SalesOrder();
-        $model = $this->searchThenSort($model, $request);
-        return new SalesOrderCollection($model->paginate(SystemSetting::PAGE_SIZE));
+        $model = $this->searchSortThenPaginate($model, $request);
+        return new SalesOrderCollection($model);
     }
 
     public function show(SalesOrder $salesOrder): JsonResponse

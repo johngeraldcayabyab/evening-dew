@@ -21,8 +21,8 @@ class CountryController
     public function index(Request $request): CountryCollection
     {
         $model = new Country();
-        $model = $this->searchThenSort($model, $request);
-        return new CountryCollection($model->paginate(SystemSetting::PAGE_SIZE));
+        $model = $this->searchSortThenPaginate($model, $request);
+        return new CountryCollection($model);
     }
 
     public function show(Country $Country): JsonResponse

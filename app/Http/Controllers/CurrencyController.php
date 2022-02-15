@@ -21,8 +21,8 @@ class CurrencyController
     public function index(Request $request): CurrencyCollection
     {
         $model = new Currency();
-        $model = $this->searchThenSort($model, $request);
-        return new CurrencyCollection($model->paginate(SystemSetting::PAGE_SIZE));
+        $model = $this->searchSortThenPaginate($model, $request);
+        return new CurrencyCollection($model);
     }
 
     public function show(Currency $currency): JsonResponse

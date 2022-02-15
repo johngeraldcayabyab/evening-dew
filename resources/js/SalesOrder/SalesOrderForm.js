@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
@@ -11,16 +11,40 @@ import ControlPanel from "../components/ControlPanel";
 import FormCard from "../components/FormCard";
 import FormItemText from "../components/FormItem/FormItemText";
 import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
+import useFetchHook from "../Hooks/useFetchHook";
+import useFetchCatcher from "../Hooks/useFetchCatcher";
+import {GET} from "../consts";
 
 const SalesOrderForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormState(id, form, manifest, true);
+    const [useFetch, fetchAbort] = useFetchHook();
+    const fetchCatcher = useFetchCatcher();
+    const [state, setState] = useState({
+        invoiceAddressOptionReload: false,
+        invoiceAddressOptionSearch: null,
+    });
 
     return (
         <CustomForm
             form={form}
             onFinish={formActions.onFinish}
+            onValuesChange={(changedValues, allValues) => {
+                if (changedValues.customer_id) {
+                    useFetch(`/api/addresses`, GET, {
+                        // page_size: 2,
+                        contact_id: changedValues.customer_id
+                    }).then((response) => {
+                        console.log(response);
+                    });
+                    // setState((prevState) => ({
+                    //     ...prevState,
+                    //     invoiceAddressOptionReload: true
+                    // }));
+                }
+                console.log(changedValues);
+            }}
         >
             <ControlPanel
                 bottomColOneLeft={
@@ -63,6 +87,7 @@ const SalesOrderForm = () => {
                             message={'Please select a invoice address'}
                             required={true}
                             url={'/api/addresses/option'}
+                            reload={state.invoiceAddressOptionReload}
                             {...formState}
                         />
                         <FormItemSelectAjax

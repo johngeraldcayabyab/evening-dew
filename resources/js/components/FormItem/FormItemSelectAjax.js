@@ -17,25 +17,31 @@ const FormItemSelectAjax = (props) => {
 
     useEffect(() => {
         if (props.url) {
-            useFetch(`${props.url}`, GET).then((response) => {
-                setState((prevState) => ({
-                    ...prevState,
-                    options: response.map((option) => ({
-                        value: option.id,
-                        label: option.slug
-                    }))
-                }));
-            }).catch((responseErr) => {
-                fetchCatcher.get(responseErr);
-            });
+            getOptions();
         }
         return () => {
             fetchAbort();
         };
-    }, []);
+    }, [props.reload]);
 
     function onSearch(search) {
-        useFetch(`${props.url}`, GET, {search: search}).then((response) => {
+        getOptions(search);
+    }
+
+    function onClear() {
+        if (props.url) {
+            getOptions();
+        }
+    }
+
+    function getOptions(search = null) {
+        let useFetchHook;
+        if (search) {
+            useFetchHook = useFetch(`${props.url}`, GET, {search: search});
+        } else {
+            useFetchHook = useFetch(`${props.url}`, GET);
+        }
+        useFetchHook.then((response) => {
             setState((prevState) => ({
                 ...prevState,
                 options: response.map((option) => ({
@@ -46,22 +52,6 @@ const FormItemSelectAjax = (props) => {
         }).catch((responseErr) => {
             fetchCatcher.get(responseErr);
         });
-    }
-
-    function onClear() {
-        if (props.url) {
-            useFetch(`${props.url}`, GET).then((response) => {
-                setState((prevState) => ({
-                    ...prevState,
-                    options: response.map((option) => ({
-                        value: option.id,
-                        label: option.slug
-                    }))
-                }));
-            }).catch((responseErr) => {
-                fetchCatcher.get(responseErr);
-            });
-        }
     }
 
     return (

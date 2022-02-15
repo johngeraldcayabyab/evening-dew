@@ -22,8 +22,8 @@ class ProductController
     public function index(Request $request): ProductCollection
     {
         $model = new Product();
-        $model = $this->searchThenSort($model, $request);
-        return new ProductCollection($model->paginate(SystemSetting::PAGE_SIZE));
+        $model = $this->searchSortThenPaginate($model, $request);
+        return new ProductCollection($model);
     }
 
     public function show(Product $product): JsonResponse
