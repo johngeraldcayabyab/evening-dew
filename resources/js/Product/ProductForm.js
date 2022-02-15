@@ -154,6 +154,25 @@ const ProductForm = () => {
                             </ColForm>
                         </RowForm>
                     </TabPane>
+
+
+                    <TabPane tab="Other Information" key="1">
+                        <RowForm>
+                            <ColForm>
+                                <FormItemText
+                                    label={'Sales Description'}
+                                    name={'sales_description'}
+                                    {...formState}
+                                />
+
+                                <FormItemText
+                                    label={'Purchase Description'}
+                                    name={'purchase_description'}
+                                    {...formState}
+                                />
+                            </ColForm>
+                        </RowForm>
+                    </TabPane>
                 </Tabs>
             </FormCard>
         </CustomForm>

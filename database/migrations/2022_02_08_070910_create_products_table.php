@@ -26,6 +26,9 @@ class CreateProductsTable extends Migration
 
             $table->string('internal_reference')->nullable();
             $table->string('avatar')->nullable();
+
+            $table->string('sales_description')->nullable();
+            $table->string('purchase_description')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
