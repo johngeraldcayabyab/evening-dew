@@ -74,7 +74,7 @@ class SequenceController
     {
         return [
             'implementation' => Sequence::STANDARD,
-            'sequence_size' => 0,
+            'sequence_size' => 6,
             'step' => 1,
             'next_number' => 0,
         ];
