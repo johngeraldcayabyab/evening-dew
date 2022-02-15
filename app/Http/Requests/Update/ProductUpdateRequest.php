@@ -24,6 +24,8 @@ class ProductUpdateRequest extends FormRequest
             'product_category_id' => ['required', "exists:product_categories,id"],
             'internal_reference' => 'nullable',
             'avatar' => 'nullable',
+            'sales_description' => 'nullable',
+            'purchase_description' => 'nullable',
         ];
     }
 }

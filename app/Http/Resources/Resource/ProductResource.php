@@ -23,6 +23,8 @@ class ProductResource extends JsonResource
             'product_category' => new ProductCategoryResource($this->productCategory),
             'internal_reference' => $this->internal_reference,
             'avatar' => $this->avatar ? asset("storage/images/" . $this->avatar) : null,
+            'sales_description' => $this->sales_description,
+            'purchase_description' => $this->purchase_description,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
         ];
     }

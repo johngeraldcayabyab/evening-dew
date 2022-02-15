@@ -129,6 +129,16 @@ class Product extends Model
         return $query->where('internal_reference', 'like', "%$internalReference%");
     }
 
+    public function scopeWhereSalesDescription($query, $salesDescription)
+    {
+        return $query->where('sales_description', 'like', "%$salesDescription%");
+    }
+
+    public function scopeWherePurchaseDescription($query, $purchaseDescription)
+    {
+        return $query->where('purchase_description', 'like', "%$purchaseDescription%");
+    }
+
     public function scopeOrderByName($query, $order)
     {
         return $query->orderBy('name', $order);
@@ -177,5 +187,15 @@ class Product extends Model
     public function scopeOrderByInternalReference($query, $order)
     {
         return $query->orderBy('internal_references', $order);
+    }
+
+    public function scopeOrderBySalesDescription($query, $order)
+    {
+        return $query->orderBy('sales_description', $order);
+    }
+
+    public function scopeOrderByPurchaseDescription($query, $order)
+    {
+        return $query->orderBy('purchase_description', $order);
     }
 }
