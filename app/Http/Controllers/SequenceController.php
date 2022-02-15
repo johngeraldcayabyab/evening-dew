@@ -22,8 +22,8 @@ class SequenceController
     public function index(Request $request): ResourceCollection
     {
         $model = new Sequence();
-        $model = $this->searchThenSort($model, $request);
-        return new SequenceCollection($model->paginate(SystemSetting::PAGE_SIZE));
+        $model = $this->searchSortThenPaginate($model, $request);
+        return new SequenceCollection($model);
     }
 
     public function show(Sequence $sequence): JsonResponse

@@ -22,8 +22,8 @@ class AddressController
     public function index(Request $request): AddressCollection
     {
         $model = new Address();
-        $model = $this->searchThenSort($model, $request);
-        return new AddressCollection($model->paginate(SystemSetting::PAGE_SIZE));
+        $model = $this->searchSortThenPaginate($model, $request);
+        return new AddressCollection($model);
     }
 
     public function show(Address $address): JsonResponse

@@ -23,8 +23,8 @@ class UserController
     public function index(Request $request): ResourceCollection
     {
         $model = new User();
-        $model = $this->searchThenSort($model, $request);
-        return new UserCollection($model->paginate(SystemSetting::PAGE_SIZE));
+        $model = $this->searchSortThenPaginate($model, $request);
+        return new UserCollection($model);
     }
 
     public function show(User $user): JsonResponse

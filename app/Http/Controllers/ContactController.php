@@ -25,8 +25,8 @@ class ContactController
     public function index(Request $request): ContactCollection
     {
         $model = new Contact();
-        $model = $this->searchThenSort($model, $request);
-        return new ContactCollection($model->paginate(SystemSetting::PAGE_SIZE));
+        $model = $this->searchSortThenPaginate($model, $request);
+        return new ContactCollection($model);
     }
 
     public function show(Contact $contact): JsonResponse

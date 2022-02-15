@@ -23,8 +23,8 @@ class MeasurementController
     public function index(Request $request): ResourceCollection
     {
         $model = new Measurement();
-        $model = $this->searchThenSort($model, $request);
-        return new MeasurementCollection($model->paginate(SystemSetting::PAGE_SIZE));
+        $model = $this->searchSortThenPaginate($model, $request);
+        return new MeasurementCollection($model);
     }
 
     public function show(Measurement $measurement): JsonResponse

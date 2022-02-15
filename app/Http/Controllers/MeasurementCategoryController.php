@@ -23,8 +23,8 @@ class MeasurementCategoryController
     public function index(Request $request): ResourceCollection
     {
         $model = new MeasurementCategory();
-        $model = $this->searchThenSort($model, $request);
-        return new MeasurementCategoryCollection($model->paginate(SystemSetting::PAGE_SIZE));
+        $model = $this->searchSortThenPaginate($model, $request);
+        return new MeasurementCategoryCollection($model);
     }
 
     public function show(MeasurementCategory $measurementCategory): JsonResponse

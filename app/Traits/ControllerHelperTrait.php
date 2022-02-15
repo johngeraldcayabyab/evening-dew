@@ -2,10 +2,21 @@
 
 namespace App\Traits;
 
+use App\Data\SystemSetting;
 use Illuminate\Support\Str;
 
 trait ControllerHelperTrait
 {
+    public function searchSortThenPaginate($model, $request)
+    {
+        $model = $this->searchThenSort($model, $request);
+        $pageSize = SystemSetting::PAGE_SIZE;
+        if ($request->page_size) {
+            $pageSize = $request->page_size;
+        }
+        return $model->paginate($pageSize);
+    }
+
     public function searchThenSort($model, $request)
     {
         $searchableAndSortableFields = $model->getSearchableAndSortableFields();

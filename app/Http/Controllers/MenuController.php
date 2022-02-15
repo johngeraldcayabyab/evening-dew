@@ -23,8 +23,8 @@ class MenuController
     public function index(Request $request): ResourceCollection
     {
         $model = new Menu();
-        $model = $this->searchThenSort($model, $request);
-        return new MenuCollection($model->paginate(SystemSetting::PAGE_SIZE));
+        $model = $this->searchSortThenPaginate($model, $request);
+        return new MenuCollection($model);
     }
 
     public function show(Menu $menu): JsonResponse
