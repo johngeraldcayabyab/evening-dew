@@ -72,15 +72,11 @@ const SequenceForm = () => {
                         <FormItemText
                             label={'Prefix'}
                             name={'prefix'}
-                            message={'Please input prefix'}
-                            required={true}
                             {...formState}
                         />
                         <FormItemText
                             label={'Suffix'}
                             name={'suffix'}
-                            message={'Please input suffix'}
-                            required={true}
                             {...formState}
                         />
                     </ColForm>
