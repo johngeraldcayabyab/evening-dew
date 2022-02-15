@@ -26,6 +26,10 @@ class SalesOrder extends Model
             'invoice_address',
             'delivery_address',
             'payment_term',
+            'customer_id',
+            'invoice_address_id',
+            'delivery_address_id',
+            'payment_term_id'
         ];
     }
 
@@ -82,6 +86,26 @@ class SalesOrder extends Model
         });
     }
 
+    public function scopeWhereCustomerId($query, $customerId)
+    {
+        return $query->where('customer_id', $customerId);
+    }
+
+    public function scopeWhereInvoiceAddressId($query, $invoiceAddressId)
+    {
+        return $query->where('invoice_address_id', $invoiceAddressId);
+    }
+
+    public function scopeWhereDeliveryAddressId($query, $deliveryAddressId)
+    {
+        return $query->where('delivery_address_id', $deliveryAddressId);
+    }
+
+    public function scopeWherePaymentTermId($query, $paymentTermId)
+    {
+        return $query->where('payment_term_id', $paymentTermId);
+    }
+
     public function scopeOrderByNumber($query, $order)
     {
         return $query->orderBy('number', $order);
@@ -105,5 +129,25 @@ class SalesOrder extends Model
     public function scopeOrderByPaymentTerm($query, $order)
     {
         return $query->orderBy(PaymentTerm::select('name')->whereColumn('payment_terms.id', 'sales_orders.payment_term_id'), $order);
+    }
+
+    public function scopeOrderByCustomerId($query, $order)
+    {
+        return $query->orderBy('customer_id', $order);
+    }
+
+    public function scopeOrderByInvoiceAddressId($query, $order)
+    {
+        return $query->orderBy('invoice_address_id', $order);
+    }
+
+    public function scopeOrderByDeliveryAddressId($query, $order)
+    {
+        return $query->orderBy('delivery_address_id', $order);
+    }
+
+    public function scopeOrderByPaymentTermId($query, $order)
+    {
+        return $query->orderBy('payment_term_id', $order);
     }
 }

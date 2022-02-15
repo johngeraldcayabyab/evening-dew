@@ -26,7 +26,7 @@ class Country extends Model
             'country_code',
             'country_calling_code',
             'vat_label',
-            'measurement_category',
+            'currency_id',
         ];
     }
 
@@ -62,6 +62,11 @@ class Country extends Model
         return $query->where('vat_label', 'like', "%$vatLabel%");
     }
 
+    public function scopeWhereCurrencyId($query, $currencyId)
+    {
+        return $query->where('currency_id', $currencyId);
+    }
+
     public function scopeOrderByCountryName($query, $order)
     {
         return $query->orderBy('country_name', $order);
@@ -85,5 +90,10 @@ class Country extends Model
     public function scopeOrderByVatLabel($query, $order)
     {
         return $query->orderBy('vat_label', $order);
+    }
+
+    public function scopeOrderByCurrencyId($query, $order)
+    {
+        return $query->orderBy('currency_id', $order);
     }
 }

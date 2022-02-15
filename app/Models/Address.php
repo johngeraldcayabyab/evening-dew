@@ -41,6 +41,8 @@ class Address extends Model
             'country',
             'contact',
             'type',
+            'country_id',
+            'contact_id',
         ];
     }
 
@@ -103,6 +105,16 @@ class Address extends Model
         return $query->where('type', 'like', "%$type%");
     }
 
+    public function scopeWhereCountryId($query, $countryId)
+    {
+        return $query->where('country_id', $countryId);
+    }
+
+    public function scopeWhereContactId($query, $contactId)
+    {
+        return $query->where('contact_id', $contactId);
+    }
+
     public function scopeOrderByStreet1($query, $order)
     {
         return $query->orderBy('street_1', $order);
@@ -141,5 +153,15 @@ class Address extends Model
     public function scopeOrderByType($query, $order)
     {
         return $query->orderBy('type', $order);
+    }
+
+    public function scopeCountryId($query, $order)
+    {
+        return $query->orderBy('country_id', $order);
+    }
+
+    public function scopeOrderByContactId($query, $order)
+    {
+        return $query->orderBy('contact_id', $order);
     }
 }
