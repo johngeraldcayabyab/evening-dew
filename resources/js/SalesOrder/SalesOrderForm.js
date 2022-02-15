@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
@@ -23,8 +23,14 @@ const SalesOrderForm = () => {
     const fetchCatcher = useFetchCatcher();
     const [state, setState] = useState({
         invoiceAddressOptionReload: false,
-        invoiceAddressOptionSearch: null,
+        deliveryAddressOptionReload: false,
     });
+
+    useEffect(() => {
+        return () => {
+            fetchAbort();
+        };
+    }, []);
 
     return (
         <CustomForm
@@ -35,14 +41,25 @@ const SalesOrderForm = () => {
                     useFetch(`/api/addresses`, GET, {
                         contact_id: changedValues.customer_id
                     }).then((response) => {
-                        console.log(response);
+                        let defaultAddress = response.data.find((address) => (address.type === 'default'));
+                        let invoiceAddress = response.data.find((address) => (address.type === 'invoice'));
+                        let deliveryAddress = response.data.find((address) => (address.type === 'delivery'));
+                        invoiceAddress = invoiceAddress ? invoiceAddress : defaultAddress;
+                        deliveryAddress = deliveryAddress ? deliveryAddress : defaultAddress;
+                        setState((prevState) => ({
+                            ...prevState,
+                            invoiceAddressOptionReload: invoiceAddress.address_name,
+                            deliveryAddressOptionReload: deliveryAddress.address_name,
+                        }));
+                        console.log(invoiceAddress, deliveryAddress);
+                        form.setFieldsValue({
+                            invoice_address_id: invoiceAddress.id,
+                            delivery_address_id: deliveryAddress.id
+                        });
+                    }).catch((responseErr) => {
+                        fetchCatcher.get(responseErr);
                     });
-                    // setState((prevState) => ({
-                    //     ...prevState,
-                    //     invoiceAddressOptionReload: true
-                    // }));
                 }
-                console.log(changedValues);
             }}
         >
             <ControlPanel
@@ -86,7 +103,7 @@ const SalesOrderForm = () => {
                             message={'Please select a invoice address'}
                             required={true}
                             url={'/api/addresses/option'}
-                            reload={state.invoiceAddressOptionReload}
+                            search={state.invoiceAddressOptionReload}
                             {...formState}
                         />
                         <FormItemSelectAjax
@@ -95,6 +112,7 @@ const SalesOrderForm = () => {
                             message={'Please select a delivery address'}
                             required={true}
                             url={'/api/addresses/option'}
+                            search={state.deliveryAddressOptionReload}
                             {...formState}
                         />
                     </ColForm>
@@ -107,7 +125,6 @@ const SalesOrderForm = () => {
                         />
                     </ColForm>
                 </RowForm>
-
             </FormCard>
         </CustomForm>
     );

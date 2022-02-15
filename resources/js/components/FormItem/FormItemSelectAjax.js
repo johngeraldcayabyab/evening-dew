@@ -22,7 +22,13 @@ const FormItemSelectAjax = (props) => {
         return () => {
             fetchAbort();
         };
-    }, [props.reload]);
+    }, []);
+
+    useEffect(() => {
+        if (props.search) {
+            getOptions(props.search);
+        }
+    }, [props.search]);
 
     function onSearch(search) {
         getOptions(search);
