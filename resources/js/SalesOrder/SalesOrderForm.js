@@ -33,7 +33,6 @@ const SalesOrderForm = () => {
             onValuesChange={(changedValues, allValues) => {
                 if (changedValues.customer_id) {
                     useFetch(`/api/addresses`, GET, {
-                        // page_size: 2,
                         contact_id: changedValues.customer_id
                     }).then((response) => {
                         console.log(response);

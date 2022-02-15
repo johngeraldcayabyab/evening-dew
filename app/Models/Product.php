@@ -38,6 +38,10 @@ class Product extends Model
             'sales_measurement',
             'product_category',
             'internal_reference',
+            'measurement_id',
+            'purchase_measurement_id',
+            'sales_measurement_id',
+            'product_category_id',
         ];
     }
 
@@ -139,6 +143,26 @@ class Product extends Model
         return $query->where('purchase_description', 'like', "%$purchaseDescription%");
     }
 
+    public function scopeWhereMeasurementId($query, $measurementId)
+    {
+        return $query->where('measurement_id', $measurementId);
+    }
+
+    public function scopeWherePurchaseMeasurementId($query, $purchaseMeasurementId)
+    {
+        return $query->where('purchase_measurement_id', $purchaseMeasurementId);
+    }
+
+    public function scopeWhereSalesMeasurementId($query, $salesMeasurementId)
+    {
+        return $query->where('sales_measurement_id', $salesMeasurementId);
+    }
+
+    public function scopeWhereProductCategoryId($query, $productCategoryId)
+    {
+        return $query->where('product_category_id', $productCategoryId);
+    }
+
     public function scopeOrderByName($query, $order)
     {
         return $query->orderBy('name', $order);
@@ -197,5 +221,25 @@ class Product extends Model
     public function scopeOrderByPurchaseDescription($query, $order)
     {
         return $query->orderBy('purchase_description', $order);
+    }
+
+    public function scopeOrderByMeasurementId($query, $order)
+    {
+        return $query->orderBy('measurement_id', $order);
+    }
+
+    public function scopeOrderByPurchaseMeasurementId($query, $order)
+    {
+        return $query->orderBy('purchase_measurement_id', $order);
+    }
+
+    public function scopeOrderBySalesMeasurementId($query, $order)
+    {
+        return $query->orderBy('sales_measurement_id', $order);
+    }
+
+    public function scopeOrderByProductCategoryId($query, $order)
+    {
+        return $query->orderBy('product_category_id', $order);
     }
 }

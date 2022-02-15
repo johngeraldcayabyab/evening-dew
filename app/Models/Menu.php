@@ -23,6 +23,7 @@ class Menu extends Model
         return [
             'label',
             'url',
+            'parent_id'
         ];
     }
 
@@ -36,6 +37,11 @@ class Menu extends Model
         return $query->where('url', 'like', "%$url%");
     }
 
+    public function scopeWhereParentId($query, $parentId)
+    {
+        return $query->where('parent_id', "%$parentId%");
+    }
+
     public function scopeOrderByLabel($query, $order)
     {
         return $query->orderBy('label', $order);
@@ -44,5 +50,10 @@ class Menu extends Model
     public function scopeOrderByUrl($query, $order)
     {
         return $query->orderBy('url', $order);
+    }
+
+    public function scopeOrderByParentId($query, $order)
+    {
+        return $query->orderBy('parent_id', $order);
     }
 }

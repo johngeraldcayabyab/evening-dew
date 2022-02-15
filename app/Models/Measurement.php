@@ -31,6 +31,7 @@ class Measurement extends Model
             'ratio',
             'rounding_precision',
             'measurement_category',
+            'measurement_category_id'
         ];
     }
 
@@ -76,6 +77,11 @@ class Measurement extends Model
         });
     }
 
+    public function scopeWhereMeasurementCategoryId($query, $measurementCategoryId)
+    {
+        return $query->where('measurement_category_id', "%$measurementCategoryId%");
+    }
+
     public function scopeOrderByName($query, $order)
     {
         return $query->orderBy('name', $order);
@@ -99,5 +105,10 @@ class Measurement extends Model
     public function scopeOrderByMeasurementCategory($query, $order)
     {
         return $query->orderBy(MeasurementCategory::select('name')->whereColumn('measurement_categories.id', 'measurements.measurement_category_id'), $order);
+    }
+
+    public function scopeOrderByMeasurementCategoryId($query, $order)
+    {
+        return $query->orderBy('measurement_category_id', $order);
     }
 }
