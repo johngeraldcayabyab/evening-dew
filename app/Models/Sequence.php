@@ -122,9 +122,10 @@ class Sequence extends Model
 
     public function scopeGenerateSalesOrderSequence()
     {
-        $sequence = Sequence::find(GlobalSetting::salesOrderDefaultSequence());
+        $salesOrderDefaultSequenceId = GlobalSetting::salesOrderDefaultSequence();
         $generatedSequence = "";
-        if ($sequence) {
+        if (is_int($salesOrderDefaultSequenceId)) {
+            $sequence = Sequence::find($salesOrderDefaultSequenceId);
             if ($sequence->prefix) {
                 $generatedSequence .= $sequence->prefix;
             }

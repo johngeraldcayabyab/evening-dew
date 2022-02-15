@@ -156,7 +156,7 @@ const ProductForm = () => {
                     </TabPane>
 
 
-                    <TabPane tab="Other Information" key="1">
+                    <TabPane tab="Other Information" key="2">
                         <RowForm>
                             <ColForm>
                                 <FormItemText
