@@ -10,7 +10,9 @@ use App\Http\Resources\Collection\ProductCollection;
 use App\Http\Resources\Resource\ProductResource;
 use App\Http\Resources\Slug\ProductSlugResource;
 use App\Models\GlobalSetting;
+use App\Models\Measurement;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -71,14 +73,20 @@ class ProductController
 
     public function initial_values()
     {
+
+
         return [
             'product_type' => Product::STORABLE,
             'invoicing_policy' => Product::ORDERED_QUANTITIES,
             'sales_price' => 1.00,
             'cost' => 1.00,
+            'measurement' => Measurement::find(GlobalSetting::inventoryDefaultMeasurement()),
             'measurement_id' => GlobalSetting::inventoryDefaultMeasurement(),
+            'purchase_measurement' => Measurement::find(GlobalSetting::inventoryDefaultPurchaseMeasurement()),
             'purchase_measurement_id' => GlobalSetting::inventoryDefaultPurchaseMeasurement(),
+            'sales_measurement' => Measurement::find(GlobalSetting::inventoryDefaultSalesMeasurement()),
             'sales_measurement_id' => GlobalSetting::inventoryDefaultSalesMeasurement(),
+            'product_category' => ProductCategory::find(GlobalSetting::inventoryDefaultProductCategory()),
             'product_category_id' => GlobalSetting::inventoryDefaultProductCategory(),
         ];
     }

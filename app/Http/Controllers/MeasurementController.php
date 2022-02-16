@@ -11,6 +11,7 @@ use App\Http\Resources\Resource\MeasurementResource;
 use App\Http\Resources\Slug\MeasurementSlugResource;
 use App\Models\GlobalSetting;
 use App\Models\Measurement;
+use App\Models\MeasurementCategory;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -72,11 +73,13 @@ class MeasurementController
 
     public function initial_values()
     {
+        $inventoryDefaultMeasurementCategoryId = GlobalSetting::inventoryDefaultMeasurementCategory();
         return [
             'type' => Measurement::REFERENCE,
             'ratio' => 1,
             'rounding_precision' => 0.01,
-            'measurement_category_id' => GlobalSetting::inventoryDefaultMeasurementCategory()
+            'measurement_category' => MeasurementCategory::find($inventoryDefaultMeasurementCategoryId),
+            'measurement_category_id' => $inventoryDefaultMeasurementCategoryId,
         ];
     }
 }

@@ -10,6 +10,7 @@ use App\Http\Resources\Collection\AddressCollection;
 use App\Http\Resources\Resource\AddressResource;
 use App\Http\Resources\Slug\AddressSlugResource;
 use App\Models\Address;
+use App\Models\Country;
 use App\Models\GlobalSetting;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
@@ -71,8 +72,10 @@ class AddressController
 
     public function initial_values()
     {
+        $defaultCountryId = GlobalSetting::generalDefaultCountry();
         return [
-            'country_id' => GlobalSetting::generalDefaultCountry(),
+            'country' => Country::find($defaultCountryId),
+            'country_id' => $defaultCountryId,
             'type' => Address::DEFAULT
         ];
     }

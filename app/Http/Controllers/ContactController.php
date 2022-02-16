@@ -11,6 +11,7 @@ use App\Http\Resources\Resource\ContactResource;
 use App\Http\Resources\Slug\ContactSlugResource;
 use App\Models\Address;
 use App\Models\Contact;
+use App\Models\Country;
 use App\Models\GlobalSetting;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
@@ -102,8 +103,10 @@ class ContactController
 
     public function initial_values()
     {
+        $defaultCountryId = GlobalSetting::generalDefaultCountry();
         return [
-            'country_id' => GlobalSetting::generalDefaultCountry(),
+            'default_address_country' => Country::find($defaultCountryId),
+            'country_id' => $defaultCountryId,
         ];
     }
 }

@@ -52,8 +52,14 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
                         setFormState(state => ({
                             ...state,
                             initialLoad: false,
+                            initialValues: response,
                         }));
                     });
+                } else if (formState.initialLoad) {
+                    setFormState(state => ({
+                        ...state,
+                        initialLoad: false,
+                    }));
                 }
             }
         },

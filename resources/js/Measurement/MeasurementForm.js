@@ -80,6 +80,7 @@ const MeasurementForm = () => {
                             required={true}
                             url={'/api/measurement_categories/option'}
                             {...formState}
+                            query={'measurement_category.name'}
                         />
                     </ColForm>
                 </RowForm>
