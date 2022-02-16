@@ -16,13 +16,20 @@ const FormItemSelectAjax = (props) => {
     });
 
     useEffect(() => {
-        if (props.url) {
-            getOptions();
+        if (props.url && !props.initialLoad) {
+            let search = null;
+            if (props.id && props.query) {
+                search = props.initialValues;
+                props.query.split('.').forEach((query) => {
+                    search = search[query];
+                });
+            }
+            getOptions(search);
         }
         return () => {
             fetchAbort();
         };
-    }, []);
+    }, [props.initialLoad]);
 
     useEffect(() => {
         if (props.search) {

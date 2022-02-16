@@ -85,6 +85,7 @@ const AddressForm = () => {
                             name={'country_id'}
                             url={'/api/countries/option'}
                             {...formState}
+                            query={'country.country_name'}
                         />
                     </ColForm>
 
@@ -96,6 +97,7 @@ const AddressForm = () => {
                             required={true}
                             url={'/api/contacts/option'}
                             {...formState}
+                            query={'contact.name'}
                         />
 
                         <FormItemSelect
