@@ -73,13 +73,13 @@ class MeasurementController
 
     public function initial_values()
     {
-        $inventoryDefaultMeasurementCategoryId = GlobalSetting::inventoryDefaultMeasurementCategory();
+        $inventoryDefaultMeasurementCategory = GlobalSetting::latestFirst()->inventoryDefaultMeasurementCategory;
         return [
             'type' => Measurement::REFERENCE,
             'ratio' => 1,
             'rounding_precision' => 0.01,
-            'measurement_category' => MeasurementCategory::find($inventoryDefaultMeasurementCategoryId),
-            'measurement_category_id' => $inventoryDefaultMeasurementCategoryId,
+            'measurement_category' => $inventoryDefaultMeasurementCategory,
+            'measurement_category_id' => $inventoryDefaultMeasurementCategory->id,
         ];
     }
 }

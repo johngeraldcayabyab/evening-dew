@@ -18,43 +18,48 @@ class GlobalSetting extends Model
     protected $table = 'global_settings';
     protected $guarded = [];
 
-    public function scopeInventoryDefaultMeasurementCategory($query)
+    public function scopeLatestFirst($query)
     {
-        return $query->latest()->first()->inventory_default_measurement_category_id;
+        return $query->latest()->first();
     }
 
-    public function scopeInventoryDefaultMeasurement($query)
+    public function inventoryDefaultMeasurementCategory()
     {
-        return $query->latest()->first()->inventory_default_measurement_id;
+        return $this->belongsTo(MeasurementCategory::class, 'inventory_default_measurement_category_id', 'id');
     }
 
-    public function scopeInventoryDefaultPurchaseMeasurement($query)
+    public function inventoryDefaultMeasurement()
     {
-        return $query->latest()->first()->inventory_default_purchase_measurement_id;
+        return $this->belongsTo(Measurement::class, 'inventory_default_measurement_id', 'id');
     }
 
-    public function scopeInventoryDefaultSalesMeasurement($query)
+    public function inventoryDefaultPurchaseMeasurement()
     {
-        return $query->latest()->first()->inventory_default_sales_measurement_id;
+        return $this->belongsTo(Measurement::class, 'inventory_default_purchase_measurement_id', 'id');
     }
 
-    public function scopeInventoryDefaultProductCategory($query)
+    public function inventoryDefaultSalesMeasurement()
     {
-        return $query->latest()->first()->inventory_default_product_category_id;
+        return $this->belongsTo(Measurement::class, 'inventory_default_sales_measurement_id', 'id');
     }
 
-    public function scopeAccountingDefaultCurrency($query)
+    public function inventoryDefaultProductCategory()
     {
-        return $query->latest()->first()->accounting_default_currency_id;
+        return $this->belongsTo(ProductCategory::class, 'inventory_default_product_category_id', 'id');
     }
 
-    public function scopeGeneralDefaultCountry($query)
+    public function accountingDefaultCurrency()
     {
-        return $query->latest()->first()->general_default_country_id;
+        return $this->belongsTo(Currency::class, 'accounting_default_currency_id', 'id');
     }
 
-    public function scopeSalesOrderDefaultSequence($query)
+    public function generalDefaultCountry()
     {
-        return $query->latest()->first()->sales_order_default_sequence_id;
+        return $this->belongsTo(Country::class, 'general_default_country_id', 'id');
+    }
+
+    public function salesOrderDefaultSequence()
+    {
+        return $this->belongsTo(Sequence::class, 'sales_order_default_sequence_id', 'id');
     }
 }
