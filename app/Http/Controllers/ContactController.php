@@ -103,10 +103,10 @@ class ContactController
 
     public function initial_values()
     {
-        $defaultCountryId = GlobalSetting::generalDefaultCountry();
+        $generalDefaultCountry = GlobalSetting::latestFirst()->generalDefaultCountry;
         return [
-            'default_address_country' => Country::find($defaultCountryId),
-            'country_id' => $defaultCountryId,
+            'default_address_country' => $generalDefaultCountry,
+            'country_id' => $generalDefaultCountry->id,
         ];
     }
 }
