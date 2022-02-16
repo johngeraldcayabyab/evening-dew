@@ -20,6 +20,7 @@ class ContactResource extends JsonResource
             'tax_id' => $this->tax_id,
             'avatar' => $this->avatar ? asset("storage/images/" . $this->avatar) : null,
 
+            'default_address_country' => $defaultAddress->country,
             'street_1' => $defaultAddress->street_1,
             'street_2' => $defaultAddress->street_2,
             'city' => $defaultAddress->city,

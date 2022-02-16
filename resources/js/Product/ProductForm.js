@@ -98,6 +98,7 @@ const ProductForm = () => {
                                     required={true}
                                     url={'/api/measurements/option'}
                                     {...formState}
+                                    query={'measurement.name'}
                                 />
 
                                 <FormItemSelectAjax
@@ -107,6 +108,7 @@ const ProductForm = () => {
                                     required={true}
                                     url={'/api/measurements/option'}
                                     {...formState}
+                                    query={'purchase_measurement.name'}
                                 />
 
                                 <FormItemSelectAjax
@@ -116,6 +118,7 @@ const ProductForm = () => {
                                     required={true}
                                     url={'/api/measurements/option'}
                                     {...formState}
+                                    query={'sales_measurement.name'}
                                 />
 
                             </ColForm>
@@ -144,6 +147,7 @@ const ProductForm = () => {
                                     required={true}
                                     url={'/api/product_categories/option'}
                                     {...formState}
+                                    query={'product_category.category'}
                                 />
 
                                 <FormItemText

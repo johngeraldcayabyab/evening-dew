@@ -23,13 +23,21 @@ const FormItemSelectAjax = (props) => {
                 props.query.split('.').forEach((query) => {
                     search = search[query];
                 });
+            } else if (!props.id && props.initialValues[props.name]) {
+                search = props.initialValues;
+                props.query.split('.').forEach((query) => {
+                    search = search[query];
+                });
             }
             getOptions(search);
         }
+    }, [props.initialLoad]);
+
+    useEffect(() => {
         return () => {
             fetchAbort();
         };
-    }, [props.initialLoad]);
+    }, []);
 
     useEffect(() => {
         if (props.search) {
@@ -47,7 +55,7 @@ const FormItemSelectAjax = (props) => {
         }
     }
 
-    function getOptions(search = null) {
+    function getOptions(search = null, initial = false) {
         let useFetchHook;
         if (search) {
             useFetchHook = useFetch(`${props.url}`, GET, {search: search});

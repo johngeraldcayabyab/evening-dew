@@ -104,6 +104,7 @@ const SalesOrderForm = () => {
                             url={'/api/addresses/option'}
                             search={state.invoiceAddressOptionReload}
                             {...formState}
+                            query={'invoice_address.address_name'}
                         />
                         <FormItemSelectAjax
                             label={'Delivery address'}
@@ -113,6 +114,7 @@ const SalesOrderForm = () => {
                             url={'/api/addresses/option'}
                             search={state.deliveryAddressOptionReload}
                             {...formState}
+                            query={'delivery_address.address_name'}
                         />
                     </ColForm>
                     <ColForm>
