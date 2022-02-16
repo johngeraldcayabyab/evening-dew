@@ -32,8 +32,7 @@ class CurrencyController
 
     public function store(CurrencyStoreRequest $request): JsonResponse
     {
-        $headers = location_header(route('currencies.show', Currency::create($request->validated())));
-        return response()->json([], STATUS_CREATE, $headers);
+        return response()->json([], STATUS_CREATE, $this->locationHeader(Currency::create($request->validated())));
     }
 
     public function update(CurrencyUpdateRequest $request, Currency $currency): JsonResponse

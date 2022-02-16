@@ -32,8 +32,7 @@ class CountryController
 
     public function store(CountryStoreRequest $request): JsonResponse
     {
-        $headers = location_header(route('countries.show', Country::create($request->validated())));
-        return response()->json([], STATUS_CREATE, $headers);
+        return response()->json([], STATUS_CREATE, $this->locationHeader(Country::create($request->validated())));
     }
 
     public function update(CountryUpdateRequest $request, Country $country): JsonResponse

@@ -34,8 +34,7 @@ class MeasurementCategoryController
 
     public function store(MeasurementCategoryStoreRequest $request): JsonResponse
     {
-        $headers = location_header(route('measurement_categories.show', MeasurementCategory::create($request->validated())));
-        return response()->json([], STATUS_CREATE, $headers);
+        return response()->json([], STATUS_CREATE, $this->locationHeader(MeasurementCategory::create($request->validated())));
     }
 
     public function update(MeasurementCategoryUpdateRequest $request, MeasurementCategory $measurementCategory): JsonResponse

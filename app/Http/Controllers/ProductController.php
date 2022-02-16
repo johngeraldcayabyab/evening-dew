@@ -33,8 +33,7 @@ class ProductController
 
     public function store(ProductStoreRequest $request): JsonResponse
     {
-        $headers = location_header(route('products.show', Product::create($request->validated())));
-        return response()->json([], STATUS_CREATE, $headers);
+        return response()->json([], STATUS_CREATE, $this->locationHeader(Product::create($request->validated())));
     }
 
     public function update(ProductUpdateRequest $request, Product $product): JsonResponse

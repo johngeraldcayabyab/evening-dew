@@ -36,8 +36,7 @@ class UserController
     {
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
-        $headers = location_header(route('users.show', User::create($data)));
-        return response()->json([], STATUS_CREATE, $headers);
+        return response()->json([], STATUS_CREATE, $this->locationHeader(User::create($data)));
     }
 
     public function update(UserUpdateRequest $request, User $user): JsonResponse

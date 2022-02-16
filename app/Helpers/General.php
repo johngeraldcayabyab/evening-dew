@@ -14,11 +14,3 @@ if (!function_exists('get_modules')) {
         return array_diff(scandir(get_modules_path()), array('..', '.'));
     }
 }
-
-
-if (!function_exists('location_header')) {
-    function location_header($route)
-    {
-        return ['Location' => $route];
-    }
-}

@@ -34,8 +34,7 @@ class SalesOrderController
 
     public function store(SalesOrderStoreRequest $request): JsonResponse
     {
-        $headers = location_header(route('sales_orders.show', SalesOrder::create($request->validated())));
-        return response()->json([], STATUS_CREATE, $headers);
+        return response()->json([], STATUS_CREATE, $this->locationHeader(SalesOrder::create($request->validated())));
     }
 
     public function update(SalesOrderUpdateRequest $request, SalesOrder $salesOrder): JsonResponse

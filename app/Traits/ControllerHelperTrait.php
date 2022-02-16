@@ -7,6 +7,13 @@ use Illuminate\Support\Str;
 
 trait ControllerHelperTrait
 {
+    public function locationHeader($model)
+    {
+        $route = route("{$model->getTable()}.show", $model);
+        info($route);
+        return ['Location' => $route];
+    }
+
     public function searchSortThenPaginate($model, $request)
     {
         $model = $this->searchThenSort($model, $request);

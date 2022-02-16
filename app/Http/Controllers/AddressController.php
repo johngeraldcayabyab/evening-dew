@@ -33,8 +33,7 @@ class AddressController
 
     public function store(AddressStoreRequest $request): JsonResponse
     {
-        $headers = location_header(route('addresses.show', Address::create($request->validated())));
-        return response()->json([], STATUS_CREATE, $headers);
+        return response()->json([], STATUS_CREATE, $this->locationHeader(Address::create($request->validated())));
     }
 
     public function update(AddressUpdateRequest $request, Address $address): JsonResponse

@@ -33,8 +33,7 @@ class SequenceController
 
     public function store(SequenceStoreRequest $request): JsonResponse
     {
-        $headers = ['Location' => route('sequences.show', Sequence::create($request->validated()))];
-        return response()->json([], STATUS_CREATE, $headers);
+        return response()->json([], STATUS_CREATE, $this->locationHeader(Sequence::create($request->validated())));
     }
 
     public function update(SequenceUpdateRequest $request, Sequence $sequence): JsonResponse
