@@ -34,8 +34,7 @@ class MenuController
 
     public function store(MenuStoreRequest $request): JsonResponse
     {
-        $headers = ['Location' => route('menus.show', Menu::create($request->validated()))];
-        return response()->json([], STATUS_CREATE, $headers);
+        return response()->json([], STATUS_CREATE, $this->locationHeader(Menu::create($request->validated())));
     }
 
     public function update(MenuUpdateRequest $request, Menu $menu): JsonResponse

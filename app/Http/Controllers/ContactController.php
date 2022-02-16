@@ -50,8 +50,7 @@ class ContactController
             $post = 'http://localhost:8800/api/addresses';
         }
         Http::withToken($request->bearerToken())->post($post, $addressData);
-        $headers = location_header(route('contacts.show', $contact));
-        return response()->json([], STATUS_CREATE, $headers);
+        return response()->json([], STATUS_CREATE, $this->locationHeader($contact));
     }
 
     public function update(ContactUpdateRequest $request, Contact $contact): JsonResponse

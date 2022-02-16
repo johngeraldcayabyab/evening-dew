@@ -33,8 +33,7 @@ class PaymentTermController
 
     public function store(PaymentTermStoreRequest $request): JsonResponse
     {
-        $headers = location_header(route('payment_terms.show', PaymentTerm::create($request->validated())));
-        return response()->json([], STATUS_CREATE, $headers);
+        return response()->json([], STATUS_CREATE, $this->locationHeader(PaymentTerm::create($request->validated())));
     }
 
     public function update(PaymentTermUpdateRequest $request, PaymentTerm $paymentTerm): JsonResponse
