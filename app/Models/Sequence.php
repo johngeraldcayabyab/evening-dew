@@ -122,10 +122,10 @@ class Sequence extends Model
 
     public function scopeGenerateSalesOrderSequence()
     {
-        $salesOrderDefaultSequenceId = GlobalSetting::salesOrderDefaultSequence();
+        $salesOrderDefaultSequence = GlobalSetting::latestFirst()->salesOrderDefaultSequence;
         $generatedSequence = "";
-        if (is_int($salesOrderDefaultSequenceId)) {
-            $sequence = Sequence::find($salesOrderDefaultSequenceId);
+        if ($salesOrderDefaultSequence) {
+            $sequence = Sequence::find($salesOrderDefaultSequence->id);
             if ($sequence->prefix) {
                 $generatedSequence .= $sequence->prefix;
             }
@@ -140,6 +140,6 @@ class Sequence extends Model
 
     public function scopeSalesOrderSequence()
     {
-        return Sequence::find(GlobalSetting::salesOrderDefaultSequence());
+        return GlobalSetting::latestFirst()->salesOrderDefaultSequence;
     }
 }

@@ -72,10 +72,10 @@ class AddressController
 
     public function initial_values()
     {
-        $defaultCountryId = (new GlobalSetting())->generalDefaultCountry;
+        $generalDefaultCountry = GlobalSetting::latestFirst()->generalDefaultCountry;
         return [
-            'country' => $defaultCountryId,
-            'country_id' => $defaultCountryId->id,
+            'country' => $generalDefaultCountry,
+            'country_id' => $generalDefaultCountry->id,
             'type' => Address::DEFAULT
         ];
     }
