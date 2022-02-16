@@ -51,7 +51,6 @@ const SalesOrderForm = () => {
                             invoiceAddressOptionReload: invoiceAddress.address_name,
                             deliveryAddressOptionReload: deliveryAddress.address_name,
                         }));
-                        console.log(invoiceAddress, deliveryAddress);
                         form.setFieldsValue({
                             invoice_address_id: invoiceAddress.id,
                             delivery_address_id: deliveryAddress.id

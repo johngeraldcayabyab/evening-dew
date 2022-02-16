@@ -49,6 +49,10 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
                 if (getInitialValues && formState.initialLoad) {
                     useFetch(`/api/${manifest.moduleName}/initial_values`, GET).then((response) => {
                         form.setFieldsValue(response);
+                        setFormState(state => ({
+                            ...state,
+                            initialLoad: false,
+                        }));
                     });
                 }
             }
