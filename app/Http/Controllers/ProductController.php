@@ -73,21 +73,24 @@ class ProductController
 
     public function initial_values()
     {
-
-
+        $globalSetting = GlobalSetting::latestFirst();
+        $inventoryDefaultMeasurement = $globalSetting->inventoryDefaultMeasurement;
+        $inventoryDefaultPurchaseMeasurement = $globalSetting->inventoryDefaultPurchaseMeasurement;
+        $inventoryDefaultSalesMeasurement = $globalSetting->inventoryDefaultSalesMeasurement;
+        $inventoryDefaultProductCategory = $globalSetting->inventoryDefaultProductCategory;
         return [
             'product_type' => Product::STORABLE,
             'invoicing_policy' => Product::ORDERED_QUANTITIES,
             'sales_price' => 1.00,
             'cost' => 1.00,
-            'measurement' => Measurement::find(GlobalSetting::inventoryDefaultMeasurement()),
-            'measurement_id' => GlobalSetting::inventoryDefaultMeasurement(),
-            'purchase_measurement' => Measurement::find(GlobalSetting::inventoryDefaultPurchaseMeasurement()),
-            'purchase_measurement_id' => GlobalSetting::inventoryDefaultPurchaseMeasurement(),
-            'sales_measurement' => Measurement::find(GlobalSetting::inventoryDefaultSalesMeasurement()),
-            'sales_measurement_id' => GlobalSetting::inventoryDefaultSalesMeasurement(),
-            'product_category' => ProductCategory::find(GlobalSetting::inventoryDefaultProductCategory()),
-            'product_category_id' => GlobalSetting::inventoryDefaultProductCategory(),
+            'measurement' => $inventoryDefaultMeasurement,
+            'measurement_id' => $inventoryDefaultMeasurement->id,
+            'purchase_measurement' => $inventoryDefaultPurchaseMeasurement,
+            'purchase_measurement_id' => $inventoryDefaultPurchaseMeasurement->id,
+            'sales_measurement' => $inventoryDefaultSalesMeasurement,
+            'sales_measurement_id' => $inventoryDefaultSalesMeasurement->id,
+            'product_category' => $inventoryDefaultProductCategory,
+            'product_category_id' => $inventoryDefaultProductCategory->id,
         ];
     }
 }
