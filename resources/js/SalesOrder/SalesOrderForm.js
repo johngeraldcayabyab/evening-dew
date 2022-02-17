@@ -132,29 +132,48 @@ const SalesOrderForm = () => {
                 <RowForm>
                     <ColForm>
                         <Form.List name="sales_order_lines">
-                            {(fields, { add, remove }) => (
+                            {(fields, {add, remove}) => (
                                 <>
-                                    {fields.map(({ key, name, ...restField }) => (
-                                        <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
-                                            <Form.Item
-                                                {...restField}
-                                                name={[name, 'first']}
-                                                rules={[{ required: true, message: 'Missing first name' }]}
-                                            >
-                                                <Input placeholder="First Name" />
-                                            </Form.Item>
-                                            <Form.Item
-                                                {...restField}
-                                                name={[name, 'last']}
-                                                rules={[{ required: true, message: 'Missing last name' }]}
-                                            >
-                                                <Input placeholder="Last Name" />
-                                            </Form.Item>
-                                            <MinusCircleOutlined onClick={() => remove(name)} />
+                                    {fields.map(({key, name, ...restField}) => (
+                                        <Space key={key} align="baseline">
+
+                                            {console.log(restField)}
+
+                                            <FormItemSelectAjax
+                                                placeholder={'Product'}
+                                                name={'product_id'}
+                                                message={'Please select a product'}
+                                                required={true}
+                                                url={'/api/products/option'}
+                                                {...formState}
+                                            />
+
+                                            <FormItemText
+                                                placeholder={'Description'}
+                                                name={'description'}
+                                                {...formState}
+                                            />
+                                            {/*{console.log(restField)}*/}
+
+                                            {/*<Form.Item*/}
+                                            {/*    {...restField}*/}
+                                            {/*    name={[name, 'first']}*/}
+                                            {/*    rules={[{ required: true, message: 'Missing first name' }]}*/}
+                                            {/*>*/}
+                                            {/*    <Input placeholder="First Name" />*/}
+                                            {/*</Form.Item>*/}
+                                            {/*<Form.Item*/}
+                                            {/*    {...restField}*/}
+                                            {/*    name={[name, 'last']}*/}
+                                            {/*    rules={[{ required: true, message: 'Missing last name' }]}*/}
+                                            {/*>*/}
+                                            {/*    <Input placeholder="Last Name" />*/}
+                                            {/*</Form.Item>*/}
+                                            <MinusCircleOutlined onClick={() => remove(name)}/>
                                         </Space>
                                     ))}
                                     <Form.Item>
-                                        <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                                        <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined/>}>
                                             Add field
                                         </Button>
                                     </Form.Item>
