@@ -138,7 +138,6 @@ const SalesOrderForm = () => {
                                         <RowForm key={key}>
                                             <ColForm lg={23}>
                                                 <FormItemSelectAjax
-                                                    groupName={name}
                                                     {...restField}
                                                     placeholder={'Product'}
                                                     name={'product_id'}
@@ -148,19 +147,21 @@ const SalesOrderForm = () => {
                                                     {...formState}
                                                     style={{display: 'inline-block', width: '20%'}}
                                                     query={'product.name'}
+                                                    groupName={name}
+                                                    listName={'sales_order_lines'}
                                                 />
 
                                                 <FormItemText
-                                                    groupName={name}
                                                     {...restField}
                                                     placeholder={'Description'}
                                                     name={'description'}
                                                     {...formState}
                                                     style={{display: 'inline-block', width: '20%'}}
+                                                    groupName={name}
+                                                    listName={'sales_order_lines'}
                                                 />
 
                                                 <FormItemNumber
-                                                    groupName={name}
                                                     {...restField}
                                                     placeholder={'Quantity'}
                                                     name={'quantity'}
@@ -168,23 +169,25 @@ const SalesOrderForm = () => {
                                                     required={true}
                                                     {...formState}
                                                     style={{display: 'inline-block', width: '20%'}}
+                                                    groupName={name}
+                                                    listName={'sales_order_lines'}
                                                 />
 
-                                                {/*<FormItemSelectAjax*/}
-                                                {/*    groupName={name}*/}
-                                                {/*    {...restField}*/}
-                                                {/*    placeholder={'Measurement'}*/}
-                                                {/*    name={'measurement_id'}*/}
-                                                {/*    message={'Please select a measurement'}*/}
-                                                {/*    required={true}*/}
-                                                {/*    url={'/api/measurements/option'}*/}
-                                                {/*    {...formState}*/}
-                                                {/*    style={{display: 'inline-block', width: '20%'}}*/}
-                                                {/*    query={'measurement.name'}*/}
-                                                {/*/>*/}
+                                                <FormItemSelectAjax
+                                                    {...restField}
+                                                    placeholder={'Measurement'}
+                                                    name={'measurement_id'}
+                                                    message={'Please select a measurement'}
+                                                    required={true}
+                                                    url={'/api/measurements/option'}
+                                                    {...formState}
+                                                    style={{display: 'inline-block', width: '20%'}}
+                                                    query={'measurement.name'}
+                                                    groupName={name}
+                                                    listName={'sales_order_lines'}
+                                                />
 
                                                 <FormItemNumber
-                                                    groupName={name}
                                                     {...restField}
                                                     placeholder={'Unit Price'}
                                                     name={'unit_price'}
@@ -192,6 +195,8 @@ const SalesOrderForm = () => {
                                                     required={true}
                                                     {...formState}
                                                     style={{display: 'inline-block', width: '20%'}}
+                                                    groupName={name}
+                                                    listName={'sales_order_lines'}
                                                 />
                                             </ColForm>
                                             <ColForm lg={1}>

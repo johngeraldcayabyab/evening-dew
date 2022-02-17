@@ -52,17 +52,37 @@ const FormItemSelectAjax = (props) => {
     useEffect(() => {
         if (props.url && !props.initialLoad) {
             let search = null;
-            if (props.id && props.query) {
-                search = props.initialValues;
-                props.query.split('.').forEach((query) => {
-                    search = search[query];
-                });
-            } else if (!props.id && props.initialValues[props.name]) {
-                search = props.initialValues;
-                props.query.split('.').forEach((query) => {
-                    search = search[query];
-                });
+            if (props.isListField) {
+                if (props.id && props.query) {
+                    search = props.initialValues[props.listName][props.fieldKey];
+                    if (search) {
+                        props.query.split('.').forEach((query) => {
+                            search = search[query];
+                        });
+                    }
+                } else if (!props.id && props.initialValues[props.name]) {
+                    search = props.initialValues[props.listName][props.fieldKey];
+                    if (search) {
+                        props.query.split('.').forEach((query) => {
+                            search = search[query];
+                        });
+                    }
+                }
+            } else {
+                if (props.id && props.query) {
+                    search = props.initialValues;
+                    props.query.split('.').forEach((query) => {
+                        search = search[query];
+                    });
+                } else if (!props.id && props.initialValues[props.name]) {
+                    search = props.initialValues;
+                    props.query.split('.').forEach((query) => {
+                        search = search[query];
+                    });
+                }
             }
+
+
             getOptions(search);
         }
     }, [props.initialLoad]);

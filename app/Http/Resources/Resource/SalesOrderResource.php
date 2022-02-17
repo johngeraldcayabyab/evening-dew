@@ -21,7 +21,7 @@ class SalesOrderResource extends JsonResource
             'payment_term_id' => $this->payment_term_id,
             'payment_term' => $this->payment_term_id ? new PaymentTermResource($this->paymentTerm) : null,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
-            'sales_order_lines' => new SalesOrderLineResource($this->salesOrderLines)
+            'sales_order_lines' => SalesOrderLineResource::collection($this->salesOrderLines)
         ];
     }
 }
