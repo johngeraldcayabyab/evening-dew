@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Form} from "antd";
+import {Button, Form, Input, Space} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
@@ -14,6 +14,7 @@ import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
 import useFetchHook from "../Hooks/useFetchHook";
 import useFetchCatcher from "../Hooks/useFetchCatcher";
 import {GET} from "../consts";
+import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
 
 const SalesOrderForm = () => {
     let {id} = useParams();
@@ -124,6 +125,42 @@ const SalesOrderForm = () => {
                             url={'/api/payment_terms/option'}
                             {...formState}
                         />
+                    </ColForm>
+                </RowForm>
+
+
+                <RowForm>
+                    <ColForm>
+                        <Form.List name="users">
+                            {(fields, { add, remove }) => (
+                                <>
+                                    {fields.map(({ key, name, ...restField }) => (
+                                        <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                                            <Form.Item
+                                                {...restField}
+                                                name={[name, 'first']}
+                                                rules={[{ required: true, message: 'Missing first name' }]}
+                                            >
+                                                <Input placeholder="First Name" />
+                                            </Form.Item>
+                                            <Form.Item
+                                                {...restField}
+                                                name={[name, 'last']}
+                                                rules={[{ required: true, message: 'Missing last name' }]}
+                                            >
+                                                <Input placeholder="Last Name" />
+                                            </Form.Item>
+                                            <MinusCircleOutlined onClick={() => remove(name)} />
+                                        </Space>
+                                    ))}
+                                    <Form.Item>
+                                        <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                                            Add field
+                                        </Button>
+                                    </Form.Item>
+                                </>
+                            )}
+                        </Form.List>
                     </ColForm>
                 </RowForm>
             </FormCard>

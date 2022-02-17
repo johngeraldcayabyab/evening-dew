@@ -77,7 +77,7 @@ const FormItemSelectAjax = (props) => {
 
     return (
         <Form.Item
-            label={<FormLabel>{props.label}</FormLabel>}
+            label={props.label ? <FormLabel>{props.label}</FormLabel> : null}
             name={props.name}
             validateStatus={props.errors[props.name] ? 'error' : null}
             help={props.errors.name ? props.errors[props.name] : null}
@@ -96,6 +96,7 @@ const FormItemSelectAjax = (props) => {
                     filterOption={state.filterOption}
                     onClear={onClear}
                     size={props.size ? props.size : 'small'}
+                    placeholder={props.placeholder ? props.placeholder : null}
                 >
                     {state.options.map((option) => {
                         return (
