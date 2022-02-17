@@ -6,7 +6,7 @@ import CustomInputSkeleton from "../CustomInputSkeleton";
 const FormItemNumber = (props) => {
     return (
         <Form.Item
-            label={<FormLabel>{props.label}</FormLabel>}
+            label={props.label ? <FormLabel>{props.label}</FormLabel> : null}
             name={props.name}
             validateStatus={props.errors[props.name] ? 'error' : false}
             help={props.errors.ratio ? props.errors[props.name] : false}
@@ -21,6 +21,7 @@ const FormItemNumber = (props) => {
                     style={{width: "100%"}}
                     step={props.step}
                     size={props.size ? props.size : 'small'}
+                    placeholder={props.placeholder ? props.placeholder : null}
                     // min=""
                     // max="10"
                 />

@@ -6,7 +6,7 @@ import CustomInputSkeleton from "../CustomInputSkeleton";
 const FormItemText = (props) => {
     return (
         <Form.Item
-            label={<FormLabel>{props.label}</FormLabel>}
+            label={props.label ? <FormLabel>{props.label}</FormLabel> : null}
             name={props.name}
             validateStatus={props.errors[props.name] ? 'error' : null}
             help={props.errors[props.name] ? props.errors[props.name] : null}
@@ -19,6 +19,7 @@ const FormItemText = (props) => {
                 <Input
                     disabled={props.formDisabled}
                     size={props.size ? props.size : 'small'}
+                    placeholder={props.placeholder ? props.placeholder : null}
                 />
             }
         </Form.Item>
