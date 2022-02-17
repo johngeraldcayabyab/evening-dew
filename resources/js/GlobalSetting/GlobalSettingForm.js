@@ -45,6 +45,7 @@ const GlobalSettingForm = () => {
                             required={true}
                             url={'/api/countries/option'}
                             {...formState}
+                            query={'general_default_country.country_name'}
                         />
                     </ColForm>
                 </RowForm>
@@ -62,6 +63,7 @@ const GlobalSettingForm = () => {
                             required={true}
                             url={'/api/measurement_categories/option'}
                             {...formState}
+                            query={'inventory_default_measurement_category.name'}
                         />
 
                         <FormItemSelectAjax
@@ -71,6 +73,7 @@ const GlobalSettingForm = () => {
                             required={true}
                             url={'/api/measurements/option'}
                             {...formState}
+                            query={'inventory_default_measurement.name'}
                         />
 
                         <FormItemSelectAjax
@@ -80,6 +83,7 @@ const GlobalSettingForm = () => {
                             required={true}
                             url={'/api/measurements/option'}
                             {...formState}
+                            query={'inventory_default_purchase_measurement.name'}
                         />
 
                         <FormItemSelectAjax
@@ -89,6 +93,7 @@ const GlobalSettingForm = () => {
                             required={true}
                             url={'/api/measurements/option'}
                             {...formState}
+                            query={'inventory_default_sales_measurement.name'}
                         />
 
                     </ColForm>
@@ -101,6 +106,7 @@ const GlobalSettingForm = () => {
                             required={true}
                             url={'/api/product_categories/option'}
                             {...formState}
+                            query={'inventory_default_product_category.category'}
                         />
                     </ColForm>
                 </RowForm>
@@ -117,6 +123,7 @@ const GlobalSettingForm = () => {
                             required={true}
                             url={'/api/currencies/option'}
                             {...formState}
+                            query={'accounting_default_currency.currency'}
                         />
                     </ColForm>
                 </RowForm>
@@ -131,6 +138,7 @@ const GlobalSettingForm = () => {
                             name={'sales_order_default_sequence_id'}
                             url={'/api/sequences/option'}
                             {...formState}
+                            query={'sales_order_default_sequence.name'}
                         />
                     </ColForm>
                 </RowForm>

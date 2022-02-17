@@ -11,7 +11,7 @@ class GlobalSettingController
 {
     public function show(): JsonResponse
     {
-        return response()->json(new GlobalSettingResource(GlobalSetting::latest()->first()));
+        return response()->json(new GlobalSettingResource(GlobalSetting::latestFirst()));
     }
 
     public function store(GlobalSettingStoreRequest $request): JsonResponse
@@ -23,6 +23,6 @@ class GlobalSettingController
 
     public function initial_values(): JsonResponse
     {
-        return response()->json(new GlobalSettingResource(GlobalSetting::latest()->first()));
+        return response()->json(new GlobalSettingResource(GlobalSetting::latestFirst()));
     }
 }
