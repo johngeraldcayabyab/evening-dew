@@ -11,6 +11,7 @@ class ProductRoute
     {
         Route::middleware('auth:sanctum')->group(function () {
             Route::get('products/initial_values', [ProductController::class, 'initial_values'])->name('products.initial_values');
+            Route::get('products/option', [ProductController::class, 'option'])->name('products.option');
             Route::get('products/{product}/slug', [ProductController::class, 'slug'])->name('products.slug');
             Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
             Route::put('products/{product}', [ProductController::class, 'update'])->name('products.update');
