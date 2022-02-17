@@ -34,7 +34,7 @@ seeds.</p>
 
 php artisan storage:link
 
-NEED to improve form. incorrect details doesnt remove loading Form doesnt highlight error message
 
 
-
+<h5>Bulk Assignments</h5>
+<p>Models that's only purpose is to be inserted, updated, deleted through bulk should be careful on making observers</p>
