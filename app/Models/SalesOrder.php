@@ -53,6 +53,11 @@ class SalesOrder extends Model
         return $this->belongsTo(PaymentTerm::class, 'payment_term_id', 'id');
     }
 
+    public function salesOrderLines()
+    {
+        return $this->hasMany(SalesOrderLine::class);
+    }
+
     public function scopeWhereNumber($query, $number)
     {
         return $query->where('number', 'like', "%$number%");

@@ -2,6 +2,20 @@
 
 <h5>Models</h5>
 <p>Models are allowed to define relationships from other modules. <i>Strictly for relationships only.</i></p>
+<p><u><b><i>How to structure models</i></b></u></p>
+<ul>
+<li>traits</li>
+<li>constants</li>
+<li>properties</li>
+<li>constants getter</li>
+<li>searchable, & sortable fields getter</li>
+<li>relationships declaration</li>
+<li>field where scopes</li>
+<li>field order scopes</li>
+<li>relationship field where scopes</li>
+<li>relationship field order scopes</li>
+<li>custom scopes</li>
+</ul>
 
 <h5>Seeders</h5>
 <p>Seeders should be declared manually because seeders may rely on another seeder, manual declarations gives the ability to change the order of the

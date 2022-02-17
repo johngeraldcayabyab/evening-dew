@@ -73,11 +73,14 @@ class SalesOrderController
 
     public function initial_values()
     {
-        $globalSetting = GlobalSetting::latestFirst();
-        $inventoryDefaultMeasurement = $globalSetting->inventoryDefaultMeasurement;
+//        $globalSetting = GlobalSetting::latestFirst();
+//        $inventoryDefaultMeasurement = $globalSetting->inventoryDefaultMeasurement;
         return [
-            'measurement' => $inventoryDefaultMeasurement,
-            'measurement_id' => $inventoryDefaultMeasurement->id,
+//            'measurement' => $inventoryDefaultMeasurement,
+//            'measurement_id' => $inventoryDefaultMeasurement->id,
+//            'sales_order_lines' => [
+//                ['measurement_id' => $inventoryDefaultMeasurement->id]
+//            ],
             'number' => Sequence::generateSalesOrderSequence()
         ];
     }
