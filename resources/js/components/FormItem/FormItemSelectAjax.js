@@ -15,6 +15,29 @@ const FormItemSelectAjax = (props) => {
         filterOption: []
     });
 
+    const formItemProps = {
+        label: props.label ? <FormLabel>{props.label}</FormLabel> : null,
+        name: props.name,
+        validateStatus: props.errors[props.name] ? 'error' : null,
+        help: props.errors.name ? props.errors[props.name] : null,
+        rules: [{required: props.required, message: props.message}],
+        colon: false,
+        labelCol: props.size === 'large' || props.size === 'medium' ? {span: 24} : null,
+        wrapperCol: props.size === 'large' || props.size === 'medium' ? {span: 24} : null,
+    };
+
+    const fieldProps = {
+        allowClear: true,
+        disabled: props.formDisabled,
+        showSearch: true,
+        onSearch: onSearch,
+        optionFilterProp: "children",
+        filterOption: state.filterOption,
+        onClear: onClear,
+        size: props.size ? props.size : 'small',
+        placeholder: props.placeholder ? props.placeholder : null,
+    };
+
     useEffect(() => {
         if (props.url && !props.initialLoad) {
             let search = null;
@@ -76,28 +99,9 @@ const FormItemSelectAjax = (props) => {
     }
 
     return (
-        <Form.Item
-            label={props.label ? <FormLabel>{props.label}</FormLabel> : null}
-            name={props.name}
-            validateStatus={props.errors[props.name] ? 'error' : null}
-            help={props.errors.name ? props.errors[props.name] : null}
-            rules={[{required: props.required, message: props.message}]}
-            colon={false}
-            labelCol={props.size === 'large' || props.size === 'medium' ? {span: 24} : null}
-            wrapperCol={props.size === 'large' || props.size === 'medium' ? {span: 24} : null}
-        >
+        <Form.Item {...formItemProps}>
             {props.loading ? <CustomInputSkeleton {...props}/> :
-                <Select
-                    allowClear
-                    disabled={props.formDisabled}
-                    showSearch
-                    onSearch={onSearch}
-                    optionFilterProp="children"
-                    filterOption={state.filterOption}
-                    onClear={onClear}
-                    size={props.size ? props.size : 'small'}
-                    placeholder={props.placeholder ? props.placeholder : null}
-                >
+                <Select {...fieldProps}>
                     {state.options.map((option) => {
                         return (
                             <Select.Option key={uuidv4()} value={option.value}>
