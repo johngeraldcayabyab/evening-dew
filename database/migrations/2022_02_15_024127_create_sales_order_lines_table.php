@@ -17,6 +17,7 @@ class CreateSalesOrderLinesTable extends Migration
             $table->integer('unit_price');
             $table->integer('subtotal');
             $table->bigInteger('sales_order_id')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
