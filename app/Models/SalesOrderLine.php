@@ -154,4 +154,21 @@ class SalesOrderLine extends Model
     {
         return $query->orderBy(SalesOrder::select('number')->whereColumn('sales_orders.id', 'sales_order_lines.sales_order_id'), $order);
     }
+
+    public function scopeInsertMany($query, $data, $salesOrderId)
+    {
+        $salesOrderLineInsert = [];
+        foreach ($data as $datum) {
+            $salesOrderLine = new SalesOrderLine();
+            $salesOrderLine->product_id = $datum['product_id'];
+            $salesOrderLine->description = $datum['description'];
+            $salesOrderLine->quantity = $datum['quantity'];
+            $salesOrderLine->measurement_id = $datum['measurement_id'];
+            $salesOrderLine->unit_price = $datum['unit_price'];
+            $salesOrderLine->subtotal = $salesOrderLine->unit_price * $salesOrderLine->quantity;
+            $salesOrderLine->sales_order_id = $salesOrderId;
+            $salesOrderLineInsert[] = $salesOrderLine->attributesToArray();
+        }
+        SalesOrderLine::insert($salesOrderLineInsert);
+    }
 }
