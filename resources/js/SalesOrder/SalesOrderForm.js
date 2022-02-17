@@ -147,6 +147,7 @@ const SalesOrderForm = () => {
                                                     url={'/api/products/option'}
                                                     {...formState}
                                                     style={{display: 'inline-block', width: '20%'}}
+                                                    query={'product.name'}
                                                 />
 
                                                 <FormItemText
@@ -169,18 +170,18 @@ const SalesOrderForm = () => {
                                                     style={{display: 'inline-block', width: '20%'}}
                                                 />
 
-                                                <FormItemSelectAjax
-                                                    groupName={name}
-                                                    {...restField}
-                                                    placeholder={'Measurement'}
-                                                    name={'measurement_id'}
-                                                    message={'Please select a measurement'}
-                                                    required={true}
-                                                    url={'/api/measurements/option'}
-                                                    {...formState}
-                                                    style={{display: 'inline-block', width: '20%'}}
-                                                    query={'measurement.name'}
-                                                />
+                                                {/*<FormItemSelectAjax*/}
+                                                {/*    groupName={name}*/}
+                                                {/*    {...restField}*/}
+                                                {/*    placeholder={'Measurement'}*/}
+                                                {/*    name={'measurement_id'}*/}
+                                                {/*    message={'Please select a measurement'}*/}
+                                                {/*    required={true}*/}
+                                                {/*    url={'/api/measurements/option'}*/}
+                                                {/*    {...formState}*/}
+                                                {/*    style={{display: 'inline-block', width: '20%'}}*/}
+                                                {/*    query={'measurement.name'}*/}
+                                                {/*/>*/}
 
                                                 <FormItemNumber
                                                     groupName={name}
