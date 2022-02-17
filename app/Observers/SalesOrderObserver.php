@@ -2,16 +2,19 @@
 
 namespace App\Observers;
 
+use App\Models\GlobalSetting;
 use App\Models\SalesOrder;
-use App\Models\Sequence;
 
 class SalesOrderObserver
 {
     public function created(SalesOrder $model)
     {
-        $salesOrderSequence = Sequence::salesOrderSequence();
-        $salesOrderSequence->next_number = $salesOrderSequence->next_number + $salesOrderSequence->step;
-        $salesOrderSequence->save();
+        GlobalSetting::latestFirst()->salesOrderDefaultSequence;
+        $salesOrderDefaultSequence = GlobalSetting::latestFirst()->salesOrderDefaultSequence;
+        if ($salesOrderDefaultSequence) {
+            $salesOrderDefaultSequence->next_number = $salesOrderDefaultSequence->next_number + $salesOrderDefaultSequence->step;
+            $salesOrderDefaultSequence->save();
+        }
     }
 
     public function updated(SalesOrder $model)

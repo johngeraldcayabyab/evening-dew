@@ -11,7 +11,7 @@ class CreateSalesOrderLinesTable extends Migration
         Schema::create('sales_order_lines', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('product_id')->nullable();
-            $table->bigInteger('description')->nullable();
+            $table->string('description')->nullable();
             $table->integer('quantity');
             $table->bigInteger('measurement_id');
             $table->integer('unit_price');

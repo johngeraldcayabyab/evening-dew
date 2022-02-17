@@ -131,7 +131,7 @@ const SalesOrderForm = () => {
 
                 <RowForm>
                     <ColForm>
-                        <Form.List name="users">
+                        <Form.List name="sales_order_lines">
                             {(fields, { add, remove }) => (
                                 <>
                                     {fields.map(({ key, name, ...restField }) => (

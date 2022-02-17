@@ -137,9 +137,4 @@ class Sequence extends Model
         }
         return $generatedSequence;
     }
-
-    public function scopeSalesOrderSequence()
-    {
-        return GlobalSetting::latestFirst()->salesOrderDefaultSequence;
-    }
 }
