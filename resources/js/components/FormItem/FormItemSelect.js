@@ -12,13 +12,19 @@ const FormItemSelect = (props) => {
     const formItemProps = {
         label: props.label ? <FormLabel>{props.label}</FormLabel> : null,
         name: props.name,
-        validateStatus: props.errors[props.name] ? 'error' : null,
-        help: props.errors.name ? props.errors[props.name] : null,
         rules: [{required: props.required, message: props.message}],
         colon: false,
         labelCol: props.size === 'large' || props.size === 'medium' ? {span: 24} : null,
         wrapperCol: props.size === 'large' || props.size === 'medium' ? {span: 24} : null,
     };
+
+    if (props.errors[props.name]) {
+        formItemProps.validateStatus = 'error';
+        formItemProps.help = props.errors[props.name];
+    } else if (props.errors[`${props.listName}.${props.groupName}.${props.name}`]) {
+        formItemProps.validateStatus = 'error';
+        formItemProps.help = props.errors[`${props.listName}.${props.groupName}.${props.name}`];
+    }
 
     const fieldProps = {
         allowClear: true,
@@ -35,8 +41,6 @@ const FormItemSelect = (props) => {
         formItemProps.wrapperCol = {span: 24};
         formItemProps.style = props.style;
         formItemProps.name = [props.groupName, props.name];
-        // validateStatus: props.errors[props.name] ? 'error' : false,
-        // help: props.errors.ratio ? props.errors[props.name] : false,
     }
 
     useEffect(() => {
