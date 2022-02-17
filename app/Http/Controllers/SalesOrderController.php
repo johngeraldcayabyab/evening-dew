@@ -9,6 +9,7 @@ use App\Http\Requests\Update\SalesOrderUpdateRequest;
 use App\Http\Resources\Collection\SalesOrderCollection;
 use App\Http\Resources\Resource\SalesOrderResource;
 use App\Http\Resources\Slug\SalesOrderSlugResource;
+use App\Models\GlobalSetting;
 use App\Models\SalesOrder;
 use App\Models\Sequence;
 use App\Traits\ControllerHelperTrait;
@@ -72,7 +73,11 @@ class SalesOrderController
 
     public function initial_values()
     {
+        $globalSetting = GlobalSetting::latestFirst();
+        $inventoryDefaultMeasurement = $globalSetting->inventoryDefaultMeasurement;
         return [
+            'measurement' => $inventoryDefaultMeasurement,
+            'measurement_id' => $inventoryDefaultMeasurement->id,
             'number' => Sequence::generateSalesOrderSequence()
         ];
     }

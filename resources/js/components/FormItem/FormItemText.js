@@ -22,6 +22,17 @@ const FormItemText = (props) => {
         placeholder: props.placeholder ? props.placeholder : null,
     };
 
+    if (props.isListField) {
+        formItemProps.isListField = true;
+        formItemProps.fieldKey = props.fieldKey;
+        delete formItemProps.labelCol;
+        formItemProps.wrapperCol = {span: 24};
+        formItemProps.style = props.style;
+        formItemProps.name = [props.groupName, props.name];
+        // validateStatus: props.errors[props.name] ? 'error' : false,
+        // help: props.errors.ratio ? props.errors[props.name] : false,
+    }
+
     return (
         <Form.Item {...formItemProps}>
             {props.loading ? <CustomInputSkeleton {...props}/> :

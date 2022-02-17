@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Form, Input, Space} from "antd";
+import {Button, Form, Input} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
@@ -15,6 +15,7 @@ import useFetchHook from "../Hooks/useFetchHook";
 import useFetchCatcher from "../Hooks/useFetchCatcher";
 import {GET} from "../consts";
 import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
+import FormItemNumber from "../components/FormItem/FormItemNumber";
 
 const SalesOrderForm = () => {
     let {id} = useParams();
@@ -128,49 +129,74 @@ const SalesOrderForm = () => {
                     </ColForm>
                 </RowForm>
 
-
                 <RowForm>
-                    <ColForm>
+                    <ColForm lg={24}>
                         <Form.List name="sales_order_lines">
                             {(fields, {add, remove}) => (
                                 <>
                                     {fields.map(({key, name, ...restField}) => (
-                                        <Space key={key} align="baseline">
+                                        <RowForm key={key}>
+                                            <ColForm lg={23}>
+                                                <FormItemSelectAjax
+                                                    groupName={name}
+                                                    {...restField}
+                                                    placeholder={'Product'}
+                                                    name={'product_id'}
+                                                    message={'Please select a product'}
+                                                    required={true}
+                                                    url={'/api/products/option'}
+                                                    {...formState}
+                                                    style={{display: 'inline-block', width: '20%'}}
+                                                />
 
-                                            {console.log(restField)}
+                                                <FormItemText
+                                                    groupName={name}
+                                                    {...restField}
+                                                    placeholder={'Description'}
+                                                    name={'description'}
+                                                    {...formState}
+                                                    style={{display: 'inline-block', width: '20%'}}
+                                                />
 
-                                            <FormItemSelectAjax
-                                                placeholder={'Product'}
-                                                name={'product_id'}
-                                                message={'Please select a product'}
-                                                required={true}
-                                                url={'/api/products/option'}
-                                                {...formState}
-                                            />
+                                                <FormItemNumber
+                                                    groupName={name}
+                                                    {...restField}
+                                                    placeholder={'Quantity'}
+                                                    name={'quantity'}
+                                                    message={'Please input a quantity'}
+                                                    required={true}
+                                                    {...formState}
+                                                    style={{display: 'inline-block', width: '20%'}}
+                                                />
 
-                                            <FormItemText
-                                                placeholder={'Description'}
-                                                name={'description'}
-                                                {...formState}
-                                            />
-                                            {/*{console.log(restField)}*/}
+                                                <FormItemSelectAjax
+                                                    groupName={name}
+                                                    {...restField}
+                                                    placeholder={'Measurement'}
+                                                    name={'measurement_id'}
+                                                    message={'Please select a measurement'}
+                                                    required={true}
+                                                    url={'/api/measurements/option'}
+                                                    {...formState}
+                                                    style={{display: 'inline-block', width: '20%'}}
+                                                    query={'measurement.name'}
+                                                />
 
-                                            {/*<Form.Item*/}
-                                            {/*    {...restField}*/}
-                                            {/*    name={[name, 'first']}*/}
-                                            {/*    rules={[{ required: true, message: 'Missing first name' }]}*/}
-                                            {/*>*/}
-                                            {/*    <Input placeholder="First Name" />*/}
-                                            {/*</Form.Item>*/}
-                                            {/*<Form.Item*/}
-                                            {/*    {...restField}*/}
-                                            {/*    name={[name, 'last']}*/}
-                                            {/*    rules={[{ required: true, message: 'Missing last name' }]}*/}
-                                            {/*>*/}
-                                            {/*    <Input placeholder="Last Name" />*/}
-                                            {/*</Form.Item>*/}
-                                            <MinusCircleOutlined onClick={() => remove(name)}/>
-                                        </Space>
+                                                <FormItemNumber
+                                                    groupName={name}
+                                                    {...restField}
+                                                    placeholder={'Unit Price'}
+                                                    name={'unit_price'}
+                                                    message={'Please input a unit price'}
+                                                    required={true}
+                                                    {...formState}
+                                                    style={{display: 'inline-block', width: '20%'}}
+                                                />
+                                            </ColForm>
+                                            <ColForm lg={1}>
+                                                <MinusCircleOutlined onClick={() => remove(name)}/>
+                                            </ColForm>
+                                        </RowForm>
                                     ))}
                                     <Form.Item>
                                         <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined/>}>
