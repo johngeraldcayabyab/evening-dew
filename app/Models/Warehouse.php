@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Warehouses extends Model
+class Warehouse extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -144,6 +144,11 @@ class Warehouses extends Model
         return $query->where('name', 'like', "%$where%");
     }
 
+    public function scopeWhereShortName($query, $where)
+    {
+        return $query->where('short_name', 'like', "%$where%");
+    }
+
     public function scopeWhereManufactureToResupply($query, $where)
     {
         return $query->where('manufacture_to_resupply', 'like', "%$where%");
@@ -234,9 +239,14 @@ class Warehouses extends Model
         return $query->where('manufacturing_operation_type_id', $where);
     }
 
-    public function scopeOrderBy($query, $order)
+    public function scopeOrderByName($query, $order)
     {
         return $query->orderBy('name', $order);
+    }
+
+    public function scopeOrderByShortName($query, $order)
+    {
+        return $query->orderBy('short_name', $order);
     }
 
     public function scopeOrderByManufactureToResupply($query, $order)
