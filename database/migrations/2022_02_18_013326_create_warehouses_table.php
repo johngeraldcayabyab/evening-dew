@@ -11,8 +11,9 @@ class CreateWarehousesTable extends Migration
         Schema::create('warehouses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->boolean('manufacture_to_resupply')->default(false);
-            $table->boolean('buy_to_resupply')->default(false);
+            $table->string('short_name');
+            $table->boolean('manufacture_to_resupply')->default(true);
+            $table->boolean('buy_to_resupply')->default(true);
 
             /**
              * Locations

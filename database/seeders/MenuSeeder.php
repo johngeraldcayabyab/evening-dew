@@ -43,6 +43,10 @@ class MenuSeeder extends Seeder
                 'url' => '/menus',
             ],
             [
+                'label' => 'Operations Types',
+                'url' => '/operations_types',
+            ],
+            [
                 'label' => 'Payment Terms',
                 'url' => '/payment_terms',
             ],
@@ -69,6 +73,10 @@ class MenuSeeder extends Seeder
             [
                 'label' => 'Global Settings',
                 'url' => '/global_settings',
+            ],
+            [
+                'label' => 'Warehouses',
+                'url' => '/warehouses',
             ],
         ];
 

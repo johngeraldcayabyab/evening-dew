@@ -11,7 +11,6 @@ use App\Http\Resources\Resource\ContactResource;
 use App\Http\Resources\Slug\ContactSlugResource;
 use App\Models\Address;
 use App\Models\Contact;
-use App\Models\Country;
 use App\Models\GlobalSetting;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
@@ -46,7 +45,7 @@ class ContactController
         $addressData['contact_id'] = $contact->id;
         $post = 'url';
         if (config('app.env') === 'production') {
-            $post = '';
+            $post = 'http://localhost:8700/api/addresses';
         } else {
             $post = 'http://localhost:8800/api/addresses';
         }
