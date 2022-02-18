@@ -27,12 +27,16 @@ class MenuSeeder extends Seeder
                 'url' => '/currencies',
             ],
             [
-                'label' => 'Measurement Categories',
-                'url' => '/measurement_categories',
+                'label' => 'Locations',
+                'url' => '/locations',
             ],
             [
                 'label' => 'Measurements',
                 'url' => '/measurements',
+            ],
+            [
+                'label' => 'Measurement Categories',
+                'url' => '/measurement_categories',
             ],
             [
                 'label' => 'Menus',
