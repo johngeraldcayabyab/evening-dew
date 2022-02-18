@@ -5,6 +5,7 @@ use App\Routes\ContactRoute;
 use App\Routes\CountryRoute;
 use App\Routes\CurrencyRoute;
 use App\Routes\GlobalSettingRoute;
+use App\Routes\LocationRoute;
 use App\Routes\LoginRoute;
 use App\Routes\MeasurementCategoryRoute;
 use App\Routes\MeasurementRoute;
@@ -25,6 +26,7 @@ Route::group(['middleware' => ['api', 'cors']], function () {
     CountryRoute::initialize();
     CurrencyRoute::initialize();
     GlobalSettingRoute::initialize();
+    LocationRoute::initialize();
     LoginRoute::initialize();
     MeasurementCategoryRoute::initialize();
     MeasurementRoute::initialize();

@@ -28,7 +28,7 @@ class Location extends Model
     protected $table = 'locations';
     protected $guarded = [];
 
-    public function getLocationTypes()
+    public static function getTypes()
     {
         return [self::VENDOR, self::VIEW, self::INTERNAL, self::CUSTOMER, self::INVENTORY_LOSS, self::PRODUCTION, self::TRANSIT_LOCATION];
     }
