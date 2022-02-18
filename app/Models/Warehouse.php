@@ -124,12 +124,12 @@ class Warehouse extends Model
         return $this->belongsTo(OperationType::class, 'out_type_id', 'id');
     }
 
-    public function stockAfterManufacturing()
+    public function stockAfterManufacturingOperationType()
     {
         return $this->belongsTo(OperationType::class, 'stock_after_manufacturing_operation_type_id', 'id');
     }
 
-    public function pickingBeforeManufacturing()
+    public function pickingBeforeManufacturingOperationType()
     {
         return $this->belongsTo(OperationType::class, 'picking_before_manufacturing_operation_type_id', 'id');
     }
@@ -430,9 +430,9 @@ class Warehouse extends Model
         });
     }
 
-    public function scopeWhereStockAfterManufacturing($query, $where)
+    public function scopeWhereStockAfterManufacturingOperationType($query, $where)
     {
-        return $query->whereHas('stockAfterManufacturing', function ($query) use ($where) {
+        return $query->whereHas('stockAfterManufacturingOperationType', function ($query) use ($where) {
             return $query->where('name', 'like', "%$where%");
         });
     }

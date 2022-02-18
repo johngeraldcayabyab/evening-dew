@@ -24,6 +24,7 @@ import PaymentTermRoute from "./PaymentTerm/PaymentTermRoute";
 import SalesOrderRoute from "./SalesOrder/SalesOrderRoute";
 import LocationRoute from "./Location/LocationRoute";
 import WarehouseRoute from "./Warehouse/WarehouseRoute";
+import OperationTypeRoute from "./OperationType/OperationTypeRoute";
 
 export const AppContext = React.createContext({});
 export const AppContextProvider = AppContext.Provider;
@@ -52,6 +53,7 @@ const App = () => {
                         <MeasurementCategoryRoute/>
                         <MeasurementRoute/>
                         <MenuRoute/>
+                        <OperationTypeRoute/>
                         <PaymentTermRoute/>
                         <ProductRoute/>
                         <ProductCategoryRoute/>

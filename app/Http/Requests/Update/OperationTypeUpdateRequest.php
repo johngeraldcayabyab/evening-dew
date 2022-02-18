@@ -13,7 +13,7 @@ class OperationTypeUpdateRequest extends FormRequest
         $types = implode(',', OperationType::getTypes());
         return [
             'name' => ['required'],
-            'reference_sequence_id' => ['nullable'],
+            'reference_sequence_id' => ['nullable', 'exists:sequences,id'],
             'code' => ['required'],
             'warehouse_id' => ['nullable', 'exists:warehouses,id'],
             'reservation_method' => ['required', "in:$reservationMethods"],

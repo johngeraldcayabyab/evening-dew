@@ -75,10 +75,12 @@ const FormItemSelectAjax = (props) => {
                 }
             } else {
                 if (props.id && props.query) {
-                    search = props.initialValues;
-                    props.query.split('.').forEach((query) => {
-                        search = search[query];
-                    });
+                    if(props.initialValues[props.name]){
+                        search = props.initialValues;
+                        props.query.split('.').forEach((query) => {
+                            search = search[query];
+                        });
+                    }
                 } else if (!props.id && props.initialValues[props.name]) {
                     search = props.initialValues;
                     props.query.split('.').forEach((query) => {
