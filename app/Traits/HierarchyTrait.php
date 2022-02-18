@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-use App\Models\ProductCategory;
+
 use Illuminate\Support\Str;
 
 trait HierarchyTrait
@@ -12,7 +12,7 @@ trait HierarchyTrait
     public function parent()
     {
         $foreignKey = Str::snake(Str::replace('App\\Models\\', '', static::class));
-        return $this->belongsTo(static::class, "{$foreignKey}_id", 'id');
+        return $this->belongsTo(static::class, "parent_{$foreignKey}_id", 'id');
     }
 
     public function children()
@@ -50,15 +50,5 @@ trait HierarchyTrait
         if ($parents->parent) {
             $this->flattenParents($parents->parent, $field);
         }
-    }
-
-    public function scopeOrderByWithParents($query, $order)
-    {
-        return $query->orderBy('category', $order);
-    }
-
-    public function scopeWhereWithParents($query, $category)
-    {
-        return $query->where('category', 'like', "%$category%");
     }
 }

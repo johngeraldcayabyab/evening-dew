@@ -41,4 +41,14 @@ class ProductCategory extends Model
     {
         return $query->orderBy('category', $order);
     }
+
+    public function scopeOrderByWithParents($query, $order)
+    {
+        return $query->orderBy('category', $order);
+    }
+
+    public function scopeWhereWithParents($query, $category)
+    {
+        return $query->where('category', 'like', "%$category%");
+    }
 }

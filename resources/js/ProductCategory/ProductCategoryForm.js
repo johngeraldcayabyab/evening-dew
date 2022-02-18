@@ -47,7 +47,7 @@ const ProductCategoryForm = () => {
 
                         <FormItemSelectAjax
                             label={'Parent Category'}
-                            name={'product_category_id'}
+                            name={'parent_product_category_id'}
                             url={'/api/product_categories/option'}
                             {...formState}
                         />
