@@ -7,7 +7,7 @@
 <li>traits</li>
 <li>constants</li>
 <li>properties</li>
-<li>constants getter</li>
+<li>constant getters</li>
 <li>searchable, & sortable fields getter</li>
 <li>relationships declaration</li>
 <li>field where scopes</li>

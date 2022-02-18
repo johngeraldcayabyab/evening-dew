@@ -12,7 +12,7 @@ class ProductCategoryResource extends JsonResource
             'id' => $this->id,
             'category' => $this->category,
             'with_parents' => $this->with_parents,
-            'product_category_id' => $this->product_category_id,
+            'parent_product_category_id' => $this->parent_product_category_id,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
         ];
     }
