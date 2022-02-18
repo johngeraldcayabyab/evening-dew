@@ -90,61 +90,61 @@ const WarehouseForm = () => {
                                     query={'view_location.name'}
                                 />
 
-                                {/*<FormItemSelectAjax*/}
-                                {/*    label={'Stock Location'}*/}
-                                {/*    name={'stock_location_id'}*/}
-                                {/*    url={'/api/locations/option'}*/}
-                                {/*    {...formState}*/}
-                                {/*    query={'stock_location.name'}*/}
-                                {/*/>*/}
+                                <FormItemSelectAjax
+                                    label={'Stock Location'}
+                                    name={'stock_location_id'}
+                                    url={'/api/locations/option'}
+                                    {...formState}
+                                    query={'stock_location.name'}
+                                />
 
-                                {/*<FormItemSelectAjax*/}
-                                {/*    label={'Input Location'}*/}
-                                {/*    name={'input_location_id'}*/}
-                                {/*    url={'/api/locations/option'}*/}
-                                {/*    {...formState}*/}
-                                {/*    query={'input_location.name'}*/}
-                                {/*/>*/}
+                                <FormItemSelectAjax
+                                    label={'Input Location'}
+                                    name={'input_location_id'}
+                                    url={'/api/locations/option'}
+                                    {...formState}
+                                    query={'input_location.name'}
+                                />
 
-                                {/*<FormItemSelectAjax*/}
-                                {/*    label={'Quality Control Location'}*/}
-                                {/*    name={'quality_control_location_id'}*/}
-                                {/*    url={'/api/locations/option'}*/}
-                                {/*    {...formState}*/}
-                                {/*    query={'quality_control_location.name'}*/}
-                                {/*/>*/}
+                                <FormItemSelectAjax
+                                    label={'Quality Control Location'}
+                                    name={'quality_control_location_id'}
+                                    url={'/api/locations/option'}
+                                    {...formState}
+                                    query={'quality_control_location.name'}
+                                />
 
-                                {/*<FormItemSelectAjax*/}
-                                {/*    label={'Packing Location'}*/}
-                                {/*    name={'packing_location_id'}*/}
-                                {/*    url={'/api/locations/option'}*/}
-                                {/*    {...formState}*/}
-                                {/*    query={'packing_location.name'}*/}
-                                {/*/>*/}
+                                <FormItemSelectAjax
+                                    label={'Packing Location'}
+                                    name={'packing_location_id'}
+                                    url={'/api/locations/option'}
+                                    {...formState}
+                                    query={'packing_location.name'}
+                                />
 
-                                {/*<FormItemSelectAjax*/}
-                                {/*    label={'Output Location'}*/}
-                                {/*    name={'output_location_id'}*/}
-                                {/*    url={'/api/locations/option'}*/}
-                                {/*    {...formState}*/}
-                                {/*    query={'output_location.name'}*/}
-                                {/*/>*/}
+                                <FormItemSelectAjax
+                                    label={'Output Location'}
+                                    name={'output_location_id'}
+                                    url={'/api/locations/option'}
+                                    {...formState}
+                                    query={'output_location.name'}
+                                />
 
-                                {/*<FormItemSelectAjax*/}
-                                {/*    label={'Stock after manufacturing location'}*/}
-                                {/*    name={'stock_after_manufacturing_location_id'}*/}
-                                {/*    url={'/api/locations/option'}*/}
-                                {/*    {...formState}*/}
-                                {/*    query={'stock_after_manufacturing_location.name'}*/}
-                                {/*/>*/}
+                                <FormItemSelectAjax
+                                    label={'Stock after manufacturing location'}
+                                    name={'stock_after_manufacturing_location_id'}
+                                    url={'/api/locations/option'}
+                                    {...formState}
+                                    query={'stock_after_manufacturing_location.name'}
+                                />
 
-                                {/*<FormItemSelectAjax*/}
-                                {/*    label={'Picking before manufacturing location'}*/}
-                                {/*    name={'picking_before_manufacturing_location_id'}*/}
-                                {/*    url={'/api/locations/option'}*/}
-                                {/*    {...formState}*/}
-                                {/*    query={'picking_before_manufacturing_location.name'}*/}
-                                {/*/>*/}
+                                <FormItemSelectAjax
+                                    label={'Picking before manufacturing location'}
+                                    name={'picking_before_manufacturing_location_id'}
+                                    url={'/api/locations/option'}
+                                    {...formState}
+                                    query={'picking_before_manufacturing_location.name'}
+                                />
                             </ColForm>
 
                             <ColForm>
@@ -163,7 +163,7 @@ const WarehouseForm = () => {
                                 {/*    query={'internal_type.name'}*/}
                                 {/*/>*/}
                                 {/*<FormItemSelectAjax*/}
-                                {/*    label={'Picky Type'}*/}
+                                {/*    label={'Pick Type'}*/}
                                 {/*    name={'pick_type_id'}*/}
                                 {/*    url={'/api/operations_types/option'}*/}
                                 {/*    {...formState}*/}
@@ -190,20 +190,20 @@ const WarehouseForm = () => {
                                 {/*    {...formState}*/}
                                 {/*    query={'stock_after_manufacturing_operation_type.name'}*/}
                                 {/*/>*/}
-                                {/*<FormItemSelectAjax*/}
-                                {/*    label={'Picking Before Manufacturing Operation Type'}*/}
-                                {/*    name={'picking_before_manufacturing_operation_type_id'}*/}
-                                {/*    url={'/api/operations_types/option'}*/}
-                                {/*    {...formState}*/}
-                                {/*    query={'picking_before_manufacturing_operation_type.name'}*/}
-                                {/*/>*/}
-                                {/*<FormItemSelectAjax*/}
-                                {/*    label={'Manufacturing Operation Type'}*/}
-                                {/*    name={'manufacturing_operation_type_id'}*/}
-                                {/*    url={'/api/operations_types/option'}*/}
-                                {/*    {...formState}*/}
-                                {/*    query={'manufacturing_operation_type.name'}*/}
-                                {/*/>*/}
+                                <FormItemSelectAjax
+                                    label={'Picking Before Manufacturing Operation Type'}
+                                    name={'picking_before_manufacturing_operation_type_id'}
+                                    url={'/api/operations_types/option'}
+                                    {...formState}
+                                    query={'picking_before_manufacturing_operation_type.name'}
+                                />
+                                <FormItemSelectAjax
+                                    label={'Manufacturing Operation Type'}
+                                    name={'manufacturing_operation_type_id'}
+                                    url={'/api/operations_types/option'}
+                                    {...formState}
+                                    query={'manufacturing_operation_type.name'}
+                                />
                             </ColForm>
                         </RowForm>
                     </TabPane>

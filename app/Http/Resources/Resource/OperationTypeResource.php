@@ -21,6 +21,7 @@ class OperationTypeResource extends JsonResource
             'operation_type_for_returns_id' => $this->operation_type_for_returns_id,
             'operation_type_for_returns' => $this->operationTypeForReturns,
             'show_detailed_operation' => $this->show_detailed_operation,
+            'pre_fill_detailed_operation' => $this->pre_fill_detailed_operation,
             'reservation_days_before' => $this->reservation_days_before,
             'reservation_days_before_priority' => $this->reservation_days_before_priority,
             'create_new_lots_serial_numbers' => $this->create_new_lots_serial_numbers,

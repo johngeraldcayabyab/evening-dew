@@ -73,6 +73,8 @@ class OperationTypeController
         return [
             'reservation_method' => OperationType::AT_CONFIRMATION,
             'show_detailed_operation' => true,
+            'reservation_days_before' => 0,
+            'reservation_days_before_priority' => 0,
         ];
     }
 }

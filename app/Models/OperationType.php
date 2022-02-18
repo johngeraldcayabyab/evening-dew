@@ -40,7 +40,7 @@ class OperationType extends Model
         return [self::RECEIPT, self::DELIVERY, self::INTERNAL, self::MANUFACTURING];
     }
 
-    public function getSearchableAndSortbleFields()
+    public function getSearchableAndSortableFields()
     {
         return [
             'name',
@@ -57,6 +57,8 @@ class OperationType extends Model
             'pre_fill_detailed_operation',
             'reservation_days_before',
             'reservation_days_before_priority',
+            'create_new_lots_serial_numbers',
+            'use_existing_lots_serial_numbers',
             'default_source_location_id',
             'default_source_location',
             'default_destination_location_id',
@@ -71,7 +73,7 @@ class OperationType extends Model
 
     public function warehouse()
     {
-        return $this->belongsTo(Warehouse::class, 'warehouse_d', 'id');
+        return $this->belongsTo(Warehouse::class, 'warehouse_id', 'id');
     }
 
     public function operationTypeForReturns()
