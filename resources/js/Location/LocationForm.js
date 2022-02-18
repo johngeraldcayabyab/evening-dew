@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form} from "antd";
+import {Divider, Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
@@ -11,12 +11,13 @@ import ControlPanel from "../components/ControlPanel";
 import FormCard from "../components/FormCard";
 import FormItemText from "../components/FormItem/FormItemText";
 import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
-import FormItemUpload from "../components/FormItem/FormItemUpload";
+import FormItemSelect from "../components/FormItem/FormItemSelect";
+import FormItemCheckbox from "../components/FormItem/FormItemCheckbox";
 
 const LocationForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormState(id, form, manifest);
+    const [formState, formActions] = useFormState(id, form, manifest, true);
 
     return (
         <CustomForm
@@ -49,33 +50,50 @@ const LocationForm = () => {
 
                         <FormItemSelectAjax
                             label={'Parent Category'}
-                            name={'parent_product_category_id'}
-                            url={'/api/product_categories/option'}
+                            name={'parent_location_id'}
+                            url={'/api/locations/option'}
                             size={'medium'}
                             {...formState}
                         />
                     </ColForm>
                 </RowForm>
 
-                {/*<RowForm>*/}
-                {/*    <ColForm>*/}
-                {/*        <FormItemText*/}
-                {/*            label={'Category'}*/}
-                {/*            name={'category'}*/}
-                {/*            message={'Please input category'}*/}
-                {/*            required={true}*/}
-                {/*            size={'large'}*/}
-                {/*            {...formState}*/}
-                {/*        />*/}
+                <Divider orientation={'left'}>
+                    Additional Information
+                </Divider>
 
-                {/*        <FormItemSelectAjax*/}
-                {/*            label={'Parent Category'}*/}
-                {/*            name={'parent_product_category_id'}*/}
-                {/*            url={'/api/product_categories/option'}*/}
-                {/*            {...formState}*/}
-                {/*        />*/}
-                {/*    </ColForm>*/}
-                {/*</RowForm>*/}
+                <RowForm>
+                    <ColForm>
+                        <FormItemSelect
+                            label={'Type'}
+                            name={'type'}
+                            message={'Please select a location type'}
+                            required={true}
+                            options={[
+                                {value: 'vendor', label: 'Vendor'},
+                                {value: 'view', label: 'View'},
+                                {value: 'internal', label: 'Internal'},
+                                {value: 'customer', label: 'Customer'},
+                                {value: 'inventory_loss', label: 'Inventory Loss'},
+                                {value: 'production', label: 'Production'},
+                                {value: 'transit_location', label: 'Transit Location'},
+                            ]}
+                            {...formState}
+                        />
+
+                        <FormItemCheckbox
+                            label={'Is a scrap location?'}
+                            name={'is_a_scrap_location'}
+                            {...formState}
+                        />
+
+                        <FormItemCheckbox
+                            label={'Is a return location?'}
+                            name={'is_a_return_location'}
+                            {...formState}
+                        />
+                    </ColForm>
+                </RowForm>
             </FormCard>
         </CustomForm>
     );

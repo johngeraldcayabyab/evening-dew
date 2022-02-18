@@ -41,6 +41,11 @@ class Location extends Model
         ];
     }
 
+    public function getWithParentsAttribute()
+    {
+        return $this->getWithParents('name');
+    }
+
     public function scopeWhereName($query, $name)
     {
         return $query->where('name', 'like', "%$name%");

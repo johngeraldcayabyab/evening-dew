@@ -27,11 +27,6 @@ class ProductCategory extends Model
         ];
     }
 
-    public function parentProductCategory()
-    {
-        return $this->belongsTo(ProductCategory::class, 'parent_product_category_id', 'id');
-    }
-
     public function getWithParentsAttribute()
     {
         return $this->getWithParents('category');
