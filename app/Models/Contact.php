@@ -60,39 +60,39 @@ class Contact extends Model
         return $this->addresses->where('type', Address::PRIVATE)->last();
     }
 
-    public function scopeWhereName($query, $name)
+    public function scopeWhereName($query, $where)
     {
-        return $query->where('name', 'like', "%$name%");
+        return $query->where('name', 'like', "%$where%");
     }
 
-    public function scopeWherePhone($query, $phone)
+    public function scopeWherePhone($query, $where)
     {
-        return $query->where('phone', 'like', "%$phone%");
+        return $query->where('phone', 'like', "%$where%");
     }
 
-    public function scopeWhereMobile($query, $mobile)
+    public function scopeWhereMobile($query, $where)
     {
-        return $query->where('mobile', 'like', "%$mobile%");
+        return $query->where('mobile', 'like', "%$where%");
     }
 
-    public function scopeWhereEmail($query, $email)
+    public function scopeWhereEmail($query, $where)
     {
-        return $query->where('email', 'like', "%$email%");
+        return $query->where('email', 'like', "%$where%");
     }
 
-    public function scopeWhereWebsite($query, $website)
+    public function scopeWhereWebsite($query, $where)
     {
-        return $query->where('website', 'like', "%$website%");
+        return $query->where('website', 'like', "%$where%");
     }
 
-    public function scopeWhereTaxId($query, $taxId)
+    public function scopeWhereTaxId($query, $where)
     {
-        return $query->where('tax_id', 'like', "%$taxId%");
+        return $query->where('tax_id', $where);
     }
 
-    public function scopeOrderByName($query, $order)
+    public function scopeOrderByName($query, $where)
     {
-        return $query->orderBy('name', $order);
+        return $query->orderBy('name', $where);
     }
 
     public function scopeOrderByPhone($query, $order)

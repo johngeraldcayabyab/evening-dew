@@ -50,36 +50,36 @@ class Measurement extends Model
         return $this->belongsTo(MeasurementCategory::class);
     }
 
-    public function scopeWhereName($query, $name)
+    public function scopeWhereName($query, $where)
     {
-        return $query->where('name', 'like', "%$name%");
+        return $query->where('name', 'like', "%$where%");
     }
 
-    public function scopeWhereType($query, $type)
+    public function scopeWhereType($query, $where)
     {
-        return $query->where('type', 'like', "%$type%");
+        return $query->where('type', 'like', "%$where%");
     }
 
-    public function scopeWhereRatio($query, $ratio)
+    public function scopeWhereRatio($query, $where)
     {
-        return $query->where('ratio', 'like', "%$ratio%");
+        return $query->where('ratio', 'like', "%$where%");
     }
 
-    public function scopeWhereRoundingPrecision($query, $roundingPrecision)
+    public function scopeWhereRoundingPrecision($query, $where)
     {
-        return $query->where('rounding_precision', 'like', "%$roundingPrecision");
+        return $query->where('rounding_precision', 'like', "%$where");
     }
 
-    public function scopeWhereMeasurementCategory($query, $measurementCategory)
+    public function scopeWhereMeasurementCategory($query, $where)
     {
-        return $query->whereHas('measurementCategory', function ($query) use ($measurementCategory) {
-            return $query->where('name', 'like', "%$measurementCategory%");
+        return $query->whereHas('measurementCategory', function ($query) use ($where) {
+            return $query->where('name', 'like', "%$where%");
         });
     }
 
-    public function scopeWhereMeasurementCategoryId($query, $measurementCategoryId)
+    public function scopeWhereMeasurementCategoryId($query, $where)
     {
-        return $query->where('measurement_category_id', "%$measurementCategoryId%");
+        return $query->where('measurement_category_id', $where);
     }
 
     public function scopeOrderByName($query, $order)

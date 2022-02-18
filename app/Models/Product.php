@@ -75,92 +75,92 @@ class Product extends Model
         return [self::ORDERED_QUANTITIES, self::DELIVERED_QUANTITIES];
     }
 
-    public function scopeWhereName($query, $name)
+    public function scopeWhereName($query, $where)
     {
-        return $query->where('name', 'like', "%$name%");
+        return $query->where('name', 'like', "%$where%");
     }
 
-    public function scopeWhereProductType($query, $productType)
+    public function scopeWhereProductType($query, $where)
     {
-        return $query->where('product_type', 'like', "%$productType%");
+        return $query->where('product_type', 'like', "%$where%");
     }
 
-    public function scopeWhereInvoicingPolicy($query, $invoicingPolicy)
+    public function scopeWhereInvoicingPolicy($query, $where)
     {
-        return $query->where('invoicing_policy', 'like', "%$invoicingPolicy%");
+        return $query->where('invoicing_policy', 'like', "%$where%");
     }
 
-    public function scopeWhereCost($query, $cost)
+    public function scopeWhereCost($query, $where)
     {
-        return $query->where('cost', 'like', "%$cost%");
+        return $query->where('cost', 'like', "%$where%");
     }
 
-    public function scopeWhereSalesPrice($query, $salesPrice)
+    public function scopeWhereSalesPrice($query, $where)
     {
-        return $query->where('sales_price', 'like', "%$salesPrice%");
+        return $query->where('sales_price', 'like', "%$where%");
     }
 
-    public function scopeWhereMeasurement($query, $measurement)
+    public function scopeWhereMeasurement($query, $where)
     {
-        return $query->whereHas('measurement', function ($query) use ($measurement) {
-            return $query->where('name', 'like', "%$measurement%");
+        return $query->whereHas('measurement', function ($query) use ($where) {
+            return $query->where('name', 'like', "%$where%");
         });
     }
 
-    public function scopeWherePurchaseMeasurement($query, $purchaseMeasurement)
+    public function scopeWherePurchaseMeasurement($query, $where)
     {
-        return $query->whereHas('purchaseMeasurement', function ($query) use ($purchaseMeasurement) {
-            return $query->where('name', 'like', "%$purchaseMeasurement%");
+        return $query->whereHas('purchaseMeasurement', function ($query) use ($where) {
+            return $query->where('name', 'like', "%$where%");
         });
     }
 
-    public function scopeWhereSalesMeasurement($query, $salesMeasurement)
+    public function scopeWhereSalesMeasurement($query, $where)
     {
-        return $query->whereHas('salesMeasurement', function ($query) use ($salesMeasurement) {
-            return $query->where('name', 'like', "%$salesMeasurement%");
+        return $query->whereHas('salesMeasurement', function ($query) use ($where) {
+            return $query->where('name', 'like', "%$where%");
         });
     }
 
-    public function scopeWhereProductCategory($query, $productCategory)
+    public function scopeWhereProductCategory($query, $where)
     {
-        return $query->whereHas('productCategory', function ($query) use ($productCategory) {
-            return $query->where('category', 'like', "%$productCategory%");
+        return $query->whereHas('productCategory', function ($query) use ($where) {
+            return $query->where('category', 'like', "%$where%");
         });
     }
 
-    public function scopeWhereInternalReference($query, $internalReference)
+    public function scopeWhereInternalReference($query, $where)
     {
-        return $query->where('internal_reference', 'like', "%$internalReference%");
+        return $query->where('internal_reference', 'like', "%$where%");
     }
 
-    public function scopeWhereSalesDescription($query, $salesDescription)
+    public function scopeWhereSalesDescription($query, $where)
     {
-        return $query->where('sales_description', 'like', "%$salesDescription%");
+        return $query->where('sales_description', 'like', "%$where%");
     }
 
-    public function scopeWherePurchaseDescription($query, $purchaseDescription)
+    public function scopeWherePurchaseDescription($query, $where)
     {
-        return $query->where('purchase_description', 'like', "%$purchaseDescription%");
+        return $query->where('purchase_description', 'like', "%$where%");
     }
 
-    public function scopeWhereMeasurementId($query, $measurementId)
+    public function scopeWhereMeasurementId($query, $where)
     {
-        return $query->where('measurement_id', $measurementId);
+        return $query->where('measurement_id', $where);
     }
 
-    public function scopeWherePurchaseMeasurementId($query, $purchaseMeasurementId)
+    public function scopeWherePurchaseMeasurementId($query, $where)
     {
-        return $query->where('purchase_measurement_id', $purchaseMeasurementId);
+        return $query->where('purchase_measurement_id', $where);
     }
 
-    public function scopeWhereSalesMeasurementId($query, $salesMeasurementId)
+    public function scopeWhereSalesMeasurementId($query, $where)
     {
-        return $query->where('sales_measurement_id', $salesMeasurementId);
+        return $query->where('sales_measurement_id', $where);
     }
 
-    public function scopeWhereProductCategoryId($query, $productCategoryId)
+    public function scopeWhereProductCategoryId($query, $where)
     {
-        return $query->where('product_category_id', $productCategoryId);
+        return $query->where('product_category_id', $where);
     }
 
     public function scopeOrderByName($query, $order)

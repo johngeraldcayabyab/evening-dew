@@ -40,44 +40,44 @@ class Sequence extends Model
         return [self::NO_GAP, self::STANDARD];
     }
 
-    public function scopeWhereName($query, $name)
+    public function scopeWhereName($query, $where)
     {
-        return $query->where('name', 'like', "%$name%");
+        return $query->where('name', 'like', "%$where%");
     }
 
-    public function scopeWhereSequenceCode($query, $sequenceCode)
+    public function scopeWhereSequenceCode($query, $where)
     {
-        return $query->where('sequence_code', 'like', "%$sequenceCode%");
+        return $query->where('sequence_code', 'like', "%$where%");
     }
 
-    public function scopeWhereImplementation($query, $sequenceCode)
+    public function scopeWhereImplementation($query, $where)
     {
-        return $query->where('implementation', 'like', "%$sequenceCode%");
+        return $query->where('implementation', 'like', "%$where%");
     }
 
-    public function scopeWherePrefix($query, $prefix)
+    public function scopeWherePrefix($query, $where)
     {
-        return $query->where('prefix', 'like', "%$prefix%");
+        return $query->where('prefix', 'like', "%$where%");
     }
 
-    public function scopeWhereSuffix($query, $suffix)
+    public function scopeWhereSuffix($query, $where)
     {
-        return $query->where('suffix', 'like', "%$suffix%");
+        return $query->where('suffix', 'like', "%$where%");
     }
 
-    public function scopeWhereSequenceSize($query, $sequenceSize)
+    public function scopeWhereSequenceSize($query, $where)
     {
-        return $query->where('sequence_size', 'like', "%$sequenceSize%");
+        return $query->where('sequence_size', 'like', "%$where%");
     }
 
-    public function scopeWhereStep($query, $step)
+    public function scopeWhereStep($query, $where)
     {
-        return $query->where('step', 'like', "%$step%");
+        return $query->where('step', 'like', "%$where%");
     }
 
-    public function scopeNextNumber($query, $nextNumber)
+    public function scopeNextNumber($query, $where)
     {
-        return $query->where('next_number', 'like', "%$nextNumber%");
+        return $query->where('next_number', 'like', "%$where%");
     }
 
     public function scopeOrderByName($query, $order)

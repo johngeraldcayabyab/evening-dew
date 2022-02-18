@@ -27,19 +27,19 @@ class Menu extends Model
         ];
     }
 
-    public function scopeWhereLabel($query, $label)
+    public function scopeWhereLabel($query, $where)
     {
-        return $query->where('label', 'like', "%$label%");
+        return $query->where('label', 'like', "%$where%");
     }
 
-    public function scopeWhereUrl($query, $url)
+    public function scopeWhereUrl($query, $where)
     {
-        return $query->where('url', 'like', "%$url%");
+        return $query->where('url', 'like', "%$where%");
     }
 
-    public function scopeWhereParentId($query, $parentId)
+    public function scopeWhereParentId($query, $where)
     {
-        return $query->where('parent_id', "%$parentId%");
+        return $query->where('parent_id', $where);
     }
 
     public function scopeOrderByLabel($query, $order)

@@ -36,9 +36,9 @@ class MeasurementCategory extends Model
         return $this->hasMany(Measurement::class);
     }
 
-    public function scopeWhereName($query, $name)
+    public function scopeWhereName($query, $where)
     {
-        return $query->where('name', 'like', "%$name%");
+        return $query->where('name', 'like', "%$where%");
     }
 
     public function scopeOrderByName($query, $order)

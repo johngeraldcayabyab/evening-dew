@@ -49,39 +49,39 @@ class SalesOrderLine extends Model
         return $this->belongsTo(Measurement::class);
     }
 
-    public function scopeWhereProductId($query, $productId)
+    public function scopeWhereProductId($query, $where)
     {
-        return $query->where('product_id', $productId);
+        return $query->where('product_id', $where);
     }
 
-    public function scopeWhereDescription($query, $description)
+    public function scopeWhereDescription($query, $where)
     {
-        return $query->where('description', 'like', "%$description%");
+        return $query->where('description', 'like', "%$where%");
     }
 
-    public function scopeWhereQuantity($query, $quantity)
+    public function scopeWhereQuantity($query, $where)
     {
-        return $query->where('quantity', 'like', "%$quantity%");
+        return $query->where('quantity', 'like', "%$where%");
     }
 
-    public function scopeWhereMeasurementId($query, $measurementId)
+    public function scopeWhereMeasurementId($query, $where)
     {
-        return $query->where('measurement_id', $measurementId);
+        return $query->where('measurement_id', $where);
     }
 
-    public function scopeWhereUnitPrice($query, $unitPrice)
+    public function scopeWhereUnitPrice($query, $where)
     {
-        return $query->where('unit_price', 'like', "%$unitPrice%");
+        return $query->where('unit_price', 'like', "%$where%");
     }
 
-    public function scopeWhereSubtotal($query, $subTotal)
+    public function scopeWhereSubtotal($query, $where)
     {
-        return $query->where('subtotal', 'like', "%$subTotal%");
+        return $query->where('subtotal', 'like', "%$where%");
     }
 
-    public function scopeWhereSalesOrderId($query, $salesOrderId)
+    public function scopeWhereSalesOrderId($query, $where)
     {
-        return $query->where('sales_order_id', $salesOrderId);
+        return $query->where('sales_order_id', $where);
     }
 
     public function scopeOrderByProductId($query, $order)
@@ -119,24 +119,24 @@ class SalesOrderLine extends Model
         return $query->orderBy('sales_order_id', $order);
     }
 
-    public function scopeWhereProduct($query, $product)
+    public function scopeWhereProduct($query, $where)
     {
-        return $query->whereHas('product', function ($query) use ($product) {
-            return $query->where('name', 'like', "%$product%");
+        return $query->whereHas('product', function ($query) use ($where) {
+            return $query->where('name', 'like', "%$where%");
         });
     }
 
-    public function scopeWhereMeasurement($query, $measurement)
+    public function scopeWhereMeasurement($query, $where)
     {
-        return $query->whereHas('measurement', function ($query) use ($measurement) {
-            return $query->where('name', 'like', "%$measurement%");
+        return $query->whereHas('measurement', function ($query) use ($where) {
+            return $query->where('name', 'like', "%$where%");
         });
     }
 
-    public function scopeWhereSalesOrder($query, $salesOrder)
+    public function scopeWhereSalesOrder($query, $where)
     {
-        return $query->whereHas('salesOrder', function ($query) use ($salesOrder) {
-            return $query->where('number', 'like', "%$salesOrder%");
+        return $query->whereHas('salesOrder', function ($query) use ($where) {
+            return $query->where('number', 'like', "%$where%");
         });
     }
 

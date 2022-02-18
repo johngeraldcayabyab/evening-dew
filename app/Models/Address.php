@@ -56,63 +56,63 @@ class Address extends Model
         return $this->belongsTo(Contact::class);
     }
 
-    public function scopeWhereAddressName($query, $addressName)
+    public function scopeWhereAddressName($query, $where)
     {
-        return $query->where('address_name', 'like', "%$addressName%");
+        return $query->where('address_name', 'like', "%$where%");
     }
 
-    public function scopeWhereStreet1($query, $street1)
+    public function scopeWhereStreet1($query, $where)
     {
-        return $query->where('street_1', 'like', "%$street1%");
+        return $query->where('street_1', 'like', "%$where%");
     }
 
-    public function scopeWhereStreet2($query, $street2)
+    public function scopeWhereStreet2($query, $where)
     {
-        return $query->where('street_2', 'like', "%$street2%");
+        return $query->where('street_2', 'like', "%$where%");
     }
 
-    public function scopeWhereCity($query, $city)
+    public function scopeWhereCity($query, $where)
     {
-        return $query->where('city', 'like', "%$city%");
+        return $query->where('city', 'like', "%$where%");
     }
 
-    public function scopeWhereState($query, $state)
+    public function scopeWhereState($query, $where)
     {
-        return $query->where('state', 'like', "%$state%");
+        return $query->where('state', 'like', "%$where%");
     }
 
-    public function scopeWhereZip($query, $zip)
+    public function scopeWhereZip($query, $where)
     {
-        return $query->where('zip', 'like', "%$zip%");
+        return $query->where('zip', 'like', "%$where%");
     }
 
-    public function scopeWhereCountry($query, $country)
+    public function scopeWhereCountry($query, $where)
     {
-        return $query->whereHas('country', function ($query) use ($country) {
-            return $query->where('country_name', 'like', "%$country%");
+        return $query->whereHas('country', function ($query) use ($where) {
+            return $query->where('country_name', 'like', "%$where%");
         });
     }
 
-    public function scopeWhereContact($query, $contact)
+    public function scopeWhereContact($query, $where)
     {
-        return $query->whereHas('contact', function ($query) use ($contact) {
-            return $query->where('name', 'like', "%$contact%");
+        return $query->whereHas('contact', function ($query) use ($where) {
+            return $query->where('name', 'like', "%$where%");
         });
     }
 
-    public function scopeWhereType($query, $type)
+    public function scopeWhereType($query, $where)
     {
-        return $query->where('type', 'like', "%$type%");
+        return $query->where('type', 'like', "%$where%");
     }
 
-    public function scopeWhereCountryId($query, $countryId)
+    public function scopeWhereCountryId($query, $where)
     {
-        return $query->where('country_id', $countryId);
+        return $query->where('country_id', $where);
     }
 
-    public function scopeWhereContactId($query, $contactId)
+    public function scopeWhereContactId($query, $where)
     {
-        return $query->where('contact_id', $contactId);
+        return $query->where('contact_id', $where);
     }
 
     public function scopeOrderByStreet1($query, $order)

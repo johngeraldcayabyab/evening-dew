@@ -25,9 +25,9 @@ class PaymentTerm extends Model
         ];
     }
 
-    public function scopeWhereName($query, $name)
+    public function scopeWhereName($query, $where)
     {
-        return $query->where('name', 'like', "%$name%");
+        return $query->where('name', 'like', "%$where%");
     }
 
     public function scopeOrderByName($query, $order)
