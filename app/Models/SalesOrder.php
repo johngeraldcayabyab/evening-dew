@@ -58,57 +58,57 @@ class SalesOrder extends Model
         return $this->hasMany(SalesOrderLine::class);
     }
 
-    public function scopeWhereNumber($query, $number)
+    public function scopeWhereNumber($query, $where)
     {
-        return $query->where('number', 'like', "%$number%");
+        return $query->where('number', 'like', "%$where%");
     }
 
-    public function scopeWhereCustomer($query, $customer)
+    public function scopeWhereCustomer($query, $where)
     {
-        return $query->whereHas('contacts', function ($query) use ($customer) {
-            return $query->where('name', 'like', "%$customer%");
+        return $query->whereHas('contacts', function ($query) use ($where) {
+            return $query->where('name', 'like', "%$where%");
         });
     }
 
-    public function scopeWhereInvoiceAddress($query, $invoiceAddress)
+    public function scopeWhereInvoiceAddress($query, $where)
     {
-        return $query->whereHas('invoiceAddress', function ($query) use ($invoiceAddress) {
-            return $query->where('address_name', 'like', "%$invoiceAddress%");
+        return $query->whereHas('invoiceAddress', function ($query) use ($where) {
+            return $query->where('address_name', 'like', "%$where%");
         });
     }
 
-    public function scopeWhereDeliveryAddress($query, $deliveryAddress)
+    public function scopeWhereDeliveryAddress($query, $where)
     {
-        return $query->whereHas('deliveryAddress', function ($query) use ($deliveryAddress) {
-            return $query->where('address_name', 'like', "%$deliveryAddress%");
+        return $query->whereHas('deliveryAddress', function ($query) use ($where) {
+            return $query->where('address_name', 'like', "%$where%");
         });
     }
 
-    public function scopeWherePaymentTerm($query, $paymentTerm)
+    public function scopeWherePaymentTerm($query, $where)
     {
-        return $query->whereHas('paymentTerm', function ($query) use ($paymentTerm) {
-            return $query->where('name', 'like', "%$paymentTerm%");
+        return $query->whereHas('paymentTerm', function ($query) use ($where) {
+            return $query->where('name', 'like', "%$where%");
         });
     }
 
-    public function scopeWhereCustomerId($query, $customerId)
+    public function scopeWhereCustomerId($query, $where)
     {
-        return $query->where('customer_id', $customerId);
+        return $query->where('customer_id', $where);
     }
 
-    public function scopeWhereInvoiceAddressId($query, $invoiceAddressId)
+    public function scopeWhereInvoiceAddressId($query, $where)
     {
-        return $query->where('invoice_address_id', $invoiceAddressId);
+        return $query->where('invoice_address_id', $where);
     }
 
-    public function scopeWhereDeliveryAddressId($query, $deliveryAddressId)
+    public function scopeWhereDeliveryAddressId($query, $where)
     {
-        return $query->where('delivery_address_id', $deliveryAddressId);
+        return $query->where('delivery_address_id', $where);
     }
 
-    public function scopeWherePaymentTermId($query, $paymentTermId)
+    public function scopeWherePaymentTermId($query, $where)
     {
-        return $query->where('payment_term_id', $paymentTermId);
+        return $query->where('payment_term_id', $where);
     }
 
     public function scopeOrderByNumber($query, $order)

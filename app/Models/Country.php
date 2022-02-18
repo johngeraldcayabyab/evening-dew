@@ -35,36 +35,36 @@ class Country extends Model
         return $this->belongsTo(Currency::class);
     }
 
-    public function scopeWhereCountryName($query, $countryName)
+    public function scopeWhereCountryName($query, $where)
     {
-        return $query->where('country_name', 'like', "%$countryName%");
+        return $query->where('country_name', 'like', "%$where%");
     }
 
-    public function scopeWhereCurrency($query, $currency)
+    public function scopeWhereCurrency($query, $where)
     {
-        return $query->whereHas('currency', function ($query) use ($currency) {
-            return $query->where('currency', 'like', "%$currency%");
+        return $query->whereHas('currency', function ($query) use ($where) {
+            return $query->where('currency', 'like', "%$where%");
         });
     }
 
-    public function scopeWhereCountryCode($query, $countryCode)
+    public function scopeWhereCountryCode($query, $where)
     {
-        return $query->where('country_code', 'like', "%$countryCode%");
+        return $query->where('country_code', 'like', "%$where%");
     }
 
-    public function scopeWhereCountryCallingCode($query, $countryCallingCode)
+    public function scopeWhereCountryCallingCode($query, $where)
     {
-        return $query->where('country_calling_code', 'like', "%$countryCallingCode%");
+        return $query->where('country_calling_code', 'like', "%$where%");
     }
 
-    public function scopeWhereVatLabel($query, $vatLabel)
+    public function scopeWhereVatLabel($query, $where)
     {
-        return $query->where('vat_label', 'like', "%$vatLabel%");
+        return $query->where('vat_label', 'like', "%$where%");
     }
 
-    public function scopeWhereCurrencyId($query, $currencyId)
+    public function scopeWhereCurrencyId($query, $where)
     {
-        return $query->where('currency_id', $currencyId);
+        return $query->where('currency_id', $where);
     }
 
     public function scopeOrderByCountryName($query, $order)

@@ -32,9 +32,9 @@ class ProductCategory extends Model
         return $this->getWithParents('category');
     }
 
-    public function scopeWhereCategory($query, $category)
+    public function scopeWhereCategory($query, $where)
     {
-        return $query->where('category', 'like', "%$category%");
+        return $query->where('category', 'like', "%$where%");
     }
 
     public function scopeOrderByCategory($query, $order)
@@ -47,8 +47,8 @@ class ProductCategory extends Model
         return $query->orderBy('category', $order);
     }
 
-    public function scopeWhereWithParents($query, $category)
+    public function scopeWhereWithParents($query, $where)
     {
-        return $query->where('category', 'like', "%$category%");
+        return $query->where('category', 'like', "%$where%");
     }
 }
