@@ -47,42 +47,42 @@ class Currency extends Model
 
     public function scopeWhereCurrency($query, $where)
     {
-        return $query->where('currency', 'like', "%$where%");
+        return $this->like($query, 'currency', $where);
     }
 
     public function scopeWhereName($query, $where)
     {
-        return $query->where('name', 'like', "%$where%");
+        return $this->like($query, 'name', $where);
     }
 
     public function scopeWhereUnit($query, $where)
     {
-        return $query->where('unit', 'like', "%$where%");
+        return $this->like($query, 'unit', $where);
     }
 
     public function scopeWhereSubUnit($query, $where)
     {
-        return $query->where('sub_unit', 'like', "%$where%");
+        return $this->like($query, 'sub_unit', $where);
     }
 
     public function scopeWhereRoundingFactor($query, $where)
     {
-        return $query->where('rounding_factor', 'like', "%$where%");
+        return $this->like($query, 'rounding_factor', $where);
     }
 
     public function scopeWhereDecimalPlaces($query, $where)
     {
-        return $query->where('decimal_places', 'like', "%$where%");
+        return $this->like($query, 'decimal_places', $where);
     }
 
     public function scopeWhereSymbol($query, $where)
     {
-        return $query->where('symbol', 'like', "%$where%");
+        return $this->like($query, 'symbol', $where);
     }
 
     public function scopeWhereSymbolPosition($query, $where)
     {
-        return $query->where('symbol_position', 'like', "%$where%");
+        return $this->like($query, 'symbol_position', $where);
     }
 
     public function scopeOrderByCurrency($query, $order)

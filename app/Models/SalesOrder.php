@@ -60,7 +60,7 @@ class SalesOrder extends Model
 
     public function scopeWhereNumber($query, $where)
     {
-        return $query->where('number', 'like', "%$where%");
+        return $this->like($query, 'number', $where);
     }
 
     public function scopeWhereCustomer($query, $where)

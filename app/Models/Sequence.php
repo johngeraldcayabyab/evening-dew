@@ -42,42 +42,42 @@ class Sequence extends Model
 
     public function scopeWhereName($query, $where)
     {
-        return $query->where('name', 'like', "%$where%");
+        return $this->like($query, 'name', $where);
     }
 
     public function scopeWhereSequenceCode($query, $where)
     {
-        return $query->where('sequence_code', 'like', "%$where%");
+        return $this->like($query, 'sequence_code', $where);
     }
 
     public function scopeWhereImplementation($query, $where)
     {
-        return $query->where('implementation', 'like', "%$where%");
+        return $this->like($query, 'implementation', $where);
     }
 
     public function scopeWherePrefix($query, $where)
     {
-        return $query->where('prefix', 'like', "%$where%");
+        return $this->like($query, 'prefix', $where);
     }
 
     public function scopeWhereSuffix($query, $where)
     {
-        return $query->where('suffix', 'like', "%$where%");
+        return $this->like($query, 'suffix', $where);
     }
 
     public function scopeWhereSequenceSize($query, $where)
     {
-        return $query->where('sequence_size', 'like', "%$where%");
+        return $this->like($query, 'sequence_size', $where);
     }
 
     public function scopeWhereStep($query, $where)
     {
-        return $query->where('step', 'like', "%$where%");
+        return $this->like($query, 'step', $where);
     }
 
     public function scopeNextNumber($query, $where)
     {
-        return $query->where('next_number', 'like', "%$where%");
+        return $this->like($query, 'next_number', $where);
     }
 
     public function scopeOrderByName($query, $order)

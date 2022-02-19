@@ -56,12 +56,12 @@ class SalesOrderLine extends Model
 
     public function scopeWhereDescription($query, $where)
     {
-        return $query->where('description', 'like', "%$where%");
+        return $this->like($query, 'description', $where);
     }
 
     public function scopeWhereQuantity($query, $where)
     {
-        return $query->where('quantity', 'like', "%$where%");
+        return $this->like($query, 'quantity', $where);
     }
 
     public function scopeWhereMeasurementId($query, $where)
@@ -71,12 +71,12 @@ class SalesOrderLine extends Model
 
     public function scopeWhereUnitPrice($query, $where)
     {
-        return $query->where('unit_price', 'like', "%$where%");
+        return $this->like($query, 'unit_price', $where);
     }
 
     public function scopeWhereSubtotal($query, $where)
     {
-        return $query->where('subtotal', 'like', "%$where%");
+        return $this->like($query, 'subtotal', $where);
     }
 
     public function scopeWhereSalesOrderId($query, $where)

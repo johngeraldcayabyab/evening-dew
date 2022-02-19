@@ -13,4 +13,9 @@ trait ModelHelperTrait
     {
         return $query->orderBy('created_at', $order);
     }
+
+    public function like($query, $field, $where)
+    {
+        return $query->where($field, 'like', "%$where%");
+    }
 }

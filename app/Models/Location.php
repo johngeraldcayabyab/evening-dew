@@ -48,22 +48,22 @@ class Location extends Model
 
     public function scopeWhereName($query, $where)
     {
-        return $query->where('name', 'like', "%$where%");
+        return $this->like($query, 'name', $where);
     }
 
     public function scopeWhereIsAScrapLocation($query, $where)
     {
-        return $query->where('is_a_scrap_location', 'like', "%$where%");
+        return $this->like($query, 'is_a_scrap_location', $where);
     }
 
     public function scopeWhereIsAReturnLocation($query, $where)
     {
-        return $query->where('is_a_return_location', 'like', "%$where%");
+        return $this->like($query, 'is_a_return_location', $where);
     }
 
     public function scopeWhereType($query, $where)
     {
-        return $query->where('type', 'like', "%$where%");
+        return $this->like($query, 'type', $where);
     }
 
     public function scopeOrderByName($query, $order)
@@ -93,6 +93,6 @@ class Location extends Model
 
     public function scopeWhereWithParents($query, $where)
     {
-        return $query->where('name', 'like', "%$where%");
+        return $this->like($query, 'name', $where);
     }
 }
