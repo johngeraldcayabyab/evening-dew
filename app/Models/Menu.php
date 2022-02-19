@@ -29,12 +29,12 @@ class Menu extends Model
 
     public function scopeWhereLabel($query, $where)
     {
-        return $query->where('label', 'like', "%$where%");
+        return $this->like($query, 'label', $where);
     }
 
     public function scopeWhereUrl($query, $where)
     {
-        return $query->where('url', 'like', "%$where%");
+        return $this->like($query, 'url', $where);
     }
 
     public function scopeWhereParentId($query, $where)

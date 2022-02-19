@@ -62,27 +62,27 @@ class Contact extends Model
 
     public function scopeWhereName($query, $where)
     {
-        return $query->where('name', 'like', "%$where%");
+        return $this->like($query, 'name', $where);
     }
 
     public function scopeWherePhone($query, $where)
     {
-        return $query->where('phone', 'like', "%$where%");
+        return $this->like($query, 'phone', $where);
     }
 
     public function scopeWhereMobile($query, $where)
     {
-        return $query->where('mobile', 'like', "%$where%");
+        return $this->like($query, 'mobile', $where);
     }
 
     public function scopeWhereEmail($query, $where)
     {
-        return $query->where('email', 'like', "%$where%");
+        return $this->like($query, 'email', $where);
     }
 
     public function scopeWhereWebsite($query, $where)
     {
-        return $query->where('website', 'like', "%$where%");
+        return $this->like($query, 'website', $where);
     }
 
     public function scopeWhereTaxId($query, $where)

@@ -77,27 +77,27 @@ class Product extends Model
 
     public function scopeWhereName($query, $where)
     {
-        return $query->where('name', 'like', "%$where%");
+        return $this->like($query, 'name', $where);
     }
 
     public function scopeWhereProductType($query, $where)
     {
-        return $query->where('product_type', 'like', "%$where%");
+        return $this->like($query, 'product_type', $where);
     }
 
     public function scopeWhereInvoicingPolicy($query, $where)
     {
-        return $query->where('invoicing_policy', 'like', "%$where%");
+        return $this->like($query, 'invoicing_policy', $where);
     }
 
     public function scopeWhereCost($query, $where)
     {
-        return $query->where('cost', 'like', "%$where%");
+        return $this->like($query, 'cost', $where);
     }
 
     public function scopeWhereSalesPrice($query, $where)
     {
-        return $query->where('sales_price', 'like', "%$where%");
+        return $this->like($query, 'sales_price', $where);
     }
 
     public function scopeWhereMeasurement($query, $where)
@@ -130,17 +130,17 @@ class Product extends Model
 
     public function scopeWhereInternalReference($query, $where)
     {
-        return $query->where('internal_reference', 'like', "%$where%");
+        return $this->like($query, 'internal_reference', $where);
     }
 
     public function scopeWhereSalesDescription($query, $where)
     {
-        return $query->where('sales_description', 'like', "%$where%");
+        return $this->like($query, 'sales_description', $where);
     }
 
     public function scopeWherePurchaseDescription($query, $where)
     {
-        return $query->where('purchase_description', 'like', "%$where%");
+        return $this->like($query, 'purchase_description', $where);
     }
 
     public function scopeWhereMeasurementId($query, $where)

@@ -34,7 +34,7 @@ class ProductCategory extends Model
 
     public function scopeWhereCategory($query, $where)
     {
-        return $query->where('category', 'like', "%$where%");
+        return $this->like($query, 'category', $where);
     }
 
     public function scopeOrderByCategory($query, $order)
@@ -49,6 +49,6 @@ class ProductCategory extends Model
 
     public function scopeWhereWithParents($query, $where)
     {
-        return $query->where('category', 'like', "%$where%");
+        return $this->like($query, 'category', $where);
     }
 }

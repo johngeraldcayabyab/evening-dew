@@ -141,22 +141,22 @@ class Warehouse extends Model
 
     public function scopeWhereName($query, $where)
     {
-        return $query->where('name', 'like', "%$where%");
+        return $this->like($query, 'name', $where);
     }
 
     public function scopeWhereShortName($query, $where)
     {
-        return $query->where('short_name', 'like', "%$where%");
+        return $this->like($query, 'short_name', $where);
     }
 
     public function scopeWhereManufactureToResupply($query, $where)
     {
-        return $query->where('manufacture_to_resupply', 'like', "%$where%");
+        return $this->like($query, 'manufacture_to_resupply', $where);
     }
 
     public function scopeWhereBuyToResupply($query, $where)
     {
-        return $query->where('buy_to_resupply', 'like', "%$where%");
+        return $this->like($query, 'buy_to_resupply', $where);
     }
 
     public function scopeWhereViewLocationId($query, $where)

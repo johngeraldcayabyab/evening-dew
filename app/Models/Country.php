@@ -37,7 +37,7 @@ class Country extends Model
 
     public function scopeWhereCountryName($query, $where)
     {
-        return $query->where('country_name', 'like', "%$where%");
+        return $this->like($query, 'country_name', $where);
     }
 
     public function scopeWhereCurrency($query, $where)
@@ -49,17 +49,17 @@ class Country extends Model
 
     public function scopeWhereCountryCode($query, $where)
     {
-        return $query->where('country_code', 'like', "%$where%");
+        return $this->like($query, 'country_code', $where);
     }
 
     public function scopeWhereCountryCallingCode($query, $where)
     {
-        return $query->where('country_calling_code', 'like', "%$where%");
+        return $this->like($query, 'country_calling_code', $where);
     }
 
     public function scopeWhereVatLabel($query, $where)
     {
-        return $query->where('vat_label', 'like', "%$where%");
+        return $this->like($query, 'vat_label', $where);
     }
 
     public function scopeWhereCurrencyId($query, $where)
