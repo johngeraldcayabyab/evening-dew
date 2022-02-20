@@ -72,9 +72,7 @@ class Measurement extends Model
 
     public function scopeWhereMeasurementCategory($query, $where)
     {
-        return $query->whereHas('measurementCategory', function ($query) use ($where) {
-            return $query->where('name', 'like', "%$where%");
-        });
+        return $this->likeHas($query, 'measurementCategory', 'name', $where);
     }
 
     public function scopeWhereMeasurementCategoryId($query, $where)

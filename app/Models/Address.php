@@ -88,16 +88,12 @@ class Address extends Model
 
     public function scopeWhereCountry($query, $where)
     {
-        return $query->whereHas('country', function ($query) use ($where) {
-            return $query->where('country_name', 'like', "%$where%");
-        });
+        return $this->likeHas($query, 'country', 'country_name', $where);
     }
 
     public function scopeWhereContact($query, $where)
     {
-        return $query->whereHas('contact', function ($query) use ($where) {
-            return $query->where('name', 'like', "%$where%");
-        });
+        return $this->likeHas($query, 'contact', 'name', $where);
     }
 
     public function scopeWhereType($query, $where)

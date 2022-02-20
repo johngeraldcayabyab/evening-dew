@@ -121,23 +121,17 @@ class SalesOrderLine extends Model
 
     public function scopeWhereProduct($query, $where)
     {
-        return $query->whereHas('product', function ($query) use ($where) {
-            return $query->where('name', 'like', "%$where%");
-        });
+        return $this->likeHas($query, 'product', 'name', $where);
     }
 
     public function scopeWhereMeasurement($query, $where)
     {
-        return $query->whereHas('measurement', function ($query) use ($where) {
-            return $query->where('name', 'like', "%$where%");
-        });
+        return $this->likeHas($query, 'measurement', 'name', $where);
     }
 
     public function scopeWhereSalesOrder($query, $where)
     {
-        return $query->whereHas('salesOrder', function ($query) use ($where) {
-            return $query->where('number', 'like', "%$where%");
-        });
+        return $this->likeHas($query, 'salesOrder', 'name', $where);
     }
 
     public function scopeOrderByProduct($query, $order)
