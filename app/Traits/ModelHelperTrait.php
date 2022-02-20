@@ -18,4 +18,11 @@ trait ModelHelperTrait
     {
         return $query->where($field, 'like', "%$where%");
     }
+
+    public function likeHas($query, $has, $field, $where)
+    {
+        return $query->whereHas($has, function ($query) use ($field, $where) {
+            return $query->where($field, 'like', "%$where%");
+        });
+    }
 }

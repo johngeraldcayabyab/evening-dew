@@ -243,37 +243,27 @@ class OperationType extends Model
 
     public function scopeWhereReferenceSequence($query, $where)
     {
-        return $query->whereHas('referenceSequence', function ($query) use ($where) {
-            return $query->where('name', 'like', "%$where%");
-        });
+        return $this->likeHas($query, 'referenceSequence', 'name', $where);
     }
 
     public function scopeWhereWarehouse($query, $where)
     {
-        return $query->whereHas('warehouse', function ($query) use ($where) {
-            return $query->where('name', 'like', "%$where%");
-        });
+        return $this->likeHas($query, 'warehouse', 'name', $where);
     }
 
     public function scopeWhereOperationTypeForReturns($query, $where)
     {
-        return $query->whereHas('operationTypeForReturns', function ($query) use ($where) {
-            return $query->where('name', 'like', "%$where%");
-        });
+        return $this->likeHas($query, 'operationTypeForReturns', 'name', $where);
     }
 
     public function scopeWhereDefaultSourceLocation($query, $where)
     {
-        return $query->whereHas('defaultSourceLocation', function ($query) use ($where) {
-            return $query->where('name', 'like', "%$where%");
-        });
+        return $this->likeHas($query, 'defaultSourceLocation', 'name', $where);
     }
 
     public function scopeWhereDefaultDestinationLocation($query, $where)
     {
-        return $query->whereHas('defaultDestinationLocation', function ($query) use ($where) {
-            return $query->where('name', 'like', "%$where%");
-        });
+        return $this->likeHas($query, 'defaultDestinationLocation', 'name', $where);
     }
 
     public function scopeOrderReferenceSequence($query, $order)

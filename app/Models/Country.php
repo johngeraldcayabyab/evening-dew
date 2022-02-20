@@ -35,16 +35,14 @@ class Country extends Model
         return $this->belongsTo(Currency::class);
     }
 
+    public function scopeWhereCurrency($query, $where)
+    {
+        return $this->likeHas($query, 'currency', 'currency', $where);
+    }
+
     public function scopeWhereCountryName($query, $where)
     {
         return $this->like($query, 'country_name', $where);
-    }
-
-    public function scopeWhereCurrency($query, $where)
-    {
-        return $query->whereHas('currency', function ($query) use ($where) {
-            return $query->where('currency', 'like', "%$where%");
-        });
     }
 
     public function scopeWhereCountryCode($query, $where)
