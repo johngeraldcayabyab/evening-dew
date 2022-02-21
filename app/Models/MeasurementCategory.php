@@ -38,7 +38,7 @@ class MeasurementCategory extends Model
 
     public function scopeWhereName($query, $where)
     {
-        return $this->like($query, 'name', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeOrderByName($query, $order)

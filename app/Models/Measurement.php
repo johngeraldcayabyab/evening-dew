@@ -52,22 +52,22 @@ class Measurement extends Model
 
     public function scopeWhereName($query, $where)
     {
-        return $this->like($query, 'name', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereType($query, $where)
     {
-        return $this->like($query, 'type', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereRatio($query, $where)
     {
-        return $this->like($query, 'ratio', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereRoundingPrecision($query, $where)
     {
-        return $this->like($query, 'rounding_precision', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereMeasurementCategory($query, $where)

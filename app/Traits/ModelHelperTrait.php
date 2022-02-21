@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Str;
+
 trait ModelHelperTrait
 {
     public function scopeMassDelete($query, $ids)
@@ -14,9 +16,10 @@ trait ModelHelperTrait
         return $query->orderBy('created_at', $order);
     }
 
-    public function like($query, $field, $where)
+    public function like($query, $methodName, $where)
     {
-        return $query->where($field, 'like', "%$where%");
+        $methodName = Str::snake(Str::replace('scopeWhere', $methodName, 'scopeWhereName'));
+        return $query->where($methodName, 'like', "%$where%");
     }
 
     public function likeHas($query, $has, $field, $where)

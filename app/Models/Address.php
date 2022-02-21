@@ -58,32 +58,32 @@ class Address extends Model
 
     public function scopeWhereAddressName($query, $where)
     {
-        return $this->like($query, 'address_name', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereStreet1($query, $where)
     {
-        return $this->like($query, 'street_1', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereStreet2($query, $where)
     {
-        return $this->like($query, 'street_2', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereCity($query, $where)
     {
-        return $this->like($query, 'city', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereState($query, $where)
     {
-        return $this->like($query, 'state', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereZip($query, $where)
     {
-        return $this->like($query, 'zip', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereCountry($query, $where)
@@ -98,7 +98,7 @@ class Address extends Model
 
     public function scopeWhereType($query, $where)
     {
-        return $this->like($query, 'type', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereCountryId($query, $where)

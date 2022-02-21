@@ -93,7 +93,7 @@ class OperationType extends Model
 
     public function scopeWhereName($query, $where)
     {
-        return $this->like($query, 'name', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereReferenceSequenceId($query, $where)
@@ -103,7 +103,7 @@ class OperationType extends Model
 
     public function scopeWhereCode($query, $where)
     {
-        return $this->like($query, 'code', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereWarehouseId($query, $where)
@@ -113,12 +113,12 @@ class OperationType extends Model
 
     public function scopeWhereReservationMethod($query, $where)
     {
-        return $this->like($query, 'reservation_method', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereType($query, $where)
     {
-        return $this->like($query, 'type', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereOperationTypeForReturnsId($query, $where)
@@ -138,12 +138,12 @@ class OperationType extends Model
 
     public function scopeWhereReservationDaysBefore($query, $where)
     {
-        return $this->like($query, 'reservation_days_before', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereReservationDaysBeforePriority($query, $where)
     {
-        return $this->like($query, 'reservation_days_before_priority', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereCreateNewLotsSerialNumbers($query, $where)

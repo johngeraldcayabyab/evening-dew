@@ -42,22 +42,22 @@ class Country extends Model
 
     public function scopeWhereCountryName($query, $where)
     {
-        return $this->like($query, 'country_name', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereCountryCode($query, $where)
     {
-        return $this->like($query, 'country_code', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereCountryCallingCode($query, $where)
     {
-        return $this->like($query, 'country_calling_code', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereVatLabel($query, $where)
     {
-        return $this->like($query, 'vat_label', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereCurrencyId($query, $where)
