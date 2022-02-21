@@ -39,12 +39,12 @@ class User extends Authenticatable
 
     public function scopeWhereName($query, $where)
     {
-        return $this->like($query, 'name', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereEmail($query, $where)
     {
-        return $this->like($query, 'email', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeOrderByName($query, $order)

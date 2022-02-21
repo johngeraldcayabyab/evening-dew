@@ -47,42 +47,42 @@ class Currency extends Model
 
     public function scopeWhereCurrency($query, $where)
     {
-        return $this->like($query, 'currency', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereName($query, $where)
     {
-        return $this->like($query, 'name', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereUnit($query, $where)
     {
-        return $this->like($query, 'unit', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereSubUnit($query, $where)
     {
-        return $this->like($query, 'sub_unit', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereRoundingFactor($query, $where)
     {
-        return $this->like($query, 'rounding_factor', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereDecimalPlaces($query, $where)
     {
-        return $this->like($query, 'decimal_places', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereSymbol($query, $where)
     {
-        return $this->like($query, 'symbol', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereSymbolPosition($query, $where)
     {
-        return $this->like($query, 'symbol_position', $where);
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeOrderByCurrency($query, $order)
