@@ -11,7 +11,7 @@ class ProductCategoryResource extends JsonResource
         return [
             'id' => $this->id,
             'category' => $this->category,
-            'with_parents' => $this->with_parents,
+            'parents' => $this->getWithParents('category'),
             'parent_product_category_id' => $this->parent_product_category_id,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
         ];

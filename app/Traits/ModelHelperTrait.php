@@ -31,7 +31,7 @@ trait ModelHelperTrait
 
     public function order($query, $methodName, $order)
     {
-        return $query->orderBy($this->getField('scopeOrderBy', $methodName), $order);
+        return $query->orderBy($this->getField($methodName, 'scopeOrderBy'), $order);
     }
 
     public function orderHas($query, $has, $field, $foreignKey, $order)
@@ -45,6 +45,6 @@ trait ModelHelperTrait
 
     private function getField($scopeName, $functionName)
     {
-        return Str::snake(Str::replace($scopeName, '', $functionName));
+        return Str::snake(Str::replace($functionName, '', $scopeName));
     }
 }

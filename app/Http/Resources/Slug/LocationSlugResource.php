@@ -12,7 +12,7 @@ class LocationSlugResource extends JsonResource
         return [
             'id' => $this->id,
             'key' => Str::uuid(),
-            'slug' => $this->with_parents
+            'slug' => $this->getWithParents('name')
         ];
     }
 }
