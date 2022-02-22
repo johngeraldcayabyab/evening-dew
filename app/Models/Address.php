@@ -103,12 +103,12 @@ class Address extends Model
 
     public function scopeWhereCountryId($query, $where)
     {
-        return $query->where('country_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereContactId($query, $where)
     {
-        return $query->where('contact_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeOrderByAddressName($query, $order)

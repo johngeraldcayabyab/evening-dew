@@ -137,22 +137,22 @@ class Product extends Model
 
     public function scopeWhereMeasurementId($query, $where)
     {
-        return $query->where('measurement_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWherePurchaseMeasurementId($query, $where)
     {
-        return $query->where('purchase_measurement_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereSalesMeasurementId($query, $where)
     {
-        return $query->where('sales_measurement_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereProductCategoryId($query, $where)
     {
-        return $query->where('product_category_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeOrderByName($query, $order)

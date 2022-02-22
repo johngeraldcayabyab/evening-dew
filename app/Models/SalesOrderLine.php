@@ -51,7 +51,7 @@ class SalesOrderLine extends Model
 
     public function scopeWhereProductId($query, $where)
     {
-        return $query->where('product_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereDescription($query, $where)
@@ -66,7 +66,7 @@ class SalesOrderLine extends Model
 
     public function scopeWhereMeasurementId($query, $where)
     {
-        return $query->where('measurement_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereUnitPrice($query, $where)
@@ -81,7 +81,7 @@ class SalesOrderLine extends Model
 
     public function scopeWhereSalesOrderId($query, $where)
     {
-        return $query->where('sales_order_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeOrderByProductId($query, $order)
