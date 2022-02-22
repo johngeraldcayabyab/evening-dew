@@ -111,53 +111,58 @@ class Address extends Model
         return $query->where('contact_id', $where);
     }
 
+    public function scopeOrderByAddressName($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
     public function scopeOrderByStreet1($query, $order)
     {
-        return $query->orderBy('street_1', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByStreet2($query, $order)
     {
-        return $query->orderBy('street_2', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByCity($query, $order)
     {
-        return $query->orderBy('city', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByState($query, $order)
     {
-        return $query->orderBy('state', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByZip($query, $order)
     {
-        return $query->orderBy('zip', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByCountry($query, $order)
     {
-        return $query->orderBy(Country::select('country_name')->whereColumn('countries.id', 'addresses.country_id'), $order);
+        return $this->orderHas($query, new Country(), 'country_name', "country_id", $order);
     }
 
     public function scopeOrderByContact($query, $order)
     {
-        return $query->orderBy(Contact::select('name')->whereColumn('contacts.id', 'addresses.contact_id'), $order);
+        return $this->orderHas($query, new Contact(), 'name', "contact_id", $order);
     }
 
     public function scopeOrderByType($query, $order)
     {
-        return $query->orderBy('type', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeCountryId($query, $order)
     {
-        return $query->orderBy('country_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByContactId($query, $order)
     {
-        return $query->orderBy('contact_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 }

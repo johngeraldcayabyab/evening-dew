@@ -86,37 +86,37 @@ class SalesOrderLine extends Model
 
     public function scopeOrderByProductId($query, $order)
     {
-        return $query->orderBy('product_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByDescription($query, $order)
     {
-        return $query->orderBy('description', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByQuantity($query, $order)
     {
-        return $query->orderBy('quantity', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByMeasurementId($query, $order)
     {
-        return $query->orderBy('measurement_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByUnitPrice($query, $order)
     {
-        return $query->orderBy('unit_price', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderBySubtotal($query, $order)
     {
-        return $query->orderBy('subtotal', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderBySalesOrderId($query, $order)
     {
-        return $query->orderBy('sales_order_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeWhereProduct($query, $where)
@@ -136,17 +136,17 @@ class SalesOrderLine extends Model
 
     public function scopeOrderByProduct($query, $order)
     {
-        return $query->orderBy(Product::select('name')->whereColumn('products.id', 'sales_order_lines.product_id'), $order);
+        return $this->orderHas($query, new Product(), 'name', "product_id", $order);
     }
 
     public function scopeOrderByMeasurement($query, $order)
     {
-        return $query->orderBy(Measurement::select('name')->whereColumn('measurements.id', 'sales_order_lines.measurement_id'), $order);
+        return $this->orderHas($query, new Measurement(), 'name', "measurement_id", $order);
     }
 
     public function scopeOrderBySalesOrder($query, $order)
     {
-        return $query->orderBy(SalesOrder::select('number')->whereColumn('sales_orders.id', 'sales_order_lines.sales_order_id'), $order);
+        return $this->orderHas($query, new SalesOrder(), 'number', "sales_order_id", $order);
     }
 
     public function scopeInsertMany($query, $data, $salesOrderId)

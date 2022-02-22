@@ -11,7 +11,7 @@ import TableSearchInput from "../components/TableSearchInput";
 const AddressList = () => {
     const [tableState, tableActions, columns] = useListState(manifest, [
             {
-                title: 'Country Name',
+                title: 'Address Name',
                 dataIndex: 'address_name',
                 key: 'address_name',
                 sorter: true,
@@ -37,6 +37,19 @@ const AddressList = () => {
                 key: 'type',
                 sorter: true,
                 searchFilter: true,
+            },
+            {
+                title: 'Country',
+                dataIndex: 'country',
+                key: 'country',
+                sorter: true,
+                searchFilter: true,
+                render: (text, record) => {
+                    if (record.country) {
+                        return record.country.country_name;
+                    }
+                    return null;
+                }
             },
             {
                 title: 'Created At',

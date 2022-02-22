@@ -157,81 +157,81 @@ class Product extends Model
 
     public function scopeOrderByName($query, $order)
     {
-        return $query->orderBy('name', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByProductType($query, $order)
     {
-        return $query->orderBy('type', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByInvoicingPolicy($query, $order)
     {
-        return $query->orderBy('invoicing_policy', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByCost($query, $order)
     {
-        return $query->orderBy('cost', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderBySalesPrice($query, $order)
     {
-        return $query->orderBy('sales_price', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByMeasurement($query, $order)
     {
-        return $query->orderBy(Measurement::select('name')->whereColumn('measurements.id', 'products.measurement_id'), $order);
+        return $this->orderHas($query, new Measurement(), 'name', "measurement_id", $order);
     }
 
     public function scopeOrderByPurchaseMeasurement($query, $order)
     {
-        return $query->orderBy(Measurement::select('name')->whereColumn('measurements.id', 'products.measurement_id'), $order);
+        return $this->orderHas($query, new Measurement(), 'name', "measurement_id", $order);
     }
 
     public function scopeOrderBySalesMeasurement($query, $order)
     {
-        return $query->orderBy(Measurement::select('name')->whereColumn('measurements.id', 'products.measurement_id'), $order);
+        return $this->orderHas($query, new Measurement(), 'name', "measurement_id", $order);
     }
 
     public function scopeOrderByProductCategory($query, $order)
     {
-        return $query->orderBy(ProductCategory::select('category')->whereColumn('product_categories.id', 'products.product_category_id'), $order);
+        return $this->orderHas($query, new ProductCategory(), 'category', "product_category_id", $order);
     }
 
     public function scopeOrderByInternalReference($query, $order)
     {
-        return $query->orderBy('internal_references', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderBySalesDescription($query, $order)
     {
-        return $query->orderBy('sales_description', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByPurchaseDescription($query, $order)
     {
-        return $query->orderBy('purchase_description', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByMeasurementId($query, $order)
     {
-        return $query->orderBy('measurement_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByPurchaseMeasurementId($query, $order)
     {
-        return $query->orderBy('purchase_measurement_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderBySalesMeasurementId($query, $order)
     {
-        return $query->orderBy('sales_measurement_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByProductCategoryId($query, $order)
     {
-        return $query->orderBy('product_category_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 }

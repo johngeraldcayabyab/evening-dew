@@ -67,31 +67,31 @@ class Country extends Model
 
     public function scopeOrderByCountryName($query, $order)
     {
-        return $query->orderBy('country_name', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByCurrency($query, $order)
     {
-        return $query->orderBy(Currency::select('currency')->whereColumn('currencies.id', 'countries.currency_id'), $order);
+        return $this->orderHas($query, new Currency(), 'currency', "currency_id", $order);
     }
 
     public function scopeOrderByCountryCode($query, $order)
     {
-        return $query->orderBy('country_code', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByCountryCallingCode($query, $order)
     {
-        return $query->orderBy('country_calling_code', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByVatLabel($query, $order)
     {
-        return $query->orderBy('vat_label', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByCurrencyId($query, $order)
     {
-        return $query->orderBy('currency_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 }

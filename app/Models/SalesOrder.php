@@ -105,46 +105,46 @@ class SalesOrder extends Model
 
     public function scopeOrderByNumber($query, $order)
     {
-        return $query->orderBy('number', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByCustomer($query, $order)
     {
-        return $query->orderBy(Contact::select('name')->whereColumn('contacts.id', 'sales_orders.customer_id'), $order);
+        return $this->orderHas($query, new Contact(), 'name', "customer_id", $order);
     }
 
     public function scopeOrderByInvoiceAddress($query, $order)
     {
-        return $query->orderBy(Address::select('address_name')->whereColumn('addresses.id', 'sales_orders.invoice_address_id'), $order);
+        return $this->orderHas($query, new Address(), 'address_name', "invoice_address_id", $order);
     }
 
     public function scopeOrderByDeliveryAddress($query, $order)
     {
-        return $query->orderBy(Address::select('address_name')->whereColumn('addresses.id', 'sales_orders.delivery_address_id'), $order);
+        return $this->orderHas($query, new Address(), 'address_name', "delivery_address_id", $order);
     }
 
     public function scopeOrderByPaymentTerm($query, $order)
     {
-        return $query->orderBy(PaymentTerm::select('name')->whereColumn('payment_terms.id', 'sales_orders.payment_term_id'), $order);
+        return $this->orderHas($query, new PaymentTerm(), 'name', "payment_term_id", $order);
     }
 
     public function scopeOrderByCustomerId($query, $order)
     {
-        return $query->orderBy('customer_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByInvoiceAddressId($query, $order)
     {
-        return $query->orderBy('invoice_address_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByDeliveryAddressId($query, $order)
     {
-        return $query->orderBy('delivery_address_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByPaymentTermId($query, $order)
     {
-        return $query->orderBy('payment_term_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 }

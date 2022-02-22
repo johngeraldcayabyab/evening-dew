@@ -168,77 +168,77 @@ class OperationType extends Model
 
     public function scopeOrderByName($query, $order)
     {
-        return $query->orderBy('name', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByReferenceSequenceId($query, $order)
     {
-        return $query->orderBy('reference_sequence_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByCode($query, $order)
     {
-        return $query->orderBy('code', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByWarehouseId($query, $order)
     {
-        return $query->orderBy('warehouse_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByReservationMethod($query, $order)
     {
-        return $query->orderBy('reservation_method', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByType($query, $order)
     {
-        return $query->orderBy('type', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByOperationTypeForReturnsId($query, $order)
     {
-        return $query->orderBy('operation_type_for_returns_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByShowDetailedOperation($query, $order)
     {
-        return $query->orderBy('show_detailed_operation', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByPreFillDetailedOperation($query, $order)
     {
-        return $query->orderBy('pre_fill_detailed_operation', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByReservationDaysBefore($query, $order)
     {
-        return $query->orderBy('reservation_days_before', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByReservationDaysBeforePriority($query, $order)
     {
-        return $query->orderBy('reservation_days_before_priority', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderCreateNewLotsSerialNumbers($query, $order)
     {
-        return $query->orderBy('create_new_lots_serial_numbers', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByUseExistingLotsSerialNumbers($query, $order)
     {
-        return $query->orderBy('use_existing_lots_serial_numbers', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByDefaultSourceLocationId($query, $order)
     {
-        return $query->orderBy('default_source_location_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByDefaultDestinationLocationId($query, $order)
     {
-        return $query->orderBy('default_destination_location_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeWhereReferenceSequence($query, $where)
@@ -266,28 +266,28 @@ class OperationType extends Model
         return $this->likeHas($query, 'defaultDestinationLocation', 'name', $where);
     }
 
-    public function scopeOrderReferenceSequence($query, $order)
+    public function scopeOrderByReferenceSequence($query, $order)
     {
-        return $query->orderBy(Sequence::select('name')->whereColumn('sequences.id', 'operations_types.reference_sequence_id'), $order);
+        return $this->orderHas($query, new Sequence(), 'name', "reference_sequence_id", $order);
     }
 
     public function scopeOrderByWarehouse($query, $order)
     {
-        return $query->orderBy(Warehouse::select('name')->whereColumn('warehouses.id', 'operations_types.warehouse_id'), $order);
+        return $this->orderHas($query, new Warehouse(), 'name', "warehouse_id", $order);
     }
 
     public function scopeOrderByOperationTypeForReturns($query, $order)
     {
-        return $query->orderBy(OperationType::select('name')->whereColumn('operations_types.id', 'operations_types.operation_type_for_returns_id'), $order);
+        return $this->orderHas($query, new OperationType(), 'name', "operation_type_for_returns_id", $order);
     }
 
     public function scopeOrderByDefaultSourceLocation($query, $order)
     {
-        return $query->orderBy(Location::select('name')->whereColumn('locations.id', 'operations_types.default_source_location_id'), $order);
+        return $this->orderHas($query, new Location(), 'name', "default_source_location_id", $order);
     }
 
     public function scopeOrderByDefaultDestinationLocation($query, $order)
     {
-        return $query->orderBy(Location::select('name')->whereColumn('locations.id', 'operations_types.default_destination_location_id'), $order);
+        return $this->orderHas($query, new Location(), 'name', "default_destination_location_id", $order);
     }
 }

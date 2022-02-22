@@ -241,102 +241,102 @@ class Warehouse extends Model
 
     public function scopeOrderByName($query, $order)
     {
-        return $query->orderBy('name', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByShortName($query, $order)
     {
-        return $query->orderBy('short_name', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByManufactureToResupply($query, $order)
     {
-        return $query->orderBy('manufacture_to_resupply', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByBuyToResupply($query, $order)
     {
-        return $query->orderBy('buy_to_resupply', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByViewLocationId($query, $order)
     {
-        return $query->orderBy('view_location_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByStockLocationId($query, $order)
     {
-        return $query->orderBy('stock_location_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByInputLocationId($query, $order)
     {
-        return $query->orderBy('input_location_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByQualityControlLocationId($query, $order)
     {
-        return $query->orderBy('quality_control_location_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByPackingLocationId($query, $order)
     {
-        return $query->orderBy('packing_location_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByOutputLocationId($query, $order)
     {
-        return $query->orderBy('output_location_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByStockAfterManufacturingLocationId($query, $order)
     {
-        return $query->orderBy('stock_after_manufacturing_location_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByPickingBeforeManufacturingLocationId($query, $order)
     {
-        return $query->orderBy('picking_before_manufacturing_location_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByInTypeId($query, $order)
     {
-        return $query->orderBy('in_type_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByInternalTypeId($query, $order)
     {
-        return $query->orderBy('internal_type_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByPickTypeId($query, $order)
     {
-        return $query->orderBy('pick_type_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByPackTypeId($query, $order)
     {
-        return $query->orderBy('pack_type_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByOutTypeId($query, $order)
     {
-        return $query->orderBy('out_type_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByStockAfterManufacturingOperationTypeId($query, $order)
     {
-        return $query->orderBy('stock_after_manufacturing_operation_type_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByPickingBeforeManufacturingOperationTypeId($query, $order)
     {
-        return $query->orderBy('picking_before_manufacturing_operation_type_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByManufacturingOperationTypeId($query, $order)
     {
-        return $query->orderBy('manufacturing_operation_type_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeWhereViewLocation($query, $where)
@@ -421,81 +421,81 @@ class Warehouse extends Model
 
     public function scopeOrderByViewLocation($query, $order)
     {
-        return $query->orderBy(Location::select('name')->whereColumn('locations.id', 'warehouses.view_location_id'), $order);
+        return $this->orderHas($query, new Location(), 'name', "view_location_id", $order);
     }
 
     public function scopeOrderByStockLocation($query, $order)
     {
-        return $query->orderBy(Location::select('name')->whereColumn('locations.id', 'warehouses.stock_location_id'), $order);
+        return $this->orderHas($query, new Location(), 'name', "stock_location_id", $order);
     }
 
     public function scopeOrderByInputLocation($query, $order)
     {
-        return $query->orderBy(Location::select('name')->whereColumn('locations.id', 'warehouses.input_location_id'), $order);
+        return $this->orderHas($query, new Location(), 'name', "input_location_id", $order);
     }
 
     public function scopeOrderByQualityControlLocation($query, $order)
     {
-        return $query->orderBy(Location::select('name')->whereColumn('locations.id', 'warehouses.quality_control_location_id'), $order);
+        return $this->orderHas($query, new Location(), 'name', "quality_control_location_id", $order);
     }
 
     public function scopeOrderByPackingLocation($query, $order)
     {
-        return $query->orderBy(Location::select('name')->whereColumn('locations.id', 'warehouses.packing_location_id'), $order);
+        return $this->orderHas($query, new Location(), 'name', "packing_location_id", $order);
     }
 
     public function scopeOrderByOutputLocation($query, $order)
     {
-        return $query->orderBy(Location::select('name')->whereColumn('locations.id', 'warehouses.output_location_id'), $order);
+        return $this->orderHas($query, new Location(), 'name', "output_location_id", $order);
     }
 
     public function scopeOrderByStockAfterManufacturingLocation($query, $order)
     {
-        return $query->orderBy(Location::select('name')->whereColumn('locations.id', 'warehouses.stock_after_manufacturing_location_id'), $order);
+        return $this->orderHas($query, new Location(), 'name', "stock_after_manufacturing_location_id", $order);
     }
 
     public function scopeOrderByPickingBeforeManufacturingLocation($query, $order)
     {
-        return $query->orderBy(Location::select('name')->whereColumn('locations.id', 'warehouses.picking_before_manufacturing_location_id'), $order);
+        return $this->orderHas($query, new Location(), 'name', "picking_before_manufacturing_location_id", $order);
     }
 
     public function scopeOrderByInType($query, $order)
     {
-        return $query->orderBy(OperationType::select('name')->whereColumn('operations_types.id', 'warehouses.in_type_id'), $order);
+        return $this->orderHas($query, new OperationType(), 'name', "in_type_id", $order);
     }
 
     public function scopeOrderByInternalType($query, $order)
     {
-        return $query->orderBy(OperationType::select('name')->whereColumn('operations_types.id', 'warehouses.internal_type_id'), $order);
+        return $this->orderHas($query, new OperationType(), 'name', "internal_type_id", $order);
     }
 
     public function scopeOrderByPickType($query, $order)
     {
-        return $query->orderBy(OperationType::select('name')->whereColumn('operations_types.id', 'warehouses.pick_type_id'), $order);
+        return $this->orderHas($query, new OperationType(), 'name', "pick_type_id", $order);
     }
 
     public function scopeOrderByPackType($query, $order)
     {
-        return $query->orderBy(OperationType::select('name')->whereColumn('operations_types.id', 'warehouses.pack_type_id'), $order);
+        return $this->orderHas($query, new OperationType(), 'name', "pack_type_id", $order);
     }
 
     public function scopeOrderByOutType($query, $order)
     {
-        return $query->orderBy(OperationType::select('name')->whereColumn('operations_types.id', 'warehouses.out_type_id'), $order);
+        return $this->orderHas($query, new OperationType(), 'name', "out_type_id", $order);
     }
 
     public function scopeOrderByStockAfterManufacturing($query, $order)
     {
-        return $query->orderBy(OperationType::select('name')->whereColumn('operations_types.id', 'warehouses.stock_after_manufacturing_operation_type_id'), $order);
+        return $this->orderHas($query, new OperationType(), 'name', "stock_after_manufacturing_operation_type_id", $order);
     }
 
     public function scopeOrderByPickingBeforeManufacturing($query, $order)
     {
-        return $query->orderBy(OperationType::select('name')->whereColumn('operations_types.id', 'warehouses.picking_before_manufacturing_operation_type_id'), $order);
+        return $this->orderHas($query, new OperationType(), 'name', "picking_before_manufacturing_operation_type_id", $order);
     }
 
     public function scopeOrderByManufacturingOperationType($query, $order)
     {
-        return $query->orderBy(OperationType::select('name')->whereColumn('operations_types.id', 'warehouses.manufacturing_operation_type_id'), $order);
+        return $this->orderHas($query, new OperationType(), 'name', "manufacturing_operation_type_id", $order);
     }
 }
