@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Data\SystemSetting;
 use Illuminate\Support\Str;
+use ReflectionClass;
 
 trait ControllerHelperTrait
 {
@@ -26,12 +27,21 @@ trait ControllerHelperTrait
 
     public function searchThenSort($model, $request)
     {
-        $searchableAndSortableFields = $model->getSearchableAndSortableFields();
-        $searchableFields = $searchableAndSortableFields;
-        $sortableFields = $searchableFields;
-        $sortableFields[] = 'created_at';
-        $model = $this->search($model, $request, $searchableFields);
-        return $this->sort($model, $request, $sortableFields);
+        $f = new ReflectionClass($model);
+        $searchable = [];
+        $sortable = [];
+        foreach ($f->getMethods() as $m) {
+            if ($m->class == get_class($model)) {
+                if (Str::contains($m->name, 'scopeWhere')) {
+                    $searchable[] = Str::snake(Str::replace('scopeWhere', '', $m->name));
+                } elseif (Str::contains($m->name, 'scopeOrderBy')) {
+                    $sortable[] = Str::snake(Str::replace('scopeOrderBy', '', $m->name));
+                }
+            }
+        }
+        $model = $this->search($model, $request, $searchable);
+        $model = $this->sort($model, $request, $sortable);
+        return $model;
     }
 
     private function search($model, $request, $fields = [])

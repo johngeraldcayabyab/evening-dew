@@ -18,22 +18,6 @@ class SalesOrderLine extends Model
     protected $table = 'sales_order_lines';
     protected $guarded = [];
 
-    public function getSearchableAndSortableFields()
-    {
-        return [
-            'product_id',
-            'product',
-            'description',
-            'quantity',
-            'measurement_id',
-            'measurement',
-            'unit_price',
-            'subtotal',
-            'sales_order_id',
-            'sales_order',
-        ];
-    }
-
     public function salesOrder()
     {
         return $this->belongsTo(SalesOrder::class);

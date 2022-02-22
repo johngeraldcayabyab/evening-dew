@@ -18,13 +18,6 @@ class PaymentTerm extends Model
     protected $table = 'payment_terms';
     protected $guarded = [];
 
-    public function getSearchableAndSortableFields()
-    {
-        return [
-            'name',
-        ];
-    }
-
     public function scopeWhereName($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);

@@ -19,13 +19,6 @@ class MeasurementCategory extends Model
     protected $table = 'measurement_categories';
     protected $guarded = [];
 
-    public function getSearchableAndSortableFields()
-    {
-        return [
-            'name',
-        ];
-    }
-
     protected static function newFactory()
     {
         return MeasurementCategoryFactory::new();

@@ -18,21 +18,6 @@ class SalesOrder extends Model
     protected $table = 'sales_orders';
     protected $guarded = [];
 
-    public function getSearchableAndSortableFields()
-    {
-        return [
-            'number',
-            'customer',
-            'invoice_address',
-            'delivery_address',
-            'payment_term',
-            'customer_id',
-            'invoice_address_id',
-            'delivery_address_id',
-            'payment_term_id'
-        ];
-    }
-
     public function customer()
     {
         return $this->belongsTo(Contact::class, 'customer_id', 'id');

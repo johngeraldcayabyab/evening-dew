@@ -25,26 +25,6 @@ class Product extends Model
     protected $table = 'products';
     protected $guarded = [];
 
-    public function getSearchableAndSortableFields()
-    {
-        return [
-            'name',
-            'product_type',
-            'invoicing_policy',
-            'cost',
-            'sales_price',
-            'measurement',
-            'purchase_measurement',
-            'sales_measurement',
-            'product_category',
-            'internal_reference',
-            'measurement_id',
-            'purchase_measurement_id',
-            'sales_measurement_id',
-            'product_category_id',
-        ];
-    }
-
     public function measurement()
     {
         return $this->belongsTo(Measurement::class);

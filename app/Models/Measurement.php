@@ -23,18 +23,6 @@ class Measurement extends Model
     protected $table = 'measurements';
     protected $guarded = [];
 
-    public function getSearchableAndSortableFields()
-    {
-        return [
-            'name',
-            'type',
-            'ratio',
-            'rounding_precision',
-            'measurement_category',
-            'measurement_category_id'
-        ];
-    }
-
     public static function getTypes()
     {
         return [self::BIGGER, self::SMALLER, self::REFERENCE];
