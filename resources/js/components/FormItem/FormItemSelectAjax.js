@@ -51,7 +51,6 @@ const FormItemSelectAjax = (props) => {
         formItemProps.wrapperCol = {span: 24};
         formItemProps.style = props.style;
         formItemProps.name = [props.groupName, props.name];
-
     }
 
     useEffect(() => {
@@ -75,7 +74,7 @@ const FormItemSelectAjax = (props) => {
                 }
             } else {
                 if (props.id && props.query) {
-                    if(props.initialValues[props.name]){
+                    if (props.initialValues[props.name]) {
                         search = props.initialValues;
                         props.query.split('.').forEach((query) => {
                             search = search[query];
@@ -88,8 +87,6 @@ const FormItemSelectAjax = (props) => {
                     });
                 }
             }
-
-
             getOptions(search);
         }
     }, [props.initialLoad]);
