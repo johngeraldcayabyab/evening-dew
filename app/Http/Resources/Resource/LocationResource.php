@@ -11,7 +11,7 @@ class LocationResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'with_parents' => $this->with_parents,
+            'parents' => $this->getWithParents('name'),
             'parent_location_id' => $this->parent_location_id,
             'is_a_scrap_location' => $this->is_a_scrap_location,
             'is_a_return_location' => $this->is_a_return_location,

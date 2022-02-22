@@ -12,8 +12,8 @@ const LocationList = () => {
     const [tableState, tableActions, columns] = useListState(manifest, [
         {
             title: 'Name',
-            dataIndex: 'with_parents',
-            key: 'with_parents',
+            dataIndex: 'parents',
+            key: 'name',
             sorter: true,
             searchFilter: true,
         },

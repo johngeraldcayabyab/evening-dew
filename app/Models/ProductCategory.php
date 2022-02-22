@@ -15,6 +15,7 @@ class ProductCategory extends Model
     use SoftDeletes;
     use BroadcastsEvents;
     use ModelHelperTrait;
+
     use HierarchyTrait;
 
     protected $table = 'product_categories';
@@ -23,7 +24,8 @@ class ProductCategory extends Model
     public function getSearchableAndSortableFields()
     {
         return [
-            'with_parents',
+            'category',
+            'parent_product_category_id'
         ];
     }
 
@@ -32,9 +34,9 @@ class ProductCategory extends Model
         return $this->like($query, __FUNCTION__, $where);
     }
 
-    public function scopeWhereWithParents($query, $order)
+    public function scopeWhereParentProductCategoryId($query, $where)
     {
-        return $this->order($query, __FUNCTION__, $order);
+        return $query->where('parent_product_category_id', $where);
     }
 
     public function scopeOrderByCategory($query, $order)
@@ -42,7 +44,7 @@ class ProductCategory extends Model
         return $this->order($query, __FUNCTION__, $order);
     }
 
-    public function scopeOrderByWithParents($query, $order)
+    public function scopeOrderByParentProductCategoryId($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }

@@ -12,8 +12,8 @@ const ProductCategoryList = () => {
     const [tableState, tableActions, columns] = useListState(manifest, [
         {
             title: 'Category',
-            dataIndex: 'with_parents',
-            key: 'with_parents',
+            dataIndex: 'parents',
+            key: 'category',
             sorter: true,
             searchFilter: true,
         },

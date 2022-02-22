@@ -106,8 +106,9 @@ const CustomTable = (props) => {
                 } else if (orderByDirection === 'descend') {
                     orderByDirection = 'desc';
                 }
-                props.params.orderByColumn = sorter.column ? sorter.column.dataIndex : null;
+                props.params.orderByColumn = sorter.column ? sorter.column.key : null;
                 props.params.orderByDirection = orderByDirection;
+                console.log(sorter);
                 for (let key in filters) {
                     if (filters.hasOwnProperty(key)) {
                         props.params[key] = filters[key];

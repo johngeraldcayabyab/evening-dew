@@ -36,19 +36,22 @@ class Location extends Model
     public function getSearchableAndSortableFields()
     {
         return [
-            'with_parents',
-            'type',
+            'name',
+            'parent_location_id',
+            'is_a_scrap_location',
+            'is_a_return_location',
+            'type'
         ];
-    }
-
-    public function getWithParentsAttribute()
-    {
-        return $this->getWithParents('name');
     }
 
     public function scopeWhereName($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);
+    }
+
+    public function scopeWhereParentLocationId($query, $where)
+    {
+        return $query->where('parent_location_id', $where);
     }
 
     public function scopeWhereIsAScrapLocation($query, $where)
@@ -71,6 +74,11 @@ class Location extends Model
         return $this->order($query, __FUNCTION__, $order);
     }
 
+    public function scopeOrderByParentLocationId($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
     public function scopeOrderByIsAScrapLocation($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
@@ -84,15 +92,5 @@ class Location extends Model
     public function scopeOrderByType($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByWithParents($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeWhereWithParents($query, $where)
-    {
-        return $this->like($query, 'name', $where);
     }
 }
