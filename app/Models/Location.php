@@ -33,17 +33,6 @@ class Location extends Model
         return [self::VENDOR, self::VIEW, self::INTERNAL, self::CUSTOMER, self::INVENTORY_LOSS, self::PRODUCTION, self::TRANSIT_LOCATION];
     }
 
-    public function getSearchableAndSortableFields()
-    {
-        return [
-            'name',
-            'parent_location_id',
-            'is_a_scrap_location',
-            'is_a_return_location',
-            'type'
-        ];
-    }
-
     public function scopeWhereName($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);

@@ -21,20 +21,6 @@ class Currency extends Model
     protected $table = 'currencies';
     protected $guarded = [];
 
-    public function getSearchableAndSortableFields()
-    {
-        return [
-            'currency',
-            'name',
-            'unit',
-            'sub_unit',
-            'rounding_factor',
-            'decimal_places',
-            'symbol',
-            'symbol_position',
-        ];
-    }
-
     public function country()
     {
         return $this->hasMany(Country::class);

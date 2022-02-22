@@ -21,14 +21,6 @@ class ProductCategory extends Model
     protected $table = 'product_categories';
     protected $guarded = [];
 
-    public function getSearchableAndSortableFields()
-    {
-        return [
-            'category',
-            'parent_product_category_id'
-        ];
-    }
-
     public function scopeWhereCategory($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);

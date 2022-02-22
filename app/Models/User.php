@@ -29,14 +29,6 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function getSearchableAndSortableFields()
-    {
-        return [
-            'name',
-            'email',
-        ];
-    }
-
     public function scopeWhereName($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);

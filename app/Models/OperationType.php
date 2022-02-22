@@ -40,32 +40,6 @@ class OperationType extends Model
         return [self::RECEIPT, self::DELIVERY, self::INTERNAL, self::MANUFACTURING];
     }
 
-    public function getSearchableAndSortableFields()
-    {
-        return [
-            'name',
-            'reference_sequence_id',
-            'reference_sequence',
-            'code',
-            'warehouse_id',
-            'warehouse',
-            'reservation_method',
-            'type',
-            'operation_type_for_returns_id',
-            'operation_type_for_returns',
-            'show_detailed_operation',
-            'pre_fill_detailed_operation',
-            'reservation_days_before',
-            'reservation_days_before_priority',
-            'create_new_lots_serial_numbers',
-            'use_existing_lots_serial_numbers',
-            'default_source_location_id',
-            'default_source_location',
-            'default_destination_location_id',
-            'default_destination_location',
-        ];
-    }
-
     public function referenceSequence()
     {
         return $this->belongsTo(Sequence::class, 'reference_sequence_id', 'id');

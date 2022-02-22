@@ -8,7 +8,6 @@
 <li>constants</li>
 <li>properties</li>
 <li>constant getters</li>
-<li>searchable, & sortable fields getter</li>
 <li>relationships declaration</li>
 <li>field where scopes</li>
 <li>field order scopes</li>
@@ -36,3 +35,7 @@ php artisan storage:link
 
 <h5>Bulk Assignments</h5>
 <p>Models that's only purpose is to be inserted, updated, deleted through bulk should be careful on making observers</p>
+
+
+
+Discard on edit doenst reset fields but erases it

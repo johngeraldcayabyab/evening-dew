@@ -18,15 +18,6 @@ class Menu extends Model
     protected $table = 'menus';
     protected $guarded = [];
 
-    public function getSearchableAndSortableFields()
-    {
-        return [
-            'label',
-            'url',
-            'parent_id'
-        ];
-    }
-
     public function scopeWhereLabel($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);

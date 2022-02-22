@@ -18,18 +18,6 @@ class Contact extends Model
     protected $table = 'contacts';
     protected $guarded = [];
 
-    public function getSearchableAndSortableFields()
-    {
-        return [
-            'name',
-            'phone',
-            'mobile',
-            'email',
-            'website',
-            'tax_id',
-        ];
-    }
-
     public function addresses()
     {
         return $this->hasMany(Address::class, 'contact_id', 'id');
@@ -40,22 +28,22 @@ class Contact extends Model
         return $this->addresses->where('type', Address::DEFAULT)->last();
     }
 
-    public function scopeInvoiceAddress()
+    public function invoiceAddress()
     {
         return $this->addresses->where('type', Address::INVOICE)->last();
     }
 
-    public function scopeDeliveryAddress()
+    public function deliveryAddress()
     {
         return $this->addresses->where('type', Address::DELIVERY)->last();
     }
 
-    public function scopeOthersAddress()
+    public function othersAddress()
     {
         return $this->addresses->where('type', Address::OTHERS)->last();
     }
 
-    public function scopePrivateAddress()
+    public function privateAddress()
     {
         return $this->addresses->where('type', Address::PRIVATE)->last();
     }

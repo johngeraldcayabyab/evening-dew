@@ -18,47 +18,6 @@ class Warehouse extends Model
     protected $table = 'warehouses';
     protected $guarded = [];
 
-    public function getSearchableAndSortableFields()
-    {
-        return [
-            'name',
-            'manufacture_to_resupply',
-            'buy_to_resupply',
-            'view_location_id',
-            'view_location',
-            'stock_location_id',
-            'stock_location',
-            'input_location_id',
-            'input_location',
-            'quality_control_location_id',
-            'quality_control_location',
-            'packing_location_id',
-            'packing_location',
-            'output_location_id',
-            'output_location',
-            'stock_after_manufacturing_location_id',
-            'stock_after_manufacturing_location',
-            'picking_before_manufacturing_location_id',
-            'picking_before_manufacturing_location',
-            'in_type_id',
-            'in_type',
-            'internal_type_id',
-            'internal_type',
-            'pick_type_id',
-            'pick_type',
-            'pack_type_id',
-            'pack_type',
-            'out_type_id',
-            'out_type',
-            'stock_after_manufacturing_operation_type_id',
-            'stock_after_manufacturing_operation_type',
-            'picking_before_manufacturing_operation_type_id',
-            'picking_before_manufacturing_operation_type',
-            'manufacturing_operation_type_id',
-            'manufacturing_operation_type'
-        ];
-    }
-
     public function viewLocation()
     {
         return $this->belongsTo(Location::class, 'view_location_id', 'id');
