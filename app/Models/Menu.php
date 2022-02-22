@@ -39,7 +39,7 @@ class Menu extends Model
 
     public function scopeWhereParentId($query, $where)
     {
-        return $query->where('parent_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeOrderByLabel($query, $order)

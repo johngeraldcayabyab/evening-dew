@@ -17,6 +17,11 @@ trait ModelHelperTrait
         return $query->orderBy('created_at', $order);
     }
 
+    public function whereId($query, $methodName, $where)
+    {
+        return $query->where($this->getField($methodName, 'scopeWhere'), $where);
+    }
+
     public function like($query, $methodName, $where)
     {
         return $query->where($this->getField($methodName, 'scopeWhere'), 'like', "%$where%");

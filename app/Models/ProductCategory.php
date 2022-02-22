@@ -36,7 +36,7 @@ class ProductCategory extends Model
 
     public function scopeWhereParentProductCategoryId($query, $where)
     {
-        return $query->where('parent_product_category_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeOrderByCategory($query, $order)

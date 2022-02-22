@@ -51,7 +51,7 @@ class Location extends Model
 
     public function scopeWhereParentLocationId($query, $where)
     {
-        return $query->where('parent_location_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereIsAScrapLocation($query, $where)

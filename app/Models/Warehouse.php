@@ -161,82 +161,82 @@ class Warehouse extends Model
 
     public function scopeWhereViewLocationId($query, $where)
     {
-        return $query->where('view_location_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereStockLocationId($query, $where)
     {
-        return $query->where('stock_location_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereInputLocationId($query, $where)
     {
-        return $query->where('input_location_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereQualityControlLocationId($query, $where)
     {
-        return $query->where('quality_control_location_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWherePackingLocationId($query, $where)
     {
-        return $query->where('packing_location_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereOutputLocationId($query, $where)
     {
-        return $query->where('output_location_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereStockAfterManufacturingLocationId($query, $where)
     {
-        return $query->where('stock_after_manufacturing_location_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWherePickingBeforeManufacturingLocationId($query, $where)
     {
-        return $query->where('picking_before_manufacturing_location_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereInTypeId($query, $where)
     {
-        return $query->where('in_type_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereInternalTypeId($query, $where)
     {
-        return $query->where('internal_type_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWherePickTypeId($query, $where)
     {
-        return $query->where('pick_type_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWherePackTypeId($query, $where)
     {
-        return $query->where('pack_type_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereOutTypeId($query, $where)
     {
-        return $query->where('out_type_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereStockAfterManufacturingOperationTypeId($query, $where)
     {
-        return $query->where('stock_after_manufacturing_operation_type_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWherePickingBeforeManufacturingOperationTypeId($query, $where)
     {
-        return $query->where('picking_before_manufacturing_operation_type_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereManufacturingOperationTypeId($query, $where)
     {
-        return $query->where('manufacturing_operation_type_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeOrderByName($query, $order)

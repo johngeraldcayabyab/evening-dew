@@ -87,7 +87,7 @@ class Contact extends Model
 
     public function scopeWhereTaxId($query, $where)
     {
-        return $query->where('tax_id', $where);
+        return $this->whereId($query, __FUNCTION__, $where);
     }
 
     public function scopeOrderByName($query, $order)
