@@ -36,6 +36,3 @@ php artisan storage:link
 
 <h5>Bulk Assignments</h5>
 <p>Models that's only purpose is to be inserted, updated, deleted through bulk should be careful on making observers</p>
-
-
-Add with_parents field Fix alphanumber field, fields should only be text for snake case transformations

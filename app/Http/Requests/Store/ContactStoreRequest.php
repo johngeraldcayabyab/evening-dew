@@ -18,8 +18,8 @@ class ContactStoreRequest extends FormRequest
             'tax_id' => ['nullable'],
             'avatar' => ['nullable'],
 
-            'street_1' => ['nullable'],
-            'street_2' => ['nullable'],
+            'street_one' => ['nullable'],
+            'street_two' => ['nullable'],
             'city' => ['nullable'],
             'state' => ['nullable'],
             'zip' => ['nullable'],

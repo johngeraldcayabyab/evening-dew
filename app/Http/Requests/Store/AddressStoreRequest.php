@@ -12,8 +12,8 @@ class AddressStoreRequest extends FormRequest
         $types = implode(',', Address::getTypes());
         return [
             'address_name' => ['required'],
-            'street_1' => ['nullable'],
-            'street_2' => ['nullable'],
+            'street_one' => ['nullable'],
+            'street_two' => ['nullable'],
             'city' => ['nullable'],
             'state' => ['nullable'],
             'zip' => ['nullable'],

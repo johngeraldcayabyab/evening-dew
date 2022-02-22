@@ -33,8 +33,8 @@ class Address extends Model
     {
         return [
             'address_name',
-            'street_1',
-            'street_2',
+            'street_one',
+            'street_two',
             'city',
             'state',
             'zip',
@@ -61,12 +61,12 @@ class Address extends Model
         return $this->like($query, __FUNCTION__, $where);
     }
 
-    public function scopeWhereStreet1($query, $where)
+    public function scopeWhereStreetOne($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);
     }
 
-    public function scopeWhereStreet2($query, $where)
+    public function scopeWhereStreetTwo($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);
     }
@@ -116,12 +116,12 @@ class Address extends Model
         return $this->order($query, __FUNCTION__, $order);
     }
 
-    public function scopeOrderByStreet1($query, $order)
+    public function scopeOrderByStreetOne($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }
 
-    public function scopeOrderByStreet2($query, $order)
+    public function scopeOrderByStreetTwo($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }
