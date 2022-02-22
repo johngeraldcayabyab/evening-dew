@@ -27,14 +27,14 @@ class ProductCategory extends Model
         ];
     }
 
-    public function getWithParentsAttribute()
-    {
-        return $this->getWithParents('category');
-    }
-
     public function scopeWhereCategory($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);
+    }
+
+    public function scopeWhereWithParents($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByCategory($query, $order)
@@ -45,10 +45,5 @@ class ProductCategory extends Model
     public function scopeOrderByWithParents($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeWhereWithParents($query, $where)
-    {
-        return $this->like($query, 'category', $where);
     }
 }

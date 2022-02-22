@@ -9,7 +9,7 @@ class ProductCategoryStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'category' => 'required',
+            'category' => ['required', 'unique:product_categories,category'],
             'parent_product_category_id' => ['nullable', "exists:product_categories,id"],
         ];
     }
