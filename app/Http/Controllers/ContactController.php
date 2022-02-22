@@ -37,7 +37,7 @@ class ContactController
     public function store(ContactStoreRequest $request): JsonResponse
     {
         $data = $request->validated();
-        $contactData = Arr::except($data, ['street_1', 'street_2', 'city', 'state', 'zip', 'country_id']);
+        $contactData = Arr::except($data, ['street_one', 'street_two', 'city', 'state', 'zip', 'country_id']);
         $contact = Contact::create($contactData);
         $addressData = Arr::except($data, ['name', 'phone', 'mobile', 'email', 'website', 'tax_id', 'avatar']);
         $addressData['address_name'] = $contact->name . " " . Address::DEFAULT . " address";
@@ -56,7 +56,7 @@ class ContactController
     public function update(ContactUpdateRequest $request, Contact $contact): JsonResponse
     {
         $data = $request->validated();
-        $contactData = Arr::except($data, ['street_1', 'street_2', 'city', 'state', 'zip', 'country_id']);
+        $contactData = Arr::except($data, ['street_one', 'street_two', 'city', 'state', 'zip', 'country_id']);
         $contact->update($contactData);
         $addressData = Arr::except($data, ['name', 'phone', 'mobile', 'email', 'website', 'tax_id', 'avatar']);
         $addressData['address_name'] = $contact->name . " " . Address::DEFAULT . " address";

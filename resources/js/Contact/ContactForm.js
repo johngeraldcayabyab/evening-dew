@@ -60,13 +60,13 @@ const ContactForm = () => {
                     <ColForm>
                         <FormItemText
                             label={'Street 1'}
-                            name={'street_1'}
+                            name={'street_one'}
                             {...formState}
                         />
 
                         <FormItemText
                             label={'Street 2'}
-                            name={'street_2'}
+                            name={'street_two'}
                             {...formState}
                         />
 
