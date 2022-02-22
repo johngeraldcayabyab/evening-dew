@@ -82,42 +82,42 @@ class Sequence extends Model
 
     public function scopeOrderByName($query, $order)
     {
-        return $query->orderBy('name', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderBySequenceCode($query, $order)
     {
-        return $query->orderBy('sequence_code', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByImplementation($query, $order)
     {
-        return $query->orderBy('implementation', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByPrefix($query, $order)
     {
-        return $query->orderBy('prefix', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderBySuffix($query, $order)
     {
-        return $query->orderBy('suffix', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderBySequenceSize($query, $order)
     {
-        return $query->orderBy('sequence_size', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByStep($query, $order)
     {
-        return $query->orderBy('step', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByNextNumber($query, $order)
     {
-        return $query->orderBy('next_number', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeGenerateSalesOrderSequence()

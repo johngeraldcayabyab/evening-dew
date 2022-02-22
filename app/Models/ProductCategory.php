@@ -39,12 +39,12 @@ class ProductCategory extends Model
 
     public function scopeOrderByCategory($query, $order)
     {
-        return $query->orderBy('category', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByWithParents($query, $order)
     {
-        return $query->orderBy('category', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeWhereWithParents($query, $where)

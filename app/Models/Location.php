@@ -68,27 +68,27 @@ class Location extends Model
 
     public function scopeOrderByName($query, $order)
     {
-        return $query->orderBy('name', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByIsAScrapLocation($query, $order)
     {
-        return $query->orderBy('is_a_scrap_location', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByIsAReturnLocation($query, $order)
     {
-        return $query->orderBy('is_a_return_location', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByType($query, $order)
     {
-        return $query->orderBy('type', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByWithParents($query, $order)
     {
-        return $query->orderBy('name', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeWhereWithParents($query, $where)

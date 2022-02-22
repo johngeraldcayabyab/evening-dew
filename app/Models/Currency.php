@@ -87,41 +87,41 @@ class Currency extends Model
 
     public function scopeOrderByCurrency($query, $order)
     {
-        return $query->orderBy('currency', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByName($query, $order)
     {
-        return $query->orderBy('name', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByUnit($query, $order)
     {
-        return $query->orderBy('unit', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderBySubUnit($query, $order)
     {
-        return $query->orderBy('sub_unit', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByRoundingFactor($query, $order)
     {
-        return $query->orderBy('rounding_factor', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByDecimalPlaces($query, $order)
     {
-        return $query->orderBy('decimal_places', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderBySymbol($query, $order)
     {
-        return $query->orderBy('symbol', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderBySymbolPosition($query, $order)
     {
-        return $query->orderBy('symbol_position', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 }

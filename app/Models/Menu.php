@@ -44,16 +44,16 @@ class Menu extends Model
 
     public function scopeOrderByLabel($query, $order)
     {
-        return $query->orderBy('label', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByUrl($query, $order)
     {
-        return $query->orderBy('url', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByParentId($query, $order)
     {
-        return $query->orderBy('parent_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 }

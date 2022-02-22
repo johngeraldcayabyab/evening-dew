@@ -90,33 +90,33 @@ class Contact extends Model
         return $query->where('tax_id', $where);
     }
 
-    public function scopeOrderByName($query, $where)
+    public function scopeOrderByName($query, $order)
     {
-        return $query->orderBy('name', $where);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByPhone($query, $order)
     {
-        return $query->orderBy('phone', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByMobile($query, $order)
     {
-        return $query->orderBy('mobile', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByEmail($query, $order)
     {
-        return $query->orderBy('email', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByWebsite($query, $order)
     {
-        return $query->orderBy('website', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByTaxId($query, $order)
     {
-        return $query->orderBy('tax_id', $order);
+        return $this->order($query, __FUNCTION__, $order);
     }
 }
