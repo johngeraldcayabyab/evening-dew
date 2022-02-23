@@ -15,10 +15,10 @@ class SalesOrderStoreRequest extends FormRequest
             'delivery_address_id' => ['required', "exists:addresses,id"],
             'payment_term_id' => ['nullable', "exists:payment_terms,id"],
 
-            'sales_order_lines.*.product_id' => ['required'],
+            'sales_order_lines.*.product_id' => ['required', "exists:products,id"],
             'sales_order_lines.*.description' => ['nullable'],
             'sales_order_lines.*.quantity' => ['required'],
-            'sales_order_lines.*.measurement_id' => ["exists:measurements,id"],
+            'sales_order_lines.*.measurement_id' => ["required", "exists:measurements,id"],
             'sales_order_lines.*.unit_price' => ['required'],
         ];
     }

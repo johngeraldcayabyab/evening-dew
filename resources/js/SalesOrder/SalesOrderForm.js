@@ -42,22 +42,28 @@ const SalesOrderForm = () => {
             form={form}
             onFinish={(values) => {
                 formActions.onFinish(values);
-
-                console.log(state.deletedSalesOrderLines);
-
-                // useFetch(`api/${moduleName}/mass_destroy`, POST, {ids: ids}).then(() => {
-                //     tableActions.renderData(tableState.params);
-                // }).catch((responseErr) => {
-                //     fetchCatcher.get(responseErr).then(() => {
-                //         setTableState(state => ({
-                //             ...state,
-                //             loading: false,
-                //         }));
-                //     });
-                // });
-
+                if (id) {
+                    if (state.deletedSalesOrderLines.length) {
+                        const deleteSalesOrderLinesIds = state.deletedSalesOrderLines.map((deletedSalesOrderLine) => {
+                            if (deletedSalesOrderLine) {
+                                return deletedSalesOrderLine.id;
+                            }
+                        });
+                        if (!deleteSalesOrderLinesIds.some(item => !item)) {
+                            useFetch(`/api/sales_order_lines/mass_destroy`, POST, {ids: deleteSalesOrderLinesIds}).then(() => {
+                                setState((prevState) => ({
+                                    ...prevState,
+                                    deletedSalesOrderLines: [],
+                                }));
+                            }).catch((responseErr) => {
+                                fetchCatcher.get(responseErr);
+                            });
+                        }
+                    }
+                }
             }}
             onValuesChange={(changedValues, allValues) => {
+                console.log(changedValues);
                 if (changedValues.customer_id) {
                     useFetch(`/api/addresses`, GET, {
                         contact_id: changedValues.customer_id
@@ -80,7 +86,7 @@ const SalesOrderForm = () => {
                         fetchCatcher.get(responseErr);
                     });
                 }
-                if (changedValues.sales_order_lines) {
+                if (changedValues.sales_order_lines && !changedValues.sales_order_lines.some(item => item === undefined || item.id)) {
                     const salesOrderLines = allValues.sales_order_lines;
                     let changedSalesOrderLine = false;
                     changedValues.sales_order_lines.forEach((salesOrderLine, key) => {

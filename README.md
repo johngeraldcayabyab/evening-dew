@@ -38,5 +38,6 @@ php artisan storage:link
 
 
 
-Discard on edit doenst reset fields but erases it
-Options with initial value with many options only has one value. making it confusing on initial render
+-Discard on edit doenst reset fields but erases it
+-Options with initial value with many options only has one value. making it confusing on initial render
+-order lines has if has option, value changes because its a different key making it not reload on change

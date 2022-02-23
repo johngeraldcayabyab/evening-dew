@@ -41,27 +41,17 @@ class SalesOrderController
         $salesOrderData = Arr::except($data, ['sales_order_lines']);
         $salesOrderLinesData = $data['sales_order_lines'];
         $salesOrder = SalesOrder::create($salesOrderData);
-        $salesOrderLineInsert = [];
-        foreach ($salesOrderLinesData as $salesOrderLinesDatum) {
-            $salesOrderLine = new SalesOrderLine();
-            $salesOrderLine->product_id = $salesOrderLinesDatum['product_id'];
-            if (isset($salesOrderLinesDatum['description'])) {
-                $salesOrderLine->description = $salesOrderLinesDatum['description'];
-            }
-            $salesOrderLine->quantity = $salesOrderLinesDatum['quantity'];
-            $salesOrderLine->measurement_id = $salesOrderLinesDatum['measurement_id'];
-            $salesOrderLine->unit_price = $salesOrderLinesDatum['unit_price'];
-            $salesOrderLine->subtotal = $salesOrderLine->unit_price * $salesOrderLine->quantity;
-            $salesOrderLine->sales_order_id = $salesOrder->id;
-            $salesOrderLineInsert[] = $salesOrderLine->attributesToArray();
-        }
-        SalesOrderLine::insert($salesOrderLineInsert);
+        SalesOrderLine::insertMany($salesOrderLinesData, $salesOrder->id);
         return response()->json([], STATUS_CREATE, $this->locationHeader($salesOrder));
     }
 
     public function update(SalesOrderUpdateRequest $request, SalesOrder $salesOrder): JsonResponse
     {
-        $salesOrder->update($request->validated());
+        $data = $request->validated();
+        $salesOrderData = Arr::except($data, ['sales_order_lines']);
+        $salesOrder->update($salesOrderData);
+        $salesOrderLinesData = $data['sales_order_lines'];
+        SalesOrderLine::updateOrCreateMany($salesOrderLinesData, $salesOrder->id);
         return response()->json([], STATUS_UPDATE);
     }
 
