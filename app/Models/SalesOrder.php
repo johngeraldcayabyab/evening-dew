@@ -70,22 +70,22 @@ class SalesOrder extends Model
 
     public function scopeWhereCustomerId($query, $where)
     {
-        return $this->whereId($query, __FUNCTION__, $where);
+        return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereInvoiceAddressId($query, $where)
     {
-        return $this->whereId($query, __FUNCTION__, $where);
+        return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereDeliveryAddressId($query, $where)
     {
-        return $this->whereId($query, __FUNCTION__, $where);
+        return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
     public function scopeWherePaymentTermId($query, $where)
     {
-        return $this->whereId($query, __FUNCTION__, $where);
+        return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
     public function scopeOrderByNumber($query, $order)

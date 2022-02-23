@@ -2,7 +2,6 @@
 
 namespace App\Traits;
 
-use App\Models\Country;
 use Illuminate\Support\Str;
 
 trait ModelHelperTrait
@@ -12,12 +11,22 @@ trait ModelHelperTrait
         return $query->whereIn('id', $ids)->delete();
     }
 
-    public function scopeOrderByCreatedAt($query, $order)
+    public function scopeWhereId($query, $where)
     {
-        return $query->orderBy('created_at', $order);
+        return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
-    public function whereId($query, $methodName, $where)
+    public function scopeOrderById($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeOrderByCreatedAt($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function whereSingle($query, $methodName, $where)
     {
         return $query->where($this->getField($methodName, 'scopeWhere'), $where);
     }
