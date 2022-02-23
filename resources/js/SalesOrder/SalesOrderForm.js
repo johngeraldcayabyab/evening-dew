@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Form, Input} from "antd";
+import {Button, Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
@@ -10,7 +10,7 @@ import CustomForm from "../components/CustomForm";
 import ControlPanel from "../components/ControlPanel";
 import FormCard from "../components/FormCard";
 import FormItemText from "../components/FormItem/FormItemText";
-import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
+import FormItemSelectAjaxAdvanced from "../components/FormItem/FormItemSelectAjaxAdvanced";
 import useFetchHook from "../Hooks/useFetchHook";
 import useFetchCatcher from "../Hooks/useFetchCatcher";
 import {GET, POST} from "../consts";
@@ -63,7 +63,6 @@ const SalesOrderForm = () => {
                 }
             }}
             onValuesChange={(changedValues, allValues) => {
-                console.log(changedValues);
                 if (changedValues.customer_id) {
                     useFetch(`/api/addresses`, GET, {
                         contact_id: changedValues.customer_id
@@ -152,41 +151,43 @@ const SalesOrderForm = () => {
 
                 <RowForm>
                     <ColForm>
-                        <FormItemSelectAjax
+                        <FormItemSelectAjaxAdvanced
                             label={'Customer'}
                             name={'customer_id'}
                             message={'Please select a customer'}
                             required={true}
                             url={'/api/contacts/option'}
                             {...formState}
+                            query={'customer.name'}
                         />
-                        <FormItemSelectAjax
+                        <FormItemSelectAjaxAdvanced
                             label={'Invoice address'}
                             name={'invoice_address_id'}
                             message={'Please select a invoice address'}
                             required={true}
                             url={'/api/addresses/option'}
-                            search={state.invoiceAddressOptionReload}
                             {...formState}
+                            search={state.invoiceAddressOptionReload}
                             query={'invoice_address.address_name'}
                         />
-                        <FormItemSelectAjax
+                        <FormItemSelectAjaxAdvanced
                             label={'Delivery address'}
                             name={'delivery_address_id'}
                             message={'Please select a delivery address'}
                             required={true}
                             url={'/api/addresses/option'}
-                            search={state.deliveryAddressOptionReload}
                             {...formState}
+                            search={state.deliveryAddressOptionReload}
                             query={'delivery_address.address_name'}
                         />
                     </ColForm>
                     <ColForm>
-                        <FormItemSelectAjax
+                        <FormItemSelectAjaxAdvanced
                             label={'Payment Term'}
                             name={'payment_term_id'}
                             url={'/api/payment_terms/option'}
                             {...formState}
+                            query={'payment_terms.name'}
                         />
                     </ColForm>
                 </RowForm>
@@ -199,7 +200,7 @@ const SalesOrderForm = () => {
                                     {fields.map(({key, name, ...restField}) => (
                                         <RowForm key={key}>
                                             <ColForm lg={23}>
-                                                <FormItemSelectAjax
+                                                <FormItemSelectAjaxAdvanced
                                                     {...restField}
                                                     placeholder={'Product'}
                                                     name={'product_id'}
@@ -235,7 +236,7 @@ const SalesOrderForm = () => {
                                                     listName={'sales_order_lines'}
                                                 />
 
-                                                <FormItemSelectAjax
+                                                <FormItemSelectAjaxAdvanced
                                                     {...restField}
                                                     placeholder={'Measurement'}
                                                     name={'measurement_id'}

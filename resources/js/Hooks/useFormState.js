@@ -33,16 +33,13 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
             if (id) {
                 useFetch(`/api/${manifest.moduleName}/${id}`, GET).then((response) => {
                     form.setFieldsValue(response);
-                    newState = {
+                    setFormState(state => ({
+                        ...state,
+                        ...newState,
                         initialValues: response,
                         loading: false,
                         formDisabled: true,
-                        initialLoad: false,
                         updated: new Date()
-                    };
-                    setFormState(state => ({
-                        ...state,
-                        ...newState
                     }));
                 }).catch((responseErr) => {
                     fetchCatcher.get(responseErr);
@@ -53,14 +50,14 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
                         form.setFieldsValue(response);
                         setFormState(state => ({
                             ...state,
-                            initialLoad: false,
+                            ...newState,
                             initialValues: response,
                         }));
                     });
                 } else if (formState.initialLoad) {
                     setFormState(state => ({
                         ...state,
-                        initialLoad: false,
+                        ...newState
                     }));
                 }
             }
