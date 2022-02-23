@@ -101,7 +101,7 @@ const FormItemSelectAjax = (props) => {
         if (props.search) {
             getOptions(props.search);
         }
-    }, [props.search]);
+    }, [props.search, props.updated]);
 
     function onSearch(search) {
         getOptions(search);
