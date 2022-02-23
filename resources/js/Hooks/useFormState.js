@@ -17,7 +17,8 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
         loading: id && true,
         errors: {},
         formDisabled: id && true,
-        pathname: location.pathname
+        pathname: location.pathname,
+        updated: false,
     });
 
     const [formActions] = useState({
@@ -36,7 +37,8 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
                         initialValues: response,
                         loading: false,
                         formDisabled: true,
-                        initialLoad: false
+                        initialLoad: false,
+                        updated: new Date()
                     };
                     setFormState(state => ({
                         ...state,
@@ -68,7 +70,6 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
                 ...state,
                 loading: true
             }));
-
             if (id) {
                 useFetch(`/api/${manifest.moduleName}/${id}`, PUT, values).then(() => {
                     formActions.fetchData();
@@ -77,7 +78,7 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
                         setFormState(state => ({
                             ...state,
                             loading: false,
-                            errors: errors
+                            errors: errors,
                         }));
                     });
                 });
