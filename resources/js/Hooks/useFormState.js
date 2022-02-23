@@ -32,7 +32,6 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
             }
             if (id) {
                 useFetch(`/api/${manifest.moduleName}/${id}`, GET).then((response) => {
-                    form.setFieldsValue(response);
                     setFormState(state => ({
                         ...state,
                         ...newState,
@@ -41,18 +40,19 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
                         formDisabled: true,
                         updated: new Date()
                     }));
+                    form.setFieldsValue(response);
                 }).catch((responseErr) => {
                     fetchCatcher.get(responseErr);
                 });
             } else {
                 if (getInitialValues && formState.initialLoad) {
                     useFetch(`/api/${manifest.moduleName}/initial_values`, GET).then((response) => {
-                        form.setFieldsValue(response);
                         setFormState(state => ({
                             ...state,
                             ...newState,
                             initialValues: response,
                         }));
+                        form.setFieldsValue(response);
                     });
                 } else if (formState.initialLoad) {
                     setFormState(state => ({

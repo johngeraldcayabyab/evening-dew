@@ -41,7 +41,6 @@ const SalesOrderForm = () => {
         <CustomForm
             form={form}
             onFinish={(values) => {
-                formActions.onFinish(values);
                 if (id) {
                     if (state.deletedSalesOrderLines.length) {
                         const deleteSalesOrderLinesIds = state.deletedSalesOrderLines.map((deletedSalesOrderLine) => {
@@ -49,18 +48,17 @@ const SalesOrderForm = () => {
                                 return deletedSalesOrderLine.id;
                             }
                         });
-                        if (!deleteSalesOrderLinesIds.some(item => !item)) {
-                            useFetch(`/api/sales_order_lines/mass_destroy`, POST, {ids: deleteSalesOrderLinesIds}).then(() => {
-                                setState((prevState) => ({
-                                    ...prevState,
-                                    deletedSalesOrderLines: [],
-                                }));
-                            }).catch((responseErr) => {
-                                fetchCatcher.get(responseErr);
-                            });
-                        }
+                        useFetch(`/api/sales_order_lines/mass_destroy`, POST, {ids: deleteSalesOrderLinesIds}).then(() => {
+                            setState((prevState) => ({
+                                ...prevState,
+                                deletedSalesOrderLines: [],
+                            }));
+                        }).catch((responseErr) => {
+                            fetchCatcher.get(responseErr);
+                        });
                     }
                 }
+                formActions.onFinish(values);
             }}
             onValuesChange={(changedValues, allValues) => {
                 if (changedValues.customer_id) {
@@ -187,7 +185,7 @@ const SalesOrderForm = () => {
                             name={'payment_term_id'}
                             url={'/api/payment_terms/option'}
                             {...formState}
-                            query={'payment_terms.name'}
+                            query={'payment_term.name'}
                         />
                     </ColForm>
                 </RowForm>
