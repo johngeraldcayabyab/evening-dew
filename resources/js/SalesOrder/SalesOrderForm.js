@@ -26,6 +26,7 @@ const SalesOrderForm = () => {
     const [state, setState] = useState({
         invoiceAddressOptionReload: false,
         deliveryAddressOptionReload: false,
+        salesOrderLinesOptionReload: [],
     });
 
     useEffect(() => {
@@ -74,24 +75,29 @@ const SalesOrderForm = () => {
                         }
                     });
                     if (changedSalesOrderLine) {
-                        // salesOrderLines[changedSalesOrderLine.key] = {
-                        //     ...salesOrderLines[changedSalesOrderLine.key],
-                        //     ...{
-                        //         description: 'CHIMICHUNGUS',
-                        //     }
-                        // };
-
                         useFetch(`/api/products`, GET, {
                             id: changedSalesOrderLine.product_id
                         }).then((response) => {
-                            console.log(response);
+                            const product = response.data[0];
+                            salesOrderLines[changedSalesOrderLine.key] = {
+                                ...salesOrderLines[changedSalesOrderLine.key],
+                                ...{
+                                    description: product.sales_description,
+                                    measurement_id: product.sales_measurement_id,
+                                    unit_price: product.sales_price,
+                                    isReload: product.sales_measurement.name
+                                }
+                            };
+                            setState((prevState) => ({
+                                ...prevState,
+                                salesOrderLinesOptionReload: salesOrderLines
+                            }));
+                            form.setFieldsValue({
+                                sales_order_lines: salesOrderLines
+                            });
                         }).catch((responseErr) => {
                             fetchCatcher.get(responseErr);
                         });
-
-                        // form.setFieldsValue({
-                        //     sales_order_lines: salesOrderLines
-                        // });
                     }
                 }
             }}
@@ -213,6 +219,7 @@ const SalesOrderForm = () => {
                                                     message={'Please select a measurement'}
                                                     required={true}
                                                     url={'/api/measurements/option'}
+                                                    search={state.salesOrderLinesOptionReload[key] ? state.salesOrderLinesOptionReload[key].isReload : null}
                                                     {...formState}
                                                     style={{display: 'inline-block', width: '20%'}}
                                                     query={'measurement.name'}
