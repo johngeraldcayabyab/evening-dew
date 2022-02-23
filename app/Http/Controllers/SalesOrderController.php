@@ -45,7 +45,9 @@ class SalesOrderController
         foreach ($salesOrderLinesData as $salesOrderLinesDatum) {
             $salesOrderLine = new SalesOrderLine();
             $salesOrderLine->product_id = $salesOrderLinesDatum['product_id'];
-            $salesOrderLine->description = $salesOrderLinesDatum['description'];
+            if (isset($salesOrderLinesDatum['description'])) {
+                $salesOrderLine->description = $salesOrderLinesDatum['description'];
+            }
             $salesOrderLine->quantity = $salesOrderLinesDatum['quantity'];
             $salesOrderLine->measurement_id = $salesOrderLinesDatum['measurement_id'];
             $salesOrderLine->unit_price = $salesOrderLinesDatum['unit_price'];

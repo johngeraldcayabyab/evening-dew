@@ -8,11 +8,13 @@ use App\Models\MeasurementCategory;
 use App\Models\Menu;
 use App\Models\ProductCategory;
 use App\Models\SalesOrder;
+use App\Models\SalesOrderLine;
 use App\Observers\LocationObserver;
 use App\Observers\MeasurementCategoryObserver;
 use App\Observers\MeasurementObserver;
 use App\Observers\MenuObserver;
 use App\Observers\ProductCategoryObserver;
+use App\Observers\SalesOrderLineObserver;
 use App\Observers\SalesOrderObserver;
 use Carbon\Laravel\ServiceProvider;
 
@@ -30,6 +32,7 @@ class ModuleServiceProvider extends ServiceProvider
         MeasurementCategory::observe(MeasurementCategoryObserver::class);
         ProductCategory::observe(ProductCategoryObserver::class);
         Menu::observe(MenuObserver::class);
+        SalesOrderLine::observe(SalesOrderLineObserver::class);
         SalesOrder::observe(SalesOrderObserver::class);
     }
 }

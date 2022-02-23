@@ -39,7 +39,6 @@ const SalesOrderForm = () => {
             form={form}
             onFinish={formActions.onFinish}
             onValuesChange={(changedValues, allValues) => {
-                console.log(changedValues);
                 if (changedValues.customer_id) {
                     useFetch(`/api/addresses`, GET, {
                         contact_id: changedValues.customer_id
@@ -62,20 +61,25 @@ const SalesOrderForm = () => {
                         fetchCatcher.get(responseErr);
                     });
                 }
-
                 if (changedValues.sales_order_lines) {
-                    // const salesOrderLines = {
-                    //     sales_order_lines: []
-                    // };
-                    // changedValues.sales_order_lines.forEach((salesOrderLine, key) => {
-                    //     if (salesOrderLine && salesOrderLine.product_id) {
-                    //         salesOrderLines.sales_order_lines[key] = {
-                    //             description: 'CHIMICHUNGUS',
-                    //         };
-                    //     }
-                    // });
-                    // console.log(salesOrderLines);
-                    // form.setFieldsValue(salesOrderLines);
+                    const salesOrderLines = allValues.sales_order_lines;
+                    let isChanged = false;
+                    changedValues.sales_order_lines.forEach((salesOrderLine, key) => {
+                        if (salesOrderLine && salesOrderLine.product_id) {
+                            isChanged = true;
+                            salesOrderLines[key] = {
+                                ...salesOrderLines[key],
+                                ...{
+                                    description: 'CHIMICHUNGUS',
+                                }
+                            };
+                        }
+                    });
+                    if (isChanged) {
+                        form.setFieldsValue({
+                            sales_order_lines: salesOrderLines
+                        });
+                    }
                 }
             }}
         >
