@@ -50,7 +50,7 @@ class Country extends Model
 
     public function scopeWhereCurrencyId($query, $where)
     {
-        return $this->whereId($query, __FUNCTION__, $where);
+        return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
     public function scopeOrderByCountryName($query, $order)

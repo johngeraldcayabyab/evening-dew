@@ -65,7 +65,7 @@ class Measurement extends Model
 
     public function scopeWhereMeasurementCategoryId($query, $where)
     {
-        return $this->whereId($query, __FUNCTION__, $where);
+        return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
     public function scopeOrderByName($query, $order)

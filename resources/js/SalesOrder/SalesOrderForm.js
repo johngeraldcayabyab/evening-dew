@@ -34,6 +34,7 @@ const SalesOrderForm = () => {
         };
     }, []);
 
+
     return (
         <CustomForm
             form={form}
@@ -63,22 +64,34 @@ const SalesOrderForm = () => {
                 }
                 if (changedValues.sales_order_lines) {
                     const salesOrderLines = allValues.sales_order_lines;
-                    let isChanged = false;
+                    let changedSalesOrderLine = false;
                     changedValues.sales_order_lines.forEach((salesOrderLine, key) => {
                         if (salesOrderLine && salesOrderLine.product_id) {
-                            isChanged = true;
-                            salesOrderLines[key] = {
-                                ...salesOrderLines[key],
-                                ...{
-                                    description: 'CHIMICHUNGUS',
-                                }
+                            changedSalesOrderLine = {
+                                key: key,
+                                product_id: salesOrderLine.product_id
                             };
                         }
                     });
-                    if (isChanged) {
-                        form.setFieldsValue({
-                            sales_order_lines: salesOrderLines
+                    if (changedSalesOrderLine) {
+                        // salesOrderLines[changedSalesOrderLine.key] = {
+                        //     ...salesOrderLines[changedSalesOrderLine.key],
+                        //     ...{
+                        //         description: 'CHIMICHUNGUS',
+                        //     }
+                        // };
+
+                        useFetch(`/api/products`, GET, {
+                            id: changedSalesOrderLine.product_id
+                        }).then((response) => {
+                            console.log(response);
+                        }).catch((responseErr) => {
+                            fetchCatcher.get(responseErr);
                         });
+
+                        // form.setFieldsValue({
+                        //     sales_order_lines: salesOrderLines
+                        // });
                     }
                 }
             }}

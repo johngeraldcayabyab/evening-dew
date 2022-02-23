@@ -72,7 +72,7 @@ class OperationType extends Model
 
     public function scopeWhereReferenceSequenceId($query, $where)
     {
-        return $this->whereId($query, __FUNCTION__, $where);
+        return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereCode($query, $where)
@@ -82,7 +82,7 @@ class OperationType extends Model
 
     public function scopeWhereWarehouseId($query, $where)
     {
-        return $this->whereId($query, __FUNCTION__, $where);
+        return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereReservationMethod($query, $where)
@@ -97,17 +97,17 @@ class OperationType extends Model
 
     public function scopeWhereOperationTypeForReturnsId($query, $where)
     {
-        return $this->whereId($query, __FUNCTION__, $where);
+        return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereShowDetailedOperation($query, $where)
     {
-        return $this->whereId($query, __FUNCTION__, $where);
+        return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
     public function scopeWherePreFillDetailedOperation($query, $where)
     {
-        return $this->whereId($query, __FUNCTION__, $where);
+        return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereReservationDaysBefore($query, $where)
@@ -122,22 +122,22 @@ class OperationType extends Model
 
     public function scopeWhereCreateNewLotsSerialNumbers($query, $where)
     {
-        return $this->whereId($query, __FUNCTION__, $where);
+        return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereUseExistingLotsSerialNumbers($query, $where)
     {
-        return $this->whereId($query, __FUNCTION__, $where);
+        return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereDefaultSourceLocationId($query, $where)
     {
-        return $this->whereId($query, __FUNCTION__, $where);
+        return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
     public function scopeWhereDefaultDestinationLocationId($query, $where)
     {
-        return $this->whereId($query, __FUNCTION__, $where);
+        return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
     public function scopeOrderByName($query, $order)
