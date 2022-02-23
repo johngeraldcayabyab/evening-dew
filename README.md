@@ -39,3 +39,4 @@ php artisan storage:link
 
 
 Discard on edit doenst reset fields but erases it
+Options with initial value with many options only has one value. making it confusing on initial render
