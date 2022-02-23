@@ -10,7 +10,7 @@ import CustomForm from "../components/CustomForm";
 import FormItemText from "../components/FormItem/FormItemText";
 import ControlPanel from "../components/ControlPanel";
 import FormCard from "../components/FormCard";
-import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
+import FormItemSelectAjaxAdvanced from "../components/FormItem/FormItemSelectAjaxAdvanced";
 import FormItemSelect from "../components/FormItem/FormItemSelect";
 
 const AddressForm = () => {
@@ -80,7 +80,7 @@ const AddressForm = () => {
                             {...formState}
                         />
 
-                        <FormItemSelectAjax
+                        <FormItemSelectAjaxAdvanced
                             label={'Country'}
                             name={'country_id'}
                             url={'/api/countries/option'}
@@ -90,7 +90,7 @@ const AddressForm = () => {
                     </ColForm>
 
                     <ColForm>
-                        <FormItemSelectAjax
+                        <FormItemSelectAjaxAdvanced
                             label={'Contact'}
                             name={'contact_id'}
                             message={'Please select a contact'}

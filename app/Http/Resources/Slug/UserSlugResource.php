@@ -3,7 +3,6 @@
 namespace App\Http\Resources\Slug;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Str;
 
 class UserSlugResource extends JsonResource
 {
@@ -11,7 +10,6 @@ class UserSlugResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'key' => Str::uuid(),
             'slug' => $this->name
         ];
     }
