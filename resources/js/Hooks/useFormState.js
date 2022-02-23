@@ -63,7 +63,7 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
                 }
             }
         },
-        onFinish: (values) => {
+        onFinish: (values, hooks = false) => {
             setFormState(state => ({
                 ...state,
                 loading: true
@@ -105,6 +105,9 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
                         }));
                     });
                 });
+            }
+            if (hooks) {
+                hooks();
             }
         },
         toggleEditMode: () => {
