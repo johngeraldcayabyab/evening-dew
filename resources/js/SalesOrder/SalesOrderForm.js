@@ -13,7 +13,7 @@ import FormItemText from "../components/FormItem/FormItemText";
 import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
 import useFetchHook from "../Hooks/useFetchHook";
 import useFetchCatcher from "../Hooks/useFetchCatcher";
-import {GET} from "../consts";
+import {GET, POST} from "../consts";
 import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
 import FormItemNumber from "../components/FormItem/FormItemNumber";
 
@@ -27,6 +27,7 @@ const SalesOrderForm = () => {
         invoiceAddressOptionReload: false,
         deliveryAddressOptionReload: false,
         salesOrderLinesOptionReload: [],
+        deletedSalesOrderLines: []
     });
 
     useEffect(() => {
@@ -39,7 +40,23 @@ const SalesOrderForm = () => {
     return (
         <CustomForm
             form={form}
-            onFinish={formActions.onFinish}
+            onFinish={(values) => {
+                formActions.onFinish(values);
+
+                console.log(state.deletedSalesOrderLines);
+
+                // useFetch(`api/${moduleName}/mass_destroy`, POST, {ids: ids}).then(() => {
+                //     tableActions.renderData(tableState.params);
+                // }).catch((responseErr) => {
+                //     fetchCatcher.get(responseErr).then(() => {
+                //         setTableState(state => ({
+                //             ...state,
+                //             loading: false,
+                //         }));
+                //     });
+                // });
+
+            }}
             onValuesChange={(changedValues, allValues) => {
                 if (changedValues.customer_id) {
                     useFetch(`/api/addresses`, GET, {
@@ -240,14 +257,24 @@ const SalesOrderForm = () => {
                                                 />
                                             </ColForm>
                                             <ColForm lg={1}>
-                                                <MinusCircleOutlined onClick={() => remove(name)}/>
+                                                {!formState.formDisabled &&
+                                                <MinusCircleOutlined onClick={(item) => {
+                                                    remove(name);
+                                                    const deletedSalesOrderLines = state.deletedSalesOrderLines;
+                                                    deletedSalesOrderLines.push(formState.initialValues.sales_order_lines[restField.fieldKey]);
+                                                    setState((prevState) => ({
+                                                        ...prevState,
+                                                        deletedSalesOrderLines: deletedSalesOrderLines,
+                                                    }));
+                                                }}/>}
                                             </ColForm>
                                         </RowForm>
                                     ))}
                                     <Form.Item>
+                                        {!formState.formDisabled &&
                                         <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined/>}>
                                             Add field
-                                        </Button>
+                                        </Button>}
                                     </Form.Item>
                                 </>
                             )}
