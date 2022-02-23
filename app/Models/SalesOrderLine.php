@@ -135,18 +135,36 @@ class SalesOrderLine extends Model
 
     public function scopeInsertMany($query, $data, $salesOrderId)
     {
-        $salesOrderLineInsert = [];
+        $salesOrderLines = [];
         foreach ($data as $datum) {
             $salesOrderLine = new SalesOrderLine();
             $salesOrderLine->product_id = $datum['product_id'];
-            $salesOrderLine->description = $datum['description'];
+            $salesOrderLine->description = isset($datum['description']) ? $datum['description'] : null;
             $salesOrderLine->quantity = $datum['quantity'];
             $salesOrderLine->measurement_id = $datum['measurement_id'];
             $salesOrderLine->unit_price = $datum['unit_price'];
             $salesOrderLine->subtotal = $salesOrderLine->unit_price * $salesOrderLine->quantity;
             $salesOrderLine->sales_order_id = $salesOrderId;
-            $salesOrderLineInsert[] = $salesOrderLine->attributesToArray();
+            $salesOrderLines[] = $salesOrderLine->attributesToArray();
         }
-        SalesOrderLine::insert($salesOrderLineInsert);
+        $query->insert($salesOrderLines);
+    }
+
+    public function scopeUpdateOrCreateMany($query, $data, $salesOrderId)
+    {
+        $salesOrderLines = [];
+        foreach ($data as $datum) {
+            $salesOrderLine = new SalesOrderLine();
+            $salesOrderLine->id = isset($datum['id']) ? $datum['id'] : null;
+            $salesOrderLine->product_id = $datum['product_id'];
+            $salesOrderLine->description = isset($datum['description']) ? $datum['description'] : null;
+            $salesOrderLine->quantity = $datum['quantity'];
+            $salesOrderLine->measurement_id = $datum['measurement_id'];
+            $salesOrderLine->unit_price = $datum['unit_price'];
+            $salesOrderLine->subtotal = $salesOrderLine->unit_price * $salesOrderLine->quantity;
+            $salesOrderLine->sales_order_id = $salesOrderId;
+            $salesOrderLines[] = $salesOrderLine->attributesToArray();
+        }
+        $query->upsert($salesOrderLines, ['id']);
     }
 }
