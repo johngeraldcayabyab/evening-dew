@@ -10,7 +10,7 @@ import CustomForm from "../components/CustomForm";
 import FormItemText from "../components/FormItem/FormItemText";
 import ControlPanel from "../components/ControlPanel";
 import FormCard from "../components/FormCard";
-import FormItemSelectAjaxAdvanced from "../components/FormItem/FormItemSelectAjaxAdvanced";
+import FormItemSelectAjaxAdvancedAdvanced from "../components/FormItem/FormItemSelectAjaxAdvancedAdvanced";
 import FormItemSelect from "../components/FormItem/FormItemSelect";
 
 const AddressForm = () => {
@@ -86,7 +86,7 @@ const AddressForm = () => {
                             {...formState}
                         />
 
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjaxAdvancedAdvanced
                             form={form}
                             label={'Country'}
                             name={'country_id'}
@@ -97,7 +97,7 @@ const AddressForm = () => {
                     </ColForm>
 
                     <ColForm>
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjaxAdvancedAdvanced
                             form={form}
                             label={'Contact'}
                             name={'contact_id'}
