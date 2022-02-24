@@ -36,6 +36,26 @@ const SalesOrderForm = () => {
         };
     }, []);
 
+    function checkIfADynamicInputChanged(changedValues) {
+        if (changedValues.sales_order_lines && !changedValues.sales_order_lines.some(item => item === undefined || item.id)) {
+            return true;
+        }
+        return false;
+    }
+
+    function getSpecificInputChange(changedValues) {
+        let changedSalesOrderLine = false;
+        changedValues.sales_order_lines.forEach((salesOrderLine, key) => {
+            if (salesOrderLine && salesOrderLine.product_id) {
+                changedSalesOrderLine = {
+                    key: key,
+                    product_id: salesOrderLine.product_id
+                };
+            }
+        });
+        return changedSalesOrderLine;
+    }
+
 
     return (
         <CustomForm
@@ -83,17 +103,9 @@ const SalesOrderForm = () => {
                         fetchCatcher.get(responseErr);
                     });
                 }
-                if (changedValues.sales_order_lines && !changedValues.sales_order_lines.some(item => item === undefined || item.id)) {
+                if (checkIfADynamicInputChanged(changedValues)) {
                     const salesOrderLines = allValues.sales_order_lines;
-                    let changedSalesOrderLine = false;
-                    changedValues.sales_order_lines.forEach((salesOrderLine, key) => {
-                        if (salesOrderLine && salesOrderLine.product_id) {
-                            changedSalesOrderLine = {
-                                key: key,
-                                product_id: salesOrderLine.product_id
-                            };
-                        }
-                    });
+                    let changedSalesOrderLine = getSpecificInputChange(changedValues);
                     if (changedSalesOrderLine) {
                         useFetch(`/api/products`, GET, {
                             id: changedSalesOrderLine.product_id
