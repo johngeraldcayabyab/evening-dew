@@ -282,7 +282,7 @@ const SalesOrderForm = () => {
                                                             search={state.salesOrderLinesOptionReload[name] ? state.salesOrderLinesOptionReload[name].isReload : null}
                                                             {...formState}
                                                             style={{display: 'inline-block', width: '20%'}}
-                                                            query={'measurement.name'}
+                                                            query={`sales_order_lines.${name}.measurement.name`}
                                                             groupName={name}
                                                             listName={'sales_order_lines'}
                                                         />
