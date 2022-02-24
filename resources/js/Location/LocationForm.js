@@ -56,6 +56,7 @@ const LocationForm = () => {
                             url={'/api/locations/option'}
                             size={'medium'}
                             {...formState}
+                            query={'parent_location.name'}
                         />
                     </ColForm>
                 </RowForm>
