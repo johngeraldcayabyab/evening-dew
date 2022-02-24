@@ -37,6 +37,7 @@ const CurrencyForm = () => {
                 <RowForm>
                     <ColForm>
                         <FormItemText
+                            form={form}
                             label={'Currency'}
                             name={'currency'}
                             message={'Please input currency'}
@@ -45,6 +46,7 @@ const CurrencyForm = () => {
                         />
 
                         <FormItemText
+                            form={form}
                             label={'Name'}
                             name={'name'}
                             {...formState}
@@ -53,11 +55,13 @@ const CurrencyForm = () => {
 
                     <ColForm>
                         <FormItemText
+                            form={form}
                             label={'Unit'}
                             name={'unit'}
                             {...formState}
                         />
                         <FormItemText
+                            form={form}
                             label={'Sub Unit'}
                             name={'sub_unit'}
                             {...formState}
@@ -68,11 +72,13 @@ const CurrencyForm = () => {
                 <RowForm>
                     <ColForm>
                         <FormItemNumber
+                            form={form}
                             label={'Rounding Factor'}
                             name={'rounding_factor'}
                             {...formState}
                         />
                         <FormItemNumber
+                            form={form}
                             label={'Decimal Places'}
                             name={'decimal_places'}
                             {...formState}
@@ -80,6 +86,7 @@ const CurrencyForm = () => {
                     </ColForm>
                     <ColForm>
                         <FormItemText
+                            form={form}
                             label={'Symbol'}
                             name={'symbol'}
                             message={'Please input symbol'}
@@ -88,6 +95,7 @@ const CurrencyForm = () => {
                         />
 
                         <FormItemSelect
+                            form={form}
                             label={'Symbol Position'}
                             name={'symbol_position'}
                             message={'Please select symbol position'}

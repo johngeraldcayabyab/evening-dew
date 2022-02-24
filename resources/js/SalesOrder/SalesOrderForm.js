@@ -149,6 +149,7 @@ const SalesOrderForm = () => {
                 <RowForm>
                     <ColForm>
                         <FormItemText
+                            form={form}
                             label={'Number'}
                             name={'number'}
                             message={'Please input number'}
@@ -162,6 +163,7 @@ const SalesOrderForm = () => {
                 <RowForm>
                     <ColForm>
                         <FormItemSelectAjaxAdvanced
+                            form={form}
                             label={'Customer'}
                             name={'customer_id'}
                             message={'Please select a customer'}
@@ -171,6 +173,7 @@ const SalesOrderForm = () => {
                             query={'customer.name'}
                         />
                         <FormItemSelectAjaxAdvanced
+                            form={form}
                             label={'Invoice address'}
                             name={'invoice_address_id'}
                             message={'Please select a invoice address'}
@@ -181,6 +184,7 @@ const SalesOrderForm = () => {
                             query={'invoice_address.address_name'}
                         />
                         <FormItemSelectAjaxAdvanced
+                            form={form}
                             label={'Delivery address'}
                             name={'delivery_address_id'}
                             message={'Please select a delivery address'}
@@ -193,6 +197,7 @@ const SalesOrderForm = () => {
                     </ColForm>
                     <ColForm>
                         <FormItemSelectAjaxAdvanced
+                            form={form}
                             label={'Payment Term'}
                             name={'payment_term_id'}
                             url={'/api/payment_terms/option'}
@@ -211,6 +216,7 @@ const SalesOrderForm = () => {
                                         <RowForm key={key}>
                                             <ColForm lg={23}>
                                                 <FormItemSelectAjaxAdvanced
+                                                    form={form}
                                                     {...restField}
                                                     placeholder={'Product'}
                                                     name={'product_id'}
@@ -225,6 +231,7 @@ const SalesOrderForm = () => {
                                                 />
 
                                                 <FormItemText
+                                                    form={form}
                                                     {...restField}
                                                     placeholder={'Description'}
                                                     name={'description'}
@@ -235,6 +242,7 @@ const SalesOrderForm = () => {
                                                 />
 
                                                 <FormItemNumber
+                                                    form={form}
                                                     {...restField}
                                                     placeholder={'Quantity'}
                                                     name={'quantity'}
@@ -247,6 +255,7 @@ const SalesOrderForm = () => {
                                                 />
 
                                                 <FormItemSelectAjaxAdvanced
+                                                    form={form}
                                                     {...restField}
                                                     placeholder={'Measurement'}
                                                     name={'measurement_id'}

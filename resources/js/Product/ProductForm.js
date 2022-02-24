@@ -42,6 +42,7 @@ const ProductForm = () => {
                 <RowForm>
                     <ColForm>
                         <FormItemText
+                            form={form}
                             label={'Name'}
                             name={'name'}
                             message={'Please input name'}
@@ -53,8 +54,8 @@ const ProductForm = () => {
 
                     <ColForm>
                         <FormItemUpload
-                            name={'avatar'}
                             form={form}
+                            name={'avatar'}
                             {...formState}
                         />
                     </ColForm>
@@ -67,6 +68,7 @@ const ProductForm = () => {
                             <ColForm>
 
                                 <FormItemSelect
+                                    form={form}
                                     label={'Product Type'}
                                     name={'product_type'}
                                     message={'Please select a product type'}
@@ -80,6 +82,7 @@ const ProductForm = () => {
                                 />
 
                                 <FormItemSelect
+                                    form={form}
                                     label={'Invoicing Policy'}
                                     name={'invoicing_policy'}
                                     message={'Please select an invoicing policy'}

@@ -37,6 +37,7 @@ const ProductCategoryForm = () => {
                 <RowForm>
                     <ColForm>
                         <FormItemText
+                            form={form}
                             label={'Category'}
                             name={'category'}
                             message={'Please input category'}
@@ -46,6 +47,7 @@ const ProductCategoryForm = () => {
                         />
 
                         <FormItemSelectAjax
+                            form={form}
                             label={'Parent Category'}
                             name={'parent_product_category_id'}
                             url={'/api/product_categories/option'}

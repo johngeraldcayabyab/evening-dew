@@ -37,6 +37,7 @@ const UserForm = () => {
                 <RowForm>
                     <ColForm>
                         <FormItemText
+                            form={form}
                             label={'Name'}
                             name={'name'}
                             message={'Please input name'}
@@ -46,6 +47,7 @@ const UserForm = () => {
                         />
 
                         <FormItemText
+                            form={form}
                             label={'Email'}
                             name={'email'}
                             message={'Please input email'}
@@ -57,8 +59,8 @@ const UserForm = () => {
 
                     <ColForm>
                         <FormItemUpload
-                            name={'avatar'}
                             form={form}
+                            name={'avatar'}
                             {...formState}
                         />
                     </ColForm>
@@ -71,6 +73,7 @@ const UserForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemText
+                                form={form}
                                 label={'Password'}
                                 name={'password'}
                                 message={'Please input password'}
@@ -80,6 +83,7 @@ const UserForm = () => {
                         </ColForm>
                         <ColForm>
                             <FormItemText
+                                form={form}
                                 label={'Confirm Password'}
                                 name={'password_confirmation'}
                                 message={'Please input password'}

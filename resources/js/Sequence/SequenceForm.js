@@ -38,6 +38,7 @@ const SequenceForm = () => {
                 <RowForm>
                     <ColForm>
                         <FormItemText
+                            form={form}
                             label={'Name'}
                             name={'name'}
                             message={'Please input name'}
@@ -45,6 +46,7 @@ const SequenceForm = () => {
                             {...formState}
                         />
                         <FormItemSelect
+                            form={form}
                             label={'Implementation'}
                             name={'implementation'}
                             message={'Please select an implementation'}
@@ -58,6 +60,7 @@ const SequenceForm = () => {
                     </ColForm>
                     <ColForm>
                         <FormItemText
+                            form={form}
                             label={'Sequence Code'}
                             name={'sequence_code'}
                             message={'Please input sequence code'}
@@ -70,11 +73,13 @@ const SequenceForm = () => {
                 <RowForm>
                     <ColForm>
                         <FormItemText
+                            form={form}
                             label={'Prefix'}
                             name={'prefix'}
                             {...formState}
                         />
                         <FormItemText
+                            form={form}
                             label={'Suffix'}
                             name={'suffix'}
                             {...formState}
@@ -82,6 +87,7 @@ const SequenceForm = () => {
                     </ColForm>
                     <ColForm>
                         <FormItemNumber
+                            form={form}
                             label={'Sequence Size'}
                             name={'sequence_size'}
                             message={'Please input sequence size'}
@@ -89,6 +95,7 @@ const SequenceForm = () => {
                             {...formState}
                         />
                         <FormItemNumber
+                            form={form}
                             label={'Step'}
                             name={'step'}
                             message={'Please input step'}
@@ -96,6 +103,7 @@ const SequenceForm = () => {
                             {...formState}
                         />
                         <FormItemNumber
+                            form={form}
                             label={'Next number'}
                             name={'next_number'}
                             message={'Please input next number'}

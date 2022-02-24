@@ -40,6 +40,7 @@ const LocationForm = () => {
                 <RowForm>
                     <ColForm lg={24}>
                         <FormItemText
+                            form={form}
                             label={'Name'}
                             name={'name'}
                             message={'Please input name'}
@@ -49,6 +50,7 @@ const LocationForm = () => {
                         />
 
                         <FormItemSelectAjax
+                            form={form}
                             label={'Parent Category'}
                             name={'parent_location_id'}
                             url={'/api/locations/option'}
@@ -65,6 +67,7 @@ const LocationForm = () => {
                 <RowForm>
                     <ColForm>
                         <FormItemSelect
+                            form={form}
                             label={'Type'}
                             name={'type'}
                             message={'Please select a location type'}
@@ -82,12 +85,14 @@ const LocationForm = () => {
                         />
 
                         <FormItemCheckbox
+                            form={form}
                             label={'Is a scrap location?'}
                             name={'is_a_scrap_location'}
                             {...formState}
                         />
 
                         <FormItemCheckbox
+                            form={form}
                             label={'Is a return location?'}
                             name={'is_a_return_location'}
                             {...formState}

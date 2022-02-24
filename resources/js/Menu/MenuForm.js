@@ -36,6 +36,7 @@ const MenuForm = () => {
                 <RowForm>
                     <ColForm>
                         <FormItemText
+                            form={form}
                             label={'Label'}
                             name={'label'}
                             message={'Please input label'}
@@ -44,6 +45,7 @@ const MenuForm = () => {
                         />
 
                         <FormItemText
+                            form={form}
                             label={'Url'}
                             name={'url'}
                             message={'Please input url'}
