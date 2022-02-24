@@ -43,12 +43,6 @@ const FormItemSelectAjaxAdvanced = (props) => {
 
     function getQueryFromInitialValue() {
         let search = props.form.getFieldsValue();
-        if (props.isListField) {
-            search = search[props.listName];
-            if (search) {
-                search = search[props.groupName];
-            }
-        }
         props.query.split('.').forEach((query) => {
             if (search && query in search) {
                 search = search[query];
