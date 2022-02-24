@@ -11,7 +11,7 @@ import FormItemText from "../components/FormItem/FormItemText";
 import ControlPanel from "../components/ControlPanel";
 import FormCard from "../components/FormCard";
 import FormItemUpload from "../components/FormItem/FormItemUpload";
-import FormItemSelectAjaxAdvanced from "../components/FormItem/FormItemSelectAjaxAdvanced";
+import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
 
 const ContactForm = () => {
     let {id} = useParams();
@@ -95,7 +95,7 @@ const ContactForm = () => {
                             {...formState}
                         />
 
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjax
                             form={form}
                             label={'Country'}
                             name={'country_id'}

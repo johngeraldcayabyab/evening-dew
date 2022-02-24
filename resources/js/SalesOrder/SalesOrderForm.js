@@ -10,7 +10,7 @@ import CustomForm from "../components/CustomForm";
 import ControlPanel from "../components/ControlPanel";
 import FormCard from "../components/FormCard";
 import FormItemText from "../components/FormItem/FormItemText";
-import FormItemSelectAjaxAdvanced from "../components/FormItem/FormItemSelectAjaxAdvanced";
+import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
 import useFetchHook from "../Hooks/useFetchHook";
 import useFetchCatcher from "../Hooks/useFetchCatcher";
 import {GET, POST} from "../consts";
@@ -165,7 +165,7 @@ const SalesOrderForm = () => {
 
                 <RowForm>
                     <ColForm>
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjax
                             form={form}
                             label={'Customer'}
                             name={'customer_id'}
@@ -175,7 +175,7 @@ const SalesOrderForm = () => {
                             {...formState}
                             query={'customer.name'}
                         />
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjax
                             form={form}
                             label={'Invoice address'}
                             name={'invoice_address_id'}
@@ -186,7 +186,7 @@ const SalesOrderForm = () => {
                             search={state.invoiceAddressOptionReload}
                             query={'invoice_address.address_name'}
                         />
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjax
                             form={form}
                             label={'Delivery address'}
                             name={'delivery_address_id'}
@@ -199,7 +199,7 @@ const SalesOrderForm = () => {
                         />
                     </ColForm>
                     <ColForm>
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjax
                             form={form}
                             label={'Payment Term'}
                             name={'payment_term_id'}
@@ -232,7 +232,7 @@ const SalesOrderForm = () => {
                                             {fields.map(({key, name, ...restField}) => (
                                                 <RowForm key={key}>
                                                     <ColForm lg={23}>
-                                                        <FormItemSelectAjaxAdvanced
+                                                        <FormItemSelectAjax
                                                             form={form}
                                                             {...restField}
                                                             placeholder={'Product'}
@@ -271,7 +271,7 @@ const SalesOrderForm = () => {
                                                             listName={'sales_order_lines'}
                                                         />
 
-                                                        <FormItemSelectAjaxAdvanced
+                                                        <FormItemSelectAjax
                                                             form={form}
                                                             {...restField}
                                                             placeholder={'Measurement'}

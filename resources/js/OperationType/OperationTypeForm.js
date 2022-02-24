@@ -10,7 +10,7 @@ import CustomForm from "../components/CustomForm";
 import ControlPanel from "../components/ControlPanel";
 import FormCard from "../components/FormCard";
 import FormItemText from "../components/FormItem/FormItemText";
-import FormItemSelectAjaxAdvanced from "../components/FormItem/FormItemSelectAjaxAdvanced";
+import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
 import FormItemSelect from "../components/FormItem/FormItemSelect";
 import FormItemCheckbox from "../components/FormItem/FormItemCheckbox";
 import FormItemNumber from "../components/FormItem/FormItemNumber";
@@ -47,7 +47,7 @@ const OperationTypeForm = () => {
                             {...formState}
                         />
 
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjax
                             form={form}
                             label={'Reference Sequence'}
                             name={'reference_sequence_id'}
@@ -65,7 +65,7 @@ const OperationTypeForm = () => {
                             {...formState}
                         />
 
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjax
                             form={form}
                             label={'Warehouse'}
                             name={'warehouse_id'}
@@ -119,7 +119,7 @@ const OperationTypeForm = () => {
                             {...formState}
                         />
 
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjax
                             form={form}
                             label={'Operation Type For Returns'}
                             name={'operation_type_for_returns_id'}
@@ -166,7 +166,7 @@ const OperationTypeForm = () => {
 
                         {/*Locations*/}
 
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjax
                             form={form}
                             label={'Default Source Location'}
                             name={'default_source_location_id'}
@@ -175,7 +175,7 @@ const OperationTypeForm = () => {
                             query={'default_source_location.name'}
                         />
 
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjax
                             form={form}
                             label={'Default Destination Location'}
                             name={'default_destination_location_id'}

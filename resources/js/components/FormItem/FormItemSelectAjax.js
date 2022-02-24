@@ -1,11 +1,11 @@
 import {Form, Select} from "antd";
 import {useEffect, useState} from "react";
-import {uuidv4} from "../../Helpers/string";
 import CustomInputSkeleton from "../CustomInputSkeleton";
 import useFetchCatcher from "../../Hooks/useFetchCatcher";
 import useFetchHook from "../../Hooks/useFetchHook";
 import {GET} from "../../consts";
 import {formItemFieldProps} from "../../Helpers/formItem";
+import {objectHasValue} from "../../Helpers/object";
 
 const FormItemSelectAjax = (props) => {
     const [useFetch, fetchAbort] = useFetchHook();
@@ -24,54 +24,34 @@ const FormItemSelectAjax = (props) => {
     });
 
     useEffect(() => {
-        if (props.url && !props.initialLoad) {
-            let search = null;
-            if (props.isListField) {
-                if (props.id && props.query) {
-                    search = props.initialValues[props.listName][props.fieldKey];
-                    if (search) {
-                        props.query.split('.').forEach((query) => {
-                            search = search[query];
-                        });
-                    }
-                } else if (!props.id && props.initialValues[props.name]) {
-                    search = props.initialValues[props.listName][props.fieldKey];
-                    if (search) {
-                        props.query.split('.').forEach((query) => {
-                            search = search[query];
-                        });
-                    }
-                }
-            } else {
-                if (props.id && props.query) {
-                    if (props.initialValues[props.name]) {
-                        search = props.initialValues;
-                        props.query.split('.').forEach((query) => {
-                            search = search[query];
-                        });
-                    }
-                } else if (!props.id && props.initialValues[props.name]) {
-                    search = props.initialValues;
-                    props.query.split('.').forEach((query) => {
-                        search = search[query];
-                    });
-                }
-            }
-            getOptions(search);
-        }
-    }, [props.initialLoad]);
-
-    useEffect(() => {
         return () => {
             fetchAbort();
         };
     }, []);
 
     useEffect(() => {
+        if (objectHasValue(props.initialValues)) {
+            getOptions(getQueryFromInitialValue());
+        }
+    }, [props.initialLoad]);
+
+    useEffect(() => {
         if (props.search) {
             getOptions(props.search);
         }
-    }, [props.search, props.updated]);
+    }, [props.search]);
+
+    function getQueryFromInitialValue() {
+        let search = props.form.getFieldsValue();
+        props.query.split('.').forEach((query) => {
+            if (search && query in search) {
+                search = search[query];
+            } else {
+                search = null;
+            }
+        });
+        return search;
+    }
 
     function onSearch(search) {
         getOptions(search);
@@ -83,7 +63,7 @@ const FormItemSelectAjax = (props) => {
         }
     }
 
-    function getOptions(search = null, initial = false) {
+    function getOptions(search = null) {
         let useFetchHook;
         if (search) {
             useFetchHook = useFetch(`${props.url}`, GET, {search: search});
@@ -109,7 +89,7 @@ const FormItemSelectAjax = (props) => {
                 <Select {...fieldProps}>
                     {state.options.map((option) => {
                         return (
-                            <Select.Option key={uuidv4()} value={option.value}>
+                            <Select.Option key={option.value} value={option.value}>
                                 {option.label}
                             </Select.Option>
                         )
