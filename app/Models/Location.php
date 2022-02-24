@@ -33,6 +33,11 @@ class Location extends Model
         return [self::VENDOR, self::VIEW, self::INTERNAL, self::CUSTOMER, self::INVENTORY_LOSS, self::PRODUCTION, self::TRANSIT_LOCATION];
     }
 
+    public function parentLocation()
+    {
+        return $this->belongsTo(Location::class, 'parent_location_id', 'id');
+    }
+
     public function scopeWhereName($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);
@@ -81,5 +86,10 @@ class Location extends Model
     public function scopeOrderByType($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeWhereParentLocation($query, $where)
+    {
+        return $this->likeHas($query, 'parentLocation', 'name', $where);
     }
 }
