@@ -95,6 +95,7 @@ const ProductForm = () => {
                                 />
 
                                 <FormItemSelectAjax
+                                    form={form}
                                     label={'Measurement'}
                                     name={'measurement_id'}
                                     message={'Please select a measurement'}
@@ -105,6 +106,7 @@ const ProductForm = () => {
                                 />
 
                                 <FormItemSelectAjax
+                                    form={form}
                                     label={'Purchase Measurement'}
                                     name={'purchase_measurement_id'}
                                     message={'Please select a purchase measurement'}
@@ -115,6 +117,7 @@ const ProductForm = () => {
                                 />
 
                                 <FormItemSelectAjax
+                                    form={form}
                                     label={'Sales Measurement'}
                                     name={'sales_measurement_id'}
                                     message={'Please select a sales measurement'}
@@ -128,6 +131,7 @@ const ProductForm = () => {
 
                             <ColForm>
                                 <FormItemNumber
+                                    form={form}
                                     label={'Sales Price'}
                                     name={'sales_price'}
                                     message={'Please input sales price'}
@@ -136,6 +140,7 @@ const ProductForm = () => {
                                 />
 
                                 <FormItemNumber
+                                    form={form}
                                     label={'Cost'}
                                     name={'cost'}
                                     message={'Please input cost'}
@@ -144,6 +149,7 @@ const ProductForm = () => {
                                 />
 
                                 <FormItemSelectAjax
+                                    form={form}
                                     label={'Product Category'}
                                     name={'product_category_id'}
                                     message={'Please select a product category'}
@@ -154,6 +160,7 @@ const ProductForm = () => {
                                 />
 
                                 <FormItemText
+                                    form={form}
                                     label={'Internal Reference'}
                                     name={'internal_reference'}
                                     {...formState}
@@ -167,12 +174,14 @@ const ProductForm = () => {
                         <RowForm>
                             <ColForm>
                                 <FormItemText
+                                    form={form}
                                     label={'Sales Description'}
                                     name={'sales_description'}
                                     {...formState}
                                 />
 
                                 <FormItemText
+                                    form={form}
                                     label={'Purchase Description'}
                                     name={'purchase_description'}
                                     {...formState}
