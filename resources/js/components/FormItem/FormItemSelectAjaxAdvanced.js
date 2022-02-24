@@ -42,7 +42,7 @@ const FormItemSelectAjaxAdvanced = (props) => {
     }, [props.search]);
 
     function getQueryFromInitialValue() {
-        let search = props.initialValues;
+        let search = props.form.getFieldsValue();
         if (props.isListField) {
             search = search[props.listName];
             if (search) {
