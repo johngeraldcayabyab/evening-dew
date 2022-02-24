@@ -39,7 +39,7 @@ php artisan event:cache
 
 
 
--Discard on edit doenst reset fields but erases it
 -Options with initial value with many options only has one value. making it confusing on initial render
 -order lines has if has option, value changes because its a different key making it not reload on change (what?)
 -recursion shall be delegated in the front end
+-Fix deployment permissions
