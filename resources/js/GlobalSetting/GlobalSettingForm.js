@@ -39,6 +39,7 @@ const GlobalSettingForm = () => {
                 <RowForm>
                     <ColForm>
                         <FormItemSelectAjax
+                            form={form}
                             label={'Default Country'}
                             name={'general_default_country_id'}
                             message={'Please select a default country'}
@@ -57,6 +58,7 @@ const GlobalSettingForm = () => {
                 <RowForm>
                     <ColForm>
                         <FormItemSelectAjax
+                            form={form}
                             label={'Default Measurement Category'}
                             name={'inventory_default_measurement_category_id'}
                             message={'Please select a default measurement category'}
@@ -67,6 +69,7 @@ const GlobalSettingForm = () => {
                         />
 
                         <FormItemSelectAjax
+                            form={form}
                             label={'Default Measurement'}
                             name={'inventory_default_measurement_id'}
                             message={'Please select a default measurement'}
@@ -77,6 +80,7 @@ const GlobalSettingForm = () => {
                         />
 
                         <FormItemSelectAjax
+                            form={form}
                             label={'Default Purchase Measurement'}
                             name={'inventory_default_purchase_measurement_id'}
                             message={'Please select a default purchase measurement'}
@@ -87,6 +91,7 @@ const GlobalSettingForm = () => {
                         />
 
                         <FormItemSelectAjax
+                            form={form}
                             label={'Default Sales Measurement'}
                             name={'inventory_default_sales_measurement_id'}
                             message={'Please select a default sales measurement'}
@@ -100,6 +105,7 @@ const GlobalSettingForm = () => {
 
                     <ColForm>
                         <FormItemSelectAjax
+                            form={form}
                             label={'Default Product Category'}
                             name={'inventory_default_product_category_id'}
                             message={'Please select a default product category'}
@@ -117,6 +123,7 @@ const GlobalSettingForm = () => {
                 <RowForm>
                     <ColForm>
                         <FormItemSelectAjax
+                            form={form}
                             label={'Default Currency'}
                             name={'accounting_default_currency_id'}
                             message={'Please select a default currency'}
@@ -134,6 +141,7 @@ const GlobalSettingForm = () => {
                 <RowForm>
                     <ColForm>
                         <FormItemSelectAjax
+                            form={form}
                             label={'Sales Default Sequence'}
                             name={'sales_order_default_sequence_id'}
                             url={'/api/sequences/option'}
