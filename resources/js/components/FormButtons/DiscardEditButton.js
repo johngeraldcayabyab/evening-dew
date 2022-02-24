@@ -9,7 +9,8 @@ const DiscardEditButton = (props) => {
                 size={'default'}
                 onClick={() => {
                     props.formActions.toggleEditMode();
-                    props.form.resetFields();
+                    // props.form.resetFields();
+                    props.form.setFieldsValue(props.formState.initialValues);
                 }}
             >
                 Discard

@@ -23,6 +23,10 @@ const FormItemSelectAjaxAdvanced = (props) => {
         onClear: onClear,
     });
 
+    if (props.isListField) {
+        console.log(props.fieldKey);
+    }
+
     useEffect(() => {
         return () => {
             fetchAbort();
@@ -33,7 +37,7 @@ const FormItemSelectAjaxAdvanced = (props) => {
         if (objectHasValue(props.initialValues)) {
             getOptions(getQueryFromInitialValue());
         }
-    }, [props.initialLoad, props.updated, props.search]);
+    }, [props.initialLoad, props.search]);
 
     function getQueryFromInitialValue() {
         let search = props.initialValues;
