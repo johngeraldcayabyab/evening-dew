@@ -14,4 +14,9 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
     ];
+
+    public function shouldDiscoverEvents()
+    {
+        return true;
+    }
 }

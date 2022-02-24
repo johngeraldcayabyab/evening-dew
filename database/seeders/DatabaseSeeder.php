@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             CurrencySeeder::class,
             GlobalSettingSeeder::class,
+            LocationSeeder::class,
             MeasurementCategorySeeder::class,
             MeasurementSeeder::class,
             MenuSeeder::class,

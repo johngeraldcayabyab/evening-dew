@@ -78,8 +78,6 @@ const OperationTypeForm = () => {
                             form={form}
                             label={'Reservation Method'}
                             name={'reservation_method'}
-                            message={'Please select an address type'}
-                            required={true}
                             options={[
                                 {value: 'at_confirmation', label: 'At Confirmation'},
                                 {value: 'manually', label: 'Manually'},
@@ -159,6 +157,13 @@ const OperationTypeForm = () => {
                             form={form}
                             label={'Use existing lots/serial numbers'}
                             name={'use_existing_lots_serial_numbers'}
+                            {...formState}
+                        />
+
+                        <FormItemCheckbox
+                            form={form}
+                            label={'Create new lots/serial numbers for components'}
+                            name={'create_new_lots_serial_numbers_for_components'}
                             {...formState}
                         />
                     </ColForm>
