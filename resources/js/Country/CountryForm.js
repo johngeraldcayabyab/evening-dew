@@ -36,6 +36,7 @@ const CountryForm = () => {
                 <RowForm>
                     <ColForm>
                         <FormItemText
+                            form={form}
                             label={'Country Name'}
                             name={'country_name'}
                             message={'Please input country name'}
@@ -44,6 +45,7 @@ const CountryForm = () => {
                         />
 
                         <FormItemSelectAjax
+                            form={form}
                             label={'Currency'}
                             name={'currency_id'}
                             url={'/api/currencies/option'}
@@ -51,6 +53,7 @@ const CountryForm = () => {
                         />
 
                         <FormItemText
+                            form={form}
                             label={'Country Code'}
                             name={'country_code'}
                             {...formState}
@@ -59,6 +62,7 @@ const CountryForm = () => {
 
                     <ColForm>
                         <FormItemText
+                            form={form}
                             label={'Country Calling Code'}
                             name={'country_calling_code'}
                             {...formState}
