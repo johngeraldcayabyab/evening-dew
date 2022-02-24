@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Form} from "antd";
+import {Button, Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
@@ -16,6 +16,9 @@ import useFetchCatcher from "../Hooks/useFetchCatcher";
 import {GET, POST} from "../consts";
 import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
 import FormItemNumber from "../components/FormItem/FormItemNumber";
+import FormLabel from "../components/Typography/FormLabel";
+
+const {TabPane} = Tabs;
 
 const SalesOrderForm = () => {
     let {id} = useParams();
@@ -67,7 +70,7 @@ const SalesOrderForm = () => {
                             if (deletedSalesOrderLine) {
                                 return deletedSalesOrderLine.id;
                             }
-                        });
+                        }).filter((id) => (id));
                         useFetch(`/api/sales_order_lines/mass_destroy`, POST, {ids: deleteSalesOrderLinesIds}).then(() => {
                             setState((prevState) => ({
                                 ...prevState,
@@ -207,106 +210,126 @@ const SalesOrderForm = () => {
                     </ColForm>
                 </RowForm>
 
-                <RowForm>
-                    <ColForm lg={24}>
-                        <Form.List name="sales_order_lines">
-                            {(fields, {add, remove}) => (
-                                <>
-                                    {fields.map(({key, name, ...restField}) => (
-                                        <RowForm key={key}>
-                                            <ColForm lg={23}>
-                                                <FormItemSelectAjaxAdvanced
-                                                    form={form}
-                                                    {...restField}
-                                                    placeholder={'Product'}
-                                                    name={'product_id'}
-                                                    message={'Please select a product'}
-                                                    required={true}
-                                                    url={'/api/products/option'}
-                                                    {...formState}
-                                                    style={{display: 'inline-block', width: '20%'}}
-                                                    query={'product.name'}
-                                                    groupName={name}
-                                                    listName={'sales_order_lines'}
-                                                />
+                <Tabs defaultActiveKey="1">
+                    <TabPane tab="Order Lines" key="1">
+                        <RowForm>
+                            <ColForm lg={23}>
+                                <FormLabel style={{display: 'inline-block', width: '20%'}}>Product</FormLabel>
+                                <FormLabel style={{display: 'inline-block', width: '20%'}}>Description</FormLabel>
+                                <FormLabel style={{display: 'inline-block', width: '20%'}}>Quantity</FormLabel>
+                                <FormLabel style={{display: 'inline-block', width: '20%'}}>Measurement</FormLabel>
+                                <FormLabel style={{display: 'inline-block', width: '20%'}}>Unit Price</FormLabel>
+                            </ColForm>
+                            <ColForm lg={1}>
+                            </ColForm>
+                        </RowForm>
 
-                                                <FormItemText
-                                                    form={form}
-                                                    {...restField}
-                                                    placeholder={'Description'}
-                                                    name={'description'}
-                                                    {...formState}
-                                                    style={{display: 'inline-block', width: '20%'}}
-                                                    groupName={name}
-                                                    listName={'sales_order_lines'}
-                                                />
+                        <RowForm>
+                            <ColForm lg={24}>
+                                <Form.List name="sales_order_lines">
+                                    {(fields, {add, remove}) => (
+                                        <>
+                                            {fields.map(({key, name, ...restField}) => (
+                                                <RowForm key={key}>
+                                                    <ColForm lg={23}>
+                                                        <FormItemSelectAjaxAdvanced
+                                                            form={form}
+                                                            {...restField}
+                                                            placeholder={'Product'}
+                                                            name={'product_id'}
+                                                            message={'Please select a product'}
+                                                            required={true}
+                                                            url={'/api/products/option'}
+                                                            {...formState}
+                                                            style={{display: 'inline-block', width: '20%'}}
+                                                            query={'product.name'}
+                                                            groupName={name}
+                                                            listName={'sales_order_lines'}
+                                                        />
 
-                                                <FormItemNumber
-                                                    form={form}
-                                                    {...restField}
-                                                    placeholder={'Quantity'}
-                                                    name={'quantity'}
-                                                    message={'Please input a quantity'}
-                                                    required={true}
-                                                    {...formState}
-                                                    style={{display: 'inline-block', width: '20%'}}
-                                                    groupName={name}
-                                                    listName={'sales_order_lines'}
-                                                />
+                                                        <FormItemText
+                                                            form={form}
+                                                            {...restField}
+                                                            placeholder={'Description'}
+                                                            name={'description'}
+                                                            {...formState}
+                                                            style={{display: 'inline-block', width: '20%'}}
+                                                            groupName={name}
+                                                            listName={'sales_order_lines'}
+                                                        />
 
-                                                <FormItemSelectAjaxAdvanced
-                                                    form={form}
-                                                    {...restField}
-                                                    placeholder={'Measurement'}
-                                                    name={'measurement_id'}
-                                                    message={'Please select a measurement'}
-                                                    required={true}
-                                                    url={'/api/measurements/option'}
-                                                    search={state.salesOrderLinesOptionReload[name] ? state.salesOrderLinesOptionReload[name].isReload : null}
-                                                    {...formState}
-                                                    style={{display: 'inline-block', width: '20%'}}
-                                                    query={'measurement.name'}
-                                                    groupName={name}
-                                                    listName={'sales_order_lines'}
-                                                />
+                                                        <FormItemNumber
+                                                            form={form}
+                                                            {...restField}
+                                                            placeholder={'Quantity'}
+                                                            name={'quantity'}
+                                                            message={'Please input a quantity'}
+                                                            required={true}
+                                                            {...formState}
+                                                            style={{display: 'inline-block', width: '20%'}}
+                                                            groupName={name}
+                                                            listName={'sales_order_lines'}
+                                                        />
 
-                                                <FormItemNumber
-                                                    {...restField}
-                                                    placeholder={'Unit Price'}
-                                                    name={'unit_price'}
-                                                    message={'Please input a unit price'}
-                                                    required={true}
-                                                    {...formState}
-                                                    style={{display: 'inline-block', width: '20%'}}
-                                                    groupName={name}
-                                                    listName={'sales_order_lines'}
-                                                />
-                                            </ColForm>
-                                            <ColForm lg={1}>
+                                                        <FormItemSelectAjaxAdvanced
+                                                            form={form}
+                                                            {...restField}
+                                                            placeholder={'Measurement'}
+                                                            name={'measurement_id'}
+                                                            message={'Please select a measurement'}
+                                                            required={true}
+                                                            url={'/api/measurements/option'}
+                                                            search={state.salesOrderLinesOptionReload[name] ? state.salesOrderLinesOptionReload[name].isReload : null}
+                                                            {...formState}
+                                                            style={{display: 'inline-block', width: '20%'}}
+                                                            query={'measurement.name'}
+                                                            groupName={name}
+                                                            listName={'sales_order_lines'}
+                                                        />
+
+                                                        <FormItemNumber
+                                                            {...restField}
+                                                            placeholder={'Unit Price'}
+                                                            name={'unit_price'}
+                                                            message={'Please input a unit price'}
+                                                            required={true}
+                                                            {...formState}
+                                                            style={{display: 'inline-block', width: '20%'}}
+                                                            groupName={name}
+                                                            listName={'sales_order_lines'}
+                                                        />
+                                                    </ColForm>
+                                                    <ColForm lg={1}>
+                                                        {!formState.formDisabled &&
+                                                        <MinusCircleOutlined onClick={(item) => {
+                                                            remove(name);
+                                                            const deletedSalesOrderLines = state.deletedSalesOrderLines;
+                                                            deletedSalesOrderLines.push(formState.initialValues.sales_order_lines[restField.fieldKey]);
+                                                            setState((prevState) => ({
+                                                                ...prevState,
+                                                                deletedSalesOrderLines: deletedSalesOrderLines,
+                                                            }));
+                                                        }}/>}
+                                                    </ColForm>
+                                                </RowForm>
+                                            ))}
+                                            <Form.Item>
                                                 {!formState.formDisabled &&
-                                                <MinusCircleOutlined onClick={(item) => {
-                                                    remove(name);
-                                                    const deletedSalesOrderLines = state.deletedSalesOrderLines;
-                                                    deletedSalesOrderLines.push(formState.initialValues.sales_order_lines[restField.fieldKey]);
-                                                    setState((prevState) => ({
-                                                        ...prevState,
-                                                        deletedSalesOrderLines: deletedSalesOrderLines,
-                                                    }));
-                                                }}/>}
-                                            </ColForm>
-                                        </RowForm>
-                                    ))}
-                                    <Form.Item>
-                                        {!formState.formDisabled &&
-                                        <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined/>}>
-                                            Add field
-                                        </Button>}
-                                    </Form.Item>
-                                </>
-                            )}
-                        </Form.List>
-                    </ColForm>
-                </RowForm>
+                                                <Button type="dashed" onClick={() => add()} block
+                                                        icon={<PlusOutlined/>}>
+                                                    Add a product
+                                                </Button>}
+                                            </Form.Item>
+                                        </>
+                                    )}
+                                </Form.List>
+                            </ColForm>
+                        </RowForm>
+                    </TabPane>
+                    <TabPane tab="Other Information" key="2">
+                    </TabPane>
+
+                </Tabs>
             </FormCard>
         </CustomForm>
     );
