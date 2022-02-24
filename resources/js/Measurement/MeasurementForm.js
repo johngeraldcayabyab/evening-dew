@@ -11,7 +11,7 @@ import FormItemText from "../components/FormItem/FormItemText";
 import FormItemNumber from "../components/FormItem/FormItemNumber";
 import FormItemSelect from "../components/FormItem/FormItemSelect";
 import ControlPanel from "../components/ControlPanel";
-import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
+import FormItemSelectAjaxAdvanced from "../components/FormItem/FormItemSelectAjaxAdvanced";
 import FormCard from "../components/FormCard";
 
 const MeasurementForm = () => {
@@ -73,7 +73,7 @@ const MeasurementForm = () => {
                             {...formState}
                         />
 
-                        <FormItemSelectAjax
+                        <FormItemSelectAjaxAdvanced
                             label={'Measurement Category'}
                             name={'measurement_category_id'}
                             message={'Please select a measurement category'}

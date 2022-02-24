@@ -7,7 +7,7 @@ import {GET} from "../../consts";
 import {formItemFieldProps} from "../../Helpers/formItem";
 import {objectHasValue} from "../../Helpers/object";
 
-const FormItemSelectAjaxAdvanced = (props) => {
+const FormItemSelectAjaxAdvancedAdvanced = (props) => {
     const [useFetch, fetchAbort] = useFetchHook();
     const fetchCatcher = useFetchCatcher();
     const [state, setState] = useState({
@@ -100,4 +100,4 @@ const FormItemSelectAjaxAdvanced = (props) => {
     )
 }
 
-export default FormItemSelectAjaxAdvanced;
+export default FormItemSelectAjaxAdvancedAdvanced;

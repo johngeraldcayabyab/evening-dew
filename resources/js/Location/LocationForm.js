@@ -10,7 +10,7 @@ import CustomForm from "../components/CustomForm";
 import ControlPanel from "../components/ControlPanel";
 import FormCard from "../components/FormCard";
 import FormItemText from "../components/FormItem/FormItemText";
-import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
+import FormItemSelectAjaxAdvanced from "../components/FormItem/FormItemSelectAjaxAdvanced";
 import FormItemSelect from "../components/FormItem/FormItemSelect";
 import FormItemCheckbox from "../components/FormItem/FormItemCheckbox";
 
@@ -49,7 +49,7 @@ const LocationForm = () => {
                             {...formState}
                         />
 
-                        <FormItemSelectAjax
+                        <FormItemSelectAjaxAdvanced
                             form={form}
                             label={'Parent Category'}
                             name={'parent_location_id'}

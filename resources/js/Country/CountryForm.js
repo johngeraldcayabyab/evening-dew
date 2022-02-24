@@ -10,7 +10,7 @@ import CustomForm from "../components/CustomForm";
 import FormItemText from "../components/FormItem/FormItemText";
 import ControlPanel from "../components/ControlPanel";
 import FormCard from "../components/FormCard";
-import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
+import FormItemSelectAjaxAdvanced from "../components/FormItem/FormItemSelectAjaxAdvanced";
 
 const CountryForm = () => {
     let {id} = useParams();
@@ -44,7 +44,7 @@ const CountryForm = () => {
                             {...formState}
                         />
 
-                        <FormItemSelectAjax
+                        <FormItemSelectAjaxAdvanced
                             form={form}
                             label={'Currency'}
                             name={'currency_id'}
