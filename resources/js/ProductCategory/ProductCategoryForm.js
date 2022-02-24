@@ -10,7 +10,7 @@ import CustomForm from "../components/CustomForm";
 import ControlPanel from "../components/ControlPanel";
 import FormCard from "../components/FormCard";
 import FormItemText from "../components/FormItem/FormItemText";
-import FormItemSelectAjaxAdvanced from "../components/FormItem/FormItemSelectAjaxAdvanced";
+import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
 
 const ProductCategoryForm = () => {
     let {id} = useParams();
@@ -46,7 +46,7 @@ const ProductCategoryForm = () => {
                             {...formState}
                         />
 
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjax
                             form={form}
                             label={'Parent Category'}
                             name={'parent_product_category_id'}

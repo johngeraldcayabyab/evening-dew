@@ -10,7 +10,7 @@ import CustomForm from "../components/CustomForm";
 import ControlPanel from "../components/ControlPanel";
 import FormCard from "../components/FormCard";
 import FormItemText from "../components/FormItem/FormItemText";
-import FormItemSelectAjaxAdvanced from "../components/FormItem/FormItemSelectAjaxAdvanced";
+import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
 import FormItemCheckbox from "../components/FormItem/FormItemCheckbox";
 
 const {TabPane} = Tabs;
@@ -86,7 +86,7 @@ const WarehouseForm = () => {
                     <TabPane tab="Technical Information" key="2">
                         <RowForm>
                             <ColForm>
-                                <FormItemSelectAjaxAdvanced
+                                <FormItemSelectAjax
                                     form={form}
                                     label={'View Location'}
                                     name={'view_location_id'}
@@ -95,7 +95,7 @@ const WarehouseForm = () => {
                                     query={'view_location.name'}
                                 />
 
-                                <FormItemSelectAjaxAdvanced
+                                <FormItemSelectAjax
                                     form={form}
                                     label={'Stock Location'}
                                     name={'stock_location_id'}
@@ -104,7 +104,7 @@ const WarehouseForm = () => {
                                     query={'stock_location.name'}
                                 />
 
-                                <FormItemSelectAjaxAdvanced
+                                <FormItemSelectAjax
                                     form={form}
                                     label={'Input Location'}
                                     name={'input_location_id'}
@@ -113,7 +113,7 @@ const WarehouseForm = () => {
                                     query={'input_location.name'}
                                 />
 
-                                <FormItemSelectAjaxAdvanced
+                                <FormItemSelectAjax
                                     form={form}
                                     label={'Quality Control Location'}
                                     name={'quality_control_location_id'}
@@ -122,7 +122,7 @@ const WarehouseForm = () => {
                                     query={'quality_control_location.name'}
                                 />
 
-                                <FormItemSelectAjaxAdvanced
+                                <FormItemSelectAjax
                                     form={form}
                                     label={'Packing Location'}
                                     name={'packing_location_id'}
@@ -131,7 +131,7 @@ const WarehouseForm = () => {
                                     query={'packing_location.name'}
                                 />
 
-                                <FormItemSelectAjaxAdvanced
+                                <FormItemSelectAjax
                                     form={form}
                                     label={'Output Location'}
                                     name={'output_location_id'}
@@ -140,7 +140,7 @@ const WarehouseForm = () => {
                                     query={'output_location.name'}
                                 />
 
-                                <FormItemSelectAjaxAdvanced
+                                <FormItemSelectAjax
                                     form={form}
                                     label={'Stock after manufacturing location'}
                                     name={'stock_after_manufacturing_location_id'}
@@ -149,7 +149,7 @@ const WarehouseForm = () => {
                                     query={'stock_after_manufacturing_location.name'}
                                 />
 
-                                <FormItemSelectAjaxAdvanced
+                                <FormItemSelectAjax
                                     form={form}
                                     label={'Picking before manufacturing location'}
                                     name={'picking_before_manufacturing_location_id'}
@@ -160,7 +160,7 @@ const WarehouseForm = () => {
                             </ColForm>
 
                             <ColForm>
-                                <FormItemSelectAjaxAdvanced
+                                <FormItemSelectAjax
                                 form={form}
                                     label={'In Type'}
                                     name={'in_type_id'}
@@ -168,7 +168,7 @@ const WarehouseForm = () => {
                                     {...formState}
                                     query={'in_type.name'}
                                 />
-                                <FormItemSelectAjaxAdvanced
+                                <FormItemSelectAjax
                                 form={form}
                                     label={'Internal Type'}
                                     name={'internal_type_id'}
@@ -176,7 +176,7 @@ const WarehouseForm = () => {
                                     {...formState}
                                     query={'internal_type.name'}
                                 />
-                                <FormItemSelectAjaxAdvanced
+                                <FormItemSelectAjax
                                 form={form}
                                     label={'Pick Type'}
                                     name={'pick_type_id'}
@@ -184,7 +184,7 @@ const WarehouseForm = () => {
                                     {...formState}
                                     query={'pick_type.name'}
                                 />
-                                <FormItemSelectAjaxAdvanced
+                                <FormItemSelectAjax
                                 form={form}
                                     label={'Pack Type'}
                                     name={'pack_type_id'}
@@ -192,7 +192,7 @@ const WarehouseForm = () => {
                                     {...formState}
                                     query={'pack_type.name'}
                                 />
-                                <FormItemSelectAjaxAdvanced
+                                <FormItemSelectAjax
                                 form={form}
                                     label={'Out Type'}
                                     name={'out_type_id'}
@@ -200,7 +200,7 @@ const WarehouseForm = () => {
                                     {...formState}
                                     query={'out_type.name'}
                                 />
-                                <FormItemSelectAjaxAdvanced
+                                <FormItemSelectAjax
                                 form={form}
                                     label={'Stock After Manufacturing Operation Type'}
                                     name={'stock_after_manufacturing_operation_type_id'}
@@ -208,7 +208,7 @@ const WarehouseForm = () => {
                                     {...formState}
                                     query={'stock_after_manufacturing_operation_type.name'}
                                 />
-                                <FormItemSelectAjaxAdvanced
+                                <FormItemSelectAjax
                                     form={form}
                                     label={'Picking Before Manufacturing Operation Type'}
                                     name={'picking_before_manufacturing_operation_type_id'}
@@ -216,7 +216,7 @@ const WarehouseForm = () => {
                                     {...formState}
                                     query={'picking_before_manufacturing_operation_type.name'}
                                 />
-                                <FormItemSelectAjaxAdvanced
+                                <FormItemSelectAjax
                                     form={form}
                                     label={'Manufacturing Operation Type'}
                                     name={'manufacturing_operation_type_id'}

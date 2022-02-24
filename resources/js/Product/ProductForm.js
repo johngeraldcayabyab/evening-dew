@@ -10,7 +10,7 @@ import CustomForm from "../components/CustomForm";
 import ControlPanel from "../components/ControlPanel";
 import FormCard from "../components/FormCard";
 import FormItemText from "../components/FormItem/FormItemText";
-import FormItemSelectAjaxAdvanced from "../components/FormItem/FormItemSelectAjaxAdvanced";
+import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
 import FormItemUpload from "../components/FormItem/FormItemUpload";
 import FormItemNumber from "../components/FormItem/FormItemNumber";
 import FormItemSelect from "../components/FormItem/FormItemSelect";
@@ -94,7 +94,7 @@ const ProductForm = () => {
                                     {...formState}
                                 />
 
-                                <FormItemSelectAjaxAdvanced
+                                <FormItemSelectAjax
                                     label={'Measurement'}
                                     name={'measurement_id'}
                                     message={'Please select a measurement'}
@@ -104,7 +104,7 @@ const ProductForm = () => {
                                     query={'measurement.name'}
                                 />
 
-                                <FormItemSelectAjaxAdvanced
+                                <FormItemSelectAjax
                                     label={'Purchase Measurement'}
                                     name={'purchase_measurement_id'}
                                     message={'Please select a purchase measurement'}
@@ -114,7 +114,7 @@ const ProductForm = () => {
                                     query={'purchase_measurement.name'}
                                 />
 
-                                <FormItemSelectAjaxAdvanced
+                                <FormItemSelectAjax
                                     label={'Sales Measurement'}
                                     name={'sales_measurement_id'}
                                     message={'Please select a sales measurement'}
@@ -143,7 +143,7 @@ const ProductForm = () => {
                                     {...formState}
                                 />
 
-                                <FormItemSelectAjaxAdvanced
+                                <FormItemSelectAjax
                                     label={'Product Category'}
                                     name={'product_category_id'}
                                     message={'Please select a product category'}

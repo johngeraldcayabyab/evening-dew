@@ -9,7 +9,7 @@ import ColForm from "../components/Grid/ColForm";
 import CustomForm from "../components/CustomForm";
 import ControlPanel from "../components/ControlPanel";
 import FormCard from "../components/FormCard";
-import FormItemSelectAjaxAdvanced from "../components/FormItem/FormItemSelectAjaxAdvanced";
+import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
 
 const GlobalSettingForm = () => {
     let {id} = useParams();
@@ -38,7 +38,7 @@ const GlobalSettingForm = () => {
                 </Divider>
                 <RowForm>
                     <ColForm>
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjax
                             label={'Default Country'}
                             name={'general_default_country_id'}
                             message={'Please select a default country'}
@@ -56,7 +56,7 @@ const GlobalSettingForm = () => {
                 </Divider>
                 <RowForm>
                     <ColForm>
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjax
                             label={'Default Measurement Category'}
                             name={'inventory_default_measurement_category_id'}
                             message={'Please select a default measurement category'}
@@ -66,7 +66,7 @@ const GlobalSettingForm = () => {
                             query={'inventory_default_measurement_category.name'}
                         />
 
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjax
                             label={'Default Measurement'}
                             name={'inventory_default_measurement_id'}
                             message={'Please select a default measurement'}
@@ -76,7 +76,7 @@ const GlobalSettingForm = () => {
                             query={'inventory_default_measurement.name'}
                         />
 
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjax
                             label={'Default Purchase Measurement'}
                             name={'inventory_default_purchase_measurement_id'}
                             message={'Please select a default purchase measurement'}
@@ -86,7 +86,7 @@ const GlobalSettingForm = () => {
                             query={'inventory_default_purchase_measurement.name'}
                         />
 
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjax
                             label={'Default Sales Measurement'}
                             name={'inventory_default_sales_measurement_id'}
                             message={'Please select a default sales measurement'}
@@ -99,7 +99,7 @@ const GlobalSettingForm = () => {
                     </ColForm>
 
                     <ColForm>
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjax
                             label={'Default Product Category'}
                             name={'inventory_default_product_category_id'}
                             message={'Please select a default product category'}
@@ -116,7 +116,7 @@ const GlobalSettingForm = () => {
                 </Divider>
                 <RowForm>
                     <ColForm>
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjax
                             label={'Default Currency'}
                             name={'accounting_default_currency_id'}
                             message={'Please select a default currency'}
@@ -133,7 +133,7 @@ const GlobalSettingForm = () => {
                 </Divider>
                 <RowForm>
                     <ColForm>
-                        <FormItemSelectAjaxAdvanced
+                        <FormItemSelectAjax
                             label={'Sales Default Sequence'}
                             name={'sales_order_default_sequence_id'}
                             url={'/api/sequences/option'}
