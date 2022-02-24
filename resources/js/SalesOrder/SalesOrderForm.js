@@ -262,7 +262,7 @@ const SalesOrderForm = () => {
                                                     message={'Please select a measurement'}
                                                     required={true}
                                                     url={'/api/measurements/option'}
-                                                    search={state.salesOrderLinesOptionReload[key] ? state.salesOrderLinesOptionReload[key].isReload : null}
+                                                    search={state.salesOrderLinesOptionReload[name] ? state.salesOrderLinesOptionReload[name].isReload : null}
                                                     {...formState}
                                                     style={{display: 'inline-block', width: '20%'}}
                                                     query={'measurement.name'}
