@@ -15,7 +15,7 @@ import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
 const ProductCategoryForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormState(id, form, manifest);
+    const [formState, formActions] = useFormState(id, form, manifest, true);
 
     return (
         <CustomForm
@@ -52,6 +52,7 @@ const ProductCategoryForm = () => {
                             name={'parent_product_category_id'}
                             url={'/api/product_categories/option'}
                             {...formState}
+                            query={'parent_category.name'}
                         />
                     </ColForm>
                 </RowForm>
