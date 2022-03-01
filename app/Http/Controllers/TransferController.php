@@ -63,7 +63,7 @@ class TransferController
     {
         $model = new Transfer();
         if ($request->search) {
-            $model = $model->where('reference', 'like', "%$request->search%");
+            $model = $model->reference($request->search);
         }
         $model = $model->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'reference']);
         return response()->json(TransferSlugResource::collection($model));

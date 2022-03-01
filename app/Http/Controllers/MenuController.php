@@ -64,7 +64,7 @@ class MenuController
     {
         $menu = new Menu();
         if ($request->search) {
-            $menu = $menu->where('label', 'like', "%$request->search%");
+            $menu = $menu->label($request->search);
         }
         $menu = $menu->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'name']);
         return response()->json(MenuSlugResource::collection($menu));

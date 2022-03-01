@@ -62,7 +62,7 @@ class WarehouseController
     {
         $warehouse = new Warehouse();
         if ($request->search) {
-            $warehouse = $warehouse->where('name', 'like', "%$request->search%");
+            $warehouse = $warehouse->name($request->search);
         }
         $warehouse = $warehouse->limit(SystemSetting::OPTION_LIMIT)->get();
         return response()->json(WarehouseSlugResource::collection($warehouse));

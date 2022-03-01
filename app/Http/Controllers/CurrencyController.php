@@ -62,7 +62,7 @@ class CurrencyController
     {
         $currency = new Currency();
         if ($request->search) {
-            $currency = $currency->where('currency', 'like', "%$request->search%");
+            $currency = $currency->curreny($request->search);
         }
         $currency = $currency->limit(SystemSetting::OPTION_LIMIT)->get();
         return response()->json(CurrencySlugResource::collection($currency));

@@ -62,7 +62,7 @@ class CountryController
     {
         $country = new Country();
         if ($request->search) {
-            $country = $country->where('country_name', 'like', "%$request->search%");
+            $country = $country->countryName($request->search);
         }
         $country = $country->limit(SystemSetting::OPTION_LIMIT)->get();
         return response()->json(CountrySlugResource::collection($country));

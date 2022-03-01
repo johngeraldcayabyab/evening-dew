@@ -65,7 +65,7 @@ class ProductController
     {
         $product = new Product();
         if ($request->search) {
-            $product = $product->where('name', 'like', "%$request->search%");
+            $product = $product->name($request->search);
         }
         $product = $product->limit(SystemSetting::OPTION_LIMIT)->get();
         return response()->json(ProductSlugResource::collection($product));

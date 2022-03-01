@@ -63,7 +63,7 @@ class SequenceController
     {
         $sequence = new Sequence();
         if ($request->search) {
-            $sequence = $sequence->where('name', 'like', "%$request->search%");
+            $sequence = $sequence->name($request->search);
         }
         $sequence = $sequence->limit(SystemSetting::OPTION_LIMIT)->get();
         return response()->json(SequenceSlugResource::collection($sequence));

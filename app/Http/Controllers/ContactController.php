@@ -94,7 +94,7 @@ class ContactController
     {
         $contact = new Contact();
         if ($request->search) {
-            $contact = $contact->where('name', 'like', "%$request->search%");
+            $contact = $contact->name($request->search);
         }
         $contact = $contact->limit(SystemSetting::OPTION_LIMIT)->get();
         return response()->json(ContactSlugResource::collection($contact));

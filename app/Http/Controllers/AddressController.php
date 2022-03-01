@@ -64,7 +64,7 @@ class AddressController
     {
         $address = new Address();
         if ($request->search) {
-            $address = $address->where('address_name', 'like', "%$request->search%");
+            $address = $address->addressName($request->search);
         }
         $address = $address->limit(SystemSetting::OPTION_LIMIT)->get();
         return response()->json(AddressSlugResource::collection($address));
