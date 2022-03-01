@@ -61,12 +61,8 @@ class SequenceController
 
     public function option(Request $request): JsonResponse
     {
-        $sequence = new Sequence();
-        if ($request->search) {
-            $sequence = $sequence->name($request->search);
-        }
-        $sequence = $sequence->limit(SystemSetting::OPTION_LIMIT)->get();
-        return response()->json(SequenceSlugResource::collection($sequence));
+        $model = $this->searchOption(new Sequence(), $request);
+        return response()->json(SequenceSlugResource::collection($model));
     }
 
     public function initial_values()

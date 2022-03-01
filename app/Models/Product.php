@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Contacts\Sluggable;
 use App\Traits\ModelHelperTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model
+class Product extends Model implements Sluggable
 {
     use HasFactory;
     use SoftDeletes;
@@ -213,5 +214,10 @@ class Product extends Model
     public function scopeOrderByProductCategoryId($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function slug()
+    {
+        return 'name';
     }
 }

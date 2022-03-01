@@ -10,7 +10,7 @@ class ProductCategorySlugResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'slug' => $this->getWithParents('category')
+            'slug' => $this->getWithParents($this->slug()),
         ];
     }
 }

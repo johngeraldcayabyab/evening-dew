@@ -49,3 +49,5 @@ php artisan storage:link php artisan event:cache
 -recursion shall be delegated in the front end
 
 -Fix deployment permissions
+
+-breadcrumbs slug not changing on update

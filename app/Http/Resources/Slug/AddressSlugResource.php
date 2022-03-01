@@ -10,7 +10,7 @@ class AddressSlugResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'slug' => $this->address_name
+            'slug' => $this->slug(),
         ];
     }
 }

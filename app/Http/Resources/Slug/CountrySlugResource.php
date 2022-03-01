@@ -10,7 +10,7 @@ class CountrySlugResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'slug' => $this->country_name
+            'slug' => $this->slug(),
         ];
     }
 }

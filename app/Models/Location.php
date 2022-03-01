@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Contacts\Sluggable;
 use App\Traits\HierarchyTrait;
 use App\Traits\ModelHelperTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Location extends Model
+class Location extends Model implements Sluggable
 {
     use HasFactory;
     use SoftDeletes;
@@ -91,5 +92,10 @@ class Location extends Model
     public function scopeWhereParentLocation($query, $where)
     {
         return $this->likeHas($query, __FUNCTION__, 'name', $where);
+    }
+
+    public function slug()
+    {
+        return 'name';
     }
 }

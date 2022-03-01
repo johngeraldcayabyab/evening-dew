@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Contacts\Sluggable;
 use App\Traits\ModelHelperTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
@@ -11,7 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Sluggable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, BroadcastsEvents;
     use ModelHelperTrait;
@@ -47,5 +48,10 @@ class User extends Authenticatable
     public function scopeOrderByEmail($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function slug()
+    {
+        return 'name';
     }
 }

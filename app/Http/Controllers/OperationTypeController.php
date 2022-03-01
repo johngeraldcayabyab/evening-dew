@@ -60,12 +60,8 @@ class OperationTypeController
 
     public function option(Request $request): JsonResponse
     {
-        $operationType = new OperationType();
-        if ($request->search) {
-            $operationType = $operationType->name($request->search);
-        }
-        $operationType = $operationType->limit(SystemSetting::OPTION_LIMIT)->get();
-        return response()->json(OperationTypeSlugResource::collection($operationType));
+        $model = $this->searchOption(new OperationType(), $request);
+        return response()->json(OperationTypeSlugResource::collection($model));
     }
 
     public function initial_values()

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\ContactMassDestroyRequest;
 use App\Http\Requests\Store\ContactStoreRequest;
 use App\Http\Requests\Update\ContactUpdateRequest;
@@ -92,12 +91,8 @@ class ContactController
 
     public function option(Request $request): JsonResponse
     {
-        $contact = new Contact();
-        if ($request->search) {
-            $contact = $contact->name($request->search);
-        }
-        $contact = $contact->limit(SystemSetting::OPTION_LIMIT)->get();
-        return response()->json(ContactSlugResource::collection($contact));
+        $model = $this->searchOption(new Contact(), $request);
+        return response()->json(ContactSlugResource::collection($model));
     }
 
     public function initial_values()

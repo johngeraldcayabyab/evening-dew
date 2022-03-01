@@ -61,11 +61,7 @@ class PaymentTermController
 
     public function option(Request $request): JsonResponse
     {
-        $model = new PaymentTerm();
-        if ($request->search) {
-            $model = $model->name($request->search);
-        }
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'name']);
+        $model = $this->searchOption(new PaymentTerm(), $request);
         return response()->json(PaymentTermSlugResource::collection($model));
     }
 }

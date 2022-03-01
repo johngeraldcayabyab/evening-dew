@@ -63,12 +63,8 @@ class ProductController
 
     public function option(Request $request): JsonResponse
     {
-        $product = new Product();
-        if ($request->search) {
-            $product = $product->name($request->search);
-        }
-        $product = $product->limit(SystemSetting::OPTION_LIMIT)->get();
-        return response()->json(ProductSlugResource::collection($product));
+        $model = $this->searchOption(new Product(), $request);
+        return response()->json(ProductSlugResource::collection($model));
     }
 
     public function initial_values()

@@ -62,11 +62,7 @@ class MenuController
 
     public function option(Request $request): JsonResponse
     {
-        $menu = new Menu();
-        if ($request->search) {
-            $menu = $menu->label($request->search);
-        }
-        $menu = $menu->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'name']);
-        return response()->json(MenuSlugResource::collection($menu));
+        $model = $this->searchOption(new Menu(), $request);
+        return response()->json(MenuSlugResource::collection($model));
     }
 }

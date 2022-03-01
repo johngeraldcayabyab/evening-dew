@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Contacts\Sluggable;
 use App\Traits\ModelHelperTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Transfer extends Model
+class Transfer extends Model implements Sluggable
 {
     use HasFactory;
     use SoftDeletes;
@@ -229,5 +230,10 @@ class Transfer extends Model
     public function scopeOrderByResponsible($query, $order)
     {
         return $this->orderHas($query, new User(), 'name', __FUNCTION__, $order);
+    }
+
+    public function slug()
+    {
+        return 'reference';
     }
 }

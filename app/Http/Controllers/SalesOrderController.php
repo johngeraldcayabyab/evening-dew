@@ -74,24 +74,13 @@ class SalesOrderController
 
     public function option(Request $request): JsonResponse
     {
-        $model = new SalesOrder();
-        if ($request->search) {
-            $model = $model->number($request->search);
-        }
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'name']);
+        $model = $this->searchOption(new SalesOrder(), $request);
         return response()->json(SalesOrderSlugResource::collection($model));
     }
 
     public function initial_values()
     {
-//        $globalSetting = GlobalSetting::latestFirst();
-//        $inventoryDefaultMeasurement = $globalSetting->inventoryDefaultMeasurement;
         return [
-//            'measurement' => $inventoryDefaultMeasurement,
-//            'measurement_id' => $inventoryDefaultMeasurement->id,
-//            'sales_order_lines' => [
-//                ['measurement_id' => $inventoryDefaultMeasurement->id]
-//            ],
             'number' => Sequence::generateSalesOrderSequence()
         ];
     }

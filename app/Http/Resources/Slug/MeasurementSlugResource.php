@@ -10,7 +10,7 @@ class MeasurementSlugResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'slug' => $this->name
+            'slug' => $this->slug(),
         ];
     }
 }
