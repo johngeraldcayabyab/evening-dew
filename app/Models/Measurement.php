@@ -60,7 +60,7 @@ class Measurement extends Model
 
     public function scopeWhereMeasurementCategory($query, $where)
     {
-        return $this->likeHas($query, 'measurementCategory', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereMeasurementCategoryId($query, $where)

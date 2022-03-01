@@ -217,27 +217,27 @@ class OperationType extends Model
 
     public function scopeWhereReferenceSequence($query, $where)
     {
-        return $this->likeHas($query, 'referenceSequence', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereWarehouse($query, $where)
     {
-        return $this->likeHas($query, 'warehouse', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereOperationTypeForReturns($query, $where)
     {
-        return $this->likeHas($query, 'operationTypeForReturns', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereDefaultSourceLocation($query, $where)
     {
-        return $this->likeHas($query, 'defaultSourceLocation', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereDefaultDestinationLocation($query, $where)
     {
-        return $this->likeHas($query, 'defaultDestinationLocation', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeOrderByReferenceSequence($query, $order)

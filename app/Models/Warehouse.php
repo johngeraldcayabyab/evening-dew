@@ -300,82 +300,82 @@ class Warehouse extends Model
 
     public function scopeWhereViewLocation($query, $where)
     {
-        return $this->likeHas($query, 'viewLocation', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereStockLocation($query, $where)
     {
-        return $this->likeHas($query, 'stockLocation', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereInputLocation($query, $where)
     {
-        return $this->likeHas($query, 'inputLocation', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereQualityControlLocation($query, $where)
     {
-        return $this->likeHas($query, 'qualityControlLocation', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWherePackingLocation($query, $where)
     {
-        return $this->likeHas($query, 'packingLocation', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereOutputLocation($query, $where)
     {
-        return $this->likeHas($query, 'outputLocation', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereStockAfterManufacturingLocation($query, $where)
     {
-        return $this->likeHas($query, 'stockAfterManufacturingLocation', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWherePickingBeforeManufacturingLocation($query, $where)
     {
-        return $this->likeHas($query, 'pickingBeforeManufacturingLocation', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereInType($query, $where)
     {
-        return $this->likeHas($query, 'inType', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereInternalType($query, $where)
     {
-        return $this->likeHas($query, 'internalType', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWherePickType($query, $where)
     {
-        return $this->likeHas($query, 'pickType', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWherePackType($query, $where)
     {
-        return $this->likeHas($query, 'packType', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereOutType($query, $where)
     {
-        return $this->likeHas($query, 'outType', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereStockAfterManufacturingOperationType($query, $where)
     {
-        return $this->likeHas($query, 'stockAfterManufacturingOperationType', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWherePickingBeforeManufacturing($query, $where)
     {
-        return $this->likeHas($query, 'pickingBeforeManufacturing', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereManufacturingOperationType($query, $where)
     {
-        return $this->likeHas($query, 'manufacturingOperationType', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeOrderByViewLocation($query, $order)

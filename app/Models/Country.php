@@ -25,7 +25,7 @@ class Country extends Model
 
     public function scopeWhereCurrency($query, $where)
     {
-        return $this->likeHas($query, 'currency', 'currency', $where);
+        return $this->likeHas($query, __FUNCTION__, 'currency', $where);
     }
 
     public function scopeWhereCountryName($query, $where)
