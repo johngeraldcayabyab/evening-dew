@@ -90,6 +90,6 @@ class Location extends Model
 
     public function scopeWhereParentLocation($query, $where)
     {
-        return $this->likeHas($query, 'parentLocation', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 }

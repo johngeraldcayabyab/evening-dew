@@ -55,22 +55,22 @@ class SalesOrder extends Model
 
     public function scopeWhereCustomer($query, $where)
     {
-        return $this->likeHas($query, 'contacts', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereInvoiceAddress($query, $where)
     {
-        return $this->likeHas($query, 'invoiceAddress', 'address_name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'address_name', $where);
     }
 
     public function scopeWhereDeliveryAddress($query, $where)
     {
-        return $this->likeHas($query, 'deliveryAddress', 'address_name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'address_name', $where);
     }
 
     public function scopeWherePaymentTerm($query, $where)
     {
-        return $this->likeHas($query, 'paymentTerm', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereCustomerId($query, $where)

@@ -183,27 +183,27 @@ class Transfer extends Model
 
     public function scopeWhereContact($query, $where)
     {
-        return $this->likeHas($query, 'contact', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereOperationType($query, $where)
     {
-        return $this->likeHas($query, 'operationType', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereSourceLocation($query, $where)
     {
-        return $this->likeHas($query, 'sourceLocation', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereDestinationLocation($query, $where)
     {
-        return $this->likeHas($query, 'destinationLocation', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereResponsible($query, $where)
     {
-        return $this->likeHas($query, 'responsible', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeOrderByContact($query, $order)

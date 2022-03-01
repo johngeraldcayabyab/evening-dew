@@ -28,17 +28,20 @@ trait ModelHelperTrait
 
     public function whereSingle($query, $methodName, $where)
     {
-        return $query->where($this->getField($methodName, 'scopeWhere'), $where);
+        $field = $this->getField($methodName, 'scopeWhere');
+        return $query->where($field, $where);
     }
 
     public function like($query, $methodName, $where)
     {
-        return $query->where($this->getField($methodName, 'scopeWhere'), 'like', "%$where%");
+        $field = $this->getField($methodName, 'scopeWhere');
+        return $query->where($field, 'like', "%$where%");
     }
 
-    public function likeHas($query, $has, $field, $where)
+    public function likeHas($query, $methodName, $field, $where)
     {
-        return $query->whereHas($has, function ($query) use ($field, $where) {
+        $relationship = $this->getFieldHas($methodName, 'scopeWhere');
+        return $query->whereHas($relationship, function ($query) use ($field, $where) {
             return $query->where($field, 'like', "%$where%");
         });
     }
@@ -60,5 +63,10 @@ trait ModelHelperTrait
     private function getField($scopeName, $functionName)
     {
         return Str::snake(Str::replace($functionName, '', $scopeName));
+    }
+
+    private function getFieldHas($scopeName, $functionName)
+    {
+        return Str::camel(Str::replace($functionName, '', $scopeName));
     }
 }

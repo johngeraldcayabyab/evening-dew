@@ -82,22 +82,22 @@ class Product extends Model
 
     public function scopeWhereMeasurement($query, $where)
     {
-        return $this->likeHas($query, 'measurement', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWherePurchaseMeasurement($query, $where)
     {
-        return $this->likeHas($query, 'purchaseMeasurement', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereSalesMeasurement($query, $where)
     {
-        return $this->likeHas($query, 'salesMeasurement', 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
     public function scopeWhereProductCategory($query, $where)
     {
-        return $this->likeHas($query, 'productCategory', 'category', $where);
+        return $this->likeHas($query, __FUNCTION__, 'category', $where);
     }
 
     public function scopeWhereInternalReference($query, $where)
