@@ -12,7 +12,7 @@ class TransferStoreRequest extends FormRequest
     {
         $shippingPolicies = implode(',', Transfer::getShippingPolicies());
         return [
-            'contact_id' => 'nullable',
+            'contact_id' => ['nullable', 'exists:contacts,id'],
             'operation_type_id' => ['required', 'exists:operations_types,id'],
             'source_location_id' => ['nullable', 'exists:locations,id'],
             'destination_location_id' => ['nullable', 'exists:locations,id'],

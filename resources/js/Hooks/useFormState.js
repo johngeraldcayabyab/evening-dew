@@ -3,6 +3,7 @@ import {useHistory} from "react-router-dom";
 import useFetchCatcher from "./useFetchCatcher";
 import useFetchHook from "./useFetchHook";
 import {GET, POST, PUT} from "../consts";
+import {formatInitialValuesDatetimeToMoment} from "../Helpers/object";
 
 const useFormState = (id, form, manifest, getInitialValues = false) => {
     const [useFetch, fetchAbort] = useFetchHook();
@@ -32,6 +33,7 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
             }
             if (id) {
                 useFetch(`/api/${manifest.moduleName}/${id}`, GET).then((response) => {
+                    formatInitialValuesDatetimeToMoment(response);
                     setFormState(state => ({
                         ...state,
                         ...newState,
@@ -47,6 +49,7 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
             } else {
                 if (getInitialValues && formState.initialLoad) {
                     useFetch(`/api/${manifest.moduleName}/initial_values`, GET).then((response) => {
+                        formatInitialValuesDatetimeToMoment(response);
                         setFormState(state => ({
                             ...state,
                             ...newState,
