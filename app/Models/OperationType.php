@@ -242,26 +242,26 @@ class OperationType extends Model
 
     public function scopeOrderByReferenceSequence($query, $order)
     {
-        return $this->orderHas($query, new Sequence(), 'name', "reference_sequence_id", $order);
+        return $this->orderHas($query, new Sequence(), 'name', __FUNCTION__, $order);
     }
 
     public function scopeOrderByWarehouse($query, $order)
     {
-        return $this->orderHas($query, new Warehouse(), 'name', "warehouse_id", $order);
+        return $this->orderHas($query, new Warehouse(), 'name', __FUNCTION__, $order);
     }
 
     public function scopeOrderByOperationTypeForReturns($query, $order)
     {
-        return $this->orderHas($query, new OperationType(), 'name', "operation_type_for_returns_id", $order);
+        return $this->orderHas($query, new OperationType(), 'name', __FUNCTION__, $order);
     }
 
     public function scopeOrderByDefaultSourceLocation($query, $order)
     {
-        return $this->orderHas($query, new Location(), 'name', "default_source_location_id", $order);
+        return $this->orderHas($query, new Location(), 'name', __FUNCTION__, $order);
     }
 
     public function scopeOrderByDefaultDestinationLocation($query, $order)
     {
-        return $this->orderHas($query, new Location(), 'name', "default_destination_location_id", $order);
+        return $this->orderHas($query, new Location(), 'name', __FUNCTION__, $order);
     }
 }

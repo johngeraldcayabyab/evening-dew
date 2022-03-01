@@ -126,12 +126,12 @@ class Address extends Model
 
     public function scopeOrderByCountry($query, $order)
     {
-        return $this->orderHas($query, new Country(), 'country_name', "country_id", $order);
+        return $this->orderHas($query, new Country(), 'country_name', __FUNCTION__, $order);
     }
 
     public function scopeOrderByContact($query, $order)
     {
-        return $this->orderHas($query, new Contact(), 'name', "contact_id", $order);
+        return $this->orderHas($query, new Contact(), 'name', __FUNCTION__, $order);
     }
 
     public function scopeOrderByType($query, $order)

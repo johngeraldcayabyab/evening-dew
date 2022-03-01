@@ -162,22 +162,22 @@ class Product extends Model
 
     public function scopeOrderByMeasurement($query, $order)
     {
-        return $this->orderHas($query, new Measurement(), 'name', "measurement_id", $order);
+        return $this->orderHas($query, new Measurement(), 'name', __FUNCTION__, $order);
     }
 
     public function scopeOrderByPurchaseMeasurement($query, $order)
     {
-        return $this->orderHas($query, new Measurement(), 'name', "measurement_id", $order);
+        return $this->orderHas($query, new Measurement(), 'name', __FUNCTION__, $order);
     }
 
     public function scopeOrderBySalesMeasurement($query, $order)
     {
-        return $this->orderHas($query, new Measurement(), 'name', "measurement_id", $order);
+        return $this->orderHas($query, new Measurement(), 'name', __FUNCTION__, $order);
     }
 
     public function scopeOrderByProductCategory($query, $order)
     {
-        return $this->orderHas($query, new ProductCategory(), 'category', "product_category_id", $order);
+        return $this->orderHas($query, new ProductCategory(), 'category', __FUNCTION__, $order);
     }
 
     public function scopeOrderByInternalReference($query, $order)

@@ -60,7 +60,7 @@ class Country extends Model
 
     public function scopeOrderByCurrency($query, $order)
     {
-        return $this->orderHas($query, new Currency(), 'currency', "currency_id", $order);
+        return $this->orderHas($query, new Currency(), 'currency', __FUNCTION__, $order);
     }
 
     public function scopeOrderByCountryCode($query, $order)
