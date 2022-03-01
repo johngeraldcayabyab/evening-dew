@@ -8,9 +8,10 @@ class ContactSlugResource extends JsonResource
 {
     public function toArray($request)
     {
+        $slug = $this->slug();
         return [
             'id' => $this->id,
-            'slug' => $this->slug(),
+            'slug' => $this->$slug,
         ];
     }
 }

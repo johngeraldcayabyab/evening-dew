@@ -50,6 +50,7 @@ const CountryForm = () => {
                             name={'currency_id'}
                             url={'/api/currencies/option'}
                             {...formState}
+                            query={'currency.currency'}
                         />
 
                         <FormItemText
