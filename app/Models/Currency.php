@@ -114,6 +114,6 @@ class Currency extends Model implements Sluggable
 
     public function slug()
     {
-        return 'name';
+        return 'currency';
     }
 }
