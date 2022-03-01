@@ -120,17 +120,17 @@ class SalesOrderLine extends Model
 
     public function scopeOrderByProduct($query, $order)
     {
-        return $this->orderHas($query, new Product(), 'name', "product_id", $order);
+        return $this->orderHas($query, new Product(), 'name', __FUNCTION__, $order);
     }
 
     public function scopeOrderByMeasurement($query, $order)
     {
-        return $this->orderHas($query, new Measurement(), 'name', "measurement_id", $order);
+        return $this->orderHas($query, new Measurement(), 'name', __FUNCTION__, $order);
     }
 
     public function scopeOrderBySalesOrder($query, $order)
     {
-        return $this->orderHas($query, new SalesOrder(), 'number', "sales_order_id", $order);
+        return $this->orderHas($query, new SalesOrder(), 'number', __FUNCTION__, $order);
     }
 
     public function scopeInsertMany($query, $data, $salesOrderId)

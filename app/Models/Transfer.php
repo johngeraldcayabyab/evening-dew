@@ -208,26 +208,26 @@ class Transfer extends Model
 
     public function scopeOrderByContact($query, $order)
     {
-        return $this->orderHas($query, new Contact(), 'name', "contact_id", $order);
+        return $this->orderHas($query, new Contact(), 'name', __FUNCTION__, $order);
     }
 
     public function scopeOrderByOperationType($query, $order)
     {
-        return $this->orderHas($query, new OperationType(), 'name', "operation_type_id", $order);
+        return $this->orderHas($query, new OperationType(), 'name', __FUNCTION__, $order);
     }
 
     public function scopeOrderBySourceLocation($query, $order)
     {
-        return $this->orderHas($query, new Location(), 'name', "source_location_id", $order);
+        return $this->orderHas($query, new Location(), 'name', __FUNCTION__, $order);
     }
 
     public function scopeOrderByDestinationLocation($query, $order)
     {
-        return $this->orderHas($query, new Location(), 'name', "destination_location_id", $order);
+        return $this->orderHas($query, new Location(), 'name', __FUNCTION__, $order);
     }
 
     public function scopeOrderByResponsible($query, $order)
     {
-        return $this->orderHas($query, new User(), 'name', "responsible_id", $order);
+        return $this->orderHas($query, new User(), 'name', __FUNCTION__, $order);
     }
 }

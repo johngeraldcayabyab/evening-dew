@@ -100,22 +100,22 @@ class SalesOrder extends Model
 
     public function scopeOrderByCustomer($query, $order)
     {
-        return $this->orderHas($query, new Contact(), 'name', "customer_id", $order);
+        return $this->orderHas($query, new Contact(), 'name', __FUNCTION__, $order);
     }
 
     public function scopeOrderByInvoiceAddress($query, $order)
     {
-        return $this->orderHas($query, new Address(), 'address_name', "invoice_address_id", $order);
+        return $this->orderHas($query, new Address(), 'address_name', __FUNCTION__, $order);
     }
 
     public function scopeOrderByDeliveryAddress($query, $order)
     {
-        return $this->orderHas($query, new Address(), 'address_name', "delivery_address_id", $order);
+        return $this->orderHas($query, new Address(), 'address_name', __FUNCTION__, $order);
     }
 
     public function scopeOrderByPaymentTerm($query, $order)
     {
-        return $this->orderHas($query, new PaymentTerm(), 'name', "payment_term_id", $order);
+        return $this->orderHas($query, new PaymentTerm(), 'name', __FUNCTION__, $order);
     }
 
     public function scopeOrderByCustomerId($query, $order)

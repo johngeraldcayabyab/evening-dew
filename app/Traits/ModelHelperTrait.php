@@ -51,12 +51,13 @@ trait ModelHelperTrait
         return $query->orderBy($this->getField($methodName, 'scopeOrderBy'), $order);
     }
 
-    public function orderHas($query, $has, $field, $foreignKey, $order)
+    public function orderHas($query, $has, $field, $methodName, $order)
     {
         $table = $has->getTable();
         $parentTable = get_class($this);
         $parentTable = new $parentTable;
         $parentTable = $parentTable->getTable();
+        $foreignKey = Str::snake($this->getFieldHas($methodName, 'scopeOrderBy')) . "_id";
         return $query->orderBy($has::select($field)->whereColumn("$table.id", "$parentTable.$foreignKey"), $order);
     }
 

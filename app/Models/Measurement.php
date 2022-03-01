@@ -90,7 +90,7 @@ class Measurement extends Model
 
     public function scopeOrderByMeasurementCategory($query, $order)
     {
-        return $this->orderHas($query, new MeasurementCategory(), 'name', "measurement_category_id", $order);
+        return $this->orderHas($query, new MeasurementCategory(), 'name', __FUNCTION__, $order);
     }
 
     public function scopeOrderByMeasurementCategoryId($query, $order)
