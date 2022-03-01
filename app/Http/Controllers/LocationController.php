@@ -63,7 +63,7 @@ class LocationController
     {
         $location = new Location();
         if ($request->search) {
-            $location = $location->where('name', 'like', "%$request->search%");
+            $location = $location->name($request->search);
         }
         $location = $location->limit(SystemSetting::OPTION_LIMIT)->get();
         return response()->json(LocationSlugResource::collection($location));

@@ -63,7 +63,7 @@ class PaymentTermController
     {
         $model = new PaymentTerm();
         if ($request->search) {
-            $model = $model->where('name', 'like', "%$request->search%");
+            $model = $model->name($request->search);
         }
         $model = $model->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'name']);
         return response()->json(PaymentTermSlugResource::collection($model));

@@ -76,7 +76,7 @@ class SalesOrderController
     {
         $model = new SalesOrder();
         if ($request->search) {
-            $model = $model->where('number', 'like', "%$request->search%");
+            $model = $model->number($request->search);
         }
         $model = $model->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'name']);
         return response()->json(SalesOrderSlugResource::collection($model));

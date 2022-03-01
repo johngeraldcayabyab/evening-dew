@@ -62,7 +62,7 @@ class OperationTypeController
     {
         $operationType = new OperationType();
         if ($request->search) {
-            $operationType = $operationType->where('name', 'like', "%$request->search%");
+            $operationType = $operationType->name($request->search);
         }
         $operationType = $operationType->limit(SystemSetting::OPTION_LIMIT)->get();
         return response()->json(OperationTypeSlugResource::collection($operationType));

@@ -63,7 +63,7 @@ class ProductCategoryController
     {
         $productCategory = new ProductCategory();
         if ($request->search) {
-            $productCategory = $productCategory->where('category', 'like', "%$request->search%");
+            $productCategory = $productCategory->category($request->search);
         }
         $productCategory = $productCategory->limit(SystemSetting::OPTION_LIMIT)->get();
         return response()->json(ProductCategorySlugResource::collection($productCategory));
