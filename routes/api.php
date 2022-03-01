@@ -17,6 +17,7 @@ use App\Routes\ProductRoute;
 use App\Routes\SalesOrderLineRoute;
 use App\Routes\SalesOrderRoute;
 use App\Routes\SequenceRoute;
+use App\Routes\TransferRoute;
 use App\Routes\UploadRoute;
 use App\Routes\UserRoute;
 use App\Routes\WarehouseRoute;
@@ -41,6 +42,7 @@ Route::group(['middleware' => ['api', 'cors']], function () {
     SalesOrderLineRoute::initialize();
     ProductRoute::initialize();
     SequenceRoute::initialize();
+    TransferRoute::initialize();
     UploadRoute::initialize();
     UserRoute::initialize();
     WarehouseRoute::initialize();

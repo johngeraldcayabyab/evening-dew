@@ -43,7 +43,6 @@ const FormItemSelectAjax = (props) => {
 
     function getQueryFromInitialValue() {
         let search = props.form.getFieldsValue();
-        console.log(search);
         props.query.split('.').forEach((query) => {
             if (search && query in search) {
                 search = search[query];

@@ -28,7 +28,7 @@ class Transfer extends Model
 
     public function contact()
     {
-        return $this->belongsTo(Contact::class, 'contaact_id', 'id');
+        return $this->belongsTo(Contact::class, 'contact_id', 'id');
     }
 
     public function operationType()
@@ -51,7 +51,7 @@ class Transfer extends Model
         return $this->belongsTo(User::class, 'responsible_id', 'id');
     }
 
-    public function scopeWhereNumber($query, $where)
+    public function scopeWhereReference($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);
     }
@@ -116,7 +116,7 @@ class Transfer extends Model
         return $this->like($query, __FUNCTION__, $where);
     }
 
-    public function scopeOrderByNumber($query, $order)
+    public function scopeOrderByReference($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }

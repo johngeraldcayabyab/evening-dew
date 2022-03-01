@@ -51,7 +51,6 @@ const ContactForm = () => {
                         <FormItemUpload
                             form={form}
                             name={'avatar'}
-                            form={form}
                             {...formState}
                         />
                     </ColForm>
