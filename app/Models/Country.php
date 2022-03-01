@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Contacts\Sluggable;
 use App\Traits\ModelHelperTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Country extends Model
+class Country extends Model implements Sluggable
 {
     use HasFactory;
     use SoftDeletes;
@@ -81,5 +82,10 @@ class Country extends Model
     public function scopeOrderByCurrencyId($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function slug()
+    {
+        return 'country_name';
     }
 }

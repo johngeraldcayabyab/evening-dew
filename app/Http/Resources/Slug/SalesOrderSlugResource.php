@@ -10,7 +10,7 @@ class SalesOrderSlugResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'slug' => $this->number
+            'slug' => $this->slug(),
         ];
     }
 }

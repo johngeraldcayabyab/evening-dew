@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\WarehouseMassDestroyRequest;
 use App\Http\Requests\Store\WarehouseStoreRequest;
 use App\Http\Requests\Update\WarehouseUpdateRequest;
@@ -60,12 +59,8 @@ class WarehouseController
 
     public function option(Request $request): JsonResponse
     {
-        $warehouse = new Warehouse();
-        if ($request->search) {
-            $warehouse = $warehouse->name($request->search);
-        }
-        $warehouse = $warehouse->limit(SystemSetting::OPTION_LIMIT)->get();
-        return response()->json(WarehouseSlugResource::collection($warehouse));
+        $model = $this->searchOption(new Warehouse(), $request);
+        return response()->json(WarehouseSlugResource::collection($model));
     }
 
     public function initial_values()

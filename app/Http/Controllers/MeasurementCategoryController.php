@@ -62,11 +62,7 @@ class MeasurementCategoryController
 
     public function option(Request $request): JsonResponse
     {
-        $model = new MeasurementCategory();
-        if ($request->search) {
-            $model = $model->name($request->search);
-        }
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'name']);
+        $model = $this->searchOption(new MeasurementCategory(), $request);
         return response()->json(MeasurementCategorySlugResource::collection($model));
     }
 }

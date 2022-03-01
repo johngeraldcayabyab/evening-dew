@@ -10,7 +10,7 @@ class MenuSlugResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'slug' => $this->label
+            'slug' => $this->slug(),
         ];
     }
 }

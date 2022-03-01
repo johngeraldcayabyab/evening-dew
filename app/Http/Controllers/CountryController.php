@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\CountryMassDestroyRequest;
 use App\Http\Requests\Store\CountryStoreRequest;
 use App\Http\Requests\Update\CountryUpdateRequest;
@@ -60,11 +59,7 @@ class CountryController
 
     public function option(Request $request): JsonResponse
     {
-        $country = new Country();
-        if ($request->search) {
-            $country = $country->countryName($request->search);
-        }
-        $country = $country->limit(SystemSetting::OPTION_LIMIT)->get();
-        return response()->json(CountrySlugResource::collection($country));
+        $model = $this->searchOption(new Country(), $request);
+        return response()->json(CountrySlugResource::collection($model));
     }
 }

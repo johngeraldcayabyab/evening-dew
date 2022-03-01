@@ -61,11 +61,7 @@ class ProductCategoryController
 
     public function option(Request $request): JsonResponse
     {
-        $productCategory = new ProductCategory();
-        if ($request->search) {
-            $productCategory = $productCategory->category($request->search);
-        }
-        $productCategory = $productCategory->limit(SystemSetting::OPTION_LIMIT)->get();
-        return response()->json(ProductCategorySlugResource::collection($productCategory));
+        $model = $this->searchOption(new ProductCategory(), $request);
+        return response()->json(ProductCategorySlugResource::collection($model));
     }
 }

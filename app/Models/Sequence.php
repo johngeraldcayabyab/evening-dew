@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Contacts\Sluggable;
 use App\Traits\ModelHelperTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Sequence extends Model
+class Sequence extends Model implements Sluggable
 {
     use HasFactory;
     use SoftDeletes;
@@ -122,5 +123,10 @@ class Sequence extends Model
             }
         }
         return $generatedSequence;
+    }
+
+    public function slug()
+    {
+        return 'name';
     }
 }

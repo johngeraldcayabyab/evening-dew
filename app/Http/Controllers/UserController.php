@@ -65,11 +65,7 @@ class UserController
 
     public function option(Request $request): JsonResponse
     {
-        $model = new User();
-        if ($request->search) {
-            $model = $model->name($request->search);
-        }
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'name']);
+        $model = $this->searchOption(new User(), $request);
         return response()->json(UserSlugResource::collection($model));
     }
 }

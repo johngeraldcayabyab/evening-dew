@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Contacts\Sluggable;
 use App\Traits\ModelHelperTrait;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Measurement extends Model
+class Measurement extends Model implements Sluggable
 {
     use HasFactory;
     use SoftDeletes;
@@ -96,5 +97,10 @@ class Measurement extends Model
     public function scopeOrderByMeasurementCategoryId($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function slug()
+    {
+        return 'name';
     }
 }

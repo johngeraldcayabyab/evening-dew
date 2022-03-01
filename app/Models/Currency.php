@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Contacts\Sluggable;
 use App\Traits\ModelHelperTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Currency extends Model
+class Currency extends Model implements Sluggable
 {
     use HasFactory;
     use SoftDeletes;
@@ -109,5 +110,10 @@ class Currency extends Model
     public function scopeOrderBySymbolPosition($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function slug()
+    {
+        return 'name';
     }
 }

@@ -61,11 +61,7 @@ class TransferController
 
     public function option(Request $request): JsonResponse
     {
-        $model = new Transfer();
-        if ($request->search) {
-            $model = $model->reference($request->search);
-        }
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'reference']);
+        $model = $this->searchOption(new Transfer(), $request);
         return response()->json(TransferSlugResource::collection($model));
     }
 

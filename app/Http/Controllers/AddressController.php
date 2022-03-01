@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\AddressMassDestroyRequest;
 use App\Http\Requests\Store\AddressStoreRequest;
 use App\Http\Requests\Update\AddressUpdateRequest;
@@ -10,7 +9,6 @@ use App\Http\Resources\Collection\AddressCollection;
 use App\Http\Resources\Resource\AddressResource;
 use App\Http\Resources\Slug\AddressSlugResource;
 use App\Models\Address;
-use App\Models\Country;
 use App\Models\GlobalSetting;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
@@ -62,12 +60,8 @@ class AddressController
 
     public function option(Request $request): JsonResponse
     {
-        $address = new Address();
-        if ($request->search) {
-            $address = $address->addressName($request->search);
-        }
-        $address = $address->limit(SystemSetting::OPTION_LIMIT)->get();
-        return response()->json(AddressSlugResource::collection($address));
+        $model = $this->searchOption(new Address(), $request);
+        return response()->json(AddressSlugResource::collection($model));
     }
 
     public function initial_values()

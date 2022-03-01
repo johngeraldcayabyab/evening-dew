@@ -10,7 +10,7 @@ class LocationSlugResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'slug' => $this->getWithParents('name')
+            'slug' => $this->getWithParents($this->slug())
         ];
     }
 }

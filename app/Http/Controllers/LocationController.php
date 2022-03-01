@@ -61,12 +61,8 @@ class LocationController
 
     public function option(Request $request): JsonResponse
     {
-        $location = new Location();
-        if ($request->search) {
-            $location = $location->name($request->search);
-        }
-        $location = $location->limit(SystemSetting::OPTION_LIMIT)->get();
-        return response()->json(LocationSlugResource::collection($location));
+        $model = $this->searchOption(new Location(), $request);
+        return response()->json(LocationSlugResource::collection($model));
     }
 
     public function initial_values()

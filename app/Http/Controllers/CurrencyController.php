@@ -60,12 +60,8 @@ class CurrencyController
 
     public function option(Request $request): JsonResponse
     {
-        $currency = new Currency();
-        if ($request->search) {
-            $currency = $currency->curreny($request->search);
-        }
-        $currency = $currency->limit(SystemSetting::OPTION_LIMIT)->get();
-        return response()->json(CurrencySlugResource::collection($currency));
+        $model = $this->searchOption(new Currency(), $request);
+        return response()->json(CurrencySlugResource::collection($model));
     }
 
     public function initial_values()

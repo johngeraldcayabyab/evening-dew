@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Contacts\Sluggable;
 use App\Traits\ModelHelperTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class OperationType extends Model
+class OperationType extends Model implements Sluggable
 {
     use HasFactory;
     use SoftDeletes;
@@ -263,5 +264,10 @@ class OperationType extends Model
     public function scopeOrderByDefaultDestinationLocation($query, $order)
     {
         return $this->orderHas($query, new Location(), 'name', __FUNCTION__, $order);
+    }
+
+    public function slug()
+    {
+        return 'name';
     }
 }

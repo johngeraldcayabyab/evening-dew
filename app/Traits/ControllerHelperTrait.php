@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Data\SystemSetting;
+use App\Models\Address;
 use Illuminate\Support\Str;
 use ReflectionClass;
 
@@ -11,7 +12,6 @@ trait ControllerHelperTrait
     public function locationHeader($model)
     {
         $route = route("{$model->getTable()}.show", $model);
-        info($route);
         return ['Location' => $route];
     }
 
@@ -87,5 +87,14 @@ trait ControllerHelperTrait
             }
         }
         return $model;
+    }
+
+    public function searchOption($model, $request)
+    {
+        if ($request->search) {
+            $scope = 'where' . Str::studly($model->slug());
+            $model = $model->$scope($request->search);
+        }
+        return $model->limit(SystemSetting::OPTION_LIMIT)->get();
     }
 }

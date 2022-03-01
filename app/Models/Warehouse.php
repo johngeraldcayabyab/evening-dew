@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Contacts\Sluggable;
 use App\Traits\ModelHelperTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Warehouse extends Model
+class Warehouse extends Model implements Sluggable
 {
     use HasFactory;
     use SoftDeletes;
@@ -456,5 +457,10 @@ class Warehouse extends Model
     public function scopeOrderByManufacturingOperationType($query, $order)
     {
         return $this->orderHas($query, new OperationType(), 'name', __FUNCTION__, $order);
+    }
+
+    public function slug()
+    {
+        return 'name';
     }
 }

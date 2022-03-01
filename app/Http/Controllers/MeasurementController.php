@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\MeasurementMassDestroyRequest;
 use App\Http\Requests\Store\MeasurementStoreRequest;
 use App\Http\Requests\Update\MeasurementUpdateRequest;
@@ -11,7 +10,6 @@ use App\Http\Resources\Resource\MeasurementResource;
 use App\Http\Resources\Slug\MeasurementSlugResource;
 use App\Models\GlobalSetting;
 use App\Models\Measurement;
-use App\Models\MeasurementCategory;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -63,11 +61,7 @@ class MeasurementController
 
     public function option(Request $request): JsonResponse
     {
-        $model = new Measurement();
-        if ($request->search) {
-            $model = $model->name($request->search);
-        }
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get(['id', 'name']);
+        $model = $this->searchOption(new Measurement(), $request);
         return response()->json(MeasurementSlugResource::collection($model));
     }
 

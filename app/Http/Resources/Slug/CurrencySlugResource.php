@@ -10,7 +10,7 @@ class CurrencySlugResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'slug' => $this->currency
+            'slug' => $this->slug(),
         ];
     }
 }
