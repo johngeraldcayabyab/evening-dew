@@ -38,6 +38,11 @@ class SalesOrder extends Model
         return $this->belongsTo(PaymentTerm::class, 'payment_term_id', 'id');
     }
 
+    public function salesperson()
+    {
+        return $this->belongsTo(User::class, 'salesperson_id', 'id');
+    }
+
     public function salesOrderLines()
     {
         return $this->hasMany(SalesOrderLine::class);
