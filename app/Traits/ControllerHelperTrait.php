@@ -91,10 +91,13 @@ trait ControllerHelperTrait
 
     public function searchOption($model, $request)
     {
+        $modelSlug = Str::studly($model->slug());
         if ($request->search) {
-            $scope = 'where' . Str::studly($model->slug());
-            $model = $model->$scope($request->search);
+            $whereScope = 'where' . $modelSlug;
+            $model = $model->$whereScope($request->search);
         }
+        $orderByScope = 'orderBy' . $modelSlug;
+        $model = $model->$orderByScope('asc');
         return $model->limit(SystemSetting::OPTION_LIMIT)->get();
     }
 }
