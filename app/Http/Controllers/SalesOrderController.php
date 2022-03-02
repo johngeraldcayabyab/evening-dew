@@ -85,6 +85,7 @@ class SalesOrderController
     public function initial_values()
     {
         return [
+            'measurement' => GlobalSetting::latestFirst()->inventoryDefaultSalesMeasurement,
             'number' => Sequence::generateSalesOrderSequence()
         ];
     }
