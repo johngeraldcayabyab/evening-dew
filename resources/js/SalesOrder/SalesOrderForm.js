@@ -39,120 +39,120 @@ const SalesOrderForm = () => {
         };
     }, []);
 
+    function onValuesChange(changedValues, allValues) {
+        if (changedValues.customer_id) {
+            useFetch(`/api/addresses`, GET, {
+                contact_id: changedValues.customer_id
+            }).then((response) => {
+                let defaultAddress = response.data.find((address) => (address.type === 'default'));
+                let invoiceAddress = response.data.find((address) => (address.type === 'invoice'));
+                let deliveryAddress = response.data.find((address) => (address.type === 'delivery'));
+                invoiceAddress = invoiceAddress ? invoiceAddress : defaultAddress;
+                deliveryAddress = deliveryAddress ? deliveryAddress : defaultAddress;
+                setState((prevState) => ({
+                    ...prevState,
+                    invoiceAddressOptionReload: invoiceAddress.address_name,
+                    deliveryAddressOptionReload: deliveryAddress.address_name,
+                }));
+                form.setFieldsValue({
+                    invoice_address_id: invoiceAddress.id,
+                    delivery_address_id: deliveryAddress.id
+                });
+            }).catch((responseErr) => {
+                fetchCatcher.get(responseErr);
+            });
+        }
+        if (checkIfADynamicInputChanged(changedValues)) {
+            const salesOrderLines = allValues.sales_order_lines;
+            let changedSalesOrderLine = getSpecificInputChange(changedValues);
+            if (changedSalesOrderLine) {
+                getProductDataAndFillDefaultValues(changedSalesOrderLine, salesOrderLines);
+            }
+        }
+    }
+
+    function checkIfADynamicInputChanged(changedValues) {
+        if (changedValues.sales_order_lines && !changedValues.sales_order_lines.some(item => item === undefined || item.id)) {
+            return true;
+        }
+        return false;
+    }
+
+    function getSpecificInputChange(changedValues) {
+        let changedSalesOrderLine = false;
+        changedValues.sales_order_lines.forEach((salesOrderLine, key) => {
+            if (salesOrderLine && salesOrderLine.product_id) {
+                if (isOnlyOneProperty(salesOrderLine)) {
+                    changedSalesOrderLine = {
+                        key: key,
+                        product_id: salesOrderLine.product_id
+                    };
+                }
+            }
+        });
+        return changedSalesOrderLine;
+    }
+
+    function isOnlyOneProperty(changedSalesOrderLine) {
+        let keys = Object.keys(changedSalesOrderLine);
+        if (keys.length === 1) {
+            return true;
+        }
+        return false;
+    }
+
+    function getProductDataAndFillDefaultValues(changedSalesOrderLine, salesOrderLines) {
+        useFetch(`/api/products`, GET, {
+            id: changedSalesOrderLine.product_id
+        }).then((response) => {
+            const product = response.data[0];
+            salesOrderLines[changedSalesOrderLine.key] = {
+                ...salesOrderLines[changedSalesOrderLine.key],
+                ...{
+                    description: product.sales_description,
+                    measurement_id: product.sales_measurement_id,
+                    unit_price: product.sales_price,
+                    isReload: product.sales_measurement.name
+                }
+            };
+            setSalesOrderLinesReload(salesOrderLines);
+        }).catch((responseErr) => {
+            fetchCatcher.get(responseErr);
+        });
+    }
+
+    function setSalesOrderLinesReload(salesOrderLines) {
+        setState((prevState) => ({
+            ...prevState,
+            salesOrderLinesOptionReload: salesOrderLines
+        }));
+        form.setFieldsValue({
+            sales_order_lines: salesOrderLines
+        });
+    }
+
+    function onFinish(values) {
+        if (id) {
+            if (state.deletedSalesOrderLines.length) {
+                useFetch(`/api/sales_order_lines/mass_destroy`, POST, {ids: state.deletedSalesOrderLines}).then(() => {
+                    setState((prevState) => ({
+                        ...prevState,
+                        deletedSalesOrderLines: [],
+                        salesOrderLinesOptionReload: [],
+                    }));
+                }).catch((responseErr) => {
+                    fetchCatcher.get(responseErr);
+                });
+            }
+        }
+        formActions.onFinish(values);
+    }
+
     return (
         <CustomForm
             form={form}
-            onFinish={(values) => {
-                if (id) {
-                    if (state.deletedSalesOrderLines.length) {
-                        // const deleteSalesOrderLinesIds = state.deletedSalesOrderLines.map((deletedSalesOrderLine) => {
-                        //     if (deletedSalesOrderLine) {
-                        //         return deletedSalesOrderLine.id;
-                        //     }
-                        // }).filter((id) => (id));
-                        useFetch(`/api/sales_order_lines/mass_destroy`, POST, {ids: state.deletedSalesOrderLines}).then(() => {
-                            setState((prevState) => ({
-                                ...prevState,
-                                deletedSalesOrderLines: [],
-                                salesOrderLinesOptionReload: [],
-                            }));
-                        }).catch((responseErr) => {
-                            fetchCatcher.get(responseErr);
-                        });
-                    }
-                }
-                formActions.onFinish(values);
-            }}
-            onValuesChange={(changedValues, allValues) => {
-                if (changedValues.customer_id) {
-                    useFetch(`/api/addresses`, GET, {
-                        contact_id: changedValues.customer_id
-                    }).then((response) => {
-                        let defaultAddress = response.data.find((address) => (address.type === 'default'));
-                        let invoiceAddress = response.data.find((address) => (address.type === 'invoice'));
-                        let deliveryAddress = response.data.find((address) => (address.type === 'delivery'));
-                        invoiceAddress = invoiceAddress ? invoiceAddress : defaultAddress;
-                        deliveryAddress = deliveryAddress ? deliveryAddress : defaultAddress;
-                        setState((prevState) => ({
-                            ...prevState,
-                            invoiceAddressOptionReload: invoiceAddress.address_name,
-                            deliveryAddressOptionReload: deliveryAddress.address_name,
-                        }));
-                        form.setFieldsValue({
-                            invoice_address_id: invoiceAddress.id,
-                            delivery_address_id: deliveryAddress.id
-                        });
-                    }).catch((responseErr) => {
-                        fetchCatcher.get(responseErr);
-                    });
-                }
-                if (checkIfADynamicInputChanged(changedValues)) {
-                    const salesOrderLines = allValues.sales_order_lines;
-                    let changedSalesOrderLine = getSpecificInputChange(changedValues);
-                    if (changedSalesOrderLine) {
-                        getProductDataAndFillDefaultValues(changedSalesOrderLine, salesOrderLines);
-                    }
-                }
-
-                function checkIfADynamicInputChanged(changedValues) {
-                    /**
-                     * aware that something has changed but don't know exact "no gap index" only knows "new index"
-                     */
-                    if (changedValues.sales_order_lines && !changedValues.sales_order_lines.some(item => item === undefined || item.id)) {
-                        return true;
-                    }
-                    return false;
-                }
-
-                function getSpecificInputChange(changedValues) {
-                    let changedSalesOrderLine = false;
-                    changedValues.sales_order_lines.forEach((salesOrderLine, key) => {
-                        if (salesOrderLine && salesOrderLine.product_id) {
-                            if (isOnlyOneProperty(salesOrderLine)) {
-                                changedSalesOrderLine = {
-                                    key: key,
-                                    product_id: salesOrderLine.product_id
-                                };
-                            }
-                        }
-                    });
-                    return changedSalesOrderLine;
-                }
-
-                function isOnlyOneProperty(changedSalesOrderLine) {
-                    let keys = Object.keys(changedSalesOrderLine);
-                    if (keys.length === 1) {
-                        return true;
-                    }
-                    return false;
-                }
-
-                function getProductDataAndFillDefaultValues(changedSalesOrderLine, salesOrderLines) {
-                    useFetch(`/api/products`, GET, {
-                        id: changedSalesOrderLine.product_id
-                    }).then((response) => {
-                        const product = response.data[0];
-                        salesOrderLines[changedSalesOrderLine.key] = {
-                            ...salesOrderLines[changedSalesOrderLine.key],
-                            ...{
-                                description: product.sales_description,
-                                measurement_id: product.sales_measurement_id,
-                                unit_price: product.sales_price,
-                                isReload: product.sales_measurement.name
-                            }
-                        };
-                        setState((prevState) => ({
-                            ...prevState,
-                            salesOrderLinesOptionReload: salesOrderLines
-                        }));
-                        form.setFieldsValue({
-                            sales_order_lines: salesOrderLines
-                        });
-                    }).catch((responseErr) => {
-                        fetchCatcher.get(responseErr);
-                    });
-                }
-            }}
+            onFinish={onFinish}
+            onValuesChange={onValuesChange}
         >
             <ControlPanel
                 bottomColOneLeft={
@@ -329,22 +329,16 @@ const SalesOrderForm = () => {
                                                     <ColForm lg={1}>
                                                         {!formState.formDisabled &&
                                                         <MinusCircleOutlined onClick={(item) => {
-
                                                             if (form.getFieldsValue().sales_order_lines && form.getFieldsValue().sales_order_lines[name]) {
                                                                 if (form.getFieldsValue().sales_order_lines[name].id) {
                                                                     setState((prevState) => ({
                                                                         ...prevState,
+                                                                        salesOrderLinesOptionReload: [],
                                                                         deletedSalesOrderLines: [...prevState.deletedSalesOrderLines, form.getFieldsValue().sales_order_lines[name].id],
                                                                     }));
                                                                 }
                                                             }
-
-                                                            remove(name); // this thing removes the item on the current index (not the "no gap index")
-                                                            /**
-                                                             * these next line of code needs to delete the "no gap index"
-                                                             *
-                                                             * but we need to add checking if we need to post delete
-                                                             */
+                                                            remove(name);
                                                         }}/>}
                                                     </ColForm>
                                                 </RowForm>
@@ -366,7 +360,6 @@ const SalesOrderForm = () => {
                     </TabPane>
                     <TabPane tab="Other Information" key="2">
                     </TabPane>
-
                 </Tabs>
             </FormCard>
         </CustomForm>
