@@ -1,4 +1,9 @@
 import FormLabel from "../components/Typography/FormLabel";
+import {Button, Form} from "antd";
+import {PlusOutlined} from "@ant-design/icons";
+import React from "react";
+import RowForm from "../components/Grid/RowForm";
+import ColForm from "../components/Grid/ColForm";
 
 export const formItemFieldProps = (props, specialFieldProps = {}) => {
     const formItemProps = {
@@ -42,6 +47,16 @@ export const formItemFieldProps = (props, specialFieldProps = {}) => {
     return [formItemProps, fieldProps];
 };
 
+export const checkIfADynamicInputChangedAndDoSomething = (changedValues, allValues, dynamicName, dynamicProperty, callback) => {
+    if (checkIfADynamicInputChanged(changedValues, dynamicName)) {
+        const transactionLines = allValues[dynamicName];
+        let changedTransactionLine = getSpecificInputChange(changedValues, dynamicName, dynamicProperty);
+        if (changedTransactionLine) {
+            callback(changedTransactionLine, transactionLines);
+        }
+    }
+}
+
 
 export const checkIfADynamicInputChanged = (changedValues, dynamicName) => {
     if (changedValues[dynamicName] && !changedValues[dynamicName].some(item => item === undefined || item.id)) {
@@ -65,30 +80,26 @@ export const getSpecificInputChange = (changedValues, dynamicName, dynamicProper
     return changedSalesOrderLine;
 }
 
+export const isOnlyOneProperty = (changedSalesOrderLine) => {
+    let keys = Object.keys(changedSalesOrderLine);
+    if (keys.length === 1) {
+        return true;
+    }
+    return false;
+}
+
 
 const snakeToCamel = s => s.replace(/(_\w)/g, k => k[1].toUpperCase());
 
 export const removeTransactionLines = (remove, form, dynamicName, name, setState) => {
     if (form.getFieldsValue()[dynamicName] && form.getFieldsValue()[dynamicName][name]) {
         if (form.getFieldsValue()[dynamicName][name].id) {
-
-            const newState = {};
-
-
             setState((prevState) => {
-
                 let newState = {
                     ...prevState
                 };
-
                 newState[`${snakeToCamel(dynamicName)}OptionReload`] = [];
                 newState[`${snakeToCamel(dynamicName)}Deleted`] = [...prevState[`${snakeToCamel(dynamicName)}Deleted`], form.getFieldsValue()[dynamicName][name].id];
-
-                // {
-                // ...prevState,
-                //     salesOrderLinesOptionReload: [],
-                //     deletedSalesOrderLines: [...prevState.deletedSalesOrderLines, form.getFieldsValue().sales_order_lines[name].id],
-                // }
                 return newState
             });
         }
@@ -96,11 +107,33 @@ export const removeTransactionLines = (remove, form, dynamicName, name, setState
     remove(name);
 }
 
+export const DynamicFieldAddButton = (props) => {
+    return (
+        <Form.Item>
+            {!props.formState.formDisabled &&
+            <Button type="dashed" onClick={() => {
+                props.add();
+            }} block
+                    icon={<PlusOutlined/>}>
+                {props.label}
+            </Button>}
+        </Form.Item>
+    )
+}
 
-export const isOnlyOneProperty = (changedSalesOrderLine) => {
-    let keys = Object.keys(changedSalesOrderLine);
-    if (keys.length === 1) {
-        return true;
-    }
-    return false;
+export const GenerateDynamicColumns = (props) => {
+    const columnLength = props.columns.length;
+    const width = 100 / columnLength;
+    const columns = props.columns.map((column) => {
+        return (<FormLabel key={column} style={{display: 'inline-block', width: `${width}%`}}>{column}</FormLabel>);
+    });
+    return (
+        <RowForm>
+            <ColForm lg={23}>
+                {columns}
+            </ColForm>
+            <ColForm lg={1}>
+            </ColForm>
+        </RowForm>
+    );
 }

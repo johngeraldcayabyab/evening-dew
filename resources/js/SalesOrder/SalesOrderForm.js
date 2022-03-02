@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Form, Tabs} from "antd";
+import {Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
@@ -14,10 +14,14 @@ import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
 import useFetchHook from "../Hooks/useFetchHook";
 import useFetchCatcher from "../Hooks/useFetchCatcher";
 import {GET, POST} from "../consts";
-import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
+import {MinusCircleOutlined} from "@ant-design/icons";
 import FormItemNumber from "../components/FormItem/FormItemNumber";
-import FormLabel from "../components/Typography/FormLabel";
-import {removeTransactionLines} from "../Helpers/form";
+import {
+    checkIfADynamicInputChangedAndDoSomething,
+    DynamicFieldAddButton,
+    GenerateDynamicColumns,
+    removeTransactionLines
+} from "../Helpers/form";
 
 const {TabPane} = Tabs;
 
@@ -63,43 +67,7 @@ const SalesOrderForm = () => {
                 fetchCatcher.get(responseErr);
             });
         }
-        if (checkIfADynamicInputChanged(changedValues)) {
-            const salesOrderLines = allValues.sales_order_lines;
-            let changedSalesOrderLine = getSpecificInputChange(changedValues);
-            if (changedSalesOrderLine) {
-                getProductDataAndFillDefaultValues(changedSalesOrderLine, salesOrderLines);
-            }
-        }
-    }
-
-    function checkIfADynamicInputChanged(changedValues) {
-        if (changedValues.sales_order_lines && !changedValues.sales_order_lines.some(item => item === undefined || item.id)) {
-            return true;
-        }
-        return false;
-    }
-
-    function getSpecificInputChange(changedValues) {
-        let changedSalesOrderLine = false;
-        changedValues.sales_order_lines.forEach((salesOrderLine, key) => {
-            if (salesOrderLine && salesOrderLine.product_id) {
-                if (isOnlyOneProperty(salesOrderLine)) {
-                    changedSalesOrderLine = {
-                        key: key,
-                        product_id: salesOrderLine.product_id
-                    };
-                }
-            }
-        });
-        return changedSalesOrderLine;
-    }
-
-    function isOnlyOneProperty(changedSalesOrderLine) {
-        let keys = Object.keys(changedSalesOrderLine);
-        if (keys.length === 1) {
-            return true;
-        }
-        return false;
+        checkIfADynamicInputChangedAndDoSomething(changedValues, allValues, 'sales_order_lines', 'product_id', getProductDataAndFillDefaultValues);
     }
 
     function getProductDataAndFillDefaultValues(changedSalesOrderLine, salesOrderLines) {
@@ -230,18 +198,9 @@ const SalesOrderForm = () => {
 
                 <Tabs defaultActiveKey="1">
                     <TabPane tab="Order Lines" key="1">
-                        <RowForm>
-                            <ColForm lg={23}>
-                                <FormLabel style={{display: 'inline-block', width: '20%'}}>Product</FormLabel>
-                                <FormLabel style={{display: 'inline-block', width: '20%'}}>Description</FormLabel>
-                                <FormLabel style={{display: 'inline-block', width: '20%'}}>Quantity</FormLabel>
-                                <FormLabel style={{display: 'inline-block', width: '20%'}}>Measurement</FormLabel>
-                                <FormLabel style={{display: 'inline-block', width: '20%'}}>Unit Price</FormLabel>
-                            </ColForm>
-                            <ColForm lg={1}>
-                            </ColForm>
-                        </RowForm>
-
+                        <GenerateDynamicColumns
+                            columns={['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price']}
+                        />
                         <RowForm>
                             <ColForm lg={24}>
                                 <Form.List name="sales_order_lines">
@@ -335,15 +294,12 @@ const SalesOrderForm = () => {
                                                     </ColForm>
                                                 </RowForm>
                                             ))}
-                                            <Form.Item>
-                                                {!formState.formDisabled &&
-                                                <Button type="dashed" onClick={() => {
-                                                    add();
-                                                }} block
-                                                        icon={<PlusOutlined/>}>
-                                                    Add a product
-                                                </Button>}
-                                            </Form.Item>
+
+                                            <DynamicFieldAddButton
+                                                formState={formState}
+                                                add={add}
+                                                label={'Add a product'}
+                                            />
                                         </>
                                     )}
                                 </Form.List>
