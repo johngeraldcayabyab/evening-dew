@@ -38,16 +38,19 @@ php artisan storage:link php artisan event:cache
 
 
 
--Options with initial value with many options only has one value. making it confusing on initial render
 
--order lines has if has option, value changes because its a different key making it not reload on change (what?)
 
--options values not loading properly if value is not on initial system limit render
-
--create a sluggable column instead and make observer to generate slug
+-create a sluggable column instead and make observer to generate slug (second thought)
 
 -recursion shall be delegated in the front end
 
 -Fix deployment permissions
 
 -breadcrumbs slug not changing on update
+
+-export backend api to be used by front-end
+
+-remaining issue is props search is triggered in options
+
+
+

@@ -30,7 +30,7 @@ const SalesOrderForm = () => {
         invoiceAddressOptionReload: false,
         deliveryAddressOptionReload: false,
         salesOrderLinesOptionReload: [],
-        deletedSalesOrderLines: []
+        deletedSalesOrderLines: [],
     });
 
     useEffect(() => {
@@ -39,42 +39,22 @@ const SalesOrderForm = () => {
         };
     }, []);
 
-    function checkIfADynamicInputChanged(changedValues) {
-        if (changedValues.sales_order_lines && !changedValues.sales_order_lines.some(item => item === undefined || item.id)) {
-            return true;
-        }
-        return false;
-    }
-
-    function getSpecificInputChange(changedValues) {
-        let changedSalesOrderLine = false;
-        changedValues.sales_order_lines.forEach((salesOrderLine, key) => {
-            if (salesOrderLine && salesOrderLine.product_id) {
-                changedSalesOrderLine = {
-                    key: key,
-                    product_id: salesOrderLine.product_id
-                };
-            }
-        });
-        return changedSalesOrderLine;
-    }
-
-
     return (
         <CustomForm
             form={form}
             onFinish={(values) => {
                 if (id) {
                     if (state.deletedSalesOrderLines.length) {
-                        const deleteSalesOrderLinesIds = state.deletedSalesOrderLines.map((deletedSalesOrderLine) => {
-                            if (deletedSalesOrderLine) {
-                                return deletedSalesOrderLine.id;
-                            }
-                        }).filter((id) => (id));
-                        useFetch(`/api/sales_order_lines/mass_destroy`, POST, {ids: deleteSalesOrderLinesIds}).then(() => {
+                        // const deleteSalesOrderLinesIds = state.deletedSalesOrderLines.map((deletedSalesOrderLine) => {
+                        //     if (deletedSalesOrderLine) {
+                        //         return deletedSalesOrderLine.id;
+                        //     }
+                        // }).filter((id) => (id));
+                        useFetch(`/api/sales_order_lines/mass_destroy`, POST, {ids: state.deletedSalesOrderLines}).then(() => {
                             setState((prevState) => ({
                                 ...prevState,
                                 deletedSalesOrderLines: [],
+                                salesOrderLinesOptionReload: [],
                             }));
                         }).catch((responseErr) => {
                             fetchCatcher.get(responseErr);
@@ -110,30 +90,57 @@ const SalesOrderForm = () => {
                     const salesOrderLines = allValues.sales_order_lines;
                     let changedSalesOrderLine = getSpecificInputChange(changedValues);
                     if (changedSalesOrderLine) {
-                        useFetch(`/api/products`, GET, {
-                            id: changedSalesOrderLine.product_id
-                        }).then((response) => {
-                            const product = response.data[0];
-                            salesOrderLines[changedSalesOrderLine.key] = {
-                                ...salesOrderLines[changedSalesOrderLine.key],
-                                ...{
-                                    description: product.sales_description,
-                                    measurement_id: product.sales_measurement_id,
-                                    unit_price: product.sales_price,
-                                    isReload: product.sales_measurement.name
-                                }
-                            };
-                            setState((prevState) => ({
-                                ...prevState,
-                                salesOrderLinesOptionReload: salesOrderLines
-                            }));
-                            form.setFieldsValue({
-                                sales_order_lines: salesOrderLines
-                            });
-                        }).catch((responseErr) => {
-                            fetchCatcher.get(responseErr);
-                        });
+                        getProductDataAndFillDefaultValues(changedSalesOrderLine, salesOrderLines);
                     }
+                }
+
+                function checkIfADynamicInputChanged(changedValues) {
+                    /**
+                     * aware that something has changed but don't know exact "no gap index" only knows "new index"
+                     */
+                    if (changedValues.sales_order_lines && !changedValues.sales_order_lines.some(item => item === undefined || item.id)) {
+                        return true;
+                    }
+                    return false;
+                }
+
+                function getSpecificInputChange(changedValues) {
+                    let changedSalesOrderLine = false;
+                    changedValues.sales_order_lines.forEach((salesOrderLine, key) => {
+                        if (salesOrderLine && salesOrderLine.product_id) {
+                            changedSalesOrderLine = {
+                                key: key,
+                                product_id: salesOrderLine.product_id
+                            };
+                        }
+                    });
+                    return changedSalesOrderLine;
+                }
+
+                function getProductDataAndFillDefaultValues(changedSalesOrderLine, salesOrderLines) {
+                    useFetch(`/api/products`, GET, {
+                        id: changedSalesOrderLine.product_id
+                    }).then((response) => {
+                        const product = response.data[0];
+                        salesOrderLines[changedSalesOrderLine.key] = {
+                            ...salesOrderLines[changedSalesOrderLine.key],
+                            ...{
+                                description: product.sales_description,
+                                measurement_id: product.sales_measurement_id,
+                                unit_price: product.sales_price,
+                                isReload: product.sales_measurement.name
+                            }
+                        };
+                        setState((prevState) => ({
+                            ...prevState,
+                            salesOrderLinesOptionReload: salesOrderLines
+                        }));
+                        form.setFieldsValue({
+                            sales_order_lines: salesOrderLines
+                        });
+                    }).catch((responseErr) => {
+                        fetchCatcher.get(responseErr);
+                    });
                 }
             }}
         >
@@ -232,6 +239,16 @@ const SalesOrderForm = () => {
                                             {fields.map(({key, name, ...restField}) => (
                                                 <RowForm key={key}>
                                                     <ColForm lg={23}>
+                                                        <FormItemNumber
+                                                            form={form}
+                                                            {...restField}
+                                                            name={'id'}
+                                                            {...formState}
+                                                            style={{display: 'hidden', position: 'absolute'}}
+                                                            groupName={name}
+                                                            listName={'sales_order_lines'}
+                                                        />
+
                                                         <FormItemSelectAjax
                                                             form={form}
                                                             {...restField}
@@ -302,20 +319,33 @@ const SalesOrderForm = () => {
                                                     <ColForm lg={1}>
                                                         {!formState.formDisabled &&
                                                         <MinusCircleOutlined onClick={(item) => {
-                                                            remove(name);
-                                                            const deletedSalesOrderLines = state.deletedSalesOrderLines;
-                                                            deletedSalesOrderLines.push(formState.initialValues.sales_order_lines[restField.fieldKey]);
-                                                            setState((prevState) => ({
-                                                                ...prevState,
-                                                                deletedSalesOrderLines: deletedSalesOrderLines,
-                                                            }));
+
+                                                            if(form.getFieldsValue().sales_order_lines && form.getFieldsValue().sales_order_lines[name]){
+                                                                if(form.getFieldsValue().sales_order_lines[name].id){
+                                                                    setState((prevState) => ({
+                                                                        ...prevState,
+                                                                        deletedSalesOrderLines: [...prevState.deletedSalesOrderLines, form.getFieldsValue().sales_order_lines[name].id],
+                                                                    }));
+                                                                }
+                                                            }
+
+
+                                                            remove(name); // this thing removes the item on the current index (not the "no gap index")
+                                                            console.log(fields[name], name, form.getFieldsValue());
+                                                            /**
+                                                             * these next line of code needs to delete the "no gap index"
+                                                             *
+                                                             * but we need to add checking if we need to post delete
+                                                             */
                                                         }}/>}
                                                     </ColForm>
                                                 </RowForm>
                                             ))}
                                             <Form.Item>
                                                 {!formState.formDisabled &&
-                                                <Button type="dashed" onClick={() => add()} block
+                                                <Button type="dashed" onClick={() => {
+                                                    add();
+                                                }} block
                                                         icon={<PlusOutlined/>}>
                                                     Add a product
                                                 </Button>}
