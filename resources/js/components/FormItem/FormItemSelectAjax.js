@@ -41,11 +41,6 @@ const FormItemSelectAjax = (props) => {
     }, [props.initialLoad]);
 
     useEffect(() => {
-        /**
-         * The issue is because this is not working
-         * and the removed sales order lines is getting re-queried because it's
-         * still part of the initialValues
-         */
         if (props.search) {
             getOptions(props.search);
             console.log('is search trigger', props.search);
@@ -54,9 +49,6 @@ const FormItemSelectAjax = (props) => {
 
     function getQueryFromInitialValue() {
         let search = props.initialValues;
-        /**
-         * should be called "initial search" instead of "query"
-         */
         props.query.split('.').forEach((query) => {
             if (search && query in search) {
                 search = search[query];
@@ -64,16 +56,6 @@ const FormItemSelectAjax = (props) => {
                 search = null;
             }
         });
-        /**
-         * Okay now we know it's a list field
-         *
-         * There are three types of initial values for list fields
-         *
-         * 1) One is the "main" outside the fields object
-         * 2) Second is for "create" mode and "inside" the fields object (rare but possible)
-         * 3) Third is the "edit" mode that gives it actual values
-         *
-         */
         if ((props.isListField && props.id && !props.formDisabled) || (props.isListField && !props.id && !props.formDisabled)) {
             search = props.initialValues;
             props.query.split('.').slice(-2).forEach((query) => {
