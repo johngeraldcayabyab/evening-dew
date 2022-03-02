@@ -39,9 +39,11 @@ class SalesOrderController
     {
         $data = $request->validated();
         $salesOrderData = Arr::except($data, ['sales_order_lines']);
-        $salesOrderLinesData = $data['sales_order_lines'];
         $salesOrder = SalesOrder::create($salesOrderData);
-        SalesOrderLine::insertMany($salesOrderLinesData, $salesOrder->id);
+        if (isset($data['sales_order_lines'])) {
+            $salesOrderLinesData = $data['sales_order_lines'];
+            SalesOrderLine::insertMany($salesOrderLinesData, $salesOrder->id);
+        }
         return response()->json([], STATUS_CREATE, $this->locationHeader($salesOrder));
     }
 
@@ -50,8 +52,10 @@ class SalesOrderController
         $data = $request->validated();
         $salesOrderData = Arr::except($data, ['sales_order_lines']);
         $salesOrder->update($salesOrderData);
-        $salesOrderLinesData = $data['sales_order_lines'];
-        SalesOrderLine::updateOrCreateMany($salesOrderLinesData, $salesOrder->id);
+        if (isset($data['sales_order_lines'])) {
+            $salesOrderLinesData = $data['sales_order_lines'];
+            SalesOrderLine::updateOrCreateMany($salesOrderLinesData, $salesOrder->id);
+        }
         return response()->json([], STATUS_UPDATE);
     }
 
