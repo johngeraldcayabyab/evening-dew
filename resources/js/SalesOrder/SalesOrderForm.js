@@ -108,13 +108,23 @@ const SalesOrderForm = () => {
                     let changedSalesOrderLine = false;
                     changedValues.sales_order_lines.forEach((salesOrderLine, key) => {
                         if (salesOrderLine && salesOrderLine.product_id) {
-                            changedSalesOrderLine = {
-                                key: key,
-                                product_id: salesOrderLine.product_id
-                            };
+                            if (isOnlyOneProperty(salesOrderLine)) {
+                                changedSalesOrderLine = {
+                                    key: key,
+                                    product_id: salesOrderLine.product_id
+                                };
+                            }
                         }
                     });
                     return changedSalesOrderLine;
+                }
+
+                function isOnlyOneProperty(changedSalesOrderLine) {
+                    let keys = Object.keys(changedSalesOrderLine);
+                    if (keys.length === 1) {
+                        return true;
+                    }
+                    return false;
                 }
 
                 function getProductDataAndFillDefaultValues(changedSalesOrderLine, salesOrderLines) {
@@ -320,8 +330,8 @@ const SalesOrderForm = () => {
                                                         {!formState.formDisabled &&
                                                         <MinusCircleOutlined onClick={(item) => {
 
-                                                            if(form.getFieldsValue().sales_order_lines && form.getFieldsValue().sales_order_lines[name]){
-                                                                if(form.getFieldsValue().sales_order_lines[name].id){
+                                                            if (form.getFieldsValue().sales_order_lines && form.getFieldsValue().sales_order_lines[name]) {
+                                                                if (form.getFieldsValue().sales_order_lines[name].id) {
                                                                     setState((prevState) => ({
                                                                         ...prevState,
                                                                         deletedSalesOrderLines: [...prevState.deletedSalesOrderLines, form.getFieldsValue().sales_order_lines[name].id],
@@ -329,9 +339,7 @@ const SalesOrderForm = () => {
                                                                 }
                                                             }
 
-
                                                             remove(name); // this thing removes the item on the current index (not the "no gap index")
-                                                            console.log(fields[name], name, form.getFieldsValue());
                                                             /**
                                                              * these next line of code needs to delete the "no gap index"
                                                              *
