@@ -1,7 +1,7 @@
 import {Form, InputNumber} from "antd";
 import React from "react";
 import CustomInputSkeleton from "../CustomInputSkeleton";
-import {formItemFieldProps} from "../../Helpers/formItem";
+import {formItemFieldProps} from "../../Helpers/form";
 
 const FormItemNumber = (props) => {
     const [formItemProps, fieldProps] = formItemFieldProps(props, {
@@ -10,7 +10,7 @@ const FormItemNumber = (props) => {
         min: props.min,
         max: props.max,
     });
-    
+
     return (
         <Form.Item {...formItemProps}>
             {props.loading ? <CustomInputSkeleton {...props}/> :

@@ -117,6 +117,68 @@ const GlobalSettingForm = () => {
                     </ColForm>
                 </RowForm>
 
+                <RowForm>
+                    <ColForm>
+                        <FormItemSelectAjax
+                            form={form}
+                            label={'Default Customer Location'}
+                            name={'inventory_default_customer_location_id'}
+                            message={'Please select a default customer location'}
+                            required={true}
+                            url={'/api/locations/option'}
+                            {...formState}
+                            query={'inventory_default_customer_location.name'}
+                        />
+
+                        <FormItemSelectAjax
+                            form={form}
+                            label={'Default Vendor Location'}
+                            name={'inventory_default_vendor_location_id'}
+                            message={'Please select a default customer location'}
+                            required={true}
+                            url={'/api/locations/option'}
+                            {...formState}
+                            query={'inventory_default_vendor_location.name'}
+                        />
+
+                        <FormItemSelectAjax
+                            form={form}
+                            label={'Default Inventory Adjustment Location'}
+                            name={'inventory_default_inventory_adjustment_id'}
+                            message={'Please select a default customer location'}
+                            required={true}
+                            url={'/api/locations/option'}
+                            {...formState}
+                            query={'inventory_default_inventory_adjustment.name'}
+                        />
+                    </ColForm>
+
+                    <ColForm>
+                        <FormItemSelectAjax
+                            form={form}
+                            label={'Default Production Location'}
+                            name={'inventory_default_production_id'}
+                            message={'Please select a default customer location'}
+                            required={true}
+                            url={'/api/locations/option'}
+                            {...formState}
+                            query={'inventory_default_production.name'}
+                        />
+
+                        <FormItemSelectAjax
+                            form={form}
+                            label={'Default Scrap Location'}
+                            name={'inventory_default_scrap_id'}
+                            message={'Please select a default customer location'}
+                            required={true}
+                            url={'/api/locations/option'}
+                            {...formState}
+                            query={'inventory_default_scrap.name'}
+                        />
+                    </ColForm>
+                </RowForm>
+
+
                 <Divider orientation={'left'}>
                     Accounting
                 </Divider>
