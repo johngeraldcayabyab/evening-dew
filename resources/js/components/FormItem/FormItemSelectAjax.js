@@ -37,25 +37,7 @@ const FormItemSelectAjax = (props) => {
             }
             getOptions(val);
         }
-
-
-        // if (objectHasValue(props.initialValues)) {
-        //     getOptions(getQueryFromInitialValue());
-        // }
     }, [props.initialLoad]);
-
-
-    // useEffect(() => {
-    //     if (!props.id) {
-    //         let val = objectHasValue(props.initialValues);
-    //         if (val) {
-    //             val = getQueryFromInitialValue();
-    //         }
-    //         console.log(val);
-    //         getOptions(val);
-    //     }
-    //
-    // }, []);
 
     useEffect(() => {
         if (props.search) {
@@ -64,9 +46,7 @@ const FormItemSelectAjax = (props) => {
     }, [props.search]);
 
     function getQueryFromInitialValue() {
-        // let search = props.form.getFieldsValue();
         let search = props.initialValues;
-        // console.log(search);
         props.query.split('.').forEach((query) => {
             if (search && query in search) {
                 search = search[query];

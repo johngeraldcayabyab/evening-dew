@@ -242,7 +242,7 @@ const SalesOrderForm = () => {
                                                             url={'/api/products/option'}
                                                             {...formState}
                                                             style={{display: 'inline-block', width: '20%'}}
-                                                            query={'product.name'}
+                                                            query={`sales_order_lines.${name}.product.name`}
                                                             groupName={name}
                                                             listName={'sales_order_lines'}
                                                         />

@@ -37,7 +37,7 @@ export const formItemFieldProps = (props, specialFieldProps = {}) => {
         formItemProps.name = [props.groupName, props.name];
     }
 
-    console.log(props);
+    // console.log(props);
 
     return [formItemProps, fieldProps];
 };
