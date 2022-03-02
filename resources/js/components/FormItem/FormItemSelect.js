@@ -1,7 +1,7 @@
 import {Form, Select} from "antd";
 import {useEffect, useState} from "react";
 import CustomInputSkeleton from "../CustomInputSkeleton";
-import {formItemFieldProps} from "../../Helpers/formItem";
+import {formItemFieldProps} from "../../Helpers/form";
 
 const FormItemSelect = (props) => {
     const [state, setState] = useState({

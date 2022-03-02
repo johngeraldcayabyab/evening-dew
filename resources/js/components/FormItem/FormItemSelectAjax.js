@@ -4,7 +4,7 @@ import CustomInputSkeleton from "../CustomInputSkeleton";
 import useFetchCatcher from "../../Hooks/useFetchCatcher";
 import useFetchHook from "../../Hooks/useFetchHook";
 import {GET} from "../../consts";
-import {formItemFieldProps} from "../../Helpers/formItem";
+import {formItemFieldProps} from "../../Helpers/form";
 import {objectHasValue} from "../../Helpers/object";
 
 const FormItemSelectAjax = (props) => {

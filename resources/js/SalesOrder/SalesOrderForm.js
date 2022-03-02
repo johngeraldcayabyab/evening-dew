@@ -17,6 +17,7 @@ import {GET, POST} from "../consts";
 import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
 import FormItemNumber from "../components/FormItem/FormItemNumber";
 import FormLabel from "../components/Typography/FormLabel";
+import {removeTransactionLines} from "../Helpers/form";
 
 const {TabPane} = Tabs;
 
@@ -30,7 +31,7 @@ const SalesOrderForm = () => {
         invoiceAddressOptionReload: false,
         deliveryAddressOptionReload: false,
         salesOrderLinesOptionReload: [],
-        deletedSalesOrderLines: [],
+        salesOrderLinesDeleted: [],
     });
 
     useEffect(() => {
@@ -133,11 +134,11 @@ const SalesOrderForm = () => {
 
     function onFinish(values) {
         if (id) {
-            if (state.deletedSalesOrderLines.length) {
-                useFetch(`/api/sales_order_lines/mass_destroy`, POST, {ids: state.deletedSalesOrderLines}).then(() => {
+            if (state.salesOrderLinesDeleted.length) {
+                useFetch(`/api/sales_order_lines/mass_destroy`, POST, {ids: state.salesOrderLinesDeleted}).then(() => {
                     setState((prevState) => ({
                         ...prevState,
-                        deletedSalesOrderLines: [],
+                        salesOrderLinesDeleted: [],
                         salesOrderLinesOptionReload: [],
                     }));
                 }).catch((responseErr) => {
@@ -329,16 +330,7 @@ const SalesOrderForm = () => {
                                                     <ColForm lg={1}>
                                                         {!formState.formDisabled &&
                                                         <MinusCircleOutlined onClick={(item) => {
-                                                            if (form.getFieldsValue().sales_order_lines && form.getFieldsValue().sales_order_lines[name]) {
-                                                                if (form.getFieldsValue().sales_order_lines[name].id) {
-                                                                    setState((prevState) => ({
-                                                                        ...prevState,
-                                                                        salesOrderLinesOptionReload: [],
-                                                                        deletedSalesOrderLines: [...prevState.deletedSalesOrderLines, form.getFieldsValue().sales_order_lines[name].id],
-                                                                    }));
-                                                                }
-                                                            }
-                                                            remove(name);
+                                                            removeTransactionLines(remove, form, 'sales_order_lines', name, setState);
                                                         }}/>}
                                                     </ColForm>
                                                 </RowForm>

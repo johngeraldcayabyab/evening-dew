@@ -1,7 +1,7 @@
 import {DatePicker, Form, Input} from "antd";
 import React from "react";
 import CustomInputSkeleton from "../CustomInputSkeleton";
-import {formItemFieldProps} from "../../Helpers/formItem";
+import {formItemFieldProps} from "../../Helpers/form";
 import moment from 'moment';
 import {objectHasValue} from "../../Helpers/object";
 

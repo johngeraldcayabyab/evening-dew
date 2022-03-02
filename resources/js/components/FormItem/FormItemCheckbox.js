@@ -1,7 +1,7 @@
 import {Checkbox, Form} from "antd";
 import React from "react";
 import CustomInputSkeleton from "../CustomInputSkeleton";
-import {formItemFieldProps} from "../../Helpers/formItem";
+import {formItemFieldProps} from "../../Helpers/form";
 
 const FormItemCheckbox = (props) => {
     const [formItemProps, fieldProps] = formItemFieldProps(props);
