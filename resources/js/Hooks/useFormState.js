@@ -65,12 +65,13 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
                 }
             }
         },
-        onFinish: (values, hooks = false) => {
+        onFinish: (values) => {
             setFormState(state => ({
                 ...state,
                 loading: true
             }));
             if (id) {
+                console.log('iz a put pu t');
                 useFetch(`/api/${manifest.moduleName}/${id}`, PUT, values).then(() => {
                     formActions.fetchData();
                 }).catch((responseErr) => {
@@ -106,9 +107,6 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
                         }));
                     });
                 });
-            }
-            if (hooks) {
-                hooks();
             }
         },
         toggleEditMode: () => {

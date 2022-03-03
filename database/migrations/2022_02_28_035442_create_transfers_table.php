@@ -23,6 +23,7 @@ class CreateTransfersTable extends Migration
             $table->string('shipping_policy')->nullable();
             $table->bigInteger('responsible_id')->nullable();
             $table->string('note')->nullable();
+            $table->string('status')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

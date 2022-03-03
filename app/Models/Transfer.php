@@ -22,9 +22,18 @@ class Transfer extends Model implements Sluggable
     const AS_SOON_AS_POSSIBLE = 'as_soon_as_possible';
     const WHEN_ALL_PRODUCTS_ARE_READY = 'when_all_products_are_ready';
 
+    const DRAFT = 'draft';
+    const DONE = 'done';
+    const CANCELLED = 'cancelled';
+
     public static function getShippingPolicies()
     {
         return [self::AS_SOON_AS_POSSIBLE, self::WHEN_ALL_PRODUCTS_ARE_READY];
+    }
+
+    public static function getStatuses()
+    {
+        return [self::DRAFT, self::DONE, self::CANCELLED];
     }
 
     public function contact()
@@ -122,6 +131,11 @@ class Transfer extends Model implements Sluggable
         return $this->like($query, __FUNCTION__, $where);
     }
 
+    public function scopeWhereStatus($query, $where)
+    {
+        return $this->like($query, __FUNCTION__, $where);
+    }
+
     public function scopeOrderByReference($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
@@ -183,6 +197,11 @@ class Transfer extends Model implements Sluggable
     }
 
     public function scopeOrderByNote($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeOrderByStatus($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }

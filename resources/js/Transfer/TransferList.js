@@ -71,6 +71,13 @@ const TransferList = () => {
             searchFilter: true,
         },
         {
+            title: 'Status',
+            dataIndex: 'status',
+            key: 'status',
+            sorter: true,
+            searchFilter: true,
+        },
+        {
             title: 'Created At',
             dataIndex: 'created_at',
             key: 'created_at',

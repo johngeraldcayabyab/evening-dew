@@ -23,6 +23,7 @@ import {
     DynamicFieldRemoveButton,
     GenerateDynamicColumns
 } from "../Helpers/form";
+import StatusBar from "../components/StatusBar";
 
 const {TabPane} = Tabs;
 
@@ -132,6 +133,13 @@ const TransferForm = () => {
                         manifest={manifest}
                     />
                 }
+            />
+            <StatusBar
+                id={id}
+                form={form}
+                formState={formState}
+                formActions={formActions}
+                manifest={manifest}
             />
             <FormCard {...formState}>
                 <RowForm>
@@ -363,6 +371,13 @@ const TransferForm = () => {
                     </TabPane>
                 </Tabs>
             </FormCard>
+
+            <FormItemNumber
+                form={form}
+                name={'status'}
+                {...formState}
+                style={{display: 'none', position: 'absolute'}}
+            />
         </CustomForm>
     );
 };
