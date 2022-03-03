@@ -101,6 +101,7 @@ class TransferLine extends Model
     public function scopeInsertMany($query, $data, $transferId)
     {
         $transferLines = [];
+        $date = now();
         foreach ($data as $datum) {
             $transferLine = new TransferLine();
             $transferLine->product_id = $datum['product_id'];
@@ -108,6 +109,8 @@ class TransferLine extends Model
             $transferLine->demand = $datum['demand'];
             $transferLine->measurement_id = $datum['measurement_id'];
             $transferLine->transfer_id = $transferId;
+            $transferLine->created_at = $date;
+            $transferLine->updated_at = $date;
             $transferLines[] = $transferLine->attributesToArray();
         }
         $query->insert($transferLines);
@@ -116,6 +119,7 @@ class TransferLine extends Model
     public function scopeUpdateOrCreateMany($query, $data, $transferId)
     {
         $transferLines = [];
+        $date = now();
         foreach ($data as $datum) {
             $transferLine = new SalesOrderLine();
             $transferLine->id = isset($datum['id']) ? $datum['id'] : null;
@@ -124,6 +128,7 @@ class TransferLine extends Model
             $transferLine->demand = $datum['demand'];
             $transferLine->measurement_id = $datum['measurement_id'];
             $transferLine->transfer_id = $transferId;
+            $transferLine->updated_at = $date;
             $transferLines[] = $transferLine->attributesToArray();
         }
         $query->upsert($transferLines, ['id']);

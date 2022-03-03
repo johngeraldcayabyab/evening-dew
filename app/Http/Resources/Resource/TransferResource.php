@@ -23,12 +23,12 @@ class TransferResource extends JsonResource
             'shipping_policy' => $this->shipping_policy,
             'responsible_id' => $this->responsible_id,
             'note' => $this->note,
-            'contact' => $this->contact_id ? $this->contact : null,
-            'operation_type' => $this->operation_type_id ? $this->operationType : null,
-            'source_location' => $this->source_location_id ? $this->sourceLocation : null,
-            'destination_location' => $this->destination_location_id ? $this->destinationLocation : null,
-            'responsible' => $this->responsible_id ? $this->responsible : null,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
+            'contact' => new ContactResource($this->contact),
+            'operation_type' => new OperationTypeResource($this->operationType),
+            'source_location' => new LocationResource($this->sourceLocation),
+            'destination_location' => new LocationResource($this->destinationLocation),
+            'responsible' => new UserResource($this->responsible),
             'transfer_lines' => TransferLineResource::collection($this->transferLines),
         ];
     }

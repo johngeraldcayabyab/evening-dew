@@ -22,14 +22,14 @@ class Currency extends Model implements Sluggable
     protected $table = 'currencies';
     protected $guarded = [];
 
-    public function country()
-    {
-        return $this->hasMany(Country::class);
-    }
-
     public static function getSymbolPositions()
     {
         return [self::BEFORE_AMOUNT, self::AFTER_AMOUNT];
+    }
+
+    public function country()
+    {
+        return $this->hasMany(Country::class);
     }
 
     public function scopeWhereCurrency($query, $where)

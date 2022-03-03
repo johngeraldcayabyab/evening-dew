@@ -14,6 +14,16 @@
 <li>relationship field where scopes</li>
 <li>relationship field order scopes</li>
 <li>custom scopes</li>
+<li>slug</li>
+</ul>
+
+<h5>Resource</h5>
+<p><u><b><i>How to structure resource</i></b></u></p>
+<ul>
+<li>fields define in table migration in same order</li>
+<li>has one or belongs to one resource relationships</li>
+<li>has many or belongs to many resource relationships</li>
+<li>custom attributes</li>
 </ul>
 
 <h5>Seeders</h5>

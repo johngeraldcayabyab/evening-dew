@@ -17,11 +17,11 @@ class AddressResource extends JsonResource
             'state' => $this->state,
             'zip' => $this->zip,
             'country_id' => $this->country_id,
-            'country' => new CountryResource($this->country),
             'contact_id' => $this->contact_id,
-            'contact' => new ContactResource($this->contact),
             'type' => $this->type,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
+            'country' => new CountryResource($this->country),
+            'contact' => new ContactResource($this->contact),
         ];
     }
 }

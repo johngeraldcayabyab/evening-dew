@@ -11,13 +11,13 @@ class TransferLineResource extends JsonResource
         return [
             'id' => $this->id,
             'product_id' => $this->product_id,
-            'product' => new ProductResource($this->product),
             'description' => $this->description,
             'demand' => $this->demand,
             'measurement_id' => $this->measurement_id,
-            'measurement' => new MeasurementResource($this->measurement),
             'transfer_id' => $this->transfer_id,
-            'created_at' => null,
+            'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
+            'product' => new ProductResource($this->product),
+            'measurement' => new MeasurementResource($this->measurement),
         ];
     }
 }
