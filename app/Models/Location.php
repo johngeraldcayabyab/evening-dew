@@ -94,6 +94,11 @@ class Location extends Model implements Sluggable
         return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
+    public function scopeOrderByParentLocation($query, $order)
+    {
+        return $this->orderHas($query, new Location(), 'name', __FUNCTION__, $order);
+    }
+
     public function slug()
     {
         return 'name';

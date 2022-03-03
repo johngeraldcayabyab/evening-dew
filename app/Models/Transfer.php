@@ -102,7 +102,7 @@ class Transfer extends Model implements Sluggable
         return $this->like($query, __FUNCTION__, $where);
     }
 
-    public function scopeWhereForShipping($query, $where)
+    public function scopeWhereWeightForShipping($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);
     }

@@ -70,11 +70,6 @@ class Address extends Model implements Sluggable
         return $this->like($query, __FUNCTION__, $where);
     }
 
-    public function scopeWhereType($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
     public function scopeWhereCountryId($query, $where)
     {
         return $this->whereSingle($query, __FUNCTION__, $where);
@@ -83,6 +78,11 @@ class Address extends Model implements Sluggable
     public function scopeWhereContactId($query, $where)
     {
         return $this->whereSingle($query, __FUNCTION__, $where);
+    }
+
+    public function scopeWhereType($query, $where)
+    {
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeOrderByAddressName($query, $order)
@@ -115,17 +115,17 @@ class Address extends Model implements Sluggable
         return $this->order($query, __FUNCTION__, $order);
     }
 
-    public function scopeOrderByType($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
     public function scopeCountryId($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByContactId($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeOrderByType($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }

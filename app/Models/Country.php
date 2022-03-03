@@ -29,6 +29,11 @@ class Country extends Model implements Sluggable
         return $this->like($query, __FUNCTION__, $where);
     }
 
+    public function scopeWhereCurrencyId($query, $where)
+    {
+        return $this->whereSingle($query, __FUNCTION__, $where);
+    }
+
     public function scopeWhereCountryCode($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);
@@ -44,12 +49,12 @@ class Country extends Model implements Sluggable
         return $this->like($query, __FUNCTION__, $where);
     }
 
-    public function scopeWhereCurrencyId($query, $where)
+    public function scopeOrderByCountryName($query, $order)
     {
-        return $this->whereSingle($query, __FUNCTION__, $where);
+        return $this->order($query, __FUNCTION__, $order);
     }
 
-    public function scopeOrderByCountryName($query, $order)
+    public function scopeOrderByCurrencyId($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }
@@ -65,11 +70,6 @@ class Country extends Model implements Sluggable
     }
 
     public function scopeOrderByVatLabel($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByCurrencyId($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }
