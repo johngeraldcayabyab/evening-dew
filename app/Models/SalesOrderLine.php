@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SalesOrderLine extends Model
+class   SalesOrderLine extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -136,6 +136,7 @@ class SalesOrderLine extends Model
     public function scopeInsertMany($query, $data, $salesOrderId)
     {
         $salesOrderLines = [];
+        $date = now();
         foreach ($data as $datum) {
             $salesOrderLine = new SalesOrderLine();
             $salesOrderLine->product_id = $datum['product_id'];
@@ -145,6 +146,8 @@ class SalesOrderLine extends Model
             $salesOrderLine->unit_price = $datum['unit_price'];
             $salesOrderLine->subtotal = $salesOrderLine->unit_price * $salesOrderLine->quantity;
             $salesOrderLine->sales_order_id = $salesOrderId;
+            $salesOrderLine->created_at = $date;
+            $salesOrderLine->updated_at = $date;
             $salesOrderLines[] = $salesOrderLine->attributesToArray();
         }
         $query->insert($salesOrderLines);
@@ -153,6 +156,7 @@ class SalesOrderLine extends Model
     public function scopeUpdateOrCreateMany($query, $data, $salesOrderId)
     {
         $salesOrderLines = [];
+        $date = now();
         foreach ($data as $datum) {
             $salesOrderLine = new SalesOrderLine();
             $salesOrderLine->id = isset($datum['id']) ? $datum['id'] : null;
@@ -163,6 +167,7 @@ class SalesOrderLine extends Model
             $salesOrderLine->unit_price = $datum['unit_price'];
             $salesOrderLine->subtotal = $salesOrderLine->unit_price * $salesOrderLine->quantity;
             $salesOrderLine->sales_order_id = $salesOrderId;
+            $salesOrderLine->updated_at = $date;
             $salesOrderLines[] = $salesOrderLine->attributesToArray();
         }
         $query->upsert($salesOrderLines, ['id']);

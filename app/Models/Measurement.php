@@ -29,11 +29,6 @@ class Measurement extends Model implements Sluggable
         return [self::BIGGER, self::SMALLER, self::REFERENCE];
     }
 
-    public function broadcastOn($event)
-    {
-        return new Channel('measurement');
-    }
-
     public function measurementCategory()
     {
         return $this->belongsTo(MeasurementCategory::class);

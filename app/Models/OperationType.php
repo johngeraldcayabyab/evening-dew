@@ -16,9 +16,6 @@ class OperationType extends Model implements Sluggable
     use BroadcastsEvents;
     use ModelHelperTrait;
 
-    /**
-     * Reservation method
-     */
     const AT_CONFIRMATION = 'at_confirmation';
     const MANUALLY = 'manually';
     const BEFORE_SCHEDULED_DATE = 'before_scheduled_date';

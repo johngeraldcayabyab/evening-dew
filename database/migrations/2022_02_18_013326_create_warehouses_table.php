@@ -14,10 +14,6 @@ class CreateWarehousesTable extends Migration
             $table->string('short_name');
             $table->boolean('manufacture_to_resupply')->default(true);
             $table->boolean('buy_to_resupply')->default(true);
-
-            /**
-             * Locations
-             */
             $table->bigInteger('view_location_id')->nullable();
             $table->bigInteger('stock_location_id')->nullable();
             $table->bigInteger('input_location_id')->nullable();
@@ -26,10 +22,6 @@ class CreateWarehousesTable extends Migration
             $table->bigInteger('output_location_id')->nullable();
             $table->bigInteger('stock_after_manufacturing_location_id')->nullable();
             $table->bigInteger('picking_before_manufacturing_location_id')->nullable();
-
-            /**
-             * Operation Types
-             */
             $table->bigInteger('in_type_id')->nullable();
             $table->bigInteger('internal_type_id')->nullable();
             $table->bigInteger('pick_type_id')->nullable();
@@ -38,7 +30,6 @@ class CreateWarehousesTable extends Migration
             $table->bigInteger('stock_after_manufacturing_operation_type_id')->nullable();
             $table->bigInteger('picking_before_manufacturing_operation_type_id')->nullable();
             $table->bigInteger('manufacturing_operation_type_id')->nullable();
-
             $table->softDeletes();
             $table->timestamps();
         });

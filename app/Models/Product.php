@@ -26,6 +26,16 @@ class Product extends Model implements Sluggable
     protected $table = 'products';
     protected $guarded = [];
 
+    public static function getProductTypes()
+    {
+        return [self::STORABLE, self::CONSUMABLE, self::SERVICE];
+    }
+
+    public static function getInvoicingPolicies()
+    {
+        return [self::ORDERED_QUANTITIES, self::DELIVERED_QUANTITIES];
+    }
+
     public function measurement()
     {
         return $this->belongsTo(Measurement::class);
@@ -44,16 +54,6 @@ class Product extends Model implements Sluggable
     public function productCategory()
     {
         return $this->belongsTo(ProductCategory::class);
-    }
-
-    public static function getProductTypes()
-    {
-        return [self::STORABLE, self::CONSUMABLE, self::SERVICE];
-    }
-
-    public static function getInvoicingPolicies()
-    {
-        return [self::ORDERED_QUANTITIES, self::DELIVERED_QUANTITIES];
     }
 
     public function scopeWhereName($query, $where)

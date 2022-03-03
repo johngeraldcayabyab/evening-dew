@@ -17,14 +17,11 @@ class CreateTransfersTable extends Migration
             $table->bigInteger('destination_location_id')->nullable();
             $table->dateTime('scheduled_date');
             $table->string('source_document')->nullable();
-
             $table->string('tracking_reference')->nullable();
             $table->unsignedDouble('weight')->nullable();
             $table->unsignedDouble('weight_for_shipping')->nullable();
-
             $table->string('shipping_policy')->nullable();
             $table->bigInteger('responsible_id')->nullable();
-
             $table->string('note')->nullable();
             $table->softDeletes();
             $table->timestamps();
