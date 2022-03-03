@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Form, Tabs} from "antd";
+import {Button, Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
@@ -140,7 +140,38 @@ const TransferForm = () => {
                 formState={formState}
                 formActions={formActions}
                 manifest={manifest}
-            />
+                current={0}
+                statuses={[
+                    {value: 0, 'status': 'wait', 'title': 'Draft'},
+                    {value: 1, 'status': 'wait', 'title': 'Done'},
+                    {value: 2, 'status': 'wait', 'title': 'Cancelled'},
+                ]}
+            >
+                <Button
+                    htmlType={"submit"}
+                    type={"primary"}
+                    size={'default'}
+                    onClick={() => {
+                        form.setFieldsValue({
+                            'status': 'done',
+                        });
+                    }}
+                >
+                    Validate
+                </Button>
+                <Button
+                    htmlType={"submit"}
+                    type={"ghost"}
+                    size={'default'}
+                    onClick={() => {
+                        form.setFieldsValue({
+                            'status': 'cancelled',
+                        });
+                    }}
+                >
+                    Cancel
+                </Button>
+            </StatusBar>
             <FormCard {...formState}>
                 <RowForm>
                     <ColForm>
