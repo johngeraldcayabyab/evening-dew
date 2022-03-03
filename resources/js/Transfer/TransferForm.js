@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Form, Tabs} from "antd";
+import {Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
@@ -16,9 +16,13 @@ import FormItemDate from "../components/FormItem/FormItemDate";
 import useFetchHook from "../Hooks/useFetchHook";
 import useFetchCatcher from "../Hooks/useFetchCatcher";
 import {GET} from "../consts";
-import FormLabel from "../components/Typography/FormLabel";
 import FormItemNumber from "../components/FormItem/FormItemNumber";
-import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
+import {MinusCircleOutlined} from "@ant-design/icons";
+import {
+    checkIfADynamicInputChangedAndDoSomething,
+    DynamicFieldAddButton,
+    GenerateDynamicColumns
+} from "../Helpers/form";
 
 const {TabPane} = Tabs;
 
@@ -31,6 +35,8 @@ const TransferForm = () => {
     const [state, setState] = useState({
         defaultSourceLocationReload: false,
         defaultDestinationLocationReload: false,
+        transferLinesOptionReload: [],
+        transferLinesDeleted: [],
     });
 
     function onValuesChange(changedValues, allValues) {
@@ -56,6 +62,35 @@ const TransferForm = () => {
                 fetchCatcher.get(responseErr);
             });
         }
+        checkIfADynamicInputChangedAndDoSomething(changedValues, allValues, 'transfer_lines', 'product_id', getProductDataAndFillDefaultValues);
+    }
+
+    function getProductDataAndFillDefaultValues(changedTransferLine, transferLines) {
+        useFetch(`/api/products`, GET, {
+            id: changedTransferLine.product_id
+        }).then((response) => {
+            const product = response.data[0];
+            transferLines[changedTransferLine.key] = {
+                ...transferLines[changedTransferLine.key],
+                ...{
+                    measurement_id: product.measurement_id,
+                    isReload: product.measurement.name
+                }
+            };
+            setTransferLinesReload(transferLines);
+        }).catch((responseErr) => {
+            fetchCatcher.get(responseErr);
+        });
+    }
+
+    function setTransferLinesReload(transferLines) {
+        setState((prevState) => ({
+            ...prevState,
+            transferLinesOptionReload: transferLines
+        }));
+        form.setFieldsValue({
+            transfer_lines: transferLines
+        });
     }
 
     return (
@@ -139,16 +174,9 @@ const TransferForm = () => {
 
                 <Tabs defaultActiveKey="1">
                     <TabPane tab="Operations" key="1">
-                        <RowForm>
-                            <ColForm lg={23}>
-                                <FormLabel style={{display: 'inline-block', width: '25%'}}>Product</FormLabel>
-                                <FormLabel style={{display: 'inline-block', width: '25%'}}>Description</FormLabel>
-                                <FormLabel style={{display: 'inline-block', width: '25%'}}>Demand</FormLabel>
-                                <FormLabel style={{display: 'inline-block', width: '25%'}}>Measurement</FormLabel>
-                            </ColForm>
-                            <ColForm lg={1}>
-                            </ColForm>
-                        </RowForm>
+                        <GenerateDynamicColumns
+                            columns={['Product', 'Description', 'Demand', 'Measurement']}
+                        />
 
                         <RowForm>
                             <ColForm lg={24}>
@@ -241,15 +269,11 @@ const TransferForm = () => {
                                                     </ColForm>
                                                 </RowForm>
                                             ))}
-                                            <Form.Item>
-                                                {!formState.formDisabled &&
-                                                <Button type="dashed" onClick={() => {
-                                                    add();
-                                                }} block
-                                                        icon={<PlusOutlined/>}>
-                                                    Add a product
-                                                </Button>}
-                                            </Form.Item>
+                                            <DynamicFieldAddButton
+                                                formState={formState}
+                                                add={add}
+                                                label={'Add a product'}
+                                            />
                                         </>
                                     )}
                                 </Form.List>
