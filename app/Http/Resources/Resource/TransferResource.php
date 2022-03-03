@@ -23,6 +23,7 @@ class TransferResource extends JsonResource
             'shipping_policy' => $this->shipping_policy,
             'responsible_id' => $this->responsible_id,
             'note' => $this->note,
+            'status' => $this->status,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'contact' => new ContactResource($this->contact),
             'operation_type' => new OperationTypeResource($this->operationType),
