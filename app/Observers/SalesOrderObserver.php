@@ -15,10 +15,15 @@ class SalesOrderObserver
             $salesOrderDefaultSequence->next_number = $salesOrderDefaultSequence->next_number + $salesOrderDefaultSequence->step;
             $salesOrderDefaultSequence->save();
         }
+        if (!$model->salesperson_id) {
+            $model->salesperson_id = auth()->user()->id;
+        }
     }
 
     public function updated(SalesOrder $model)
     {
-
+        if (!$model->salesperson_id) {
+            $model->salesperson_id = auth()->user()->id;
+        }
     }
 }

@@ -14,13 +14,12 @@ import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
 import useFetchHook from "../Hooks/useFetchHook";
 import useFetchCatcher from "../Hooks/useFetchCatcher";
 import {GET, POST} from "../consts";
-import {MinusCircleOutlined} from "@ant-design/icons";
 import FormItemNumber from "../components/FormItem/FormItemNumber";
 import {
     checkIfADynamicInputChangedAndDoSomething,
     DynamicFieldAddButton,
-    GenerateDynamicColumns,
-    removeTransactionLines
+    DynamicFieldRemoveButton,
+    GenerateDynamicColumns
 } from "../Helpers/form";
 
 const {TabPane} = Tabs;
@@ -286,12 +285,15 @@ const SalesOrderForm = () => {
                                                             listName={'sales_order_lines'}
                                                         />
                                                     </ColForm>
-                                                    <ColForm lg={1}>
-                                                        {!formState.formDisabled &&
-                                                        <MinusCircleOutlined onClick={(item) => {
-                                                            removeTransactionLines(remove, form, 'sales_order_lines', name, setState);
-                                                        }}/>}
-                                                    </ColForm>
+
+                                                    <DynamicFieldRemoveButton
+                                                        remove={remove}
+                                                        form={form}
+                                                        dynamicName={'sales_order_lines'}
+                                                        name={name}
+                                                        formState={formState}
+                                                        setState={setState}
+                                                    />
                                                 </RowForm>
                                             ))}
 

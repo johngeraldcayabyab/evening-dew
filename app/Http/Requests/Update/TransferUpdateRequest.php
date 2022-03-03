@@ -22,7 +22,13 @@ class TransferUpdateRequest extends FormRequest
             'weight_for_shipping' => ['nullable'],
             'shipping_policy' => ['nullable', "in:$shippingPolicies"],
             'responsible_id' => ['nullable', 'exists:users,id'],
-            'note' => ['nullable']
+            'note' => ['nullable'],
+
+            'transfer_lines.*.id' => ['nullable', 'exists:transfer_lines,id'],
+            'transfer_lines.*.product_id' => ['required', "exists:products,id"],
+            'transfer_lines.*.description' => ['nullable'],
+            'transfer_lines.*.demand' => ['required'],
+            'transfer_lines.*.measurement_id' => ["required", "exists:measurements,id"],
         ];
     }
 }

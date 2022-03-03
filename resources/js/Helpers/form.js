@@ -1,6 +1,6 @@
 import FormLabel from "../components/Typography/FormLabel";
 import {Button, Form} from "antd";
-import {PlusOutlined} from "@ant-design/icons";
+import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
 import React from "react";
 import RowForm from "../components/Grid/RowForm";
 import ColForm from "../components/Grid/ColForm";
@@ -91,20 +91,27 @@ export const isOnlyOneProperty = (changedSalesOrderLine) => {
 
 const snakeToCamel = s => s.replace(/(_\w)/g, k => k[1].toUpperCase());
 
-export const removeTransactionLines = (remove, form, dynamicName, name, setState) => {
-    if (form.getFieldsValue()[dynamicName] && form.getFieldsValue()[dynamicName][name]) {
-        if (form.getFieldsValue()[dynamicName][name].id) {
-            setState((prevState) => {
-                let newState = {
-                    ...prevState
-                };
-                newState[`${snakeToCamel(dynamicName)}OptionReload`] = [];
-                newState[`${snakeToCamel(dynamicName)}Deleted`] = [...prevState[`${snakeToCamel(dynamicName)}Deleted`], form.getFieldsValue()[dynamicName][name].id];
-                return newState
-            });
-        }
-    }
-    remove(name);
+export const DynamicFieldRemoveButton = (props) => {
+    return (
+        <ColForm lg={1}>
+            {!props.formState.formDisabled &&
+            <MinusCircleOutlined onClick={(item) => {
+                if (props.form.getFieldsValue()[props.dynamicName] && props.form.getFieldsValue()[props.dynamicName][props.name]) {
+                    if (props.form.getFieldsValue()[props.dynamicName][props.name].id) {
+                        props.setState((prevState) => {
+                            let newState = {
+                                ...prevState
+                            };
+                            newState[`${snakeToCamel(props.dynamicName)}OptionReload`] = [];
+                            newState[`${snakeToCamel(props.dynamicName)}Deleted`] = [...prevState[`${snakeToCamel(props.dynamicName)}Deleted`], props.form.getFieldsValue()[props.dynamicName][props.name].id];
+                            return newState
+                        });
+                    }
+                }
+                props.remove(props.name);
+            }}/>}
+        </ColForm>
+    )
 }
 
 export const DynamicFieldAddButton = (props) => {
