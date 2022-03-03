@@ -59,11 +59,6 @@ class Measurement extends Model implements Sluggable
         return $this->like($query, __FUNCTION__, $where);
     }
 
-    public function scopeWhereMeasurementCategory($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'name', $where);
-    }
-
     public function scopeWhereMeasurementCategoryId($query, $where)
     {
         return $this->whereSingle($query, __FUNCTION__, $where);
@@ -89,14 +84,19 @@ class Measurement extends Model implements Sluggable
         return $this->order($query, __FUNCTION__, $order);
     }
 
-    public function scopeOrderByMeasurementCategory($query, $order)
-    {
-        return $this->orderHas($query, new MeasurementCategory(), 'name', __FUNCTION__, $order);
-    }
-
     public function scopeOrderByMeasurementCategoryId($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeWhereMeasurementCategory($query, $where)
+    {
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
+    }
+
+    public function scopeOrderByMeasurementCategory($query, $order)
+    {
+        return $this->orderHas($query, new MeasurementCategory(), 'name', __FUNCTION__, $order);
     }
 
     public function slug()

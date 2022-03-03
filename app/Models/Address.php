@@ -70,16 +70,6 @@ class Address extends Model implements Sluggable
         return $this->like($query, __FUNCTION__, $where);
     }
 
-    public function scopeWhereCountry($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'country_name', $where);
-    }
-
-    public function scopeWhereContact($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'name', $where);
-    }
-
     public function scopeWhereType($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);
@@ -125,16 +115,6 @@ class Address extends Model implements Sluggable
         return $this->order($query, __FUNCTION__, $order);
     }
 
-    public function scopeOrderByCountry($query, $order)
-    {
-        return $this->orderHas($query, new Country(), 'country_name', __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByContact($query, $order)
-    {
-        return $this->orderHas($query, new Contact(), 'name', __FUNCTION__, $order);
-    }
-
     public function scopeOrderByType($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
@@ -148,6 +128,26 @@ class Address extends Model implements Sluggable
     public function scopeOrderByContactId($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeWhereCountry($query, $where)
+    {
+        return $this->likeHas($query, __FUNCTION__, 'country_name', $where);
+    }
+
+    public function scopeWhereContact($query, $where)
+    {
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
+    }
+
+    public function scopeOrderByCountry($query, $order)
+    {
+        return $this->orderHas($query, new Country(), 'country_name', __FUNCTION__, $order);
+    }
+
+    public function scopeOrderByContact($query, $order)
+    {
+        return $this->orderHas($query, new Contact(), 'name', __FUNCTION__, $order);
     }
 
     public function slug()

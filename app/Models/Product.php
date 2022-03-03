@@ -81,26 +81,6 @@ class Product extends Model implements Sluggable
         return $this->like($query, __FUNCTION__, $where);
     }
 
-    public function scopeWhereMeasurement($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'name', $where);
-    }
-
-    public function scopeWherePurchaseMeasurement($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'name', $where);
-    }
-
-    public function scopeWhereSalesMeasurement($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'name', $where);
-    }
-
-    public function scopeWhereProductCategory($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'category', $where);
-    }
-
     public function scopeWhereInternalReference($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);
@@ -161,26 +141,6 @@ class Product extends Model implements Sluggable
         return $this->order($query, __FUNCTION__, $order);
     }
 
-    public function scopeOrderByMeasurement($query, $order)
-    {
-        return $this->orderHas($query, new Measurement(), 'name', __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByPurchaseMeasurement($query, $order)
-    {
-        return $this->orderHas($query, new Measurement(), 'name', __FUNCTION__, $order);
-    }
-
-    public function scopeOrderBySalesMeasurement($query, $order)
-    {
-        return $this->orderHas($query, new Measurement(), 'name', __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByProductCategory($query, $order)
-    {
-        return $this->orderHas($query, new ProductCategory(), 'category', __FUNCTION__, $order);
-    }
-
     public function scopeOrderByInternalReference($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
@@ -214,6 +174,46 @@ class Product extends Model implements Sluggable
     public function scopeOrderByProductCategoryId($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeWhereMeasurement($query, $where)
+    {
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
+    }
+
+    public function scopeWherePurchaseMeasurement($query, $where)
+    {
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
+    }
+
+    public function scopeWhereSalesMeasurement($query, $where)
+    {
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
+    }
+
+    public function scopeWhereProductCategory($query, $where)
+    {
+        return $this->likeHas($query, __FUNCTION__, 'category', $where);
+    }
+
+    public function scopeOrderByMeasurement($query, $order)
+    {
+        return $this->orderHas($query, new Measurement(), 'name', __FUNCTION__, $order);
+    }
+
+    public function scopeOrderByPurchaseMeasurement($query, $order)
+    {
+        return $this->orderHas($query, new Measurement(), 'name', __FUNCTION__, $order);
+    }
+
+    public function scopeOrderBySalesMeasurement($query, $order)
+    {
+        return $this->orderHas($query, new Measurement(), 'name', __FUNCTION__, $order);
+    }
+
+    public function scopeOrderByProductCategory($query, $order)
+    {
+        return $this->orderHas($query, new ProductCategory(), 'category', __FUNCTION__, $order);
     }
 
     public function slug()
