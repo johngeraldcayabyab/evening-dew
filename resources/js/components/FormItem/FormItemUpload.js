@@ -4,6 +4,7 @@ import {Form} from "antd";
 import {DeleteOutlined, LoadingOutlined, PlusOutlined} from '@ant-design/icons';
 import FormLabel from "../Typography/FormLabel";
 import {objectHasValue} from "../../Helpers/object";
+import {getCookie} from "../../Helpers/cookie";
 
 
 const FormItemUpload = (props) => {
@@ -96,6 +97,10 @@ const FormItemUpload = (props) => {
                     onChange={handleChange}
                     className={'form-item-upload'}
                     disabled={props.formDisabled}
+                    headers={{
+                        'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
+                        'Authorization': getCookie('Authorization')
+                    }}
                 >
                     {
                         props.formDisabled ?
