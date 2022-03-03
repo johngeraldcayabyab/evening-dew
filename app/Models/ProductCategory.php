@@ -22,6 +22,11 @@ class ProductCategory extends Model implements Sluggable
     protected $table = 'product_categories';
     protected $guarded = [];
 
+    public function parentProductCategory()
+    {
+        return $this->belongsTo(ProductCategory::class, 'parent_product_category_id', 'id');
+    }
+
     public function scopeWhereCategory($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);
@@ -32,14 +37,19 @@ class ProductCategory extends Model implements Sluggable
         return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
-    public function scopeOrderByCategory($query, $order)
+    public function scopeOrderByParentProductCategoryId($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }
 
-    public function scopeOrderByParentProductCategoryId($query, $order)
+    public function scopeWhereParentProductCategory($query, $where)
     {
-        return $this->order($query, __FUNCTION__, $order);
+        return $this->likeHas($query, __FUNCTION__, 'category', $where);
+    }
+
+    public function scopeOrderByParentProductCategory($query, $order)
+    {
+        return $this->orderHas($query, new Location(), 'category', __FUNCTION__, $order);
     }
 
     public function slug()

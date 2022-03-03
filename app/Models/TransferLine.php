@@ -18,11 +18,6 @@ class TransferLine extends Model
     protected $table = 'transfer_lines';
     protected $guarded = [];
 
-    public function transfer()
-    {
-        return $this->belongsTo(Transfer::class);
-    }
-
     public function product()
     {
         return $this->belongsTo(Product::class);
@@ -31,6 +26,11 @@ class TransferLine extends Model
     public function measurement()
     {
         return $this->belongsTo(Measurement::class);
+    }
+
+    public function transfer()
+    {
+        return $this->belongsTo(Transfer::class);
     }
 
     public function scopeWhereProductId($query, $where)
@@ -57,7 +57,6 @@ class TransferLine extends Model
     {
         return $this->whereSingle($query, __FUNCTION__, $where);
     }
-
 
     public function scopeOrderByProductId($query, $order)
     {

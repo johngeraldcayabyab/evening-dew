@@ -18,11 +18,6 @@ class SalesOrderLine extends Model
     protected $table = 'sales_order_lines';
     protected $guarded = [];
 
-    public function salesOrder()
-    {
-        return $this->belongsTo(SalesOrder::class);
-    }
-
     public function product()
     {
         return $this->belongsTo(Product::class);
@@ -31,6 +26,11 @@ class SalesOrderLine extends Model
     public function measurement()
     {
         return $this->belongsTo(Measurement::class);
+    }
+
+    public function salesOrder()
+    {
+        return $this->belongsTo(SalesOrder::class);
     }
 
     public function scopeWhereProductId($query, $where)

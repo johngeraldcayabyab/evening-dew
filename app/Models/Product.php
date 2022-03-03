@@ -71,27 +71,12 @@ class Product extends Model implements Sluggable
         return $this->like($query, __FUNCTION__, $where);
     }
 
-    public function scopeWhereCost($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
     public function scopeWhereSalesPrice($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);
     }
 
-    public function scopeWhereInternalReference($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereSalesDescription($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWherePurchaseDescription($query, $where)
+    public function scopeWhereCost($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);
     }
@@ -116,6 +101,21 @@ class Product extends Model implements Sluggable
         return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
+    public function scopeWhereInternalReference($query, $where)
+    {
+        return $this->like($query, __FUNCTION__, $where);
+    }
+
+    public function scopeWhereSalesDescription($query, $where)
+    {
+        return $this->like($query, __FUNCTION__, $where);
+    }
+
+    public function scopeWherePurchaseDescription($query, $where)
+    {
+        return $this->like($query, __FUNCTION__, $where);
+    }
+
     public function scopeOrderByName($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
@@ -131,27 +131,12 @@ class Product extends Model implements Sluggable
         return $this->order($query, __FUNCTION__, $order);
     }
 
-    public function scopeOrderByCost($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
     public function scopeOrderBySalesPrice($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }
 
-    public function scopeOrderByInternalReference($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderBySalesDescription($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByPurchaseDescription($query, $order)
+    public function scopeOrderByCost($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }
@@ -172,6 +157,21 @@ class Product extends Model implements Sluggable
     }
 
     public function scopeOrderByProductCategoryId($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeOrderByInternalReference($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeOrderBySalesDescription($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeOrderByPurchaseDescription($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }

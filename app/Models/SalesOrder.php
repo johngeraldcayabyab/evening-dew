@@ -54,16 +54,6 @@ class SalesOrder extends Model implements Sluggable
         return $this->like($query, __FUNCTION__, $where);
     }
 
-    public function scopeWhereExpirationDate($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereQuotationDate($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
     public function scopeWhereCustomerId($query, $where)
     {
         return $this->whereSingle($query, __FUNCTION__, $where);
@@ -79,6 +69,16 @@ class SalesOrder extends Model implements Sluggable
         return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
+    public function scopeWhereExpirationDate($query, $where)
+    {
+        return $this->like($query, __FUNCTION__, $where);
+    }
+
+    public function scopeWhereQuotationDate($query, $where)
+    {
+        return $this->like($query, __FUNCTION__, $where);
+    }
+
     public function scopeWherePaymentTermId($query, $where)
     {
         return $this->whereSingle($query, __FUNCTION__, $where);
@@ -90,6 +90,21 @@ class SalesOrder extends Model implements Sluggable
     }
 
     public function scopeWhereCustomerReference($query, $where)
+    {
+        return $this->like($query, __FUNCTION__, $where);
+    }
+
+    public function scopeWhereShippingPolicy($query, $where)
+    {
+        return $this->like($query, __FUNCTION__, $where);
+    }
+
+    public function scopeWhereExpectedDeliveryDate($query, $where)
+    {
+        return $this->like($query, __FUNCTION__, $where);
+    }
+
+    public function scopeWhereSourceDocument($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);
     }
@@ -139,6 +154,21 @@ class SalesOrder extends Model implements Sluggable
         return $this->order($query, __FUNCTION__, $order);
     }
 
+    public function scopeOrderByShippingPolicy($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeOrderByExpectedDeliveryDate($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeOrderBySourceDocument($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
     public function scopeWhereCustomer($query, $where)
     {
         return $this->likeHas($query, __FUNCTION__, 'name', $where);
@@ -154,12 +184,12 @@ class SalesOrder extends Model implements Sluggable
         return $this->likeHas($query, __FUNCTION__, 'address_name', $where);
     }
 
-    public function scopeWhereSalesperson($query, $where)
+    public function scopeWherePaymentTerm($query, $where)
     {
         return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }
 
-    public function scopeWherePaymentTerm($query, $where)
+    public function scopeWhereSalesperson($query, $where)
     {
         return $this->likeHas($query, __FUNCTION__, 'name', $where);
     }

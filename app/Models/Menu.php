@@ -29,22 +29,12 @@ class Menu extends Model implements Sluggable
         return $this->like($query, __FUNCTION__, $where);
     }
 
-    public function scopeWhereParentId($query, $where)
-    {
-        return $this->whereSingle($query, __FUNCTION__, $where);
-    }
-
     public function scopeOrderByLabel($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }
 
     public function scopeOrderByUrl($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByParentId($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }
