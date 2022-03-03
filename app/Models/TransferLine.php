@@ -100,37 +100,44 @@ class TransferLine extends Model
 
     public function scopeInsertMany($query, $data, $transferId)
     {
-        $transferLines = [];
+        $transactionLines = [];
         $date = now();
         foreach ($data as $datum) {
-            $transferLine = new TransferLine();
-            $transferLine->product_id = $datum['product_id'];
-            $transferLine->description = isset($datum['description']) ? $datum['description'] : null;
-            $transferLine->demand = $datum['demand'];
-            $transferLine->measurement_id = $datum['measurement_id'];
-            $transferLine->transfer_id = $transferId;
-            $transferLine->created_at = $date;
-            $transferLine->updated_at = $date;
-            $transferLines[] = $transferLine->attributesToArray();
+            $transactionLine = [
+                'product_id' => $datum['product_id'],
+                'description' => isset($datum['description']) ? $datum['description'] : null,
+                'demand' => $datum['demand'],
+                'measurement_id' => $datum['measurement_id'],
+                'transfer_id' => $transferId,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ];
+            $transactionLines[] = $transactionLine;
         }
-        $query->insert($transferLines);
+        $query->insert($transactionLines);
+        return $query;
     }
 
     public function scopeUpdateOrCreateMany($query, $data, $transferId)
     {
-        $transferLines = [];
+        $transactionLines = [];
         $date = now();
         foreach ($data as $datum) {
-            $transferLine = new SalesOrderLine();
-            $transferLine->id = isset($datum['id']) ? $datum['id'] : null;
-            $transferLine->product_id = $datum['product_id'];
-            $transferLine->description = isset($datum['description']) ? $datum['description'] : null;
-            $transferLine->demand = $datum['demand'];
-            $transferLine->measurement_id = $datum['measurement_id'];
-            $transferLine->transfer_id = $transferId;
-            $transferLine->updated_at = $date;
-            $transferLines[] = $transferLine->attributesToArray();
+            $transactionLine = [
+                'id' => isset($datum['id']) ? $datum['id'] : null,
+                'product_id' => $datum['product_id'],
+                'description' => isset($datum['description']) ? $datum['description'] : null,
+                'demand' => $datum['demand'],
+                'measurement_id' => $datum['measurement_id'],
+                'transfer_id' => $transferId,
+                'updated_at' => $date,
+            ];
+            if (isset($datum['id'])) {
+                $transactionLine['created_at'] = $date;
+            }
+            $transactionLines[] = $transactionLine;
         }
-        $query->upsert($transferLines, ['id']);
+        $query->upsert($transactionLines, ['id']);
+        return $query;
     }
 }

@@ -28,7 +28,7 @@ class OperationTypeResource extends JsonResource
             'default_destination_location_id' => $this->default_destination_location_id,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'reference_sequence' => new SequenceResource($this->referenceSequence),
-            'warehouse' => new WarehouseResource($this->warehouse),
+            'warehouse' => $this->warehouse,
             'operation_type_for_returns' => new OperationTypeResource($this->operationTypeForReturns),
             'default_source_location' => new LocationResource($this->defaultSourceLocation),
             'default_destination_location' => new LocationResource($this->defaultDestinationLocation),
