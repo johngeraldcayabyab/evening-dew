@@ -115,7 +115,7 @@ class SalesOrderLine extends Model
 
     public function scopeWhereSalesOrder($query, $where)
     {
-        return $this->likeHas($query, __FUNCTION__, 'name', $where);
+        return $this->likeHas($query, __FUNCTION__, 'number', $where);
     }
 
     public function scopeOrderByProduct($query, $order)

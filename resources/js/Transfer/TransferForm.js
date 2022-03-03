@@ -15,12 +15,12 @@ import FormItemSelect from "../components/FormItem/FormItemSelect";
 import FormItemDate from "../components/FormItem/FormItemDate";
 import useFetchHook from "../Hooks/useFetchHook";
 import useFetchCatcher from "../Hooks/useFetchCatcher";
-import {GET} from "../consts";
+import {GET, POST} from "../consts";
 import FormItemNumber from "../components/FormItem/FormItemNumber";
 import {MinusCircleOutlined} from "@ant-design/icons";
 import {
     checkIfADynamicInputChangedAndDoSomething,
-    DynamicFieldAddButton,
+    DynamicFieldAddButton, DynamicFieldRemoveButton,
     GenerateDynamicColumns
 } from "../Helpers/form";
 
@@ -93,10 +93,27 @@ const TransferForm = () => {
         });
     }
 
+    function onFinish(values) {
+        if (id) {
+            if (state.transferLinesDeleted.length) {
+                useFetch(`/api/transfer_lines/mass_destroy`, POST, {ids: state.transferLinesDeleted}).then(() => {
+                    setState((prevState) => ({
+                        ...prevState,
+                        transferLinesDeleted: [],
+                        transferLinesOptionReload: [],
+                    }));
+                }).catch((responseErr) => {
+                    fetchCatcher.get(responseErr);
+                });
+            }
+        }
+        formActions.onFinish(values);
+    }
+
     return (
         <CustomForm
             form={form}
-            onFinish={formActions.onFinish}
+            onFinish={onFinish}
             onValuesChange={onValuesChange}
         >
             <ControlPanel
@@ -243,7 +260,7 @@ const TransferForm = () => {
                                                             message={'Please select a measurement'}
                                                             required={true}
                                                             url={'/api/measurements/option'}
-                                                            // search={state.salesOrderLinesOptionReload[name] ? state.salesOrderLinesOptionReload[name].isReload : null}
+                                                            search={state.transferLinesOptionReload[name] ? state.transferLinesOptionReload[name].isReload : null}
                                                             {...formState}
                                                             style={{display: 'inline-block', width: '25%'}}
                                                             query={`transfer_lines.${name}.measurement.name`}
@@ -252,21 +269,14 @@ const TransferForm = () => {
                                                         />
                                                     </ColForm>
 
-                                                    <ColForm lg={1}>
-                                                        {!formState.formDisabled &&
-                                                        <MinusCircleOutlined onClick={(item) => {
-                                                            if (form.getFieldsValue().transfer_lines && form.getFieldsValue().transfer_lines[name]) {
-                                                                if (form.getFieldsValue().transfer_lines[name].id) {
-                                                                    // setState((prevState) => ({
-                                                                    //     ...prevState,
-                                                                    //     salesOrderLinesOptionReload: [],
-                                                                    //     deletedSalesOrderLines: [...prevState.deletedSalesOrderLines, form.getFieldsValue().sales_order_lines[name].id],
-                                                                    // }));
-                                                                }
-                                                            }
-                                                            remove(name);
-                                                        }}/>}
-                                                    </ColForm>
+                                                    <DynamicFieldRemoveButton
+                                                        remove={remove}
+                                                        form={form}
+                                                        dynamicName={'transfer_lines'}
+                                                        name={name}
+                                                        formState={formState}
+                                                        setState={setState}
+                                                    />
                                                 </RowForm>
                                             ))}
                                             <DynamicFieldAddButton

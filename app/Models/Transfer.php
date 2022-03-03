@@ -52,6 +52,11 @@ class Transfer extends Model implements Sluggable
         return $this->belongsTo(User::class, 'responsible_id', 'id');
     }
 
+    public function transferLines()
+    {
+        return $this->hasMany(TransferLine::class);
+    }
+
     public function scopeWhereReference($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);

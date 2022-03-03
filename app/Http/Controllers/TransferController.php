@@ -10,10 +10,12 @@ use App\Http\Resources\Collection\TransferCollection;
 use App\Http\Resources\Resource\TransferResource;
 use App\Http\Resources\Slug\TransferSlugResource;
 use App\Models\Transfer;
+use App\Models\TransferLine;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Arr;
 
 class TransferController
 {
@@ -33,12 +35,25 @@ class TransferController
 
     public function store(TransferStoreRequest $request): JsonResponse
     {
-        return response()->json([], STATUS_CREATE, $this->locationHeader(Transfer::create($request->validated())));
+        $data = $request->validated();
+        $transferData = Arr::except($data, ['transfer_lines']);
+        $transfer = Transfer::create($transferData);
+        if (isset($data['transfer_lines'])) {
+            $transferLinesData = $data['transfer_lines'];
+            TransferLine::insertMany($transferLinesData, $transfer->id);
+        }
+        return response()->json([], STATUS_CREATE, $this->locationHeader($transfer));
     }
 
     public function update(TransferUpdateRequest $request, Transfer $transfer): JsonResponse
     {
-        $transfer->update($request->validated());
+        $data = $request->validated();
+        $transferData = Arr::except($data, ['transfer_lines']);
+        $transfer->update($transferData);
+        if (isset($data['transfer_lines'])) {
+            $transferLinesData = $data['transfer_lines'];
+            TransferLine::updateOrCreateMany($transferLinesData, $transfer->id);
+        }
         return response()->json([], STATUS_UPDATE);
     }
 

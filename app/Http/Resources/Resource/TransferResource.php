@@ -29,6 +29,7 @@ class TransferResource extends JsonResource
             'destination_location' => $this->destination_location_id ? $this->destinationLocation : null,
             'responsible' => $this->responsible_id ? $this->responsible : null,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
+            'transfer_lines' => TransferLineResource::collection($this->transferLines),
         ];
     }
 }
