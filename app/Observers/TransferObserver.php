@@ -3,6 +3,9 @@
 namespace App\Observers;
 
 use App\Data\SystemSetting;
+use App\Models\GlobalSetting;
+use App\Models\OperationType;
+use App\Models\Sequence;
 use App\Models\Transfer;
 use Carbon\Carbon;
 
@@ -16,6 +19,22 @@ class TransferObserver
         }
         if (!$transfer->responsible_id) {
             $transfer->responsible_id = auth()->user()->id;
+        }
+        $operationType = OperationType::find($transfer->operation_type_id);
+        $transferSequence = $operationType->referenceSequence;
+        if ($transferSequence) {
+            $transfer->reference = Sequence::generateSequence($operationType->id);
+            $transferSequence->next_number = $transferSequence->next_number + $transferSequence->step;
+            $transferSequence->save();
+        }
+        if ($operationType->type === OperationType::RECEIPT) {
+            if (!$transfer->source_location_id) {
+                $transfer->source_location_id = GlobalSetting::latestFirst()->inventoryDefaultVendorLocation->id;
+            }
+        } elseif ($operationType->type === OperationType::DELIVERY) {
+            if (!$transfer->destination_location_id) {
+                $transfer->destination_location_id = GlobalSetting::latestFirst()->inventoryDefaultCustomerLocation->id;
+            }
         }
     }
 

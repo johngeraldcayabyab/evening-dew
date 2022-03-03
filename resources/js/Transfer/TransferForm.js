@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
@@ -17,10 +17,10 @@ import useFetchHook from "../Hooks/useFetchHook";
 import useFetchCatcher from "../Hooks/useFetchCatcher";
 import {GET, POST} from "../consts";
 import FormItemNumber from "../components/FormItem/FormItemNumber";
-import {MinusCircleOutlined} from "@ant-design/icons";
 import {
     checkIfADynamicInputChangedAndDoSomething,
-    DynamicFieldAddButton, DynamicFieldRemoveButton,
+    DynamicFieldAddButton,
+    DynamicFieldRemoveButton,
     GenerateDynamicColumns
 } from "../Helpers/form";
 
@@ -38,6 +38,12 @@ const TransferForm = () => {
         transferLinesOptionReload: [],
         transferLinesDeleted: [],
     });
+
+    useEffect(() => {
+        return () => {
+            fetchAbort();
+        };
+    }, []);
 
     function onValuesChange(changedValues, allValues) {
         if (changedValues.operation_type_id) {
@@ -128,6 +134,19 @@ const TransferForm = () => {
                 }
             />
             <FormCard {...formState}>
+                <RowForm>
+                    <ColForm>
+                        <FormItemText
+                            overrideDisabled={true}
+                            form={form}
+                            label={'Reference'}
+                            name={'reference'}
+                            size={'large'}
+                            {...formState}
+                        />
+                    </ColForm>
+                </RowForm>
+
                 <RowForm>
                     <ColForm>
                         <FormItemSelectAjax

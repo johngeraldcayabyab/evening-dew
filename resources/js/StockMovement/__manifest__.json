@@ -1,0 +1,7 @@
+{
+    "moduleName": "stock_movements",
+    "eventName": "stock_movements",
+    "modelName": "StockMovement"
+}
+
+

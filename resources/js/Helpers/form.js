@@ -33,6 +33,10 @@ export const formItemFieldProps = (props, specialFieldProps = {}) => {
         ...specialFieldProps
     };
 
+    if (props.overrideDisabled) {
+        fieldProps.disabled = true;
+    }
+
     if (props.isListField) {
         formItemProps.isListField = true;
         formItemProps.fieldKey = props.fieldKey;

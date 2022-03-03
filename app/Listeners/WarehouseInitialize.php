@@ -174,9 +174,9 @@ class WarehouseInitialize
         $sequence->name = "{$warehouse->name} In Sequence";
         $sequence->implementation = Sequence::STANDARD;
         $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
-        $sequence->sequence_size = 5;
+        $sequence->sequence_size = 6;
         $sequence->step = 1;
-        $sequence->next_number = 1;
+        $sequence->next_number = 0;
         $sequence->save();
         return $sequence;
     }
@@ -187,9 +187,9 @@ class WarehouseInitialize
         $sequence->name = "{$warehouse->name} Internal Sequence";
         $sequence->implementation = Sequence::STANDARD;
         $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
-        $sequence->sequence_size = 5;
+        $sequence->sequence_size = 6;
         $sequence->step = 1;
-        $sequence->next_number = 1;
+        $sequence->next_number = 0;
         $sequence->save();
         return $sequence;
     }
@@ -201,9 +201,9 @@ class WarehouseInitialize
         $sequence->name = "{$warehouse->name} Picking Sequence";
         $sequence->implementation = Sequence::STANDARD;
         $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
-        $sequence->sequence_size = 5;
+        $sequence->sequence_size = 6;
         $sequence->step = 1;
-        $sequence->next_number = 1;
+        $sequence->next_number = 0;
         $sequence->save();
         return $sequence;
     }
@@ -214,9 +214,9 @@ class WarehouseInitialize
         $sequence->name = "{$warehouse->name} Packing Sequence";
         $sequence->implementation = Sequence::STANDARD;
         $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
-        $sequence->sequence_size = 5;
+        $sequence->sequence_size = 6;
         $sequence->step = 1;
-        $sequence->next_number = 1;
+        $sequence->next_number = 0;
         $sequence->save();
         return $sequence;
     }
@@ -227,9 +227,9 @@ class WarehouseInitialize
         $sequence->name = "{$warehouse->name} Out Sequence";
         $sequence->implementation = Sequence::STANDARD;
         $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
-        $sequence->sequence_size = 5;
+        $sequence->sequence_size = 6;
         $sequence->step = 1;
-        $sequence->next_number = 1;
+        $sequence->next_number = 0;
         $sequence->save();
         return $sequence;
     }
@@ -240,9 +240,9 @@ class WarehouseInitialize
         $sequence->name = "{$warehouse->name} Return Sequence";
         $sequence->implementation = Sequence::STANDARD;
         $sequence->prefix = "{$warehouse->short_name}/RET/";
-        $sequence->sequence_size = 5;
+        $sequence->sequence_size = 6;
         $sequence->step = 1;
-        $sequence->next_number = 1;
+        $sequence->next_number = 0;
         $sequence->save();
         return $sequence;
     }
@@ -253,9 +253,9 @@ class WarehouseInitialize
         $sequence->name = "{$warehouse->name} Stock After Manufacturing Sequence";
         $sequence->implementation = Sequence::STANDARD;
         $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
-        $sequence->sequence_size = 5;
+        $sequence->sequence_size = 6;
         $sequence->step = 1;
-        $sequence->next_number = 1;
+        $sequence->next_number = 0;
         $sequence->save();
         return $sequence;
     }
@@ -266,9 +266,9 @@ class WarehouseInitialize
         $sequence->name = "{$warehouse->name} Picking Before Manufacturing Sequence";
         $sequence->implementation = Sequence::STANDARD;
         $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
-        $sequence->sequence_size = 5;
+        $sequence->sequence_size = 6;
         $sequence->step = 1;
-        $sequence->next_number = 1;
+        $sequence->next_number = 0;
         $sequence->save();
         return $sequence;
     }
@@ -279,9 +279,9 @@ class WarehouseInitialize
         $sequence->name = "{$warehouse->name} Production Sequence";
         $sequence->implementation = Sequence::STANDARD;
         $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
-        $sequence->sequence_size = 5;
+        $sequence->sequence_size = 6;
         $sequence->step = 1;
-        $sequence->next_number = 1;
+        $sequence->next_number = 0;
         $sequence->save();
         return $sequence;
     }
