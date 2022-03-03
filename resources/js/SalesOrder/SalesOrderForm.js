@@ -374,6 +374,23 @@ const SalesOrderForm = () => {
                                     ]}
                                     {...formState}
                                 />
+                                <FormItemDate
+                                    form={form}
+                                    label={'Expected delivery date'}
+                                    name={'expected_delivery_date'}
+                                    {...formState}
+                                />
+                            </ColForm>
+                            <ColForm>
+                                <Divider orientation={'left'}>
+                                    Tracking
+                                </Divider>
+                                <FormItemText
+                                    form={form}
+                                    label={'Source document'}
+                                    name={'source_document'}
+                                    {...formState}
+                                />
                             </ColForm>
                         </RowForm>
 

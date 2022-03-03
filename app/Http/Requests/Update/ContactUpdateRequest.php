@@ -16,7 +16,6 @@ class ContactUpdateRequest extends FormRequest
             'website' => ['nullable'],
             'tax_id' => ['nullable'],
             'avatar' => ['nullable'],
-
             'street_one' => ['nullable'],
             'street_two' => ['nullable'],
             'city' => ['nullable'],

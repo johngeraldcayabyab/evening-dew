@@ -38,5 +38,8 @@ class SalesOrderObserver
         if (!$model->salesperson_id) {
             $model->salesperson_id = auth()->user()->id;
         }
+        if($model->expected_delivery_date){
+            $model->expected_delivery_date = Carbon::parse($model->expected_delivery_date)->format(SystemSetting::DATE_TIME_FORMAT);
+        }
     }
 }

@@ -11,13 +11,12 @@ class ProductUpdateRequest extends FormRequest
     {
         $productTypes = implode(',', Product::getProductTypes());
         $invoicingPolicies = implode(',', Product::getInvoicingPolicies());
-
         return [
             'name' => 'required',
             'product_type' => ['required', "in:$productTypes"],
             'invoicing_policy' => ['required', "in:$invoicingPolicies"],
-            'cost' => 'required',
             'sales_price' => 'required',
+            'cost' => 'required',
             'measurement_id' => ['required', "exists:measurements,id"],
             'purchase_measurement_id' => ['required', "exists:measurements,id"],
             'sales_measurement_id' => ['required', "exists:measurements,id"],

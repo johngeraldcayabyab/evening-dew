@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Store;
 
-use App\Models\Address;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ContactStoreRequest extends FormRequest
@@ -17,7 +16,6 @@ class ContactStoreRequest extends FormRequest
             'website' => ['nullable'],
             'tax_id' => ['nullable'],
             'avatar' => ['nullable'],
-
             'street_one' => ['nullable'],
             'street_two' => ['nullable'],
             'city' => ['nullable'],
