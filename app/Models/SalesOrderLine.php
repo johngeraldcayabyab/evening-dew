@@ -135,41 +135,48 @@ class   SalesOrderLine extends Model
 
     public function scopeInsertMany($query, $data, $salesOrderId)
     {
-        $salesOrderLines = [];
+        $transactionLines = [];
         $date = now();
         foreach ($data as $datum) {
-            $salesOrderLine = new SalesOrderLine();
-            $salesOrderLine->product_id = $datum['product_id'];
-            $salesOrderLine->description = isset($datum['description']) ? $datum['description'] : null;
-            $salesOrderLine->quantity = $datum['quantity'];
-            $salesOrderLine->measurement_id = $datum['measurement_id'];
-            $salesOrderLine->unit_price = $datum['unit_price'];
-            $salesOrderLine->subtotal = $salesOrderLine->unit_price * $salesOrderLine->quantity;
-            $salesOrderLine->sales_order_id = $salesOrderId;
-            $salesOrderLine->created_at = $date;
-            $salesOrderLine->updated_at = $date;
-            $salesOrderLines[] = $salesOrderLine->attributesToArray();
+            $transactionLine = [
+                'product_id' => $datum['product_id'],
+                'description' => isset($datum['description']) ? $datum['description'] : null,
+                'quantity' => $datum['quantity'],
+                'measurement_id' => $datum['measurement_id'],
+                'unit_price' => $datum['unit_price'],
+                'subtotal' => $datum['unit_price'] * $datum['quantity'],
+                'sales_order_id' => $salesOrderId,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ];
+            $transactionLines[] = $transactionLine;
         }
-        $query->insert($salesOrderLines);
+        $query->insert($transactionLines);
+        return $query;
     }
 
     public function scopeUpdateOrCreateMany($query, $data, $salesOrderId)
     {
-        $salesOrderLines = [];
+        $transactionLines = [];
         $date = now();
         foreach ($data as $datum) {
-            $salesOrderLine = new SalesOrderLine();
-            $salesOrderLine->id = isset($datum['id']) ? $datum['id'] : null;
-            $salesOrderLine->product_id = $datum['product_id'];
-            $salesOrderLine->description = isset($datum['description']) ? $datum['description'] : null;
-            $salesOrderLine->quantity = $datum['quantity'];
-            $salesOrderLine->measurement_id = $datum['measurement_id'];
-            $salesOrderLine->unit_price = $datum['unit_price'];
-            $salesOrderLine->subtotal = $salesOrderLine->unit_price * $salesOrderLine->quantity;
-            $salesOrderLine->sales_order_id = $salesOrderId;
-            $salesOrderLine->updated_at = $date;
-            $salesOrderLines[] = $salesOrderLine->attributesToArray();
+            $transactionLine = [
+                'id' => isset($datum['id']) ? $datum['id'] : null,
+                'product_id' => $datum['product_id'],
+                'description' => isset($datum['description']) ? $datum['description'] : null,
+                'quantity' => $datum['quantity'],
+                'measurement_id' => $datum['measurement_id'],
+                'unit_price' => $datum['unit_price'],
+                'subtotal' => $datum['unit_price'] * $datum['quantity'],
+                'sales_order_id' => $salesOrderId,
+                'updated_at' => $date,
+            ];
+            if (isset($datum['id'])) {
+                $transactionLine['created_at'] = $date;
+            }
+            $transactionLines[] = $transactionLine;
         }
-        $query->upsert($salesOrderLines, ['id']);
+        $query->upsert($transactionLines, ['id']);
+        return $query;
     }
 }

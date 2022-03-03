@@ -20,7 +20,6 @@ class SalesOrderLineResource extends JsonResource
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'product' => new ProductResource($this->product),
             'measurement' => new MeasurementResource($this->measurement),
-            'sales_order' => new SalesOrderResource($this->salesOrder),
         ];
     }
 }
