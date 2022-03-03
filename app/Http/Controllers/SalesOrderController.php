@@ -13,6 +13,7 @@ use App\Models\GlobalSetting;
 use App\Models\SalesOrder;
 use App\Models\SalesOrderLine;
 use App\Models\Sequence;
+use App\Models\Transfer;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -85,8 +86,12 @@ class SalesOrderController
     public function initial_values()
     {
         return [
+            'quotation_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
             'measurement' => GlobalSetting::latestFirst()->inventoryDefaultSalesMeasurement,
-            'number' => Sequence::generateSalesOrderSequence()
+            'number' => Sequence::generateSalesOrderSequence(),
+            'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
+            'salesperson_id' => auth()->user()->id,
+            'salesperson' => auth()->user()
         ];
     }
 }

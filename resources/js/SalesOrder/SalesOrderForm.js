@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Form, Tabs} from "antd";
+import {Divider, Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
@@ -21,6 +21,8 @@ import {
     DynamicFieldRemoveButton,
     GenerateDynamicColumns
 } from "../Helpers/form";
+import FormItemDate from "../components/FormItem/FormItemDate";
+import FormItemSelect from "../components/FormItem/FormItemSelect";
 
 const {TabPane} = Tabs;
 
@@ -184,6 +186,21 @@ const SalesOrderForm = () => {
                         />
                     </ColForm>
                     <ColForm>
+
+                        <FormItemDate
+                            form={form}
+                            label={'Expiration Date'}
+                            name={'expiration_date'}
+                            {...formState}
+                        />
+
+                        <FormItemDate
+                            form={form}
+                            label={'Quotation Date'}
+                            name={'quotation_date'}
+                            {...formState}
+                        />
+
                         <FormItemSelectAjax
                             form={form}
                             label={'Payment Term'}
@@ -309,6 +326,57 @@ const SalesOrderForm = () => {
                         </RowForm>
                     </TabPane>
                     <TabPane tab="Other Information" key="2">
+                        <RowForm>
+                            <ColForm>
+                                <Divider orientation={'left'}>
+                                    Sales
+                                </Divider>
+                                <FormItemSelectAjax
+                                    form={form}
+                                    label={'Salesperson'}
+                                    name={'salesperson_id'}
+                                    message={'Please select a salesperson'}
+                                    required={true}
+                                    url={'/api/users/option'}
+                                    {...formState}
+                                    query={'salesperson.name'}
+                                />
+
+                                <FormItemText
+                                    form={form}
+                                    label={'Customer Reference'}
+                                    name={'customer_reference'}
+                                    {...formState}
+                                />
+                            </ColForm>
+                            <ColForm>
+                                <Divider orientation={'left'}>
+                                    Invoicing
+                                </Divider>
+                            </ColForm>
+                        </RowForm>
+
+
+                        <RowForm>
+                            <ColForm>
+                                <Divider orientation={'left'}>
+                                    Delivery
+                                </Divider>
+                                <FormItemSelect
+                                    form={form}
+                                    label={'Shipping Policy'}
+                                    name={'shipping_policy'}
+                                    message={'Please select an shipping policy'}
+                                    required={true}
+                                    options={[
+                                        {value: 'as_soon_as_possible', label: 'As soon as possible'},
+                                        {value: 'when_all_products_are_ready', label: 'When all products are ready'},
+                                    ]}
+                                    {...formState}
+                                />
+                            </ColForm>
+                        </RowForm>
+
                     </TabPane>
                 </Tabs>
             </FormCard>

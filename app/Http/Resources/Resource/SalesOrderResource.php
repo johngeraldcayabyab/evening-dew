@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Resource;
 
-use App\Models\SalesOrderLine;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SalesOrderResource extends JsonResource
@@ -18,9 +17,15 @@ class SalesOrderResource extends JsonResource
             'invoice_address' => new AddressResource($this->invoiceAddress),
             'delivery_address_id' => $this->delivery_address_id,
             'delivery_address' => new AddressResource($this->deliveryAddress),
+            'expiration_date' => $this->expiration_date,
+            'quotation_date' => $this->quotation_date,
             'payment_term_id' => $this->payment_term_id,
-            'payment_term' => $this->payment_term_id ? new PaymentTermResource($this->paymentTerm) : null,
+            'salesperson_id' => $this->salesperson_id,
+            'salesperson' => new UserResource($this->salesperson),
+            'customer_reference' => $this->customer_reference,
+            'payment_term' => new PaymentTermResource($this->paymentTerm),
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
+            'shipping_policy' => $this->shipping_policy,
             'sales_order_lines' => SalesOrderLineResource::collection($this->salesOrderLines)
         ];
     }

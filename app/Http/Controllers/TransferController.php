@@ -83,6 +83,8 @@ class TransferController
     public function initial_values()
     {
         return [
+            'responsible_id' => auth()->user()->id,
+            'responsible' => auth()->user(),
             'scheduled_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
             'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
         ];

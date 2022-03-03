@@ -69,6 +69,16 @@ class SalesOrder extends Model implements Sluggable
         return $this->likeHas($query, __FUNCTION__, 'address_name', $where);
     }
 
+    public function scopeWhereExpirationDate($query, $where)
+    {
+        return $this->like($query, __FUNCTION__, $where);
+    }
+
+    public function scopeWhereQuotationDate($query, $where)
+    {
+        return $this->like($query, __FUNCTION__, $where);
+    }
+
     public function scopeWherePaymentTerm($query, $where)
     {
         return $this->likeHas($query, __FUNCTION__, 'name', $where);
@@ -92,6 +102,16 @@ class SalesOrder extends Model implements Sluggable
     public function scopeWherePaymentTermId($query, $where)
     {
         return $this->whereSingle($query, __FUNCTION__, $where);
+    }
+
+    public function scopeWhereSalespersonId($query, $where)
+    {
+        return $this->whereSingle($query, __FUNCTION__, $where);
+    }
+
+    public function scopeWhereCustomerReference($query, $where)
+    {
+        return $this->like($query, __FUNCTION__, $where);
     }
 
     public function scopeOrderByNumber($query, $order)
@@ -134,9 +154,39 @@ class SalesOrder extends Model implements Sluggable
         return $this->order($query, __FUNCTION__, $order);
     }
 
+    public function scopeOrderByExpirationDate($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeOrderByQuotationDate($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
     public function scopeOrderByPaymentTermId($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeOrderBySalespersonId($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeOrderByCustomerReference($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeWhereSalesperson($query, $where)
+    {
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
+    }
+
+    public function scopeOrderBySalesperson($query, $order)
+    {
+        return $this->orderHas($query, new User(), 'name', __FUNCTION__, $order);
     }
 
     public function slug()

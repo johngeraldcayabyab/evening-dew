@@ -10,19 +10,19 @@ class CreateSalesOrdersTable extends Migration
     {
         Schema::create('sales_orders', function (Blueprint $table) {
             $table->id();
-            $table->string('number')->nullable();
-            $table->bigInteger('customer_id')->nullable();
-            $table->bigInteger('invoice_address_id')->nullable();
-            $table->bigInteger('delivery_address_id')->nullable();
+            $table->string('number');
+            $table->bigInteger('customer_id');
+            $table->bigInteger('invoice_address_id');
+            $table->bigInteger('delivery_address_id');
 
-            $table->dateTime('expiration')->nullable();
-            $table->dateTime('quotation_date')->nullable();
+            $table->dateTime('expiration_date')->nullable();
+            $table->dateTime('quotation_date');
             $table->bigInteger('payment_term_id')->nullable();
 
-            $table->bigInteger('salesperson_id')->nullable();
+            $table->bigInteger('salesperson_id');
             $table->string('customer_reference')->nullable();
 
-            $table->string('shipping_policy')->nullable();
+            $table->string('shipping_policy');
             $table->dateTime('expected_delivery_date')->nullable();
 
 
