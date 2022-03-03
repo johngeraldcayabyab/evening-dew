@@ -24,11 +24,6 @@ class Country extends Model implements Sluggable
         return $this->belongsTo(Currency::class);
     }
 
-    public function scopeWhereCurrency($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'currency', $where);
-    }
-
     public function scopeWhereCountryName($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);
@@ -59,11 +54,6 @@ class Country extends Model implements Sluggable
         return $this->order($query, __FUNCTION__, $order);
     }
 
-    public function scopeOrderByCurrency($query, $order)
-    {
-        return $this->orderHas($query, new Currency(), 'currency', __FUNCTION__, $order);
-    }
-
     public function scopeOrderByCountryCode($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
@@ -82,6 +72,16 @@ class Country extends Model implements Sluggable
     public function scopeOrderByCurrencyId($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeWhereCurrency($query, $where)
+    {
+        return $this->likeHas($query, __FUNCTION__, 'currency', $where);
+    }
+
+    public function scopeOrderByCurrency($query, $order)
+    {
+        return $this->orderHas($query, new Currency(), 'currency', __FUNCTION__, $order);
     }
 
     public function slug()
