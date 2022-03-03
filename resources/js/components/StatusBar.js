@@ -9,41 +9,20 @@ const StatusBar = (props) => {
             <Row align={'middle'} style={{marginTop: '4px', marginBottom: '4px'}}>
                 <Col span={18}>
                     <Space size={'small'}>
-                        <Button
-                            htmlType={"submit"}
-                            type={"primary"}
-                            size={'default'}
-                            onClick={() => {
-                                props.form.setFieldsValue({
-                                    'status': 'done',
-                                });
-                            }}
-                        >
-                            Validate
-                        </Button>
-                        <Button
-                            htmlType={"submit"}
-                            type={"ghost"}
-                            size={'default'}
-                            onClick={() => {
-                                props.form.setFieldsValue({
-                                    'status': 'cancelled',
-                                });
-                            }}
-                        >
-                            Cancel
-                        </Button>
+                        {props.children}
                     </Space>
                 </Col>
                 <Col span={6} style={{textAlign: 'right', paddingRight: '8px'}}>
                     <Steps
                         type="default"
                         size="small"
-                        current={0}
+                        current={props.current}
                     >
-                        <Step status="process" title="Draft"/>
-                        <Step status="wait" title="Done"/>
-                        <Step status="wait" title="Cancelled"/>
+                        {
+                            props.statuses.map((status) => (
+                                <Step key={status.value} status={status.status} title={status.title}/>
+                            ))
+                        }
                     </Steps>
                 </Col>
             </Row>
