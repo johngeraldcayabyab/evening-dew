@@ -11,6 +11,7 @@ class TransferUpdateRequest extends FormRequest
     {
         $shippingPolicies = implode(',', Transfer::getShippingPolicies());
         return [
+            'reference' => ['nullable'],
             'contact_id' => 'nullable',
             'operation_type_id' => ['required', 'exists:operations_types,id'],
             'source_location_id' => ['nullable', 'exists:locations,id'],
@@ -23,7 +24,6 @@ class TransferUpdateRequest extends FormRequest
             'shipping_policy' => ['nullable', "in:$shippingPolicies"],
             'responsible_id' => ['nullable', 'exists:users,id'],
             'note' => ['nullable'],
-
             'transfer_lines.*.id' => ['nullable', 'exists:transfer_lines,id'],
             'transfer_lines.*.product_id' => ['required', "exists:products,id"],
             'transfer_lines.*.description' => ['nullable'],

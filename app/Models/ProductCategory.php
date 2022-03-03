@@ -37,6 +37,11 @@ class ProductCategory extends Model implements Sluggable
         return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
+    public function scopeOrderByCategory($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
     public function scopeOrderByParentProductCategoryId($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);

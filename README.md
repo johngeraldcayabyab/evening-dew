@@ -26,6 +26,14 @@
 <li>custom attributes</li>
 </ul>
 
+<h5>Frontend Forms</h5>
+<p><u><b><i>How form fields should be read for easier debuggin</i></b></u></p>
+<ul>
+<li>First row left column top to bottom then right column top to bottom</li>
+<li>Second row left column top to bottom then right column top to bottom</li>
+<li>Third row....</li>
+</ul>
+
 <h5>Seeders</h5>
 <p>Seeders should be declared manually because seeders may rely on another seeder, manual declarations gives the ability to change the order of the
 seeds.</p>

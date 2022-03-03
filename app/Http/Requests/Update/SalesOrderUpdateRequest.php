@@ -18,11 +18,11 @@ class SalesOrderUpdateRequest extends FormRequest
             'expiration_date' => ['nullable'],
             'quotation_date' => ['required'],
             'payment_term_id' => ['nullable', "exists:payment_terms,id"],
-
             'salesperson_id' => ['nullable', 'exists:users,id'],
             'customer_reference' => ['nullable'],
             'shipping_policy' => ['nullable', "in:$shippingPolicies"],
-
+            'expected_delivery_date' => ['nullable'],
+            'source_document' => ['nullable'],
             'sales_order_lines.*.id' => ['nullable', 'exists:sales_order_lines,id'],
             'sales_order_lines.*.product_id' => ['required', "exists:products,id"],
             'sales_order_lines.*.description' => ['nullable'],
