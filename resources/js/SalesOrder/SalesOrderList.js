@@ -7,6 +7,7 @@ import ActionsDropdownButton from "../components/TableButtons/ActionsDropdownBut
 import CustomTable from "../components/CustomTable";
 import TableSearchInput from "../components/TableSearchInput";
 import CustomPagination from "../components/CustomPagination";
+import {Tag} from "antd";
 
 const SalesOrderList = () => {
     const [tableState, tableActions, columns] = useListState(manifest, [
@@ -25,6 +26,27 @@ const SalesOrderList = () => {
             searchFilter: true,
             render: (text, record) => {
                 return record.customer.name;
+            }
+        },
+        {
+            title: 'Salesperson',
+            dataIndex: 'salesperson',
+            key: 'salesperson',
+            sorter: true,
+            searchFilter: true,
+            render: (text, record) => {
+                return record.salesperson.name;
+            }
+        },
+        {
+            title: 'Status',
+            dataIndex: 'status',
+            key: 'status',
+            sorter: true,
+            searchFilter: true,
+            render: (text, record) => {
+                const color = {draft: 'processing', done: 'success', cancelled: 'default'};
+                return <Tag color={color[record.status]}>{record.status.toUpperCase()}</Tag>
             }
         },
         {

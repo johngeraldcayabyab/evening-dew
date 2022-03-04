@@ -7,6 +7,7 @@ import ActionsDropdownButton from "../components/TableButtons/ActionsDropdownBut
 import CustomTable from "../components/CustomTable";
 import TableSearchInput from "../components/TableSearchInput";
 import CustomPagination from "../components/CustomPagination";
+import {Tag} from "antd";
 
 const TransferList = () => {
     const [tableState, tableActions, columns] = useListState(manifest, [
@@ -76,6 +77,10 @@ const TransferList = () => {
             key: 'status',
             sorter: true,
             searchFilter: true,
+            render: (text, record) => {
+                const color = {draft: 'processing', done: 'success', cancelled: 'default'};
+                return <Tag color={color[record.status]}>{record.status.toUpperCase()}</Tag>
+            }
         },
         {
             title: 'Created At',
