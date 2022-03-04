@@ -64,6 +64,13 @@ const StockMovementList = () => {
             }
         },
         {
+            title: 'Quantity Done',
+            dataIndex: 'quantity_done',
+            key: 'quantity_done',
+            sorter: true,
+            searchFilter: true,
+        },
+        {
             title: 'Created At',
             dataIndex: 'created_at',
             key: 'created_at',

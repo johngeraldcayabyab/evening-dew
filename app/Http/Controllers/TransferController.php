@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Data\SystemSetting;
+use App\Events\TransferValidatedEvent;
 use App\Http\Requests\MassDestroy\TransferMassDestroyRequest;
 use App\Http\Requests\Store\TransferStoreRequest;
 use App\Http\Requests\Update\TransferUpdateRequest;
@@ -42,6 +43,9 @@ class TransferController
             $transferLinesData = $data['transfer_lines'];
             TransferLine::insertMany($transferLinesData, $transfer->id);
         }
+        if ($transfer->status === Transfer::DONE) {
+            TransferValidatedEvent::dispatch($transfer);
+        }
         return response()->json([], STATUS_CREATE, $this->locationHeader($transfer));
     }
 
@@ -53,6 +57,9 @@ class TransferController
         if (isset($data['transfer_lines'])) {
             $transferLinesData = $data['transfer_lines'];
             TransferLine::updateOrCreateMany($transferLinesData, $transfer->id);
+        }
+        if ($transfer->status === Transfer::DONE) {
+            TransferValidatedEvent::dispatch($transfer);
         }
         return response()->json([], STATUS_UPDATE);
     }

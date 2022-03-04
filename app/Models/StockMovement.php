@@ -123,6 +123,27 @@ class StockMovement extends Model
         return $this->orderHas($query, new Location(), 'name', __FUNCTION__, $order);
     }
 
+    public function scopeInsertMany($query, $data)
+    {
+        $transactionLines = [];
+        $date = now();
+        foreach ($data as $datum) {
+            $transactionLine = [
+                'reference' => $datum['reference'],
+                'source' => $datum['source'],
+                'product_id' => $datum['product_id'],
+                'source_location_id' => $datum['source_location_id'],
+                'destination_location_id' => $datum['destination_location_id'],
+                'quantity_done' => $datum['quantity_done'],
+                'created_at' => $date,
+                'updated_at' => $date,
+            ];
+            $transactionLines[] = $transactionLine;
+        }
+        $query->insert($transactionLines);
+        return $query;
+    }
+
     public function slug()
     {
         return 'reference';
