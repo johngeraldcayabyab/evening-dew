@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('avatar')->nullable();
             $table->string('sales_description')->nullable();
             $table->string('purchase_description')->nullable();
+            $table->double('quantity')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

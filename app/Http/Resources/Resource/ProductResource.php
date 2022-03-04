@@ -23,6 +23,7 @@ class ProductResource extends JsonResource
             'avatar' => $this->avatar ? asset("storage/images/" . $this->avatar) : null,
             'sales_description' => $this->sales_description,
             'purchase_description' => $this->purchase_description,
+            'quantity' => $this->quantity,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'measurement' => new MeasurementResource($this->measurement),
             'purchase_measurement' => new MeasurementResource($this->purchaseMeasurement),
