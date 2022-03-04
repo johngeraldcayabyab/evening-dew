@@ -29,6 +29,8 @@ class GlobalSettingResource extends JsonResource
             'inventory_default_production' => $this->inventoryDefaultProduction,
             'inventory_default_scrap_id' => $this->inventory_default_scrap_id,
             'inventory_default_scrap' => $this->inventoryDefaultScrap,
+            'inventory_default_warehouse_id' => $this->inventory_default_warehouse_id,
+            'inventory_default_warehouse' => $this->inventoryDefaultWarehouse,
             'accounting_default_currency_id' => $this->accounting_default_currency_id,
             'accounting_default_currency' => $this->accountingDefaultCurrency,
             'general_default_country_id' => $this->general_default_country_id,

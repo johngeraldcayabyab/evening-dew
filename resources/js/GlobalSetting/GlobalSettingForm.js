@@ -178,6 +178,19 @@ const GlobalSettingForm = () => {
                     </ColForm>
                 </RowForm>
 
+                <RowForm>
+                    <ColForm>
+                        <FormItemSelectAjax
+                            form={form}
+                            label={'Default Warehouse'}
+                            name={'inventory_default_warehouse_id'}
+                            url={'/api/warehouses/option'}
+                            {...formState}
+                            query={'inventory_default_warehouse.name'}
+                        />
+                    </ColForm>
+                </RowForm>
+
 
                 <Divider orientation={'left'}>
                     Accounting
