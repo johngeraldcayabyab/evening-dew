@@ -30,6 +30,7 @@ class SalesOrderResource extends JsonResource
             'salesperson' => new UserResource($this->salesperson),
             'payment_term' => new PaymentTermResource($this->paymentTerm),
             'sales_order_lines' => SalesOrderLineResource::collection($this->salesOrderLines),
+            'sales_order_transfers' => SalesOrderTransferResource::collection($this->salesOrderTransfers),
         ];
     }
 }

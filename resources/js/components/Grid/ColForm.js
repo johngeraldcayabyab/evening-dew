@@ -8,6 +8,7 @@ const ColForm = (props) => {
             sm={{span: 24}}
             md={{span: 24}}
             lg={{span: props.lg ? props.lg : 12}}
+            style={props.style}
         >
             {props.children}
         </Col>
