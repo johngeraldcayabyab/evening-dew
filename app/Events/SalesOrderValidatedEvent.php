@@ -2,24 +2,25 @@
 
 namespace App\Events;
 
-use App\Models\Warehouse;
+use App\Models\SalesOrder;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class WarehouseCreated implements ShouldBroadcast
+class SalesOrderValidatedEvent implements ShouldBroadcast, ShouldQueue
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $warehouse;
+    public $salesOrder;
 
-    public function __construct(Warehouse $warehouse)
+    public function __construct(SalesOrder $salesOrder)
     {
-        $this->warehouse = $warehouse;
+        $this->salesOrder = $salesOrder;
     }
 
     public function broadcastOn()

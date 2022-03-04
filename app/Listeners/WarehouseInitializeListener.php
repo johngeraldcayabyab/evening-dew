@@ -2,16 +2,16 @@
 
 namespace App\Listeners;
 
-use App\Events\WarehouseCreated;
+use App\Events\WarehouseCreatedEvent;
 use App\Models\Location;
 use App\Models\OperationType;
 use App\Models\Sequence;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class WarehouseInitialize
+class WarehouseInitializeListener implements ShouldQueue
 {
-    public function handle(WarehouseCreated $event)
+    public function handle(WarehouseCreatedEvent $event)
     {
         $warehouse = $event->warehouse;
         $viewLocation = $this->createViewLocation($warehouse);

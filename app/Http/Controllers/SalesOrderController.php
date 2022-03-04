@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Data\SystemSetting;
+use App\Events\SalesOrderValidatedEvent;
 use App\Http\Requests\MassDestroy\SalesOrderMassDestroyRequest;
 use App\Http\Requests\Store\SalesOrderStoreRequest;
 use App\Http\Requests\Update\SalesOrderUpdateRequest;
@@ -45,6 +46,9 @@ class SalesOrderController
             $salesOrderLinesData = $data['sales_order_lines'];
             SalesOrderLine::insertMany($salesOrderLinesData, $salesOrder->id);
         }
+        if ($salesOrder->status === SalesOrder::DONE) {
+            SalesOrderValidatedEvent::dispatch($salesOrder);
+        }
         return response()->json([], STATUS_CREATE, $this->locationHeader($salesOrder));
     }
 
@@ -56,6 +60,9 @@ class SalesOrderController
         if (isset($data['sales_order_lines'])) {
             $salesOrderLinesData = $data['sales_order_lines'];
             SalesOrderLine::updateOrCreateMany($salesOrderLinesData, $salesOrder->id);
+        }
+        if ($salesOrder->status === SalesOrder::DONE) {
+            SalesOrderValidatedEvent::dispatch($salesOrder);
         }
         return response()->json([], STATUS_UPDATE);
     }
