@@ -68,7 +68,7 @@ php artisan storage:link php artisan event:cache
 
 -export backend api to be used by front-end
 
--remaining issue is props search is triggered in options
+-theres a problem in form item date
 
 
 
