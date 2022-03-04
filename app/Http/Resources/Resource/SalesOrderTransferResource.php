@@ -10,8 +10,8 @@ class SalesOrderTransferResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'sales_order_id' => $this->sales_order_id,
             'transfer_id' => $this->transfer_id,
-            'transfer' => new TransferResource($this->transfer),
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
         ];
     }

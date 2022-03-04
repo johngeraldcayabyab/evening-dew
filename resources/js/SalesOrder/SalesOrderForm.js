@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Divider, Form, Row, Space, Tabs} from "antd";
-import {Link, useParams} from "react-router-dom";
+import {Divider, Form, Tabs} from "antd";
+import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
 import FormButtons from "../components/FormButtons/FormButtons";
@@ -25,6 +25,7 @@ import FormItemDate from "../components/FormItem/FormItemDate";
 import FormItemSelect from "../components/FormItem/FormItemSelect";
 import StatusBar from "../components/StatusBar";
 import FormItemStatus from "../components/FormItem/FormItemStatus";
+import FormLinks from "../components/FormLinks";
 
 const {TabPane} = Tabs;
 
@@ -168,27 +169,12 @@ const SalesOrderForm = () => {
                 ]}
             />
             <FormCard {...formState}>
-                <div style={{
-                    borderBottom: '1px solid #cccccc',
-                    paddingBottom: '11px',
-                    marginBottom: '10px'
-                }}>
-                    <RowForm align={'right'}>
-                        <ColForm lg={24} style={{textAlign: 'right'}}>
-                            <Link to={`/sales_order_transfers`}>
-                                <Button
-                                    htmlType={"button"}
-                                    type={"ghost"}
-                                    size={'default'}
-                                >
-                                    Deliveries
-                                </Button>
-                            </Link>
-                        </ColForm>
-                    </RowForm>
-                </div>
-
-
+                <FormLinks
+                    formState={formState}
+                    links={[
+                        {link: 'sales_order_transfer', id: 'transfer_id', label: 'Deliveries'}
+                    ]}
+                />
                 <RowForm>
                     <ColForm>
                         <FormItemStatus

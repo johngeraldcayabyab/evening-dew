@@ -58,11 +58,11 @@ class SalesOrder extends Model implements Sluggable
         return $this->hasMany(SalesOrderLine::class);
     }
 
-    public function salesOrderTransfers()
+    public function salesOrderTransfer()
     {
-        return $this->hasMany(SalesOrderTransfer::class);
+        return $this->hasOne(SalesOrderTransfer::class);
     }
-    
+
     public function scopeWhereNumber($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);

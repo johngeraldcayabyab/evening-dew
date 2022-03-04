@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Resource;
 
+use App\Models\SalesOrderTransfer;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SalesOrderResource extends JsonResource
@@ -30,7 +31,7 @@ class SalesOrderResource extends JsonResource
             'salesperson' => new UserResource($this->salesperson),
             'payment_term' => new PaymentTermResource($this->paymentTerm),
             'sales_order_lines' => SalesOrderLineResource::collection($this->salesOrderLines),
-            'sales_order_transfers' => SalesOrderTransferResource::collection($this->salesOrderTransfers),
+            'sales_order_transfer' => new SalesOrderTransferResource($this->salesOrderTransfer),
         ];
     }
 }

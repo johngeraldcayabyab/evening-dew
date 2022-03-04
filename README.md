@@ -9,6 +9,7 @@
 <li>properties</li>
 <li>constant getters</li>
 <li>relationships declaration</li>
+<li>relationships pivot declaration</li>
 <li>field where scopes</li>
 <li>field order scopes</li>
 <li>relationship field where scopes</li>
@@ -69,7 +70,5 @@ php artisan storage:link php artisan event:cache
 -export backend api to be used by front-end
 
 -theres a problem in form item date
-
--breadcrumb needs improvement (not working on relationships)
 
 
