@@ -5,6 +5,7 @@ const RowForm = (props) => {
     return (
         <Row
             gutter={[8, 8]}
+            align={props.align ? props.align : 'top'}
         >
             {props.children}
         </Row>

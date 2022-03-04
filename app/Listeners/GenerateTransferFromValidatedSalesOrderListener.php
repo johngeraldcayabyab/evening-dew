@@ -6,6 +6,7 @@ use App\Data\SystemSetting;
 use App\Events\SalesOrderValidatedEvent;
 use App\Models\GlobalSetting;
 use App\Models\OperationType;
+use App\Models\SalesOrderTransfer;
 use App\Models\Transfer;
 use App\Models\TransferLine;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -42,6 +43,11 @@ class GenerateTransferFromValidatedSalesOrderListener implements ShouldQueue
                 if (count($transferLinesData)) {
                     TransferLine::insertMany($transferLinesData, $transfer->id);
                 }
+
+                SalesOrderTransfer::create([
+                    'sales_order_id' => $salesOrder->id,
+                    'transfer_id' => $transfer->id
+                ]);
             }
         }
     }

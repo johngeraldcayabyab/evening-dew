@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Divider, Form, Tabs} from "antd";
-import {useParams} from "react-router-dom";
+import {Button, Divider, Form, Row, Space, Tabs} from "antd";
+import {Link, useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
 import FormButtons from "../components/FormButtons/FormButtons";
@@ -168,6 +168,27 @@ const SalesOrderForm = () => {
                 ]}
             />
             <FormCard {...formState}>
+                <div style={{
+                    borderBottom: '1px solid #cccccc',
+                    paddingBottom: '11px',
+                    marginBottom: '10px'
+                }}>
+                    <RowForm align={'right'}>
+                        <ColForm lg={24} style={{textAlign: 'right'}}>
+                            <Link to={`/sales_order_transfers`}>
+                                <Button
+                                    htmlType={"button"}
+                                    type={"ghost"}
+                                    size={'default'}
+                                >
+                                    Deliveries
+                                </Button>
+                            </Link>
+                        </ColForm>
+                    </RowForm>
+                </div>
+
+
                 <RowForm>
                     <ColForm>
                         <FormItemStatus
@@ -224,7 +245,6 @@ const SalesOrderForm = () => {
                         />
                     </ColForm>
                     <ColForm>
-
                         <FormItemDate
                             form={form}
                             label={'Expiration Date'}

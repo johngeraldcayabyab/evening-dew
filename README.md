@@ -70,5 +70,6 @@ php artisan storage:link php artisan event:cache
 
 -theres a problem in form item date
 
+-breadcrumb needs improvement (not working on relationships)
 
 

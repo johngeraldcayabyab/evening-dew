@@ -66,6 +66,11 @@ class Transfer extends Model implements Sluggable
         return $this->hasMany(TransferLine::class);
     }
 
+    public function salesOrderTransfer()
+    {
+        return $this->hasMany(SalesOrderTransfer::class);
+    }
+
     public function scopeWhereReference($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);
