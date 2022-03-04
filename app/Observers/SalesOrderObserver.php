@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Data\SystemSetting;
 use App\Models\GlobalSetting;
 use App\Models\SalesOrder;
+use App\Models\Transfer;
 use Carbon\Carbon;
 
 class SalesOrderObserver
@@ -40,6 +41,9 @@ class SalesOrderObserver
         }
         if($model->expected_delivery_date){
             $model->expected_delivery_date = Carbon::parse($model->expected_delivery_date)->format(SystemSetting::DATE_TIME_FORMAT);
+        }
+        if (!$model->shipping_policy) {
+            $model->shipping_policy = Transfer::AS_SOON_AS_POSSIBLE;
         }
     }
 }

@@ -22,6 +22,7 @@ class SalesOrderResource extends JsonResource
             'shipping_policy' => $this->shipping_policy,
             'expected_delivery_date' => $this->expected_delivery_date,
             'source_document' => $this->source_document,
+            'status' => $this->status,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'customer' => new ContactResource($this->customer),
             'invoice_address' => new AddressResource($this->invoiceAddress),

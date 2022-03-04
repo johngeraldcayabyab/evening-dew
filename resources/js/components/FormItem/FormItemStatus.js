@@ -5,10 +5,10 @@ import React from "react";
 const FormItemStatus = (props) => {
     const [formItemProps, fieldProps] = formItemFieldProps(props, {
         disabled: true,
-        // style: {display: 'none', position: 'absolute'}
+        style: {display: 'none', position: 'absolute'} // turn this off for debugging purposes
     });
     return (
-        <Form.Item {...formItemProps}>
+        <Form.Item {...formItemProps} style={{display: 'none', position: 'absolute'}}>
             <Input {...fieldProps}/>
         </Form.Item>
     )
