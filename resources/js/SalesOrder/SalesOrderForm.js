@@ -23,6 +23,8 @@ import {
 } from "../Helpers/form";
 import FormItemDate from "../components/FormItem/FormItemDate";
 import FormItemSelect from "../components/FormItem/FormItemSelect";
+import StatusBar from "../components/StatusBar";
+import FormItemStatus from "../components/FormItem/FormItemStatus";
 
 const {TabPane} = Tabs;
 
@@ -135,9 +137,45 @@ const SalesOrderForm = () => {
                     />
                 }
             />
+            <StatusBar
+                id={id}
+                form={form}
+                formState={formState}
+                formActions={formActions}
+                manifest={manifest}
+                statuses={[
+                    {
+                        value: 'draft',
+                        title: 'Draft',
+                        status: {draft: 'process', done: 'finish', cancelled: 'wait'}
+                    },
+                    {
+                        value: 'done',
+                        title: 'Done',
+                        type: 'primary',
+                        label: 'Validate',
+                        status: {draft: 'wait', done: 'finish', cancelled: 'wait'},
+                        visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
+                    },
+                    {
+                        value: 'cancelled',
+                        title: 'Cancelled',
+                        type: 'ghost',
+                        label: 'Cancel',
+                        status: {draft: 'wait', done: 'wait', cancelled: 'finish'},
+                        visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
+                    },
+                ]}
+            />
             <FormCard {...formState}>
                 <RowForm>
                     <ColForm>
+                        <FormItemStatus
+                            form={form}
+                            name={'status'}
+                            {...formState}
+                        />
+
                         <FormItemText
                             form={form}
                             label={'Number'}

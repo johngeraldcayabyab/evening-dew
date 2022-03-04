@@ -19,6 +19,15 @@ class SalesOrder extends Model implements Sluggable
     protected $table = 'sales_orders';
     protected $guarded = [];
 
+    const DRAFT = 'draft';
+    const DONE = 'done';
+    const CANCELLED = 'cancelled';
+
+    public static function getStatuses()
+    {
+        return [self::DRAFT, self::DONE, self::CANCELLED];
+    }
+
     public function customer()
     {
         return $this->belongsTo(Contact::class, 'customer_id', 'id');
@@ -109,6 +118,11 @@ class SalesOrder extends Model implements Sluggable
         return $this->like($query, __FUNCTION__, $where);
     }
 
+    public function scopeWhereStatus($query, $where)
+    {
+        return $this->like($query, __FUNCTION__, $where);
+    }
+
     public function scopeOrderByNumber($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
@@ -165,6 +179,11 @@ class SalesOrder extends Model implements Sluggable
     }
 
     public function scopeOrderBySourceDocument($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeOrderByStatus($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }

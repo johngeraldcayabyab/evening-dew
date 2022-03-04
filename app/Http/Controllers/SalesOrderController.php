@@ -91,7 +91,8 @@ class SalesOrderController
             'number' => Sequence::generateSalesOrderSequence(),
             'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
             'salesperson_id' => auth()->user()->id,
-            'salesperson' => auth()->user()
+            'salesperson' => auth()->user(),
+            'status' => Transfer::DRAFT,
         ];
     }
 }

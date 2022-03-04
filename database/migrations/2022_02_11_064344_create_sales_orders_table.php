@@ -22,6 +22,7 @@ class CreateSalesOrdersTable extends Migration
             $table->string('shipping_policy');
             $table->dateTime('expected_delivery_date')->nullable();
             $table->string('source_document')->nullable();
+            $table->string('status')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

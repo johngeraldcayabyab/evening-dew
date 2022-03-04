@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Store;
 
+use App\Models\SalesOrder;
 use App\Models\Transfer;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -10,6 +11,7 @@ class SalesOrderStoreRequest extends FormRequest
     public function rules()
     {
         $shippingPolicies = implode(',', Transfer::getShippingPolicies());
+        $statuses = implode(',', SalesOrder::getStatuses());
         return [
             'number' => 'required',
             'customer_id' => ['required', "exists:contacts,id"],
@@ -23,6 +25,7 @@ class SalesOrderStoreRequest extends FormRequest
             'shipping_policy' => ['nullable', "in:$shippingPolicies"],
             'expected_delivery_date' => ['nullable'],
             'source_document' => ['nullable'],
+            'status' => ['nullable', "in:$statuses"],
             'sales_order_lines.*.product_id' => ['required', "exists:products,id"],
             'sales_order_lines.*.description' => ['nullable'],
             'sales_order_lines.*.quantity' => ['required'],
