@@ -26,7 +26,7 @@ const TransferList = () => {
             searchFilter: true,
             render: (text, record) => {
                 if (record.source_location) {
-                    return record.source_location.name;
+                    return record.source_location.parents;
                 }
                 return null;
             }
@@ -39,7 +39,7 @@ const TransferList = () => {
             searchFilter: true,
             render: (text, record) => {
                 if (record.destination_location) {
-                    return record.destination_location.name;
+                    return record.destination_location.parents;
                 }
                 return null;
             }
