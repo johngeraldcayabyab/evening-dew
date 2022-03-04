@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Form, Tabs} from "antd";
+import {Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
@@ -24,6 +24,7 @@ import {
     GenerateDynamicColumns
 } from "../Helpers/form";
 import StatusBar from "../components/StatusBar";
+import FormItemStatus from "../components/FormItem/FormItemStatus";
 
 const {TabPane} = Tabs;
 
@@ -140,41 +141,39 @@ const TransferForm = () => {
                 formState={formState}
                 formActions={formActions}
                 manifest={manifest}
-                current={0}
                 statuses={[
-                    {value: 0, 'status': 'wait', 'title': 'Draft'},
-                    {value: 1, 'status': 'wait', 'title': 'Done'},
-                    {value: 2, 'status': 'wait', 'title': 'Cancelled'},
+                    {
+                        value: 'draft',
+                        title: 'Draft',
+                        status: {draft: 'process', done: 'finish', cancelled: 'wait'}
+                    },
+                    {
+                        value: 'done',
+                        title: 'Done',
+                        type: 'primary',
+                        label: 'Validate',
+                        status: {draft: 'wait', done: 'finish', cancelled: 'wait'},
+                        visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
+                    },
+                    {
+                        value: 'cancelled',
+                        title: 'Cancelled',
+                        type: 'ghost',
+                        label: 'Cancel',
+                        status: {draft: 'wait', done: 'wait', cancelled: 'finish'},
+                        visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
+                    },
                 ]}
-            >
-                <Button
-                    htmlType={"submit"}
-                    type={"primary"}
-                    size={'default'}
-                    onClick={() => {
-                        form.setFieldsValue({
-                            'status': 'done',
-                        });
-                    }}
-                >
-                    Validate
-                </Button>
-                <Button
-                    htmlType={"submit"}
-                    type={"ghost"}
-                    size={'default'}
-                    onClick={() => {
-                        form.setFieldsValue({
-                            'status': 'cancelled',
-                        });
-                    }}
-                >
-                    Cancel
-                </Button>
-            </StatusBar>
+            />
             <FormCard {...formState}>
                 <RowForm>
                     <ColForm>
+                        <FormItemStatus
+                            form={form}
+                            name={'status'}
+                            {...formState}
+                        />
+
                         <FormItemText
                             overrideDisabled={true}
                             form={form}
@@ -402,13 +401,6 @@ const TransferForm = () => {
                     </TabPane>
                 </Tabs>
             </FormCard>
-
-            <FormItemNumber
-                form={form}
-                name={'status'}
-                {...formState}
-                style={{display: 'none', position: 'absolute'}}
-            />
         </CustomForm>
     );
 };
