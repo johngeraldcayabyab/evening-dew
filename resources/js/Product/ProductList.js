@@ -59,6 +59,13 @@ const ProductList = () => {
             }
         },
         {
+            title: 'Quantity',
+            dataIndex: 'quantity',
+            key: 'quantity',
+            sorter: true,
+            searchFilter: true,
+        },
+        {
             title: 'Created At',
             dataIndex: 'created_at',
             key: 'created_at',

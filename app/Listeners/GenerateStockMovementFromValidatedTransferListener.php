@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\TransferValidatedEvent;
+use App\Models\OperationType;
 use App\Models\StockMovement;
 use App\Models\TransferLine;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -14,6 +15,7 @@ class GenerateStockMovementFromValidatedTransferListener implements ShouldQueue
     {
         $transfer = $event->transfer;
         $transferLines = $transfer->transferLines;
+        $operationType = $transfer->operationType;
         $stockMovementData = [];
         foreach ($transferLines as $transferLine) {
             $stockMovementData[] = [
@@ -24,9 +26,21 @@ class GenerateStockMovementFromValidatedTransferListener implements ShouldQueue
                 'destination_location_id' => $transfer->destination_location_id,
                 'quantity_done' => $transferLine->demand,
             ];
+            $this->computeProductQuantity($transferLine, $operationType);
         }
         if (count($stockMovementData)) {
             StockMovement::insertMany($stockMovementData);
         }
+    }
+
+    public function computeProductQuantity($transferLine, $operationType): void
+    {
+        $product = $transferLine->product;
+        if ($operationType->type === OperationType::DELIVERY) {
+            $product->quantity = $product->quantity - $transferLine->demand;
+        } else if ($operationType->type === OperationType::RECEIPT) {
+            $product->quantity = $product->quantity + $transferLine->demand;
+        }
+        $product->save();
     }
 }
