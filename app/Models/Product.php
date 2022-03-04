@@ -116,6 +116,11 @@ class Product extends Model implements Sluggable
         return $this->like($query, __FUNCTION__, $where);
     }
 
+    public function scopeWhereQuantity($query, $where)
+    {
+        return $this->like($query, __FUNCTION__, $where);
+    }
+
     public function scopeOrderByName($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
@@ -172,6 +177,11 @@ class Product extends Model implements Sluggable
     }
 
     public function scopeOrderByPurchaseDescription($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeOrderByQuantity($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }
