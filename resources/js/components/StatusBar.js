@@ -4,23 +4,46 @@ import React from "react";
 const {Step} = Steps;
 
 const StatusBar = (props) => {
+    let statusButtons = [];
+    props.statuses.forEach((status) => {
+        if (status.hasOwnProperty('type') && status.visibility[props.formState.initialValues.status] === 'visible') {
+            statusButtons.push(status);
+        }
+    });
     return (
         <div style={{paddingLeft: '16px', paddingRight: '16px', borderBottom: '1px solid #cccccc', background: '#fff'}}>
             <Row align={'middle'} style={{marginTop: '4px', marginBottom: '4px'}}>
                 <Col span={18}>
                     <Space size={'small'}>
-                        {props.children}
+                        {statusButtons.map((statusButton, key) => {
+                            return (
+                                <Button
+                                    key={statusButton.value}
+                                    htmlType={"submit"}
+                                    type={statusButton.type}
+                                    size={'default'}
+                                    onClick={() => {
+                                        props.form.setFieldsValue({
+                                            'status': statusButton.value,
+                                        });
+                                    }}
+                                >
+                                    {statusButton.label}
+                                </Button>
+                            )
+                        })}
                     </Space>
                 </Col>
                 <Col span={6} style={{textAlign: 'right', paddingRight: '8px'}}>
                     <Steps
                         type="default"
                         size="small"
-                        current={props.current}
+                        current={props.formState.initialValues.status}
                     >
                         {
                             props.statuses.map((status) => (
-                                <Step key={status.value} status={status.status} title={status.title}/>
+                                <Step key={status.value} status={status.status[props.formState.initialValues.status]}
+                                      title={status.title}/>
                             ))
                         }
                     </Steps>
