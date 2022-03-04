@@ -19,6 +19,7 @@ class GlobalSettingStoreRequest extends FormRequest
             'inventory_default_inventory_adjustment_id' => ['required', "exists:locations,id"],
             'inventory_default_production_id' => ['required', "exists:locations,id"],
             'inventory_default_scrap_id' => ['required', "exists:locations,id"],
+            'inventory_default_warehouse_id' => ['nullable', "exists:warehouses,id"],
             'accounting_default_currency_id' => ['required', "exists:currencies,id"],
             'general_default_country_id' => ['required', "exists:countries,id"],
             'sales_order_default_sequence_id' => ['nullable', "exists:sequences,id"],
