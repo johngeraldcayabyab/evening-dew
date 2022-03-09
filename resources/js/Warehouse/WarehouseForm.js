@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Tabs} from "antd";
+import {Divider, Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
@@ -86,6 +86,9 @@ const WarehouseForm = () => {
                     <TabPane tab="Technical Information" key="2">
                         <RowForm>
                             <ColForm>
+                                <Divider orientation={'left'}>
+                                    Locations
+                                </Divider>
                                 <FormItemSelectAjax
                                     form={form}
                                     label={'View Location'}
@@ -160,8 +163,12 @@ const WarehouseForm = () => {
                             </ColForm>
 
                             <ColForm>
+                                <Divider orientation={'left'}>
+                                    Operation Types
+                                </Divider>
+
                                 <FormItemSelectAjax
-                                form={form}
+                                    form={form}
                                     label={'In Type'}
                                     name={'in_type_id'}
                                     url={'/api/operations_types/option'}
@@ -169,7 +176,7 @@ const WarehouseForm = () => {
                                     query={'in_type.name'}
                                 />
                                 <FormItemSelectAjax
-                                form={form}
+                                    form={form}
                                     label={'Internal Type'}
                                     name={'internal_type_id'}
                                     url={'/api/operations_types/option'}
@@ -177,7 +184,7 @@ const WarehouseForm = () => {
                                     query={'internal_type.name'}
                                 />
                                 <FormItemSelectAjax
-                                form={form}
+                                    form={form}
                                     label={'Pick Type'}
                                     name={'pick_type_id'}
                                     url={'/api/operations_types/option'}
@@ -185,7 +192,7 @@ const WarehouseForm = () => {
                                     query={'pick_type.name'}
                                 />
                                 <FormItemSelectAjax
-                                form={form}
+                                    form={form}
                                     label={'Pack Type'}
                                     name={'pack_type_id'}
                                     url={'/api/operations_types/option'}
@@ -193,7 +200,7 @@ const WarehouseForm = () => {
                                     query={'pack_type.name'}
                                 />
                                 <FormItemSelectAjax
-                                form={form}
+                                    form={form}
                                     label={'Out Type'}
                                     name={'out_type_id'}
                                     url={'/api/operations_types/option'}
@@ -201,7 +208,7 @@ const WarehouseForm = () => {
                                     query={'out_type.name'}
                                 />
                                 <FormItemSelectAjax
-                                form={form}
+                                    form={form}
                                     label={'Stock After Manufacturing Operation Type'}
                                     name={'stock_after_manufacturing_operation_type_id'}
                                     url={'/api/operations_types/option'}

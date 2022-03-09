@@ -58,7 +58,6 @@ php artisan storage:link php artisan event:cache
 
 
 
-
 -create a sluggable column instead and make observer to generate slug (second thought)
 
 -recursion shall be delegated in the front end
@@ -71,4 +70,10 @@ php artisan storage:link php artisan event:cache
 
 -theres a problem in form item date
 
+<h5>Initial Deployment</h5>
+<ul>
+<li><code>php artisan storage:link</code></li>
+<li><code>php artisan queue:work</code></li>
+<li><code>php artisan optimize:clear</code></li>
+</ul>
 
