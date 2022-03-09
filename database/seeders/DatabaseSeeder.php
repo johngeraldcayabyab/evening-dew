@@ -17,7 +17,9 @@ class DatabaseSeeder extends Seeder
             MeasurementSeeder::class,
             MenuSeeder::class,
             ProductCategorySeeder::class,
-            UserSeeder::class
+            SequenceSeeder::class,
+            UserSeeder::class,
+            WarehouseSeeder::class
         ]);
     }
 }

@@ -22,6 +22,10 @@ class Sequence extends Model implements Sluggable
     const NO_GAP = 'no_gap';
     const STANDARD = 'standard';
 
+    const SEQUENCE_SIZE = 6;
+    const STEP = 1;
+    const NEXT_NUMBER = 0;
+
     public static function getImplementations()
     {
         return [self::NO_GAP, self::STANDARD];

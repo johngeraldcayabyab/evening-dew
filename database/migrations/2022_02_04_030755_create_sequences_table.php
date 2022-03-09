@@ -39,9 +39,9 @@ class CreateSequencesTable extends Migration
             $table->string('implementation');
             $table->string('prefix')->nullable();
             $table->string('suffix')->nullable();
-            $table->unsignedInteger('sequence_size'); // add zero on the left side of the next number for the padding side
-            $table->unsignedInteger('step'); //  next number increment by this number
-            $table->unsignedInteger('next_number'); // the next number of the current sequence
+            $table->unsignedInteger('sequence_size')->default(6); // add zero on the left side of the next number for the padding side
+            $table->unsignedInteger('step')->default(1); //  next number increment by this number
+            $table->unsignedInteger('next_number')->default(0); // the next number of the current sequence
             $table->softDeletes();
             $table->timestamps();
         });
