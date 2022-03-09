@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ContactUpsertEvent;
 use App\Http\Requests\MassDestroy\ContactMassDestroyRequest;
 use App\Http\Requests\Store\ContactStoreRequest;
 use App\Http\Requests\Update\ContactUpdateRequest;
 use App\Http\Resources\Collection\ContactCollection;
 use App\Http\Resources\Resource\ContactResource;
 use App\Http\Resources\Slug\ContactSlugResource;
-use App\Models\Address;
 use App\Models\Contact;
 use App\Models\GlobalSetting;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Http;
 
 class ContactController
 {
@@ -38,11 +37,7 @@ class ContactController
         $data = $request->validated();
         $contactData = Arr::only($data, (new Contact())->getFields());
         $contact = Contact::create($contactData);
-        $addressData = Arr::only($data, (new Address())->getFields());
-        $addressData['address_name'] = $contact->name . " " . Address::DEFAULT . " address";
-        $addressData['type'] = Address::DEFAULT;
-        $addressData['contact_id'] = $contact->id;
-        Address::create($addressData);
+        ContactUpsertEvent::dispatch($contact, $data);
         return response()->json([], STATUS_CREATE, $this->locationHeader($contact));
     }
 
@@ -51,12 +46,7 @@ class ContactController
         $data = $request->validated();
         $contactData = Arr::only($data, (new Contact())->getFields());
         $contact->update($contactData);
-        $addressData = Arr::only($data, (new Address())->getFields());
-        $addressData['address_name'] = $contact->name . " " . Address::DEFAULT . " address";
-        $addressData['type'] = Address::DEFAULT;
-        $addressData['contact_id'] = $contact->id;
-        $address = Address::find($contact->defaultAddress()->id);
-        $address->update($addressData);
+        ContactUpsertEvent::dispatch($contact, $data);
         return response()->json([], STATUS_UPDATE);
     }
 
