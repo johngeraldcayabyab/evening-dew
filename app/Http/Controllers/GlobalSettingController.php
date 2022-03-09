@@ -6,6 +6,7 @@ use App\Http\Requests\Store\GlobalSettingStoreRequest;
 use App\Http\Resources\Resource\GlobalSettingResource;
 use App\Models\GlobalSetting;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Arr;
 
 class GlobalSettingController
 {
@@ -16,7 +17,9 @@ class GlobalSettingController
 
     public function store(GlobalSettingStoreRequest $request): JsonResponse
     {
-        GlobalSetting::create($request->validated());
+        $previousGlobalSetting = Arr::except(GlobalSetting::latestFirst()->toArray(), ['id', 'deleted_at', 'created_at', 'updated_at']);
+        $previousGlobalSettingWithNewData = array_replace($previousGlobalSetting, $request->validated());
+        GlobalSetting::create($previousGlobalSettingWithNewData);
         $headers = ['Location' => route('global_settings.show')];
         return response()->json([], STATUS_CREATE, $headers);
     }
