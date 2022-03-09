@@ -36,39 +36,27 @@ class ContactController
     public function store(ContactStoreRequest $request): JsonResponse
     {
         $data = $request->validated();
-        $contactData = Arr::except($data, ['street_one', 'street_two', 'city', 'state', 'zip', 'country_id']);
+        $contactData = Arr::only($data, (new Contact())->getFields());
         $contact = Contact::create($contactData);
-        $addressData = Arr::except($data, ['name', 'phone', 'mobile', 'email', 'website', 'tax_id', 'avatar']);
+        $addressData = Arr::only($data, (new Address())->getFields());
         $addressData['address_name'] = $contact->name . " " . Address::DEFAULT . " address";
         $addressData['type'] = Address::DEFAULT;
         $addressData['contact_id'] = $contact->id;
-        $post = 'url';
-        if (config('app.env') === 'production') {
-            $post = 'http://localhost:8700/api/addresses';
-        } else {
-            $post = 'http://localhost:8800/api/addresses';
-        }
-        Http::withToken($request->bearerToken())->post($post, $addressData);
+        Address::create($addressData);
         return response()->json([], STATUS_CREATE, $this->locationHeader($contact));
     }
 
     public function update(ContactUpdateRequest $request, Contact $contact): JsonResponse
     {
         $data = $request->validated();
-        $contactData = Arr::except($data, ['street_one', 'street_two', 'city', 'state', 'zip', 'country_id']);
+        $contactData = Arr::only($data, (new Contact())->getFields());
         $contact->update($contactData);
-        $addressData = Arr::except($data, ['name', 'phone', 'mobile', 'email', 'website', 'tax_id', 'avatar']);
+        $addressData = Arr::only($data, (new Address())->getFields());
         $addressData['address_name'] = $contact->name . " " . Address::DEFAULT . " address";
         $addressData['type'] = Address::DEFAULT;
         $addressData['contact_id'] = $contact->id;
-        $put = 'url';
-        if (config('app.env') === 'production') {
-            $put = '';
-        } else {
-            $defaultAddressId = $contact->defaultAddress()->id;
-            $put = "http://localhost:8800/api/addresses/{$defaultAddressId}";
-        }
-        Http::withToken($request->bearerToken())->put($put, $addressData);
+        $address = Address::find($contact->defaultAddress()->id);
+        $address->update($addressData);
         return response()->json([], STATUS_UPDATE);
     }
 
