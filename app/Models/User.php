@@ -30,6 +30,11 @@ class User extends Authenticatable implements Sluggable
         'remember_token',
     ];
 
+    public function contact()
+    {
+        return $this->belongsTo(Contact::class);
+    }
+
     public function scopeWhereName($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);
@@ -40,6 +45,11 @@ class User extends Authenticatable implements Sluggable
         return $this->like($query, __FUNCTION__, $where);
     }
 
+    public function scopeWhereContactId($query, $where)
+    {
+        return $this->whereSingle($query, __FUNCTION__, $where);
+    }
+
     public function scopeOrderByName($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
@@ -48,6 +58,21 @@ class User extends Authenticatable implements Sluggable
     public function scopeOrderByEmail($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeOrderByContactId($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeWhereUser($query, $where)
+    {
+        return $this->likeHas($query, __FUNCTION__, 'name', $where);
+    }
+
+    public function scopeOrderByUser($query, $order)
+    {
+        return $this->orderHas($query, new Contact(), 'name', __FUNCTION__, $order);
     }
 
     public function slug()

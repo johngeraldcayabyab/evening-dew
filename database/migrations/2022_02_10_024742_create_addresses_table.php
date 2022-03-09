@@ -16,7 +16,7 @@ class CreateAddressesTable extends Migration
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('zip')->nullable();
-            $table->bigInteger('country_id')->nullable();
+            $table->bigInteger('country_id');
             $table->bigInteger('contact_id')->nullable();
             $table->string('type');
             $table->softDeletes();
