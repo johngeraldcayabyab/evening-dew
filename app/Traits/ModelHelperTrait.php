@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use Illuminate\Support\Str;
+use ReflectionClass;
 
 trait ModelHelperTrait
 {
@@ -69,5 +70,21 @@ trait ModelHelperTrait
     private function getFieldHas($scopeName, $functionName)
     {
         return Str::camel(Str::replace($functionName, '', $scopeName));
+    }
+
+    public function getFields()
+    {
+        $f = new ReflectionClass($this);
+        $fields = [];
+        foreach ($f->getMethods() as $m) {
+            if ($m->class == get_class($this)) {
+                if (Str::contains($m->name, 'scopeWhere')) {
+                    $fields[] = Str::snake(Str::replace('scopeWhere', '', $m->name));
+                } elseif (Str::contains($m->name, 'scopeOrderBy')) {
+                    $fields[] = Str::snake(Str::replace('scopeOrderBy', '', $m->name));
+                }
+            }
+        }
+        return array_unique($fields);
     }
 }
