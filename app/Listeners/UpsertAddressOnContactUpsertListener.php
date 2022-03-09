@@ -19,7 +19,7 @@ class UpsertAddressOnContactUpsertListener
         $addressData['type'] = Address::DEFAULT;
         $defaultAddress = $contact->defaultAddress();
         if ($defaultAddress) {
-            $defaultAddress->update($addressData);
+            Address::find($defaultAddress->id)->update($addressData);
         } else {
             $addressData['contact_id'] = $contact->id;
             Address::create($addressData);

@@ -13,6 +13,8 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'avatar' => $this->avatar ? asset("storage/images/" . $this->avatar) : null,
+            'contact_id' => $this->contact_id,
+            'contact' => new ContactResource($this->contact),
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
         ];
     }
