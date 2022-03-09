@@ -8,6 +8,7 @@ use App\Models\OperationType;
 use App\Models\Sequence;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Str;
 
 class WarehouseInitializeListener implements ShouldQueue
 {
@@ -172,6 +173,7 @@ class WarehouseInitializeListener implements ShouldQueue
     {
         $sequence = new Sequence();
         $sequence->name = "{$warehouse->name} In Sequence";
+        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
         $sequence->implementation = Sequence::STANDARD;
         $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
         $sequence->sequence_size = 6;
@@ -185,6 +187,7 @@ class WarehouseInitializeListener implements ShouldQueue
     {
         $sequence = new Sequence();
         $sequence->name = "{$warehouse->name} Internal Sequence";
+        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
         $sequence->implementation = Sequence::STANDARD;
         $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
         $sequence->sequence_size = 6;
@@ -199,6 +202,7 @@ class WarehouseInitializeListener implements ShouldQueue
     {
         $sequence = new Sequence();
         $sequence->name = "{$warehouse->name} Picking Sequence";
+        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
         $sequence->implementation = Sequence::STANDARD;
         $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
         $sequence->sequence_size = 6;
@@ -212,6 +216,7 @@ class WarehouseInitializeListener implements ShouldQueue
     {
         $sequence = new Sequence();
         $sequence->name = "{$warehouse->name} Packing Sequence";
+        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
         $sequence->implementation = Sequence::STANDARD;
         $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
         $sequence->sequence_size = 6;
@@ -225,6 +230,7 @@ class WarehouseInitializeListener implements ShouldQueue
     {
         $sequence = new Sequence();
         $sequence->name = "{$warehouse->name} Out Sequence";
+        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
         $sequence->implementation = Sequence::STANDARD;
         $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
         $sequence->sequence_size = 6;
@@ -238,6 +244,7 @@ class WarehouseInitializeListener implements ShouldQueue
     {
         $sequence = new Sequence();
         $sequence->name = "{$warehouse->name} Return Sequence";
+        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
         $sequence->implementation = Sequence::STANDARD;
         $sequence->prefix = "{$warehouse->short_name}/RET/";
         $sequence->sequence_size = 6;
@@ -251,6 +258,7 @@ class WarehouseInitializeListener implements ShouldQueue
     {
         $sequence = new Sequence();
         $sequence->name = "{$warehouse->name} Stock After Manufacturing Sequence";
+        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
         $sequence->implementation = Sequence::STANDARD;
         $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
         $sequence->sequence_size = 6;
@@ -264,6 +272,7 @@ class WarehouseInitializeListener implements ShouldQueue
     {
         $sequence = new Sequence();
         $sequence->name = "{$warehouse->name} Picking Before Manufacturing Sequence";
+        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
         $sequence->implementation = Sequence::STANDARD;
         $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
         $sequence->sequence_size = 6;
@@ -277,6 +286,7 @@ class WarehouseInitializeListener implements ShouldQueue
     {
         $sequence = new Sequence();
         $sequence->name = "{$warehouse->name} Production Sequence";
+        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
         $sequence->implementation = Sequence::STANDARD;
         $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
         $sequence->sequence_size = 6;
@@ -428,5 +438,11 @@ class WarehouseInitializeListener implements ShouldQueue
         $operationType->default_destination_location_id = $sourceAndDestinationLocation->id;
         $operationType->save();
         return $operationType;
+    }
+
+    private function generateSequenceCodeFromName($name)
+    {
+        $explodedName = explode(' ', Str::lower($name));
+        return implode('.', $explodedName);
     }
 }
