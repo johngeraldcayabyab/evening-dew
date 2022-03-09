@@ -11,6 +11,7 @@ import ControlPanel from "../components/ControlPanel";
 import FormCard from "../components/FormCard";
 import FormItemSelectAjax from "../components/FormItem/FormItemSelectAjax";
 import {GenerateDynamicColumns} from "../Helpers/form";
+import FormItemCheckbox from "../components/FormItem/FormItemCheckbox";
 
 const {TabPane} = Tabs;
 
@@ -102,7 +103,6 @@ const GlobalSettingForm = () => {
                                     {...formState}
                                     query={'inventory_default_sales_measurement.name'}
                                 />
-
                             </ColForm>
 
                             <ColForm>
@@ -189,6 +189,9 @@ const GlobalSettingForm = () => {
                         </RowForm>
 
                         <RowForm>
+                            <Divider orientation={'left'}>
+                                Defaults
+                            </Divider>
                             <ColForm>
                                 <FormItemSelectAjax
                                     form={form}
@@ -197,6 +200,15 @@ const GlobalSettingForm = () => {
                                     url={'/api/warehouses/option'}
                                     {...formState}
                                     query={'inventory_default_warehouse.name'}
+                                />
+                            </ColForm>
+
+                            <ColForm>
+                                <FormItemCheckbox
+                                    form={form}
+                                    label={'Auto validate drafts'}
+                                    name={'inventory_auto_validate_draft'}
+                                    {...formState}
                                 />
                             </ColForm>
                         </RowForm>
