@@ -70,6 +70,8 @@ php artisan storage:link php artisan event:cache
 
 -theres a problem in form item date
 
+-form options, doesnt show values if over system limit
+
 <h5>Initial Deployment</h5>
 <ul>
 <li><code>php artisan storage:link</code></li>
