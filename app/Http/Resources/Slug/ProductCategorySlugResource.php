@@ -8,9 +8,10 @@ class ProductCategorySlugResource extends JsonResource
 {
     public function toArray($request)
     {
+        $slug = $this->slug();
         return [
             'id' => $this->id,
-            'slug' => $this->getWithParents($this->slug()),
+            'slug' => $this->getWithParents($slug),
         ];
     }
 }
