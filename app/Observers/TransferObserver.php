@@ -23,7 +23,7 @@ class TransferObserver
         $operationType = OperationType::find($transfer->operation_type_id);
         $transferSequence = $operationType->referenceSequence;
         if ($transferSequence) {
-            $transfer->reference = Sequence::generateSequence($operationType->id);
+            $transfer->reference = Sequence::generateSequence($transferSequence->id);
             $transferSequence->next_number = $transferSequence->next_number + $transferSequence->step;
             $transferSequence->save();
         }
