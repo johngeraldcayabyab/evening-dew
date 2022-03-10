@@ -36,11 +36,6 @@ class AppMenu extends Model implements Sluggable
         return $this->like($query, __FUNCTION__, $where);
     }
 
-    public function scopeWhereIsView($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
     public function scopeWhereMenuId($query, $where)
     {
         return $this->whereSingle($query, __FUNCTION__, $where);
@@ -52,11 +47,6 @@ class AppMenu extends Model implements Sluggable
     }
 
     public function scopeOrderByLabel($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByIsView($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }
