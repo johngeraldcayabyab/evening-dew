@@ -15,49 +15,75 @@ class AppMenuSeeder extends Seeder
         $this->seedChild([
             [
                 'label' => 'Admin Menu',
-                'is_view' => false,
-                'menu_id' => null,
                 'children' => [
                     [
                         'label' => 'Contacts',
-                        'is_view' => true,
-                        'menu_id' => null,
+                        'menu_key' => 'Contacts',
                         'children' => [
                             [
                                 'label' => 'Contacts',
-                                'is_view' => false,
-                                'menu_id' => null,
+                                'menu_key' => 'Contacts',
                             ],
                             [
                                 'label' => 'Configurations',
-                                'is_view' => true,
-                                'menu_id' => null,
                                 'children' => [
                                     [
                                         'label' => 'Countries',
-                                        'is_view' => false,
-                                        'menu_id' => null,
+                                        'menu_key' => 'Countries',
                                     ],
                                 ]
+                            ],
+                        ],
+                    ],
+                    [
+                        'label' => 'Inventory',
+                        'menu_key' => 'Transfers',
+                        'children' => [
+                            [
+                                'label' => 'Reporting',
+                                'children' => [
+                                    [
+                                        'label' => 'Stock Movements',
+                                        'menu_key' => 'Stock Movements',
+                                    ],
+                                ],
+                            ],
+                            [
+                                'label' => 'Configurations',
+                                'children' => [
+                                    [
+                                        'label' => 'Warehouses',
+                                        'menu_key' => 'Warehouses',
+                                    ],
+                                    [
+                                        'label' => 'Operations Types',
+                                        'menu_key' => 'Operations Types',
+                                    ],
+                                    [
+                                        'label' => 'Product Categories',
+                                        'menu_key' => 'Product Categories',
+                                    ],
+                                    [
+                                        'label' => 'Measurement Categories',
+                                        'menu_key' => 'Measurement Categories',
+                                    ],
+                                    [
+                                        'label' => 'Measurements',
+                                        'menu_key' => 'Measurements',
+                                    ],
+                                ],
                             ],
                         ]
                     ],
                     [
-                        'label' => 'Inventory',
-                        'is_view' => true,
-                        'menu_id' => null,
-                    ],
-                    [
                         'label' => 'Sales',
-                        'is_view' => true,
-                        'menu_id' => null,
+                        'menu_key' => 'Sales Orders',
                     ],
                     [
                         'label' => 'Global Settings',
-                        'is_view' => false,
-                        'menu_id' => null,
+                        'menu_key' => 'Global Settings',
                     ],
-                ]
+                ],
             ],
         ]);
     }
@@ -67,8 +93,11 @@ class AppMenuSeeder extends Seeder
         $children = [];
         $parentAppMenu = null;
         foreach ($data as $datum) {
-            if (!$datum['is_view']) {
-                $datum['menu_id'] = $this->getKeyId($datum['label']);
+            if (isset($datum['menu_key']) && $datum['menu_key']) {
+                $datum['menu_id'] = $this->getKeyId($datum['menu_key']);
+                unset($datum['menu_key']);
+            } else {
+                $datum['menu_id'] = null;
             }
             if ($appMenu) {
                 $datum['parent_app_menu_id'] = $appMenu->id;
