@@ -7,87 +7,91 @@ use Illuminate\Database\Seeder;
 
 class MenuSeeder extends Seeder
 {
-    public function run()
+    public function getData()
     {
-        $data = [
+        return [
             [
-                'label' => 'Addresses',
+                'label' => 'Addresses', // 1
                 'url' => '/addresses',
             ],
             [
-                'label' => 'Contacts',
+                'label' => 'Contacts', // 2
                 'url' => '/contacts',
             ],
             [
-                'label' => 'Countries',
+                'label' => 'Countries', // 3
                 'url' => '/countries',
             ],
             [
-                'label' => 'Currencies',
+                'label' => 'Currencies', // 4
                 'url' => '/currencies',
             ],
             [
-                'label' => 'Locations',
+                'label' => 'Locations', // 5
                 'url' => '/locations',
             ],
             [
-                'label' => 'Measurements',
+                'label' => 'Measurements', // 6
                 'url' => '/measurements',
             ],
             [
-                'label' => 'Measurement Categories',
+                'label' => 'Measurement Categories', // 7
                 'url' => '/measurement_categories',
             ],
             [
-                'label' => 'Menus',
+                'label' => 'Menus', // 8
                 'url' => '/menus',
             ],
             [
-                'label' => 'Operations Types',
+                'label' => 'Operations Types', // 9
                 'url' => '/operations_types',
             ],
             [
-                'label' => 'Payment Terms',
+                'label' => 'Payment Terms', // 10
                 'url' => '/payment_terms',
             ],
             [
-                'label' => 'Product Categories',
+                'label' => 'Product Categories', // 11
                 'url' => '/product_categories',
             ],
             [
-                'label' => 'Sales Orders',
+                'label' => 'Sales Orders', // 12
                 'url' => '/sales_orders',
             ],
             [
-                'label' => 'Products',
+                'label' => 'Products', // 13
                 'url' => '/products',
             ],
             [
-                'label' => 'Sequences',
+                'label' => 'Sequences', // 14
                 'url' => '/sequences',
             ],
             [
-                'label' => 'Stock Movements',
+                'label' => 'Stock Movements', // 15
                 'url' => '/stock_movements',
             ],
             [
-                'label' => 'Transfers',
+                'label' => 'Transfers', // 16
                 'url' => '/transfers',
             ],
             [
-                'label' => 'Users',
+                'label' => 'Users', // 17
                 'url' => '/users',
             ],
             [
-                'label' => 'Global Settings',
+                'label' => 'Global Settings', // 18
                 'url' => '/global_settings',
             ],
             [
-                'label' => 'Warehouses',
+                'label' => 'Warehouses', // 19
                 'url' => '/warehouses',
             ],
         ];
+    }
 
+    public function run()
+    {
+        $data = $this->getData();
         foreach ($data as $datum) {
             Menu::create($datum);
         }
