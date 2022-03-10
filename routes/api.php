@@ -6,6 +6,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['api', 'cors']], function () {
     (new RouteGenerator(\App\Models\Address::class))::generate(\App\Http\Controllers\AddressController::class);
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('app_menus/{app_menu}', [\App\Http\Controllers\AppMenuController::class, 'show'])->name('app_menus.show');
+    });
+
     (new RouteGenerator(\App\Models\Contact::class))::generate(\App\Http\Controllers\ContactController::class);
     (new RouteGenerator(\App\Models\Country::class))::generate(\App\Http\Controllers\CountryController::class);
     (new RouteGenerator(\App\Models\Currency::class))::generate(\App\Http\Controllers\CurrencyController::class);

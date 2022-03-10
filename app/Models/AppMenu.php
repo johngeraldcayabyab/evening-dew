@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Contacts\Sluggable;
+use App\Traits\HierarchyTrait;
 use App\Traits\ModelHelperTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,6 +16,7 @@ class AppMenu extends Model implements Sluggable
     use SoftDeletes;
     use BroadcastsEvents;
     use ModelHelperTrait;
+    use HierarchyTrait;
 
     protected $table = 'app_menus';
     protected $guarded = [];
@@ -24,9 +26,9 @@ class AppMenu extends Model implements Sluggable
         return $this->belongsTo(Menu::class, 'menu_id');
     }
 
-    public function parentMenu()
+    public function parentAppMenu()
     {
-        return $this->belongsTo(AppMenu::class, 'parent_menu_id');
+        return $this->belongsTo(AppMenu::class, 'parent_app_menu_id', 'id');
     }
 
     public function scopeWhereLabel($query, $where)
@@ -44,7 +46,7 @@ class AppMenu extends Model implements Sluggable
         return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
-    public function scopeWhereParentMenuId($query, $where)
+    public function scopeWhereParentAppMenuId($query, $where)
     {
         return $this->whereSingle($query, __FUNCTION__, $where);
     }
@@ -64,7 +66,7 @@ class AppMenu extends Model implements Sluggable
         return $this->order($query, __FUNCTION__, $order);
     }
 
-    public function scopeOrderByParentMenuId($query, $order)
+    public function scopeOrderByParentAppMenuId($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }
@@ -74,7 +76,7 @@ class AppMenu extends Model implements Sluggable
         return $this->likeHas($query, __FUNCTION__, 'label', $where);
     }
 
-    public function scopeWhereParentMenu($query, $where)
+    public function scopeWhereParentAppMenu($query, $where)
     {
         return $this->likeHas($query, __FUNCTION__, 'label', $where);
     }
@@ -84,7 +86,7 @@ class AppMenu extends Model implements Sluggable
         return $this->orderHas($query, new Menu(), 'label', __FUNCTION__, $order);
     }
 
-    public function scopeOrderByParentMenu($query, $order)
+    public function scopeOrderByParentAppMenu($query, $order)
     {
         return $this->orderHas($query, new AppMenu(), 'label', __FUNCTION__, $order);
     }

@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Http\Resources\Resource;
+
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class AppMenuResource extends JsonResource
+{
+    public function toArray($request)
+    {
+        return [
+            'id' => $this->id,
+            'label' => $this->label,
+            'is_view' => $this->is_view,
+            'menu_id' => $this->menu_id,
+            'parent_app_menu_id' => $this->parent_app_menu_id,
+            'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
+            'menu' => new MenuResource($this->menu),
+            'children' => AppMenuResource::collection($this->children),
+        ];
+    }
+}

@@ -13,7 +13,7 @@ class CreateAppMenusTable extends Migration
             $table->string('label');
             $table->boolean('is_view')->default(false);
             $table->bigInteger('menu_id')->nullable();
-            $table->bigInteger('parent_menu_id')->nullable();
+            $table->bigInteger('parent_app_menu_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
