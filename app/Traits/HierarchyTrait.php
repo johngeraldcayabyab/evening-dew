@@ -17,7 +17,8 @@ trait HierarchyTrait
 
     public function children()
     {
-        return $this->hasMany(static::class);
+        $foreignKey = Str::snake(Str::replace('App\\Models\\', '', static::class));
+        return $this->hasMany(static::class, "parent_{$foreignKey}_id");
     }
 
     public function parentRecursive()

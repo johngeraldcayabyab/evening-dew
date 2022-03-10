@@ -67,14 +67,13 @@ class AppMenuSeeder extends Seeder
         $children = [];
         $parentAppMenu = null;
         foreach ($data as $datum) {
-
             if (!$datum['is_view']) {
                 $datum['menu_id'] = $this->getKeyId($datum['label']);
             }
             if ($appMenu) {
-                $datum['parent_menu_id'] = $appMenu->id;
+                $datum['parent_app_menu_id'] = $appMenu->id;
             } else {
-                $datum['parent_menu_id'] = null;
+                $datum['parent_app_menu_id'] = null;
             }
             if (isset($datum['children'])) {
                 $children = $datum['children'];
