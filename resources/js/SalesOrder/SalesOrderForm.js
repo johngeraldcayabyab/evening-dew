@@ -57,7 +57,7 @@ const SalesOrderForm = () => {
 
     useEffect(() => {
         if (objectHasValue(formState.initialValues)) {
-            if (formState.initialValues.sales_order_lines.length) {
+            if (formState.initialValues.hasOwnProperty('sales_order_lines') && formState.initialValues.sales_order_lines.length) {
                 const total = computeTotal(formState.initialValues.sales_order_lines);
                 setState((prevState) => ({
                     ...prevState,
