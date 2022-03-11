@@ -29,11 +29,19 @@ class TransferObserver
         }
         if ($operationType->type === OperationType::RECEIPT) {
             if (!$transfer->source_location_id) {
-                $transfer->source_location_id = GlobalSetting::latestFirst()->inventoryDefaultVendorLocation->id;
+                if ($operationType->default_source_location_id) {
+                    $transfer->source_location_id = $operationType->default_source_location_id;
+                } else {
+                    $transfer->source_location_id = GlobalSetting::latestFirst()->inventoryDefaultVendorLocation->id;
+                }
             }
         } elseif ($operationType->type === OperationType::DELIVERY) {
             if (!$transfer->destination_location_id) {
-                $transfer->destination_location_id = GlobalSetting::latestFirst()->inventoryDefaultCustomerLocation->id;
+                if ($operationType->default_destination_location_id) {
+                    $transfer->destination_location_id = $operationType->default_destination_location_id;
+                } else {
+                    $transfer->destination_location_id = GlobalSetting::latestFirst()->inventoryDefaultCustomerLocation->id;
+                }
             }
         }
     }
