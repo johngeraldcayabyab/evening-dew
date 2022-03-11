@@ -18,6 +18,9 @@ const TransferList = () => {
             key: 'reference',
             sorter: true,
             searchFilter: true,
+            render: (text, record) => {
+                return <Text strong><span style={{fontSize: '12px'}}>{record.reference}</span></Text>
+            }
         },
         {
             title: 'From',

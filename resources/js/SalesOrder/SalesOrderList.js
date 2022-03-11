@@ -8,6 +8,7 @@ import CustomTable from "../components/CustomTable";
 import TableSearchInput from "../components/TableSearchInput";
 import CustomPagination from "../components/CustomPagination";
 import {Tag} from "antd";
+import Text from "antd/es/typography/Text";
 
 const SalesOrderList = () => {
     const [tableState, tableActions, columns] = useListState(manifest, [
@@ -17,6 +18,9 @@ const SalesOrderList = () => {
             key: 'number',
             sorter: true,
             searchFilter: true,
+            render: (text, record) => {
+                return <Text strong><span style={{fontSize: '12px'}}>{record.reference}</span></Text>
+            }
         },
         {
             title: 'Customer',
