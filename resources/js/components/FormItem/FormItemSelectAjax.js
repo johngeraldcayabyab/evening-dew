@@ -6,6 +6,8 @@ import useFetchHook from "../../Hooks/useFetchHook";
 import {GET} from "../../consts";
 import {formItemFieldProps} from "../../Helpers/form";
 import {objectHasValue} from "../../Helpers/object";
+import {Link} from "react-router-dom";
+import CustomFormItemLink from "../CustomFormItemLink";
 
 const FormItemSelectAjax = (props) => {
     const [useFetch, fetchAbort] = useFetchHook();
@@ -99,19 +101,21 @@ const FormItemSelectAjax = (props) => {
     }
 
     return (
-        <Form.Item {...formItemProps}>
-            {props.loading ? <CustomInputSkeleton {...props}/> :
-                <Select {...fieldProps}>
-                    {state.options.map((option) => {
-                        return (
-                            <Select.Option key={option.value} value={option.value}>
-                                {option.label}
-                            </Select.Option>
-                        )
-                    })}
-                </Select>
-            }
-        </Form.Item>
+        <CustomFormItemLink {...props}>
+            <Form.Item {...formItemProps}>
+                {props.loading ? <CustomInputSkeleton {...props}/> :
+                    <Select {...fieldProps}>
+                        {state.options.map((option) => {
+                            return (
+                                <Select.Option key={option.value} value={option.value}>
+                                    {option.label}
+                                </Select.Option>
+                            )
+                        })}
+                    </Select>
+                }
+            </Form.Item>
+        </CustomFormItemLink>
     )
 }
 
