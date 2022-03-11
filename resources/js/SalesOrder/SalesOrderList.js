@@ -19,7 +19,7 @@ const SalesOrderList = () => {
             sorter: true,
             searchFilter: true,
             render: (text, record) => {
-                return <Text strong><span style={{fontSize: '12px'}}>{record.reference}</span></Text>
+                return <Text strong><span style={{fontSize: '12px'}}>{record.number}</span></Text>
             }
         },
         {
