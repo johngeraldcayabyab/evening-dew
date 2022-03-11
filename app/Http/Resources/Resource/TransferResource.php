@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Resource;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TransferResource extends JsonResource
@@ -31,6 +32,7 @@ class TransferResource extends JsonResource
             'destination_location' => new LocationResource($this->destinationLocation),
             'responsible' => new UserResource($this->responsible),
             'transfer_lines' => TransferLineResource::collection($this->transferLines),
+            'scheduled_date_human' => Carbon::parse($this->scheduled_date)->diffForHumans(),
         ];
     }
 }

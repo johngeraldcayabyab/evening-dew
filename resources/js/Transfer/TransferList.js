@@ -8,6 +8,7 @@ import CustomTable from "../components/CustomTable";
 import TableSearchInput from "../components/TableSearchInput";
 import CustomPagination from "../components/CustomPagination";
 import {Tag} from "antd";
+import Text from "antd/es/typography/Text";
 
 const TransferList = () => {
     const [tableState, tableActions, columns] = useListState(manifest, [
@@ -63,6 +64,18 @@ const TransferList = () => {
             key: 'scheduled_date',
             sorter: true,
             searchFilter: true,
+            render: (text, record) => {
+                if (record.status !== 'done') {
+                    if (record.scheduled_date_human.includes('ago')) {
+                        return <Text type="danger">{record.scheduled_date_human}</Text>;
+                    } else if (record.scheduled_date_human.includes('hours from now')) {
+                        return <Text type="warning">{record.scheduled_date_human}</Text>;
+                    } else {
+                        return record.scheduled_date_human;
+                    }
+                }
+                return '';
+            }
         },
         {
             title: 'Source Document',
