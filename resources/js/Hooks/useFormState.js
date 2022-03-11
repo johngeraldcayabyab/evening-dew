@@ -71,7 +71,6 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
                 loading: true
             }));
             if (id) {
-                console.log('iz a put pu t');
                 useFetch(`/api/${manifest.moduleName}/${id}`, PUT, values).then(() => {
                     formActions.fetchData();
                 }).catch((responseErr) => {

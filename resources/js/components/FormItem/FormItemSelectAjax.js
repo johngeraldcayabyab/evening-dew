@@ -36,14 +36,12 @@ const FormItemSelectAjax = (props) => {
                 val = getQueryFromInitialValue();
             }
             getOptions(val);
-            console.log('is initial load trigger');
         }
     }, [props.initialLoad]);
 
     useEffect(() => {
         if (props.search) {
             getOptions(props.search);
-            console.log('is search trigger', props.search);
         }
     }, [props.search]);
 

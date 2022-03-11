@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Divider, Form, Tabs} from "antd";
+import {Divider, Form, Table, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../Hooks/useFormState";
 import manifest from "./__manifest__.json";
@@ -26,6 +26,8 @@ import FormItemSelect from "../components/FormItem/FormItemSelect";
 import StatusBar from "../components/StatusBar";
 import FormItemStatus from "../components/FormItem/FormItemStatus";
 import FormLinks from "../components/FormLinks";
+import FormLabel from "../components/Typography/FormLabel";
+import {objectHasValue} from "../Helpers/object";
 
 const {TabPane} = Tabs;
 
@@ -40,6 +42,11 @@ const SalesOrderForm = () => {
         deliveryAddressOptionReload: false,
         salesOrderLinesOptionReload: [],
         salesOrderLinesDeleted: [],
+        breakdown: {
+            untaxedAmount: 0,
+            tax: 0,
+            total: 0,
+        }
     });
 
     useEffect(() => {
@@ -47,6 +54,22 @@ const SalesOrderForm = () => {
             fetchAbort();
         };
     }, []);
+
+    useEffect(() => {
+        if (objectHasValue(formState.initialValues)) {
+            if (formState.initialValues.sales_order_lines.length) {
+                const total = computeTotal(formState.initialValues.sales_order_lines);
+                setState((prevState) => ({
+                    ...prevState,
+                    breakdown: {
+                        untaxedAmount: total,
+                        tax: 0,
+                        total: total,
+                    }
+                }));
+            }
+        }
+    }, [formState.initialValues]);
 
     function onValuesChange(changedValues, allValues) {
         if (changedValues.customer_id) {
@@ -72,6 +95,8 @@ const SalesOrderForm = () => {
             });
         }
         checkIfADynamicInputChangedAndDoSomething(changedValues, allValues, 'sales_order_lines', 'product_id', getProductDataAndFillDefaultValues);
+        checkIfADynamicInputChangedAndDoSomething(changedValues, allValues, 'sales_order_lines', 'quantity', computeSubtotal);
+        checkIfADynamicInputChangedAndDoSomething(changedValues, allValues, 'sales_order_lines', 'unit_price', computeSubtotal);
     }
 
     function getProductDataAndFillDefaultValues(changedSalesOrderLine, salesOrderLines) {
@@ -92,6 +117,34 @@ const SalesOrderForm = () => {
         }).catch((responseErr) => {
             fetchCatcher.get(responseErr);
         });
+    }
+
+    function computeSubtotal(changedSalesOrderLine, salesOrderLines) {
+        let salesOrderLine = salesOrderLines[changedSalesOrderLine.key];
+        if (changedSalesOrderLine.hasOwnProperty('unit_price')) {
+            salesOrderLine.subtotal = salesOrderLine.quantity * changedSalesOrderLine.unit_price;
+        } else if (changedSalesOrderLine.hasOwnProperty('quantity')) {
+            salesOrderLine.subtotal = changedSalesOrderLine.quantity * salesOrderLine.unit_price;
+        }
+        salesOrderLines[changedSalesOrderLine.key] = salesOrderLine;
+        form.setFieldsValue({
+            sales_order_lines: salesOrderLines
+        });
+
+        const total = computeTotal(salesOrderLines);
+
+        setState((prevState) => ({
+            ...prevState,
+            breakdown: {
+                untaxedAmount: total,
+                tax: 0,
+                total: total,
+            }
+        }));
+    }
+
+    function computeTotal(salesOrderLines) {
+        return salesOrderLines.map((salesOrderLine) => (salesOrderLine.subtotal)).reduce((total, subtotal) => (total + subtotal));
     }
 
     function setSalesOrderLinesReload(salesOrderLines) {
@@ -259,7 +312,7 @@ const SalesOrderForm = () => {
                 <Tabs defaultActiveKey="1">
                     <TabPane tab="Order Lines" key="1">
                         <GenerateDynamicColumns
-                            columns={['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price']}
+                            columns={['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Subtotal ']}
                         />
                         <RowForm>
                             <ColForm lg={24}>
@@ -288,7 +341,7 @@ const SalesOrderForm = () => {
                                                             required={true}
                                                             url={'/api/products/option'}
                                                             {...formState}
-                                                            style={{display: 'inline-block', width: '20%'}}
+                                                            style={{display: 'inline-block', width: `${100 / 6}%`}}
                                                             query={`sales_order_lines.${name}.product.name`}
                                                             groupName={name}
                                                             listName={'sales_order_lines'}
@@ -300,7 +353,7 @@ const SalesOrderForm = () => {
                                                             placeholder={'Description'}
                                                             name={'description'}
                                                             {...formState}
-                                                            style={{display: 'inline-block', width: '20%'}}
+                                                            style={{display: 'inline-block', width: `${100 / 6}%`}}
                                                             groupName={name}
                                                             listName={'sales_order_lines'}
                                                         />
@@ -313,7 +366,7 @@ const SalesOrderForm = () => {
                                                             message={'Please input a quantity'}
                                                             required={true}
                                                             {...formState}
-                                                            style={{display: 'inline-block', width: '20%'}}
+                                                            style={{display: 'inline-block', width: `${100 / 6}%`}}
                                                             groupName={name}
                                                             listName={'sales_order_lines'}
                                                         />
@@ -328,7 +381,7 @@ const SalesOrderForm = () => {
                                                             url={'/api/measurements/option'}
                                                             search={state.salesOrderLinesOptionReload[name] ? state.salesOrderLinesOptionReload[name].isReload : null}
                                                             {...formState}
-                                                            style={{display: 'inline-block', width: '20%'}}
+                                                            style={{display: 'inline-block', width: `${100 / 6}%`}}
                                                             query={`sales_order_lines.${name}.measurement.name`}
                                                             groupName={name}
                                                             listName={'sales_order_lines'}
@@ -341,7 +394,18 @@ const SalesOrderForm = () => {
                                                             message={'Please input a unit price'}
                                                             required={true}
                                                             {...formState}
-                                                            style={{display: 'inline-block', width: '20%'}}
+                                                            style={{display: 'inline-block', width: `${100 / 6}%`}}
+                                                            groupName={name}
+                                                            listName={'sales_order_lines'}
+                                                        />
+
+                                                        <FormItemNumber
+                                                            overrideDisabled={true}
+                                                            {...restField}
+                                                            placeholder={'Subtotal'}
+                                                            name={'subtotal'}
+                                                            {...formState}
+                                                            style={{display: 'inline-block', width: `${100 / 6}%`}}
                                                             groupName={name}
                                                             listName={'sales_order_lines'}
                                                         />
@@ -357,7 +421,6 @@ const SalesOrderForm = () => {
                                                     />
                                                 </RowForm>
                                             ))}
-
                                             <DynamicFieldAddButton
                                                 formState={formState}
                                                 add={add}
@@ -366,6 +429,52 @@ const SalesOrderForm = () => {
                                         </>
                                     )}
                                 </Form.List>
+                            </ColForm>
+                        </RowForm>
+
+                        <Divider/>
+
+                        <RowForm>
+                            <ColForm lg={20}>
+                            </ColForm>
+                            <ColForm lg={4}>
+                                <Table dataSource={[
+                                    {
+                                        key: '1',
+                                        label: 'Untaxed amount:',
+                                        value: state.breakdown.untaxedAmount,
+                                    },
+                                    {
+                                        key: '2',
+                                        label: 'Taxed:',
+                                        value: state.breakdown.tax,
+                                    },
+                                    {
+                                        key: '3',
+                                        label: 'Total:',
+                                        value: state.breakdown.total,
+                                    },
+                                ]} columns={[
+                                    {
+                                        title: 'Label',
+                                        dataIndex: 'label',
+                                        key: 'label',
+                                        align: 'right',
+                                        render: (text, record) => {
+                                            return (<FormLabel>{text}</FormLabel>)
+                                        }
+                                    },
+                                    {
+                                        title: 'Value',
+                                        dataIndex: 'value',
+                                        key: 'value',
+                                        align: 'right',
+                                    },
+                                ]}
+                                       showHeader={false}
+                                       pagination={false}
+                                       size={'small'}
+                                />
                             </ColForm>
                         </RowForm>
                     </TabPane>
@@ -437,7 +546,6 @@ const SalesOrderForm = () => {
                                 />
                             </ColForm>
                         </RowForm>
-
                     </TabPane>
                 </Tabs>
             </FormCard>
