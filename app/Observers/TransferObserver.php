@@ -18,7 +18,9 @@ class TransferObserver
             $transfer->shipping_policy = Transfer::AS_SOON_AS_POSSIBLE;
         }
         if (!$transfer->responsible_id) {
-            $transfer->responsible_id = auth()->user()->id;
+            if(auth()->user()){
+                $transfer->responsible_id = auth()->user()->id;
+            }
         }
         $operationType = OperationType::find($transfer->operation_type_id);
         $transferSequence = $operationType->referenceSequence;
@@ -53,7 +55,9 @@ class TransferObserver
             $transfer->shipping_policy = Transfer::AS_SOON_AS_POSSIBLE;
         }
         if (!$transfer->responsible_id) {
-            $transfer->responsible_id = auth()->user()->id;
+            if(auth()->user()){
+                $transfer->responsible_id = auth()->user()->id;
+            }
         }
     }
 }
