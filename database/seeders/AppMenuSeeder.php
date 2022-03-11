@@ -119,6 +119,10 @@ class AppMenuSeeder extends Seeder
                                 'menu_key' => 'Global Settings',
                             ],
                             [
+                                'label' => 'App Menus',
+                                'menu_key' => 'App Menus',
+                            ],
+                            [
                                 'label' => 'Menus',
                                 'menu_key' => 'Menus',
                             ],

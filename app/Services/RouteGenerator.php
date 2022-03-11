@@ -13,11 +13,13 @@ class RouteGenerator implements Generator
     private static $plural;
     private static $singular;
 
-    public function __construct($model)
+    public function __construct($model = null)
     {
-        $model = new $model;
-        self::$plural = $model->getTable();
-        self::$singular = Str::snake(Str::replace('App\Models\\', '', get_class($model)));
+        if ($model) {
+            $model = new $model;
+            self::$plural = $model->getTable();
+            self::$singular = Str::snake(Str::replace('App\Models\\', '', get_class($model)));
+        }
     }
 
     public static function generate($controller)
@@ -63,6 +65,24 @@ class RouteGenerator implements Generator
             }
             if (self::findMethod($methods, SystemSetting::INDEX, $controllerInstance)) {
                 Route::get("{$plural}", [$controller, $index])->name("{$plural}.{$index}");
+            }
+        });
+    }
+
+    public static function generateCustom($controller, $controllerMethod, $httpMethod, $uri, $routeName)
+    {
+        Route::middleware('auth:sanctum')->group(function () use ($controller, $controllerMethod, $httpMethod, $uri, $routeName) {
+            if ($httpMethod === 'GET') {
+                Route::get($uri, [$controller, $controllerMethod])->name($routeName);
+            }
+            if ($httpMethod === 'POST') {
+                Route::post($uri, [$controller, $controllerMethod])->name($routeName);
+            }
+            if ($httpMethod === 'PUT') {
+                Route::put($uri, [$controller, $controllerMethod])->name($routeName);
+            }
+            if ($httpMethod === 'DELETE') {
+                Route::delete($uri, [$controller, $controllerMethod])->name($routeName);
             }
         });
     }
