@@ -18,14 +18,16 @@ class GenerateTransferFromValidatedSalesOrderListener implements ShouldQueue
     {
         $salesOrder = $event->salesOrder;
         $transfer = new Transfer();
-        $transfer->contact_id = $salesOrder->customer_id;
+
         $inventoryDefaultWarehouse = GlobalSetting::latestFirst()->inventoryDefaultWarehouse;
         if ($inventoryDefaultWarehouse) {
             $operationType = OperationType::whereWarehouseId($inventoryDefaultWarehouse->id)->whereType(OperationType::DELIVERY)->first(); //By default, it gets the latest operation type created
             if ($operationType) {
+                $transfer->contact_id = $salesOrder->customer_id;
                 $transfer->operation_type_id = $operationType->id;
                 $transfer->source_location_id = $operationType->default_source_location_id;
                 $transfer->scheduled_date = now()->format(SystemSetting::DATE_TIME_FORMAT);
+                $transfer->responsible_id = $salesOrder->salesperson_id;
                 $transfer->source_document = $salesOrder->number;
                 $transfer->status = Transfer::DRAFT;
                 $transfer->save();

@@ -37,7 +37,9 @@ class SalesOrderObserver
         }
         $model->quotation_date = Carbon::parse($model->quotation_date)->format(SystemSetting::DATE_TIME_FORMAT);
         if (!$model->salesperson_id) {
-            $model->salesperson_id = auth()->user()->id;
+            if(auth()->user()){
+                $model->salesperson_id = auth()->user()->id;
+            }
         }
         if ($model->expected_delivery_date) {
             $model->expected_delivery_date = Carbon::parse($model->expected_delivery_date)->format(SystemSetting::DATE_TIME_FORMAT);
