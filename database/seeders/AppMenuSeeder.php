@@ -25,6 +25,10 @@ class AppMenuSeeder extends Seeder
                                 'menu_key' => 'Contacts',
                             ],
                             [
+                                'label' => 'Addresses',
+                                'menu_key' => 'Addresses',
+                            ],
+                            [
                                 'label' => 'Configurations',
                                 'children' => [
                                     [
@@ -40,6 +44,10 @@ class AppMenuSeeder extends Seeder
                         'menu_key' => 'Transfers',
                         'children' => [
                             [
+                                'label' => 'Transfers',
+                                'menu_key' => 'Transfers',
+                            ],
+                            [
                                 'label' => 'Reporting',
                                 'children' => [
                                     [
@@ -49,11 +57,23 @@ class AppMenuSeeder extends Seeder
                                 ],
                             ],
                             [
+                                'label' => 'Products',
+                                'menu_key' => 'Products',
+                            ],
+                            [
                                 'label' => 'Configurations',
                                 'children' => [
                                     [
-                                        'label' => 'Warehouses',
-                                        'menu_key' => 'Warehouses',
+                                        'label' => 'Locations',
+                                        'menu_key' => 'Locations',
+                                    ],
+                                    [
+                                        'label' => 'Measurement Categories',
+                                        'menu_key' => 'Measurement Categories',
+                                    ],
+                                    [
+                                        'label' => 'Measurements',
+                                        'menu_key' => 'Measurements',
                                     ],
                                     [
                                         'label' => 'Operations Types',
@@ -64,12 +84,8 @@ class AppMenuSeeder extends Seeder
                                         'menu_key' => 'Product Categories',
                                     ],
                                     [
-                                        'label' => 'Measurement Categories',
-                                        'menu_key' => 'Measurement Categories',
-                                    ],
-                                    [
-                                        'label' => 'Measurements',
-                                        'menu_key' => 'Measurements',
+                                        'label' => 'Warehouses',
+                                        'menu_key' => 'Warehouses',
                                     ],
                                 ],
                             ],
@@ -78,10 +94,47 @@ class AppMenuSeeder extends Seeder
                     [
                         'label' => 'Sales',
                         'menu_key' => 'Sales Orders',
+                        'children' => [
+                            [
+                                'label' => 'Sales',
+                                'menu_key' => 'Sales Orders',
+                            ],
+                            [
+                                'label' => 'Configurations',
+                                'children' => [
+                                    [
+                                        'label' => 'Payment Terms',
+                                        'menu_key' => 'Payment Terms',
+                                    ],
+                                ]
+                            ],
+                        ],
                     ],
                     [
                         'label' => 'Global Settings',
                         'menu_key' => 'Global Settings',
+                        'children' => [
+                            [
+                                'label' => 'Global Settings',
+                                'menu_key' => 'Global Settings',
+                            ],
+                            [
+                                'label' => 'Menus',
+                                'menu_key' => 'Menus',
+                            ],
+                            [
+                                'label' => 'Currencies',
+                                'menu_key' => 'currencies',
+                            ],
+                            [
+                                'label' => 'Sequences',
+                                'menu_key' => 'Sequences',
+                            ],
+                            [
+                                'label' => 'Users',
+                                'menu_key' => 'Users',
+                            ],
+                        ],
                     ],
                 ],
             ],
@@ -91,7 +144,7 @@ class AppMenuSeeder extends Seeder
     public function seedChild($data, $appMenu = null)
     {
         $children = [];
-        $parentAppMenu = null;
+        $parentAppMenu = [];
         foreach ($data as $datum) {
             if (isset($datum['menu_key']) && $datum['menu_key']) {
                 $datum['menu_id'] = $this->getKeyId($datum['menu_key']);
@@ -105,15 +158,17 @@ class AppMenuSeeder extends Seeder
                 $datum['parent_app_menu_id'] = null;
             }
             if (isset($datum['children'])) {
-                $children = $datum['children'];
+                $children[] = $datum['children'];
                 unset($datum['children']);
-                $parentAppMenu = AppMenu::create($datum);
+                $parentAppMenu[] = AppMenu::create($datum);
             } else {
                 AppMenu::create($datum);
             }
         }
         if (count($children)) {
-            $this->seedChild($children, $parentAppMenu);
+            foreach ($children as $key => $child) {
+                $this->seedChild($child, $parentAppMenu[$key]);
+            }
         }
     }
 
