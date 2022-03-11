@@ -16,6 +16,8 @@ class AppMenuResource extends JsonResource
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'menu' => new MenuResource($this->menu),
             'children' => AppMenuResource::collection($this->children),
+            'parent_location' => new LocationResource($this->parentLocation),
+            'parents' => $this->getWithParents('label'),
         ];
     }
 }

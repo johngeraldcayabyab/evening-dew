@@ -99,6 +99,7 @@ const CustomTable = (props) => {
                 };
             }}
             pagination={false}
+            childrenColumnName={'test'}
             onChange={(pagination, filters, sorter) => {
                 let orderByDirection = sorter.order;
                 if (orderByDirection === 'ascend') {

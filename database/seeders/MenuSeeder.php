@@ -15,6 +15,10 @@ class MenuSeeder extends Seeder
                 'url' => '/addresses',
             ],
             [
+                'label' => 'App Menus', // 1
+                'url' => '/app_menus',
+            ],
+            [
                 'label' => 'Contacts', // 2
                 'url' => '/contacts',
             ],

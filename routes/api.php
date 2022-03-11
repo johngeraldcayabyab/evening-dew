@@ -1,44 +1,86 @@
 <?php
 
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\AppMenuController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\CurrencyController;
+use App\Http\Controllers\GlobalSettingController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MeasurementCategoryController;
+use App\Http\Controllers\MeasurementController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\OperationTypeController;
+use App\Http\Controllers\PaymentTermController;
+use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SalesOrderController;
+use App\Http\Controllers\SalesOrderLineController;
+use App\Http\Controllers\SequenceController;
+use App\Http\Controllers\StockMovementController;
+use App\Http\Controllers\TransferController;
+use App\Http\Controllers\TransferLineController;
+use App\Http\Controllers\UploadController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\WarehouseController;
+use App\Models\Address;
+use App\Models\AppMenu;
+use App\Models\Contact;
+use App\Models\Country;
+use App\Models\Currency;
+use App\Models\GlobalSetting;
+use App\Models\Location;
+use App\Models\Measurement;
+use App\Models\MeasurementCategory;
+use App\Models\Menu;
+use App\Models\OperationType;
+use App\Models\PaymentTerm;
+use App\Models\Product;
+use App\Models\ProductCategory;
+use App\Models\SalesOrder;
+use App\Models\SalesOrderLine;
+use App\Models\Sequence;
+use App\Models\StockMovement;
+use App\Models\Transfer;
+use App\Models\TransferLine;
+use App\Models\User;
+use App\Models\Warehouse;
 use App\Services\RouteGenerator;
 use Illuminate\Support\Facades\Route;
 
 
 Route::group(['middleware' => ['api', 'cors']], function () {
-    (new RouteGenerator(\App\Models\Address::class))::generate(\App\Http\Controllers\AddressController::class);
-
+    (new RouteGenerator(Address::class))::generate(AddressController::class);
+    (new RouteGenerator(AppMenu::class))::generate(AppMenuController::class);
+    (new RouteGenerator(Contact::class))::generate(ContactController::class);
+    (new RouteGenerator(Country::class))::generate(CountryController::class);
+    (new RouteGenerator(Currency::class))::generate(CurrencyController::class);
+    (new RouteGenerator(GlobalSetting::class))::generate(GlobalSettingController::class);
+    (new RouteGenerator(Location::class))::generate(LocationController::class);
+    Route::post('/tokens/create', [LoginController::class, 'tokensCreate'])->name('csrf');
+    Route::post('/sanctum/token', [LoginController::class, 'authenticate'])->name('login');
     Route::middleware('auth:sanctum')->group(function () {
-        Route::get('app_menus/{app_menu}', [\App\Http\Controllers\AppMenuController::class, 'show'])->name('app_menus.show');
+        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     });
-
-    (new RouteGenerator(\App\Models\Contact::class))::generate(\App\Http\Controllers\ContactController::class);
-    (new RouteGenerator(\App\Models\Country::class))::generate(\App\Http\Controllers\CountryController::class);
-    (new RouteGenerator(\App\Models\Currency::class))::generate(\App\Http\Controllers\CurrencyController::class);
-    (new RouteGenerator(\App\Models\GlobalSetting::class))::generate(\App\Http\Controllers\GlobalSettingController::class);
-    (new RouteGenerator(\App\Models\Location::class))::generate(\App\Http\Controllers\LocationController::class);
-    Route::post('/tokens/create', [\App\Http\Controllers\LoginController::class, 'tokensCreate'])->name('csrf');
-    Route::post('/sanctum/token', [\App\Http\Controllers\LoginController::class, 'authenticate'])->name('login');
+    (new RouteGenerator(MeasurementCategory::class))::generate(MeasurementCategoryController::class);
+    (new RouteGenerator(Measurement::class))::generate(MeasurementController::class);
+    (new RouteGenerator(Menu::class))::generate(MenuController::class);
+    (new RouteGenerator(OperationType::class))::generate(OperationTypeController::class);
+    (new RouteGenerator(PaymentTerm::class))::generate(PaymentTermController::class);
+    (new RouteGenerator(ProductCategory::class))::generate(ProductCategoryController::class);
+    (new RouteGenerator(SalesOrder::class))::generate(SalesOrderController::class);
+    (new RouteGenerator(SalesOrderLine::class))::generate(SalesOrderLineController::class);
+    (new RouteGenerator(Product::class))::generate(ProductController::class);
+    (new RouteGenerator(Sequence::class))::generate(SequenceController::class);
+    (new RouteGenerator(StockMovement::class))::generate(StockMovementController::class);
+    (new RouteGenerator(Transfer::class))::generate(TransferController::class);
+    (new RouteGenerator(TransferLine::class))::generate(TransferLineController::class);
     Route::middleware('auth:sanctum')->group(function () {
-        Route::post('/logout', [\App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
+        Route::post('uploads/images', [UploadController::class, 'image']);
     });
-    (new RouteGenerator(\App\Models\MeasurementCategory::class))::generate(\App\Http\Controllers\MeasurementCategoryController::class);
-    (new RouteGenerator(\App\Models\Measurement::class))::generate(\App\Http\Controllers\MeasurementController::class);
-    (new RouteGenerator(\App\Models\Menu::class))::generate(\App\Http\Controllers\MenuController::class);
-    (new RouteGenerator(\App\Models\OperationType::class))::generate(\App\Http\Controllers\OperationTypeController::class);
-    (new RouteGenerator(\App\Models\PaymentTerm::class))::generate(\App\Http\Controllers\PaymentTermController::class);
-    (new RouteGenerator(\App\Models\ProductCategory::class))::generate(\App\Http\Controllers\ProductCategoryController::class);
-    (new RouteGenerator(\App\Models\SalesOrder::class))::generate(\App\Http\Controllers\SalesOrderController::class);
-    (new RouteGenerator(\App\Models\SalesOrderLine::class))::generate(\App\Http\Controllers\SalesOrderLineController::class);
-    (new RouteGenerator(\App\Models\Product::class))::generate(\App\Http\Controllers\ProductController::class);
-    (new RouteGenerator(\App\Models\Sequence::class))::generate(\App\Http\Controllers\SequenceController::class);
-    (new RouteGenerator(\App\Models\StockMovement::class))::generate(\App\Http\Controllers\StockMovementController::class);
-    (new RouteGenerator(\App\Models\Transfer::class))::generate(\App\Http\Controllers\TransferController::class);
-    (new RouteGenerator(\App\Models\TransferLine::class))::generate(\App\Http\Controllers\TransferLineController::class);
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::post('uploads/images', [\App\Http\Controllers\UploadController::class, 'image']);
-    });
-    (new RouteGenerator(\App\Models\User::class))::generate(\App\Http\Controllers\UserController::class);
-    (new RouteGenerator(\App\Models\Warehouse::class))::generate(\App\Http\Controllers\WarehouseController::class);
+    (new RouteGenerator(User::class))::generate(UserController::class);
+    (new RouteGenerator(Warehouse::class))::generate(WarehouseController::class);
 });
 
 /**
