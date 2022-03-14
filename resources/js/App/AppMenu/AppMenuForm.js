@@ -23,7 +23,7 @@ const AppMenuForm = () => {
             onFinish={formActions.onFinish}
         >
             <ControlPanel
-                topColOneLeft={<CustomBreadcrumb/>}
+                topColOneLeft={<CustomBreadcrumb reload={formState.initialLoad}/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}

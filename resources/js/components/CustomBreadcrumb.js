@@ -3,20 +3,52 @@ import {useLocation} from "react-router";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import Title from "antd/lib/typography/Title";
-import {getBreadcrumbs} from "../Helpers/breadcrumbs";
+import {addBreadcrumbs, getBreadcrumbs} from "../Helpers/breadcrumbs";
+import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 
-const CustomBreadcrumb = () => {
+const CustomBreadcrumb = (props) => {
     const location = useLocation();
     const [state, setState] = useState({
         breadcrumbs: [],
     });
 
     useEffect(() => {
+        if (props.hasOwnProperty('formState') && !props.formState.initialLoad) {
+            if (props.formState.id) {
+                addBreadcrumbs({
+                    key: uuidv4(),
+                    link: location.pathname,
+                    slug: props.formState.initialValues.slug,
+                });
+            } else {
+                addBreadcrumbs({
+                    key: uuidv4(),
+                    link: location.pathname,
+                    slug: 'New',
+                });
+            }
+        }
+        if (props.hasOwnProperty('tableState') && !props.tableState.initialLoad) {
+            addBreadcrumbs({
+                key: uuidv4(),
+                link: location.pathname,
+                slug: titleCase(replaceUnderscoreWithSpace(props.tableState.moduleName)),
+            });
+        }
+
+        let breadcrumbs = getBreadcrumbs();
+        if (breadcrumbs.length > 1) {
+            breadcrumbs = breadcrumbs.map((breadcrumb) => ({
+                ...breadcrumb,
+                isLink: true,
+            }));
+            breadcrumbs[breadcrumbs.length - 1].isLink = false;
+        }
         setState((prevState) => ({
             ...prevState,
-            breadcrumbs: getBreadcrumbs()
+            breadcrumbs: breadcrumbs
         }));
-    }, [location.pathname]);
+    }, [props])
 
     return (
         <Breadcrumb>

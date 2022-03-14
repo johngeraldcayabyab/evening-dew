@@ -9,11 +9,13 @@ const useListState = (manifest, columns) => {
     const moduleName = manifest.moduleName;
     const eventName = manifest.eventName;
     const [tableState, setTableState] = useState({
+        initialLoad: true,
         loading: true,
         dataSource: [],
         selectedRows: [],
         meta: {},
         params: {},
+        moduleName: manifest.moduleName,
     });
     const [tableActions] = useState({
         handleDelete: (id) => {
@@ -54,6 +56,7 @@ const useListState = (manifest, columns) => {
             useFetch(`api/${moduleName}`, GET, params).then((response) => {
                 setTableState(state => ({
                     ...state,
+                    initialLoad: false,
                     loading: false,
                     dataSource: response.data,
                     meta: response.meta,

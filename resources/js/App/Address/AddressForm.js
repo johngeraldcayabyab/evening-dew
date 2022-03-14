@@ -21,19 +21,6 @@ const AddressForm = () => {
     const [form] = Form.useForm();
     const [formState, formActions] = useFormState(id, form, manifest, true);
 
-    useEffect(() => {
-        if (!formState.initialLoad) {
-            addBreadcrumbs({
-                key: uuidv4(),
-                slug: formState.initialValues.slug,
-            });
-        } else {
-            addBreadcrumbs({
-                key: uuidv4(),
-                slug: 'New',
-            });
-        }
-    }, [formState.initialLoad]);
 
     return (
         <CustomForm
@@ -41,7 +28,7 @@ const AddressForm = () => {
             onFinish={formActions.onFinish}
         >
             <ControlPanel
-                topColOneLeft={<CustomBreadcrumb/>}
+                topColOneLeft={<CustomBreadcrumb formState={formState}/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}
@@ -53,7 +40,6 @@ const AddressForm = () => {
                 }
             />
             <FormCard {...formState}>
-
                 <RowForm>
                     <ColForm>
                         <FormItemText
