@@ -11,6 +11,7 @@ import FormItemText from "../../components/FormItem/FormItemText";
 import ControlPanel from "../../components/ControlPanel";
 import FormCard from "../../components/FormCard";
 import FormItemSelectAjax from "../../components/FormItem/FormItemSelectAjax";
+import CustomBreadcrumb from "../../components/CustomBreadcrumb";
 
 const AppMenuForm = () => {
     let {id} = useParams();
@@ -22,6 +23,7 @@ const AppMenuForm = () => {
             onFinish={formActions.onFinish}
         >
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}

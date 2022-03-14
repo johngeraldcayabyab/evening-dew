@@ -14,6 +14,7 @@ import FormItemSelectAjax from "../../components/FormItem/FormItemSelectAjax";
 import FormItemUpload from "../../components/FormItem/FormItemUpload";
 import FormItemNumber from "../../components/FormItem/FormItemNumber";
 import FormItemSelect from "../../components/FormItem/FormItemSelect";
+import CustomBreadcrumb from "../../components/CustomBreadcrumb";
 
 const {TabPane} = Tabs;
 
@@ -28,6 +29,7 @@ const ProductForm = () => {
             onFinish={formActions.onFinish}
         >
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}

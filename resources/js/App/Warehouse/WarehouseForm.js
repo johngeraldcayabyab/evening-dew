@@ -12,6 +12,7 @@ import FormCard from "../../components/FormCard";
 import FormItemText from "../../components/FormItem/FormItemText";
 import FormItemSelectAjax from "../../components/FormItem/FormItemSelectAjax";
 import FormItemCheckbox from "../../components/FormItem/FormItemCheckbox";
+import CustomBreadcrumb from "../../components/CustomBreadcrumb";
 
 const {TabPane} = Tabs;
 
@@ -26,6 +27,7 @@ const WarehouseForm = () => {
             onFinish={formActions.onFinish}
         >
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}

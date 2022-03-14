@@ -9,6 +9,7 @@ import CustomPagination from "../../components/CustomPagination";
 import TableSearchInput from "../../components/TableSearchInput";
 import {Button, Input, Space} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
+import CustomBreadcrumb from "../../components/CustomBreadcrumb";
 
 const MeasurementList = () => {
 
@@ -63,6 +64,7 @@ const MeasurementList = () => {
     return (
         <React.Fragment>
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb/>}
                 topColTwoRight={
                     <TableSearchInput
                         {...tableState}

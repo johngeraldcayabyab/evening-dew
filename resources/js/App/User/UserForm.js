@@ -11,6 +11,7 @@ import ControlPanel from "../../components/ControlPanel";
 import FormCard from "../../components/FormCard";
 import FormItemText from "../../components/FormItem/FormItemText";
 import FormItemUpload from "../../components/FormItem/FormItemUpload";
+import CustomBreadcrumb from "../../components/CustomBreadcrumb";
 
 const UserForm = () => {
     let {id} = useParams();
@@ -23,6 +24,7 @@ const UserForm = () => {
             onFinish={formActions.onFinish}
         >
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}

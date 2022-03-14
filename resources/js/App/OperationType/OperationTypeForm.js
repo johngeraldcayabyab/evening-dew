@@ -14,6 +14,7 @@ import FormItemSelectAjax from "../../components/FormItem/FormItemSelectAjax";
 import FormItemSelect from "../../components/FormItem/FormItemSelect";
 import FormItemCheckbox from "../../components/FormItem/FormItemCheckbox";
 import FormItemNumber from "../../components/FormItem/FormItemNumber";
+import CustomBreadcrumb from "../../components/CustomBreadcrumb";
 
 const OperationTypeForm = () => {
     let {id} = useParams();
@@ -25,6 +26,7 @@ const OperationTypeForm = () => {
             onFinish={formActions.onFinish}
         >
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}

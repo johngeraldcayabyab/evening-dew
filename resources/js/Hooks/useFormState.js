@@ -116,7 +116,9 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
         }
     });
 
-    useEffect(formActions.fetchData, []);
+    useEffect(() => {
+        formActions.fetchData();
+    }, []);
 
     useEffect(() => {
         return () => {
