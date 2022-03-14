@@ -3,7 +3,7 @@ import {useLocation} from "react-router";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import Title from "antd/lib/typography/Title";
-import {addBreadcrumbs, getBreadcrumbs} from "../Helpers/breadcrumbs";
+import {addBreadcrumbs, getBreadcrumbs, setBreadcrumbs} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 
 const CustomBreadcrumb = (props) => {
@@ -13,30 +13,25 @@ const CustomBreadcrumb = (props) => {
     });
 
     useEffect(() => {
+        let breadcrumbs = getBreadcrumbs();
+        let breadcrumb = {
+            key: null,
+            link: null,
+            slug: null,
+            isLink: false,
+        };
         if (props.hasOwnProperty('formState') && !props.formState.initialLoad) {
             if (props.formState.id) {
-                addBreadcrumbs({
-                    key: uuidv4(),
-                    link: location.pathname,
-                    slug: props.formState.initialValues.slug,
-                });
+                breadcrumb.slug = props.formState.initialValues.slug;
             } else {
-                addBreadcrumbs({
-                    key: uuidv4(),
-                    link: location.pathname,
-                    slug: 'New',
-                });
+                breadcrumb.slug = 'New';
             }
         }
         if (props.hasOwnProperty('tableState') && !props.tableState.initialLoad) {
-            addBreadcrumbs({
-                key: uuidv4(),
-                link: location.pathname,
-                slug: titleCase(replaceUnderscoreWithSpace(props.tableState.moduleName)),
-            });
+            breadcrumb.slug = titleCase(replaceUnderscoreWithSpace(props.tableState.moduleName));
         }
-
-        let breadcrumbs = getBreadcrumbs();
+        breadcrumb.key = uuidv4();
+        breadcrumb.link = location.pathname;
         if (breadcrumbs.length > 1) {
             breadcrumbs = breadcrumbs.map((breadcrumb) => ({
                 ...breadcrumb,
@@ -44,6 +39,11 @@ const CustomBreadcrumb = (props) => {
             }));
             breadcrumbs[breadcrumbs.length - 1].isLink = false;
         }
+        breadcrumbs = [
+            ...breadcrumbs,
+            breadcrumb
+        ];
+        setBreadcrumbs(breadcrumbs);
         setState((prevState) => ({
             ...prevState,
             breadcrumbs: breadcrumbs
