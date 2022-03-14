@@ -67,12 +67,12 @@ class MaterialController
 
     public function initial_values()
     {
-        $inventoryDefaultMeasurementCategory = GlobalSetting::latestFirst()->inventoryDefaultMeasurementCategory;
+        $inventoryDefaultMeasurement = GlobalSetting::latestFirst()->inventoryDefaultMeasurement;
         return [
             'quantity' => 1,
-            'measurement_category_id' => $inventoryDefaultMeasurementCategory->id,
+            'measurement_id' => $inventoryDefaultMeasurement->id,
             'material_type' => Material::MANUFACTURE_THIS_PRODUCT,
-            'measurement_category' => $inventoryDefaultMeasurementCategory,
+            'measurement' => $inventoryDefaultMeasurement,
         ];
     }
 }

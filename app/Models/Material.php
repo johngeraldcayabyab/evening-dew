@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Contacts\Sluggable;
 use App\Traits\ModelHelperTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Material extends Model
+class Material extends Model implements Sluggable
 {
     use HasFactory;
     use SoftDeletes;
@@ -18,7 +19,7 @@ class Material extends Model
     const MANUFACTURE_THIS_PRODUCT = 'manufacture_this_product';
     const KIT = 'kit';
 
-    protected $table = 'locations';
+    protected $table = 'materials';
     protected $guarded = [];
 
     public static function getMaterialTypes()
@@ -89,5 +90,10 @@ class Material extends Model
     public function scopeOrderByProduct($query, $order)
     {
         return $this->orderHas($query, new Product(), 'name', __FUNCTION__, $order);
+    }
+
+    public function slug()
+    {
+        return 'reference';
     }
 }
