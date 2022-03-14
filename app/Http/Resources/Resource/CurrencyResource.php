@@ -8,6 +8,7 @@ class CurrencyResource extends JsonResource
 {
     public function toArray($request)
     {
+        $slug = $this->slug();
         return [
             'id' => $this->id,
             'currency' => $this->currency,
@@ -19,6 +20,7 @@ class CurrencyResource extends JsonResource
             'symbol' => $this->symbol,
             'symbol_position' => $this->symbol_position,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
+            'slug' => $this->$slug,
         ];
     }
 }

@@ -8,6 +8,7 @@ class ProductResource extends JsonResource
 {
     public function toArray($request)
     {
+        $slug = $this->slug();
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -29,6 +30,7 @@ class ProductResource extends JsonResource
             'purchase_measurement' => new MeasurementResource($this->purchaseMeasurement),
             'sales_measurement' => new MeasurementResource($this->salesMeasurement),
             'product_category' => new ProductCategoryResource($this->productCategory),
+            'slug' => $this->$slug,
         ];
     }
 }

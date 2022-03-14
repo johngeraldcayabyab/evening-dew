@@ -9,6 +9,7 @@ class TransferResource extends JsonResource
 {
     public function toArray($request)
     {
+        $slug = $this->slug();
         return [
             'id' => $this->id,
             'reference' => $this->reference,
@@ -33,6 +34,7 @@ class TransferResource extends JsonResource
             'responsible' => new UserResource($this->responsible),
             'transfer_lines' => TransferLineResource::collection($this->transferLines),
             'scheduled_date_human' => Carbon::parse($this->scheduled_date)->diffForHumans(),
+            'slug' => $this->$slug,
         ];
     }
 }

@@ -9,6 +9,7 @@ class SalesOrderResource extends JsonResource
 {
     public function toArray($request)
     {
+        $slug = $this->slug();
         return [
             'id' => $this->id,
             'number' => $this->number,
@@ -32,6 +33,7 @@ class SalesOrderResource extends JsonResource
             'payment_term' => new PaymentTermResource($this->paymentTerm),
             'sales_order_lines' => SalesOrderLineResource::collection($this->salesOrderLines),
             'sales_order_transfer' => new SalesOrderTransferResource($this->salesOrderTransfer),
+            'slug' => $this->$slug,
         ];
     }
 }

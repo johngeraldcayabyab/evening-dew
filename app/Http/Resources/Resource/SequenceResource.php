@@ -8,6 +8,7 @@ class SequenceResource extends JsonResource
 {
     public function toArray($request)
     {
+        $slug = $this->slug();
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -19,6 +20,7 @@ class SequenceResource extends JsonResource
             'step' => $this->step,
             'next_number' => $this->next_number,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
+            'slug' => $this->$slug,
         ];
     }
 }
