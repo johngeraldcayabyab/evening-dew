@@ -64,8 +64,6 @@ const MaterialForm = () => {
                             {...formState}
                             query={'measurement.name'}
                         />
-
-
                     </ColForm>
 
                     <ColForm>

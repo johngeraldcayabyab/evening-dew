@@ -8,7 +8,7 @@ class ProductCategoryResource extends JsonResource
 {
     public function toArray($request)
     {
-        $slug = $this->getWithParents('label');
+        $slug = $this->getWithParents('category');
         return [
             'id' => $this->id,
             'category' => $this->category,

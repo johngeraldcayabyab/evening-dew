@@ -8,6 +8,7 @@ use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\GlobalSettingController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MeasurementCategoryController;
 use App\Http\Controllers\MeasurementController;
 use App\Http\Controllers\MenuController;
@@ -31,6 +32,7 @@ use App\Models\Country;
 use App\Models\Currency;
 use App\Models\GlobalSetting;
 use App\Models\Location;
+use App\Models\Material;
 use App\Models\Measurement;
 use App\Models\MeasurementCategory;
 use App\Models\Menu;
@@ -58,6 +60,7 @@ Route::group(['middleware' => ['api', 'cors']], function () {
     (new RouteGenerator(Currency::class))::generate(CurrencyController::class);
     (new RouteGenerator(GlobalSetting::class))::generate(GlobalSettingController::class);
     (new RouteGenerator(Location::class))::generate(LocationController::class);
+    (new RouteGenerator(Material::class))::generate(MaterialController::class);
     Route::post('/tokens/create', [LoginController::class, 'tokensCreate'])->name('csrf');
     Route::post('/sanctum/token', [LoginController::class, 'authenticate'])->name('login');
     Route::middleware('auth:sanctum')->group(function () {

@@ -8,7 +8,7 @@ class LocationResource extends JsonResource
 {
     public function toArray($request)
     {
-        $slug = $this->getWithParents('label');
+        $slug = $this->getWithParents('name');
         return [
             'id' => $this->id,
             'name' => $this->name,
