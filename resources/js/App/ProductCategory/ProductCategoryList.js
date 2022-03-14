@@ -28,7 +28,7 @@ const ProductCategoryList = () => {
     return (
         <React.Fragment>
             <ControlPanel
-                topColOneLeft={<CustomBreadcrumb/>}
+                topColOneLeft={<CustomBreadcrumb reload={formState.initialLoad}/>}
                 topColTwoRight={
                     <TableSearchInput
                         {...tableState}

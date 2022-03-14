@@ -182,7 +182,7 @@ const SalesOrderForm = () => {
             onValuesChange={onValuesChange}
         >
             <ControlPanel
-                topColOneLeft={<CustomBreadcrumb/>}
+                topColOneLeft={<CustomBreadcrumb reload={formState.initialLoad}/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}
