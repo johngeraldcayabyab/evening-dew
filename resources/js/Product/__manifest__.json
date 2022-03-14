@@ -1,7 +1,0 @@
-{
-    "moduleName": "products",
-    "eventName": "ProductCrudEvent",
-    "modelName": "Product"
-}
-
-

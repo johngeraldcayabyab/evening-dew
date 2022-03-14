@@ -1,7 +1,0 @@
-{
-    "moduleName": "product_categories",
-    "eventName": "ProductCategoryCrudEvent",
-    "modelName": "ProductCategory"
-}
-
-

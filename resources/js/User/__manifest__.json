@@ -1,7 +1,0 @@
-{
-    "moduleName": "users",
-    "eventName": "UserCrudEvent",
-    "modelName": "User"
-}
-
-
