@@ -15,4 +15,8 @@ export const getBreadcrumbs = () => {
     return breadcrumbs;
 };
 
+export const setBreadcrumbs = (breadcrumbs) => {
+    localStorage.setItem("breadcrumbs", JSON.stringify(breadcrumbs));
+};
+
 
