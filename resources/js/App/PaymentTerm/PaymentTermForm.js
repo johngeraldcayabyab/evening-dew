@@ -10,6 +10,7 @@ import CustomForm from "../../components/CustomForm";
 import ControlPanel from "../../components/ControlPanel";
 import FormCard from "../../components/FormCard";
 import FormItemText from "../../components/FormItem/FormItemText";
+import CustomBreadcrumb from "../../components/CustomBreadcrumb";
 
 const PaymentTermForm = () => {
     let {id} = useParams();
@@ -21,6 +22,7 @@ const PaymentTermForm = () => {
             onFinish={formActions.onFinish}
         >
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}

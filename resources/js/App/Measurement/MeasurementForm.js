@@ -13,6 +13,7 @@ import FormItemSelect from "../../components/FormItem/FormItemSelect";
 import ControlPanel from "../../components/ControlPanel";
 import FormItemSelectAjax from "../../components/FormItem/FormItemSelectAjax";
 import FormCard from "../../components/FormCard";
+import CustomBreadcrumb from "../../components/CustomBreadcrumb";
 
 const MeasurementForm = () => {
     let {id} = useParams();
@@ -24,6 +25,7 @@ const MeasurementForm = () => {
             onFinish={formActions.onFinish}
         >
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}

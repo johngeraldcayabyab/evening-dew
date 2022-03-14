@@ -7,6 +7,7 @@ import ActionsDropdownButton from "../../components/TableButtons/ActionsDropdown
 import CustomTable from "../../components/CustomTable";
 import TableSearchInput from "../../components/TableSearchInput";
 import CustomPagination from "../../components/CustomPagination";
+import CustomBreadcrumb from "../../components/CustomBreadcrumb";
 
 const SequenceList = () => {
     const [tableState, tableActions, columns] = useListState(manifest, [
@@ -76,6 +77,7 @@ const SequenceList = () => {
     return (
         <React.Fragment>
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb/>}
                 topColTwoRight={
                     <TableSearchInput
                         {...tableState}

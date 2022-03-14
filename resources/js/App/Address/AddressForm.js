@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../../Hooks/useFormState";
@@ -12,17 +12,36 @@ import ControlPanel from "../../components/ControlPanel";
 import FormCard from "../../components/FormCard";
 import FormItemSelectAjax from "../../components/FormItem/FormItemSelectAjax";
 import FormItemSelect from "../../components/FormItem/FormItemSelect";
+import {addBreadcrumbs} from "../../Helpers/breadcrumbs";
+import {uuidv4} from "../../Helpers/string";
+import CustomBreadcrumb from "../../components/CustomBreadcrumb";
 
 const AddressForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormState(id, form, manifest, true);
+
+    useEffect(() => {
+        if (!formState.initialLoad) {
+            addBreadcrumbs({
+                key: uuidv4(),
+                slug: formState.initialValues.slug,
+            });
+        } else {
+            addBreadcrumbs({
+                key: uuidv4(),
+                slug: 'New',
+            });
+        }
+    }, [formState.initialLoad]);
+
     return (
         <CustomForm
             form={form}
             onFinish={formActions.onFinish}
         >
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}

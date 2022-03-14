@@ -13,6 +13,7 @@ import FormItemText from "../../components/FormItem/FormItemText";
 import FormItemSelectAjax from "../../components/FormItem/FormItemSelectAjax";
 import FormItemSelect from "../../components/FormItem/FormItemSelect";
 import FormItemCheckbox from "../../components/FormItem/FormItemCheckbox";
+import CustomBreadcrumb from "../../components/CustomBreadcrumb";
 
 const LocationForm = () => {
     let {id} = useParams();
@@ -25,6 +26,7 @@ const LocationForm = () => {
             onFinish={formActions.onFinish}
         >
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}
