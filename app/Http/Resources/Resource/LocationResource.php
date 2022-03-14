@@ -8,6 +8,7 @@ class LocationResource extends JsonResource
 {
     public function toArray($request)
     {
+        $slug = $this->getWithParents('label');
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -17,7 +18,8 @@ class LocationResource extends JsonResource
             'type' => $this->type,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'parent_location' => new LocationResource($this->parentLocation),
-            'parents' => $this->getWithParents('name'),
+            'parents' => $slug,
+            'slug' => $slug,
         ];
     }
 }

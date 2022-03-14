@@ -8,6 +8,7 @@ class ContactResource extends JsonResource
 {
     public function toArray($request)
     {
+        $slug = $this->slug();
         $defaultAddress = $this->defaultAddress();
         return [
             'id' => $this->id,
@@ -26,6 +27,7 @@ class ContactResource extends JsonResource
             'country_id' => $defaultAddress->country_id,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'country' => new CountryResource($defaultAddress->country),
+            'slug' => $this->$slug,
         ];
     }
 }

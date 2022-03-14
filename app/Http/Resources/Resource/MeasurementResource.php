@@ -8,6 +8,7 @@ class MeasurementResource extends JsonResource
 {
     public function toArray($request)
     {
+        $slug = $this->slug();
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -17,6 +18,7 @@ class MeasurementResource extends JsonResource
             'measurement_category_id' => $this->measurement_category_id,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'measurement_category' => new MeasurementCategoryResource($this->measurementCategory),
+            'slug' => $this->$slug,
         ];
     }
 }

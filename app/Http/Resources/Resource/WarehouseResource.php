@@ -8,6 +8,7 @@ class WarehouseResource extends JsonResource
 {
     public function toArray($request)
     {
+        $slug = $this->slug();
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -47,6 +48,7 @@ class WarehouseResource extends JsonResource
             'stock_after_manufacturing_operation_type' => new OperationTypeResource($this->stockAfterManufacturingOperationType),
             'picking_before_manufacturing_operation_type' => new OperationTypeResource($this->pickingBeforeManufacturingOperationType),
             'manufacturing_operation_type' => new OperationTypeResource($this->manufacturingOperationType),
+            'slug' => $this->$slug,
         ];
     }
 }

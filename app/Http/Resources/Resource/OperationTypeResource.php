@@ -8,6 +8,7 @@ class OperationTypeResource extends JsonResource
 {
     public function toArray($request)
     {
+        $slug = $this->slug();
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -32,6 +33,7 @@ class OperationTypeResource extends JsonResource
             'operation_type_for_returns' => new OperationTypeResource($this->operationTypeForReturns),
             'default_source_location' => new LocationResource($this->defaultSourceLocation),
             'default_destination_location' => new LocationResource($this->defaultDestinationLocation),
+            'slug' => $this->$slug,
         ];
     }
 }

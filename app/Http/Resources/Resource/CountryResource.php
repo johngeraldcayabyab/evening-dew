@@ -8,6 +8,7 @@ class CountryResource extends JsonResource
 {
     public function toArray($request)
     {
+        $slug = $this->slug();
         return [
             'id' => $this->id,
             'country_name' => $this->country_name,
@@ -17,6 +18,7 @@ class CountryResource extends JsonResource
             'vat_label' => $this->vat_label,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'currency' => new CurrencyResource($this->currency),
+            'slug' => $this->$slug,
         ];
     }
 }
