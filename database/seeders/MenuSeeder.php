@@ -11,83 +11,87 @@ class MenuSeeder extends Seeder
     {
         return [
             [
-                'label' => 'Addresses', // 1
+                'label' => 'Addresses',
                 'url' => '/addresses',
             ],
             [
-                'label' => 'App Menus', // 1
+                'label' => 'App Menus',
                 'url' => '/app_menus',
             ],
             [
-                'label' => 'Contacts', // 2
+                'label' => 'Contacts',
                 'url' => '/contacts',
             ],
             [
-                'label' => 'Countries', // 3
+                'label' => 'Countries',
                 'url' => '/countries',
             ],
             [
-                'label' => 'Currencies', // 4
+                'label' => 'Currencies',
                 'url' => '/currencies',
             ],
             [
-                'label' => 'Locations', // 5
+                'label' => 'Locations',
                 'url' => '/locations',
             ],
             [
-                'label' => 'Measurements', // 6
+                'label' => 'Materials',
+                'url' => '/materials',
+            ],
+            [
+                'label' => 'Measurements',
                 'url' => '/measurements',
             ],
             [
-                'label' => 'Measurement Categories', // 7
+                'label' => 'Measurement Categories',
                 'url' => '/measurement_categories',
             ],
             [
-                'label' => 'Menus', // 8
+                'label' => 'Menus',
                 'url' => '/menus',
             ],
             [
-                'label' => 'Operations Types', // 9
+                'label' => 'Operations Types',
                 'url' => '/operations_types',
             ],
             [
-                'label' => 'Payment Terms', // 10
+                'label' => 'Payment Terms',
                 'url' => '/payment_terms',
             ],
             [
-                'label' => 'Product Categories', // 11
+                'label' => 'Product Categories',
                 'url' => '/product_categories',
             ],
             [
-                'label' => 'Sales Orders', // 12
+                'label' => 'Sales Orders',
                 'url' => '/sales_orders',
             ],
             [
-                'label' => 'Products', // 13
+                'label' => 'Products',
                 'url' => '/products',
             ],
             [
-                'label' => 'Sequences', // 14
+                'label' => 'Sequences',
                 'url' => '/sequences',
             ],
             [
-                'label' => 'Stock Movements', // 15
+                'label' => 'Stock Movements',
                 'url' => '/stock_movements',
             ],
             [
-                'label' => 'Transfers', // 16
+                'label' => 'Transfers',
                 'url' => '/transfers',
             ],
             [
-                'label' => 'Users', // 17
+                'label' => 'Users',
                 'url' => '/users',
             ],
             [
-                'label' => 'Global Settings', // 18
+                'label' => 'Global Settings',
                 'url' => '/global_settings',
             ],
             [
-                'label' => 'Warehouses', // 19
+                'label' => 'Warehouses',
                 'url' => '/warehouses',
             ],
         ];

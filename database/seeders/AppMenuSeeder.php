@@ -59,6 +59,12 @@ class AppMenuSeeder extends Seeder
                             [
                                 'label' => 'Products',
                                 'menu_key' => 'Products',
+                                'children' => [
+                                    [
+                                        'label' => 'Materials',
+                                        'menu_key' => 'Materials',
+                                    ],
+                                ],
                             ],
                             [
                                 'label' => 'Configurations',

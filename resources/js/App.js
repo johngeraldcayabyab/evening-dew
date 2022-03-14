@@ -28,6 +28,7 @@ import OperationTypeRoute from "./App/OperationType/OperationTypeRoute";
 import TransferRoute from "./App/Transfer/TransferRoute";
 import StockMovementRoute from "./App/StockMovement/StockMovementRoute";
 import AppMenuRoute from "./App/AppMenu/AppMenuRoute";
+import MaterialRoute from "./App/Material/MaterialRoute";
 
 export const AppContext = React.createContext({});
 export const AppContextProvider = AppContext.Provider;
@@ -54,6 +55,7 @@ const App = () => {
                         <GlobalSettingRoute/>
                         <LocationRoute/>
                         <LoginRoute/>
+                        <MaterialRoute/>
                         <MeasurementCategoryRoute/>
                         <MeasurementRoute/>
                         <MenuRoute/>
