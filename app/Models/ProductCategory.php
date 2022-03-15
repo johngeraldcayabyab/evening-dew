@@ -59,6 +59,6 @@ class ProductCategory extends Model implements Sluggable
 
     public function slug()
     {
-        return 'category';
+        return 'parent.category';
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Requests\MassDestroy\CurrencyMassDestroyRequest;
 use App\Http\Requests\Store\CurrencyStoreRequest;
 use App\Http\Requests\Update\CurrencyUpdateRequest;
 use App\Http\Resources\Collection\CurrencyCollection;
+use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\CurrencyResource;
 use App\Http\Resources\Slug\CurrencySlugResource;
 use App\Models\Currency;
@@ -56,7 +57,7 @@ class CurrencyController
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Currency(), $request);
-        return response()->json(CurrencySlugResource::collection($model));
+        return response()->json(OptionResource::collection($model));
     }
 
     public function initial_values()

@@ -6,6 +6,7 @@ use App\Http\Requests\MassDestroy\MeasurementMassDestroyRequest;
 use App\Http\Requests\Store\MeasurementStoreRequest;
 use App\Http\Requests\Update\MeasurementUpdateRequest;
 use App\Http\Resources\Collection\MeasurementCollection;
+use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\MeasurementResource;
 use App\Http\Resources\Slug\MeasurementSlugResource;
 use App\Models\GlobalSetting;
@@ -57,7 +58,7 @@ class MeasurementController
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Measurement(), $request);
-        return response()->json(MeasurementSlugResource::collection($model));
+        return response()->json(OptionResource::collection($model));
     }
 
     public function initial_values()

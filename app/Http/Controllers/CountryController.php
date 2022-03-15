@@ -6,6 +6,7 @@ use App\Http\Requests\MassDestroy\CountryMassDestroyRequest;
 use App\Http\Requests\Store\CountryStoreRequest;
 use App\Http\Requests\Update\CountryUpdateRequest;
 use App\Http\Resources\Collection\CountryCollection;
+use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\CountryResource;
 use App\Http\Resources\Slug\CountrySlugResource;
 use App\Models\Country;
@@ -55,6 +56,6 @@ class CountryController
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Country(), $request);
-        return response()->json(CountrySlugResource::collection($model));
+        return response()->json(OptionResource::collection($model));
     }
 }

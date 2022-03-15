@@ -6,6 +6,7 @@ use App\Http\Requests\MassDestroy\AppMenuMassDestroyRequest;
 use App\Http\Requests\Store\AppMenuStoreRequest;
 use App\Http\Requests\Update\AppMenuUpdateRequest;
 use App\Http\Resources\Collection\AppMenuCollection;
+use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\AppMenuResource;
 use App\Http\Resources\Slug\AppMenuSlugResource;
 use App\Models\AppMenu;
@@ -56,7 +57,7 @@ class AppMenuController
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new AppMenu(), $request);
-        return response()->json(AppMenuSlugResource::collection($model));
+        return response()->json(OptionResource::collection($model));
     }
 
     public function initial_values(): array

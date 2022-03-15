@@ -7,6 +7,7 @@ use App\Http\Requests\MassDestroy\LocationMassDestroyRequest;
 use App\Http\Requests\Store\LocationStoreRequest;
 use App\Http\Requests\Update\LocationUpdateRequest;
 use App\Http\Resources\Collection\LocationCollection;
+use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\LocationResource;
 use App\Http\Resources\Slug\LocationSlugResource;
 use App\Models\Location;
@@ -57,7 +58,7 @@ class LocationController
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Location(), $request);
-        return response()->json(LocationSlugResource::collection($model));
+        return response()->json(OptionResource::collection($model));
     }
 
     public function initial_values()

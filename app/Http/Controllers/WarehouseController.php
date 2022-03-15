@@ -6,6 +6,7 @@ use App\Http\Requests\MassDestroy\WarehouseMassDestroyRequest;
 use App\Http\Requests\Store\WarehouseStoreRequest;
 use App\Http\Requests\Update\WarehouseUpdateRequest;
 use App\Http\Resources\Collection\WarehouseCollection;
+use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\WarehouseResource;
 use App\Http\Resources\Slug\WarehouseSlugResource;
 use App\Models\Warehouse;
@@ -55,7 +56,7 @@ class WarehouseController
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Warehouse(), $request);
-        return response()->json(WarehouseSlugResource::collection($model));
+        return response()->json(OptionResource::collection($model));
     }
 
     public function initial_values()

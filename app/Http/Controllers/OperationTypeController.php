@@ -7,6 +7,7 @@ use App\Http\Requests\MassDestroy\OperationTypeMassDestroyRequest;
 use App\Http\Requests\Store\OperationTypeStoreRequest;
 use App\Http\Requests\Update\OperationTypeUpdateRequest;
 use App\Http\Resources\Collection\OperationTypeCollection;
+use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\OperationTypeResource;
 use App\Http\Resources\Slug\OperationTypeSlugResource;
 use App\Models\OperationType;
@@ -56,7 +57,7 @@ class OperationTypeController
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new OperationType(), $request);
-        return response()->json(OperationTypeSlugResource::collection($model));
+        return response()->json(OptionResource::collection($model));
     }
 
     public function initial_values()

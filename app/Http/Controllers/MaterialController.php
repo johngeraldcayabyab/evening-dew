@@ -6,6 +6,7 @@ use App\Http\Requests\MassDestroy\MaterialMassDestroyRequest;
 use App\Http\Requests\Store\MaterialStoreRequest;
 use App\Http\Requests\Update\MaterialUpdateRequest;
 use App\Http\Resources\Collection\MaterialCollection;
+use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\MaterialResource;
 use App\Http\Resources\Slug\MaterialSlugResource;
 use App\Models\GlobalSetting;
@@ -72,7 +73,7 @@ class MaterialController
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Material(), $request);
-        return response()->json(MaterialSlugResource::collection($model));
+        return response()->json(OptionResource::collection($model));
     }
 
     public function initial_values()
