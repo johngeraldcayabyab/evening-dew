@@ -52,11 +52,6 @@ class CountryController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(Country $Country): JsonResponse
-    {
-        return response()->json(new CountrySlugResource($Country));
-    }
-
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Country(), $request);

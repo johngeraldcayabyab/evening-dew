@@ -79,11 +79,6 @@ class SalesOrderController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(SalesOrder $salesOrder): JsonResponse
-    {
-        return response()->json(new SalesOrderSlugResource($salesOrder));
-    }
-
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new SalesOrder(), $request);

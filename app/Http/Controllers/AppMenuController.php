@@ -53,11 +53,6 @@ class AppMenuController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(AppMenu $appMenu): JsonResponse
-    {
-        return response()->json(new AppMenuSlugResource($appMenu));
-    }
-
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new AppMenu(), $request);

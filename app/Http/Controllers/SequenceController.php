@@ -54,11 +54,6 @@ class SequenceController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(Sequence $sequence): JsonResponse
-    {
-        return response()->json(new SequenceSlugResource($sequence));
-    }
-
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Sequence(), $request);

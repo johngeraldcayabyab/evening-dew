@@ -56,11 +56,6 @@ class ProductController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(Product $product): JsonResponse
-    {
-        return response()->json(new ProductSlugResource($product));
-    }
-
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Product(), $request);

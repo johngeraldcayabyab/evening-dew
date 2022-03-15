@@ -52,11 +52,6 @@ class StockMovementController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(StockMovement $stockMovement): JsonResponse
-    {
-        return response()->json(new StockMovementSlugResource($stockMovement));
-    }
-
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new StockMovement(), $request);

@@ -58,11 +58,6 @@ class UserController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(User $user): JsonResponse
-    {
-        return response()->json(new UserSlugResource($user));
-    }
-
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new User(), $request);
