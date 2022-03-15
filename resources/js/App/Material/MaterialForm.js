@@ -256,38 +256,21 @@ const MaterialForm = () => {
 
                     <TabPane tab="Miscellaneous" key="2">
                         <RowForm>
-                            {/*<ColForm>*/}
-                            {/*    <FormItemText*/}
-                            {/*        form={form}*/}
-                            {/*        label={'Tracking Reference'}*/}
-                            {/*        name={'tracking_reference'}*/}
-                            {/*        {...formState}*/}
-                            {/*    />*/}
-                            {/*</ColForm>*/}
-
-                            {/*<ColForm>*/}
-                            {/*    <FormItemSelect*/}
-                            {/*        form={form}*/}
-                            {/*        label={'Shipping Policy'}*/}
-                            {/*        name={'shipping_policy'}*/}
-                            {/*        message={'Please select an address type'}*/}
-                            {/*        required={true}*/}
-                            {/*        options={[*/}
-                            {/*            {value: 'as_soon_as_possible', label: 'As soon as possible'},*/}
-                            {/*            {value: 'when_all_products_are_ready', label: 'When all products are ready'},*/}
-                            {/*        ]}*/}
-                            {/*        {...formState}*/}
-                            {/*    />*/}
-
-                            {/*    <FormItemSelectAjax*/}
-                            {/*        form={form}*/}
-                            {/*        label={'Responsible'}*/}
-                            {/*        name={'responsible_id'}*/}
-                            {/*        url={'/api/users/option'}*/}
-                            {/*        {...formState}*/}
-                            {/*        query={'responsible.name'}*/}
-                            {/*    />*/}
-                            {/*</ColForm>*/}
+                            <ColForm>
+                                <FormItemSelect
+                                    form={form}
+                                    label={'Flexible Consumption'}
+                                    name={'flexible_consumption'}
+                                    message={'Please select a flexible consumption'}
+                                    required={true}
+                                    options={[
+                                        {value: 'allowed', label: 'Allowed'},
+                                        {value: 'allowed_with_warning', label: 'Allowed with warning'},
+                                        {value: 'blocked', label: 'Blocked'},
+                                    ]}
+                                    {...formState}
+                                />
+                            </ColForm>
                         </RowForm>
                     </TabPane>
                 </Tabs>
