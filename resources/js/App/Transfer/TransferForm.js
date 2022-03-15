@@ -126,7 +126,7 @@ const TransferForm = () => {
             onValuesChange={onValuesChange}
         >
             <ControlPanel
-                topColOneLeft={<CustomBreadcrumb reload={formState.initialLoad}/>}
+                topColOneLeft={<CustomBreadcrumb formState={formState}/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}
