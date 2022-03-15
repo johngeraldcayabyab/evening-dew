@@ -32,6 +32,11 @@ class Material extends Model implements Sluggable
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
 
+    public function materialLines()
+    {
+        return $this->hasMany(MaterialLine::class);
+    }
+
     public function scopeWhereProductId($query, $where)
     {
         return $this->whereSingle($query, __FUNCTION__, $where);

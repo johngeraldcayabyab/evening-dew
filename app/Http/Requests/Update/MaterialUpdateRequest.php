@@ -16,6 +16,10 @@ class MaterialUpdateRequest extends FormRequest
             'measurement_id' => ['required', "exists:measurements,id"],
             'reference' => ['nullable'],
             'material_type' => ['required', "in:$materialTypes"],
+            'transfer_lines.*.id' => ['nullable', 'exists:transfer_lines,id'],
+            'transfer_lines.*.product_id' => ['required', "exists:products,id"],
+            'transfer_lines.*.quantity' => ['required'],
+            'transfer_lines.*.measurement_id' => ["required", "exists:measurements,id"],
         ];
     }
 }

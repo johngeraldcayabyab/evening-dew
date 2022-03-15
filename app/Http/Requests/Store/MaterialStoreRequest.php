@@ -16,6 +16,9 @@ class MaterialStoreRequest extends FormRequest
             'measurement_id' => ['required', "exists:measurements,id"],
             'reference' => ['nullable'],
             'material_type' => ['required', "in:$materialTypes"],
+            'material_lines.*.product_id' => ['required', "exists:products,id"],
+            'material_lines.*.quantity' => ['required'],
+            'material_lines.*.measurement_id' => ["required", "exists:measurements,id"],
         ];
     }
 }

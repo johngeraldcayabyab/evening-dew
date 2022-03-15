@@ -18,6 +18,7 @@ class MaterialResource extends JsonResource
             'material_type' => $this->material_type,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'product' => $this->product,
+            'material_lines' => MaterialLineResource::collection($this->materialLines),
             'slug' => $this->$slug,
         ];
     }
