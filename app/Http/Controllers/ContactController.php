@@ -62,11 +62,6 @@ class ContactController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(Contact $contact): JsonResponse
-    {
-        return response()->json(new ContactSlugResource($contact));
-    }
-
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Contact(), $request);

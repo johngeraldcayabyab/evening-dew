@@ -53,11 +53,6 @@ class CurrencyController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(Currency $currency): JsonResponse
-    {
-        return response()->json(new CurrencySlugResource($currency));
-    }
-
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Currency(), $request);

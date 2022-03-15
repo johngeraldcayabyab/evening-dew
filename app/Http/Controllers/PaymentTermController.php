@@ -54,11 +54,6 @@ class PaymentTermController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(PaymentTerm $paymentTerm): JsonResponse
-    {
-        return response()->json(new PaymentTermSlugResource($paymentTerm));
-    }
-
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new PaymentTerm(), $request);

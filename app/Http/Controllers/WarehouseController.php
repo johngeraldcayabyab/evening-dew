@@ -52,11 +52,6 @@ class WarehouseController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(Warehouse $warehouse): JsonResponse
-    {
-        return response()->json(new WarehouseSlugResource($warehouse));
-    }
-
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Warehouse(), $request);

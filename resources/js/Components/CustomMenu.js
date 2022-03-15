@@ -9,6 +9,8 @@ import {GET, POST} from "../consts";
 import {eraseCookie} from "../Helpers/cookie";
 import {useHistory} from "react-router";
 import {AppContext} from "../App";
+import {setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
+import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 
 const {SubMenu} = Menu;
 
@@ -83,7 +85,20 @@ const CustomMenu = () => {
                         {state.appMenu.map((menu) => {
                             return (
                                 <Menu.Item key={`parent-${menu.id}`}>
-                                    {menu.menu ? <Link to={menu.menu.url}>{menu.label}</Link> : menu.label}
+                                    {
+                                        menu.menu ?
+                                            <Link to={menu.menu.url} onClick={() => {
+                                                let pathname = menu.menu.url;
+                                                let splitPathName = pathname.split('/');
+                                                setClickedBreadcrumb({});
+                                                setBreadcrumbs([{
+                                                    key: uuidv4(),
+                                                    slug: titleCase(replaceUnderscoreWithSpace(splitPathName[1])),
+                                                    link: menu.menu.url
+                                                }]);
+                                            }}>{menu.label}</Link>
+                                            : menu.label
+                                    }
                                 </Menu.Item>
                             );
                         })}

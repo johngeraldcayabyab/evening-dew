@@ -54,11 +54,6 @@ class ProductCategoryController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(ProductCategory $productCategory): JsonResponse
-    {
-        return response()->json(new ProductCategorySlugResource($productCategory));
-    }
-
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new ProductCategory(), $request);

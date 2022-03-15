@@ -76,11 +76,6 @@ class TransferController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(Transfer $transfer): JsonResponse
-    {
-        return response()->json(new TransferSlugResource($transfer));
-    }
-
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Transfer(), $request);

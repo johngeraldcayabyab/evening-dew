@@ -55,11 +55,6 @@ class MenuController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(Menu $menu): JsonResponse
-    {
-        return response()->json(new MenuSlugResource($menu));
-    }
-
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Menu(), $request);

@@ -69,11 +69,6 @@ class MaterialController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(Material $material): JsonResponse
-    {
-        return response()->json(new MaterialSlugResource($material));
-    }
-
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Material(), $request);

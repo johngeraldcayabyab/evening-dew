@@ -53,11 +53,6 @@ class AddressController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(Address $address): JsonResponse
-    {
-        return response()->json(new AddressSlugResource($address));
-    }
-
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Address(), $request);

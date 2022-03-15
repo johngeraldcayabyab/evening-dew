@@ -54,11 +54,6 @@ class LocationController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(Location $location): JsonResponse
-    {
-        return response()->json(new LocationSlugResource($location));
-    }
-
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Location(), $request);

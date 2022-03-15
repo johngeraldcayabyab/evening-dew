@@ -54,11 +54,6 @@ class MeasurementController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(Measurement $measurement): JsonResponse
-    {
-        return response()->json(new MeasurementSlugResource($measurement));
-    }
-
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Measurement(), $request);

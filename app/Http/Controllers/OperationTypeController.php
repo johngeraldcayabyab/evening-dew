@@ -53,11 +53,6 @@ class OperationTypeController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function slug(OperationType $operationType): JsonResponse
-    {
-        return response()->json(new OperationTypeSlugResource($operationType));
-    }
-
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new OperationType(), $request);
