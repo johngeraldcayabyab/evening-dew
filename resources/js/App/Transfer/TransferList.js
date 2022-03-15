@@ -1,15 +1,15 @@
 import React from 'react';
 import useListState from "../../Hooks/useListState";
 import manifest from "./__manifest__.json";
-import TableCreateButton from "../../components/TableButtons/TableCreateButton";
-import ControlPanel from "../../components/ControlPanel";
-import ActionsDropdownButton from "../../components/TableButtons/ActionsDropdownButton";
-import CustomTable from "../../components/CustomTable";
-import TableSearchInput from "../../components/TableSearchInput";
-import CustomPagination from "../../components/CustomPagination";
+import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
+import ControlPanel from "../../Components/ControlPanel";
+import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
+import CustomTable from "../../Components/CustomTable";
+import TableSearchInput from "../../Components/TableSearchInput";
+import CustomPagination from "../../Components/CustomPagination";
 import {Tag} from "antd";
 import Text from "antd/es/typography/Text";
-import CustomBreadcrumb from "../../components/CustomBreadcrumb";
+import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 
 const TransferList = () => {
     const [tableState, tableActions, columns] = useListState(manifest, [

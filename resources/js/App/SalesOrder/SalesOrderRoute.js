@@ -3,20 +3,21 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import SalesOrderList from "./SalesOrderList";
 import SalesOrderForm from "./SalesOrderForm";
+import {uuidv4} from "../../Helpers/string";
 
 const SalesOrderRoute = () => {
     const moduleName = manifest.moduleName;
     return (
         <Switch>
-            <Route exact key={`${moduleName}_table`} path={`/${moduleName}`}>
+            <Route exact key={uuidv4()} path={`/${moduleName}`}>
                 <SalesOrderList/>
             </Route>
-            <Route exact key={`${moduleName}_create`} path={`/${moduleName}/create`}>
-                <SalesOrderForm/>
-            </Route>
-            <Route exact key={`${moduleName}_update`} path={`/${moduleName}/:id`}>
-                <SalesOrderForm/>
-            </Route>
+            <Route exact key={uuidv4()} path={`/${moduleName}/create`}
+                   render={props => <SalesOrderForm key={props.location.key}/>}
+            />
+            <Route exact key={uuidv4()} path={`/${moduleName}/:id`}
+                   render={props => <SalesOrderForm key={props.location.key}/>}
+            />
         </Switch>
     );
 };

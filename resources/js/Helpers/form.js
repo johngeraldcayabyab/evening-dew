@@ -1,9 +1,9 @@
-import FormLabel from "../components/Typography/FormLabel";
+import FormLabel from "../Components/Typography/FormLabel";
 import {Button, Form} from "antd";
 import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
 import React from "react";
-import RowForm from "../components/Grid/RowForm";
-import ColForm from "../components/Grid/ColForm";
+import RowForm from "../Components/Grid/RowForm";
+import ColForm from "../Components/Grid/ColForm";
 
 export const formItemFieldProps = (props, specialFieldProps = {}) => {
     const formItemProps = {

@@ -3,16 +3,16 @@ import {Divider, Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../../Hooks/useFormState";
 import manifest from "./__manifest__.json";
-import FormButtons from "../../components/FormButtons/FormButtons";
-import RowForm from "../../components/Grid/RowForm";
-import ColForm from "../../components/Grid/ColForm";
-import CustomForm from "../../components/CustomForm";
-import ControlPanel from "../../components/ControlPanel";
-import FormCard from "../../components/FormCard";
-import FormItemSelectAjax from "../../components/FormItem/FormItemSelectAjax";
+import FormButtons from "../../Components/FormButtons/FormButtons";
+import RowForm from "../../Components/Grid/RowForm";
+import ColForm from "../../Components/Grid/ColForm";
+import CustomForm from "../../Components/CustomForm";
+import ControlPanel from "../../Components/ControlPanel";
+import FormCard from "../../Components/FormCard";
+import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import {GenerateDynamicColumns} from "../../Helpers/form";
-import FormItemCheckbox from "../../components/FormItem/FormItemCheckbox";
-import CustomBreadcrumb from "../../components/CustomBreadcrumb";
+import FormItemCheckbox from "../../Components/FormItem/FormItemCheckbox";
+import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 
 const {TabPane} = Tabs;
 
