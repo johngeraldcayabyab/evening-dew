@@ -10,7 +10,6 @@ import CustomForm from "../../Components/CustomForm";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
-import {GenerateDynamicColumns} from "../../Helpers/form";
 import FormItemCheckbox from "../../Components/FormItem/FormItemCheckbox";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 

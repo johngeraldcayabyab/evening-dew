@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import useListState from "../../Hooks/useListState";
 import manifest from "./__manifest__.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
@@ -7,8 +7,6 @@ import CustomTable from "../../Components/CustomTable";
 import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
 import CustomPagination from "../../Components/CustomPagination";
 import TableSearchInput from "../../Components/TableSearchInput";
-import {Button, Input, Space} from "antd";
-import {SearchOutlined} from "@ant-design/icons";
 
 const MaterialList = () => {
 
