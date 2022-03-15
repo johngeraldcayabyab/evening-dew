@@ -15,6 +15,7 @@ class CreateMaterialsTable extends Migration
             $table->bigInteger('measurement_id');
             $table->string('reference')->nullable();
             $table->string('material_type')->nullable();
+            $table->string('flexible_consumption')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

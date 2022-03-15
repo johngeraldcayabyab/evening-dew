@@ -87,6 +87,7 @@ class MaterialController
             'quantity' => 1,
             'measurement_id' => $inventoryDefaultMeasurement->id,
             'material_type' => Material::MANUFACTURE_THIS_PRODUCT,
+            'flexible_consumption' => Material::ALLOWED_WITH_WARNING,
             'measurement' => $inventoryDefaultMeasurement,
         ];
     }

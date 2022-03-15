@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Address;
 use App\Models\Location;
+use App\Models\Material;
 use App\Models\ProductCategory;
 use App\Models\SalesOrder;
 use App\Models\Transfer;
@@ -11,6 +12,7 @@ use App\Models\User;
 use App\Models\Warehouse;
 use App\Observers\AddressObserver;
 use App\Observers\LocationObserver;
+use App\Observers\MaterialObserver;
 use App\Observers\ProductCategoryObserver;
 use App\Observers\SalesOrderObserver;
 use App\Observers\TransferObserver;
@@ -29,6 +31,7 @@ class ModuleServiceProvider extends ServiceProvider
     {
         Address::observe(AddressObserver::class);
         Location::observe(LocationObserver::class);
+        Material::observe(MaterialObserver::class);
         ProductCategory::observe(ProductCategoryObserver::class);
         SalesOrder::observe(SalesOrderObserver::class);
         Transfer::observe(TransferObserver::class);

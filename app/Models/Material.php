@@ -19,12 +19,21 @@ class Material extends Model implements Sluggable
     const MANUFACTURE_THIS_PRODUCT = 'manufacture_this_product';
     const KIT = 'kit';
 
+    const ALLOWED = 'allowed';
+    const ALLOWED_WITH_WARNING = 'allowed_with_warning';
+    const BLOCKED = 'blocked';
+
     protected $table = 'materials';
     protected $guarded = [];
 
     public static function getMaterialTypes()
     {
         return [self::MANUFACTURE_THIS_PRODUCT, self::KIT];
+    }
+
+    public static function getFlexibleConsumptions()
+    {
+        return [self::ALLOWED, self::ALLOWED_WITH_WARNING, self::BLOCKED];
     }
 
     public function product()
@@ -62,6 +71,11 @@ class Material extends Model implements Sluggable
         return $this->like($query, __FUNCTION__, $where);
     }
 
+    public function scopeWhereFlexibleConsumption($query, $where)
+    {
+        return $this->like($query, __FUNCTION__, $where);
+    }
+
     public function scopeOrderByProductId($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
@@ -83,6 +97,11 @@ class Material extends Model implements Sluggable
     }
 
     public function scopeOrderByMaterialType($query, $order)
+    {
+        return $this->order($query, __FUNCTION__, $order);
+    }
+
+    public function scopeOrderByMaterialConsumption($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }

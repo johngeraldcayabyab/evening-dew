@@ -16,6 +16,7 @@ class MaterialResource extends JsonResource
             'measurement_id' => $this->measurement_id,
             'reference' => $this->reference,
             'material_type' => $this->material_type,
+            'flexible_consumption' => $this->flexible_consumption,
             'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'product' => $this->product,
             'material_lines' => MaterialLineResource::collection($this->materialLines),
