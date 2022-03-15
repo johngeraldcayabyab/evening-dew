@@ -9,9 +9,9 @@ const PaymentTermRoute = () => {
     const moduleName = manifest.moduleName;
     return (
         <Switch>
-            <Route exact key={uuidv4()} path={`/${moduleName}`}>
-                <PaymentTermList/>
-            </Route>
+            <Route exact key={uuidv4()} path={`/${moduleName}`}
+                   render={props => <PaymentTermList key={props.location.key}/>}
+            />
             <Route exact key={uuidv4()} path={`/${moduleName}/create`}
                    render={props => <PaymentTermForm key={props.location.key}/>}
             />

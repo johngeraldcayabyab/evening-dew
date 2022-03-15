@@ -8,8 +8,8 @@ const GlobalSettingRoute = () => {
     const moduleName = manifest.moduleName;
     return (
         <Switch>
-            <Route exact key={uuidv4()} path={`/${moduleName}`}>
-                <GlobalSettingForm key={props.location.key}/>}
+            <Route exact key={uuidv4()} path={`/${moduleName}`}
+                   render={props => <GlobalSettingForm key={props.location.key}/>}
             />
         </Switch>
     );

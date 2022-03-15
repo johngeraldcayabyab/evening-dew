@@ -9,9 +9,9 @@ const SequenceRoute = () => {
     const moduleName = manifest.moduleName;
     return (
         <Switch>
-            <Route exact key={uuidv4()} path={`/${moduleName}`}>
-                <SequenceList/>
-            </Route>
+            <Route exact key={uuidv4()} path={`/${moduleName}`}
+                   render={props => <SequenceList key={props.location.key}/>}
+            />
             <Route exact key={uuidv4()} path={`/${moduleName}/create`}
                    render={props => <SequenceForm key={props.location.key}/>}
             />

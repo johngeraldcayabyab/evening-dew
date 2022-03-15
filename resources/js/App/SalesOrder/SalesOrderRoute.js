@@ -9,9 +9,9 @@ const SalesOrderRoute = () => {
     const moduleName = manifest.moduleName;
     return (
         <Switch>
-            <Route exact key={uuidv4()} path={`/${moduleName}`}>
-                <SalesOrderList/>
-            </Route>
+            <Route exact key={uuidv4()} path={`/${moduleName}`}
+                   render={props => <SalesOrderList key={props.location.key}/>}
+            />
             <Route exact key={uuidv4()} path={`/${moduleName}/create`}
                    render={props => <SalesOrderForm key={props.location.key}/>}
             />

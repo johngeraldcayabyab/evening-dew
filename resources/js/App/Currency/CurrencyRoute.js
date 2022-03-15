@@ -9,9 +9,9 @@ const CurrencyRoute = () => {
     const moduleName = manifest.moduleName;
     return (
         <Switch>
-            <Route exact key={uuidv4()} path={`/${moduleName}`}>
-                <CurrencyList/>
-            </Route>
+            <Route exact key={uuidv4()} path={`/${moduleName}`}
+                   render={props => <CurrencyList key={props.location.key}/>}
+            />
             <Route exact key={uuidv4()} path={`/${moduleName}/create`}
                    render={props => <CurrencyForm key={props.location.key}/>}
             />

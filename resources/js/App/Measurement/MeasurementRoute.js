@@ -9,9 +9,9 @@ const MeasurementRoute = () => {
     const moduleName = manifest.moduleName;
     return (
         <Switch>
-            <Route exact key={uuidv4()} path={`/${moduleName}`}>
-                <MeasurementList/>
-            </Route>
+            <Route exact key={uuidv4()} path={`/${moduleName}`}
+                   render={props => <MeasurementList key={props.location.key}/>}
+            />
             <Route exact key={uuidv4()} path={`/${moduleName}/create`}
                    render={props => <MeasurementForm key={props.location.key}/>}
             />
