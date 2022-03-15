@@ -3,20 +3,21 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import MenuList from "./MenuList";
 import MenuForm from "./MenuForm";
+import {uuidv4} from "../../Helpers/string";
 
 const MenuRoute = () => {
     const moduleName = manifest.moduleName;
     return (
         <Switch>
-            <Route exact key={`${moduleName}_table`} path={`/${moduleName}`}>
+            <Route exact key={uuidv4()} path={`/${moduleName}`}>
                 <MenuList/>
             </Route>
-            <Route exact key={`${moduleName}_create`} path={`/${moduleName}/create`}>
-                <MenuForm/>
-            </Route>
-            <Route exact key={`${moduleName}_update`} path={`/${moduleName}/:id`}>
-                <MenuForm/>
-            </Route>
+            <Route exact key={uuidv4()} path={`/${moduleName}/create`}
+                   render={props => <MenuForm key={props.location.key}/>}
+            />
+            <Route exact key={uuidv4()} path={`/${moduleName}/:id`}
+                   render={props => <MenuForm key={props.location.key}/>}
+            />
         </Switch>
     );
 };

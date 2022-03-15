@@ -3,20 +3,21 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import LocationList from "./LocationList";
 import LocationForm from "./LocationForm";
+import {uuidv4} from "../../Helpers/string";
 
 const LocationRoute = () => {
     const moduleName = manifest.moduleName;
     return (
         <Switch>
-            <Route exact key={`${moduleName}_table`} path={`/${moduleName}`}>
+            <Route exact key={uuidv4()} path={`/${moduleName}`}>
                 <LocationList/>
             </Route>
-            <Route exact key={`${moduleName}_create`} path={`/${moduleName}/create`}>
-                <LocationForm/>
-            </Route>
-            <Route exact key={`${moduleName}_update`} path={`/${moduleName}/:id`}>
-                <LocationForm/>
-            </Route>
+            <Route exact key={uuidv4()} path={`/${moduleName}/create`}
+                   render={props => <LocationForm key={props.location.key}/>}
+            />
+            <Route exact key={uuidv4()} path={`/${moduleName}/:id`}
+                   render={props => <LocationForm key={props.location.key}/>}
+            />
         </Switch>
     );
 };

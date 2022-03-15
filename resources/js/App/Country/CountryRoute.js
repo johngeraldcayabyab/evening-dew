@@ -3,20 +3,21 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import CountryList from "./CountryList";
 import CountryForm from "./CountryForm";
+import {uuidv4} from "../../Helpers/string";
 
 const CountryRoute = () => {
     const moduleName = manifest.moduleName;
     return (
         <Switch>
-            <Route exact key={`${moduleName}_table`} path={`/${moduleName}`}>
+            <Route exact key={uuidv4()} path={`/${moduleName}`}>
                 <CountryList/>
             </Route>
-            <Route exact key={`${moduleName}_create`} path={`/${moduleName}/create`}>
-                <CountryForm/>
-            </Route>
-            <Route exact key={`${moduleName}_update`} path={`/${moduleName}/:id`}>
-                <CountryForm/>
-            </Route>
+            <Route exact key={uuidv4()} path={`/${moduleName}/create`}
+                   render={props => <CountryForm key={props.location.key}/>}
+            />
+            <Route exact key={uuidv4()} path={`/${moduleName}/:id`}
+                   render={props => <CountryForm key={props.location.key}/>}
+            />
         </Switch>
     );
 };

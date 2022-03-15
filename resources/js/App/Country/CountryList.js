@@ -1,13 +1,13 @@
 import React from 'react';
 import useListState from "../../Hooks/useListState";
 import manifest from "./__manifest__.json";
-import TableCreateButton from "../../components/TableButtons/TableCreateButton";
-import ControlPanel from "../../components/ControlPanel";
-import CustomTable from "../../components/CustomTable";
-import ActionsDropdownButton from "../../components/TableButtons/ActionsDropdownButton";
-import CustomPagination from "../../components/CustomPagination";
-import TableSearchInput from "../../components/TableSearchInput";
-import CustomBreadcrumb from "../../components/CustomBreadcrumb";
+import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
+import ControlPanel from "../../Components/ControlPanel";
+import CustomTable from "../../Components/CustomTable";
+import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
+import CustomPagination from "../../Components/CustomPagination";
+import TableSearchInput from "../../Components/TableSearchInput";
+import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 
 const CountryList = () => {
     const [tableState, tableActions, columns] = useListState(manifest, [

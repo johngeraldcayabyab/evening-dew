@@ -3,32 +3,32 @@ import {Divider, Form, Table, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../../Hooks/useFormState";
 import manifest from "./__manifest__.json";
-import FormButtons from "../../components/FormButtons/FormButtons";
-import RowForm from "../../components/Grid/RowForm";
-import ColForm from "../../components/Grid/ColForm";
-import CustomForm from "../../components/CustomForm";
-import ControlPanel from "../../components/ControlPanel";
-import FormCard from "../../components/FormCard";
-import FormItemText from "../../components/FormItem/FormItemText";
-import FormItemSelectAjax from "../../components/FormItem/FormItemSelectAjax";
+import FormButtons from "../../Components/FormButtons/FormButtons";
+import RowForm from "../../Components/Grid/RowForm";
+import ColForm from "../../Components/Grid/ColForm";
+import CustomForm from "../../Components/CustomForm";
+import ControlPanel from "../../Components/ControlPanel";
+import FormCard from "../../Components/FormCard";
+import FormItemText from "../../Components/FormItem/FormItemText";
+import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import useFetchHook from "../../Hooks/useFetchHook";
 import useFetchCatcher from "../../Hooks/useFetchCatcher";
 import {GET, POST} from "../../consts";
-import FormItemNumber from "../../components/FormItem/FormItemNumber";
+import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import {
     checkIfADynamicInputChangedAndDoSomething,
     DynamicFieldAddButton,
     DynamicFieldRemoveButton,
     GenerateDynamicColumns
 } from "../../Helpers/form";
-import FormItemDate from "../../components/FormItem/FormItemDate";
-import FormItemSelect from "../../components/FormItem/FormItemSelect";
-import StatusBar from "../../components/StatusBar";
-import FormItemStatus from "../../components/FormItem/FormItemStatus";
-import FormLinks from "../../components/FormLinks";
-import FormLabel from "../../components/Typography/FormLabel";
+import FormItemDate from "../../Components/FormItem/FormItemDate";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
+import StatusBar from "../../Components/StatusBar";
+import FormItemStatus from "../../Components/FormItem/FormItemStatus";
+import FormLinks from "../../Components/FormLinks";
+import FormLabel from "../../Components/Typography/FormLabel";
 import {objectHasValue} from "../../Helpers/object";
-import CustomBreadcrumb from "../../components/CustomBreadcrumb";
+import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 
 const {TabPane} = Tabs;
 

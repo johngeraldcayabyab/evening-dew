@@ -3,16 +3,16 @@ import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../../Hooks/useFormState";
 import manifest from "./__manifest__.json";
-import FormButtons from "../../components/FormButtons/FormButtons";
-import RowForm from "../../components/Grid/RowForm";
-import ColForm from "../../components/Grid/ColForm";
-import CustomForm from "../../components/CustomForm";
-import FormItemText from "../../components/FormItem/FormItemText";
-import ControlPanel from "../../components/ControlPanel";
-import FormCard from "../../components/FormCard";
-import FormItemSelectAjax from "../../components/FormItem/FormItemSelectAjax";
-import FormItemSelect from "../../components/FormItem/FormItemSelect";
-import CustomBreadcrumb from "../../components/CustomBreadcrumb";
+import FormButtons from "../../Components/FormButtons/FormButtons";
+import RowForm from "../../Components/Grid/RowForm";
+import ColForm from "../../Components/Grid/ColForm";
+import CustomForm from "../../Components/CustomForm";
+import FormItemText from "../../Components/FormItem/FormItemText";
+import ControlPanel from "../../Components/ControlPanel";
+import FormCard from "../../Components/FormCard";
+import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
+import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 
 const AddressForm = () => {
     let {id} = useParams();

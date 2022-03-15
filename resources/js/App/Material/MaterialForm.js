@@ -3,16 +3,16 @@ import {Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../../Hooks/useFormState";
 import manifest from "./__manifest__.json";
-import FormButtons from "../../components/FormButtons/FormButtons";
-import RowForm from "../../components/Grid/RowForm";
-import ColForm from "../../components/Grid/ColForm";
-import CustomForm from "../../components/CustomForm";
-import FormItemText from "../../components/FormItem/FormItemText";
-import FormItemNumber from "../../components/FormItem/FormItemNumber";
-import FormItemSelect from "../../components/FormItem/FormItemSelect";
-import ControlPanel from "../../components/ControlPanel";
-import FormItemSelectAjax from "../../components/FormItem/FormItemSelectAjax";
-import FormCard from "../../components/FormCard";
+import FormButtons from "../../Components/FormButtons/FormButtons";
+import RowForm from "../../Components/Grid/RowForm";
+import ColForm from "../../Components/Grid/ColForm";
+import CustomForm from "../../Components/CustomForm";
+import FormItemText from "../../Components/FormItem/FormItemText";
+import FormItemNumber from "../../Components/FormItem/FormItemNumber";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
+import ControlPanel from "../../Components/ControlPanel";
+import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
+import FormCard from "../../Components/FormCard";
 import {
     checkIfADynamicInputChangedAndDoSomething,
     DynamicFieldAddButton,
