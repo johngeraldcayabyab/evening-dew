@@ -1,5 +1,5 @@
 import React from 'react';
-import {Divider, Form} from "antd";
+import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormState from "../../Hooks/useFormState";
 import manifest from "./__manifest__.json";
@@ -10,7 +10,6 @@ import CustomForm from "../../Components/CustomForm";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import FormItemText from "../../Components/FormItem/FormItemText";
-import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
