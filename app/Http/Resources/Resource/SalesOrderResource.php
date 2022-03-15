@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Resource;
 
-use App\Models\SalesOrderTransfer;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SalesOrderResource extends JsonResource
