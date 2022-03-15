@@ -3,8 +3,9 @@ import {useLocation} from "react-router";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import Title from "antd/lib/typography/Title";
-import {addBreadcrumbs, getBreadcrumbs, setBreadcrumbs} from "../Helpers/breadcrumbs";
+import {getBreadcrumbs, getClickedBreadcrumb, setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
+import {objectHasValue} from "../Helpers/object";
 
 const CustomBreadcrumb = (props) => {
     const location = useLocation();
@@ -35,6 +36,10 @@ const CustomBreadcrumb = (props) => {
     }, [props.tableState, props.formState]);
 
     function setBreadcrumbsAndState(breadcrumbs, newBreadcrumb) {
+        let pathname = location.pathname;
+        let splitPathName = pathname.split('/');
+        let isMainPath = splitPathName.length === 2;
+
         const [lastBreadcrumb] = breadcrumbs.slice(-1);
         newBreadcrumb.key = uuidv4();
         newBreadcrumb.link = location.pathname;
@@ -57,21 +62,34 @@ const CustomBreadcrumb = (props) => {
             breadcrumbs = breadcrumbs.filter((breadcrumb) => (breadcrumb.slug !== 'New' && breadcrumb));
         }
 
+        /**
+         * Adds a parent breadcrumb if path is lonely on page refresh
+         */
+        if (breadcrumbs.length === 1 && !isMainPath) {
+            let newPathname = location.pathname.split('/');
+            newPathname.pop();
+            newPathname = newPathname.join('/');
+            breadcrumbs = [{
+                key: uuidv4(),
+                slug: titleCase(replaceUnderscoreWithSpace(splitPathName[1])),
+                link: newPathname
+            }].concat(breadcrumbs);
+        }
 
         /**
-         //      *Cuts path back if path exists;
-         //              */
-        // let isNewPathExists = breadcrumbs.findIndex(breadcrumb => breadcrumb.link === newBreadcrumb.link);
-        // if (Math.max(0, isNewPathExists)) {
-        //     breadcrumbs = breadcrumbs.slice(0, isNewPathExists);
-        // }
-
-        // breadcrumbs = breadcrumbs.filter((breadcrumb) => {
-        //     if (breadcrumb.slug !== 'New') {
-        //         return breadcrumb;
-        //     }
-        // });
-
+         *Cuts path back if path exists;
+         */
+        if (objectHasValue(getClickedBreadcrumb())) {
+            let isClickedBreadcrumb = breadcrumbs.findIndex(breadcrumb => breadcrumb.key === getClickedBreadcrumb().key);
+            // if (Math.max(0, isClickedBreadcrumb)) {
+            //     console.log(isClickedBreadcrumb);
+            // console.log();
+            isClickedBreadcrumb += 1;
+            breadcrumbs = breadcrumbs.slice(0, isClickedBreadcrumb);
+            console.log(breadcrumbs, isClickedBreadcrumb);
+            setClickedBreadcrumb({});
+            // }
+        }
 
         setBreadcrumbs(breadcrumbs);
         setState((prevState) => ({
@@ -86,7 +104,9 @@ const CustomBreadcrumb = (props) => {
                 return (
                     <Breadcrumb.Item key={breadcrumb.key}>
                         <Title level={5} style={{display: 'inline-block'}}>
-                            <Link key={breadcrumb.key} to={breadcrumb.link}>
+                            <Link key={breadcrumb.key} to={breadcrumb.link} onClick={() => {
+                                setClickedBreadcrumb(breadcrumb);
+                            }}>
                                 {breadcrumb.slug}
                             </Link>
                         </Title>
