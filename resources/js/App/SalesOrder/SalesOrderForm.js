@@ -28,6 +28,7 @@ import FormItemStatus from "../../components/FormItem/FormItemStatus";
 import FormLinks from "../../components/FormLinks";
 import FormLabel from "../../components/Typography/FormLabel";
 import {objectHasValue} from "../../Helpers/object";
+import CustomBreadcrumb from "../../components/CustomBreadcrumb";
 
 const {TabPane} = Tabs;
 
@@ -181,6 +182,7 @@ const SalesOrderForm = () => {
             onValuesChange={onValuesChange}
         >
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb reload={formState.initialLoad}/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}

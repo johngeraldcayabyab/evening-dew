@@ -1,13 +1,12 @@
 import React from 'react';
-import {Button, Col, Row} from "antd";
-import CustomBreadcrumb from "./CustomBreadcrumb";
+import {Col, Row} from "antd";
 
 const ControlPanel = (props) => {
     return (
         <div style={{padding: '5px 16px', borderBottom: '1px solid #cccccc', background: '#fff'}}>
             <Row align={'middle'} style={{marginTop: '5px', marginBottom: '5px'}}>
                 <Col span={6}>
-                    <CustomBreadcrumb/>
+                    {props.topColOneLeft}
                 </Col>
                 <Col span={6} style={{textAlign: 'right', paddingRight: '8px'}}>
                     {props.topColOneRight}

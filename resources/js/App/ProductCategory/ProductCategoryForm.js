@@ -11,6 +11,7 @@ import ControlPanel from "../../components/ControlPanel";
 import FormCard from "../../components/FormCard";
 import FormItemText from "../../components/FormItem/FormItemText";
 import FormItemSelectAjax from "../../components/FormItem/FormItemSelectAjax";
+import CustomBreadcrumb from "../../components/CustomBreadcrumb";
 
 const ProductCategoryForm = () => {
     let {id} = useParams();
@@ -23,6 +24,7 @@ const ProductCategoryForm = () => {
             onFinish={formActions.onFinish}
         >
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb reload={formState.initialLoad}/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}

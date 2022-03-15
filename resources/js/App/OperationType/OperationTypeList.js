@@ -7,6 +7,7 @@ import CustomTable from "../../components/CustomTable";
 import ActionsDropdownButton from "../../components/TableButtons/ActionsDropdownButton";
 import TableSearchInput from "../../components/TableSearchInput";
 import CustomPagination from "../../components/CustomPagination";
+import CustomBreadcrumb from "../../components/CustomBreadcrumb";
 
 const OperationTypeList = () => {
     const [tableState, tableActions, columns] = useListState(manifest, [
@@ -55,6 +56,7 @@ const OperationTypeList = () => {
     return (
         <React.Fragment>
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb/>}
                 topColTwoRight={
                     <TableSearchInput
                         {...tableState}

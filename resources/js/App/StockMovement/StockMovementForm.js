@@ -13,6 +13,7 @@ import FormItemText from "../../components/FormItem/FormItemText";
 import FormItemSelect from "../../components/FormItem/FormItemSelect";
 import FormItemNumber from "../../components/FormItem/FormItemNumber";
 import FormItemSelectAjax from "../../components/FormItem/FormItemSelectAjax";
+import CustomBreadcrumb from "../../components/CustomBreadcrumb";
 
 const StockMovementForm = () => {
     let {id} = useParams();
@@ -25,6 +26,7 @@ const StockMovementForm = () => {
             onFinish={formActions.onFinish}
         >
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb reload={formState.initialLoad}/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}
