@@ -10,10 +10,12 @@ use App\Http\Resources\Resource\MaterialResource;
 use App\Http\Resources\Slug\MaterialSlugResource;
 use App\Models\GlobalSetting;
 use App\Models\Material;
+use App\Models\MaterialLine;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Arr;
 
 class MaterialController
 {
@@ -33,12 +35,25 @@ class MaterialController
 
     public function store(MaterialStoreRequest $request): JsonResponse
     {
-        return response()->json([], STATUS_CREATE, $this->locationHeader(Material::create($request->validated())));
+        $data = $request->validated();
+        $materialData = Arr::except($data, ['material_lines']);
+        $material = Material::create($materialData);
+        if (isset($data['material_lines'])) {
+            $materialLinesData = $data['material_lines'];
+            MaterialLine::insertMany($materialLinesData, $material->id);
+        }
+        return response()->json([], STATUS_CREATE, $this->locationHeader($material));
     }
 
     public function update(MaterialUpdateRequest $request, Material $material): JsonResponse
     {
-        $material->update($request->validated());
+        $data = $request->validated();
+        $materialData = Arr::except($data, ['material_lines']);
+        $material->update($materialData);
+        if (isset($data['material_lines'])) {
+            $materialLinesData = $data['material_lines'];
+            MaterialLine::updateOrCreateMany($materialLinesData, $material->id);
+        }
         return response()->json([], STATUS_UPDATE);
     }
 
