@@ -53,7 +53,7 @@ const useListState = (manifest, columns) => {
             }
         },
         renderData: (params = {}) => {
-            useFetch(`api/${moduleName}`, GET, params).then((response) => {
+            useFetch(`/api/${moduleName}`, GET, params).then((response) => {
                 setTableState(state => ({
                     ...state,
                     initialLoad: false,
