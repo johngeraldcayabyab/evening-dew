@@ -12,6 +12,7 @@ import FormItemNumber from "../../components/FormItem/FormItemNumber";
 import FormItemSelect from "../../components/FormItem/FormItemSelect";
 import ControlPanel from "../../components/ControlPanel";
 import FormCard from "../../components/FormCard";
+import CustomBreadcrumb from "../../components/CustomBreadcrumb";
 
 const CurrencyForm = () => {
     let {id} = useParams();
@@ -23,6 +24,7 @@ const CurrencyForm = () => {
             onFinish={formActions.onFinish}
         >
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb reload={formState.initialLoad}/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}

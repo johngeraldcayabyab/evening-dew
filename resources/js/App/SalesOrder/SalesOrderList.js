@@ -9,6 +9,7 @@ import TableSearchInput from "../../components/TableSearchInput";
 import CustomPagination from "../../components/CustomPagination";
 import {Tag} from "antd";
 import Text from "antd/es/typography/Text";
+import CustomBreadcrumb from "../../components/CustomBreadcrumb";
 
 const SalesOrderList = () => {
     const [tableState, tableActions, columns] = useListState(manifest, [
@@ -63,6 +64,7 @@ const SalesOrderList = () => {
     return (
         <React.Fragment>
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb/>}
                 topColTwoRight={
                     <TableSearchInput
                         {...tableState}

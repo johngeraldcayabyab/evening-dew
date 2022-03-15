@@ -11,6 +11,7 @@ import FormItemText from "../../components/FormItem/FormItemText";
 import ControlPanel from "../../components/ControlPanel";
 import FormCard from "../../components/FormCard";
 import FormItemSelectAjax from "../../components/FormItem/FormItemSelectAjax";
+import CustomBreadcrumb from "../../components/CustomBreadcrumb";
 
 const CountryForm = () => {
     let {id} = useParams();
@@ -22,6 +23,7 @@ const CountryForm = () => {
             onFinish={formActions.onFinish}
         >
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb reload={formState.initialLoad}/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}

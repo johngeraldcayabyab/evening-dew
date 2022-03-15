@@ -10,6 +10,7 @@ import CustomForm from "../../components/CustomForm";
 import ControlPanel from "../../components/ControlPanel";
 import FormCard from "../../components/FormCard";
 import FormItemText from "../../components/FormItem/FormItemText";
+import CustomBreadcrumb from "../../components/CustomBreadcrumb";
 
 const MenuForm = () => {
     let {id} = useParams();
@@ -22,6 +23,7 @@ const MenuForm = () => {
             onFinish={formActions.onFinish}
         >
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb reload={formState.initialLoad}/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}

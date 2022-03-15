@@ -25,6 +25,7 @@ import {
 } from "../../Helpers/form";
 import StatusBar from "../../components/StatusBar";
 import FormItemStatus from "../../components/FormItem/FormItemStatus";
+import CustomBreadcrumb from "../../components/CustomBreadcrumb";
 
 const {TabPane} = Tabs;
 
@@ -125,6 +126,7 @@ const TransferForm = () => {
             onValuesChange={onValuesChange}
         >
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb reload={formState.initialLoad}/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}

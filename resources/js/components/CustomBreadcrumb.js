@@ -2,139 +2,118 @@ import {Breadcrumb} from "antd";
 import {useLocation} from "react-router";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import Title from "antd/lib/typography/Title";
-import useFetchCatcher from "../Hooks/useFetchCatcher";
-import useFetchHook from "../Hooks/useFetchHook";
-import {GET} from "../consts";
+import {getBreadcrumbs, getClickedBreadcrumb, setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
+import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
+import {objectHasValue} from "../Helpers/object";
 
-const CustomBreadcrumb = () => {
-    const [useFetch, fetchAbort] = useFetchHook();
-    const fetchCatcher = useFetchCatcher();
+const CustomBreadcrumb = (props) => {
     const location = useLocation();
-    const [breadcrumbs, setBreadcrumbs] = useState([]);
+    const [state, setState] = useState({
+        breadcrumbs: [],
+    });
 
     useEffect(() => {
-        let pathname = location.pathname;
-        let newSlug = {};
-        let splitPathName = pathname.split('/');
+        let breadcrumbs = getBreadcrumbs();
+        let breadcrumb = {
+            key: null,
+            link: null,
+            slug: null,
+        };
+        if (props.hasOwnProperty('formState') && !props.formState.initialLoad) {
+            if (props.formState.id) {
+                breadcrumb.slug = props.formState.initialValues.slug;
+            } else {
+                breadcrumb.slug = 'New';
+            }
+        }
+        if (props.hasOwnProperty('tableState') && !props.tableState.initialLoad) {
+            breadcrumb.slug = titleCase(replaceUnderscoreWithSpace(props.tableState.moduleName));
+        }
+        if (breadcrumb.slug) {
+            setBreadcrumbsAndState(breadcrumbs, breadcrumb);
+        }
+    }, [props.tableState, props.formState]);
 
-        let isCreatePagePath = splitPathName.length === 3 && splitPathName[2] === 'create';
-        let isEditPagePath = splitPathName.length === 3 && splitPathName[2] !== 'create';
+    function setBreadcrumbsAndState(breadcrumbs, newBreadcrumb) {
+        let pathname = location.pathname;
+        let splitPathName = pathname.split('/');
         let isMainPath = splitPathName.length === 2;
 
-        if (isEditPagePath) {
-            useFetch(`/api${splitPathName.join('/')}/slug`, GET).then((response) => {
-                response.link = pathname;
-                setBreadcrumbsState(isMainPath, response, pathname, splitPathName, isEditPagePath);
-            }).catch((responseErr) => {
-                fetchCatcher.get(responseErr);
-            });
-        } else if (isCreatePagePath) {
-            newSlug = {
-                key: uuidv4(),
-                slug: 'New',
-                link: pathname
-            };
-            setBreadcrumbsState(isMainPath, newSlug, pathname, splitPathName, isEditPagePath);
-        } else if (isMainPath) {
-            newSlug = {
+        const [lastBreadcrumb] = breadcrumbs.slice(-1);
+        newBreadcrumb.key = uuidv4();
+        newBreadcrumb.link = location.pathname;
+        breadcrumbs = [
+            ...breadcrumbs,
+            newBreadcrumb
+        ];
+
+        /**
+         * This avoids duplicate last breadcrumbs
+         */
+        if (lastBreadcrumb && lastBreadcrumb.link === newBreadcrumb.link) {
+            breadcrumbs.pop();
+        }
+
+        /**
+         * Removes 'New' if redirected to the new resource
+         */
+        if (newBreadcrumb.slug !== 'New') {
+            breadcrumbs = breadcrumbs.filter((breadcrumb) => (breadcrumb.slug !== 'New' && breadcrumb));
+        }
+
+        /**
+         * Adds a parent breadcrumb if path is lonely on page refresh
+         */
+        if (breadcrumbs.length === 1 && !isMainPath) {
+            let newPathname = location.pathname.split('/');
+            newPathname.pop();
+            newPathname = newPathname.join('/');
+            breadcrumbs = [{
                 key: uuidv4(),
                 slug: titleCase(replaceUnderscoreWithSpace(splitPathName[1])),
-                link: pathname
-            };
-            setBreadcrumbsState(isMainPath, newSlug, pathname, splitPathName, isEditPagePath);
+                link: newPathname
+            }].concat(breadcrumbs);
         }
-    }, [location.pathname]);
 
-    useEffect(() => {
-        return () => {
-            fetchAbort();
-        };
-    }, []);
+        /**
+         *Cuts path back if path exists;
+         */
+        if (objectHasValue(getClickedBreadcrumb())) {
+            let isClickedBreadcrumb = breadcrumbs.findIndex(breadcrumb => breadcrumb.key === getClickedBreadcrumb().key);
+            // if (Math.max(0, isClickedBreadcrumb)) {
+            //     console.log(isClickedBreadcrumb);
+            // console.log();
+            isClickedBreadcrumb += 1;
+            breadcrumbs = breadcrumbs.slice(0, isClickedBreadcrumb);
+            console.log(breadcrumbs, isClickedBreadcrumb);
+            setClickedBreadcrumb({});
+            // }
+        }
 
-    function setBreadcrumbsState(isMainPath, newSlug, pathname, splitPathName, isEditPagePath) {
-        setBreadcrumbs(() => {
-            let breadcrumbs = [];
-            if (localStorage.getItem("breadcrumbs")) {
-                breadcrumbs = JSON.parse(localStorage.getItem("breadcrumbs"));
-            }
-
-            let breadcrumbsState = [...breadcrumbs];
-            if (isMainPath) {
-                breadcrumbsState = [];
-            }
-
-            /**
-             *Cuts path back if path exists;
-             */
-            let isNewPathExists = breadcrumbs.findIndex(state => state.link === newSlug.link);
-            if (Math.max(0, isNewPathExists)) {
-                breadcrumbsState = breadcrumbsState.slice(0, isNewPathExists);
-            }
-
-            /**
-             * Adds a parent breadcrumb if path is lonely on page refresh
-             */
-            if (breadcrumbsState.length === 0 && !isMainPath) {
-                let newPathname = pathname.split('/');
-                newPathname.pop();
-                newPathname = newPathname.join('/');
-                breadcrumbsState.push({
-                    key: uuidv4(),
-                    slug: titleCase(replaceUnderscoreWithSpace(splitPathName[1])),
-                    link: newPathname
-                });
-            }
-
-            /**
-             * Remove "Create Pages" if page has been redirected to
-             * the created page
-             */
-            if (isEditPagePath) {
-                breadcrumbsState = breadcrumbsState.filter((state) => {
-                    if (state.slug !== 'New') {
-                        return state;
-                    }
-                });
-            }
-
-            breadcrumbsState = breadcrumbsState.map((state) => {
-                state.isLink = true;
-                return state;
-            });
-            newSlug.isLink = false;
-
-            breadcrumbsState.push(newSlug);
-
-            localStorage.setItem("breadcrumbs", JSON.stringify(breadcrumbsState));
-            return breadcrumbsState;
-        });
+        setBreadcrumbs(breadcrumbs);
+        setState((prevState) => ({
+            ...prevState,
+            breadcrumbs: breadcrumbs
+        }));
     }
 
     return (
         <Breadcrumb>
-            {breadcrumbs.map((breadcrumb) => {
-                if (breadcrumb.isLink) {
-                    return (
-                        <Breadcrumb.Item key={`breadcrumb-${breadcrumb.key}`}>
-                            <Title level={5} style={{display: 'inline-block'}}>
-                                <Link key={`link-${breadcrumb.key}`} to={breadcrumb.link}>
-                                    {breadcrumb.slug}
-                                </Link>
-                            </Title>
-                        </Breadcrumb.Item>
-                    )
-                } else {
-                    return (
-                        <Breadcrumb.Item key={`breadcrumb-${breadcrumb.key}`}>
-                            <Title level={5} style={{display: 'inline-block'}}>{breadcrumb.slug}</Title>
-                        </Breadcrumb.Item>
-                    )
-                }
+            {state.breadcrumbs.map((breadcrumb) => {
+                return (
+                    <Breadcrumb.Item key={breadcrumb.key}>
+                        <Title level={5} style={{display: 'inline-block'}}>
+                            <Link key={breadcrumb.key} to={breadcrumb.link} onClick={() => {
+                                setClickedBreadcrumb(breadcrumb);
+                            }}>
+                                {breadcrumb.slug}
+                            </Link>
+                        </Title>
+                    </Breadcrumb.Item>
+                )
             })}
-
-            {!breadcrumbs.length ? <Breadcrumb.Item><Title level={5} style={{
+            {!state.breadcrumbs.length ? <Breadcrumb.Item><Title level={5} style={{
                 display: 'inline-block',
                 visibility: 'hidden'
             }}>placeholder for UX</Title></Breadcrumb.Item> : null}
