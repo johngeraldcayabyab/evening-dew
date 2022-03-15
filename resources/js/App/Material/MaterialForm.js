@@ -22,6 +22,7 @@ import {
 import useFetchHook from "../../Hooks/useFetchHook";
 import useFetchCatcher from "../../Hooks/useFetchCatcher";
 import {GET, POST} from "../../consts";
+import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 
 const {TabPane} = Tabs;
 
@@ -98,6 +99,7 @@ const MaterialForm = () => {
             onValuesChange={onValuesChange}
         >
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb formState={formState}/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}

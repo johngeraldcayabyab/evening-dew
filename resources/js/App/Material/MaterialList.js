@@ -7,6 +7,7 @@ import CustomTable from "../../Components/CustomTable";
 import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
 import CustomPagination from "../../Components/CustomPagination";
 import TableSearchInput from "../../Components/TableSearchInput";
+import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 
 const MaterialList = () => {
 
@@ -47,6 +48,7 @@ const MaterialList = () => {
     return (
         <React.Fragment>
             <ControlPanel
+                topColOneLeft={<CustomBreadcrumb tableState={tableState}/>}
                 topColTwoRight={
                     <TableSearchInput
                         {...tableState}

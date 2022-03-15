@@ -60,7 +60,6 @@ const AddressList = () => {
             }
         ]
     );
-
     return (
         <React.Fragment>
             <ControlPanel

@@ -26,7 +26,7 @@ const OperationTypeForm = () => {
             onFinish={formActions.onFinish}
         >
             <ControlPanel
-                topColOneLeft={<CustomBreadcrumb reload={formState.initialLoad}/>}
+                topColOneLeft={<CustomBreadcrumb formState={formState}/>}
                 bottomColOneLeft={
                     <FormButtons
                         id={id}

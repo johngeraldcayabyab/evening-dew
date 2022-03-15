@@ -64,7 +64,7 @@ const SalesOrderList = () => {
     return (
         <React.Fragment>
             <ControlPanel
-                topColOneLeft={<CustomBreadcrumb/>}
+                topColOneLeft={<CustomBreadcrumb tableState={tableState}/>}
                 topColTwoRight={
                     <TableSearchInput
                         {...tableState}
