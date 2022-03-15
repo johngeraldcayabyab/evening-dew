@@ -7,6 +7,7 @@ use App\Http\Requests\MassDestroy\ProductMassDestroyRequest;
 use App\Http\Requests\Store\ProductStoreRequest;
 use App\Http\Requests\Update\ProductUpdateRequest;
 use App\Http\Resources\Collection\ProductCollection;
+use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\ProductResource;
 use App\Http\Resources\Slug\ProductSlugResource;
 use App\Models\GlobalSetting;
@@ -59,7 +60,7 @@ class ProductController
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Product(), $request);
-        return response()->json(ProductSlugResource::collection($model));
+        return response()->json(OptionResource::collection($model));
     }
 
     public function initial_values()

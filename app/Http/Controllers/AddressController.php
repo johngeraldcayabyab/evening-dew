@@ -6,6 +6,7 @@ use App\Http\Requests\MassDestroy\AddressMassDestroyRequest;
 use App\Http\Requests\Store\AddressStoreRequest;
 use App\Http\Requests\Update\AddressUpdateRequest;
 use App\Http\Resources\Collection\AddressCollection;
+use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\AddressResource;
 use App\Http\Resources\Slug\AddressSlugResource;
 use App\Models\Address;
@@ -56,7 +57,7 @@ class AddressController
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Address(), $request);
-        return response()->json(AddressSlugResource::collection($model));
+        return response()->json(OptionResource::collection($model));
     }
 
     public function initial_values()

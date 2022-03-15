@@ -7,6 +7,7 @@ use App\Http\Requests\MassDestroy\ContactMassDestroyRequest;
 use App\Http\Requests\Store\ContactStoreRequest;
 use App\Http\Requests\Update\ContactUpdateRequest;
 use App\Http\Resources\Collection\ContactCollection;
+use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\ContactResource;
 use App\Http\Resources\Slug\ContactSlugResource;
 use App\Models\Contact;
@@ -65,7 +66,7 @@ class ContactController
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Contact(), $request);
-        return response()->json(ContactSlugResource::collection($model));
+        return response()->json(OptionResource::collection($model));
     }
 
     public function initial_values()

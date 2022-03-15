@@ -7,6 +7,7 @@ use App\Http\Requests\MassDestroy\ProductCategoryMassDestroyRequest;
 use App\Http\Requests\Store\ProductCategoryStoreRequest;
 use App\Http\Requests\Update\ProductCategoryUpdateRequest;
 use App\Http\Resources\Collection\ProductCategoryCollection;
+use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\ProductCategoryResource;
 use App\Http\Resources\Slug\ProductCategorySlugResource;
 use App\Models\ProductCategory;
@@ -57,6 +58,6 @@ class ProductCategoryController
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new ProductCategory(), $request);
-        return response()->json(ProductCategorySlugResource::collection($model));
+        return response()->json(OptionResource::collection($model));
     }
 }

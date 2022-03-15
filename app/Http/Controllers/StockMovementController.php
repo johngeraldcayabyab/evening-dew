@@ -6,6 +6,7 @@ use App\Http\Requests\MassDestroy\StockMovementMassDestroyRequest;
 use App\Http\Requests\Store\StockMovementStoreRequest;
 use App\Http\Requests\Update\StockMovementUpdateRequest;
 use App\Http\Resources\Collection\StockMovementCollection;
+use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\StockMovementResource;
 use App\Http\Resources\Slug\StockMovementSlugResource;
 use App\Models\StockMovement;
@@ -55,7 +56,7 @@ class StockMovementController
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new StockMovement(), $request);
-        return response()->json(StockMovementSlugResource::collection($model));
+        return response()->json(OptionResource::collection($model));
     }
 
     public function initial_values()

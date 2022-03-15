@@ -92,6 +92,9 @@ trait ControllerHelperTrait
     public function searchOption($model, $request)
     {
         $modelSlug = Str::studly($model->slug());
+        if (Str::contains($model->slug(), 'parent')) {
+            $modelSlug = Str::studly(explode('.', $model->slug())[1]);
+        }
         if ($request->search) {
             $whereScope = 'where' . $modelSlug;
             $model = $model->$whereScope($request->search);

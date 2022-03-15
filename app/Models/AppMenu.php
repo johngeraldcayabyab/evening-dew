@@ -83,6 +83,6 @@ class AppMenu extends Model implements Sluggable
 
     public function slug()
     {
-        return 'label';
+        return 'parent.label';
     }
 }

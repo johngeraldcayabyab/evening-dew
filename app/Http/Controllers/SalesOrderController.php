@@ -8,6 +8,7 @@ use App\Http\Requests\MassDestroy\SalesOrderMassDestroyRequest;
 use App\Http\Requests\Store\SalesOrderStoreRequest;
 use App\Http\Requests\Update\SalesOrderUpdateRequest;
 use App\Http\Resources\Collection\SalesOrderCollection;
+use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\SalesOrderResource;
 use App\Http\Resources\Slug\SalesOrderSlugResource;
 use App\Models\GlobalSetting;
@@ -82,7 +83,7 @@ class SalesOrderController
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new SalesOrder(), $request);
-        return response()->json(SalesOrderSlugResource::collection($model));
+        return response()->json(OptionResource::collection($model));
     }
 
     public function initial_values()

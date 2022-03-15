@@ -8,6 +8,7 @@ use App\Http\Requests\MassDestroy\MeasurementCategoryMassDestroyRequest;
 use App\Http\Requests\Store\MeasurementCategoryStoreRequest;
 use App\Http\Requests\Update\MeasurementCategoryUpdateRequest;
 use App\Http\Resources\Collection\MeasurementCategoryCollection;
+use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\MeasurementCategoryResource;
 use App\Http\Resources\Slug\MeasurementCategorySlugResource;
 use App\Models\MeasurementCategory;
@@ -58,6 +59,6 @@ class MeasurementCategoryController
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new MeasurementCategory(), $request);
-        return response()->json(MeasurementCategorySlugResource::collection($model));
+        return response()->json(OptionResource::collection($model));
     }
 }

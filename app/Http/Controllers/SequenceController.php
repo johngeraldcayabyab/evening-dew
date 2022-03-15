@@ -7,6 +7,7 @@ use App\Http\Requests\MassDestroy\SequenceMassDestroyRequest;
 use App\Http\Requests\Store\SequenceStoreRequest;
 use App\Http\Requests\Update\SequenceUpdateRequest;
 use App\Http\Resources\Collection\SequenceCollection;
+use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\SequenceResource;
 use App\Http\Resources\Slug\SequenceSlugResource;
 use App\Models\Sequence;
@@ -57,7 +58,7 @@ class SequenceController
     public function option(Request $request): JsonResponse
     {
         $model = $this->searchOption(new Sequence(), $request);
-        return response()->json(SequenceSlugResource::collection($model));
+        return response()->json(OptionResource::collection($model));
     }
 
     public function initial_values()
