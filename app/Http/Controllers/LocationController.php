@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\LocationMassDestroyRequest;
 use App\Http\Requests\Store\LocationStoreRequest;
 use App\Http\Requests\Update\LocationUpdateRequest;
 use App\Http\Resources\Collection\LocationCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\LocationResource;
-use App\Http\Resources\Slug\LocationSlugResource;
 use App\Models\Location;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;

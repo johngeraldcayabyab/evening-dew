@@ -9,7 +9,6 @@ use App\Http\Requests\Update\ContactUpdateRequest;
 use App\Http\Resources\Collection\ContactCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\ContactResource;
-use App\Http\Resources\Slug\ContactSlugResource;
 use App\Models\Contact;
 use App\Models\GlobalSetting;
 use App\Traits\ControllerHelperTrait;

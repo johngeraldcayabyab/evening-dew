@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\PaymentTermMassDestroyRequest;
 use App\Http\Requests\Store\PaymentTermStoreRequest;
 use App\Http\Requests\Update\PaymentTermUpdateRequest;
 use App\Http\Resources\Collection\PaymentTermCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\PaymentTermResource;
-use App\Http\Resources\Slug\PaymentTermSlugResource;
 use App\Models\PaymentTerm;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;

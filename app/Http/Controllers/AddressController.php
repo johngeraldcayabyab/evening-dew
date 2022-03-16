@@ -8,7 +8,6 @@ use App\Http\Requests\Update\AddressUpdateRequest;
 use App\Http\Resources\Collection\AddressCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\AddressResource;
-use App\Http\Resources\Slug\AddressSlugResource;
 use App\Models\Address;
 use App\Models\GlobalSetting;
 use App\Traits\ControllerHelperTrait;

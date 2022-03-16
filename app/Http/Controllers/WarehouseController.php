@@ -8,7 +8,6 @@ use App\Http\Requests\Update\WarehouseUpdateRequest;
 use App\Http\Resources\Collection\WarehouseCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\WarehouseResource;
-use App\Http\Resources\Slug\WarehouseSlugResource;
 use App\Models\Warehouse;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;

@@ -8,7 +8,6 @@ use App\Http\Requests\Update\CountryUpdateRequest;
 use App\Http\Resources\Collection\CountryCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\CountryResource;
-use App\Http\Resources\Slug\CountrySlugResource;
 use App\Models\Country;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;

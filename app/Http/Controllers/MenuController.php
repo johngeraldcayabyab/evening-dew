@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\MenuMassDestroyRequest;
 use App\Http\Requests\Store\MenuStoreRequest;
 use App\Http\Requests\Update\MenuUpdateRequest;
 use App\Http\Resources\Collection\MenuCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\MenuResource;
-use App\Http\Resources\Slug\MenuSlugResource;
 use App\Models\Menu;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;

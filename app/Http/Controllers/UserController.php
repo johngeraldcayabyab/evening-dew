@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\UserMassDestroyRequest;
 use App\Http\Requests\Store\UserStoreRequest;
 use App\Http\Requests\Update\UserUpdateRequest;
 use App\Http\Resources\Collection\UserCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\UserResource;
-use App\Http\Resources\Slug\UserSlugResource;
 use App\Models\User;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;

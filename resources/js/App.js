@@ -38,9 +38,6 @@ const App = () => {
         isLogin: getCookie('Authorization'),
     });
 
-    useEffect(() => {
-    });
-
     return (
         <BrowserRouter>
             <AppContextProvider value={{appState: appState, setAppState: setAppState}}>
