@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Events\ProductHasMaterialEvent;
 use App\Events\TransferValidatedEvent;
 use App\Models\OperationType;
 use App\Models\Product;
@@ -19,7 +20,8 @@ class GenerateStockMovementFromValidatedTransferListener implements ShouldQueue
         $operationType = $transfer->operationType;
         $stockMovementData = [];
         foreach ($transferLines as $transferLine) {
-            if ($transferLine->product->type === Product::STORABLE) {
+            $product = $transferLine->product;
+            if ($product->product_type === Product::STORABLE) {
                 $stockMovementData[] = [
                     'reference' => $transfer->reference,
                     'source' => $transfer->reference,
@@ -29,6 +31,9 @@ class GenerateStockMovementFromValidatedTransferListener implements ShouldQueue
                     'quantity_done' => $transferLine->demand,
                 ];
                 $this->computeProductQuantity($transferLine, $operationType);
+            }
+            if ($product->material()->exists()) {
+                ProductHasMaterialEvent::dispatch($transfer, $transferLine, $operationType);
             }
         }
         if (count($stockMovementData)) {

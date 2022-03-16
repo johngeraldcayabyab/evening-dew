@@ -3,6 +3,9 @@
 namespace App\Events;
 
 use App\Models\Material;
+use App\Models\OperationType;
+use App\Models\Transfer;
+use App\Models\TransferLine;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
@@ -14,11 +17,15 @@ class ProductHasMaterialEvent implements ShouldBroadcast, ShouldQueue
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $material;
+    public $transferLine;
+    public $operationType;
+    public $transfer;
 
-    public function __construct(Material $material)
+    public function __construct(Transfer $transfer, TransferLine $transferLine, OperationType $operationType)
     {
-        $this->material = $material;
+        $this->transfer = $transfer;
+        $this->transferLine = $transferLine;
+        $this->operationType = $operationType;
     }
 
     public function broadcastOn()
