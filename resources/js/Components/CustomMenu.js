@@ -14,6 +14,16 @@ import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 
 const {SubMenu} = Menu;
 
+function resetBreadcrumbs(url) {
+    let splitPathName = url.split('/');
+    setClickedBreadcrumb({});
+    setBreadcrumbs([{
+        key: uuidv4(),
+        slug: titleCase(replaceUnderscoreWithSpace(splitPathName[1])),
+        link: url
+    }]);
+}
+
 function makeMenu(menus) {
     return menus.map((menu) => {
         if (menu.children.length) {
@@ -22,7 +32,9 @@ function makeMenu(menus) {
                     {menu.children.map((child) => {
                         return (
                             <Menu.Item key={`sub-menu-child-${child.id}`}>
-                                {child.menu_id ? <Link to={child.menu.url}>{child.label}</Link> : child.label}
+                                {child.menu_id ? <Link to={child.menu.url} onClick={() => {
+                                    resetBreadcrumbs(child.menu.url);
+                                }}>{child.label}</Link> : child.label}
                             </Menu.Item>
                         );
                     })}
@@ -31,7 +43,9 @@ function makeMenu(menus) {
         }
         return (
             <Menu.Item key={`menu-${menu.id}`}>
-                {menu.menu_id ? <Link to={menu.menu.url}>{menu.label}</Link> : menu.label}
+                {menu.menu_id ? <Link to={menu.menu.url} onClick={() => {
+                    resetBreadcrumbs(menu.menu.url);
+                }}>{menu.label}</Link> : menu.label}
             </Menu.Item>
         );
     })
@@ -88,14 +102,7 @@ const CustomMenu = () => {
                                     {
                                         menu.menu ?
                                             <Link to={menu.menu.url} onClick={() => {
-                                                let pathname = menu.menu.url;
-                                                let splitPathName = pathname.split('/');
-                                                setClickedBreadcrumb({});
-                                                setBreadcrumbs([{
-                                                    key: uuidv4(),
-                                                    slug: titleCase(replaceUnderscoreWithSpace(splitPathName[1])),
-                                                    link: menu.menu.url
-                                                }]);
+                                                resetBreadcrumbs(menu.menu.url);
                                             }}>{menu.label}</Link>
                                             : menu.label
                                     }
