@@ -2,15 +2,17 @@
 
 namespace App\Http\Resources\Resource;
 
+use App\Traits\ResourceHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class WarehouseResource extends JsonResource
 {
+    use ResourceHelper;
+
     public function toArray($request)
     {
         $slug = $this->slug();
-        return [
-            'id' => $this->id,
+        return $this->defaults($this, [
             'name' => $this->name,
             'short_name' => $this->short_name,
             'manufacture_to_resupply' => $this->manufacture_to_resupply,
@@ -31,7 +33,6 @@ class WarehouseResource extends JsonResource
             'stock_after_manufacturing_operation_type_id' => $this->stock_after_manufacturing_operation_type_id,
             'picking_before_manufacturing_operation_type_id' => $this->picking_before_manufacturing_operation_type_id,
             'manufacturing_operation_type_id' => $this->manufacturing_operation_type_id,
-            'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'stock_location' => new LocationResource($this->stockLocation),
             'view_location' => new LocationResource($this->viewLocation),
             'input_location' => new LocationResource($this->inputLocation),
@@ -49,6 +50,6 @@ class WarehouseResource extends JsonResource
             'picking_before_manufacturing_operation_type' => new OperationTypeResource($this->pickingBeforeManufacturingOperationType),
             'manufacturing_operation_type' => new OperationTypeResource($this->manufacturingOperationType),
             'slug' => $this->$slug,
-        ];
+        ]);
     }
 }

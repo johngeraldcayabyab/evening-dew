@@ -2,23 +2,24 @@
 
 namespace App\Http\Resources\Resource;
 
+use App\Traits\ResourceHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class MeasurementResource extends JsonResource
 {
+    use ResourceHelper;
+
     public function toArray($request)
     {
         $slug = $this->slug();
-        return [
-            'id' => $this->id,
+        return $this->defaults($this, [
             'name' => $this->name,
             'type' => $this->type,
             'ratio' => $this->ratio,
             'rounding_precision' => $this->rounding_precision,
             'measurement_category_id' => $this->measurement_category_id,
-            'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'measurement_category' => new MeasurementCategoryResource($this->measurementCategory),
             'slug' => $this->$slug,
-        ];
+        ]);
     }
 }

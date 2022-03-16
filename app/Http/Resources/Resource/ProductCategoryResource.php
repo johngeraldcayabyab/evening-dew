@@ -2,21 +2,22 @@
 
 namespace App\Http\Resources\Resource;
 
+use App\Traits\ResourceHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductCategoryResource extends JsonResource
 {
+    use ResourceHelper;
+
     public function toArray($request)
     {
         $slug = $this->getWithParents('category');
-        return [
-            'id' => $this->id,
+        return $this->defaults($this, [
             'category' => $this->category,
             'parent_product_category_id' => $this->parent_product_category_id,
             'parent_product_category' => new ProductCategoryResource($this->parentProductCategory),
-            'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'parents' => $slug,
             'slug' => $slug,
-        ];
+        ]);
     }
 }

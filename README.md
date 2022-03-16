@@ -72,6 +72,8 @@ php artisan storage:link php artisan event:cache
 
 -form options, doesnt show values if over system limit
 
+-Children should never reference parent as resources in resource
+
 <h5>Initial Deployment</h5>
 <ul>
 <li><code>php artisan storage:link</code></li>

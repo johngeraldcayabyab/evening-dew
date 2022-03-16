@@ -2,24 +2,25 @@
 
 namespace App\Http\Resources\Resource;
 
+use App\Traits\ResourceHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class MaterialResource extends JsonResource
 {
+    use ResourceHelper;
+
     public function toArray($request)
     {
         $slug = $this->slug();
-        return [
-            'id' => $this->id,
+        return $this->defaults($this, [
             'product_id' => $this->product_id,
             'measurement_id' => $this->measurement_id,
             'reference' => $this->reference,
             'material_type' => $this->material_type,
             'flexible_consumption' => $this->flexible_consumption,
-            'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'product' => $this->product,
             'material_lines' => MaterialLineResource::collection($this->materialLines),
             'slug' => $this->$slug,
-        ];
+        ]);
     }
 }

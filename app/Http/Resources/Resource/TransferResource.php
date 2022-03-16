@@ -2,16 +2,18 @@
 
 namespace App\Http\Resources\Resource;
 
+use App\Traits\ResourceHelper;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TransferResource extends JsonResource
 {
+    use ResourceHelper;
+
     public function toArray($request)
     {
         $slug = $this->slug();
-        return [
-            'id' => $this->id,
+        return $this->defaults($this, [
             'reference' => $this->reference,
             'contact_id' => $this->contact_id,
             'operation_type_id' => $this->operation_type_id,
@@ -26,7 +28,6 @@ class TransferResource extends JsonResource
             'responsible_id' => $this->responsible_id,
             'note' => $this->note,
             'status' => $this->status,
-            'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'contact' => new ContactResource($this->contact),
             'operation_type' => new OperationTypeResource($this->operationType),
             'source_location' => new LocationResource($this->sourceLocation),
@@ -35,6 +36,6 @@ class TransferResource extends JsonResource
             'transfer_lines' => TransferLineResource::collection($this->transferLines),
             'scheduled_date_human' => Carbon::parse($this->scheduled_date)->diffForHumans(),
             'slug' => $this->$slug,
-        ];
+        ]);
     }
 }

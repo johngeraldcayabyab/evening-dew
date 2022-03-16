@@ -6,6 +6,7 @@ class SystemSetting
 {
     const OPTION_LIMIT = 10;
     const PAGE_SIZE = 80;
+    const TIME_STAMP_FORMAT = 'm/d/Y h:i:s A';
     const DATE_TIME_FORMAT = 'Y-m-d H:i:s';
     const INITIAL_VALUES = 'initial_values';
     const OPTION = 'option';

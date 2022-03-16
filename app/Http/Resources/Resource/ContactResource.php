@@ -2,16 +2,18 @@
 
 namespace App\Http\Resources\Resource;
 
+use App\Traits\ResourceHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ContactResource extends JsonResource
 {
+    use ResourceHelper;
+
     public function toArray($request)
     {
         $slug = $this->slug();
         $defaultAddress = $this->defaultAddress();
-        return [
-            'id' => $this->id,
+        return $this->defaults($this, [
             'name' => $this->name,
             'phone' => $this->phone,
             'mobile' => $this->mobile,
@@ -25,9 +27,8 @@ class ContactResource extends JsonResource
             'state' => $defaultAddress->state,
             'zip' => $defaultAddress->zip,
             'country_id' => $defaultAddress->country_id,
-            'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'country' => new CountryResource($defaultAddress->country),
             'slug' => $this->$slug,
-        ];
+        ]);
     }
 }

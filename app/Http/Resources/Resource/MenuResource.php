@@ -2,19 +2,20 @@
 
 namespace App\Http\Resources\Resource;
 
+use App\Traits\ResourceHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class MenuResource extends JsonResource
 {
+    use ResourceHelper;
+
     public function toArray($request)
     {
         $slug = $this->slug();
-        return [
-            'id' => $this->id,
+        return $this->defaults($this, [
             'label' => $this->label,
             'url' => $this->url,
-            'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'slug' => $this->$slug,
-        ];
+        ]);
     }
 }
