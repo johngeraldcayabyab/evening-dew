@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\MeasurementCategoryMassDestroyRequest;
 use App\Http\Requests\Store\MeasurementCategoryStoreRequest;
 use App\Http\Requests\Update\MeasurementCategoryUpdateRequest;
@@ -51,12 +50,5 @@ class MeasurementCategoryController
     {
         MeasurementCategory::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
-    }
-
-    public function option(Request $request): ResourceCollection
-    {
-        $model = $this->searchThenSort(new MeasurementCategory(), $request);
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
-        return MeasurementCategoryResource::collection($model);
     }
 }

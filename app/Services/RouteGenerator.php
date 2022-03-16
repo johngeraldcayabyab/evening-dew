@@ -30,7 +30,6 @@ class RouteGenerator implements Generator
             $plural = self::$plural;
             $singular = self::$singular;
             $initialValues = SystemSetting::INITIAL_VALUES;
-            $option = SystemSetting::OPTION;
             $slug = SystemSetting::SLUG;
             $show = SystemSetting::SHOW;
             $update = SystemSetting::UPDATE;
@@ -41,9 +40,6 @@ class RouteGenerator implements Generator
             $controllerInstance = new $controller;
             if (self::findMethod($methods, SystemSetting::INITIAL_VALUES, $controllerInstance)) {
                 Route::get("{$plural}/{$initialValues}", [$controller, $initialValues])->name("{$plural}.{$initialValues}");
-            }
-            if (self::findMethod($methods, SystemSetting::OPTION, $controllerInstance)) {
-                Route::get("{$plural}/{$option}", [$controller, $option])->name("{$plural}.{$option}");
             }
             if (self::findMethod($methods, SystemSetting::SLUG, $controllerInstance)) {
                 Route::get("{$plural}/{{$singular}}/{$slug}", [$controller, $slug])->name("{$plural}.{$slug}");

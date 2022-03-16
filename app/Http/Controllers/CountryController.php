@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\CountryMassDestroyRequest;
 use App\Http\Requests\Store\CountryStoreRequest;
 use App\Http\Requests\Update\CountryUpdateRequest;
@@ -50,12 +49,5 @@ class CountryController
     {
         Country::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
-    }
-
-    public function option(Request $request): ResourceCollection
-    {
-        $model = $this->searchThenSort(new Country(), $request);
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
-        return CountryResource::collection($model);
     }
 }

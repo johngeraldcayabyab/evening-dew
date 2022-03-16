@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\AddressMassDestroyRequest;
 use App\Http\Requests\Store\AddressStoreRequest;
 use App\Http\Requests\Update\AddressUpdateRequest;
@@ -51,13 +50,6 @@ class AddressController
     {
         Address::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
-    }
-
-    public function option(Request $request): ResourceCollection
-    {
-        $model = $this->searchThenSort(new Address(), $request);
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
-        return AddressResource::collection($model);
     }
 
     public function initial_values()

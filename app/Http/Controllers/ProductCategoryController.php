@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\ProductCategoryMassDestroyRequest;
 use App\Http\Requests\Store\ProductCategoryStoreRequest;
 use App\Http\Requests\Update\ProductCategoryUpdateRequest;
@@ -50,12 +49,5 @@ class ProductCategoryController
     {
         ProductCategory::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
-    }
-
-    public function option(Request $request): ResourceCollection
-    {
-        $model = $this->searchThenSort(new ProductCategory(), $request);
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
-        return ProductCategoryResource::collection($model);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\PaymentTermMassDestroyRequest;
 use App\Http\Requests\Store\PaymentTermStoreRequest;
 use App\Http\Requests\Update\PaymentTermUpdateRequest;
@@ -50,12 +49,5 @@ class PaymentTermController
     {
         PaymentTerm::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
-    }
-
-    public function option(Request $request): ResourceCollection
-    {
-        $model = $this->searchThenSort(new PaymentTerm(), $request);
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
-        return PaymentTermResource::collection($model);
     }
 }
