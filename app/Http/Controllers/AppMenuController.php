@@ -8,7 +8,6 @@ use App\Http\Requests\Update\AppMenuUpdateRequest;
 use App\Http\Resources\Collection\AppMenuCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\AppMenuResource;
-use App\Http\Resources\Slug\AppMenuSlugResource;
 use App\Models\AppMenu;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;

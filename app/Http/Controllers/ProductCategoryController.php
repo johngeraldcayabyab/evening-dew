@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\ProductCategoryMassDestroyRequest;
 use App\Http\Requests\Store\ProductCategoryStoreRequest;
 use App\Http\Requests\Update\ProductCategoryUpdateRequest;
 use App\Http\Resources\Collection\ProductCategoryCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\ProductCategoryResource;
-use App\Http\Resources\Slug\ProductCategorySlugResource;
 use App\Models\ProductCategory;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;

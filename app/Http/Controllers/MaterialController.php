@@ -8,7 +8,6 @@ use App\Http\Requests\Update\MaterialUpdateRequest;
 use App\Http\Resources\Collection\MaterialCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\MaterialResource;
-use App\Http\Resources\Slug\MaterialSlugResource;
 use App\Models\GlobalSetting;
 use App\Models\Material;
 use App\Models\MaterialLine;

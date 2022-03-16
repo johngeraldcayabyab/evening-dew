@@ -10,7 +10,6 @@ use App\Http\Requests\Update\SalesOrderUpdateRequest;
 use App\Http\Resources\Collection\SalesOrderCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\SalesOrderResource;
-use App\Http\Resources\Slug\SalesOrderSlugResource;
 use App\Models\GlobalSetting;
 use App\Models\SalesOrder;
 use App\Models\SalesOrderLine;

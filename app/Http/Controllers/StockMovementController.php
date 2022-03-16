@@ -8,7 +8,6 @@ use App\Http\Requests\Update\StockMovementUpdateRequest;
 use App\Http\Resources\Collection\StockMovementCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\StockMovementResource;
-use App\Http\Resources\Slug\StockMovementSlugResource;
 use App\Models\StockMovement;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;

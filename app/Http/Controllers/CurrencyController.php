@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\CurrencyMassDestroyRequest;
 use App\Http\Requests\Store\CurrencyStoreRequest;
 use App\Http\Requests\Update\CurrencyUpdateRequest;
 use App\Http\Resources\Collection\CurrencyCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\CurrencyResource;
-use App\Http\Resources\Slug\CurrencySlugResource;
 use App\Models\Currency;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;

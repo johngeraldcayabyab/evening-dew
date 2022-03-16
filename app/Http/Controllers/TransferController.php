@@ -10,7 +10,6 @@ use App\Http\Requests\Update\TransferUpdateRequest;
 use App\Http\Resources\Collection\TransferCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\TransferResource;
-use App\Http\Resources\Slug\TransferSlugResource;
 use App\Models\Transfer;
 use App\Models\TransferLine;
 use App\Traits\ControllerHelperTrait;

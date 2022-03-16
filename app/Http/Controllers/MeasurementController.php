@@ -8,7 +8,6 @@ use App\Http\Requests\Update\MeasurementUpdateRequest;
 use App\Http\Resources\Collection\MeasurementCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\MeasurementResource;
-use App\Http\Resources\Slug\MeasurementSlugResource;
 use App\Models\GlobalSetting;
 use App\Models\Measurement;
 use App\Traits\ControllerHelperTrait;

@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\OperationTypeMassDestroyRequest;
 use App\Http\Requests\Store\OperationTypeStoreRequest;
 use App\Http\Requests\Update\OperationTypeUpdateRequest;
 use App\Http\Resources\Collection\OperationTypeCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\OperationTypeResource;
-use App\Http\Resources\Slug\OperationTypeSlugResource;
 use App\Models\OperationType;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
