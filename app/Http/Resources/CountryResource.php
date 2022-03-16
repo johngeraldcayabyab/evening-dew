@@ -12,7 +12,7 @@ class CountryResource extends JsonResource
     public function toArray($request)
     {
         $slug = $this->slug();
-        return $this->defaults($this, [
+        return $this->defaults($this, $request, [
             'country_name' => $this->country_name,
             'currency_id' => $this->currency_id,
             'country_code' => $this->country_code,

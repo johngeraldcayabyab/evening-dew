@@ -12,7 +12,7 @@ class SequenceResource extends JsonResource
     public function toArray($request)
     {
         $slug = $this->slug();
-        return $this->defaults($this, [
+        return $this->defaults($this, $request, [
             'name' => $this->name,
             'sequence_code' => $this->sequence_code,
             'implementation' => $this->implementation,

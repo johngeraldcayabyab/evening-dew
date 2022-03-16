@@ -12,7 +12,7 @@ class LocationResource extends JsonResource
     public function toArray($request)
     {
         $slug = $this->getWithParents('name');
-        return $this->defaults($this, [
+        return $this->defaults($this, $request, [
             'name' => $this->name,
             'parent_location_id' => $this->parent_location_id,
             'is_a_scrap_location' => $this->is_a_scrap_location,

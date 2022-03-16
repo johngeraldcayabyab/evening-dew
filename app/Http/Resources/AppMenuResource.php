@@ -12,7 +12,7 @@ class AppMenuResource extends JsonResource
     public function toArray($request)
     {
         $slug = $this->getWithParents('label');
-        return $this->defaults($this, [
+        return $this->defaults($this, $request, [
             'label' => $this->label,
             'menu_id' => $this->menu_id,
             'parent_app_menu_id' => $this->parent_app_menu_id,

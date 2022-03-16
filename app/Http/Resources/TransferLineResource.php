@@ -11,7 +11,7 @@ class TransferLineResource extends JsonResource
 
     public function toArray($request)
     {
-        return $this->defaults($this, [
+        return $this->defaults($this, $request, [
             'product_id' => $this->product_id,
             'description' => $this->description,
             'demand' => $this->demand,

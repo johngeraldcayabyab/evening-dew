@@ -12,7 +12,7 @@ class ProductResource extends JsonResource
     public function toArray($request)
     {
         $slug = $this->slug();
-        return $this->defaults($this, [
+        return $this->defaults($this, $request, [
             'name' => $this->name,
             'product_type' => $this->product_type,
             'invoicing_policy' => $this->invoicing_policy,

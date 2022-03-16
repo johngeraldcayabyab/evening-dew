@@ -12,7 +12,7 @@ class SalesOrderResource extends JsonResource
     public function toArray($request)
     {
         $slug = $this->slug();
-        return $this->defaults($this, [
+        return $this->defaults($this, $request, [
             'number' => $this->number,
             'customer_id' => $this->customer_id,
             'invoice_address_id' => $this->invoice_address_id,

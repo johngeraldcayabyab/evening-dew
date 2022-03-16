@@ -12,7 +12,7 @@ class StockMovementResource extends JsonResource
     public function toArray($request)
     {
         $slug = $this->slug();
-        return $this->defaults($this, [
+        return $this->defaults($this, $request, [
             'reference' => $this->reference,
             'source' => $this->source,
             'product_id' => $this->product_id,

@@ -12,7 +12,7 @@ class MeasurementCategoryResource extends JsonResource
     public function toArray($request)
     {
         $slug = $this->slug();
-        return $this->defaults($this, [
+        return $this->defaults($this, $request, [
             'name' => $this->name,
             'slug' => $this->$slug,
         ]);

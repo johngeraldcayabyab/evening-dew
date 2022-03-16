@@ -57,7 +57,7 @@ class AppMenuSeeder extends Seeder
                                 ],
                             ],
                             [
-                                'label' => 'Products',
+                                'label' => 'Master Data',
                                 'children' => [
                                     [
                                         'label' => 'Products',

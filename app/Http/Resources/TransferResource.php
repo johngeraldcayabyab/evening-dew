@@ -13,7 +13,7 @@ class TransferResource extends JsonResource
     public function toArray($request)
     {
         $slug = $this->slug();
-        return $this->defaults($this, [
+        return $this->defaults($this, $request, [
             'reference' => $this->reference,
             'contact_id' => $this->contact_id,
             'operation_type_id' => $this->operation_type_id,

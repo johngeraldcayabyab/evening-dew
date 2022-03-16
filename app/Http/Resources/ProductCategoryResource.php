@@ -12,7 +12,7 @@ class ProductCategoryResource extends JsonResource
     public function toArray($request)
     {
         $slug = $this->getWithParents('category');
-        return $this->defaults($this, [
+        return $this->defaults($this, $request, [
             'category' => $this->category,
             'parent_product_category_id' => $this->parent_product_category_id,
             'parent_product_category' => new ProductCategoryResource($this->parentProductCategory),
