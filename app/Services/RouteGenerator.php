@@ -65,24 +65,6 @@ class RouteGenerator implements Generator
         });
     }
 
-    public static function generateCustom($controller, $controllerMethod, $httpMethod, $uri, $routeName)
-    {
-        Route::middleware('auth:sanctum')->group(function () use ($controller, $controllerMethod, $httpMethod, $uri, $routeName) {
-            if ($httpMethod === 'GET') {
-                Route::get($uri, [$controller, $controllerMethod])->name($routeName);
-            }
-            if ($httpMethod === 'POST') {
-                Route::post($uri, [$controller, $controllerMethod])->name($routeName);
-            }
-            if ($httpMethod === 'PUT') {
-                Route::put($uri, [$controller, $controllerMethod])->name($routeName);
-            }
-            if ($httpMethod === 'DELETE') {
-                Route::delete($uri, [$controller, $controllerMethod])->name($routeName);
-            }
-        });
-    }
-
     private static function findMethod($methods, $specificMethod, $controllerInstance)
     {
         foreach ($methods as $method) {
