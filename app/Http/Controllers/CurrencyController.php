@@ -5,23 +5,23 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MassDestroy\CurrencyMassDestroyRequest;
 use App\Http\Requests\Store\CurrencyStoreRequest;
 use App\Http\Requests\Update\CurrencyUpdateRequest;
-use App\Http\Resources\Collection\CurrencyCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\CurrencyResource;
 use App\Models\Currency;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CurrencyController
 {
     use ControllerHelperTrait;
 
-    public function index(Request $request): CurrencyCollection
+    public function index(Request $request): ResourceCollection
     {
         $model = new Currency();
         $model = $this->searchSortThenPaginate($model, $request);
-        return new CurrencyCollection($model);
+        return CurrencyResource::collection($model);
     }
 
     public function show(Currency $currency): JsonResponse

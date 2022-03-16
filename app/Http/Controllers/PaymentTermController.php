@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MassDestroy\PaymentTermMassDestroyRequest;
 use App\Http\Requests\Store\PaymentTermStoreRequest;
 use App\Http\Requests\Update\PaymentTermUpdateRequest;
-use App\Http\Resources\Collection\PaymentTermCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\PaymentTermResource;
 use App\Models\PaymentTerm;
@@ -22,7 +21,7 @@ class PaymentTermController
     {
         $model = new PaymentTerm();
         $model = $this->searchSortThenPaginate($model, $request);
-        return new PaymentTermCollection($model);
+        return PaymentTermResource::collection($model);
     }
 
     public function show(PaymentTerm $paymentTerm): JsonResponse

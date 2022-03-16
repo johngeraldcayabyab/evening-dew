@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MassDestroy\UserMassDestroyRequest;
 use App\Http\Requests\Store\UserStoreRequest;
 use App\Http\Requests\Update\UserUpdateRequest;
-use App\Http\Resources\Collection\UserCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\UserResource;
 use App\Models\User;
@@ -23,7 +22,7 @@ class UserController
     {
         $model = new User();
         $model = $this->searchSortThenPaginate($model, $request);
-        return new UserCollection($model);
+        return UserResource::collection($model);
     }
 
     public function show(User $user): JsonResponse

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MassDestroy\AddressMassDestroyRequest;
 use App\Http\Requests\Store\AddressStoreRequest;
 use App\Http\Requests\Update\AddressUpdateRequest;
-use App\Http\Resources\Collection\AddressCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\AddressResource;
 use App\Models\Address;
@@ -18,11 +17,11 @@ class AddressController
 {
     use ControllerHelperTrait;
 
-    public function index(Request $request): AddressCollection
+    public function index(Request $request)
     {
         $model = new Address();
         $model = $this->searchSortThenPaginate($model, $request);
-        return new AddressCollection($model);
+        return AddressResource::collection($model);
     }
 
     public function show(Address $address): JsonResponse

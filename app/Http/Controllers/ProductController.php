@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MassDestroy\ProductMassDestroyRequest;
 use App\Http\Requests\Store\ProductStoreRequest;
 use App\Http\Requests\Update\ProductUpdateRequest;
-use App\Http\Resources\Collection\ProductCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\ProductResource;
 use App\Models\GlobalSetting;
@@ -13,16 +12,17 @@ use App\Models\Product;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ProductController
 {
     use ControllerHelperTrait;
 
-    public function index(Request $request): ProductCollection
+    public function index(Request $request): ResourceCollection
     {
         $model = new Product();
         $model = $this->searchSortThenPaginate($model, $request);
-        return new ProductCollection($model);
+        return ProductResource::collection($model);
     }
 
     public function show(Product $product): JsonResponse

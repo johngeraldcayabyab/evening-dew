@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MassDestroy\LocationMassDestroyRequest;
 use App\Http\Requests\Store\LocationStoreRequest;
 use App\Http\Requests\Update\LocationUpdateRequest;
-use App\Http\Resources\Collection\LocationCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\LocationResource;
 use App\Models\Location;
@@ -22,7 +21,7 @@ class LocationController
     {
         $model = new Location();
         $model = $this->searchSortThenPaginate($model, $request);
-        return new LocationCollection($model);
+        return LocationResource::collection($model);
     }
 
     public function show(Location $location): JsonResponse

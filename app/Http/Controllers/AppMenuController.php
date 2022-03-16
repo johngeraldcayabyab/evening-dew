@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MassDestroy\AppMenuMassDestroyRequest;
 use App\Http\Requests\Store\AppMenuStoreRequest;
 use App\Http\Requests\Update\AppMenuUpdateRequest;
-use App\Http\Resources\Collection\AppMenuCollection;
 use App\Http\Resources\OptionResource;
+use App\Http\Resources\Resource\AddressResource;
 use App\Http\Resources\Resource\AppMenuResource;
 use App\Models\AppMenu;
 use App\Traits\ControllerHelperTrait;
@@ -22,7 +22,7 @@ class AppMenuController
     {
         $model = new AppMenu();
         $model = $this->searchSortThenPaginate($model, $request);
-        return new AppMenuCollection($model);
+        return AddressResource::collection($model);
     }
 
     public function show(AppMenu $appMenu): JsonResponse

@@ -7,7 +7,6 @@ use App\Events\TransferValidatedEvent;
 use App\Http\Requests\MassDestroy\TransferMassDestroyRequest;
 use App\Http\Requests\Store\TransferStoreRequest;
 use App\Http\Requests\Update\TransferUpdateRequest;
-use App\Http\Resources\Collection\TransferCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\TransferResource;
 use App\Models\Transfer;
@@ -26,7 +25,7 @@ class TransferController
     {
         $model = new Transfer();
         $model = $this->searchSortThenPaginate($model, $request);
-        return new TransferCollection($model);
+        return TransferResource::collection($model);
     }
 
     public function show(Transfer $transfer): JsonResponse

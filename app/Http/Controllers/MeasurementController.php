@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MassDestroy\MeasurementMassDestroyRequest;
 use App\Http\Requests\Store\MeasurementStoreRequest;
 use App\Http\Requests\Update\MeasurementUpdateRequest;
-use App\Http\Resources\Collection\MeasurementCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\MeasurementResource;
 use App\Models\GlobalSetting;
@@ -23,7 +22,7 @@ class MeasurementController
     {
         $model = new Measurement();
         $model = $this->searchSortThenPaginate($model, $request);
-        return new MeasurementCollection($model);
+        return MeasurementResource::collection($model);
     }
 
     public function show(Measurement $measurement): JsonResponse
