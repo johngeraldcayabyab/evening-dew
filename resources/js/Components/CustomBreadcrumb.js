@@ -39,10 +39,9 @@ const CustomBreadcrumb = (props) => {
         let pathname = location.pathname;
         let splitPathName = pathname.split('/');
         let isMainPath = splitPathName.length === 2;
-
         const [lastBreadcrumb] = breadcrumbs.slice(-1);
         newBreadcrumb.key = uuidv4();
-        newBreadcrumb.link = location.pathname;
+        newBreadcrumb.link = location.pathname + location.search;
         breadcrumbs = [
             ...breadcrumbs,
             newBreadcrumb
