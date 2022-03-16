@@ -227,7 +227,12 @@ const SalesOrderForm = () => {
                 <FormLinks
                     formState={formState}
                     links={[
-                        {link: 'sales_order_transfer', id: 'transfer_id', label: 'Deliveries'}
+                        {
+                            module: 'transfers',
+                            param: 'source_document',
+                            value: 'number',
+                            label: 'Deliveries',
+                        },
                     ]}
                 />
                 <RowForm>

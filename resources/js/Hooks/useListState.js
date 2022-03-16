@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import useFetchCatcher from "./useFetchCatcher";
 import useFetchHook from "./useFetchHook";
 import {DELETE, GET, POST} from "../consts";
+import {getAllUrlParams, getQueryVariable} from "../Helpers/url";
 
 const useListState = (manifest, columns) => {
     const [useFetch, fetchAbort] = useFetchHook();
@@ -70,7 +71,7 @@ const useListState = (manifest, columns) => {
 
 
     useEffect(() => {
-        tableActions.renderData(tableState.params);
+        tableActions.renderData(getAllUrlParams());
     }, []);
 
     useEffect(() => {

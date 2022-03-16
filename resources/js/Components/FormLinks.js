@@ -3,12 +3,13 @@ import RowForm from "./Grid/RowForm";
 import ColForm from "./Grid/ColForm";
 import {Link} from "react-router-dom";
 import {Button} from "antd";
+import {uuidv4} from "../Helpers/string";
 
 const FormLinks = (props) => {
     let links = [];
     if (objectHasValue(props.formState.initialValues)) {
         props.links.forEach((link) => {
-            if (objectHasValue(props.formState.initialValues[link.link])) {
+            if (objectHasValue(props.formState.initialValues[link.value])) {
                 links.push(link);
             }
         });
@@ -23,7 +24,8 @@ const FormLinks = (props) => {
                         <ColForm lg={24} style={{textAlign: 'right'}}>
                             {links.map(link => (
                                 <Link
-                                    to={`/transfers/${props.formState.initialValues[link.link][link.id]}`}>
+                                    key={uuidv4()}
+                                    to={`/${link.module}?${link.param}=${props.formState.initialValues[link.value]}`}>
                                     <Button
                                         htmlType={"button"}
                                         type={"ghost"}
