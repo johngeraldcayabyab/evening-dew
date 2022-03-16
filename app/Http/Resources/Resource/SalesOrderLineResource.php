@@ -2,14 +2,16 @@
 
 namespace App\Http\Resources\Resource;
 
+use App\Traits\ResourceHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SalesOrderLineResource extends JsonResource
 {
+    use ResourceHelper;
+
     public function toArray($request)
     {
-        return [
-            'id' => $this->id,
+        return $this->defaults($this, [
             'product_id' => $this->product_id,
             'description' => $this->description,
             'quantity' => $this->quantity,
@@ -17,9 +19,8 @@ class SalesOrderLineResource extends JsonResource
             'unit_price' => $this->unit_price,
             'subtotal' => $this->subtotal,
             'sales_order_id' => $this->sales_order_id,
-            'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'product' => new ProductResource($this->product),
             'measurement' => new MeasurementResource($this->measurement),
-        ];
+        ]);
     }
 }

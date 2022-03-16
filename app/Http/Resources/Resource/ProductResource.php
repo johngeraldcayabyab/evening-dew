@@ -2,15 +2,17 @@
 
 namespace App\Http\Resources\Resource;
 
+use App\Traits\ResourceHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductResource extends JsonResource
 {
+    use ResourceHelper;
+
     public function toArray($request)
     {
         $slug = $this->slug();
-        return [
-            'id' => $this->id,
+        return $this->defaults($this, [
             'name' => $this->name,
             'product_type' => $this->product_type,
             'invoicing_policy' => $this->invoicing_policy,
@@ -25,12 +27,11 @@ class ProductResource extends JsonResource
             'sales_description' => $this->sales_description,
             'purchase_description' => $this->purchase_description,
             'quantity' => $this->quantity,
-            'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'measurement' => new MeasurementResource($this->measurement),
             'purchase_measurement' => new MeasurementResource($this->purchaseMeasurement),
             'sales_measurement' => new MeasurementResource($this->salesMeasurement),
             'product_category' => new ProductCategoryResource($this->productCategory),
             'slug' => $this->$slug,
-        ];
+        ]);
     }
 }

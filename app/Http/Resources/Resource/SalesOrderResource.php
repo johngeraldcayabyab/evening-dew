@@ -2,15 +2,17 @@
 
 namespace App\Http\Resources\Resource;
 
+use App\Traits\ResourceHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SalesOrderResource extends JsonResource
 {
+    use ResourceHelper;
+
     public function toArray($request)
     {
         $slug = $this->slug();
-        return [
-            'id' => $this->id,
+        return $this->defaults($this, [
             'number' => $this->number,
             'customer_id' => $this->customer_id,
             'invoice_address_id' => $this->invoice_address_id,
@@ -24,7 +26,6 @@ class SalesOrderResource extends JsonResource
             'expected_delivery_date' => $this->expected_delivery_date,
             'source_document' => $this->source_document,
             'status' => $this->status,
-            'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'customer' => new ContactResource($this->customer),
             'invoice_address' => new AddressResource($this->invoiceAddress),
             'delivery_address' => new AddressResource($this->deliveryAddress),
@@ -33,6 +34,6 @@ class SalesOrderResource extends JsonResource
             'sales_order_lines' => SalesOrderLineResource::collection($this->salesOrderLines),
             'sales_order_transfer' => new SalesOrderTransferResource($this->salesOrderTransfer),
             'slug' => $this->$slug,
-        ];
+        ]);
     }
 }

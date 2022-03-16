@@ -2,15 +2,17 @@
 
 namespace App\Http\Resources\Resource;
 
+use App\Traits\ResourceHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OperationTypeResource extends JsonResource
 {
+    use ResourceHelper;
+
     public function toArray($request)
     {
         $slug = $this->slug();
-        return [
-            'id' => $this->id,
+        return $this->defaults($this, [
             'name' => $this->name,
             'reference_sequence_id' => $this->reference_sequence_id,
             'code' => $this->code,
@@ -27,13 +29,12 @@ class OperationTypeResource extends JsonResource
             'create_new_lots_serial_numbers_for_components' => $this->create_new_lots_serial_numbers_for_components,
             'default_source_location_id' => $this->default_source_location_id,
             'default_destination_location_id' => $this->default_destination_location_id,
-            'created_at' => $this->created_at->format('m/d/Y h:i:s A'),
             'reference_sequence' => new SequenceResource($this->referenceSequence),
             'warehouse' => $this->warehouse,
             'operation_type_for_returns' => new OperationTypeResource($this->operationTypeForReturns),
             'default_source_location' => new LocationResource($this->defaultSourceLocation),
             'default_destination_location' => new LocationResource($this->defaultDestinationLocation),
             'slug' => $this->$slug,
-        ];
+        ]);
     }
 }
