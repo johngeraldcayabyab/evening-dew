@@ -17,15 +17,17 @@ class ProductHasMaterialEvent implements ShouldBroadcast, ShouldQueue
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $transferLine;
-    public $operationType;
     public $transfer;
+    public $operationType;
+    public $material;
+    public $demand;
 
-    public function __construct(Transfer $transfer, TransferLine $transferLine, OperationType $operationType)
+    public function __construct(Transfer $transfer, OperationType $operationType, Material $material, $demand)
     {
         $this->transfer = $transfer;
-        $this->transferLine = $transferLine;
         $this->operationType = $operationType;
+        $this->material = $material;
+        $this->demand = $demand;
     }
 
     public function broadcastOn()

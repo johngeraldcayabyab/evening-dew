@@ -4,12 +4,9 @@ namespace App\Listeners;
 
 use App\Events\ProductHasMaterialEvent;
 use App\Events\TransferValidatedEvent;
-use App\Models\OperationType;
 use App\Models\Product;
 use App\Models\StockMovement;
-use App\Models\TransferLine;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class GenerateStockMovementFromValidatedTransferListener implements ShouldQueue
 {
@@ -30,24 +27,14 @@ class GenerateStockMovementFromValidatedTransferListener implements ShouldQueue
                     'destination_location_id' => $transfer->destination_location_id,
                     'quantity_done' => $transferLine->demand,
                 ];
-                $this->computeProductQuantityNew($transferLine->product, $operationType, $transferLine->demand);
+                $product->updateQuantity($operationType, $transferLine->demand);
             }
             if ($product->material()->exists()) {
-                ProductHasMaterialEvent::dispatch($transfer, $transferLine, $operationType);
+                ProductHasMaterialEvent::dispatch($transfer, $operationType, $product->material, $transferLine->demand);
             }
         }
         if (count($stockMovementData)) {
             StockMovement::insertMany($stockMovementData);
         }
-    }
-
-    private function computeProductQuantityNew($product, $operationType, $demand)
-    {
-        if ($operationType->type === OperationType::DELIVERY) {
-            $product->quantity = $product->quantity - $demand;
-        } else if ($operationType->type === OperationType::RECEIPT) {
-            $product->quantity = $product->quantity + $demand;
-        }
-        $product->save();
     }
 }
