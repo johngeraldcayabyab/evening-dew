@@ -30,7 +30,7 @@ class GenerateStockMovementFromValidatedTransferListener implements ShouldQueue
                     'destination_location_id' => $transfer->destination_location_id,
                     'quantity_done' => $transferLine->demand,
                 ];
-                $this->computeProductQuantity($transferLine, $operationType);
+                $this->computeProductQuantityNew($transferLine->product, $operationType, $transferLine->demand);
             }
             if ($product->material()->exists()) {
                 ProductHasMaterialEvent::dispatch($transfer, $transferLine, $operationType);
@@ -41,13 +41,12 @@ class GenerateStockMovementFromValidatedTransferListener implements ShouldQueue
         }
     }
 
-    private function computeProductQuantity($transferLine, $operationType): void
+    private function computeProductQuantityNew($product, $operationType, $demand)
     {
-        $product = $transferLine->product;
         if ($operationType->type === OperationType::DELIVERY) {
-            $product->quantity = $product->quantity - $transferLine->demand;
+            $product->quantity = $product->quantity - $demand;
         } else if ($operationType->type === OperationType::RECEIPT) {
-            $product->quantity = $product->quantity + $transferLine->demand;
+            $product->quantity = $product->quantity + $demand;
         }
         $product->save();
     }

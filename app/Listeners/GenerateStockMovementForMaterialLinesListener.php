@@ -29,24 +29,23 @@ class GenerateStockMovementForMaterialLinesListener implements ShouldQueue
                     'destination_location_id' => $transfer->destination_location_id,
                     'quantity_done' => $materialLine->quantity * $transferLine->demand,
                 ];
-                $this->computeProductQuantity($transferLine, $materialLine, $operationType);
+                $this->computeProductQuantityNew($materialLine->product, $operationType, $materialLine->quantity, $transferLine->demand);
             }
-//            if ($materialLineProduct->material()->exists()) {
-//                ProductHasMaterialEvent::dispatch($transfer, $operationType, $materialLine->product->material);
-//            }
+            if ($materialLineProduct->material()->exists()) {
+//                ProductHasMaterialEvent::dispatch($transfer, $transferLine, $operationType);
+            }
         }
         if (count($stockMovementData)) {
             StockMovement::insertMany($stockMovementData);
         }
     }
 
-    private function computeProductQuantity($transferLine, $materialLine, $operationType): void
+    private function computeProductQuantityNew($product, $operationType, $materialQuantity, $demand)
     {
-        $product = $materialLine->product;
         if ($operationType->type === OperationType::DELIVERY) {
-            $product->quantity = $product->quantity - ($materialLine->quantity * $transferLine->demand);
+            $product->quantity = $product->quantity - ($materialQuantity * $demand);
         } else if ($operationType->type === OperationType::RECEIPT) {
-            $product->quantity = $product->quantity + ($materialLine->quantity * $transferLine->demand);
+            $product->quantity = $product->quantity + ($materialQuantity * $demand);
         }
         $product->save();
     }
