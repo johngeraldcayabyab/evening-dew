@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Http\Resources\Resource;
+namespace App\Http\Resources;
 
 use App\Traits\ResourceHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SalesOrderTransferResource extends JsonResource
+class MeasurementCategoryResource extends JsonResource
 {
     use ResourceHelper;
 
     public function toArray($request)
     {
+        $slug = $this->slug();
         return $this->defaults($this, [
-            'sales_order_id' => $this->sales_order_id,
-            'transfer_id' => $this->transfer_id,
+            'name' => $this->name,
+            'slug' => $this->$slug,
         ]);
     }
 }

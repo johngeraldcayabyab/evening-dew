@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\AddressMassDestroyRequest;
 use App\Http\Requests\Store\AddressStoreRequest;
 use App\Http\Requests\Update\AddressUpdateRequest;
-use App\Http\Resources\OptionResource;
-use App\Http\Resources\Resource\AddressResource;
+use App\Http\Resources\AddressResource;
 use App\Models\Address;
 use App\Models\GlobalSetting;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class AddressController
 {
     use ControllerHelperTrait;
 
-    public function index(Request $request)
+    public function index(Request $request): ResourceCollection
     {
         $model = new Address();
         $model = $this->searchSortThenPaginate($model, $request);
@@ -52,10 +53,11 @@ class AddressController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function option(Request $request): JsonResponse
+    public function option(Request $request): ResourceCollection
     {
-        $model = $this->searchOption(new Address(), $request);
-        return response()->json(OptionResource::collection($model));
+        $model = $this->searchThenSort(new Address(), $request);
+        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
+        return AddressResource::collection($model);
     }
 
     public function initial_values()

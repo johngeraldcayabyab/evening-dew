@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\StockMovementMassDestroyRequest;
 use App\Http\Requests\Store\StockMovementStoreRequest;
 use App\Http\Requests\Update\StockMovementUpdateRequest;
-use App\Http\Resources\OptionResource;
-use App\Http\Resources\Resource\StockMovementResource;
+use App\Http\Resources\StockMovementResource;
 use App\Models\StockMovement;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
@@ -52,10 +52,11 @@ class StockMovementController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function option(Request $request): JsonResponse
+    public function option(Request $request): ResourceCollection
     {
-        $model = $this->searchOption(new StockMovement(), $request);
-        return response()->json(OptionResource::collection($model));
+        $model = $this->searchThenSort(new StockMovement(), $request);
+        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
+        return StockMovementResource::collection($model);
     }
 
     public function initial_values()

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Resource;
+namespace App\Http\Resources;
 
 use App\Traits\ResourceHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TransferLineResource extends JsonResource
+class SalesOrderLineResource extends JsonResource
 {
     use ResourceHelper;
 
@@ -14,9 +14,11 @@ class TransferLineResource extends JsonResource
         return $this->defaults($this, [
             'product_id' => $this->product_id,
             'description' => $this->description,
-            'demand' => $this->demand,
+            'quantity' => $this->quantity,
             'measurement_id' => $this->measurement_id,
-            'transfer_id' => $this->transfer_id,
+            'unit_price' => $this->unit_price,
+            'subtotal' => $this->subtotal,
+            'sales_order_id' => $this->sales_order_id,
             'product' => new ProductResource($this->product),
             'measurement' => new MeasurementResource($this->measurement),
         ]);

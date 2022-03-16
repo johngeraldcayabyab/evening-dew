@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 
+use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\MenuMassDestroyRequest;
 use App\Http\Requests\Store\MenuStoreRequest;
 use App\Http\Requests\Update\MenuUpdateRequest;
-use App\Http\Resources\OptionResource;
-use App\Http\Resources\Resource\MenuResource;
+use App\Http\Resources\MenuResource;
 use App\Models\Menu;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
@@ -53,9 +53,10 @@ class MenuController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function option(Request $request): JsonResponse
+    public function option(Request $request): ResourceCollection
     {
-        $model = $this->searchOption(new Menu(), $request);
-        return response()->json(OptionResource::collection($model));
+        $model = $this->searchThenSort(new Menu(), $request);
+        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
+        return MenuResource::collection($model);
     }
 }
