@@ -9,15 +9,15 @@ class OptionResource extends JsonResource
 {
     public function toArray($request)
     {
-        $slug = $this->slug();
-        if (Str::contains($slug, 'parent')) {
-            $slug = $this->getWithParents(explode('.', $slug)[1]);
+        $label = $this->slug();
+        if (Str::contains($label, 'parent')) {
+            $label = $this->getWithParents(explode('.', $label)[1]);
         } else {
-            $slug = $this->$slug;
+            $label = $this->$label;
         }
         return [
-            'id' => $this->id,
-            'slug' => $slug,
+            'value' => $this->id,
+            'label' => $label,
         ];
     }
 }
