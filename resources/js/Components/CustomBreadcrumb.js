@@ -81,14 +81,9 @@ const CustomBreadcrumb = (props) => {
          */
         if (objectHasValue(getClickedBreadcrumb())) {
             let isClickedBreadcrumb = breadcrumbs.findIndex(breadcrumb => breadcrumb.key === getClickedBreadcrumb().key);
-            // if (Math.max(0, isClickedBreadcrumb)) {
-            //     console.log(isClickedBreadcrumb);
-            // console.log();
             isClickedBreadcrumb += 1;
             breadcrumbs = breadcrumbs.slice(0, isClickedBreadcrumb);
-            console.log(breadcrumbs, isClickedBreadcrumb);
             setClickedBreadcrumb({});
-            // }
         }
 
         setBreadcrumbs(breadcrumbs);
