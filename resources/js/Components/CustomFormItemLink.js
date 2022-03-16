@@ -7,14 +7,14 @@ const CustomFormItemLink = (props) => {
             if (objectHasValue(props.initialValues)) {
                 return (
                     <Link
-                        to={props.url.replace('/api', '').replace('option', props.initialValues[props.listName][props.groupName][props.name])}>
+                        to={props.url.replace('/api', '') + '/' + props.initialValues[props.listName][props.groupName][props.name]}>
                         {props.children}
                     </Link>
                 )
             }
         }
         return (
-            <Link to={props.url.replace('/api', '').replace('option', props.initialValues[props.name])}>
+            <Link to={props.url.replace('/api', '') + '/' + props.initialValues[props.name]}>
                 {props.children}
             </Link>
         )
