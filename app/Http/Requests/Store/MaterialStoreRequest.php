@@ -13,7 +13,6 @@ class MaterialStoreRequest extends FormRequest
         $flexibleConsumptions = implode(',', Material::getFlexibleConsumptions());
         return [
             'product_id' => ['required', "exists:products,id"],
-            'quantity' => ['required'],
             'measurement_id' => ['required', "exists:measurements,id"],
             'reference' => ['nullable'],
             'material_type' => ['required', "in:$materialTypes"],

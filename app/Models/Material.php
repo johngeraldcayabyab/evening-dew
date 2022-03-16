@@ -51,11 +51,6 @@ class Material extends Model implements Sluggable
         return $this->whereSingle($query, __FUNCTION__, $where);
     }
 
-    public function scopeWhereQuantity($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
     public function scopeWhereMeasurementId($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);
@@ -77,11 +72,6 @@ class Material extends Model implements Sluggable
     }
 
     public function scopeOrderByProductId($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByQuantity($query, $order)
     {
         return $this->order($query, __FUNCTION__, $order);
     }
