@@ -11,7 +11,7 @@ class SalesOrderTransferResource extends JsonResource
 
     public function toArray($request)
     {
-        return $this->defaults($this, [
+        return $this->defaults($this, $request, [
             'sales_order_id' => $this->sales_order_id,
             'transfer_id' => $this->transfer_id,
         ]);

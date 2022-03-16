@@ -83,6 +83,7 @@ const FormItemSelectAjax = (props) => {
         let useFetchHook;
         const params = {
             page_size: 10,
+            selected_fields: ['id', 'slug']
         };
         if (search) {
             params[props.query.split('.').slice(-1)[0]] = search;

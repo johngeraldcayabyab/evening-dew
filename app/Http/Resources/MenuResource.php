@@ -12,7 +12,7 @@ class MenuResource extends JsonResource
     public function toArray($request)
     {
         $slug = $this->slug();
-        return $this->defaults($this, [
+        return $this->defaults($this, $request, [
             'label' => $this->label,
             'url' => $this->url,
             'slug' => $this->$slug,

@@ -12,7 +12,7 @@ class OperationTypeResource extends JsonResource
     public function toArray($request)
     {
         $slug = $this->slug();
-        return $this->defaults($this, [
+        return $this->defaults($this, $request, [
             'name' => $this->name,
             'reference_sequence_id' => $this->reference_sequence_id,
             'code' => $this->code,

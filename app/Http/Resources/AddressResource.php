@@ -12,7 +12,7 @@ class AddressResource extends JsonResource
     public function toArray($request)
     {
         $slug = $this->slug();
-        return $this->defaults($this, [
+        return $this->defaults($this, $request, [
             'address_name' => $this->address_name,
             'street_one' => $this->street_one,
             'street_two' => $this->street_two,

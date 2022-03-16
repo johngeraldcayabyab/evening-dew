@@ -12,7 +12,7 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
         $slug = $this->slug();
-        return $this->defaults($this, [
+        return $this->defaults($this, $request, [
             'name' => $this->name,
             'email' => $this->email,
             'avatar' => $this->avatar ? asset("storage/images/" . $this->avatar) : null,

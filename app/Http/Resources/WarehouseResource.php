@@ -12,7 +12,7 @@ class WarehouseResource extends JsonResource
     public function toArray($request)
     {
         $slug = $this->slug();
-        return $this->defaults($this, [
+        return $this->defaults($this, $request, [
             'name' => $this->name,
             'short_name' => $this->short_name,
             'manufacture_to_resupply' => $this->manufacture_to_resupply,

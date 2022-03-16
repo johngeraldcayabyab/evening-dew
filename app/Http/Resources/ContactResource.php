@@ -13,7 +13,7 @@ class ContactResource extends JsonResource
     {
         $slug = $this->slug();
         $defaultAddress = $this->defaultAddress();
-        return $this->defaults($this, [
+        return $this->defaults($this, $request, [
             'name' => $this->name,
             'phone' => $this->phone,
             'mobile' => $this->mobile,

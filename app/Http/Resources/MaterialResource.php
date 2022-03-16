@@ -12,7 +12,7 @@ class MaterialResource extends JsonResource
     public function toArray($request)
     {
         $slug = $this->slug();
-        return $this->defaults($this, [
+        return $this->defaults($this, $request, [
             'product_id' => $this->product_id,
             'measurement_id' => $this->measurement_id,
             'reference' => $this->reference,
