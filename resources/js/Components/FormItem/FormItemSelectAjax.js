@@ -91,8 +91,8 @@ const FormItemSelectAjax = (props) => {
             setState((prevState) => ({
                 ...prevState,
                 options: response.map((option) => ({
-                    value: option.id,
-                    label: option.slug
+                    value: option.value,
+                    label: option.label
                 }))
             }));
         }).catch((responseErr) => {
