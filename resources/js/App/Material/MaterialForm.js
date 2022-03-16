@@ -123,14 +123,6 @@ const MaterialForm = () => {
                             query={'product.name'}
                         />
 
-                        <FormItemNumber
-                            label={'Quantity'}
-                            name={'quantity'}
-                            message={'Please input quantity'}
-                            required={true}
-                            {...formState}
-                        />
-
                         <FormItemSelectAjax
                             label={'Measurement'}
                             name={'measurement_id'}
@@ -254,7 +246,6 @@ const MaterialForm = () => {
                         </RowForm>
 
                     </TabPane>
-
 
                     <TabPane tab="Miscellaneous" key="2">
                         <RowForm>

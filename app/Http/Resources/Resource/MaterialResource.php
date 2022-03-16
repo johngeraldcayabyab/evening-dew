@@ -12,7 +12,6 @@ class MaterialResource extends JsonResource
         return [
             'id' => $this->id,
             'product_id' => $this->product_id,
-            'quantity' => $this->quantity,
             'measurement_id' => $this->measurement_id,
             'reference' => $this->reference,
             'material_type' => $this->material_type,
