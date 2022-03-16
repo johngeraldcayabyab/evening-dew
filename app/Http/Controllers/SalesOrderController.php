@@ -7,7 +7,6 @@ use App\Events\SalesOrderValidatedEvent;
 use App\Http\Requests\MassDestroy\SalesOrderMassDestroyRequest;
 use App\Http\Requests\Store\SalesOrderStoreRequest;
 use App\Http\Requests\Update\SalesOrderUpdateRequest;
-use App\Http\Resources\Collection\SalesOrderCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\SalesOrderResource;
 use App\Models\GlobalSetting;
@@ -29,7 +28,7 @@ class SalesOrderController
     {
         $model = new SalesOrder();
         $model = $this->searchSortThenPaginate($model, $request);
-        return new SalesOrderCollection($model);
+        return SalesOrderResource::collection($model);
     }
 
     public function show(SalesOrder $salesOrder): JsonResponse

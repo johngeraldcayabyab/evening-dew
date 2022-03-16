@@ -6,7 +6,6 @@ use App\Events\ContactUpsertEvent;
 use App\Http\Requests\MassDestroy\ContactMassDestroyRequest;
 use App\Http\Requests\Store\ContactStoreRequest;
 use App\Http\Requests\Update\ContactUpdateRequest;
-use App\Http\Resources\Collection\ContactCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\ContactResource;
 use App\Models\Contact;
@@ -14,17 +13,18 @@ use App\Models\GlobalSetting;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Arr;
 
 class ContactController
 {
     use ControllerHelperTrait;
 
-    public function index(Request $request): ContactCollection
+    public function index(Request $request): ResourceCollection
     {
         $model = new Contact();
         $model = $this->searchSortThenPaginate($model, $request);
-        return new ContactCollection($model);
+        return ContactResource::collection($model);
     }
 
     public function show(Contact $contact): JsonResponse

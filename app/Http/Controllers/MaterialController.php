@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MassDestroy\MaterialMassDestroyRequest;
 use App\Http\Requests\Store\MaterialStoreRequest;
 use App\Http\Requests\Update\MaterialUpdateRequest;
-use App\Http\Resources\Collection\MaterialCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\MaterialResource;
 use App\Models\GlobalSetting;
@@ -25,7 +24,7 @@ class MaterialController
     {
         $model = new Material();
         $model = $this->searchSortThenPaginate($model, $request);
-        return new MaterialCollection($model);
+        return MaterialResource::collection($model);
     }
 
     public function show(Material $material): JsonResponse

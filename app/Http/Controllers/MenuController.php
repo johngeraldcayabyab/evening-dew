@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MassDestroy\MenuMassDestroyRequest;
 use App\Http\Requests\Store\MenuStoreRequest;
 use App\Http\Requests\Update\MenuUpdateRequest;
-use App\Http\Resources\Collection\MenuCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\MenuResource;
 use App\Models\Menu;
@@ -23,7 +22,7 @@ class MenuController
     {
         $model = new Menu();
         $model = $this->searchSortThenPaginate($model, $request);
-        return new MenuCollection($model);
+        return MenuResource::collection($model);
     }
 
     public function show(Menu $menu): JsonResponse

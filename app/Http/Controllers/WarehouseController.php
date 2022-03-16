@@ -5,23 +5,23 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MassDestroy\WarehouseMassDestroyRequest;
 use App\Http\Requests\Store\WarehouseStoreRequest;
 use App\Http\Requests\Update\WarehouseUpdateRequest;
-use App\Http\Resources\Collection\WarehouseCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\WarehouseResource;
 use App\Models\Warehouse;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class WarehouseController
 {
     use ControllerHelperTrait;
 
-    public function index(Request $request): WarehouseCollection
+    public function index(Request $request): ResourceCollection
     {
         $model = new Warehouse();
         $model = $this->searchSortThenPaginate($model, $request);
-        return new WarehouseCollection($model);
+        return WarehouseResource::collection($model);
     }
 
     public function show(Warehouse $warehouse): JsonResponse

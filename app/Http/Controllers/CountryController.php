@@ -5,23 +5,23 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MassDestroy\CountryMassDestroyRequest;
 use App\Http\Requests\Store\CountryStoreRequest;
 use App\Http\Requests\Update\CountryUpdateRequest;
-use App\Http\Resources\Collection\CountryCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\CountryResource;
 use App\Models\Country;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CountryController
 {
     use ControllerHelperTrait;
 
-    public function index(Request $request): CountryCollection
+    public function index(Request $request): ResourceCollection
     {
         $model = new Country();
         $model = $this->searchSortThenPaginate($model, $request);
-        return new CountryCollection($model);
+        return CountryResource::collection($model);
     }
 
     public function show(Country $Country): JsonResponse

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MassDestroy\SequenceMassDestroyRequest;
 use App\Http\Requests\Store\SequenceStoreRequest;
 use App\Http\Requests\Update\SequenceUpdateRequest;
-use App\Http\Resources\Collection\SequenceCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\SequenceResource;
 use App\Models\Sequence;
@@ -22,7 +21,7 @@ class SequenceController
     {
         $model = new Sequence();
         $model = $this->searchSortThenPaginate($model, $request);
-        return new SequenceCollection($model);
+        return SequenceResource::collection($model);
     }
 
     public function show(Sequence $sequence): JsonResponse

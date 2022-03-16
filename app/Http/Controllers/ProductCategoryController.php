@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MassDestroy\ProductCategoryMassDestroyRequest;
 use App\Http\Requests\Store\ProductCategoryStoreRequest;
 use App\Http\Requests\Update\ProductCategoryUpdateRequest;
-use App\Http\Resources\Collection\ProductCategoryCollection;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\Resource\ProductCategoryResource;
 use App\Models\ProductCategory;
@@ -22,7 +21,7 @@ class ProductCategoryController
     {
         $model = new ProductCategory();
         $model = $this->searchSortThenPaginate($model, $request);
-        return new ProductCategoryCollection($model);
+        return ProductCategoryResource::collection($model);
     }
 
     public function show(ProductCategory $productCategory): JsonResponse
