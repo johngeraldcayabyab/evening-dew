@@ -11,6 +11,8 @@ import {useHistory} from "react-router";
 import {AppContext} from "../App";
 import {setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
+import {getAppMenu, setAppMenu} from "../Helpers/app_menu";
+import {objectHasValue} from "../Helpers/object";
 
 const {SubMenu} = Menu;
 
@@ -64,10 +66,22 @@ const CustomMenu = () => {
     useEffect(() => {
         if (appContext.appState.isLogin) {
             useFetch('/api/app_menus/1', GET).then((response) => {
-                setState((prevState) => ({
-                    ...prevState,
-                    appMenu: response.children
-                }));
+                const currentAppMenu = getAppMenu();
+                if (objectHasValue(currentAppMenu)) {
+                    const appMenu = response.children;
+                    const index = appMenu.findIndex(m => m.id === currentAppMenu.id);
+                    // console.log(index, appMenu);
+                    setState((prevState) => ({
+                        ...prevState,
+                        appMenu: appMenu,
+                        appMenuChildren: appMenu[index].children
+                    }));
+                } else {
+                    setState((prevState) => ({
+                        ...prevState,
+                        appMenu: response.children
+                    }));
+                }
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
             });
@@ -103,6 +117,7 @@ const CustomMenu = () => {
                                         menu.menu ?
                                             <Link to={menu.menu.url} onClick={() => {
                                                 resetBreadcrumbs(menu.menu.url);
+                                                setAppMenu(menu);
                                             }}>{menu.label}</Link>
                                             : menu.label
                                     }
@@ -136,6 +151,9 @@ const CustomMenu = () => {
                                     ...prevState,
                                     isLogin: false,
                                 }));
+                                setBreadcrumbs([]);
+                                setAppMenu({});
+                                setClickedBreadcrumb({});
                                 history.push('/login');
                                 message.success('Logged Out!');
                             }).catch((responseErr) => {
