@@ -74,13 +74,6 @@ class TransferController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function option(Request $request): ResourceCollection
-    {
-        $model = $this->searchThenSort(new Transfer(), $request);
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
-        return TransferResource::collection($model);
-    }
-
     public function initial_values()
     {
         return [

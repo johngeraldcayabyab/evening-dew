@@ -3,7 +3,6 @@
 namespace App\Traits;
 
 use App\Data\SystemSetting;
-use App\Models\Address;
 use Illuminate\Support\Str;
 use ReflectionClass;
 
@@ -87,20 +86,5 @@ trait ControllerHelperTrait
             }
         }
         return $model;
-    }
-
-    public function searchOption($model, $request)
-    {
-        $modelSlug = Str::studly($model->slug());
-        if (Str::contains($model->slug(), 'parent')) {
-            $modelSlug = Str::studly(explode('.', $model->slug())[1]);
-        }
-        if ($request->search) {
-            $whereScope = 'where' . $modelSlug;
-            $model = $model->$whereScope($request->search);
-        }
-        $orderByScope = 'orderBy' . $modelSlug;
-        $model = $model->$orderByScope('asc');
-        return $model->limit(SystemSetting::OPTION_LIMIT)->get();
     }
 }

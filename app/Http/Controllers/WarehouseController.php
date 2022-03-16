@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\WarehouseMassDestroyRequest;
 use App\Http\Requests\Store\WarehouseStoreRequest;
 use App\Http\Requests\Update\WarehouseUpdateRequest;
@@ -50,13 +49,6 @@ class WarehouseController
     {
         Warehouse::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
-    }
-
-    public function option(Request $request): ResourceCollection
-    {
-        $model = $this->searchThenSort(new Warehouse(), $request);
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
-        return WarehouseResource::collection($model);
     }
 
     public function initial_values()

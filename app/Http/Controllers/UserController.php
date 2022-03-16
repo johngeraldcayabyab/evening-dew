@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\UserMassDestroyRequest;
 use App\Http\Requests\Store\UserStoreRequest;
 use App\Http\Requests\Update\UserUpdateRequest;
@@ -54,12 +53,5 @@ class UserController
     {
         User::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
-    }
-
-    public function option(Request $request): ResourceCollection
-    {
-        $model = $this->searchThenSort(new User(), $request);
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
-        return UserResource::collection($model);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\SequenceMassDestroyRequest;
 use App\Http\Requests\Store\SequenceStoreRequest;
 use App\Http\Requests\Update\SequenceUpdateRequest;
@@ -50,13 +49,6 @@ class SequenceController
     {
         Sequence::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
-    }
-
-    public function option(Request $request): ResourceCollection
-    {
-        $model = $this->searchThenSort(new Sequence(), $request);
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
-        return SequenceResource::collection($model);
     }
 
     public function initial_values()

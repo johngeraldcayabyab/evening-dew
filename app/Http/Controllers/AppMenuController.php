@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\AppMenuMassDestroyRequest;
 use App\Http\Requests\Store\AppMenuStoreRequest;
 use App\Http\Requests\Update\AppMenuUpdateRequest;
@@ -51,13 +50,6 @@ class AppMenuController
     {
         AppMenu::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
-    }
-
-    public function option(Request $request): ResourceCollection
-    {
-        $model = $this->searchThenSort(new AppMenu(), $request);
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
-        return AppMenuResource::collection($model);
     }
 
     public function initial_values(): array

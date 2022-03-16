@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\MeasurementMassDestroyRequest;
 use App\Http\Requests\Store\MeasurementStoreRequest;
 use App\Http\Requests\Update\MeasurementUpdateRequest;
@@ -51,13 +50,6 @@ class MeasurementController
     {
         Measurement::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
-    }
-
-    public function option(Request $request): ResourceCollection
-    {
-        $model = $this->searchThenSort(new Measurement(), $request);
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
-        return MeasurementResource::collection($model);
     }
 
     public function initial_values()

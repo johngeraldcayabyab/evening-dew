@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Events\ContactUpsertEvent;
 use App\Http\Requests\MassDestroy\ContactMassDestroyRequest;
 use App\Http\Requests\Store\ContactStoreRequest;
@@ -60,13 +59,6 @@ class ContactController
     {
         Contact::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
-    }
-
-    public function option(Request $request): ResourceCollection
-    {
-        $model = $this->searchThenSort(new Contact(), $request);
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
-        return ContactResource::collection($model);
     }
 
     public function initial_values()

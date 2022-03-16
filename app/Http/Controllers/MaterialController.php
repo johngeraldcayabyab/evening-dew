@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\MaterialMassDestroyRequest;
 use App\Http\Requests\Store\MaterialStoreRequest;
 use App\Http\Requests\Update\MaterialUpdateRequest;
@@ -66,13 +65,6 @@ class MaterialController
     {
         Material::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
-    }
-
-    public function option(Request $request): ResourceCollection
-    {
-        $model = $this->searchThenSort(new Material(), $request);
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
-        return MaterialResource::collection($model);
     }
 
     public function initial_values()

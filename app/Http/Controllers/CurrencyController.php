@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\CurrencyMassDestroyRequest;
 use App\Http\Requests\Store\CurrencyStoreRequest;
 use App\Http\Requests\Update\CurrencyUpdateRequest;
@@ -50,13 +49,6 @@ class CurrencyController
     {
         Currency::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
-    }
-
-    public function option(Request $request): ResourceCollection
-    {
-        $model = $this->searchThenSort(new Currency(), $request);
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
-        return CurrencyResource::collection($model);
     }
 
     public function initial_values()

@@ -77,13 +77,6 @@ class SalesOrderController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function option(Request $request): ResourceCollection
-    {
-        $model = $this->searchThenSort(new SalesOrder(), $request);
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
-        return SalesOrderResource::collection($model);
-    }
-
     public function initial_values()
     {
         return [

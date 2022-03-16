@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\OperationTypeMassDestroyRequest;
 use App\Http\Requests\Store\OperationTypeStoreRequest;
 use App\Http\Requests\Update\OperationTypeUpdateRequest;
@@ -50,13 +49,6 @@ class OperationTypeController
     {
         OperationType::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
-    }
-
-    public function option(Request $request): ResourceCollection
-    {
-        $model = $this->searchThenSort(new OperationType(), $request);
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
-        return OperationTypeResource::collection($model);
     }
 
     public function initial_values()

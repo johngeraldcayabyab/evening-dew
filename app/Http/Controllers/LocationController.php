@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\LocationMassDestroyRequest;
 use App\Http\Requests\Store\LocationStoreRequest;
 use App\Http\Requests\Update\LocationUpdateRequest;
@@ -50,13 +49,6 @@ class LocationController
     {
         Location::massDelete($request->validated()['ids']);
         return response()->json([], STATUS_DELETE);
-    }
-
-    public function option(Request $request): ResourceCollection
-    {
-        $model = $this->searchThenSort(new Location(), $request);
-        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
-        return LocationResource::collection($model);
     }
 
     public function initial_values()
