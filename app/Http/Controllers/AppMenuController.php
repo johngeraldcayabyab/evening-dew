@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\AppMenuMassDestroyRequest;
 use App\Http\Requests\Store\AppMenuStoreRequest;
 use App\Http\Requests\Update\AppMenuUpdateRequest;
-use App\Http\Resources\OptionResource;
-use App\Http\Resources\Resource\AddressResource;
-use App\Http\Resources\Resource\AppMenuResource;
+use App\Http\Resources\AddressResource;
+use App\Http\Resources\AppMenuResource;
 use App\Models\AppMenu;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
@@ -53,10 +53,11 @@ class AppMenuController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function option(Request $request): JsonResponse
+    public function option(Request $request): ResourceCollection
     {
-        $model = $this->searchOption(new AppMenu(), $request);
-        return response()->json(OptionResource::collection($model));
+        $model = $this->searchThenSort(new AppMenu(), $request);
+        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
+        return AppMenuResource::collection($model);
     }
 
     public function initial_values(): array

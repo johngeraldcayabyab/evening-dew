@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\PaymentTermMassDestroyRequest;
 use App\Http\Requests\Store\PaymentTermStoreRequest;
 use App\Http\Requests\Update\PaymentTermUpdateRequest;
-use App\Http\Resources\OptionResource;
-use App\Http\Resources\Resource\PaymentTermResource;
+use App\Http\Resources\PaymentTermResource;
 use App\Models\PaymentTerm;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
@@ -52,9 +52,10 @@ class PaymentTermController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function option(Request $request): JsonResponse
+    public function option(Request $request): ResourceCollection
     {
-        $model = $this->searchOption(new PaymentTerm(), $request);
-        return response()->json(OptionResource::collection($model));
+        $model = $this->searchThenSort(new PaymentTerm(), $request);
+        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
+        return PaymentTermResource::collection($model);
     }
 }

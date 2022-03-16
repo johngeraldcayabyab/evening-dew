@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\ProductCategoryMassDestroyRequest;
 use App\Http\Requests\Store\ProductCategoryStoreRequest;
 use App\Http\Requests\Update\ProductCategoryUpdateRequest;
-use App\Http\Resources\OptionResource;
-use App\Http\Resources\Resource\ProductCategoryResource;
+use App\Http\Resources\ProductCategoryResource;
 use App\Models\ProductCategory;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
@@ -52,9 +52,10 @@ class ProductCategoryController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function option(Request $request): JsonResponse
+    public function option(Request $request): ResourceCollection
     {
-        $model = $this->searchOption(new ProductCategory(), $request);
-        return response()->json(OptionResource::collection($model));
+        $model = $this->searchThenSort(new ProductCategory(), $request);
+        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
+        return ProductCategoryResource::collection($model);
     }
 }

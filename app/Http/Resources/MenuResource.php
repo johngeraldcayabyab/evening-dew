@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Resource;
+namespace App\Http\Resources;
 
 use App\Traits\ResourceHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MeasurementCategoryResource extends JsonResource
+class MenuResource extends JsonResource
 {
     use ResourceHelper;
 
@@ -13,7 +13,8 @@ class MeasurementCategoryResource extends JsonResource
     {
         $slug = $this->slug();
         return $this->defaults($this, [
-            'name' => $this->name,
+            'label' => $this->label,
+            'url' => $this->url,
             'slug' => $this->$slug,
         ]);
     }

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\MeasurementMassDestroyRequest;
 use App\Http\Requests\Store\MeasurementStoreRequest;
 use App\Http\Requests\Update\MeasurementUpdateRequest;
-use App\Http\Resources\OptionResource;
-use App\Http\Resources\Resource\MeasurementResource;
+use App\Http\Resources\MeasurementResource;
 use App\Models\GlobalSetting;
 use App\Models\Measurement;
 use App\Traits\ControllerHelperTrait;
@@ -53,10 +53,11 @@ class MeasurementController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function option(Request $request): JsonResponse
+    public function option(Request $request): ResourceCollection
     {
-        $model = $this->searchOption(new Measurement(), $request);
-        return response()->json(OptionResource::collection($model));
+        $model = $this->searchThenSort(new Measurement(), $request);
+        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
+        return MeasurementResource::collection($model);
     }
 
     public function initial_values()

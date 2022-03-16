@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Resource;
+namespace App\Http\Resources;
 
 use App\Traits\ResourceHelper;
 use Carbon\Carbon;

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Store\GlobalSettingStoreRequest;
-use App\Http\Resources\Resource\GlobalSettingResource;
+use App\Http\Resources\GlobalSettingResource;
 use App\Models\GlobalSetting;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;

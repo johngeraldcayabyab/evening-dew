@@ -6,7 +6,6 @@ import useFetchHook from "../../Hooks/useFetchHook";
 import {GET} from "../../consts";
 import {formItemFieldProps} from "../../Helpers/form";
 import {objectHasValue} from "../../Helpers/object";
-import {Link} from "react-router-dom";
 import CustomFormItemLink from "../CustomFormItemLink";
 
 const FormItemSelectAjax = (props) => {
@@ -83,16 +82,19 @@ const FormItemSelectAjax = (props) => {
     function getOptions(search = null) {
         let useFetchHook;
         if (search) {
-            useFetchHook = useFetch(`${props.url}`, GET, {search: search});
+            const params = {};
+            params[props.query.split('.').slice(-1)[0]] = search;
+            useFetchHook = useFetch(`${props.url}`, GET, params);
         } else {
             useFetchHook = useFetch(`${props.url}`, GET);
         }
         useFetchHook.then((response) => {
+            const data = response.data;
             setState((prevState) => ({
                 ...prevState,
-                options: response.map((option) => ({
-                    value: option.value,
-                    label: option.label
+                options: data.map((option) => ({
+                    value: option.id,
+                    label: option.slug
                 }))
             }));
         }).catch((responseErr) => {

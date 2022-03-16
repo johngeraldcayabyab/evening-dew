@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\SystemSetting;
 use App\Http\Requests\MassDestroy\MaterialMassDestroyRequest;
 use App\Http\Requests\Store\MaterialStoreRequest;
 use App\Http\Requests\Update\MaterialUpdateRequest;
-use App\Http\Resources\OptionResource;
-use App\Http\Resources\Resource\MaterialResource;
+use App\Http\Resources\MaterialResource;
 use App\Models\GlobalSetting;
 use App\Models\Material;
 use App\Models\MaterialLine;
@@ -68,10 +68,11 @@ class MaterialController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function option(Request $request): JsonResponse
+    public function option(Request $request): ResourceCollection
     {
-        $model = $this->searchOption(new Material(), $request);
-        return response()->json(OptionResource::collection($model));
+        $model = $this->searchThenSort(new Material(), $request);
+        $model = $model->limit(SystemSetting::OPTION_LIMIT)->get();
+        return MaterialResource::collection($model);
     }
 
     public function initial_values()
