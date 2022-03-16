@@ -100,7 +100,7 @@ const ContactForm = () => {
                             form={form}
                             label={'Country'}
                             name={'country_id'}
-                            url={'/api/countries/option'}
+                            url={'/api/countries'}
                             {...formState}
                             query={'country.country_name'}
                         />

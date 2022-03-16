@@ -98,7 +98,7 @@ const WarehouseForm = () => {
                                         name={'view_location_id'}
                                         message={'Please select a view location'}
                                         required={true}
-                                        url={'/api/locations/option'}
+                                        url={'/api/locations'}
                                         {...formState}
                                         query={'view_location.name'}
                                     />
@@ -109,7 +109,7 @@ const WarehouseForm = () => {
                                         name={'stock_location_id'}
                                         message={'Please select a stock location'}
                                         required={true}
-                                        url={'/api/locations/option'}
+                                        url={'/api/locations'}
                                         {...formState}
                                         query={'stock_location.name'}
                                     />
@@ -120,7 +120,7 @@ const WarehouseForm = () => {
                                         name={'input_location_id'}
                                         message={'Please select a input location'}
                                         required={true}
-                                        url={'/api/locations/option'}
+                                        url={'/api/locations'}
                                         {...formState}
                                         query={'input_location.name'}
                                     />
@@ -131,7 +131,7 @@ const WarehouseForm = () => {
                                         name={'quality_control_location_id'}
                                         message={'Please select a quality control location'}
                                         required={true}
-                                        url={'/api/locations/option'}
+                                        url={'/api/locations'}
                                         {...formState}
                                         query={'quality_control_location.name'}
                                     />
@@ -142,7 +142,7 @@ const WarehouseForm = () => {
                                         name={'packing_location_id'}
                                         message={'Please select a packing location'}
                                         required={true}
-                                        url={'/api/locations/option'}
+                                        url={'/api/locations'}
                                         {...formState}
                                         query={'packing_location.name'}
                                     />
@@ -153,7 +153,7 @@ const WarehouseForm = () => {
                                         name={'output_location_id'}
                                         message={'Please select a output location'}
                                         required={true}
-                                        url={'/api/locations/option'}
+                                        url={'/api/locations'}
                                         {...formState}
                                         query={'output_location.name'}
                                     />
@@ -164,7 +164,7 @@ const WarehouseForm = () => {
                                         name={'stock_after_manufacturing_location_id'}
                                         message={'Please select a stock after manufacturing location'}
                                         required={true}
-                                        url={'/api/locations/option'}
+                                        url={'/api/locations'}
                                         {...formState}
                                         query={'stock_after_manufacturing_location.name'}
                                     />
@@ -175,7 +175,7 @@ const WarehouseForm = () => {
                                         name={'picking_before_manufacturing_location_id'}
                                         message={'Please select a picking before manufacturing location'}
                                         required={true}
-                                        url={'/api/locations/option'}
+                                        url={'/api/locations'}
                                         {...formState}
                                         query={'picking_before_manufacturing_location.name'}
                                     />
@@ -192,7 +192,7 @@ const WarehouseForm = () => {
                                         name={'in_type_id'}
                                         message={'Please select a in operation type'}
                                         required={true}
-                                        url={'/api/operations_types/option'}
+                                        url={'/api/operations_types'}
                                         {...formState}
                                         query={'in_type.name'}
                                     />
@@ -202,7 +202,7 @@ const WarehouseForm = () => {
                                         name={'internal_type_id'}
                                         message={'Please select a internal operation type'}
                                         required={true}
-                                        url={'/api/operations_types/option'}
+                                        url={'/api/operations_types'}
                                         {...formState}
                                         query={'internal_type.name'}
                                     />
@@ -212,7 +212,7 @@ const WarehouseForm = () => {
                                         name={'pick_type_id'}
                                         message={'Please select a pick operation type'}
                                         required={true}
-                                        url={'/api/operations_types/option'}
+                                        url={'/api/operations_types'}
                                         {...formState}
                                         query={'pick_type.name'}
                                     />
@@ -222,7 +222,7 @@ const WarehouseForm = () => {
                                         name={'pack_type_id'}
                                         message={'Please select a pack operation type'}
                                         required={true}
-                                        url={'/api/operations_types/option'}
+                                        url={'/api/operations_types'}
                                         {...formState}
                                         query={'pack_type.name'}
                                     />
@@ -232,7 +232,7 @@ const WarehouseForm = () => {
                                         name={'out_type_id'}
                                         message={'Please select a out operation type'}
                                         required={true}
-                                        url={'/api/operations_types/option'}
+                                        url={'/api/operations_types'}
                                         {...formState}
                                         query={'out_type.name'}
                                     />
@@ -242,7 +242,7 @@ const WarehouseForm = () => {
                                         name={'stock_after_manufacturing_operation_type_id'}
                                         message={'Please select a stock after manufacturing operation type'}
                                         required={true}
-                                        url={'/api/operations_types/option'}
+                                        url={'/api/operations_types'}
                                         {...formState}
                                         query={'stock_after_manufacturing_operation_type.name'}
                                     />
@@ -252,7 +252,7 @@ const WarehouseForm = () => {
                                         name={'picking_before_manufacturing_operation_type_id'}
                                         message={'Please select a picking before manufacturing operation type'}
                                         required={true}
-                                        url={'/api/operations_types/option'}
+                                        url={'/api/operations_types'}
                                         {...formState}
                                         query={'picking_before_manufacturing_operation_type.name'}
                                     />
@@ -262,7 +262,7 @@ const WarehouseForm = () => {
                                         name={'manufacturing_operation_type_id'}
                                         message={'Please select a manufacturing operation type'}
                                         required={true}
-                                        url={'/api/operations_types/option'}
+                                        url={'/api/operations_types'}
                                         {...formState}
                                         query={'manufacturing_operation_type.name'}
                                     />

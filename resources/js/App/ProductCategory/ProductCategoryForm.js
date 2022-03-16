@@ -52,7 +52,7 @@ const ProductCategoryForm = () => {
                             form={form}
                             label={'Parent Category'}
                             name={'parent_product_category_id'}
-                            url={'/api/product_categories/option'}
+                            url={'/api/product_categories'}
                             {...formState}
                             query={'parent_category.name'}
                         />

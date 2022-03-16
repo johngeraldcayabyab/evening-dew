@@ -50,7 +50,7 @@ const CountryForm = () => {
                             form={form}
                             label={'Currency'}
                             name={'currency_id'}
-                            url={'/api/currencies/option'}
+                            url={'/api/currencies'}
                             {...formState}
                             query={'currency.currency'}
                         />

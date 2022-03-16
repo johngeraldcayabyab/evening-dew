@@ -258,7 +258,7 @@ const SalesOrderForm = () => {
                             name={'customer_id'}
                             message={'Please select a customer'}
                             required={true}
-                            url={'/api/contacts/option'}
+                            url={'/api/contacts'}
                             {...formState}
                             query={'customer.name'}
                         />
@@ -268,7 +268,7 @@ const SalesOrderForm = () => {
                             name={'invoice_address_id'}
                             message={'Please select a invoice address'}
                             required={true}
-                            url={'/api/addresses/option'}
+                            url={'/api/addresses'}
                             {...formState}
                             search={state.invoiceAddressOptionReload}
                             query={'invoice_address.address_name'}
@@ -279,7 +279,7 @@ const SalesOrderForm = () => {
                             name={'delivery_address_id'}
                             message={'Please select a delivery address'}
                             required={true}
-                            url={'/api/addresses/option'}
+                            url={'/api/addresses'}
                             {...formState}
                             search={state.deliveryAddressOptionReload}
                             query={'delivery_address.address_name'}
@@ -304,7 +304,7 @@ const SalesOrderForm = () => {
                             form={form}
                             label={'Payment Term'}
                             name={'payment_term_id'}
-                            url={'/api/payment_terms/option'}
+                            url={'/api/payment_terms'}
                             {...formState}
                             query={'payment_term.name'}
                         />
@@ -341,7 +341,7 @@ const SalesOrderForm = () => {
                                                             name={'product_id'}
                                                             message={'Please select a product'}
                                                             required={true}
-                                                            url={'/api/products/option'}
+                                                            url={'/api/products'}
                                                             {...formState}
                                                             style={{display: 'inline-block', width: `${100 / 6}%`}}
                                                             query={`sales_order_lines.${name}.product.name`}
@@ -380,7 +380,7 @@ const SalesOrderForm = () => {
                                                             name={'measurement_id'}
                                                             message={'Please select a measurement'}
                                                             required={true}
-                                                            url={'/api/measurements/option'}
+                                                            url={'/api/measurements'}
                                                             search={state.salesOrderLinesOptionReload[name] ? state.salesOrderLinesOptionReload[name].isReload : null}
                                                             {...formState}
                                                             style={{display: 'inline-block', width: `${100 / 6}%`}}
@@ -492,7 +492,7 @@ const SalesOrderForm = () => {
                                     name={'salesperson_id'}
                                     message={'Please select a salesperson'}
                                     required={true}
-                                    url={'/api/users/option'}
+                                    url={'/api/users'}
                                     {...formState}
                                     query={'salesperson.name'}
                                 />

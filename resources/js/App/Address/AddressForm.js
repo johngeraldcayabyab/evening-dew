@@ -93,7 +93,7 @@ const AddressForm = () => {
                             form={form}
                             label={'Country'}
                             name={'country_id'}
-                            url={'/api/countries/option'}
+                            url={'/api/countries'}
                             {...formState}
                             query={'country.country_name'}
                         />
@@ -106,7 +106,7 @@ const AddressForm = () => {
                             name={'contact_id'}
                             message={'Please select a contact'}
                             required={true}
-                            url={'/api/contacts/option'}
+                            url={'/api/contacts'}
                             {...formState}
                             query={'contact.name'}
                         />

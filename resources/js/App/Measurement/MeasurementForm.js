@@ -80,7 +80,7 @@ const MeasurementForm = () => {
                             name={'measurement_category_id'}
                             message={'Please select a measurement category'}
                             required={true}
-                            url={'/api/measurement_categories/option'}
+                            url={'/api/measurement_categories'}
                             {...formState}
                             query={'measurement_category.name'}
                         />

@@ -118,7 +118,7 @@ const MaterialForm = () => {
                             name={'product_id'}
                             message={'Please select a product'}
                             required={true}
-                            url={'/api/products/option'}
+                            url={'/api/products'}
                             {...formState}
                             query={'product.name'}
                         />
@@ -128,7 +128,7 @@ const MaterialForm = () => {
                             name={'measurement_id'}
                             message={'Please select a measurement'}
                             required={true}
-                            url={'/api/measurements/option'}
+                            url={'/api/measurements'}
                             {...formState}
                             query={'measurement.name'}
                         />
@@ -186,7 +186,7 @@ const MaterialForm = () => {
                                                             name={'product_id'}
                                                             message={'Please select a product'}
                                                             required={true}
-                                                            url={'/api/products/option'}
+                                                            url={'/api/products'}
                                                             {...formState}
                                                             style={{display: 'inline-block', width: '33.33%'}}
                                                             query={`material_lines.${name}.product.name`}
@@ -214,7 +214,7 @@ const MaterialForm = () => {
                                                             name={'measurement_id'}
                                                             message={'Please select a measurement'}
                                                             required={true}
-                                                            url={'/api/measurements/option'}
+                                                            url={'/api/measurements'}
                                                             search={state.materialLinesOptionReload[name] ? state.materialLinesOptionReload[name].isReload : null}
                                                             {...formState}
                                                             style={{display: 'inline-block', width: '33.33%'}}

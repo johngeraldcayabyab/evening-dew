@@ -53,7 +53,7 @@ const OperationTypeForm = () => {
                             form={form}
                             label={'Reference Sequence'}
                             name={'reference_sequence_id'}
-                            url={'/api/sequences/option'}
+                            url={'/api/sequences'}
                             {...formState}
                             query={'reference_sequence.name'}
                         />
@@ -71,7 +71,7 @@ const OperationTypeForm = () => {
                             form={form}
                             label={'Warehouse'}
                             name={'warehouse_id'}
-                            url={'/api/warehouses/option'}
+                            url={'/api/warehouses'}
                             {...formState}
                             query={'warehouse.name'}
                         />
@@ -123,7 +123,7 @@ const OperationTypeForm = () => {
                             form={form}
                             label={'Operation Type For Returns'}
                             name={'operation_type_for_returns_id'}
-                            url={'/api/operations_types/option'}
+                            url={'/api/operations_types'}
                             {...formState}
                             query={'operation_type_for_returns.name'}
                         />
@@ -177,7 +177,7 @@ const OperationTypeForm = () => {
                             form={form}
                             label={'Default Source Location'}
                             name={'default_source_location_id'}
-                            url={'/api/locations/option'}
+                            url={'/api/locations'}
                             {...formState}
                             query={'default_source_location.name'}
                         />
@@ -186,7 +186,7 @@ const OperationTypeForm = () => {
                             form={form}
                             label={'Default Destination Location'}
                             name={'default_destination_location_id'}
-                            url={'/api/locations/option'}
+                            url={'/api/locations'}
                             {...formState}
                             query={'default_destination_location.name'}
                         />

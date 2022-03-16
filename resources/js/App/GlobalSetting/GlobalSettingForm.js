@@ -48,7 +48,7 @@ const GlobalSettingForm = () => {
                                     name={'general_default_country_id'}
                                     message={'Please select a default country'}
                                     required={true}
-                                    url={'/api/countries/option'}
+                                    url={'/api/countries'}
                                     {...formState}
                                     query={'general_default_country.country_name'}
                                 />
@@ -67,7 +67,7 @@ const GlobalSettingForm = () => {
                                     name={'inventory_default_measurement_category_id'}
                                     message={'Please select a default measurement category'}
                                     required={true}
-                                    url={'/api/measurement_categories/option'}
+                                    url={'/api/measurement_categories'}
                                     {...formState}
                                     query={'inventory_default_measurement_category.name'}
                                 />
@@ -78,7 +78,7 @@ const GlobalSettingForm = () => {
                                     name={'inventory_default_measurement_id'}
                                     message={'Please select a default measurement'}
                                     required={true}
-                                    url={'/api/measurements/option'}
+                                    url={'/api/measurements'}
                                     {...formState}
                                     query={'inventory_default_measurement.name'}
                                 />
@@ -89,7 +89,7 @@ const GlobalSettingForm = () => {
                                     name={'inventory_default_purchase_measurement_id'}
                                     message={'Please select a default purchase measurement'}
                                     required={true}
-                                    url={'/api/measurements/option'}
+                                    url={'/api/measurements'}
                                     {...formState}
                                     query={'inventory_default_purchase_measurement.name'}
                                 />
@@ -100,7 +100,7 @@ const GlobalSettingForm = () => {
                                     name={'inventory_default_sales_measurement_id'}
                                     message={'Please select a default sales measurement'}
                                     required={true}
-                                    url={'/api/measurements/option'}
+                                    url={'/api/measurements'}
                                     {...formState}
                                     query={'inventory_default_sales_measurement.name'}
                                 />
@@ -117,7 +117,7 @@ const GlobalSettingForm = () => {
                                     name={'inventory_default_product_category_id'}
                                     message={'Please select a default product category'}
                                     required={true}
-                                    url={'/api/product_categories/option'}
+                                    url={'/api/product_categories'}
                                     {...formState}
                                     query={'inventory_default_product_category.category'}
                                 />
@@ -136,7 +136,7 @@ const GlobalSettingForm = () => {
                                     name={'inventory_default_customer_location_id'}
                                     message={'Please select a default customer location'}
                                     required={true}
-                                    url={'/api/locations/option'}
+                                    url={'/api/locations'}
                                     {...formState}
                                     query={'inventory_default_customer_location.name'}
                                 />
@@ -147,7 +147,7 @@ const GlobalSettingForm = () => {
                                     name={'inventory_default_vendor_location_id'}
                                     message={'Please select a default customer location'}
                                     required={true}
-                                    url={'/api/locations/option'}
+                                    url={'/api/locations'}
                                     {...formState}
                                     query={'inventory_default_vendor_location.name'}
                                 />
@@ -158,7 +158,7 @@ const GlobalSettingForm = () => {
                                     name={'inventory_default_inventory_adjustment_id'}
                                     message={'Please select a default customer location'}
                                     required={true}
-                                    url={'/api/locations/option'}
+                                    url={'/api/locations'}
                                     {...formState}
                                     query={'inventory_default_inventory_adjustment.name'}
                                 />
@@ -171,7 +171,7 @@ const GlobalSettingForm = () => {
                                     name={'inventory_default_production_id'}
                                     message={'Please select a default customer location'}
                                     required={true}
-                                    url={'/api/locations/option'}
+                                    url={'/api/locations'}
                                     {...formState}
                                     query={'inventory_default_production.name'}
                                 />
@@ -182,7 +182,7 @@ const GlobalSettingForm = () => {
                                     name={'inventory_default_scrap_id'}
                                     message={'Please select a default customer location'}
                                     required={true}
-                                    url={'/api/locations/option'}
+                                    url={'/api/locations'}
                                     {...formState}
                                     query={'inventory_default_scrap.name'}
                                 />
@@ -198,7 +198,7 @@ const GlobalSettingForm = () => {
                                     form={form}
                                     label={'Default Warehouse'}
                                     name={'inventory_default_warehouse_id'}
-                                    url={'/api/warehouses/option'}
+                                    url={'/api/warehouses'}
                                     {...formState}
                                     query={'inventory_default_warehouse.name'}
                                 />
@@ -224,7 +224,7 @@ const GlobalSettingForm = () => {
                                     name={'accounting_default_currency_id'}
                                     message={'Please select a default currency'}
                                     required={true}
-                                    url={'/api/currencies/option'}
+                                    url={'/api/currencies'}
                                     {...formState}
                                     query={'accounting_default_currency.currency'}
                                 />
@@ -239,7 +239,7 @@ const GlobalSettingForm = () => {
                                     form={form}
                                     label={'Sales Default Sequence'}
                                     name={'sales_order_default_sequence_id'}
-                                    url={'/api/sequences/option'}
+                                    url={'/api/sequences'}
                                     {...formState}
                                     query={'sales_order_default_sequence.name'}
                                 />
