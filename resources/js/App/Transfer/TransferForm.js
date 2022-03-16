@@ -193,7 +193,7 @@ const TransferForm = () => {
                             form={form}
                             label={'Contact'}
                             name={'contact_id'}
-                            url={'/api/contacts/option'}
+                            url={'/api/contacts'}
                             {...formState}
                             query={'contact.name'}
                         />
@@ -205,7 +205,7 @@ const TransferForm = () => {
                             name={'operation_type_id'}
                             message={'Please select a operation type'}
                             required={true}
-                            url={'/api/operations_types/option'}
+                            url={'/api/operations_types'}
                             {...formState}
                             query={'operation_type.name'}
                         />
@@ -214,7 +214,7 @@ const TransferForm = () => {
                             form={form}
                             label={'Source Location'}
                             name={'source_location_id'}
-                            url={'/api/locations/option'}
+                            url={'/api/locations'}
                             {...formState}
                             search={state.defaultSourceLocationReload}
                             query={'source_location.name'}
@@ -224,7 +224,7 @@ const TransferForm = () => {
                             form={form}
                             label={'Destination Location'}
                             name={'destination_location_id'}
-                            url={'/api/locations/option'}
+                            url={'/api/locations'}
                             {...formState}
                             search={state.defaultDestinationLocationReload}
                             query={'destination_location.name'}
@@ -279,7 +279,7 @@ const TransferForm = () => {
                                                             name={'product_id'}
                                                             message={'Please select a product'}
                                                             required={true}
-                                                            url={'/api/products/option'}
+                                                            url={'/api/products'}
                                                             {...formState}
                                                             style={{display: 'inline-block', width: '25%'}}
                                                             query={`transfer_lines.${name}.product.name`}
@@ -318,7 +318,7 @@ const TransferForm = () => {
                                                             name={'measurement_id'}
                                                             message={'Please select a measurement'}
                                                             required={true}
-                                                            url={'/api/measurements/option'}
+                                                            url={'/api/measurements'}
                                                             search={state.transferLinesOptionReload[name] ? state.transferLinesOptionReload[name].isReload : null}
                                                             {...formState}
                                                             style={{display: 'inline-block', width: '25%'}}
@@ -381,7 +381,7 @@ const TransferForm = () => {
                                     form={form}
                                     label={'Responsible'}
                                     name={'responsible_id'}
-                                    url={'/api/users/option'}
+                                    url={'/api/users'}
                                     {...formState}
                                     query={'responsible.name'}
                                 />

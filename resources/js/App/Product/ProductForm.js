@@ -102,7 +102,7 @@ const ProductForm = () => {
                                     name={'measurement_id'}
                                     message={'Please select a measurement'}
                                     required={true}
-                                    url={'/api/measurements/option'}
+                                    url={'/api/measurements'}
                                     {...formState}
                                     query={'measurement.name'}
                                 />
@@ -113,7 +113,7 @@ const ProductForm = () => {
                                     name={'purchase_measurement_id'}
                                     message={'Please select a purchase measurement'}
                                     required={true}
-                                    url={'/api/measurements/option'}
+                                    url={'/api/measurements'}
                                     {...formState}
                                     query={'purchase_measurement.name'}
                                 />
@@ -124,7 +124,7 @@ const ProductForm = () => {
                                     name={'sales_measurement_id'}
                                     message={'Please select a sales measurement'}
                                     required={true}
-                                    url={'/api/measurements/option'}
+                                    url={'/api/measurements'}
                                     {...formState}
                                     query={'sales_measurement.name'}
                                 />
@@ -156,7 +156,7 @@ const ProductForm = () => {
                                     name={'product_category_id'}
                                     message={'Please select a product category'}
                                     required={true}
-                                    url={'/api/product_categories/option'}
+                                    url={'/api/product_categories'}
                                     {...formState}
                                     query={'product_category.category'}
                                 />

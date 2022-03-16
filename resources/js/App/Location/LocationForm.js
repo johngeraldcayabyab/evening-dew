@@ -55,7 +55,7 @@ const LocationForm = () => {
                             form={form}
                             label={'Parent Category'}
                             name={'parent_location_id'}
-                            url={'/api/locations/option'}
+                            url={'/api/locations'}
                             size={'medium'}
                             {...formState}
                             query={'parent_location.name'}

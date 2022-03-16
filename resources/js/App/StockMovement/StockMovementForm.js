@@ -60,7 +60,7 @@ const StockMovementForm = () => {
                             name={'product_id'}
                             message={'Please select product'}
                             required={true}
-                            url={'/api/products/option'}
+                            url={'/api/products'}
                             {...formState}
                             query={'product.name'}
                         />
@@ -71,7 +71,7 @@ const StockMovementForm = () => {
                             name={'source_location_id'}
                             message={'Please select source location'}
                             required={true}
-                            url={'/api/locations/option'}
+                            url={'/api/locations'}
                             {...formState}
                             query={'source_location.name'}
                         />
@@ -82,7 +82,7 @@ const StockMovementForm = () => {
                             name={'destination_location_id'}
                             message={'Please select destination location'}
                             required={true}
-                            url={'/api/locations/option'}
+                            url={'/api/locations'}
                             {...formState}
                             query={'destination_location.name'}
                         />

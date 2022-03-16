@@ -49,7 +49,7 @@ const AppMenuForm = () => {
                             form={form}
                             label={'Menu'}
                             name={'menu_id'}
-                            url={'/api/menus/option'}
+                            url={'/api/menus'}
                             {...formState}
                             query={'menu.label'}
                         />
@@ -57,7 +57,7 @@ const AppMenuForm = () => {
                             form={form}
                             label={'Parent App Menu'}
                             name={'parent_app_menu_id'}
-                            url={'/api/app_menus/option'}
+                            url={'/api/app_menus'}
                             {...formState}
                             query={'parent_app_menu.name'}
                         />

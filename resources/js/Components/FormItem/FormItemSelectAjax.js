@@ -81,12 +81,14 @@ const FormItemSelectAjax = (props) => {
 
     function getOptions(search = null) {
         let useFetchHook;
+        const params = {
+            page_size: 10,
+        };
         if (search) {
-            const params = {};
             params[props.query.split('.').slice(-1)[0]] = search;
             useFetchHook = useFetch(`${props.url}`, GET, params);
         } else {
-            useFetchHook = useFetch(`${props.url}`, GET);
+            useFetchHook = useFetch(`${props.url}`, GET, params);
         }
         useFetchHook.then((response) => {
             const data = response.data;
