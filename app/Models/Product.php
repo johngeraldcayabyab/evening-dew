@@ -56,6 +56,11 @@ class Product extends Model implements Sluggable
         return $this->belongsTo(ProductCategory::class);
     }
 
+    public function material()
+    {
+        return $this->hasOne(Material::class);
+    }
+
     public function scopeWhereName($query, $where)
     {
         return $this->like($query, __FUNCTION__, $where);
