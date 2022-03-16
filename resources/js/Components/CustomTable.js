@@ -5,8 +5,9 @@ import {SearchOutlined} from "@ant-design/icons";
 
 const CustomTable = (props) => {
     const history = useHistory();
-
-    const [columns, setColumns] = useState(props.columns);
+    const [state, setState] = useState({
+        columns: props.columns
+    })
 
     useEffect(() => {
         return (() => {
@@ -14,22 +15,18 @@ const CustomTable = (props) => {
         })
     }, []);
 
-
     useEffect(() => {
-
-        setColumns((previousColumns) => {
-
-            previousColumns = previousColumns.map((column) => {
-                if (column.hasOwnProperty('searchFilter')) {
-                    column = {...column, ...getColumnSearchProps(column.dataIndex)};
-                }
-                return column;
-            });
-
-            return previousColumns;
+        const columns = state.columns.map((column) => {
+            if (column.hasOwnProperty('searchFilter')) {
+                column = {...column, ...getColumnSearchProps(column.dataIndex)};
+            }
+            return column;
         });
+        setState((prevState) => ({
+            ...prevState,
+            columns: columns,
+        }));
     }, []);
-
 
     function getColumnSearchProps(dataIndex) {
         return {
@@ -73,13 +70,12 @@ const CustomTable = (props) => {
         }
     }
 
-
     return (
         <Table
             rowSelection={props.rowSelection}
             loading={props.loading}
             dataSource={props.dataSource}
-            columns={columns}
+            columns={state.columns}
             rowKey={'id'}
             onRow={(record, rowIndex) => {
                 return {
