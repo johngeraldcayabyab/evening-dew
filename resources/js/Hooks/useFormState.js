@@ -26,39 +26,29 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
             if (overrideId) {
                 id = overrideId;
             }
-            let newState = {};
-            if (formState.initialLoad) {
-                newState.initialLoad = false;
-            }
             if (id) {
                 useFetch(`/api/${manifest.moduleName}/${id}`, GET).then((response) => {
-                    formatInitialValuesDatetimeToMoment(response);
-                    form.setFieldsValue(response);
-                    setFormState(state => ({
-                        ...state,
-                        ...newState,
+                    setFormValuesAndState(response, {
                         initialValues: response,
                         loading: false,
                         formDisabled: true,
-                    }));
+                    });
                 }).catch((responseErr) => {
                     fetchCatcher.get(responseErr);
                 });
             } else {
                 if (getInitialValues && formState.initialLoad) {
                     useFetch(`/api/${manifest.moduleName}/initial_values`, GET).then((response) => {
-                        formatInitialValuesDatetimeToMoment(response);
-                        form.setFieldsValue(response);
-                        setFormState(state => ({
-                            ...state,
-                            ...newState,
+                        setFormValuesAndState(response, {
                             initialValues: response,
-                        }));
+                        });
+                    }).catch((responseErr) => {
+                        fetchCatcher.get(responseErr);
                     });
                 } else if (formState.initialLoad) {
                     setFormState(state => ({
                         ...state,
-                        ...newState
+                        initialLoad: false,
                     }));
                 }
             }
@@ -123,15 +113,15 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
         });
     }
 
-    function setFormValuesAndState(response) {
+    function setFormValuesAndState(response, newState = {}) {
+        if (formState.initialLoad) {
+            newState.initialLoad = false;
+        }
         formatInitialValuesDatetimeToMoment(response);
         form.setFieldsValue(response);
         setFormState(state => ({
             ...state,
-            initialLoad: formState.initialLoad && false,
-            initialValues: response,
-            loading: false,
-            formDisabled: true,
+            ...newState
         }));
     }
 
