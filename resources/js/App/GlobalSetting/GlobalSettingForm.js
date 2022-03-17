@@ -23,10 +23,7 @@ const GlobalSettingForm = () => {
     return (
         <CustomForm
             form={form}
-            onFinish={() => {
-                formActions.onFinish();
-                window.location.replace("/global_settings");
-            }}
+            onFinish={formActions.onFinish}
         >
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb formState={formState}/>}
