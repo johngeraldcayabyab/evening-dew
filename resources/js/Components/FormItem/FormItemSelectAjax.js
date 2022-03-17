@@ -34,7 +34,7 @@ const FormItemSelectAjax = (props) => {
         if (!props.initialLoad) {
             let val = null;
             if (objectHasValue(props.initialValues)) {
-                val = getQueryFromInitialValue();
+                val = getFieldFromInitialValues();
             }
             getOptions(val);
         }
@@ -46,7 +46,7 @@ const FormItemSelectAjax = (props) => {
         }
     }, [props.search]);
 
-    function getQueryFromInitialValue() {
+    function getFieldFromInitialValues() {
         let search = props.initialValues;
         props.query.split('.').forEach((query) => {
             if (search && query in search) {
