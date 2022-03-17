@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class SalesOrder extends Model implements Sluggable
 {
@@ -15,9 +16,11 @@ class SalesOrder extends Model implements Sluggable
     use SoftDeletes;
     use BroadcastsEvents;
     use ModelHelperTrait;
+    use LogsActivity;
 
     protected $table = 'sales_orders';
     protected $guarded = [];
+    protected static $logAttributes = ['*'];
 
     const DRAFT = 'draft';
     const DONE = 'done';

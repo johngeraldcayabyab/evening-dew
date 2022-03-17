@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class OperationType extends Model implements Sluggable
 {
@@ -15,6 +16,7 @@ class OperationType extends Model implements Sluggable
     use SoftDeletes;
     use BroadcastsEvents;
     use ModelHelperTrait;
+    use LogsActivity;
 
     const AT_CONFIRMATION = 'at_confirmation';
     const MANUALLY = 'manually';
@@ -27,6 +29,7 @@ class OperationType extends Model implements Sluggable
 
     protected $table = 'operations_types';
     protected $guarded = [];
+    protected static $logAttributes = ['*'];
 
     public static function getReservationMethods()
     {

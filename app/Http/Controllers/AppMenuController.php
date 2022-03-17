@@ -21,7 +21,7 @@ class AppMenuController
     {
         $model = new AppMenu();
         $model = $this->searchSortThenPaginate($model, $request);
-        return AddressResource::collection($model);
+        return AppMenuResource::collection($model);
     }
 
     public function show(AppMenu $appMenu): JsonResponse

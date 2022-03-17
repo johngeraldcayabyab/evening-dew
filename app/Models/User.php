@@ -11,11 +11,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable implements Sluggable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, BroadcastsEvents;
     use ModelHelperTrait;
+    use LogsActivity;
 
     protected $table = 'users';
     protected $fillable = [
@@ -24,6 +26,7 @@ class User extends Authenticatable implements Sluggable
         'password',
         'avatar'
     ];
+    protected static $logAttributes = ['*'];
 
     protected $hidden = [
         'password',

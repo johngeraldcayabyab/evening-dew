@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Transfer extends Model implements Sluggable
 {
@@ -15,9 +16,11 @@ class Transfer extends Model implements Sluggable
     use SoftDeletes;
     use BroadcastsEvents;
     use ModelHelperTrait;
+    use LogsActivity;
 
     protected $table = 'transfers';
     protected $guarded = [];
+    protected static $logAttributes = ['*'];
 
     const AS_SOON_AS_POSSIBLE = 'as_soon_as_possible';
     const WHEN_ALL_PRODUCTS_ARE_READY = 'when_all_products_are_ready';

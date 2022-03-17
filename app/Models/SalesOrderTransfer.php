@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class SalesOrderTransfer extends Model
 {
@@ -14,9 +15,11 @@ class SalesOrderTransfer extends Model
     use SoftDeletes;
     use BroadcastsEvents;
     use ModelHelperTrait;
+    use LogsActivity;
 
     protected $table = 'sales_order_transfers';
     protected $guarded = [];
+    protected static $logAttributes = ['*'];
 
     public function salesOrder()
     {

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class MeasurementCategory extends Model implements Sluggable
 {
@@ -16,9 +17,11 @@ class MeasurementCategory extends Model implements Sluggable
     use SoftDeletes;
     use BroadcastsEvents;
     use ModelHelperTrait;
+    use LogsActivity;
 
     protected $table = 'measurement_categories';
     protected $guarded = [];
+    protected static $logAttributes = ['*'];
 
     protected static function newFactory()
     {
