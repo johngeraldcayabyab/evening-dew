@@ -19,7 +19,6 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
         errors: {},
         formDisabled: id && true,
         pathname: location.pathname,
-        updated: false,
     });
 
     const [formActions] = useState({
@@ -41,7 +40,6 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
                         initialValues: response,
                         loading: false,
                         formDisabled: true,
-                        updated: new Date()
                     }));
                 }).catch((responseErr) => {
                     fetchCatcher.get(responseErr);
@@ -66,47 +64,39 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
             }
         },
         onFinish: (values) => {
-            setFormState(state => ({
-                ...state,
-                loading: true
-            }));
             if (id) {
-                useFetch(`/api/${manifest.moduleName}/${id}`, PUT, values).then(() => {
-                    formActions.fetchData();
-                }).catch((responseErr) => {
-                    fetchCatcher.get(responseErr).then((errors) => {
-                        setFormState(state => ({
-                            ...state,
-                            loading: false,
-                            errors: errors,
-                        }));
-                    });
-                });
+                formActions.update(values);
             } else {
-                useFetch(`/api/${manifest.moduleName}`, POST, values, true).then((response) => {
-                    setFormState(prevState => ({
-                        ...prevState,
-                        loading: false
-                    }));
-                    let headerLocation = response.headers.get('Location');
-                    if (headerLocation) {
-                        let locationId = headerLocation.split('/').pop();
-                        if (parseInt(locationId)) {
-                            history.push(`/${manifest.moduleName}/${locationId}`);
-                        } else {
-                            history.push(`/${manifest.moduleName}`);
-                        }
-                    }
-                }).catch((responseErr) => {
-                    fetchCatcher.get(responseErr).then((errors) => {
-                        setFormState(state => ({
-                            ...state,
-                            loading: false,
-                            errors: errors
-                        }));
-                    });
-                });
+                formActions.create(values);
             }
+        },
+        update: (values) => {
+            setToLoading();
+            useFetch(`/api/${manifest.moduleName}/${id}`, PUT, values).then(() => {
+                formActions.fetchData();
+            }).catch((responseErr) => {
+                handleFormErrors(responseErr);
+            });
+        },
+        create: (values) => {
+            setToLoading();
+            useFetch(`/api/${manifest.moduleName}`, POST, values, true).then((response) => {
+                setFormState(prevState => ({
+                    ...prevState,
+                    loading: false
+                }));
+                let headerLocation = response.headers.get('Location');
+                if (headerLocation) {
+                    let locationId = headerLocation.split('/').pop();
+                    if (parseInt(locationId)) {
+                        history.push(`/${manifest.moduleName}/${locationId}`);
+                    } else {
+                        history.push(`/${manifest.moduleName}`);
+                    }
+                }
+            }).catch((responseErr) => {
+                handleFormErrors(responseErr);
+            });
         },
         toggleEditMode: () => {
             setFormState(state => ({
@@ -116,6 +106,38 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
         }
     });
 
+    function setToLoading() {
+        setFormState(state => ({
+            ...state,
+            loading: true
+        }));
+    }
+
+    function handleFormErrors(responseErr) {
+        fetchCatcher.get(responseErr).then((errors) => {
+            setFormState(state => ({
+                ...state,
+                loading: false,
+                errors: errors
+            }));
+        });
+    }
+
+    function setFormValuesAndState(response) {
+        formatInitialValuesDatetimeToMoment(response);
+        form.setFieldsValue(response);
+        setFormState(state => ({
+            ...state,
+            initialLoad: formState.initialLoad && false,
+            initialValues: response,
+            loading: false,
+            formDisabled: true,
+        }));
+    }
+
+    /**
+     * Fetch data once on initial load
+     */
     useEffect(() => {
         formActions.fetchData();
     }, []);
