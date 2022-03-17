@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Product extends Model implements Sluggable
 {
@@ -15,6 +16,7 @@ class Product extends Model implements Sluggable
     use SoftDeletes;
     use BroadcastsEvents;
     use ModelHelperTrait;
+    use LogsActivity;
 
     const STORABLE = 'storable';
     const CONSUMABLE = 'consumable';
@@ -25,6 +27,7 @@ class Product extends Model implements Sluggable
 
     protected $table = 'products';
     protected $guarded = [];
+    protected static $logAttributes = ['*'];
 
     public static function getProductTypes()
     {

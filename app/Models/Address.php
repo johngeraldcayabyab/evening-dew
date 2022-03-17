@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Address extends Model implements Sluggable
 {
@@ -15,6 +16,7 @@ class Address extends Model implements Sluggable
     use SoftDeletes;
     use BroadcastsEvents;
     use ModelHelperTrait;
+    use LogsActivity;
 
     const DEFAULT = 'default';
     const INVOICE = 'invoice';
@@ -24,6 +26,7 @@ class Address extends Model implements Sluggable
 
     protected $table = 'addresses';
     protected $guarded = [];
+    protected static $logAttributes = ['*'];
 
     public static function getTypes()
     {

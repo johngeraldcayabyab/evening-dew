@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Contact extends Model implements Sluggable
 {
@@ -15,9 +16,11 @@ class Contact extends Model implements Sluggable
     use SoftDeletes;
     use BroadcastsEvents;
     use ModelHelperTrait;
+    use LogsActivity;
 
     protected $table = 'contacts';
     protected $guarded = [];
+    protected static $logAttributes = ['*'];
 
     public function addresses()
     {

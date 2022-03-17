@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Menu extends Model implements Sluggable
 {
@@ -15,9 +16,11 @@ class Menu extends Model implements Sluggable
     use SoftDeletes;
     use BroadcastsEvents;
     use ModelHelperTrait;
+    use LogsActivity;
 
     protected $table = 'menus';
     protected $guarded = [];
+    protected static $logAttributes = ['*'];
 
     public function scopeWhereLabel($query, $where)
     {

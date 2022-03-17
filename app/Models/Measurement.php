@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Measurement extends Model implements Sluggable
 {
@@ -16,6 +17,7 @@ class Measurement extends Model implements Sluggable
     use SoftDeletes;
     use BroadcastsEvents;
     use ModelHelperTrait;
+    use LogsActivity;
 
     const BIGGER = 'bigger';
     const SMALLER = 'smaller';
@@ -23,6 +25,7 @@ class Measurement extends Model implements Sluggable
 
     protected $table = 'measurements';
     protected $guarded = [];
+    protected static $logAttributes = ['*'];
 
     public static function getTypes()
     {

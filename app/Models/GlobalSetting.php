@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class GlobalSetting extends Model
 {
@@ -14,9 +15,11 @@ class GlobalSetting extends Model
     use SoftDeletes;
     use BroadcastsEvents;
     use ModelHelperTrait;
+    use LogsActivity;
 
     protected $table = 'global_settings';
     protected $guarded = [];
+    protected static $logAttributes = ['*'];
 
     public function scopeLatestFirst($query)
     {

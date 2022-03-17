@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Currency extends Model implements Sluggable
 {
@@ -15,12 +16,14 @@ class Currency extends Model implements Sluggable
     use SoftDeletes;
     use BroadcastsEvents;
     use ModelHelperTrait;
+    use LogsActivity;
 
     const BEFORE_AMOUNT = 'before_amount';
     const AFTER_AMOUNT = 'after_amount';
 
     protected $table = 'currencies';
     protected $guarded = [];
+    protected static $logAttributes = ['*'];
 
     public static function getSymbolPositions()
     {

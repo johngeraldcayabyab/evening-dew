@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class ProductCategory extends Model implements Sluggable
 {
@@ -16,11 +17,12 @@ class ProductCategory extends Model implements Sluggable
     use SoftDeletes;
     use BroadcastsEvents;
     use ModelHelperTrait;
-
     use HierarchyTrait;
+    use LogsActivity;
 
     protected $table = 'product_categories';
     protected $guarded = [];
+    protected static $logAttributes = ['*'];
 
     public function parentProductCategory()
     {
