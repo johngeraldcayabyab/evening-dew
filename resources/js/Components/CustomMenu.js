@@ -3,7 +3,7 @@ import {Header} from "antd/lib/layout/layout";
 import {Avatar, Menu, message} from "antd";
 import {AppstoreOutlined, UserOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
-import useFetchCatcher from "../Hooks/useFetchCatcher";
+import useFetchHook from "../Hooks/useFetchCatcherHook";
 import useFetchHook from "../Hooks/useFetchHook";
 import {GET, POST} from "../consts";
 import {eraseCookie} from "../Helpers/cookie";
@@ -54,7 +54,7 @@ function makeMenu(menus) {
 }
 
 const CustomMenu = () => {
-    const fetchCatcher = useFetchCatcher();
+    const fetchCatcher = useFetchHook();
     const appContext = useContext(AppContext);
     const [useFetch, fetchAbort] = useFetchHook();
     const [state, setState] = useState({

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Divider, Form, Table, Tabs} from "antd";
 import {useParams} from "react-router-dom";
-import useFormState from "../../Hooks/useFormState";
+import useFormHook from "../../Hooks/useFormHook";
 import manifest from "./__manifest__.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
@@ -12,7 +12,7 @@ import FormCard from "../../Components/FormCard";
 import FormItemText from "../../Components/FormItem/FormItemText";
 import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import useFetchHook from "../../Hooks/useFetchHook";
-import useFetchCatcher from "../../Hooks/useFetchCatcher";
+import useFetchHook from "../../Hooks/useFetchCatcherHook";
 import {GET, POST} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import {
@@ -35,9 +35,9 @@ const {TabPane} = Tabs;
 const SalesOrderForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormState(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, manifest, true);
     const [useFetch, fetchAbort] = useFetchHook();
-    const fetchCatcher = useFetchCatcher();
+    const fetchCatcher = useFetchHook();
     const [state, setState] = useState({
         invoiceAddressOptionReload: false,
         deliveryAddressOptionReload: false,
@@ -319,7 +319,7 @@ const SalesOrderForm = () => {
                 <Tabs defaultActiveKey="1">
                     <TabPane tab="Order Lines" key="1">
                         <GenerateDynamicColumns
-                            columns={['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Subtotal ']}
+                            columns={['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Subtotal']}
                         />
                         <RowForm>
                             <ColForm lg={24}>

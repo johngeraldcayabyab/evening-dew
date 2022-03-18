@@ -1,13 +1,13 @@
 import {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
-import useFetchCatcher from "./useFetchCatcher";
+import useFetchHook from "./useFetchCatcherHook";
 import useFetchHook from "./useFetchHook";
 import {GET, POST, PUT} from "../consts";
 import {formatInitialValuesDatetimeToMoment} from "../Helpers/object";
 
-const useFormState = (id, form, manifest, getInitialValues = false) => {
+const useFormHook = (id, form, manifest, getInitialValues = false) => {
     const [useFetch, fetchAbort] = useFetchHook();
-    const fetchCatcher = useFetchCatcher();
+    const fetchCatcher = useFetchHook();
     const history = useHistory();
 
     const [formState, setFormState] = useState({
@@ -170,4 +170,4 @@ const useFormState = (id, form, manifest, getInitialValues = false) => {
     return [formState, formActions];
 };
 
-export default useFormState;
+export default useFormHook;

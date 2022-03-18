@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
-import useFormState from "../../Hooks/useFormState";
+import useFormHook from "../../Hooks/useFormHook";
 import manifest from "./__manifest__.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
@@ -14,7 +14,7 @@ import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import FormItemDate from "../../Components/FormItem/FormItemDate";
 import useFetchHook from "../../Hooks/useFetchHook";
-import useFetchCatcher from "../../Hooks/useFetchCatcher";
+import useFetchHook from "../../Hooks/useFetchCatcherHook";
 import {GET, POST} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import {
@@ -32,9 +32,9 @@ const {TabPane} = Tabs;
 const TransferForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormState(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, manifest, true);
     const [useFetch, fetchAbort] = useFetchHook();
-    const fetchCatcher = useFetchCatcher();
+    const fetchCatcher = useFetchHook();
     const [state, setState] = useState({
         defaultSourceLocationReload: false,
         defaultDestinationLocationReload: false,
