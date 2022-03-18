@@ -1,5 +1,5 @@
 import React from 'react';
-import useListState from "../../Hooks/useListState";
+import useListHook from "../../Hooks/useListHook";
 import manifest from "./__manifest__.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
@@ -11,7 +11,7 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 
 const MaterialList = () => {
 
-    const [tableState, tableActions, columns] = useListState(manifest, [
+    const [tableState, tableActions, columns] = useListHook(manifest, [
             {
                 title: 'Product',
                 dataIndex: 'product',

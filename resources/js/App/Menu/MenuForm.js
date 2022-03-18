@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form} from "antd";
 import {useParams} from "react-router-dom";
-import useFormState from "../../Hooks/useFormState";
+import useFormHook from "../../Hooks/useFormHook";
 import manifest from "./__manifest__.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
@@ -15,7 +15,7 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 const MenuForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormState(id, form, manifest);
+    const [formState, formActions] = useFormHook(id, form, manifest);
 
     return (
         <CustomForm

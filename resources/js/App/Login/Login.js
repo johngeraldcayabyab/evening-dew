@@ -7,7 +7,7 @@ import {getDevice} from "../../Helpers/device";
 import {useHistory} from "react-router";
 import useFetchHook from "../../Hooks/useFetchHook";
 import {GET} from "../../consts";
-import useFetchCatcher from "../../Hooks/useFetchCatcher";
+import useFetchHook from "../../Hooks/useFetchCatcherHook";
 import {AppContext} from "../../App";
 
 const Login = () => {
@@ -16,7 +16,7 @@ const Login = () => {
         errors: {},
     });
     const [useFetch, fetchAbort] = useFetchHook();
-    const fetchCatcher = useFetchCatcher();
+    const fetchCatcher = useFetchHook();
     const history = useHistory();
     const appContext = useContext(AppContext);
 

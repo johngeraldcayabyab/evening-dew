@@ -1,5 +1,5 @@
 import React from 'react';
-import useListState from "../../Hooks/useListState";
+import useListHook from "../../Hooks/useListHook";
 import manifest from "./__manifest__.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
@@ -12,7 +12,7 @@ import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 
 const TransferList = () => {
-    const [tableState, tableActions, columns] = useListState(manifest, [
+    const [tableState, tableActions, columns] = useListHook(manifest, [
         {
             title: 'Reference',
             dataIndex: 'reference',

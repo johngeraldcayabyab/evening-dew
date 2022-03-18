@@ -1,5 +1,5 @@
 import React from 'react';
-import useListState from "../../Hooks/useListState";
+import useListHook from "../../Hooks/useListHook";
 import manifest from "./__manifest__.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
@@ -10,7 +10,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 
 const ProductList = () => {
-    const [tableState, tableActions, columns] = useListState(manifest, [
+    const [tableState, tableActions, columns] = useListHook(manifest, [
         {
             title: 'Name',
             dataIndex: 'name',
