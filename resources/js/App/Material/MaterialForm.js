@@ -94,10 +94,10 @@ const MaterialForm = () => {
     }
 
     return (
-        <FormContextProvider value={{form: form, onFinish: onFinish, onValuesChange: onValuesChange}}>
+        <FormContextProvider value={{form: form, formState: formState, onFinish: onFinish, onValuesChange: onValuesChange}}>
             <CustomForm>
                 <ControlPanel
-                    topColOneLeft={<CustomBreadcrumb formState={formState}/>}
+                    topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={
                         <FormButtons
                             id={id}
