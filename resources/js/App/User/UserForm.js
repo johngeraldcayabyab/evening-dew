@@ -12,6 +12,7 @@ import FormCard from "../../Components/FormCard";
 import FormItemText from "../../Components/FormItem/FormItemText";
 import FormItemUpload from "../../Components/FormItem/FormItemUpload";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
+import {FormContextProvider} from "../../Contexts/FormContext";
 
 const UserForm = () => {
     let {id} = useParams();
@@ -19,86 +20,85 @@ const UserForm = () => {
     const [formState, formActions] = useFormHook(id, form, manifest);
 
     return (
-        <CustomForm
-            form={form}
-            onFinish={formActions.onFinish}
-        >
-            <ControlPanel
-                topColOneLeft={<CustomBreadcrumb formState={formState}/>}
-                bottomColOneLeft={
-                    <FormButtons
-                        id={id}
-                        form={form}
-                        formState={formState}
-                        formActions={formActions}
-                        manifest={manifest}
-                    />
-                }
-            />
-            <FormCard {...formState}>
-                <RowForm>
-                    <ColForm>
-                        <FormItemText
+        <FormContextProvider value={{form: form, onFinish: formActions.onFinish}}>
+            <CustomForm>
+                <ControlPanel
+                    topColOneLeft={<CustomBreadcrumb formState={formState}/>}
+                    bottomColOneLeft={
+                        <FormButtons
+                            id={id}
                             form={form}
-                            label={'Name'}
-                            name={'name'}
-                            message={'Please input name'}
-                            required={true}
-                            size={'large'}
-                            {...formState}
+                            formState={formState}
+                            formActions={formActions}
+                            manifest={manifest}
                         />
-
-                        <FormItemText
-                            form={form}
-                            label={'Email'}
-                            name={'email'}
-                            message={'Please input email'}
-                            required={true}
-                            size={'medium'}
-                            {...formState}
-                        />
-                    </ColForm>
-
-                    <ColForm>
-                        <FormItemUpload
-                            form={form}
-                            name={'avatar'}
-                            {...formState}
-                        />
-                    </ColForm>
-                </RowForm>
-
-
-                {!formState.id &&
-                <>
-                    <Divider/>
+                    }
+                />
+                <FormCard {...formState}>
                     <RowForm>
                         <ColForm>
                             <FormItemText
                                 form={form}
-                                label={'Password'}
-                                name={'password'}
-                                message={'Please input password'}
+                                label={'Name'}
+                                name={'name'}
+                                message={'Please input name'}
                                 required={true}
+                                size={'large'}
+                                {...formState}
+                            />
+
+                            <FormItemText
+                                form={form}
+                                label={'Email'}
+                                name={'email'}
+                                message={'Please input email'}
+                                required={true}
+                                size={'medium'}
                                 {...formState}
                             />
                         </ColForm>
+
                         <ColForm>
-                            <FormItemText
+                            <FormItemUpload
                                 form={form}
-                                label={'Confirm Password'}
-                                name={'password_confirmation'}
-                                message={'Please input password'}
-                                required={true}
+                                name={'avatar'}
                                 {...formState}
                             />
                         </ColForm>
                     </RowForm>
-                </>
-                }
 
-            </FormCard>
-        </CustomForm>
+
+                    {!formState.id &&
+                    <>
+                        <Divider/>
+                        <RowForm>
+                            <ColForm>
+                                <FormItemText
+                                    form={form}
+                                    label={'Password'}
+                                    name={'password'}
+                                    message={'Please input password'}
+                                    required={true}
+                                    {...formState}
+                                />
+                            </ColForm>
+                            <ColForm>
+                                <FormItemText
+                                    form={form}
+                                    label={'Confirm Password'}
+                                    name={'password_confirmation'}
+                                    message={'Please input password'}
+                                    required={true}
+                                    {...formState}
+                                />
+                            </ColForm>
+                        </RowForm>
+                    </>
+                    }
+
+                </FormCard>
+            </CustomForm>
+        </FormContextProvider>
     );
 };
 

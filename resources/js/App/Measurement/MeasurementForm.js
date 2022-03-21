@@ -14,80 +14,80 @@ import ControlPanel from "../../Components/ControlPanel";
 import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import FormCard from "../../Components/FormCard";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
+import {FormContextProvider} from "../../Contexts/FormContext";
 
 const MeasurementForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
     return (
-        <CustomForm
-            form={form}
-            onFinish={formActions.onFinish}
-        >
-            <ControlPanel
-                topColOneLeft={<CustomBreadcrumb formState={formState}/>}
-                bottomColOneLeft={
-                    <FormButtons
-                        id={id}
-                        form={form}
-                        formState={formState}
-                        formActions={formActions}
-                        manifest={manifest}
-                    />
-                }
-            />
-            <FormCard {...formState}>
-                <RowForm>
-                    <ColForm>
-                        <FormItemText
-                            label={'Name'}
-                            name={'name'}
-                            message={'Please input measurement category name'}
-                            required={true}
-                            {...formState}
+        <FormContextProvider value={{form: form, onFinish: formActions.onFinish}}>
+            <CustomForm>
+                <ControlPanel
+                    topColOneLeft={<CustomBreadcrumb formState={formState}/>}
+                    bottomColOneLeft={
+                        <FormButtons
+                            id={id}
+                            form={form}
+                            formState={formState}
+                            formActions={formActions}
+                            manifest={manifest}
                         />
+                    }
+                />
+                <FormCard {...formState}>
+                    <RowForm>
+                        <ColForm>
+                            <FormItemText
+                                label={'Name'}
+                                name={'name'}
+                                message={'Please input measurement category name'}
+                                required={true}
+                                {...formState}
+                            />
 
-                        <FormItemSelect
-                            label={'Type'}
-                            name={'type'}
-                            message={'Please select a type'}
-                            required={true}
-                            options={[
-                                {value: 'reference', label: 'Reference measurement for this category'},
-                                {value: 'smaller', label: 'Smaller than the reference measurement'},
-                                {value: 'bigger', label: 'Bigger than the reference measurement'},
-                            ]}
-                            {...formState}
-                        />
+                            <FormItemSelect
+                                label={'Type'}
+                                name={'type'}
+                                message={'Please select a type'}
+                                required={true}
+                                options={[
+                                    {value: 'reference', label: 'Reference measurement for this category'},
+                                    {value: 'smaller', label: 'Smaller than the reference measurement'},
+                                    {value: 'bigger', label: 'Bigger than the reference measurement'},
+                                ]}
+                                {...formState}
+                            />
 
-                        <FormItemNumber
-                            label={'Ratio'}
-                            name={'ratio'}
-                            message={'Please input ratio'}
-                            required={true}
-                            {...formState}
-                        />
-                        <FormItemNumber
-                            label={'Rounding precision'}
-                            name={'rounding_precision'}
-                            message={'Please input rounding precision'}
-                            required={true}
-                            {...formState}
-                        />
+                            <FormItemNumber
+                                label={'Ratio'}
+                                name={'ratio'}
+                                message={'Please input ratio'}
+                                required={true}
+                                {...formState}
+                            />
+                            <FormItemNumber
+                                label={'Rounding precision'}
+                                name={'rounding_precision'}
+                                message={'Please input rounding precision'}
+                                required={true}
+                                {...formState}
+                            />
 
-                        <FormItemSelectAjax
-                            label={'Measurement Category'}
-                            name={'measurement_category_id'}
-                            message={'Please select a measurement category'}
-                            required={true}
-                            url={'/api/measurement_categories'}
-                            {...formState}
-                            query={'measurement_category.name'}
-                        />
-                    </ColForm>
-                </RowForm>
-            </FormCard>
-        </CustomForm>
+                            <FormItemSelectAjax
+                                label={'Measurement Category'}
+                                name={'measurement_category_id'}
+                                message={'Please select a measurement category'}
+                                required={true}
+                                url={'/api/measurement_categories'}
+                                {...formState}
+                                query={'measurement_category.name'}
+                            />
+                        </ColForm>
+                    </RowForm>
+                </FormCard>
+            </CustomForm>
+        </FormContextProvider>
     );
 };
 

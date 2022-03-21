@@ -14,6 +14,7 @@ import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import FormItemCheckbox from "../../Components/FormItem/FormItemCheckbox";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
+import {FormContextProvider} from "../../Contexts/FormContext";
 
 const LocationForm = () => {
     let {id} = useParams();
@@ -21,89 +22,88 @@ const LocationForm = () => {
     const [formState, formActions] = useFormHook(id, form, manifest, true);
 
     return (
-        <CustomForm
-            form={form}
-            onFinish={formActions.onFinish}
-        >
-            <ControlPanel
-                topColOneLeft={<CustomBreadcrumb formState={formState}/>}
-                bottomColOneLeft={
-                    <FormButtons
-                        id={id}
-                        form={form}
-                        formState={formState}
-                        formActions={formActions}
-                        manifest={manifest}
-                    />
-                }
-            />
-            <FormCard {...formState}>
-
-                <RowForm>
-                    <ColForm lg={24}>
-                        <FormItemText
+        <FormContextProvider value={{form: form, onFinish: formActions.onFinish}}>
+            <CustomForm>
+                <ControlPanel
+                    topColOneLeft={<CustomBreadcrumb formState={formState}/>}
+                    bottomColOneLeft={
+                        <FormButtons
+                            id={id}
                             form={form}
-                            label={'Name'}
-                            name={'name'}
-                            message={'Please input name'}
-                            required={true}
-                            size={'large'}
-                            {...formState}
+                            formState={formState}
+                            formActions={formActions}
+                            manifest={manifest}
                         />
+                    }
+                />
+                <FormCard {...formState}>
 
-                        <FormItemSelectAjax
-                            form={form}
-                            label={'Parent Category'}
-                            name={'parent_location_id'}
-                            url={'/api/locations'}
-                            size={'medium'}
-                            {...formState}
-                            query={'parent_location.name'}
-                        />
-                    </ColForm>
-                </RowForm>
+                    <RowForm>
+                        <ColForm lg={24}>
+                            <FormItemText
+                                form={form}
+                                label={'Name'}
+                                name={'name'}
+                                message={'Please input name'}
+                                required={true}
+                                size={'large'}
+                                {...formState}
+                            />
 
-                <Divider orientation={'left'}>
-                    Additional Information
-                </Divider>
+                            <FormItemSelectAjax
+                                form={form}
+                                label={'Parent Category'}
+                                name={'parent_location_id'}
+                                url={'/api/locations'}
+                                size={'medium'}
+                                {...formState}
+                                query={'parent_location.name'}
+                            />
+                        </ColForm>
+                    </RowForm>
 
-                <RowForm>
-                    <ColForm>
-                        <FormItemSelect
-                            form={form}
-                            label={'Type'}
-                            name={'type'}
-                            message={'Please select a location type'}
-                            required={true}
-                            options={[
-                                {value: 'vendor', label: 'Vendor'},
-                                {value: 'view', label: 'View'},
-                                {value: 'internal', label: 'Internal'},
-                                {value: 'customer', label: 'Customer'},
-                                {value: 'inventory_loss', label: 'Inventory Loss'},
-                                {value: 'production', label: 'Production'},
-                                {value: 'transit_location', label: 'Transit Location'},
-                            ]}
-                            {...formState}
-                        />
+                    <Divider orientation={'left'}>
+                        Additional Information
+                    </Divider>
 
-                        <FormItemCheckbox
-                            form={form}
-                            label={'Is a scrap location?'}
-                            name={'is_a_scrap_location'}
-                            {...formState}
-                        />
+                    <RowForm>
+                        <ColForm>
+                            <FormItemSelect
+                                form={form}
+                                label={'Type'}
+                                name={'type'}
+                                message={'Please select a location type'}
+                                required={true}
+                                options={[
+                                    {value: 'vendor', label: 'Vendor'},
+                                    {value: 'view', label: 'View'},
+                                    {value: 'internal', label: 'Internal'},
+                                    {value: 'customer', label: 'Customer'},
+                                    {value: 'inventory_loss', label: 'Inventory Loss'},
+                                    {value: 'production', label: 'Production'},
+                                    {value: 'transit_location', label: 'Transit Location'},
+                                ]}
+                                {...formState}
+                            />
 
-                        <FormItemCheckbox
-                            form={form}
-                            label={'Is a return location?'}
-                            name={'is_a_return_location'}
-                            {...formState}
-                        />
-                    </ColForm>
-                </RowForm>
-            </FormCard>
-        </CustomForm>
+                            <FormItemCheckbox
+                                form={form}
+                                label={'Is a scrap location?'}
+                                name={'is_a_scrap_location'}
+                                {...formState}
+                            />
+
+                            <FormItemCheckbox
+                                form={form}
+                                label={'Is a return location?'}
+                                name={'is_a_return_location'}
+                                {...formState}
+                            />
+                        </ColForm>
+                    </RowForm>
+                </FormCard>
+            </CustomForm>
+        </FormContextProvider>
     );
 };
 

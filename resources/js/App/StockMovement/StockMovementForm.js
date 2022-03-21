@@ -13,6 +13,7 @@ import FormItemText from "../../Components/FormItem/FormItemText";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
+import {FormContextProvider} from "../../Contexts/FormContext";
 
 const StockMovementForm = () => {
     let {id} = useParams();
@@ -20,85 +21,84 @@ const StockMovementForm = () => {
     const [formState, formActions] = useFormHook(id, form, manifest, true);
 
     return (
-        <CustomForm
-            form={form}
-            onFinish={formActions.onFinish}
-        >
-            <ControlPanel
-                topColOneLeft={<CustomBreadcrumb formState={formState}/>}
-                bottomColOneLeft={
-                    <FormButtons
-                        id={id}
-                        form={form}
-                        formState={formState}
-                        formActions={formActions}
-                        manifest={manifest}
-                    />
-                }
-            />
-            <FormCard {...formState}>
-                <RowForm>
-                    <ColForm>
-                        <FormItemText
+        <FormContextProvider value={{form: form, onFinish: formActions.onFinish}}>
+            <CustomForm>
+                <ControlPanel
+                    topColOneLeft={<CustomBreadcrumb formState={formState}/>}
+                    bottomColOneLeft={
+                        <FormButtons
+                            id={id}
                             form={form}
-                            label={'Reference'}
-                            name={'reference'}
-                            message={'Please input reference'}
-                            required={true}
-                            {...formState}
+                            formState={formState}
+                            formActions={formActions}
+                            manifest={manifest}
                         />
-                        <FormItemText
-                            form={form}
-                            label={'Source'}
-                            name={'source'}
-                            {...formState}
-                        />
+                    }
+                />
+                <FormCard {...formState}>
+                    <RowForm>
+                        <ColForm>
+                            <FormItemText
+                                form={form}
+                                label={'Reference'}
+                                name={'reference'}
+                                message={'Please input reference'}
+                                required={true}
+                                {...formState}
+                            />
+                            <FormItemText
+                                form={form}
+                                label={'Source'}
+                                name={'source'}
+                                {...formState}
+                            />
 
-                        <FormItemSelectAjax
-                            form={form}
-                            label={'Product'}
-                            name={'product_id'}
-                            message={'Please select product'}
-                            required={true}
-                            url={'/api/products'}
-                            {...formState}
-                            query={'product.name'}
-                        />
+                            <FormItemSelectAjax
+                                form={form}
+                                label={'Product'}
+                                name={'product_id'}
+                                message={'Please select product'}
+                                required={true}
+                                url={'/api/products'}
+                                {...formState}
+                                query={'product.name'}
+                            />
 
-                        <FormItemSelectAjax
-                            form={form}
-                            label={'Source Location'}
-                            name={'source_location_id'}
-                            message={'Please select source location'}
-                            required={true}
-                            url={'/api/locations'}
-                            {...formState}
-                            query={'source_location.name'}
-                        />
+                            <FormItemSelectAjax
+                                form={form}
+                                label={'Source Location'}
+                                name={'source_location_id'}
+                                message={'Please select source location'}
+                                required={true}
+                                url={'/api/locations'}
+                                {...formState}
+                                query={'source_location.name'}
+                            />
 
-                        <FormItemSelectAjax
-                            form={form}
-                            label={'Destination Location'}
-                            name={'destination_location_id'}
-                            message={'Please select destination location'}
-                            required={true}
-                            url={'/api/locations'}
-                            {...formState}
-                            query={'destination_location.name'}
-                        />
+                            <FormItemSelectAjax
+                                form={form}
+                                label={'Destination Location'}
+                                name={'destination_location_id'}
+                                message={'Please select destination location'}
+                                required={true}
+                                url={'/api/locations'}
+                                {...formState}
+                                query={'destination_location.name'}
+                            />
 
-                        <FormItemNumber
-                            form={form}
-                            label={'Quantity Done'}
-                            name={'quantity_done'}
-                            message={'Please input quantity done'}
-                            required={true}
-                            {...formState}
-                        />
-                    </ColForm>
-                </RowForm>
-            </FormCard>
-        </CustomForm>
+                            <FormItemNumber
+                                form={form}
+                                label={'Quantity Done'}
+                                name={'quantity_done'}
+                                message={'Please input quantity done'}
+                                required={true}
+                                {...formState}
+                            />
+                        </ColForm>
+                    </RowForm>
+                </FormCard>
+            </CustomForm>
+        </FormContextProvider>
     );
 };
 

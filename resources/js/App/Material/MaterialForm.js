@@ -23,6 +23,7 @@ import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {GET, POST} from "../../consts";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import useFetchHook from "../../Hooks/useFetchHook";
+import {FormContextProvider} from "../../Contexts/FormContext";
 
 const {TabPane} = Tabs;
 
@@ -93,183 +94,181 @@ const MaterialForm = () => {
     }
 
     return (
-        <CustomForm
-            form={form}
-            onFinish={onFinish}
-            onValuesChange={onValuesChange}
-        >
-            <ControlPanel
-                topColOneLeft={<CustomBreadcrumb formState={formState}/>}
-                bottomColOneLeft={
-                    <FormButtons
-                        id={id}
-                        form={form}
-                        formState={formState}
-                        formActions={formActions}
-                        manifest={manifest}
-                    />
-                }
-            />
-            <FormCard {...formState}>
-                <RowForm>
-                    <ColForm>
-                        <FormItemSelectAjax
-                            label={'Product'}
-                            name={'product_id'}
-                            message={'Please select a product'}
-                            required={true}
-                            url={'/api/products'}
-                            {...formState}
-                            query={'product.name'}
+        <FormContextProvider value={{form: form, onFinish: onFinish, onValuesChange: onValuesChange}}>
+            <CustomForm>
+                <ControlPanel
+                    topColOneLeft={<CustomBreadcrumb formState={formState}/>}
+                    bottomColOneLeft={
+                        <FormButtons
+                            id={id}
+                            form={form}
+                            formState={formState}
+                            formActions={formActions}
+                            manifest={manifest}
                         />
+                    }
+                />
+                <FormCard {...formState}>
+                    <RowForm>
+                        <ColForm>
+                            <FormItemSelectAjax
+                                label={'Product'}
+                                name={'product_id'}
+                                message={'Please select a product'}
+                                required={true}
+                                url={'/api/products'}
+                                {...formState}
+                                query={'product.name'}
+                            />
 
-                        <FormItemSelectAjax
-                            label={'Measurement'}
-                            name={'measurement_id'}
-                            message={'Please select a measurement'}
-                            required={true}
-                            url={'/api/measurements'}
-                            {...formState}
-                            query={'measurement.name'}
-                        />
-                    </ColForm>
+                            <FormItemSelectAjax
+                                label={'Measurement'}
+                                name={'measurement_id'}
+                                message={'Please select a measurement'}
+                                required={true}
+                                url={'/api/measurements'}
+                                {...formState}
+                                query={'measurement.name'}
+                            />
+                        </ColForm>
 
-                    <ColForm>
-                        <FormItemText
-                            label={'Reference'}
-                            name={'reference'}
-                            {...formState}
-                        />
+                        <ColForm>
+                            <FormItemText
+                                label={'Reference'}
+                                name={'reference'}
+                                {...formState}
+                            />
 
-                        <FormItemSelect
-                            label={'Material Type'}
-                            name={'material_type'}
-                            message={'Please select a material type'}
-                            required={true}
-                            options={[
-                                {value: 'manufacture_this_product', label: 'Manufacture this product'},
-                                {value: 'kit', label: 'Kit'},
-                            ]}
-                            {...formState}
-                        />
-                    </ColForm>
-                </RowForm>
+                            <FormItemSelect
+                                label={'Material Type'}
+                                name={'material_type'}
+                                message={'Please select a material type'}
+                                required={true}
+                                options={[
+                                    {value: 'manufacture_this_product', label: 'Manufacture this product'},
+                                    {value: 'kit', label: 'Kit'},
+                                ]}
+                                {...formState}
+                            />
+                        </ColForm>
+                    </RowForm>
 
 
-                <Tabs defaultActiveKey="1">
-                    <TabPane tab="Components" key="1">
-                        <GenerateDynamicColumns
-                            columns={['Product', 'Quantity', 'Measurement']}
-                        />
-                        <RowForm>
-                            <ColForm lg={24}>
-                                <Form.List name="material_lines">
-                                    {(fields, {add, remove}) => (
-                                        <>
-                                            {fields.map(({key, name, ...restField}) => (
-                                                <RowForm key={key}>
-                                                    <ColForm lg={23}>
-                                                        <FormItemNumber
+                    <Tabs defaultActiveKey="1">
+                        <TabPane tab="Components" key="1">
+                            <GenerateDynamicColumns
+                                columns={['Product', 'Quantity', 'Measurement']}
+                            />
+                            <RowForm>
+                                <ColForm lg={24}>
+                                    <Form.List name="material_lines">
+                                        {(fields, {add, remove}) => (
+                                            <>
+                                                {fields.map(({key, name, ...restField}) => (
+                                                    <RowForm key={key}>
+                                                        <ColForm lg={23}>
+                                                            <FormItemNumber
+                                                                form={form}
+                                                                {...restField}
+                                                                name={'id'}
+                                                                {...formState}
+                                                                style={{display: 'hidden', position: 'absolute'}}
+                                                                groupName={name}
+                                                                listName={'material_lines'}
+                                                            />
+
+                                                            <FormItemSelectAjax
+                                                                form={form}
+                                                                {...restField}
+                                                                placeholder={'Product'}
+                                                                name={'product_id'}
+                                                                message={'Please select a product'}
+                                                                required={true}
+                                                                url={'/api/products'}
+                                                                {...formState}
+                                                                style={{display: 'inline-block', width: '33.33%'}}
+                                                                query={`material_lines.${name}.product.name`}
+                                                                groupName={name}
+                                                                listName={'material_lines'}
+                                                            />
+
+                                                            <FormItemNumber
+                                                                form={form}
+                                                                {...restField}
+                                                                placeholder={'Quantity'}
+                                                                name={'quantity'}
+                                                                message={'Please input a quantity'}
+                                                                required={true}
+                                                                {...formState}
+                                                                style={{display: 'inline-block', width: '33.33%'}}
+                                                                groupName={name}
+                                                                listName={'material_lines'}
+                                                            />
+
+                                                            <FormItemSelectAjax
+                                                                form={form}
+                                                                {...restField}
+                                                                placeholder={'Measurement'}
+                                                                name={'measurement_id'}
+                                                                message={'Please select a measurement'}
+                                                                required={true}
+                                                                url={'/api/measurements'}
+                                                                search={state.materialLinesOptionReload[name] ? state.materialLinesOptionReload[name].isReload : null}
+                                                                {...formState}
+                                                                style={{display: 'inline-block', width: '33.33%'}}
+                                                                query={`material_lines.${name}.measurement.name`}
+                                                                groupName={name}
+                                                                listName={'material_lines'}
+                                                            />
+                                                        </ColForm>
+
+                                                        <DynamicFieldRemoveButton
+                                                            remove={remove}
                                                             form={form}
-                                                            {...restField}
-                                                            name={'id'}
-                                                            {...formState}
-                                                            style={{display: 'hidden', position: 'absolute'}}
-                                                            groupName={name}
-                                                            listName={'material_lines'}
+                                                            dynamicName={'material_lines'}
+                                                            name={name}
+                                                            formState={formState}
+                                                            setState={setState}
                                                         />
+                                                    </RowForm>
+                                                ))}
+                                                <DynamicFieldAddButton
+                                                    formState={formState}
+                                                    add={add}
+                                                    label={'Add a component'}
+                                                />
+                                            </>
+                                        )}
+                                    </Form.List>
+                                </ColForm>
+                            </RowForm>
 
-                                                        <FormItemSelectAjax
-                                                            form={form}
-                                                            {...restField}
-                                                            placeholder={'Product'}
-                                                            name={'product_id'}
-                                                            message={'Please select a product'}
-                                                            required={true}
-                                                            url={'/api/products'}
-                                                            {...formState}
-                                                            style={{display: 'inline-block', width: '33.33%'}}
-                                                            query={`material_lines.${name}.product.name`}
-                                                            groupName={name}
-                                                            listName={'material_lines'}
-                                                        />
+                        </TabPane>
 
-                                                        <FormItemNumber
-                                                            form={form}
-                                                            {...restField}
-                                                            placeholder={'Quantity'}
-                                                            name={'quantity'}
-                                                            message={'Please input a quantity'}
-                                                            required={true}
-                                                            {...formState}
-                                                            style={{display: 'inline-block', width: '33.33%'}}
-                                                            groupName={name}
-                                                            listName={'material_lines'}
-                                                        />
+                        <TabPane tab="Miscellaneous" key="2">
+                            <RowForm>
+                                <ColForm>
+                                    <FormItemSelect
+                                        form={form}
+                                        label={'Flexible Consumption'}
+                                        name={'flexible_consumption'}
+                                        message={'Please select a flexible consumption'}
+                                        required={true}
+                                        options={[
+                                            {value: 'allowed', label: 'Allowed'},
+                                            {value: 'allowed_with_warning', label: 'Allowed with warning'},
+                                            {value: 'blocked', label: 'Blocked'},
+                                        ]}
+                                        {...formState}
+                                    />
+                                </ColForm>
+                            </RowForm>
+                        </TabPane>
+                    </Tabs>
 
-                                                        <FormItemSelectAjax
-                                                            form={form}
-                                                            {...restField}
-                                                            placeholder={'Measurement'}
-                                                            name={'measurement_id'}
-                                                            message={'Please select a measurement'}
-                                                            required={true}
-                                                            url={'/api/measurements'}
-                                                            search={state.materialLinesOptionReload[name] ? state.materialLinesOptionReload[name].isReload : null}
-                                                            {...formState}
-                                                            style={{display: 'inline-block', width: '33.33%'}}
-                                                            query={`material_lines.${name}.measurement.name`}
-                                                            groupName={name}
-                                                            listName={'material_lines'}
-                                                        />
-                                                    </ColForm>
-
-                                                    <DynamicFieldRemoveButton
-                                                        remove={remove}
-                                                        form={form}
-                                                        dynamicName={'material_lines'}
-                                                        name={name}
-                                                        formState={formState}
-                                                        setState={setState}
-                                                    />
-                                                </RowForm>
-                                            ))}
-                                            <DynamicFieldAddButton
-                                                formState={formState}
-                                                add={add}
-                                                label={'Add a component'}
-                                            />
-                                        </>
-                                    )}
-                                </Form.List>
-                            </ColForm>
-                        </RowForm>
-
-                    </TabPane>
-
-                    <TabPane tab="Miscellaneous" key="2">
-                        <RowForm>
-                            <ColForm>
-                                <FormItemSelect
-                                    form={form}
-                                    label={'Flexible Consumption'}
-                                    name={'flexible_consumption'}
-                                    message={'Please select a flexible consumption'}
-                                    required={true}
-                                    options={[
-                                        {value: 'allowed', label: 'Allowed'},
-                                        {value: 'allowed_with_warning', label: 'Allowed with warning'},
-                                        {value: 'blocked', label: 'Blocked'},
-                                    ]}
-                                    {...formState}
-                                />
-                            </ColForm>
-                        </RowForm>
-                    </TabPane>
-                </Tabs>
-
-            </FormCard>
-        </CustomForm>
+                </FormCard>
+            </CustomForm>
+        </FormContextProvider>
     );
 };
 
