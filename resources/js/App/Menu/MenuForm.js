@@ -21,6 +21,8 @@ const MenuForm = () => {
     return (
         <FormContextProvider
             value={{
+                id: id,
+                manifest: manifest,
                 form: form,
                 formState: formState,
                 onFinish: formActions.onFinish
