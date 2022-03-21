@@ -1,4 +1,4 @@
-import {Menu, Dropdown} from "antd";
+import {Dropdown, Menu} from "antd";
 import ListDeleteButton from "./ListDeleteButton";
 
 const ActionsDropdownButton = (props) => {

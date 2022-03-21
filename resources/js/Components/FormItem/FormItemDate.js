@@ -1,9 +1,7 @@
-import {DatePicker, Form, Input} from "antd";
+import {DatePicker, Form} from "antd";
 import React from "react";
 import CustomInputSkeleton from "../CustomInputSkeleton";
 import {formItemFieldProps} from "../../Helpers/form";
-import moment from 'moment';
-import {objectHasValue} from "../../Helpers/object";
 
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 

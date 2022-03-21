@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import useFetchHook from "./useFetchHook";
 import {DELETE, GET, POST} from "../consts";
-import {getAllUrlParams, getQueryVariable} from "../Helpers/url";
+import {getAllUrlParams} from "../Helpers/url";
 import useFetchCatcherHook from "./useFetchCatcherHook";
 
 const useListHook = (manifest, columns) => {

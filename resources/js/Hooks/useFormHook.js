@@ -7,7 +7,7 @@ import {formatInitialValuesDatetimeToMoment} from "../Helpers/object";
 
 const useFormHook = (id, form, manifest, getInitialValues = false) => {
     const [useFetch, fetchAbort] = useFetchHook();
-    const fetchCatcher = useFetchHook();
+    const fetchCatcher = useFetchCatcherHook();
     const history = useHistory();
 
     const [formState, setFormState] = useState({
