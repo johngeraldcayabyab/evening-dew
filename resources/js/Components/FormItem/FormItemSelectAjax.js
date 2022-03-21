@@ -10,7 +10,7 @@ import CustomFormItemLink from "../CustomFormItemLink";
 
 const FormItemSelectAjax = (props) => {
     const [useFetch, fetchAbort] = useFetchHook();
-    const fetchCatcher = useFetchHook();
+    const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
         options: [],
         filterOption: []

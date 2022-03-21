@@ -54,7 +54,7 @@ function makeMenu(menus) {
 }
 
 const CustomMenu = () => {
-    const fetchCatcher = useFetchHook();
+    const fetchCatcher = useFetchCatcherHook();
     const appContext = useContext(AppContext);
     const [useFetch, fetchAbort] = useFetchHook();
     const [state, setState] = useState({

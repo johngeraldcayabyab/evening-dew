@@ -1,7 +1,7 @@
 import {message} from "antd";
 import {useHistory} from "react-router-dom";
 import {useContext, useState} from "react";
-import {eraseCookie, getCookie} from "../Helpers/cookie";
+import {eraseCookie} from "../Helpers/cookie";
 import {AppContext} from "../App";
 
 const useFetchCatcherHook = () => {

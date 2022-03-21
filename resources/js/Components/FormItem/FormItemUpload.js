@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Image, message, Popover, Upload} from 'antd';
-import {Form} from "antd";
+import {Button, Form, Image, message, Popover, Upload} from 'antd';
 import {DeleteOutlined, LoadingOutlined, PlusOutlined} from '@ant-design/icons';
 import FormLabel from "../Typography/FormLabel";
 import {objectHasValue} from "../../Helpers/object";

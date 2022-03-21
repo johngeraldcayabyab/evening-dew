@@ -1,6 +1,6 @@
 import '../css/App.scss';
 
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {render} from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import {Content} from "antd/lib/layout/layout";

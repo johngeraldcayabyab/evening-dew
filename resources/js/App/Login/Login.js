@@ -5,8 +5,8 @@ import {fetchPost} from "../../Helpers/fetcher";
 import {setCookie} from "../../Helpers/cookie";
 import {getDevice} from "../../Helpers/device";
 import {useHistory} from "react-router";
-import useFetchHook from "../../Hooks/useFetchHook";
 import {GET} from "../../consts";
+import useFetchHook from "../../Hooks/useFetchCatcherHook";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {AppContext} from "../../App";
 
@@ -15,7 +15,7 @@ const Login = () => {
         loading: false,
         errors: {},
     });
-    const [useFetch, fetchAbort] = useFetchCatcherHook();
+    const [useFetch, fetchAbort] = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const history = useHistory();
     const appContext = useContext(AppContext);

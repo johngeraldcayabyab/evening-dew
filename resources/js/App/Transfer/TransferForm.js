@@ -13,7 +13,7 @@ import FormItemText from "../../Components/FormItem/FormItemText";
 import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import FormItemDate from "../../Components/FormItem/FormItemDate";
-import useFetchHook from "../../Hooks/useFetchHook";
+import useFetchHook from "../../Hooks/useFetchCatcherHook";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {GET, POST} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
@@ -33,7 +33,7 @@ const TransferForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
-    const [useFetch, fetchAbort] = useFetchCatcherHook();
+    const [useFetch, fetchAbort] = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
         defaultSourceLocationReload: false,
