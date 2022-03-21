@@ -70,7 +70,6 @@ const ProductForm = () => {
                                 <ColForm>
 
                                     <FormItemSelect
-                                        form={form}
                                         label={'Product Type'}
                                         name={'product_type'}
                                         message={'Please select a product type'}
@@ -80,11 +79,9 @@ const ProductForm = () => {
                                             {value: 'consumable', label: 'Consumable'},
                                             {value: 'service', label: 'Service'},
                                         ]}
-                                        {...formState}
                                     />
 
                                     <FormItemSelect
-                                        form={form}
                                         label={'Invoicing Policy'}
                                         name={'invoicing_policy'}
                                         message={'Please select an invoicing policy'}
@@ -93,39 +90,32 @@ const ProductForm = () => {
                                             {value: 'ordered_quantities', label: 'Ordered Quantities'},
                                             {value: 'delivered_quantities', label: 'Delivered Quantities'},
                                         ]}
-                                        {...formState}
                                     />
 
                                     <FormItemSelectAjax
-                                        form={form}
                                         label={'Measurement'}
                                         name={'measurement_id'}
                                         message={'Please select a measurement'}
                                         required={true}
                                         url={'/api/measurements'}
-                                        {...formState}
                                         query={'measurement.name'}
                                     />
 
                                     <FormItemSelectAjax
-                                        form={form}
                                         label={'Purchase Measurement'}
                                         name={'purchase_measurement_id'}
                                         message={'Please select a purchase measurement'}
                                         required={true}
                                         url={'/api/measurements'}
-                                        {...formState}
                                         query={'purchase_measurement.name'}
                                     />
 
                                     <FormItemSelectAjax
-                                        form={form}
                                         label={'Sales Measurement'}
                                         name={'sales_measurement_id'}
                                         message={'Please select a sales measurement'}
                                         required={true}
                                         url={'/api/measurements'}
-                                        {...formState}
                                         query={'sales_measurement.name'}
                                     />
 
@@ -133,39 +123,31 @@ const ProductForm = () => {
 
                                 <ColForm>
                                     <FormItemNumber
-                                        form={form}
                                         label={'Sales Price'}
                                         name={'sales_price'}
                                         message={'Please input sales price'}
                                         required={true}
-                                        {...formState}
                                     />
 
                                     <FormItemNumber
-                                        form={form}
                                         label={'Cost'}
                                         name={'cost'}
                                         message={'Please input cost'}
                                         required={true}
-                                        {...formState}
                                     />
 
                                     <FormItemSelectAjax
-                                        form={form}
                                         label={'Product Category'}
                                         name={'product_category_id'}
                                         message={'Please select a product category'}
                                         required={true}
                                         url={'/api/product_categories'}
-                                        {...formState}
                                         query={'product_category.category'}
                                     />
 
                                     <FormItemText
-                                        form={form}
                                         label={'Internal Reference'}
                                         name={'internal_reference'}
-                                        {...formState}
                                     />
                                 </ColForm>
                             </RowForm>
@@ -176,17 +158,13 @@ const ProductForm = () => {
                             <RowForm>
                                 <ColForm>
                                     <FormItemText
-                                        form={form}
                                         label={'Sales Description'}
                                         name={'sales_description'}
-                                        {...formState}
                                     />
 
                                     <FormItemText
-                                        form={form}
                                         label={'Purchase Description'}
                                         name={'purchase_description'}
-                                        {...formState}
                                     />
                                 </ColForm>
                             </RowForm>

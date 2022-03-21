@@ -119,7 +119,6 @@ const MaterialForm = () => {
                                 message={'Please select a product'}
                                 required={true}
                                 url={'/api/products'}
-                                {...formState}
                                 query={'product.name'}
                             />
 
@@ -129,7 +128,6 @@ const MaterialForm = () => {
                                 message={'Please select a measurement'}
                                 required={true}
                                 url={'/api/measurements'}
-                                {...formState}
                                 query={'measurement.name'}
                             />
                         </ColForm>
@@ -138,7 +136,6 @@ const MaterialForm = () => {
                             <FormItemText
                                 label={'Reference'}
                                 name={'reference'}
-                                {...formState}
                             />
 
                             <FormItemSelect
@@ -150,7 +147,6 @@ const MaterialForm = () => {
                                     {value: 'manufacture_this_product', label: 'Manufacture this product'},
                                     {value: 'kit', label: 'Kit'},
                                 ]}
-                                {...formState}
                             />
                         </ColForm>
                     </RowForm>
@@ -170,24 +166,20 @@ const MaterialForm = () => {
                                                     <RowForm key={key}>
                                                         <ColForm lg={23}>
                                                             <FormItemNumber
-                                                                form={form}
                                                                 {...restField}
                                                                 name={'id'}
-                                                                {...formState}
                                                                 style={{display: 'hidden', position: 'absolute'}}
                                                                 groupName={name}
                                                                 listName={'material_lines'}
                                                             />
 
                                                             <FormItemSelectAjax
-                                                                form={form}
                                                                 {...restField}
                                                                 placeholder={'Product'}
                                                                 name={'product_id'}
                                                                 message={'Please select a product'}
                                                                 required={true}
                                                                 url={'/api/products'}
-                                                                {...formState}
                                                                 style={{display: 'inline-block', width: '33.33%'}}
                                                                 query={`material_lines.${name}.product.name`}
                                                                 groupName={name}
@@ -195,20 +187,17 @@ const MaterialForm = () => {
                                                             />
 
                                                             <FormItemNumber
-                                                                form={form}
                                                                 {...restField}
                                                                 placeholder={'Quantity'}
                                                                 name={'quantity'}
                                                                 message={'Please input a quantity'}
                                                                 required={true}
-                                                                {...formState}
                                                                 style={{display: 'inline-block', width: '33.33%'}}
                                                                 groupName={name}
                                                                 listName={'material_lines'}
                                                             />
 
                                                             <FormItemSelectAjax
-                                                                form={form}
                                                                 {...restField}
                                                                 placeholder={'Measurement'}
                                                                 name={'measurement_id'}
@@ -216,7 +205,6 @@ const MaterialForm = () => {
                                                                 required={true}
                                                                 url={'/api/measurements'}
                                                                 search={state.materialLinesOptionReload[name] ? state.materialLinesOptionReload[name].isReload : null}
-                                                                {...formState}
                                                                 style={{display: 'inline-block', width: '33.33%'}}
                                                                 query={`material_lines.${name}.measurement.name`}
                                                                 groupName={name}
@@ -251,7 +239,6 @@ const MaterialForm = () => {
                             <RowForm>
                                 <ColForm>
                                     <FormItemSelect
-                                        form={form}
                                         label={'Flexible Consumption'}
                                         name={'flexible_consumption'}
                                         message={'Please select a flexible consumption'}
@@ -261,7 +248,6 @@ const MaterialForm = () => {
                                             {value: 'allowed_with_warning', label: 'Allowed with warning'},
                                             {value: 'blocked', label: 'Blocked'},
                                         ]}
-                                        {...formState}
                                     />
                                 </ColForm>
                             </RowForm>

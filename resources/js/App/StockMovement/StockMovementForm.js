@@ -40,60 +40,48 @@ const StockMovementForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemText
-                                form={form}
                                 label={'Reference'}
                                 name={'reference'}
                                 message={'Please input reference'}
                                 required={true}
-                                {...formState}
                             />
                             <FormItemText
-                                form={form}
                                 label={'Source'}
                                 name={'source'}
-                                {...formState}
                             />
 
                             <FormItemSelectAjax
-                                form={form}
                                 label={'Product'}
                                 name={'product_id'}
                                 message={'Please select product'}
                                 required={true}
                                 url={'/api/products'}
-                                {...formState}
                                 query={'product.name'}
                             />
 
                             <FormItemSelectAjax
-                                form={form}
                                 label={'Source Location'}
                                 name={'source_location_id'}
                                 message={'Please select source location'}
                                 required={true}
                                 url={'/api/locations'}
-                                {...formState}
                                 query={'source_location.name'}
                             />
 
                             <FormItemSelectAjax
-                                form={form}
                                 label={'Destination Location'}
                                 name={'destination_location_id'}
                                 message={'Please select destination location'}
                                 required={true}
                                 url={'/api/locations'}
-                                {...formState}
                                 query={'destination_location.name'}
                             />
 
                             <FormItemNumber
-                                form={form}
                                 label={'Quantity Done'}
                                 name={'quantity_done'}
                                 message={'Please input quantity done'}
                                 required={true}
-                                {...formState}
                             />
                         </ColForm>
                     </RowForm>

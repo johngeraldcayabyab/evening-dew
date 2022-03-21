@@ -43,13 +43,11 @@ const GlobalSettingForm = () => {
                             <RowForm>
                                 <ColForm>
                                     <FormItemSelectAjax
-                                        form={form}
                                         label={'Default Country'}
                                         name={'general_default_country_id'}
                                         message={'Please select a default country'}
                                         required={true}
                                         url={'/api/countries'}
-                                        {...formState}
                                         query={'general_default_country.country_name'}
                                     />
                                 </ColForm>
@@ -62,46 +60,38 @@ const GlobalSettingForm = () => {
                                         Measurements
                                     </Divider>
                                     <FormItemSelectAjax
-                                        form={form}
                                         label={'Default Measurement Category'}
                                         name={'inventory_default_measurement_category_id'}
                                         message={'Please select a default measurement category'}
                                         required={true}
                                         url={'/api/measurement_categories'}
-                                        {...formState}
                                         query={'inventory_default_measurement_category.name'}
                                     />
 
                                     <FormItemSelectAjax
-                                        form={form}
                                         label={'Default Measurement'}
                                         name={'inventory_default_measurement_id'}
                                         message={'Please select a default measurement'}
                                         required={true}
                                         url={'/api/measurements'}
-                                        {...formState}
                                         query={'inventory_default_measurement.name'}
                                     />
 
                                     <FormItemSelectAjax
-                                        form={form}
                                         label={'Default Purchase Measurement'}
                                         name={'inventory_default_purchase_measurement_id'}
                                         message={'Please select a default purchase measurement'}
                                         required={true}
                                         url={'/api/measurements'}
-                                        {...formState}
                                         query={'inventory_default_purchase_measurement.name'}
                                     />
 
                                     <FormItemSelectAjax
-                                        form={form}
                                         label={'Default Sales Measurement'}
                                         name={'inventory_default_sales_measurement_id'}
                                         message={'Please select a default sales measurement'}
                                         required={true}
                                         url={'/api/measurements'}
-                                        {...formState}
                                         query={'inventory_default_sales_measurement.name'}
                                     />
                                 </ColForm>
@@ -112,13 +102,11 @@ const GlobalSettingForm = () => {
                                     </Divider>
 
                                     <FormItemSelectAjax
-                                        form={form}
                                         label={'Default Product Category'}
                                         name={'inventory_default_product_category_id'}
                                         message={'Please select a default product category'}
                                         required={true}
                                         url={'/api/product_categories'}
-                                        {...formState}
                                         query={'inventory_default_product_category.category'}
                                     />
                                 </ColForm>
@@ -131,59 +119,49 @@ const GlobalSettingForm = () => {
 
                                 <ColForm>
                                     <FormItemSelectAjax
-                                        form={form}
                                         label={'Default Customer Location'}
                                         name={'inventory_default_customer_location_id'}
                                         message={'Please select a default customer location'}
                                         required={true}
                                         url={'/api/locations'}
-                                        {...formState}
                                         query={'inventory_default_customer_location.name'}
                                     />
 
                                     <FormItemSelectAjax
-                                        form={form}
                                         label={'Default Vendor Location'}
                                         name={'inventory_default_vendor_location_id'}
                                         message={'Please select a default customer location'}
                                         required={true}
                                         url={'/api/locations'}
-                                        {...formState}
                                         query={'inventory_default_vendor_location.name'}
                                     />
 
                                     <FormItemSelectAjax
-                                        form={form}
                                         label={'Default Inventory Adjustment Location'}
                                         name={'inventory_default_inventory_adjustment_id'}
                                         message={'Please select a default customer location'}
                                         required={true}
                                         url={'/api/locations'}
-                                        {...formState}
                                         query={'inventory_default_inventory_adjustment.name'}
                                     />
                                 </ColForm>
 
                                 <ColForm>
                                     <FormItemSelectAjax
-                                        form={form}
                                         label={'Default Production Location'}
                                         name={'inventory_default_production_id'}
                                         message={'Please select a default customer location'}
                                         required={true}
                                         url={'/api/locations'}
-                                        {...formState}
                                         query={'inventory_default_production.name'}
                                     />
 
                                     <FormItemSelectAjax
-                                        form={form}
                                         label={'Default Scrap Location'}
                                         name={'inventory_default_scrap_id'}
                                         message={'Please select a default customer location'}
                                         required={true}
                                         url={'/api/locations'}
-                                        {...formState}
                                         query={'inventory_default_scrap.name'}
                                     />
                                 </ColForm>
@@ -195,21 +173,17 @@ const GlobalSettingForm = () => {
                                 </Divider>
                                 <ColForm>
                                     <FormItemSelectAjax
-                                        form={form}
                                         label={'Default Warehouse'}
                                         name={'inventory_default_warehouse_id'}
                                         url={'/api/warehouses'}
-                                        {...formState}
                                         query={'inventory_default_warehouse.name'}
                                     />
                                 </ColForm>
 
                                 <ColForm>
                                     <FormItemCheckbox
-                                        form={form}
                                         label={'Auto validate drafts'}
                                         name={'inventory_auto_validate_draft'}
-                                        {...formState}
                                     />
                                 </ColForm>
                             </RowForm>
@@ -219,13 +193,11 @@ const GlobalSettingForm = () => {
                             <RowForm>
                                 <ColForm>
                                     <FormItemSelectAjax
-                                        form={form}
                                         label={'Default Currency'}
                                         name={'accounting_default_currency_id'}
                                         message={'Please select a default currency'}
                                         required={true}
                                         url={'/api/currencies'}
-                                        {...formState}
                                         query={'accounting_default_currency.currency'}
                                     />
                                 </ColForm>
@@ -236,11 +208,9 @@ const GlobalSettingForm = () => {
                             <RowForm>
                                 <ColForm>
                                     <FormItemSelectAjax
-                                        form={form}
                                         label={'Sales Default Sequence'}
                                         name={'sales_order_default_sequence_id'}
                                         url={'/api/sequences'}
-                                        {...formState}
                                         query={'sales_order_default_sequence.name'}
                                     />
                                 </ColForm>

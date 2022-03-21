@@ -38,37 +38,29 @@ const CountryForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemText
-                                form={form}
                                 label={'Country Name'}
                                 name={'country_name'}
                                 message={'Please input country name'}
                                 required={true}
-                                {...formState}
                             />
 
                             <FormItemSelectAjax
-                                form={form}
                                 label={'Currency'}
                                 name={'currency_id'}
                                 url={'/api/currencies'}
-                                {...formState}
                                 query={'currency.currency'}
                             />
 
                             <FormItemText
-                                form={form}
                                 label={'Country Code'}
                                 name={'country_code'}
-                                {...formState}
                             />
                         </ColForm>
 
                         <ColForm>
                             <FormItemText
-                                form={form}
                                 label={'Country Calling Code'}
                                 name={'country_calling_code'}
-                                {...formState}
                             />
                         </ColForm>
                     </RowForm>

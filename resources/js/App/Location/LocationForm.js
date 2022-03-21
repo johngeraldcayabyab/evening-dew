@@ -41,22 +41,18 @@ const LocationForm = () => {
                     <RowForm>
                         <ColForm lg={24}>
                             <FormItemText
-                                form={form}
                                 label={'Name'}
                                 name={'name'}
                                 message={'Please input name'}
                                 required={true}
                                 size={'large'}
-                                {...formState}
                             />
 
                             <FormItemSelectAjax
-                                form={form}
                                 label={'Parent Category'}
                                 name={'parent_location_id'}
                                 url={'/api/locations'}
                                 size={'medium'}
-                                {...formState}
                                 query={'parent_location.name'}
                             />
                         </ColForm>
@@ -69,7 +65,6 @@ const LocationForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemSelect
-                                form={form}
                                 label={'Type'}
                                 name={'type'}
                                 message={'Please select a location type'}
@@ -83,21 +78,16 @@ const LocationForm = () => {
                                     {value: 'production', label: 'Production'},
                                     {value: 'transit_location', label: 'Transit Location'},
                                 ]}
-                                {...formState}
                             />
 
                             <FormItemCheckbox
-                                form={form}
                                 label={'Is a scrap location?'}
                                 name={'is_a_scrap_location'}
-                                {...formState}
                             />
 
                             <FormItemCheckbox
-                                form={form}
                                 label={'Is a return location?'}
                                 name={'is_a_return_location'}
-                                {...formState}
                             />
                         </ColForm>
                     </RowForm>

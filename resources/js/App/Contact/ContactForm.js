@@ -39,21 +39,17 @@ const ContactForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemText
-                                form={form}
                                 label={'Name'}
                                 name={'name'}
                                 message={'Please input name'}
                                 required={true}
                                 size={'large'}
-                                {...formState}
                             />
                         </ColForm>
 
                         <ColForm>
                             <FormItemUpload
-                                form={form}
                                 name={'avatar'}
-                                {...formState}
                             />
                         </ColForm>
                     </RowForm>
@@ -62,53 +58,40 @@ const ContactForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemText
-                                form={form}
                                 label={'Street 1'}
                                 name={'street_one'}
-                                {...formState}
                             />
 
                             <FormItemText
-                                form={form}
                                 label={'Street 2'}
                                 name={'street_two'}
-                                {...formState}
                             />
 
                             <FormItemText
-                                form={form}
                                 label={'City'}
                                 name={'city'}
-                                {...formState}
                             />
 
                             <FormItemText
-                                form={form}
                                 label={'State'}
                                 name={'state'}
-                                {...formState}
                             />
 
                             <FormItemText
-                                form={form}
                                 label={'Zip'}
                                 name={'zip'}
-                                {...formState}
                             />
 
                             <FormItemSelectAjax
-                                form={form}
                                 label={'Country'}
                                 name={'country_id'}
                                 url={'/api/countries'}
-                                {...formState}
                                 query={'country.country_name'}
                             />
 
                             <FormItemText
                                 label={'Tax ID'}
                                 name={'tax_id'}
-                                {...formState}
                             />
                         </ColForm>
 
@@ -116,25 +99,21 @@ const ContactForm = () => {
                             <FormItemText
                                 label={'Phone'}
                                 name={'phone'}
-                                {...formState}
                             />
 
                             <FormItemText
                                 label={'Mobile'}
                                 name={'mobile'}
-                                {...formState}
                             />
 
                             <FormItemText
                                 label={'Email'}
                                 name={'email'}
-                                {...formState}
                             />
 
                             <FormItemText
                                 label={'Website'}
                                 name={'website'}
-                                {...formState}
                             />
                         </ColForm>
                     </RowForm>

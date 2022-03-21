@@ -40,15 +40,12 @@ const SequenceForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemText
-                                form={form}
                                 label={'Name'}
                                 name={'name'}
                                 message={'Please input name'}
                                 required={true}
-                                {...formState}
                             />
                             <FormItemSelect
-                                form={form}
                                 label={'Implementation'}
                                 name={'implementation'}
                                 message={'Please select an implementation'}
@@ -57,17 +54,14 @@ const SequenceForm = () => {
                                     {value: 'no_gap', label: 'No Gap'},
                                     {value: 'standard', label: 'Standard'},
                                 ]}
-                                {...formState}
                             />
                         </ColForm>
                         <ColForm>
                             <FormItemText
-                                form={form}
                                 label={'Sequence Code'}
                                 name={'sequence_code'}
                                 message={'Please input sequence code'}
                                 required={true}
-                                {...formState}
                             />
                         </ColForm>
                     </RowForm>
@@ -75,42 +69,32 @@ const SequenceForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemText
-                                form={form}
                                 label={'Prefix'}
                                 name={'prefix'}
-                                {...formState}
                             />
                             <FormItemText
-                                form={form}
                                 label={'Suffix'}
                                 name={'suffix'}
-                                {...formState}
                             />
                         </ColForm>
                         <ColForm>
                             <FormItemNumber
-                                form={form}
                                 label={'Sequence Size'}
                                 name={'sequence_size'}
                                 message={'Please input sequence size'}
                                 required={true}
-                                {...formState}
                             />
                             <FormItemNumber
-                                form={form}
                                 label={'Step'}
                                 name={'step'}
                                 message={'Please input step'}
                                 required={true}
-                                {...formState}
                             />
                             <FormItemNumber
-                                form={form}
                                 label={'Next number'}
                                 name={'next_number'}
                                 message={'Please input next number'}
                                 required={true}
-                                {...formState}
                             />
                         </ColForm>
                     </RowForm>

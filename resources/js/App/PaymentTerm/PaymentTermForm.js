@@ -37,12 +37,10 @@ const PaymentTermForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemText
-                                form={form}
                                 label={'Name'}
                                 name={'name'}
                                 message={'Please input name'}
                                 required={true}
-                                {...formState}
                             />
                         </ColForm>
                     </RowForm>

@@ -39,31 +39,25 @@ const UserForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemText
-                                form={form}
                                 label={'Name'}
                                 name={'name'}
                                 message={'Please input name'}
                                 required={true}
                                 size={'large'}
-                                {...formState}
                             />
 
                             <FormItemText
-                                form={form}
                                 label={'Email'}
                                 name={'email'}
                                 message={'Please input email'}
                                 required={true}
                                 size={'medium'}
-                                {...formState}
                             />
                         </ColForm>
 
                         <ColForm>
                             <FormItemUpload
-                                form={form}
                                 name={'avatar'}
-                                {...formState}
                             />
                         </ColForm>
                     </RowForm>
@@ -75,22 +69,18 @@ const UserForm = () => {
                         <RowForm>
                             <ColForm>
                                 <FormItemText
-                                    form={form}
                                     label={'Password'}
                                     name={'password'}
                                     message={'Please input password'}
                                     required={true}
-                                    {...formState}
                                 />
                             </ColForm>
                             <ColForm>
                                 <FormItemText
-                                    form={form}
                                     label={'Confirm Password'}
                                     name={'password_confirmation'}
                                     message={'Please input password'}
                                     required={true}
-                                    {...formState}
                                 />
                             </ColForm>
                         </RowForm>

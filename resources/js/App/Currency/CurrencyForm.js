@@ -39,34 +39,26 @@ const CurrencyForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemText
-                                form={form}
                                 label={'Currency'}
                                 name={'currency'}
                                 message={'Please input currency'}
                                 required={true}
-                                {...formState}
                             />
 
                             <FormItemText
-                                form={form}
                                 label={'Name'}
                                 name={'name'}
-                                {...formState}
                             />
                         </ColForm>
 
                         <ColForm>
                             <FormItemText
-                                form={form}
                                 label={'Unit'}
                                 name={'unit'}
-                                {...formState}
                             />
                             <FormItemText
-                                form={form}
                                 label={'Sub Unit'}
                                 name={'sub_unit'}
-                                {...formState}
                             />
                         </ColForm>
                     </RowForm>
@@ -74,30 +66,23 @@ const CurrencyForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemNumber
-                                form={form}
                                 label={'Rounding Factor'}
                                 name={'rounding_factor'}
-                                {...formState}
                             />
                             <FormItemNumber
-                                form={form}
                                 label={'Decimal Places'}
                                 name={'decimal_places'}
-                                {...formState}
                             />
                         </ColForm>
                         <ColForm>
                             <FormItemText
-                                form={form}
                                 label={'Symbol'}
                                 name={'symbol'}
                                 message={'Please input symbol'}
                                 required={true}
-                                {...formState}
                             />
 
                             <FormItemSelect
-                                form={form}
                                 label={'Symbol Position'}
                                 name={'symbol_position'}
                                 message={'Please select symbol position'}
@@ -106,7 +91,6 @@ const CurrencyForm = () => {
                                     {value: 'after_amount', label: 'After Amount'},
                                     {value: 'before_amount', label: 'Before Amount'},
                                 ]}
-                                {...formState}
                             />
                         </ColForm>
                     </RowForm>
