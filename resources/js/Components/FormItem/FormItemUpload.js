@@ -18,10 +18,10 @@ const FormItemUpload = (props) => {
         setState((prevState) => {
             return {
                 ...prevState,
-                imageUrl: objectHasValue(props.initialValues) && props.initialValues.avatar ? props.initialValues.avatar : null
+                imageUrl: objectHasValue(formContext.formState.initialValues) && formContext.formState.initialValues.avatar ? formContext.formState.initialValues.avatar : null
             };
         });
-    }, [props.initialValues, props.formDisabled]);
+    }, [formContext.formState.initialValues, formContext.formState.formDisabled]);
 
     function getBase64(img, callback) {
         const reader = new FileReader();
@@ -85,7 +85,7 @@ const FormItemUpload = (props) => {
             wrapperCol={{span: 4}}
         >
             <PopoverImage
-                formDisabled={props.formDisabled}
+                formDisabled={formContext.formState.formDisabled}
                 imageUrl={state.imageUrl}
                 content={<Button onClick={removeImage}>Remove</Button>}
             >
@@ -97,19 +97,19 @@ const FormItemUpload = (props) => {
                     beforeUpload={beforeUpload}
                     onChange={handleChange}
                     className={'form-item-upload'}
-                    disabled={props.formDisabled}
+                    disabled={formContext.formState.formDisabled}
                     headers={{
                         'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
                         'Authorization': getCookie('Authorization')
                     }}
                 >
                     {
-                        props.formDisabled ?
+                        formContext.formState.formDisabled ?
                             <Image
-                                src={objectHasValue(props.initialValues) && props.initialValues.avatar ? props.initialValues.avatar : '/images/no-image.jpg'}
+                                src={objectHasValue(formContext.formState.initialValues) && formContext.formState.initialValues.avatar ? formContext.formState.initialValues.avatar : '/images/no-image.jpg'}
                                 alt="avatar"
                                 style={{maxWidth: '100%', maxHeight: '100%'}}
-                                preview={!!(objectHasValue(props.initialValues) && props.initialValues.avatar)}
+                                preview={!!(objectHasValue(formContext.formState.initialValues) && formContext.formState.initialValues.avatar)}
                             /> : state.imageUrl ?
                                 <>
                                     <Image

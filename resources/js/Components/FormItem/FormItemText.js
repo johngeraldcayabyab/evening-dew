@@ -10,7 +10,7 @@ const FormItemText = (props) => {
 
     return (
         <Form.Item {...formItemProps}>
-            {props.loading ? <CustomInputSkeleton {...props}/> :
+            {formContext.formState.loading ? <CustomInputSkeleton {...props}/> :
                 <Input {...fieldProps}/>
             }
         </Form.Item>
