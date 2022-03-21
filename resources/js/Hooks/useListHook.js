@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react";
-import useFetchHook from "./useFetchCatcherHook";
 import useFetchHook from "./useFetchHook";
 import {DELETE, GET, POST} from "../consts";
 import {getAllUrlParams, getQueryVariable} from "../Helpers/url";
+import useFetchCatcherHook from "./useFetchCatcherHook";
 
 const useListHook = (manifest, columns) => {
     const [useFetch, fetchAbort] = useFetchHook();
-    const fetchCatcher = useFetchHook();
+    const fetchCatcher = useFetchCatcherHook();
     const moduleName = manifest.moduleName;
     const eventName = manifest.eventName;
     const [tableState, setTableState] = useState({

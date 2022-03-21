@@ -1,7 +1,7 @@
 import {Form, Select} from "antd";
 import {useEffect, useState} from "react";
 import CustomInputSkeleton from "../CustomInputSkeleton";
-import useFetchHook from "../../Hooks/useFetchCatcherHook";
+import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import useFetchHook from "../../Hooks/useFetchHook";
 import {GET} from "../../consts";
 import {formItemFieldProps} from "../../Helpers/form";

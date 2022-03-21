@@ -20,7 +20,7 @@ import {
     GenerateDynamicColumns
 } from "../../Helpers/form";
 import useFetchHook from "../../Hooks/useFetchHook";
-import useFetchHook from "../../Hooks/useFetchCatcherHook";
+import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {GET, POST} from "../../consts";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 
@@ -30,8 +30,8 @@ const MaterialForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
-    const [useFetch, fetchAbort] = useFetchHook();
-    const fetchCatcher = useFetchHook();
+    const [useFetch, fetchAbort] = useFetchCatcherHook();
+    const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
         materialLinesOptionReload: [],
         materialLinesDeleted: [],

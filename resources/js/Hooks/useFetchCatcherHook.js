@@ -4,7 +4,7 @@ import {useContext, useState} from "react";
 import {eraseCookie, getCookie} from "../Helpers/cookie";
 import {AppContext} from "../App";
 
-const useFetchHook = () => {
+const useFetchCatcherHook = () => {
     const appContext = useContext(AppContext);
     const history = useHistory();
 
@@ -40,5 +40,5 @@ const useFetchHook = () => {
     return handle;
 };
 
-export default useFetchHook;
+export default useFetchCatcherHook;
 
