@@ -14,12 +14,7 @@ import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {GET, POST} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
-import {
-    checkIfADynamicInputChangedAndDoSomething,
-    DynamicFieldAddButton,
-    DynamicFieldRemoveButton,
-    GenerateDynamicColumns
-} from "../../Helpers/form";
+import {checkIfADynamicInputChangedAndDoSomething} from "../../Helpers/form";
 import FormItemDate from "../../Components/FormItem/FormItemDate";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import StatusBar from "../../Components/StatusBar";
@@ -30,6 +25,9 @@ import {objectHasValue} from "../../Helpers/object";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import useFetchHook from "../../Hooks/useFetchHook";
 import {FormContextProvider} from "../../Contexts/FormContext";
+import RemoveLineButton from "../../Components/FormLines/RemoveLineButton";
+import AddLineButton from "../../Components/FormLines/AddLineButton";
+import LineColumn from "../../Components/FormLines/LineColumn";
 
 const {TabPane} = Tabs;
 
@@ -302,7 +300,7 @@ const SalesOrderForm = () => {
 
                     <Tabs defaultActiveKey="1">
                         <TabPane tab="Order Lines" key="1">
-                            <GenerateDynamicColumns
+                            <LineColumn
                                 columns={['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Subtotal']}
                             />
                             <RowForm>
@@ -390,18 +388,14 @@ const SalesOrderForm = () => {
                                                             />
                                                         </ColForm>
 
-                                                        <DynamicFieldRemoveButton
+                                                        <RemoveLineButton
                                                             remove={remove}
-                                                            form={form}
                                                             dynamicName={'sales_order_lines'}
                                                             name={name}
-                                                            formState={formState}
-                                                            setState={setState}
                                                         />
                                                     </RowForm>
                                                 ))}
-                                                <DynamicFieldAddButton
-                                                    formState={formState}
+                                                <AddLineButton
                                                     add={add}
                                                     label={'Add a product'}
                                                 />

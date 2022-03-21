@@ -22,3 +22,6 @@ export const replaceUnderscoreWithSpace = (string) => {
     }
     return string;
 };
+
+
+export const snakeToCamel = s => s.replace(/(_\w)/g, k => k[1].toUpperCase());

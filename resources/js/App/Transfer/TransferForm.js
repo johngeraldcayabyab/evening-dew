@@ -16,17 +16,15 @@ import FormItemDate from "../../Components/FormItem/FormItemDate";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {GET, POST} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
-import {
-    checkIfADynamicInputChangedAndDoSomething,
-    DynamicFieldAddButton,
-    DynamicFieldRemoveButton,
-    GenerateDynamicColumns
-} from "../../Helpers/form";
+import {checkIfADynamicInputChangedAndDoSomething} from "../../Helpers/form";
 import StatusBar from "../../Components/StatusBar";
 import FormItemStatus from "../../Components/FormItem/FormItemStatus";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import useFetchHook from "../../Hooks/useFetchHook";
 import {FormContextProvider} from "../../Contexts/FormContext";
+import AddLineButton from "../../Components/FormLines/AddLineButton";
+import RemoveLineButton from "../../Components/FormLines/RemoveLineButton";
+import LineColumn from "../../Components/FormLines/LineColumn";
 
 const {TabPane} = Tabs;
 
@@ -234,7 +232,7 @@ const TransferForm = () => {
 
                     <Tabs defaultActiveKey="1">
                         <TabPane tab="Operations" key="1">
-                            <GenerateDynamicColumns
+                            <LineColumn
                                 columns={['Product', 'Description', 'Demand', 'Measurement']}
                             />
 
@@ -302,18 +300,14 @@ const TransferForm = () => {
                                                             />
                                                         </ColForm>
 
-                                                        <DynamicFieldRemoveButton
+                                                        <RemoveLineButton
                                                             remove={remove}
-                                                            form={form}
                                                             dynamicName={'transfer_lines'}
                                                             name={name}
-                                                            formState={formState}
-                                                            setState={setState}
                                                         />
                                                     </RowForm>
                                                 ))}
-                                                <DynamicFieldAddButton
-                                                    formState={formState}
+                                                <AddLineButton
                                                     add={add}
                                                     label={'Add a product'}
                                                 />
