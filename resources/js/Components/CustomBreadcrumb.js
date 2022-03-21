@@ -1,14 +1,16 @@
 import {Breadcrumb} from "antd";
 import {useLocation} from "react-router";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import Title from "antd/lib/typography/Title";
 import {getBreadcrumbs, getClickedBreadcrumb, setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import {objectHasValue} from "../Helpers/object";
+import {FormContext} from "../Contexts/FormContext";
 
-const CustomBreadcrumb = (props) => {
+const CustomBreadcrumb = () => {
     const location = useLocation();
+    const formContext = useContext(FormContext);
     const [state, setState] = useState({
         breadcrumbs: [],
     });
@@ -20,20 +22,20 @@ const CustomBreadcrumb = (props) => {
             link: null,
             slug: null,
         };
-        if (props.hasOwnProperty('formState') && !props.formState.initialLoad) {
-            if (props.formState.id) {
-                breadcrumb.slug = props.formState.initialValues.slug;
+        if (formContext.hasOwnProperty('formState') && !formContext.formState.initialLoad) {
+            if (formContext.formState.id) {
+                breadcrumb.slug = formContext.formState.initialValues.slug;
             } else {
                 breadcrumb.slug = 'New';
             }
         }
-        if (props.hasOwnProperty('tableState') && !props.tableState.initialLoad) {
-            breadcrumb.slug = titleCase(replaceUnderscoreWithSpace(props.tableState.moduleName));
+        if (formContext.hasOwnProperty('tableState') && !formContext.tableState.initialLoad) {
+            breadcrumb.slug = titleCase(replaceUnderscoreWithSpace(formContext.tableState.moduleName));
         }
         if (breadcrumb.slug) {
             setBreadcrumbsAndState(breadcrumbs, breadcrumb);
         }
-    }, [props.tableState, props.formState]);
+    }, [formContext.tableState, formContext.formState]);
 
     function setBreadcrumbsAndState(breadcrumbs, newBreadcrumb) {
         let pathname = location.pathname;

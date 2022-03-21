@@ -20,10 +20,10 @@ const UserForm = () => {
     const [formState, formActions] = useFormHook(id, form, manifest);
 
     return (
-        <FormContextProvider value={{form: form, onFinish: formActions.onFinish}}>
+        <FormContextProvider value={{form: form, formState: formState, onFinish: formActions.onFinish}}>
             <CustomForm>
                 <ControlPanel
-                    topColOneLeft={<CustomBreadcrumb formState={formState}/>}
+                    topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={
                         <FormButtons
                             id={id}
