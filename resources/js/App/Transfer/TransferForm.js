@@ -26,6 +26,7 @@ import StatusBar from "../../Components/StatusBar";
 import FormItemStatus from "../../Components/FormItem/FormItemStatus";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import useFetchHook from "../../Hooks/useFetchHook";
+import {FormContextProvider} from "../../Contexts/FormContext";
 
 const {TabPane} = Tabs;
 
@@ -120,290 +121,291 @@ const TransferForm = () => {
     }
 
     return (
-        <CustomForm
-            form={form}
-            onFinish={onFinish}
-            onValuesChange={onValuesChange}
-        >
-            <ControlPanel
-                topColOneLeft={<CustomBreadcrumb formState={formState}/>}
-                bottomColOneLeft={
-                    <FormButtons
-                        id={id}
-                        form={form}
-                        formState={formState}
-                        formActions={formActions}
-                        manifest={manifest}
-                    />
-                }
-            />
-            <StatusBar
-                id={id}
-                form={form}
-                formState={formState}
-                formActions={formActions}
-                manifest={manifest}
-                statuses={[
-                    {
-                        value: 'draft',
-                        title: 'Draft',
-                        status: {draft: 'process', done: 'finish', cancelled: 'wait'}
-                    },
-                    {
-                        value: 'done',
-                        title: 'Done',
-                        type: 'primary',
-                        label: 'Validate',
-                        status: {draft: 'wait', done: 'finish', cancelled: 'wait'},
-                        visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
-                    },
-                    {
-                        value: 'cancelled',
-                        title: 'Cancelled',
-                        type: 'ghost',
-                        label: 'Cancel',
-                        status: {draft: 'wait', done: 'wait', cancelled: 'finish'},
-                        visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
-                    },
-                ]}
-            />
-            <FormCard {...formState}>
-                <RowForm>
-                    <ColForm>
-                        <FormItemStatus
+        <FormContextProvider value={{form: form, onFinish: onFinish, onValuesChange: onValuesChange}}>
+            <CustomForm>
+                <ControlPanel
+                    topColOneLeft={<CustomBreadcrumb formState={formState}/>}
+                    bottomColOneLeft={
+                        <FormButtons
+                            id={id}
                             form={form}
-                            name={'status'}
-                            {...formState}
+                            formState={formState}
+                            formActions={formActions}
+                            manifest={manifest}
                         />
+                    }
+                />
+                <StatusBar
+                    id={id}
+                    form={form}
+                    formState={formState}
+                    formActions={formActions}
+                    manifest={manifest}
+                    statuses={[
+                        {
+                            value: 'draft',
+                            title: 'Draft',
+                            status: {draft: 'process', done: 'finish', cancelled: 'wait'}
+                        },
+                        {
+                            value: 'done',
+                            title: 'Done',
+                            type: 'primary',
+                            label: 'Validate',
+                            status: {draft: 'wait', done: 'finish', cancelled: 'wait'},
+                            visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
+                        },
+                        {
+                            value: 'cancelled',
+                            title: 'Cancelled',
+                            type: 'ghost',
+                            label: 'Cancel',
+                            status: {draft: 'wait', done: 'wait', cancelled: 'finish'},
+                            visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
+                        },
+                    ]}
+                />
+                <FormCard {...formState}>
+                    <RowForm>
+                        <ColForm>
+                            <FormItemStatus
+                                form={form}
+                                name={'status'}
+                                {...formState}
+                            />
 
-                        <FormItemText
-                            overrideDisabled={true}
-                            form={form}
-                            label={'Reference'}
-                            name={'reference'}
-                            size={'large'}
-                            {...formState}
-                        />
-                    </ColForm>
-                </RowForm>
+                            <FormItemText
+                                overrideDisabled={true}
+                                form={form}
+                                label={'Reference'}
+                                name={'reference'}
+                                size={'large'}
+                                {...formState}
+                            />
+                        </ColForm>
+                    </RowForm>
 
-                <RowForm>
-                    <ColForm>
-                        <FormItemSelectAjax
-                            form={form}
-                            label={'Contact'}
-                            name={'contact_id'}
-                            url={'/api/contacts'}
-                            {...formState}
-                            query={'contact.name'}
-                        />
+                    <RowForm>
+                        <ColForm>
+                            <FormItemSelectAjax
+                                form={form}
+                                label={'Contact'}
+                                name={'contact_id'}
+                                url={'/api/contacts'}
+                                {...formState}
+                                query={'contact.name'}
+                            />
 
 
-                        <FormItemSelectAjax
-                            form={form}
-                            label={'Operation Type'}
-                            name={'operation_type_id'}
-                            message={'Please select a operation type'}
-                            required={true}
-                            url={'/api/operations_types'}
-                            {...formState}
-                            query={'operation_type.name'}
-                        />
+                            <FormItemSelectAjax
+                                form={form}
+                                label={'Operation Type'}
+                                name={'operation_type_id'}
+                                message={'Please select a operation type'}
+                                required={true}
+                                url={'/api/operations_types'}
+                                {...formState}
+                                query={'operation_type.name'}
+                            />
 
-                        <FormItemSelectAjax
-                            form={form}
-                            label={'Source Location'}
-                            name={'source_location_id'}
-                            url={'/api/locations'}
-                            {...formState}
-                            search={state.defaultSourceLocationReload}
-                            query={'source_location.name'}
-                        />
+                            <FormItemSelectAjax
+                                form={form}
+                                label={'Source Location'}
+                                name={'source_location_id'}
+                                url={'/api/locations'}
+                                {...formState}
+                                search={state.defaultSourceLocationReload}
+                                query={'source_location.name'}
+                            />
 
-                        <FormItemSelectAjax
-                            form={form}
-                            label={'Destination Location'}
-                            name={'destination_location_id'}
-                            url={'/api/locations'}
-                            {...formState}
-                            search={state.defaultDestinationLocationReload}
-                            query={'destination_location.name'}
-                        />
-                    </ColForm>
-                    <ColForm>
+                            <FormItemSelectAjax
+                                form={form}
+                                label={'Destination Location'}
+                                name={'destination_location_id'}
+                                url={'/api/locations'}
+                                {...formState}
+                                search={state.defaultDestinationLocationReload}
+                                query={'destination_location.name'}
+                            />
+                        </ColForm>
+                        <ColForm>
 
-                        <FormItemDate
-                            form={form}
-                            label={'Scheduled date'}
-                            name={'scheduled_date'}
-                            {...formState}
-                        />
+                            <FormItemDate
+                                form={form}
+                                label={'Scheduled date'}
+                                name={'scheduled_date'}
+                                {...formState}
+                            />
 
-                        <FormItemText
-                            form={form}
-                            label={'Source Document'}
-                            name={'source_document'}
-                            {...formState}
-                        />
-                    </ColForm>
-                </RowForm>
+                            <FormItemText
+                                form={form}
+                                label={'Source Document'}
+                                name={'source_document'}
+                                {...formState}
+                            />
+                        </ColForm>
+                    </RowForm>
 
-                <Tabs defaultActiveKey="1">
-                    <TabPane tab="Operations" key="1">
-                        <GenerateDynamicColumns
-                            columns={['Product', 'Description', 'Demand', 'Measurement']}
-                        />
+                    <Tabs defaultActiveKey="1">
+                        <TabPane tab="Operations" key="1">
+                            <GenerateDynamicColumns
+                                columns={['Product', 'Description', 'Demand', 'Measurement']}
+                            />
 
-                        <RowForm>
-                            <ColForm lg={24}>
-                                <Form.List name="transfer_lines">
-                                    {(fields, {add, remove}) => (
-                                        <>
-                                            {fields.map(({key, name, ...restField}) => (
-                                                <RowForm key={key}>
-                                                    <ColForm lg={23}>
-                                                        <FormItemNumber
+                            <RowForm>
+                                <ColForm lg={24}>
+                                    <Form.List name="transfer_lines">
+                                        {(fields, {add, remove}) => (
+                                            <>
+                                                {fields.map(({key, name, ...restField}) => (
+                                                    <RowForm key={key}>
+                                                        <ColForm lg={23}>
+                                                            <FormItemNumber
+                                                                form={form}
+                                                                {...restField}
+                                                                name={'id'}
+                                                                {...formState}
+                                                                style={{display: 'hidden', position: 'absolute'}}
+                                                                groupName={name}
+                                                                listName={'transfer_lines'}
+                                                            />
+
+                                                            <FormItemSelectAjax
+                                                                form={form}
+                                                                {...restField}
+                                                                placeholder={'Product'}
+                                                                name={'product_id'}
+                                                                message={'Please select a product'}
+                                                                required={true}
+                                                                url={'/api/products'}
+                                                                {...formState}
+                                                                style={{display: 'inline-block', width: '25%'}}
+                                                                query={`transfer_lines.${name}.product.name`}
+                                                                groupName={name}
+                                                                listName={'transfer_lines'}
+                                                            />
+
+                                                            <FormItemText
+                                                                form={form}
+                                                                {...restField}
+                                                                placeholder={'Description'}
+                                                                name={'description'}
+                                                                {...formState}
+                                                                style={{display: 'inline-block', width: '25%'}}
+                                                                groupName={name}
+                                                                listName={'transfer_lines'}
+                                                            />
+
+                                                            <FormItemNumber
+                                                                form={form}
+                                                                {...restField}
+                                                                placeholder={'Demand'}
+                                                                name={'demand'}
+                                                                message={'Please input a demand'}
+                                                                required={true}
+                                                                {...formState}
+                                                                style={{display: 'inline-block', width: '25%'}}
+                                                                groupName={name}
+                                                                listName={'transfer_lines'}
+                                                            />
+
+                                                            <FormItemSelectAjax
+                                                                form={form}
+                                                                {...restField}
+                                                                placeholder={'Measurement'}
+                                                                name={'measurement_id'}
+                                                                message={'Please select a measurement'}
+                                                                required={true}
+                                                                url={'/api/measurements'}
+                                                                search={state.transferLinesOptionReload[name] ? state.transferLinesOptionReload[name].isReload : null}
+                                                                {...formState}
+                                                                style={{display: 'inline-block', width: '25%'}}
+                                                                query={`transfer_lines.${name}.measurement.name`}
+                                                                groupName={name}
+                                                                listName={'transfer_lines'}
+                                                            />
+                                                        </ColForm>
+
+                                                        <DynamicFieldRemoveButton
+                                                            remove={remove}
                                                             form={form}
-                                                            {...restField}
-                                                            name={'id'}
-                                                            {...formState}
-                                                            style={{display: 'hidden', position: 'absolute'}}
-                                                            groupName={name}
-                                                            listName={'transfer_lines'}
+                                                            dynamicName={'transfer_lines'}
+                                                            name={name}
+                                                            formState={formState}
+                                                            setState={setState}
                                                         />
+                                                    </RowForm>
+                                                ))}
+                                                <DynamicFieldAddButton
+                                                    formState={formState}
+                                                    add={add}
+                                                    label={'Add a product'}
+                                                />
+                                            </>
+                                        )}
+                                    </Form.List>
+                                </ColForm>
+                            </RowForm>
 
-                                                        <FormItemSelectAjax
-                                                            form={form}
-                                                            {...restField}
-                                                            placeholder={'Product'}
-                                                            name={'product_id'}
-                                                            message={'Please select a product'}
-                                                            required={true}
-                                                            url={'/api/products'}
-                                                            {...formState}
-                                                            style={{display: 'inline-block', width: '25%'}}
-                                                            query={`transfer_lines.${name}.product.name`}
-                                                            groupName={name}
-                                                            listName={'transfer_lines'}
-                                                        />
-
-                                                        <FormItemText
-                                                            form={form}
-                                                            {...restField}
-                                                            placeholder={'Description'}
-                                                            name={'description'}
-                                                            {...formState}
-                                                            style={{display: 'inline-block', width: '25%'}}
-                                                            groupName={name}
-                                                            listName={'transfer_lines'}
-                                                        />
-
-                                                        <FormItemNumber
-                                                            form={form}
-                                                            {...restField}
-                                                            placeholder={'Demand'}
-                                                            name={'demand'}
-                                                            message={'Please input a demand'}
-                                                            required={true}
-                                                            {...formState}
-                                                            style={{display: 'inline-block', width: '25%'}}
-                                                            groupName={name}
-                                                            listName={'transfer_lines'}
-                                                        />
-
-                                                        <FormItemSelectAjax
-                                                            form={form}
-                                                            {...restField}
-                                                            placeholder={'Measurement'}
-                                                            name={'measurement_id'}
-                                                            message={'Please select a measurement'}
-                                                            required={true}
-                                                            url={'/api/measurements'}
-                                                            search={state.transferLinesOptionReload[name] ? state.transferLinesOptionReload[name].isReload : null}
-                                                            {...formState}
-                                                            style={{display: 'inline-block', width: '25%'}}
-                                                            query={`transfer_lines.${name}.measurement.name`}
-                                                            groupName={name}
-                                                            listName={'transfer_lines'}
-                                                        />
-                                                    </ColForm>
-
-                                                    <DynamicFieldRemoveButton
-                                                        remove={remove}
-                                                        form={form}
-                                                        dynamicName={'transfer_lines'}
-                                                        name={name}
-                                                        formState={formState}
-                                                        setState={setState}
-                                                    />
-                                                </RowForm>
-                                            ))}
-                                            <DynamicFieldAddButton
-                                                formState={formState}
-                                                add={add}
-                                                label={'Add a product'}
-                                            />
-                                        </>
-                                    )}
-                                </Form.List>
-                            </ColForm>
-                        </RowForm>
-
-                    </TabPane>
+                        </TabPane>
 
 
-                    <TabPane tab="Additional Info" key="2">
-                        <RowForm>
-                            <ColForm>
-                                <FormItemText
-                                    form={form}
-                                    label={'Tracking Reference'}
-                                    name={'tracking_reference'}
-                                    {...formState}
-                                />
-                            </ColForm>
+                        <TabPane tab="Additional Info" key="2">
+                            <RowForm>
+                                <ColForm>
+                                    <FormItemText
+                                        form={form}
+                                        label={'Tracking Reference'}
+                                        name={'tracking_reference'}
+                                        {...formState}
+                                    />
+                                </ColForm>
 
-                            <ColForm>
-                                <FormItemSelect
-                                    form={form}
-                                    label={'Shipping Policy'}
-                                    name={'shipping_policy'}
-                                    message={'Please select an address type'}
-                                    required={true}
-                                    options={[
-                                        {value: 'as_soon_as_possible', label: 'As soon as possible'},
-                                        {value: 'when_all_products_are_ready', label: 'When all products are ready'},
-                                    ]}
-                                    {...formState}
-                                />
+                                <ColForm>
+                                    <FormItemSelect
+                                        form={form}
+                                        label={'Shipping Policy'}
+                                        name={'shipping_policy'}
+                                        message={'Please select an address type'}
+                                        required={true}
+                                        options={[
+                                            {value: 'as_soon_as_possible', label: 'As soon as possible'},
+                                            {
+                                                value: 'when_all_products_are_ready',
+                                                label: 'When all products are ready'
+                                            },
+                                        ]}
+                                        {...formState}
+                                    />
 
-                                <FormItemSelectAjax
-                                    form={form}
-                                    label={'Responsible'}
-                                    name={'responsible_id'}
-                                    url={'/api/users'}
-                                    {...formState}
-                                    query={'responsible.name'}
-                                />
-                            </ColForm>
-                        </RowForm>
-                    </TabPane>
+                                    <FormItemSelectAjax
+                                        form={form}
+                                        label={'Responsible'}
+                                        name={'responsible_id'}
+                                        url={'/api/users'}
+                                        {...formState}
+                                        query={'responsible.name'}
+                                    />
+                                </ColForm>
+                            </RowForm>
+                        </TabPane>
 
-                    <TabPane tab="Note" key="3">
-                        <RowForm>
-                            <ColForm lg={24}>
-                                <FormItemText
-                                    form={form}
-                                    label={'Note'}
-                                    name={'note'}
-                                    {...formState}
-                                />
-                            </ColForm>
-                        </RowForm>
-                    </TabPane>
-                </Tabs>
-            </FormCard>
-        </CustomForm>
+                        <TabPane tab="Note" key="3">
+                            <RowForm>
+                                <ColForm lg={24}>
+                                    <FormItemText
+                                        form={form}
+                                        label={'Note'}
+                                        name={'note'}
+                                        {...formState}
+                                    />
+                                </ColForm>
+                            </RowForm>
+                        </TabPane>
+                    </Tabs>
+                </FormCard>
+            </CustomForm>
+        </FormContextProvider>
     );
 };
 

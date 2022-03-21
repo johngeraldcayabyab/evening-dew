@@ -11,43 +11,43 @@ import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import FormItemText from "../../Components/FormItem/FormItemText";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
+import {FormContextProvider} from "../../Contexts/FormContext";
 
 const PaymentTermForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest);
     return (
-        <CustomForm
-            form={form}
-            onFinish={formActions.onFinish}
-        >
-            <ControlPanel
-                topColOneLeft={<CustomBreadcrumb formState={formState}/>}
-                bottomColOneLeft={
-                    <FormButtons
-                        id={id}
-                        form={form}
-                        formState={formState}
-                        formActions={formActions}
-                        manifest={manifest}
-                    />
-                }
-            />
-            <FormCard {...formState}>
-                <RowForm>
-                    <ColForm>
-                        <FormItemText
+        <FormContextProvider value={{form: form, onFinish: formActions.onFinish}}>
+            <CustomForm>
+                <ControlPanel
+                    topColOneLeft={<CustomBreadcrumb formState={formState}/>}
+                    bottomColOneLeft={
+                        <FormButtons
+                            id={id}
                             form={form}
-                            label={'Name'}
-                            name={'name'}
-                            message={'Please input name'}
-                            required={true}
-                            {...formState}
+                            formState={formState}
+                            formActions={formActions}
+                            manifest={manifest}
                         />
-                    </ColForm>
-                </RowForm>
-            </FormCard>
-        </CustomForm>
+                    }
+                />
+                <FormCard {...formState}>
+                    <RowForm>
+                        <ColForm>
+                            <FormItemText
+                                form={form}
+                                label={'Name'}
+                                name={'name'}
+                                message={'Please input name'}
+                                required={true}
+                                {...formState}
+                            />
+                        </ColForm>
+                    </RowForm>
+                </FormCard>
+            </CustomForm>
+        </FormContextProvider>
     );
 };
 

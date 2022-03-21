@@ -13,6 +13,7 @@ import FormItemText from "../../Components/FormItem/FormItemText";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
+import {FormContextProvider} from "../../Contexts/FormContext";
 
 const SequenceForm = () => {
     let {id} = useParams();
@@ -20,102 +21,101 @@ const SequenceForm = () => {
     const [formState, formActions] = useFormHook(id, form, manifest, true);
 
     return (
-        <CustomForm
-            form={form}
-            onFinish={formActions.onFinish}
-        >
-            <ControlPanel
-                topColOneLeft={<CustomBreadcrumb formState={formState}/>}
-                bottomColOneLeft={
-                    <FormButtons
-                        id={id}
-                        form={form}
-                        formState={formState}
-                        formActions={formActions}
-                        manifest={manifest}
-                    />
-                }
-            />
-            <FormCard {...formState}>
-                <RowForm>
-                    <ColForm>
-                        <FormItemText
+        <FormContextProvider value={{form: form, onFinish: formActions.onFinish}}>
+            <CustomForm>
+                <ControlPanel
+                    topColOneLeft={<CustomBreadcrumb formState={formState}/>}
+                    bottomColOneLeft={
+                        <FormButtons
+                            id={id}
                             form={form}
-                            label={'Name'}
-                            name={'name'}
-                            message={'Please input name'}
-                            required={true}
-                            {...formState}
+                            formState={formState}
+                            formActions={formActions}
+                            manifest={manifest}
                         />
-                        <FormItemSelect
-                            form={form}
-                            label={'Implementation'}
-                            name={'implementation'}
-                            message={'Please select an implementation'}
-                            required={true}
-                            options={[
-                                {value: 'no_gap', label: 'No Gap'},
-                                {value: 'standard', label: 'Standard'},
-                            ]}
-                            {...formState}
-                        />
-                    </ColForm>
-                    <ColForm>
-                        <FormItemText
-                            form={form}
-                            label={'Sequence Code'}
-                            name={'sequence_code'}
-                            message={'Please input sequence code'}
-                            required={true}
-                            {...formState}
-                        />
-                    </ColForm>
-                </RowForm>
-                <Divider/>
-                <RowForm>
-                    <ColForm>
-                        <FormItemText
-                            form={form}
-                            label={'Prefix'}
-                            name={'prefix'}
-                            {...formState}
-                        />
-                        <FormItemText
-                            form={form}
-                            label={'Suffix'}
-                            name={'suffix'}
-                            {...formState}
-                        />
-                    </ColForm>
-                    <ColForm>
-                        <FormItemNumber
-                            form={form}
-                            label={'Sequence Size'}
-                            name={'sequence_size'}
-                            message={'Please input sequence size'}
-                            required={true}
-                            {...formState}
-                        />
-                        <FormItemNumber
-                            form={form}
-                            label={'Step'}
-                            name={'step'}
-                            message={'Please input step'}
-                            required={true}
-                            {...formState}
-                        />
-                        <FormItemNumber
-                            form={form}
-                            label={'Next number'}
-                            name={'next_number'}
-                            message={'Please input next number'}
-                            required={true}
-                            {...formState}
-                        />
-                    </ColForm>
-                </RowForm>
-            </FormCard>
-        </CustomForm>
+                    }
+                />
+                <FormCard {...formState}>
+                    <RowForm>
+                        <ColForm>
+                            <FormItemText
+                                form={form}
+                                label={'Name'}
+                                name={'name'}
+                                message={'Please input name'}
+                                required={true}
+                                {...formState}
+                            />
+                            <FormItemSelect
+                                form={form}
+                                label={'Implementation'}
+                                name={'implementation'}
+                                message={'Please select an implementation'}
+                                required={true}
+                                options={[
+                                    {value: 'no_gap', label: 'No Gap'},
+                                    {value: 'standard', label: 'Standard'},
+                                ]}
+                                {...formState}
+                            />
+                        </ColForm>
+                        <ColForm>
+                            <FormItemText
+                                form={form}
+                                label={'Sequence Code'}
+                                name={'sequence_code'}
+                                message={'Please input sequence code'}
+                                required={true}
+                                {...formState}
+                            />
+                        </ColForm>
+                    </RowForm>
+                    <Divider/>
+                    <RowForm>
+                        <ColForm>
+                            <FormItemText
+                                form={form}
+                                label={'Prefix'}
+                                name={'prefix'}
+                                {...formState}
+                            />
+                            <FormItemText
+                                form={form}
+                                label={'Suffix'}
+                                name={'suffix'}
+                                {...formState}
+                            />
+                        </ColForm>
+                        <ColForm>
+                            <FormItemNumber
+                                form={form}
+                                label={'Sequence Size'}
+                                name={'sequence_size'}
+                                message={'Please input sequence size'}
+                                required={true}
+                                {...formState}
+                            />
+                            <FormItemNumber
+                                form={form}
+                                label={'Step'}
+                                name={'step'}
+                                message={'Please input step'}
+                                required={true}
+                                {...formState}
+                            />
+                            <FormItemNumber
+                                form={form}
+                                label={'Next number'}
+                                name={'next_number'}
+                                message={'Please input next number'}
+                                required={true}
+                                {...formState}
+                            />
+                        </ColForm>
+                    </RowForm>
+                </FormCard>
+            </CustomForm>
+        </FormContextProvider>
     );
 };
 
