@@ -44,7 +44,6 @@ const MeasurementForm = () => {
                                 name={'name'}
                                 message={'Please input measurement category name'}
                                 required={true}
-                                {...formState}
                             />
 
                             <FormItemSelect
@@ -57,7 +56,6 @@ const MeasurementForm = () => {
                                     {value: 'smaller', label: 'Smaller than the reference measurement'},
                                     {value: 'bigger', label: 'Bigger than the reference measurement'},
                                 ]}
-                                {...formState}
                             />
 
                             <FormItemNumber
@@ -65,14 +63,12 @@ const MeasurementForm = () => {
                                 name={'ratio'}
                                 message={'Please input ratio'}
                                 required={true}
-                                {...formState}
                             />
                             <FormItemNumber
                                 label={'Rounding precision'}
                                 name={'rounding_precision'}
                                 message={'Please input rounding precision'}
                                 required={true}
-                                {...formState}
                             />
 
                             <FormItemSelectAjax
@@ -81,7 +77,6 @@ const MeasurementForm = () => {
                                 message={'Please select a measurement category'}
                                 required={true}
                                 url={'/api/measurement_categories'}
-                                {...formState}
                                 query={'measurement_category.name'}
                             />
                         </ColForm>

@@ -238,19 +238,15 @@ const SalesOrderForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemStatus
-                                form={form}
                                 name={'status'}
-                                {...formState}
                             />
 
                             <FormItemText
-                                form={form}
                                 label={'Number'}
                                 name={'number'}
                                 message={'Please input number'}
                                 required={true}
                                 size={'large'}
-                                {...formState}
                             />
                         </ColForm>
                     </RowForm>
@@ -258,59 +254,47 @@ const SalesOrderForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemSelectAjax
-                                form={form}
                                 label={'Customer'}
                                 name={'customer_id'}
                                 message={'Please select a customer'}
                                 required={true}
                                 url={'/api/contacts'}
-                                {...formState}
                                 query={'customer.name'}
                             />
                             <FormItemSelectAjax
-                                form={form}
                                 label={'Invoice address'}
                                 name={'invoice_address_id'}
                                 message={'Please select a invoice address'}
                                 required={true}
                                 url={'/api/addresses'}
-                                {...formState}
                                 search={state.invoiceAddressOptionReload}
                                 query={'invoice_address.address_name'}
                             />
                             <FormItemSelectAjax
-                                form={form}
                                 label={'Delivery address'}
                                 name={'delivery_address_id'}
                                 message={'Please select a delivery address'}
                                 required={true}
                                 url={'/api/addresses'}
-                                {...formState}
                                 search={state.deliveryAddressOptionReload}
                                 query={'delivery_address.address_name'}
                             />
                         </ColForm>
                         <ColForm>
                             <FormItemDate
-                                form={form}
                                 label={'Expiration Date'}
                                 name={'expiration_date'}
-                                {...formState}
                             />
 
                             <FormItemDate
-                                form={form}
                                 label={'Quotation Date'}
                                 name={'quotation_date'}
-                                {...formState}
                             />
 
                             <FormItemSelectAjax
-                                form={form}
                                 label={'Payment Term'}
                                 name={'payment_term_id'}
                                 url={'/api/payment_terms'}
-                                {...formState}
                                 query={'payment_term.name'}
                             />
                         </ColForm>
@@ -330,24 +314,20 @@ const SalesOrderForm = () => {
                                                     <RowForm key={key}>
                                                         <ColForm lg={23}>
                                                             <FormItemNumber
-                                                                form={form}
                                                                 {...restField}
                                                                 name={'id'}
-                                                                {...formState}
                                                                 style={{display: 'hidden', position: 'absolute'}}
                                                                 groupName={name}
                                                                 listName={'sales_order_lines'}
                                                             />
 
                                                             <FormItemSelectAjax
-                                                                form={form}
                                                                 {...restField}
                                                                 placeholder={'Product'}
                                                                 name={'product_id'}
                                                                 message={'Please select a product'}
                                                                 required={true}
                                                                 url={'/api/products'}
-                                                                {...formState}
                                                                 style={{display: 'inline-block', width: `${100 / 6}%`}}
                                                                 query={`sales_order_lines.${name}.product.name`}
                                                                 groupName={name}
@@ -355,31 +335,26 @@ const SalesOrderForm = () => {
                                                             />
 
                                                             <FormItemText
-                                                                form={form}
                                                                 {...restField}
                                                                 placeholder={'Description'}
                                                                 name={'description'}
-                                                                {...formState}
                                                                 style={{display: 'inline-block', width: `${100 / 6}%`}}
                                                                 groupName={name}
                                                                 listName={'sales_order_lines'}
                                                             />
 
                                                             <FormItemNumber
-                                                                form={form}
                                                                 {...restField}
                                                                 placeholder={'Quantity'}
                                                                 name={'quantity'}
                                                                 message={'Please input a quantity'}
                                                                 required={true}
-                                                                {...formState}
                                                                 style={{display: 'inline-block', width: `${100 / 6}%`}}
                                                                 groupName={name}
                                                                 listName={'sales_order_lines'}
                                                             />
 
                                                             <FormItemSelectAjax
-                                                                form={form}
                                                                 {...restField}
                                                                 placeholder={'Measurement'}
                                                                 name={'measurement_id'}
@@ -387,7 +362,6 @@ const SalesOrderForm = () => {
                                                                 required={true}
                                                                 url={'/api/measurements'}
                                                                 search={state.salesOrderLinesOptionReload[name] ? state.salesOrderLinesOptionReload[name].isReload : null}
-                                                                {...formState}
                                                                 style={{display: 'inline-block', width: `${100 / 6}%`}}
                                                                 query={`sales_order_lines.${name}.measurement.name`}
                                                                 groupName={name}
@@ -400,7 +374,6 @@ const SalesOrderForm = () => {
                                                                 name={'unit_price'}
                                                                 message={'Please input a unit price'}
                                                                 required={true}
-                                                                {...formState}
                                                                 style={{display: 'inline-block', width: `${100 / 6}%`}}
                                                                 groupName={name}
                                                                 listName={'sales_order_lines'}
@@ -411,7 +384,6 @@ const SalesOrderForm = () => {
                                                                 {...restField}
                                                                 placeholder={'Subtotal'}
                                                                 name={'subtotal'}
-                                                                {...formState}
                                                                 style={{display: 'inline-block', width: `${100 / 6}%`}}
                                                                 groupName={name}
                                                                 listName={'sales_order_lines'}
@@ -492,21 +464,17 @@ const SalesOrderForm = () => {
                                         Sales
                                     </Divider>
                                     <FormItemSelectAjax
-                                        form={form}
                                         label={'Salesperson'}
                                         name={'salesperson_id'}
                                         message={'Please select a salesperson'}
                                         required={true}
                                         url={'/api/users'}
-                                        {...formState}
                                         query={'salesperson.name'}
                                     />
 
                                     <FormItemText
-                                        form={form}
                                         label={'Customer Reference'}
                                         name={'customer_reference'}
-                                        {...formState}
                                     />
                                 </ColForm>
                                 <ColForm>
@@ -523,7 +491,6 @@ const SalesOrderForm = () => {
                                         Delivery
                                     </Divider>
                                     <FormItemSelect
-                                        form={form}
                                         label={'Shipping Policy'}
                                         name={'shipping_policy'}
                                         message={'Please select an shipping policy'}
@@ -535,13 +502,10 @@ const SalesOrderForm = () => {
                                                 label: 'When all products are ready'
                                             },
                                         ]}
-                                        {...formState}
                                     />
                                     <FormItemDate
-                                        form={form}
                                         label={'Expected delivery date'}
                                         name={'expected_delivery_date'}
-                                        {...formState}
                                     />
                                 </ColForm>
                                 <ColForm>
@@ -549,10 +513,8 @@ const SalesOrderForm = () => {
                                         Tracking
                                     </Divider>
                                     <FormItemText
-                                        form={form}
                                         label={'Source document'}
                                         name={'source_document'}
-                                        {...formState}
                                     />
                                 </ColForm>
                             </RowForm>

@@ -171,18 +171,14 @@ const TransferForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemStatus
-                                form={form}
                                 name={'status'}
-                                {...formState}
                             />
 
                             <FormItemText
                                 overrideDisabled={true}
-                                form={form}
                                 label={'Reference'}
                                 name={'reference'}
                                 size={'large'}
-                                {...formState}
                             />
                         </ColForm>
                     </RowForm>
@@ -190,42 +186,34 @@ const TransferForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemSelectAjax
-                                form={form}
                                 label={'Contact'}
                                 name={'contact_id'}
                                 url={'/api/contacts'}
-                                {...formState}
                                 query={'contact.name'}
                             />
 
 
                             <FormItemSelectAjax
-                                form={form}
                                 label={'Operation Type'}
                                 name={'operation_type_id'}
                                 message={'Please select a operation type'}
                                 required={true}
                                 url={'/api/operations_types'}
-                                {...formState}
                                 query={'operation_type.name'}
                             />
 
                             <FormItemSelectAjax
-                                form={form}
                                 label={'Source Location'}
                                 name={'source_location_id'}
                                 url={'/api/locations'}
-                                {...formState}
                                 search={state.defaultSourceLocationReload}
                                 query={'source_location.name'}
                             />
 
                             <FormItemSelectAjax
-                                form={form}
                                 label={'Destination Location'}
                                 name={'destination_location_id'}
                                 url={'/api/locations'}
-                                {...formState}
                                 search={state.defaultDestinationLocationReload}
                                 query={'destination_location.name'}
                             />
@@ -233,17 +221,13 @@ const TransferForm = () => {
                         <ColForm>
 
                             <FormItemDate
-                                form={form}
                                 label={'Scheduled date'}
                                 name={'scheduled_date'}
-                                {...formState}
                             />
 
                             <FormItemText
-                                form={form}
                                 label={'Source Document'}
                                 name={'source_document'}
-                                {...formState}
                             />
                         </ColForm>
                     </RowForm>
@@ -263,24 +247,20 @@ const TransferForm = () => {
                                                     <RowForm key={key}>
                                                         <ColForm lg={23}>
                                                             <FormItemNumber
-                                                                form={form}
                                                                 {...restField}
                                                                 name={'id'}
-                                                                {...formState}
                                                                 style={{display: 'hidden', position: 'absolute'}}
                                                                 groupName={name}
                                                                 listName={'transfer_lines'}
                                                             />
 
                                                             <FormItemSelectAjax
-                                                                form={form}
                                                                 {...restField}
                                                                 placeholder={'Product'}
                                                                 name={'product_id'}
                                                                 message={'Please select a product'}
                                                                 required={true}
                                                                 url={'/api/products'}
-                                                                {...formState}
                                                                 style={{display: 'inline-block', width: '25%'}}
                                                                 query={`transfer_lines.${name}.product.name`}
                                                                 groupName={name}
@@ -288,31 +268,26 @@ const TransferForm = () => {
                                                             />
 
                                                             <FormItemText
-                                                                form={form}
                                                                 {...restField}
                                                                 placeholder={'Description'}
                                                                 name={'description'}
-                                                                {...formState}
                                                                 style={{display: 'inline-block', width: '25%'}}
                                                                 groupName={name}
                                                                 listName={'transfer_lines'}
                                                             />
 
                                                             <FormItemNumber
-                                                                form={form}
                                                                 {...restField}
                                                                 placeholder={'Demand'}
                                                                 name={'demand'}
                                                                 message={'Please input a demand'}
                                                                 required={true}
-                                                                {...formState}
                                                                 style={{display: 'inline-block', width: '25%'}}
                                                                 groupName={name}
                                                                 listName={'transfer_lines'}
                                                             />
 
                                                             <FormItemSelectAjax
-                                                                form={form}
                                                                 {...restField}
                                                                 placeholder={'Measurement'}
                                                                 name={'measurement_id'}
@@ -320,7 +295,6 @@ const TransferForm = () => {
                                                                 required={true}
                                                                 url={'/api/measurements'}
                                                                 search={state.transferLinesOptionReload[name] ? state.transferLinesOptionReload[name].isReload : null}
-                                                                {...formState}
                                                                 style={{display: 'inline-block', width: '25%'}}
                                                                 query={`transfer_lines.${name}.measurement.name`}
                                                                 groupName={name}
@@ -356,16 +330,13 @@ const TransferForm = () => {
                             <RowForm>
                                 <ColForm>
                                     <FormItemText
-                                        form={form}
                                         label={'Tracking Reference'}
                                         name={'tracking_reference'}
-                                        {...formState}
                                     />
                                 </ColForm>
 
                                 <ColForm>
                                     <FormItemSelect
-                                        form={form}
                                         label={'Shipping Policy'}
                                         name={'shipping_policy'}
                                         message={'Please select an address type'}
@@ -377,15 +348,12 @@ const TransferForm = () => {
                                                 label: 'When all products are ready'
                                             },
                                         ]}
-                                        {...formState}
                                     />
 
                                     <FormItemSelectAjax
-                                        form={form}
                                         label={'Responsible'}
                                         name={'responsible_id'}
                                         url={'/api/users'}
-                                        {...formState}
                                         query={'responsible.name'}
                                     />
                                 </ColForm>
@@ -396,10 +364,8 @@ const TransferForm = () => {
                             <RowForm>
                                 <ColForm lg={24}>
                                     <FormItemText
-                                        form={form}
                                         label={'Note'}
                                         name={'note'}
-                                        {...formState}
                                     />
                                 </ColForm>
                             </RowForm>

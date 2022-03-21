@@ -38,27 +38,21 @@ const AppMenuForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemText
-                                form={form}
                                 label={'Label'}
                                 name={'label'}
                                 message={'Please input label'}
                                 required={true}
-                                {...formState}
                             />
                             <FormItemSelectAjax
-                                form={form}
                                 label={'Menu'}
                                 name={'menu_id'}
                                 url={'/api/menus'}
-                                {...formState}
                                 query={'menu.label'}
                             />
                             <FormItemSelectAjax
-                                form={form}
                                 label={'Parent App Menu'}
                                 name={'parent_app_menu_id'}
                                 url={'/api/app_menus'}
-                                {...formState}
                                 query={'parent_app_menu.name'}
                             />
                         </ColForm>

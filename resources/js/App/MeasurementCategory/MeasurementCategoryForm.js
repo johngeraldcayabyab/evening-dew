@@ -41,7 +41,6 @@ const MeasurementCategoryForm = () => {
                                 name={'name'}
                                 message={'Please input measurement category name'}
                                 required={true}
-                                {...formState}
                             />
                         </ColForm>
                     </RowForm>
