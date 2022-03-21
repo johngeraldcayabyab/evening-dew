@@ -7,10 +7,12 @@ import {getBreadcrumbs, getClickedBreadcrumb, setBreadcrumbs, setClickedBreadcru
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import {objectHasValue} from "../Helpers/object";
 import {FormContext} from "../Contexts/FormContext";
+import {ListContext} from "../Contexts/ListContext";
 
 const CustomBreadcrumb = () => {
     const location = useLocation();
     const formContext = useContext(FormContext);
+    const listContext = useContext(ListContext);
     const [state, setState] = useState({
         breadcrumbs: [],
     });
@@ -29,13 +31,13 @@ const CustomBreadcrumb = () => {
                 breadcrumb.slug = 'New';
             }
         }
-        if (formContext.hasOwnProperty('tableState') && !formContext.tableState.initialLoad) {
-            breadcrumb.slug = titleCase(replaceUnderscoreWithSpace(formContext.tableState.moduleName));
+        if (listContext.hasOwnProperty('tableState') && !listContext.tableState.initialLoad) {
+            breadcrumb.slug = titleCase(replaceUnderscoreWithSpace(listContext.tableState.moduleName));
         }
         if (breadcrumb.slug) {
             setBreadcrumbsAndState(breadcrumbs, breadcrumb);
         }
-    }, [formContext.tableState, formContext.formState]);
+    }, [listContext.tableState, formContext.formState]);
 
     function setBreadcrumbsAndState(breadcrumbs, newBreadcrumb) {
         let pathname = location.pathname;
