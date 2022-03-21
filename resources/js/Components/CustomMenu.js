@@ -3,7 +3,7 @@ import {Header} from "antd/lib/layout/layout";
 import {Avatar, Menu, message} from "antd";
 import {AppstoreOutlined, UserOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
-import useFetchHook from "../Hooks/useFetchCatcherHook";
+import useFetchCatcherHook from "../Hooks/useFetchCatcherHook";
 import useFetchHook from "../Hooks/useFetchHook";
 import {GET, POST} from "../consts";
 import {eraseCookie} from "../Helpers/cookie";

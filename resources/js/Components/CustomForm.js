@@ -1,6 +1,10 @@
 import {Form} from "antd";
+import {useContext} from "react";
+import {FormContext} from "../Contexts/FormContext";
 
 const CustomForm = (props) => {
+    const formContext = useContext(FormContext);
+
     return (
         <Form
             form={props.form}

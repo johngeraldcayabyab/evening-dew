@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
-import useFetchHook from "./useFetchCatcherHook";
+import useFetchCatcherHook from "./useFetchCatcherHook";
 import useFetchHook from "./useFetchHook";
 import {GET, POST, PUT} from "../consts";
 import {formatInitialValuesDatetimeToMoment} from "../Helpers/object";
