@@ -121,7 +121,14 @@ const TransferForm = () => {
     }
 
     return (
-        <FormContextProvider value={{form: form, formState: formState, onFinish: onFinish, onValuesChange: onValuesChange}}>
+        <FormContextProvider
+            value={{
+                form: form,
+                formState: formState,
+                onFinish: onFinish,
+                onValuesChange: onValuesChange,
+            }}
+        >
             <CustomForm>
                 <ControlPanel
                     topColOneLeft={<CustomBreadcrumb/>}
