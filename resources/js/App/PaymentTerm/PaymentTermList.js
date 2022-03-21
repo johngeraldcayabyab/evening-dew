@@ -8,6 +8,7 @@ import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdown
 import TableSearchInput from "../../Components/TableSearchInput";
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
+import {ListContextProvider} from "../../Contexts/ListContext";
 
 const PaymentTermList = () => {
     const [tableState, tableActions, columns] = useListHook(manifest, [
@@ -28,9 +29,9 @@ const PaymentTermList = () => {
     );
 
     return (
-        <React.Fragment>
+        <ListContextProvider value={{tableState: tableState}}>
             <ControlPanel
-                topColOneLeft={<CustomBreadcrumb tableState={tableState}/>}
+                topColOneLeft={<CustomBreadcrumb/>}
                 topColTwoRight={
                     <TableSearchInput
                         {...tableState}
@@ -60,7 +61,7 @@ const PaymentTermList = () => {
                 columns={columns}
                 manifest={manifest}
             />
-        </React.Fragment>
+        </ListContextProvider>
     )
 };
 

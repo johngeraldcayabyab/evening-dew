@@ -8,6 +8,7 @@ import CustomTable from "../../Components/CustomTable";
 import TableSearchInput from "../../Components/TableSearchInput";
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
+import {ListContextProvider} from "../../Contexts/ListContext";
 
 const LocationList = () => {
     const [tableState, tableActions, columns] = useListHook(manifest, [
@@ -26,9 +27,9 @@ const LocationList = () => {
         },
     ]);
     return (
-        <React.Fragment>
+        <ListContextProvider value={{tableState: tableState}}>
             <ControlPanel
-                topColOneLeft={<CustomBreadcrumb tableState={tableState}/>}
+                topColOneLeft={<CustomBreadcrumb/>}
                 topColTwoRight={
                     <TableSearchInput
                         {...tableState}
@@ -58,7 +59,7 @@ const LocationList = () => {
                 columns={columns}
                 manifest={manifest}
             />
-        </React.Fragment>
+        </ListContextProvider>
     )
 };
 

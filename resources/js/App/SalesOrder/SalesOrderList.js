@@ -10,6 +10,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import {Tag} from "antd";
 import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
+import {ListContextProvider} from "../../Contexts/ListContext";
 
 const SalesOrderList = () => {
     const [tableState, tableActions, columns] = useListHook(manifest, [
@@ -62,9 +63,9 @@ const SalesOrderList = () => {
         },
     ]);
     return (
-        <React.Fragment>
+        <ListContextProvider value={{tableState: tableState}}>
             <ControlPanel
-                topColOneLeft={<CustomBreadcrumb tableState={tableState}/>}
+                topColOneLeft={<CustomBreadcrumb/>}
                 topColTwoRight={
                     <TableSearchInput
                         {...tableState}
@@ -94,7 +95,7 @@ const SalesOrderList = () => {
                 columns={columns}
                 manifest={manifest}
             />
-        </React.Fragment>
+        </ListContextProvider>
     )
 };
 
