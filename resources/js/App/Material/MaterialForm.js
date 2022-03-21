@@ -99,6 +99,7 @@ const MaterialForm = () => {
                 form: form,
                 formState: formState,
                 formActions: formActions,
+                setState: setState,
                 onFinish: onFinish,
                 onValuesChange: onValuesChange
             }}
