@@ -37,7 +37,7 @@ const GlobalSettingForm = () => {
                     topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={<FormButtons/>}
                 />
-                <FormCard {...formState}>
+                <FormCard>
                     <Tabs defaultActiveKey="1">
                         <TabPane tab="General" key="1">
                             <RowForm>

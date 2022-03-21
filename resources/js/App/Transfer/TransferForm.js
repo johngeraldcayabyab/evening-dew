@@ -167,7 +167,7 @@ const TransferForm = () => {
                         },
                     ]}
                 />
-                <FormCard {...formState}>
+                <FormCard>
                     <RowForm>
                         <ColForm>
                             <FormItemStatus

@@ -34,7 +34,7 @@ const CountryForm = () => {
                     topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={<FormButtons/>}
                 />
-                <FormCard {...formState}>
+                <FormCard>
                     <RowForm>
                         <ColForm>
                             <FormItemText

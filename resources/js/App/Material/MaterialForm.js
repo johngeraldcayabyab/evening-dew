@@ -110,7 +110,7 @@ const MaterialForm = () => {
                     topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={<FormButtons/>}
                 />
-                <FormCard {...formState}>
+                <FormCard>
                     <RowForm>
                         <ColForm>
                             <FormItemSelectAjax

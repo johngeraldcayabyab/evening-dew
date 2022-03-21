@@ -36,7 +36,7 @@ const AddressForm = () => {
                     topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={<FormButtons/>}
                 />
-                <FormCard {...formState}>
+                <FormCard>
                     <RowForm>
                         <ColForm>
                             <FormItemText
