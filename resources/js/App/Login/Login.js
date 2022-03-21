@@ -6,9 +6,9 @@ import {setCookie} from "../../Helpers/cookie";
 import {getDevice} from "../../Helpers/device";
 import {useHistory} from "react-router";
 import {GET} from "../../consts";
-import useFetchHook from "../../Hooks/useFetchCatcherHook";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {AppContext} from "../../App";
+import useFetchHook from "../../Hooks/useFetchHook";
 
 const Login = () => {
     const [state, setState] = useState({
