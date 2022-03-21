@@ -37,8 +37,7 @@ const LocationForm = () => {
                     topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={<FormButtons/>}
                 />
-                <FormCard {...formState}>
-
+                <FormCard>
                     <RowForm>
                         <ColForm lg={24}>
                             <FormItemText

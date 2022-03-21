@@ -223,7 +223,7 @@ const SalesOrderForm = () => {
                         },
                     ]}
                 />
-                <FormCard {...formState}>
+                <FormCard>
                     <FormLinks
                         formState={formState}
                         links={[

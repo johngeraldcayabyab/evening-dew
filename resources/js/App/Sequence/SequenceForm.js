@@ -36,7 +36,7 @@ const SequenceForm = () => {
                     topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={<FormButtons/>}
                 />
-                <FormCard {...formState}>
+                <FormCard>
                     <RowForm>
                         <ColForm>
                             <FormItemText
