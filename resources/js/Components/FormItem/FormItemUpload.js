@@ -1,12 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Button, Form, Image, message, Popover, Upload} from 'antd';
 import {DeleteOutlined, LoadingOutlined, PlusOutlined} from '@ant-design/icons';
 import FormLabel from "../Typography/FormLabel";
 import {objectHasValue} from "../../Helpers/object";
 import {getCookie} from "../../Helpers/cookie";
+import {FormContext} from "../../Contexts/FormContext";
 
 
 const FormItemUpload = (props) => {
+    const formContext = useContext(FormContext);
     const [state, setState] = useState({
         imageUrl: null,
         loading: false,
