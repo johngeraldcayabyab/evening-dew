@@ -12,68 +12,68 @@ import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
+import {FormContextProvider} from "../../Contexts/FormContext";
 
 const CountryForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest);
     return (
-        <CustomForm
-            form={form}
-            onFinish={formActions.onFinish}
-        >
-            <ControlPanel
-                topColOneLeft={<CustomBreadcrumb formState={formState}/>}
-                bottomColOneLeft={
-                    <FormButtons
-                        id={id}
-                        form={form}
-                        formState={formState}
-                        formActions={formActions}
-                        manifest={manifest}
-                    />
-                }
-            />
-            <FormCard {...formState}>
-                <RowForm>
-                    <ColForm>
-                        <FormItemText
+        <FormContextProvider value={{form: form, onFinish: formActions.onFinish}}>
+            <CustomForm>
+                <ControlPanel
+                    topColOneLeft={<CustomBreadcrumb formState={formState}/>}
+                    bottomColOneLeft={
+                        <FormButtons
+                            id={id}
                             form={form}
-                            label={'Country Name'}
-                            name={'country_name'}
-                            message={'Please input country name'}
-                            required={true}
-                            {...formState}
+                            formState={formState}
+                            formActions={formActions}
+                            manifest={manifest}
                         />
+                    }
+                />
+                <FormCard {...formState}>
+                    <RowForm>
+                        <ColForm>
+                            <FormItemText
+                                form={form}
+                                label={'Country Name'}
+                                name={'country_name'}
+                                message={'Please input country name'}
+                                required={true}
+                                {...formState}
+                            />
 
-                        <FormItemSelectAjax
-                            form={form}
-                            label={'Currency'}
-                            name={'currency_id'}
-                            url={'/api/currencies'}
-                            {...formState}
-                            query={'currency.currency'}
-                        />
+                            <FormItemSelectAjax
+                                form={form}
+                                label={'Currency'}
+                                name={'currency_id'}
+                                url={'/api/currencies'}
+                                {...formState}
+                                query={'currency.currency'}
+                            />
 
-                        <FormItemText
-                            form={form}
-                            label={'Country Code'}
-                            name={'country_code'}
-                            {...formState}
-                        />
-                    </ColForm>
+                            <FormItemText
+                                form={form}
+                                label={'Country Code'}
+                                name={'country_code'}
+                                {...formState}
+                            />
+                        </ColForm>
 
-                    <ColForm>
-                        <FormItemText
-                            form={form}
-                            label={'Country Calling Code'}
-                            name={'country_calling_code'}
-                            {...formState}
-                        />
-                    </ColForm>
-                </RowForm>
-            </FormCard>
-        </CustomForm>
+                        <ColForm>
+                            <FormItemText
+                                form={form}
+                                label={'Country Calling Code'}
+                                name={'country_calling_code'}
+                                {...formState}
+                            />
+                        </ColForm>
+                    </RowForm>
+                </FormCard>
+            </CustomForm>
+        </FormContextProvider>
     );
 };
 
