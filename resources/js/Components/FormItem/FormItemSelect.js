@@ -25,7 +25,7 @@ const FormItemSelect = (props) => {
 
     return (
         <Form.Item {...formItemProps}>
-            {props.loading ? <CustomInputSkeleton {...props}/> :
+            {formContext.formState.loading ? <CustomInputSkeleton {...props}/> :
                 <Select {...fieldProps}>
                     {state.options.map((option) => {
                         return (

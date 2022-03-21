@@ -15,7 +15,7 @@ const FormItemNumber = (props) => {
 
     return (
         <Form.Item {...formItemProps}>
-            {props.loading ? <CustomInputSkeleton {...props}/> :
+            {formContext.formState.loading ? <CustomInputSkeleton {...props}/> :
                 <InputNumber {...fieldProps}/>
             }
         </Form.Item>

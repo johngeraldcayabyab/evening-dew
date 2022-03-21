@@ -10,7 +10,7 @@ const FormItemCheckbox = (props) => {
 
     return (
         <Form.Item {...formItemProps} valuePropName="checked">
-            {props.loading ? <CustomInputSkeleton {...props}/> :
+            {formContext.formState.loading ? <CustomInputSkeleton {...props}/> :
                 <Checkbox {...fieldProps}/>
             }
         </Form.Item>

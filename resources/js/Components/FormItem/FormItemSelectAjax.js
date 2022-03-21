@@ -33,14 +33,14 @@ const FormItemSelectAjax = (props) => {
     }, []);
 
     useEffect(() => {
-        if (!props.initialLoad) {
+        if (!formContext.formState.initialLoad) {
             let val = null;
-            if (objectHasValue(props.initialValues)) {
+            if (objectHasValue(formContext.formState.initialValues)) {
                 val = getFieldFromInitialValues();
             }
             getOptions(val);
         }
-    }, [props.initialLoad]);
+    }, [formContext.formState.initialLoad]);
 
     useEffect(() => {
         if (props.search) {
@@ -49,7 +49,7 @@ const FormItemSelectAjax = (props) => {
     }, [props.search]);
 
     function getFieldFromInitialValues() {
-        let search = props.initialValues;
+        let search = formContext.formState.initialValues;
         props.query.split('.').forEach((query) => {
             if (search && query in search) {
                 search = search[query];
@@ -57,8 +57,8 @@ const FormItemSelectAjax = (props) => {
                 search = null;
             }
         });
-        if ((props.isListField && props.id && !props.formDisabled) || (props.isListField && !props.id && !props.formDisabled)) {
-            search = props.initialValues;
+        if ((props.isListField && formContext.formState.id && !formContext.formState.formDisabled) || (props.isListField && !formContext.formState.id && !formContext.formState.formDisabled)) {
+            search = formContext.formState.initialValues;
             props.query.split('.').slice(-2).forEach((query) => {
                 if (search && query in search) {
                     search = search[query];
@@ -109,7 +109,7 @@ const FormItemSelectAjax = (props) => {
     return (
         <CustomFormItemLink {...props}>
             <Form.Item {...formItemProps}>
-                {props.loading ? <CustomInputSkeleton {...props}/> :
+                {formContext.formState.loading ? <CustomInputSkeleton {...props}/> :
                     <Select {...fieldProps}>
                         {state.options.map((option) => {
                             return (

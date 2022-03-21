@@ -25,7 +25,7 @@ const FormItemDate = (props) => {
 
     return (
         <Form.Item {...formItemProps}>
-            {props.loading ? <CustomInputSkeleton {...props}/> :
+            {formContext.formState.loading ? <CustomInputSkeleton {...props}/> :
                 <DatePicker {...fieldProps}/>
             }
         </Form.Item>
