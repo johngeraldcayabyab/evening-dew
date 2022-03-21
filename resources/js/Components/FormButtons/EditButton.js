@@ -1,15 +1,18 @@
 import {Button} from "antd";
-import React from 'react';
+import React, {useContext} from 'react';
+import {FormContext} from "../../Contexts/FormContext";
 
-const EditButton = (props) => {
-    if (props.id && props.formState.formDisabled) {
+const EditButton = () => {
+    const formContext = useContext(FormContext);
+
+    if (formContext.id && formContext.formState.formDisabled) {
         return (
             <Button
                 htmlType={"submit"}
                 type={"primary"}
                 size={'default'}
                 onClick={() => {
-                    props.formActions.toggleEditMode();
+                    formContext.formActions.toggleEditMode();
                 }}
             >
                 Edit

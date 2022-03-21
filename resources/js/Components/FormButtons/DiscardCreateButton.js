@@ -1,16 +1,19 @@
 import {Button} from "antd";
-import React from 'react';
+import React, {useContext} from 'react';
 import {Link} from "react-router-dom";
+import {FormContext} from "../../Contexts/FormContext";
 
-const DiscardCreateButton = (props) => {
-    if (!props.id && !props.formState.formDisabled) {
+const DiscardCreateButton = () => {
+    const formContext = useContext(FormContext);
+
+    if (!formContext.id && !formContext.formState.formDisabled) {
         return (
             <Button
                 htmlType={"button"}
                 type={"primary"}
                 size={'default'}
             >
-                <Link to={`/${props.manifest.moduleName}`}>
+                <Link to={`/${formContext.manifest.moduleName}`}>
                     Discard
                 </Link>
             </Button>
