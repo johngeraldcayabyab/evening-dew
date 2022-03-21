@@ -19,10 +19,10 @@ import {
     DynamicFieldRemoveButton,
     GenerateDynamicColumns
 } from "../../Helpers/form";
-import useFetchHook from "../../Hooks/useFetchCatcherHook";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {GET, POST} from "../../consts";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
+import useFetchHook from "../../Hooks/useFetchHook";
 
 const {TabPane} = Tabs;
 

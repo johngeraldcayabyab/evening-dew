@@ -13,7 +13,6 @@ import FormItemText from "../../Components/FormItem/FormItemText";
 import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import FormItemDate from "../../Components/FormItem/FormItemDate";
-import useFetchHook from "../../Hooks/useFetchCatcherHook";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {GET, POST} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
@@ -26,6 +25,7 @@ import {
 import StatusBar from "../../Components/StatusBar";
 import FormItemStatus from "../../Components/FormItem/FormItemStatus";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
+import useFetchHook from "../../Hooks/useFetchHook";
 
 const {TabPane} = Tabs;
 

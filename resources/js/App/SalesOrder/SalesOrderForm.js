@@ -11,7 +11,6 @@ import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import FormItemText from "../../Components/FormItem/FormItemText";
 import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
-import useFetchHook from "../../Hooks/useFetchCatcherHook";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {GET, POST} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
@@ -29,6 +28,7 @@ import FormLinks from "../../Components/FormLinks";
 import FormLabel from "../../Components/Typography/FormLabel";
 import {objectHasValue} from "../../Helpers/object";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
+import useFetchHook from "../../Hooks/useFetchHook";
 
 const {TabPane} = Tabs;
 
