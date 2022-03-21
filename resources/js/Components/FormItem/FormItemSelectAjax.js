@@ -1,5 +1,5 @@
 import {Form, Select} from "antd";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import CustomInputSkeleton from "../CustomInputSkeleton";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import useFetchHook from "../../Hooks/useFetchHook";
@@ -7,8 +7,10 @@ import {GET} from "../../consts";
 import {formItemFieldProps} from "../../Helpers/form";
 import {objectHasValue} from "../../Helpers/object";
 import CustomFormItemLink from "../CustomFormItemLink";
+import {FormContext} from "../../Contexts/FormContext";
 
 const FormItemSelectAjax = (props) => {
+    const formContext = useContext(FormContext);
     const [useFetch, fetchAbort] = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({

@@ -1,9 +1,11 @@
 import {Form, Input} from "antd";
-import React from "react";
+import React, {useContext} from "react";
 import CustomInputSkeleton from "../CustomInputSkeleton";
 import {formItemFieldProps} from "../../Helpers/form";
+import {FormContext} from "../../Contexts/FormContext";
 
 const FormItemText = (props) => {
+    const formContext = useContext(FormContext);
     const [formItemProps, fieldProps] = formItemFieldProps(props);
 
     return (

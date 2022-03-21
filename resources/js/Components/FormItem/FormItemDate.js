@@ -1,12 +1,13 @@
 import {DatePicker, Form} from "antd";
-import React from "react";
+import React, {useContext} from "react";
 import CustomInputSkeleton from "../CustomInputSkeleton";
 import {formItemFieldProps} from "../../Helpers/form";
+import {FormContext} from "../../Contexts/FormContext";
 
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
 const FormItemDate = (props) => {
-
+    const formContext = useContext(FormContext);
 
     // console.log(props);
     // if (objectHasValue(props.initialValues)) {
