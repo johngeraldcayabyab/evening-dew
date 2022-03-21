@@ -7,25 +7,16 @@ import SaveCreateButton from "./SaveCreateButton";
 import DiscardCreateButton from "./DiscardCreateButton";
 import {Space} from "antd";
 
-const FormButtons = (props) => {
-
-    let passedProps = {
-        id: props.id,
-        form: props.form,
-        formState: props.formState,
-        formActions: props.formActions,
-        manifest: props.manifest
-    };
-
+const FormButtons = () => {
     return (
         <Space size={'small'}>
-            <EditButton {...passedProps}/>
-            <SaveEditButton {...passedProps}/>
-            <DiscardEditButton {...passedProps}/>
+            <EditButton/>
+            <SaveEditButton/>
+            <DiscardEditButton/>
 
-            <FormCreateButton {...passedProps}/>
-            <SaveCreateButton {...passedProps}/>
-            <DiscardCreateButton {...passedProps}/>
+            <FormCreateButton/>
+            <SaveCreateButton/>
+            <DiscardCreateButton/>
         </Space>
     )
 };

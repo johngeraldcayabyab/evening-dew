@@ -183,6 +183,7 @@ const SalesOrderForm = () => {
                 manifest: manifest,
                 form: form,
                 formState: formState,
+                formActions: formActions,
                 onFinish: onFinish,
                 onValuesChange: onValuesChange,
             }}
@@ -190,15 +191,7 @@ const SalesOrderForm = () => {
             <CustomForm>
                 <ControlPanel
                     topColOneLeft={<CustomBreadcrumb/>}
-                    bottomColOneLeft={
-                        <FormButtons
-                            id={id}
-                            form={form}
-                            formState={formState}
-                            formActions={formActions}
-                            manifest={manifest}
-                        />
-                    }
+                    bottomColOneLeft={<FormButtons/>}
                 />
                 <StatusBar
                     id={id}

@@ -1,16 +1,20 @@
 import {Button} from "antd";
+import {useContext} from "react";
+import {FormContext} from "../../Contexts/FormContext";
 
-const DiscardEditButton = (props) => {
-    if (props.id && !props.formState.formDisabled) {
+const DiscardEditButton = () => {
+    const formContext = useContext(FormContext);
+
+    if (formContext.id && !formContext.formState.formDisabled) {
         return (
             <Button
                 htmlType={"button"}
                 type={"primary"}
                 size={'default'}
                 onClick={() => {
-                    props.formActions.toggleEditMode();
+                    formContext.formActions.toggleEditMode();
                     // props.form.resetFields();
-                    props.form.setFieldsValue(props.formState.initialValues);
+                    formContext.form.setFieldsValue(formContext.formState.initialValues);
                 }}
             >
                 Discard

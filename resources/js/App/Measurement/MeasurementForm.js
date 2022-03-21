@@ -27,21 +27,14 @@ const MeasurementForm = () => {
                 manifest: manifest,
                 form: form,
                 formState: formState,
+                formActions: formActions,
                 onFinish: formActions.onFinish
             }}
         >
             <CustomForm>
                 <ControlPanel
                     topColOneLeft={<CustomBreadcrumb/>}
-                    bottomColOneLeft={
-                        <FormButtons
-                            id={id}
-                            form={form}
-                            formState={formState}
-                            formActions={formActions}
-                            manifest={manifest}
-                        />
-                    }
+                    bottomColOneLeft={<FormButtons/>}
                 />
                 <FormCard {...formState}>
                     <RowForm>
