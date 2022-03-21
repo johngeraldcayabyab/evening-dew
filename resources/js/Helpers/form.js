@@ -1,11 +1,13 @@
 import FormLabel from "../Components/Typography/FormLabel";
 import {Button, Form} from "antd";
 import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
-import React from "react";
+import React, {useContext} from "react";
 import RowForm from "../Components/Grid/RowForm";
 import ColForm from "../Components/Grid/ColForm";
+import {FormContext} from "../Contexts/FormContext";
 
 export const formItemFieldProps = (props, specialFieldProps = {}) => {
+    const formContext = useContext(FormContext);
     const formItemProps = {
         label: props.label ? <FormLabel>{props.label}</FormLabel> : null,
         name: props.name,
@@ -18,16 +20,16 @@ export const formItemFieldProps = (props, specialFieldProps = {}) => {
         } : {span: 16},
     };
 
-    if (props.errors[props.name]) {
+    if (formContext.formState.errors[props.name]) {
         formItemProps.validateStatus = 'error';
-        formItemProps.help = props.errors[props.name];
-    } else if (props.errors[`${props.listName}.${props.groupName}.${props.name}`]) {
+        formItemProps.help = formContext.formState.errors[props.name];
+    } else if (formContext.formState.errors[`${props.listName}.${props.groupName}.${props.name}`]) {
         formItemProps.validateStatus = 'error';
-        formItemProps.help = props.errors[`${props.listName}.${props.groupName}.${props.name}`];
+        formItemProps.help = formContext.formState.errors[`${props.listName}.${props.groupName}.${props.name}`];
     }
 
     const fieldProps = {
-        disabled: props.formDisabled,
+        disabled: formContext.formState.formDisabled,
         size: props.size ? props.size : 'small',
         placeholder: props.placeholder ? props.placeholder : null,
         ...specialFieldProps
