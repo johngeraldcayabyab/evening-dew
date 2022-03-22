@@ -25,6 +25,8 @@ import {FormContextProvider} from "../../Contexts/FormContext";
 import AddLineButton from "../../Components/FormLines/AddLineButton";
 import RemoveLineButton from "../../Components/FormLines/RemoveLineButton";
 import LineColumn from "../../Components/FormLines/LineColumn";
+import useOptionHook from "../../Hooks/useOptionHook";
+import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
 
 const {TabPane} = Tabs;
 
@@ -32,6 +34,12 @@ const TransferForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
+
+    const contactOptions = useOptionHook('/api/contacts', 'contact.name');
+    const operationTypeOptions = useOptionHook('/api/operations_types', 'operation_type.name');
+    const sourceLocationOptions = useOptionHook('/api/locations', 'source_location.name');
+    const destinationLocationOptions = useOptionHook('/api/locations', 'destination_location.name');
+
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
@@ -40,6 +48,14 @@ const TransferForm = () => {
         transferLinesOptionReload: [],
         transferLinesDeleted: [],
     });
+
+    useEffect(() => {
+        contactOptions.getInitialOptions(formState);
+        operationTypeOptions.getInitialOptions(formState);
+        sourceLocationOptions.getInitialOptions(formState);
+        destinationLocationOptions.getInitialOptions(formState);
+    }, [formState.initialLoad]);
+
 
     function onValuesChange(changedValues, allValues) {
         if (changedValues.operation_type_id) {
@@ -173,37 +189,32 @@ const TransferForm = () => {
 
                     <RowForm>
                         <ColForm>
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Contact'}
                                 name={'contact_id'}
-                                url={'/api/contacts'}
-                                query={'contact.name'}
+                                {...contactOptions}
                             />
 
-
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Operation Type'}
                                 name={'operation_type_id'}
                                 message={'Please select a operation type'}
                                 required={true}
-                                url={'/api/operations_types'}
-                                query={'operation_type.name'}
+                                {...operationTypeOptions}
                             />
 
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Source Location'}
                                 name={'source_location_id'}
-                                url={'/api/locations'}
+                                {...sourceLocationOptions}
                                 search={state.defaultSourceLocationReload}
-                                query={'source_location.name'}
                             />
 
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Destination Location'}
                                 name={'destination_location_id'}
-                                url={'/api/locations'}
+                                {...destinationLocationOptions}
                                 search={state.defaultDestinationLocationReload}
-                                query={'destination_location.name'}
                             />
                         </ColForm>
                         <ColForm>
