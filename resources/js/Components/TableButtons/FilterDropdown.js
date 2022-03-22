@@ -28,7 +28,7 @@ const FilterDropdown = (props) => {
                 <Button
                     onClick={() => {
                         props.clearFilters();
-                        // confirm();
+                        props.confirm();
                     }}
                     size={"small"}
                     style={{width: 90}}
