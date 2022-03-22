@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
@@ -10,15 +10,23 @@ import CustomForm from "../../Components/CustomForm";
 import FormItemText from "../../Components/FormItem/FormItemText";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
-import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
+import useOptionHook from "../../Hooks/useOptionHook";
+import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
 
 const AddressForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const countryOptions = useOptionHook('/api/countries', 'country.country_name');
+    const contactOptions = useOptionHook('/api/contacts', 'contact.name');
+
+    useEffect(() => {
+        countryOptions.getInitialOptions(formState);
+        contactOptions.getInitialOptions(formState);
+    }, [formState.initialLoad]);
 
     return (
         <FormContextProvider
@@ -76,22 +84,20 @@ const AddressForm = () => {
                                 name={'zip'}
                             />
 
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Country'}
                                 name={'country_id'}
-                                url={'/api/countries'}
-                                query={'country.country_name'}
+                                {...countryOptions}
                             />
                         </ColForm>
 
                         <ColForm>
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Contact'}
                                 name={'contact_id'}
                                 message={'Please select a contact'}
                                 required={true}
-                                url={'/api/contacts'}
-                                query={'contact.name'}
+                                {...contactOptions}
                             />
 
                             <FormItemSelect
