@@ -1,28 +1,14 @@
 import {Input, Tooltip} from "antd";
 import React, {useCallback} from "react";
 import {SearchOutlined} from "@ant-design/icons";
+import {debounce} from "../Helpers/debounce";
 
 const TableSearchInput = () => {
-
-    const debounce = (func) => {
-        let timer;
-        return function (...args) {
-            const context = this;
-            if (timer) {
-                clearTimeout(timer);
-            }
-            timer = setTimeout(() => {
-                timer = null;
-                func.apply(context, args);
-            }, 250);
-        };
-    };
-
     const handleChange = (value) => {
         // props.renderData();
     };
 
-    const optimizedFn = useCallback(debounce(handleChange), []);
+    const optimizedFn = useCallback(debounce(handleChange, this), []);
 
     return (
         <Input
