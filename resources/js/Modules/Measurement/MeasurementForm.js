@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
@@ -11,15 +11,20 @@ import FormItemText from "../../Components/FormItem/FormItemText";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import ControlPanel from "../../Components/ControlPanel";
-import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import FormCard from "../../Components/FormCard";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
+import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import useOptionHook from "../../Hooks/useOptionHook";
 
 const MeasurementForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const measurementCategoryOptions = useOptionHook('/api/measurement_categories', 'measurement_category.name');
+    useEffect(() => {
+        measurementCategoryOptions.getInitialOptions(formState);
+    }, [formState.initialLoad]);
     return (
         <FormContextProvider
             value={{
@@ -71,13 +76,12 @@ const MeasurementForm = () => {
                                 required={true}
                             />
 
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Measurement Category'}
                                 name={'measurement_category_id'}
                                 message={'Please select a measurement category'}
                                 required={true}
-                                url={'/api/measurement_categories'}
-                                query={'measurement_category.name'}
+                                {...measurementCategoryOptions}
                             />
                         </ColForm>
                     </RowForm>
