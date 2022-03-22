@@ -29,18 +29,12 @@ const MaterialForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
-    const [useFetch, fetchAbort] = useFetchHook();
+    const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
         materialLinesOptionReload: [],
         materialLinesDeleted: [],
     });
-
-    useEffect(() => {
-        return () => {
-            fetchAbort();
-        };
-    }, []);
 
     function onValuesChange(changedValues, allValues) {
         checkIfADynamicInputChangedAndDoSomething(changedValues, allValues, 'material_lines', 'product_id', getProductDataAndFillDefaultValues);

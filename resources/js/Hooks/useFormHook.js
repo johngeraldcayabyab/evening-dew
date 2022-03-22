@@ -6,7 +6,7 @@ import {GET, POST, PUT} from "../consts";
 import {formatInitialValuesDatetimeToMoment} from "../Helpers/object";
 
 const useFormHook = (id, form, manifest, getInitialValues = false) => {
-    const [useFetch, fetchAbort] = useFetchHook();
+    const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const history = useHistory();
 
@@ -130,12 +130,6 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
      */
     useEffect(() => {
         formActions.fetchData();
-    }, []);
-
-    useEffect(() => {
-        return () => {
-            fetchAbort();
-        };
     }, []);
 
     /**

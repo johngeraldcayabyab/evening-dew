@@ -5,7 +5,7 @@ import {getAllUrlParams} from "../Helpers/url";
 import useFetchCatcherHook from "./useFetchCatcherHook";
 
 const useListHook = (manifest, columns) => {
-    const [useFetch, fetchAbort] = useFetchHook();
+    const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const moduleName = manifest.moduleName;
     const eventName = manifest.eventName;
@@ -72,12 +72,6 @@ const useListHook = (manifest, columns) => {
 
     useEffect(() => {
         tableActions.renderData(getAllUrlParams());
-    }, []);
-
-    useEffect(() => {
-        return () => {
-            fetchAbort();
-        };
     }, []);
 
 

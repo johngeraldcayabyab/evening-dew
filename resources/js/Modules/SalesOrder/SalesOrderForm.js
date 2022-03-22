@@ -35,7 +35,7 @@ const SalesOrderForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
-    const [useFetch, fetchAbort] = useFetchHook();
+    const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
         invoiceAddressOptionReload: false,
@@ -48,12 +48,6 @@ const SalesOrderForm = () => {
             total: 0,
         }
     });
-
-    useEffect(() => {
-        return () => {
-            fetchAbort();
-        };
-    }, []);
 
     useEffect(() => {
         if (objectHasValue(formState.initialValues)) {

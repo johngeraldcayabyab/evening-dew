@@ -56,7 +56,7 @@ function makeMenu(menus) {
 const CustomMenu = () => {
     const fetchCatcher = useFetchCatcherHook();
     const appContext = useContext(AppContext);
-    const [useFetch, fetchAbort] = useFetchHook();
+    const useFetch = useFetchHook();
     const [state, setState] = useState({
         appMenu: [],
         appMenuChildren: [],
@@ -86,11 +86,6 @@ const CustomMenu = () => {
                 fetchCatcher.get(responseErr);
             });
         }
-        return () => {
-            if (appContext.appState.isLogin) {
-                fetchAbort();
-            }
-        };
     }, [appContext.appState.isLogin]);
 
     function handleClick(click) {
