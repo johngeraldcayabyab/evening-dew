@@ -39,12 +39,11 @@ const TransferForm = () => {
     const operationTypeOptions = useOptionHook('/api/operations_types', 'operation_type.name');
     const sourceLocationOptions = useOptionHook('/api/locations', 'source_location.name');
     const destinationLocationOptions = useOptionHook('/api/locations', 'destination_location.name');
+    const responsibleOptions = useOptionHook('/api/users', 'responsible.name');
 
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
-        defaultSourceLocationReload: false,
-        defaultDestinationLocationReload: false,
         transferLinesOptionReload: [],
         transferLinesDeleted: [],
     });
@@ -58,20 +57,20 @@ const TransferForm = () => {
 
 
     function onValuesChange(changedValues, allValues) {
+        setDefaultLocationsFromOperationType(changedValues);
+        checkIfADynamicInputChangedAndDoSomething(changedValues, allValues, 'transfer_lines', 'product_id', getProductDataAndFillDefaultValues);
+    }
+
+    function setDefaultLocationsFromOperationType(changedValues) {
         if (changedValues.operation_type_id) {
             useFetch(`/api/operations_types`, GET, {
                 id: changedValues.operation_type_id
             }).then((response) => {
-                const responseData = response.data[0];
-                let sourceLocation = responseData.default_source_location;
-                let destinationLocation = responseData.default_destination_location;
-                let sourceLocationId = responseData.default_source_location_id;
-                let destinationLocationId = responseData.default_destination_location_id;
-                setState((prevState) => ({
-                    ...prevState,
-                    defaultSourceLocationReload: sourceLocation ? sourceLocation.name : false,
-                    defaultDestinationLocationReload: destinationLocation ? destinationLocation.name : false,
-                }));
+                const data = response.data[0];
+                let sourceLocationId = data.default_source_location_id;
+                let destinationLocationId = data.default_destination_location_id;
+                sourceLocationOptions.getOptions({id: sourceLocationId});
+                destinationLocationOptions.getOptions({id: destinationLocationId});
                 form.setFieldsValue({
                     source_location_id: sourceLocationId,
                     destination_location_id: destinationLocationId
@@ -80,7 +79,6 @@ const TransferForm = () => {
                 fetchCatcher.get(responseErr);
             });
         }
-        checkIfADynamicInputChangedAndDoSomething(changedValues, allValues, 'transfer_lines', 'product_id', getProductDataAndFillDefaultValues);
     }
 
     function getProductDataAndFillDefaultValues(changedTransferLine, transferLines) {
@@ -207,14 +205,12 @@ const TransferForm = () => {
                                 label={'Source Location'}
                                 name={'source_location_id'}
                                 {...sourceLocationOptions}
-                                search={state.defaultSourceLocationReload}
                             />
 
                             <FormItemSelectTest
                                 label={'Destination Location'}
                                 name={'destination_location_id'}
                                 {...destinationLocationOptions}
-                                search={state.defaultDestinationLocationReload}
                             />
                         </ColForm>
                         <ColForm>
@@ -317,7 +313,6 @@ const TransferForm = () => {
                                     </Form.List>
                                 </ColForm>
                             </RowForm>
-
                         </TabPane>
 
 
@@ -345,11 +340,10 @@ const TransferForm = () => {
                                         ]}
                                     />
 
-                                    <FormItemSelectAjax
+                                    <FormItemSelectTest
                                         label={'Responsible'}
                                         name={'responsible_id'}
-                                        url={'/api/users'}
-                                        query={'responsible.name'}
+                                        {...responsibleOptions}
                                     />
                                 </ColForm>
                             </RowForm>
