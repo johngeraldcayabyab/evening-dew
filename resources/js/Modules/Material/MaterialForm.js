@@ -22,6 +22,8 @@ import {FormContextProvider} from "../../Contexts/FormContext";
 import AddLineButton from "../../Components/FormLines/AddLineButton";
 import RemoveLineButton from "../../Components/FormLines/RemoveLineButton";
 import LineColumn from "../../Components/FormLines/LineColumn";
+import useOptionHook from "../../Hooks/useOptionHook";
+import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
 
 const {TabPane} = Tabs;
 
@@ -31,10 +33,17 @@ const MaterialForm = () => {
     const [formState, formActions] = useFormHook(id, form, manifest, true);
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
+    const productOptions = useOptionHook('/api/products', 'product.name');
+    const measurementOptions = useOptionHook('/api/measurements', 'measurement.name');
     const [state, setState] = useState({
         materialLinesOptionReload: [],
         materialLinesDeleted: [],
     });
+
+    useEffect(() => {
+        productOptions.getInitialOptions(formState);
+        measurementOptions.getInitialOptions(formState);
+    }, [formState.initialLoad]);
 
     function onValuesChange(changedValues, allValues) {
         checkIfADynamicInputChangedAndDoSomething(changedValues, allValues, 'material_lines', 'product_id', getProductDataAndFillDefaultValues);
@@ -106,22 +115,20 @@ const MaterialForm = () => {
                 <FormCard>
                     <RowForm>
                         <ColForm>
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Product'}
                                 name={'product_id'}
                                 message={'Please select a product'}
                                 required={true}
-                                url={'/api/products'}
-                                query={'product.name'}
+                                {...productOptions}
                             />
 
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Measurement'}
                                 name={'measurement_id'}
                                 message={'Please select a measurement'}
                                 required={true}
-                                url={'/api/measurements'}
-                                query={'measurement.name'}
+                                {...measurementOptions}
                             />
                         </ColForm>
 
