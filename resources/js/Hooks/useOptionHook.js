@@ -9,6 +9,7 @@ const useOptionHook = (url, query) => {
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
         options: [],
+        optionsLoading: true,
     });
 
     const optionActions = {
@@ -30,7 +31,8 @@ const useOptionHook = (url, query) => {
                     options: data.map((option) => ({
                         value: option.id,
                         label: option.slug
-                    }))
+                    })),
+                    optionsLoading: false,
                 }));
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
@@ -66,7 +68,7 @@ const useOptionHook = (url, query) => {
 
     return {
         ...optionActions,
-        options: state.options,
+        ...state
     }
 };
 
