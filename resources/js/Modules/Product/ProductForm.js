@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
@@ -10,12 +10,13 @@ import CustomForm from "../../Components/CustomForm";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import FormItemText from "../../Components/FormItem/FormItemText";
-import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import FormItemUpload from "../../Components/FormItem/FormItemUpload";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
+import useOptionHook from "../../Hooks/useOptionHook";
+import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
 
 const {TabPane} = Tabs;
 
@@ -23,6 +24,17 @@ const ProductForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const measurementOptions = useOptionHook('/api/measurements', 'measurement.name');
+    const purchaseMeasurementOptions = useOptionHook('/api/measurements', 'purchase_measurement.name');
+    const salesMeasurementOptions = useOptionHook('/api/measurements', 'sales_measurement.name');
+    const productCategoryOptions = useOptionHook('/api/product_categories', 'product_category.category');
+
+    useEffect(() => {
+        measurementOptions.getInitialOptions(formState);
+        purchaseMeasurementOptions.getInitialOptions(formState);
+        salesMeasurementOptions.getInitialOptions(formState);
+        productCategoryOptions.getInitialOptions(formState);
+    }, [formState.initialLoad]);
 
     return (
         <FormContextProvider
@@ -68,7 +80,6 @@ const ProductForm = () => {
                         <TabPane tab="General Information" key="1">
                             <RowForm>
                                 <ColForm>
-
                                     <FormItemSelect
                                         label={'Product Type'}
                                         name={'product_type'}
@@ -92,31 +103,28 @@ const ProductForm = () => {
                                         ]}
                                     />
 
-                                    <FormItemSelectAjax
+                                    <FormItemSelectTest
                                         label={'Measurement'}
                                         name={'measurement_id'}
                                         message={'Please select a measurement'}
                                         required={true}
-                                        url={'/api/measurements'}
-                                        query={'measurement.name'}
+                                        {...measurementOptions}
                                     />
 
-                                    <FormItemSelectAjax
+                                    <FormItemSelectTest
                                         label={'Purchase Measurement'}
                                         name={'purchase_measurement_id'}
                                         message={'Please select a purchase measurement'}
                                         required={true}
-                                        url={'/api/measurements'}
-                                        query={'purchase_measurement.name'}
+                                        {...purchaseMeasurementOptions}
                                     />
 
-                                    <FormItemSelectAjax
+                                    <FormItemSelectTest
                                         label={'Sales Measurement'}
                                         name={'sales_measurement_id'}
                                         message={'Please select a sales measurement'}
                                         required={true}
-                                        url={'/api/measurements'}
-                                        query={'sales_measurement.name'}
+                                        {...salesMeasurementOptions}
                                     />
 
                                 </ColForm>
@@ -136,13 +144,12 @@ const ProductForm = () => {
                                         required={true}
                                     />
 
-                                    <FormItemSelectAjax
+                                    <FormItemSelectTest
                                         label={'Product Category'}
                                         name={'product_category_id'}
                                         message={'Please select a product category'}
                                         required={true}
-                                        url={'/api/product_categories'}
-                                        query={'product_category.category'}
+                                        {...productCategoryOptions}
                                     />
 
                                     <FormItemText
@@ -152,7 +159,6 @@ const ProductForm = () => {
                                 </ColForm>
                             </RowForm>
                         </TabPane>
-
 
                         <TabPane tab="Other Information" key="2">
                             <RowForm>
