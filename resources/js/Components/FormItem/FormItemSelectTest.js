@@ -9,6 +9,10 @@ const FormItemSelectTest = (props) => {
     const [formItemProps, fieldProps] = formItemFieldProps(props, {
         allowClear: true,
         showSearch: true,
+        onSearch: props.onSearch,
+        optionFilterProp: "children",
+        filterOption: [],
+        onClear: props.onClear,
     });
 
     return (
