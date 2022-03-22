@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
@@ -10,17 +10,33 @@ import CustomForm from "../../Components/CustomForm";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import FormItemText from "../../Components/FormItem/FormItemText";
-import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
+import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import FormItemCheckbox from "../../Components/FormItem/FormItemCheckbox";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
+import useOptionHook from "../../Hooks/useOptionHook";
 
 const OperationTypeForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const referenceSequenceOptions = useOptionHook('/api/sequences', 'reference_sequence.name');
+    const warehouseOptions = useOptionHook('/api/warehouses', 'warehouse.name');
+    const operationTypeForReturnOptions = useOptionHook('/api/operations_types', 'operation_type_for_returns.name');
+    const defaultSourceLocationOptions = useOptionHook('/api/locations', 'default_source_location.name');
+    const defaultDestinationLocationOptions = useOptionHook('/api/locations', 'default_destination_location.name');
+
+    useEffect(() => {
+        referenceSequenceOptions.getInitialOptions(formState);
+        warehouseOptions.getInitialOptions(formState);
+        operationTypeForReturnOptions.getInitialOptions(formState);
+        defaultSourceLocationOptions.getInitialOptions(formState);
+        defaultDestinationLocationOptions.getInitialOptions(formState);
+    }, [formState.initialLoad]);
+
+
     return (
         <FormContextProvider
             value={{
@@ -47,11 +63,10 @@ const OperationTypeForm = () => {
                                 required={true}
                             />
 
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Reference Sequence'}
                                 name={'reference_sequence_id'}
-                                url={'/api/sequences'}
-                                query={'reference_sequence.name'}
+                                {...referenceSequenceOptions}
                             />
 
                             <FormItemText
@@ -61,11 +76,10 @@ const OperationTypeForm = () => {
                                 required={true}
                             />
 
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Warehouse'}
                                 name={'warehouse_id'}
-                                url={'/api/warehouses'}
-                                query={'warehouse.name'}
+                                {...warehouseOptions}
                             />
 
                             <FormItemSelect
@@ -103,11 +117,10 @@ const OperationTypeForm = () => {
                                 ]}
                             />
 
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Operation Type For Returns'}
                                 name={'operation_type_for_returns_id'}
-                                url={'/api/operations_types'}
-                                query={'operation_type_for_returns.name'}
+                                {...operationTypeForReturnOptions}
                             />
 
                             <FormItemCheckbox
@@ -142,21 +155,17 @@ const OperationTypeForm = () => {
                             />
                         </ColForm>
                         <ColForm>
-
                             {/*Locations*/}
-
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Default Source Location'}
                                 name={'default_source_location_id'}
-                                url={'/api/locations'}
-                                query={'default_source_location.name'}
+                                {...defaultSourceLocationOptions}
                             />
 
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Default Destination Location'}
                                 name={'default_destination_location_id'}
-                                url={'/api/locations'}
-                                query={'default_destination_location.name'}
+                                {...defaultDestinationLocationOptions}
                             />
                         </ColForm>
                     </RowForm>
