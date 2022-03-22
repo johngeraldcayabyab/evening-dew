@@ -1,17 +1,21 @@
 import {Pagination} from "antd";
+import {ListContext} from "../Contexts/ListContext";
+import {useContext} from "react";
 
-const CustomPagination = (props) => {
+const CustomPagination = () => {
+    const listContext = useContext(ListContext);
+
     return (
         <Pagination
             size={'small'}
-            current={props.meta ? props.meta.current_page : 1}
-            total={props.meta ? props.meta.total : 1}
+            current={listContext.tableState.meta ? listContext.tableState.meta.current_page : 1}
+            total={listContext.tableState.meta ? listContext.tableState.meta.total : 1}
             pageSize={80} // not respecting meta condition if null
             showSizeChanger={false}
             showQuickJumper
             onChange={(page, pageSize) => {
-                props.params.page = page;
-                props.renderData(props.params);
+                listContext.tableState.params.page = page;
+                listContext.tableActions.renderData(listContext.tableState.params);
             }}
         />
     )

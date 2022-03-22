@@ -1,9 +1,11 @@
 import {Button, Input, Space, Table} from "antd";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
+import {ListContext} from "../Contexts/ListContext";
 
 const CustomTable = (props) => {
+    const listContext = useContext(ListContext);
     const history = useHistory();
     const [state, setState] = useState({
         columns: props.columns
@@ -72,15 +74,15 @@ const CustomTable = (props) => {
 
     return (
         <Table
-            rowSelection={props.rowSelection}
-            loading={props.loading}
-            dataSource={props.dataSource}
+            rowSelection={listContext.tableActions.rowSelection}
+            loading={listContext.tableState.loading}
+            dataSource={listContext.tableState.dataSource}
             columns={state.columns}
             rowKey={'id'}
             onRow={(record, rowIndex) => {
                 return {
                     onClick: event => {
-                        history.push(`/${props.manifest.moduleName}/${record.id}`);
+                        history.push(`/${listContext.manifest.moduleName}/${record.id}`);
                     },
                     onDoubleClick: event => {
                     },
@@ -103,14 +105,14 @@ const CustomTable = (props) => {
                 } else if (orderByDirection === 'descend') {
                     orderByDirection = 'desc';
                 }
-                props.params.orderByColumn = sorter.column ? sorter.column.key : null;
-                props.params.orderByDirection = orderByDirection;
+                listContext.tableState.params.orderByColumn = sorter.column ? sorter.column.key : null;
+                listContext.tableState.params.orderByDirection = orderByDirection;
                 for (let key in filters) {
                     if (filters.hasOwnProperty(key)) {
-                        props.params[key] = filters[key];
+                        listContext.tableState.params[key] = filters[key];
                     }
                 }
-                props.renderData(props.params);
+                listContext.tableActions.renderData(listContext.tableState.params);
             }}
             size={'small'}
         />

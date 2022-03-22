@@ -1,15 +1,18 @@
 import {Menu, Popconfirm} from "antd";
-import React from "react";
+import React, {useContext} from "react";
+import {ListContext} from "../../Contexts/ListContext";
 
-const ListDeleteButton = (props) => {
+const ListDeleteButton = () => {
+    const listContext = useContext(ListContext);
+
     return (
         <Menu.Item key={'deleter'}>
             <Popconfirm
                 title={`Are you sure you want to delete the selected items?`}
                 okText="Yes"
                 cancelText="No" onConfirm={() => {
-                let ids = props.selectedRows.map((row) => (row.id));
-                props.handleMassDelete(ids);
+                let ids = listContext.formState.selectedRows.map((row) => (row.id));
+                listContext.tableActions.handleMassDelete(ids);
             }}
             >
                 Delete

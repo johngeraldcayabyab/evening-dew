@@ -2,7 +2,7 @@ import {Input, Tooltip} from "antd";
 import React, {useCallback} from "react";
 import {SearchOutlined} from "@ant-design/icons";
 
-const TableSearchInput = (props) => {
+const TableSearchInput = () => {
 
     const debounce = (func) => {
         let timer;
