@@ -35,6 +35,7 @@ const CustomTable = (props) => {
         return {
             filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
                 <FilterDropdown
+                    props={dataIndex}
                     setSelectedKeys={setSelectedKeys}
                     selectedKeys={selectedKeys}
                     confirm={confirm}

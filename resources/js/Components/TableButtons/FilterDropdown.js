@@ -5,7 +5,7 @@ const FilterDropdown = (props) => {
     return (
         <div style={{padding: 8}}>
             <Input
-                placeholder={`Search ${dataIndex}`}
+                placeholder={`Search ${props.dataIndex}`}
                 value={props.selectedKeys}
                 onChange={e => props.setSelectedKeys(e.target.value ? e.target.value : null)}
                 onPressEnter={() => {
