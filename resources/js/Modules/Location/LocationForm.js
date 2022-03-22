@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Divider, Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
@@ -10,17 +10,21 @@ import CustomForm from "../../Components/CustomForm";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import FormItemText from "../../Components/FormItem/FormItemText";
-import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import FormItemCheckbox from "../../Components/FormItem/FormItemCheckbox";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
+import useOptionHook from "../../Hooks/useOptionHook";
+import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
 
 const LocationForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
-
+    const parentLocationOptions = useOptionHook('/api/locations', 'parent_location.name');
+    useEffect(() => {
+        parentLocationOptions.getInitialOptions(formState);
+    }, [formState.initialLoad]);
     return (
         <FormContextProvider
             value={{
@@ -48,12 +52,11 @@ const LocationForm = () => {
                                 size={'large'}
                             />
 
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Parent Category'}
                                 name={'parent_location_id'}
-                                url={'/api/locations'}
                                 size={'medium'}
-                                query={'parent_location.name'}
+                                {...parentLocationOptions}
                             />
                         </ColForm>
                     </RowForm>
