@@ -137,11 +137,6 @@ const TransferForm = () => {
                     bottomColOneLeft={<FormButtons/>}
                 />
                 <StatusBar
-                    id={id}
-                    form={form}
-                    formState={formState}
-                    formActions={formActions}
-                    manifest={manifest}
                     statuses={[
                         {
                             value: 'draft',

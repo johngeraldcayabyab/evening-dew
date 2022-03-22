@@ -1,12 +1,15 @@
 import {Button, Col, Row, Space, Steps} from "antd";
-import React from "react";
+import React, {useContext} from "react";
+import {FormContext} from "../Contexts/FormContext";
 
 const {Step} = Steps;
 
 const StatusBar = (props) => {
+    const formContext = useContext(FormContext);
+
     let statusButtons = [];
-    props.statuses.forEach((status) => {
-        if (status.hasOwnProperty('type') && status.visibility[props.formState.initialValues.status] === 'visible') {
+    formContext.statuses.forEach((status) => {
+        if (status.hasOwnProperty('type') && status.visibility[formContext.formState.initialValues.status] === 'visible') {
             statusButtons.push(status);
         }
     });
@@ -23,7 +26,7 @@ const StatusBar = (props) => {
                                     type={statusButton.type}
                                     size={'default'}
                                     onClick={() => {
-                                        props.form.setFieldsValue({
+                                        formContext.form.setFieldsValue({
                                             'status': statusButton.value,
                                         });
                                     }}
@@ -38,11 +41,11 @@ const StatusBar = (props) => {
                     <Steps
                         type="default"
                         size="small"
-                        current={props.formState.initialValues.status}
+                        current={formContext.formState.initialValues.status}
                     >
                         {
                             props.statuses.map((status) => (
-                                <Step key={status.value} status={status.status[props.formState.initialValues.status]}
+                                <Step key={status.value} status={status.status[formContext.formState.initialValues.status]}
                                       title={status.title}/>
                             ))
                         }
