@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
@@ -11,14 +11,25 @@ import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import FormItemText from "../../Components/FormItem/FormItemText";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
-import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
+import useOptionHook from "../../Hooks/useOptionHook";
+import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
 
 const StockMovementForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
+
+    const productOptions = useOptionHook('/api/products', 'product.name');
+    const sourceLocationOptions = useOptionHook('/api/locations', 'source_location.name');
+    const destinationLocationOptions = useOptionHook('/api/locations', 'destination_location.name');
+
+    useEffect(() => {
+        productOptions.getInitialOptions(formState);
+        sourceLocationOptions.getInitialOptions(formState);
+        destinationLocationOptions.getInitialOptions(formState);
+    }, [formState.initialLoad]);
 
     return (
         <FormContextProvider
@@ -50,31 +61,28 @@ const StockMovementForm = () => {
                                 name={'source'}
                             />
 
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Product'}
                                 name={'product_id'}
                                 message={'Please select product'}
                                 required={true}
-                                url={'/api/products'}
-                                query={'product.name'}
+                                {...productOptions}
                             />
 
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Source Location'}
                                 name={'source_location_id'}
                                 message={'Please select source location'}
                                 required={true}
-                                url={'/api/locations'}
-                                query={'source_location.name'}
+                                {...sourceLocationOptions}
                             />
 
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Destination Location'}
                                 name={'destination_location_id'}
                                 message={'Please select destination location'}
                                 required={true}
-                                url={'/api/locations'}
-                                query={'destination_location.name'}
+                                {...destinationLocationOptions}
                             />
 
                             <FormItemNumber
