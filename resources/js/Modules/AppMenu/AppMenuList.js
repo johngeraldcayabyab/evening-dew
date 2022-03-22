@@ -29,38 +29,19 @@ const AppMenuList = () => {
     );
 
     return (
-        <ListContextProvider value={{tableState: tableState}}>
+        <ListContextProvider value={{
+            manifest: manifest,
+            tableState: tableState,
+            tableActions: tableActions,
+        }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={
-                    <TableSearchInput
-                        {...tableState}
-                        {...tableActions}
-                        manifest={manifest}
-                    />
-                }
-                bottomColOneLeft={<TableCreateButton manifest={manifest}/>}
-                bottomColOneRight={
-                    <ActionsDropdownButton
-                        {...tableState}
-                        {...tableActions}
-                        manifest={manifest}
-                    />
-                }
-                bottomColTwoRight={
-                    <CustomPagination
-                        {...tableState}
-                        {...tableActions}
-                        manifest={manifest}
-                    />
-                }
+                topColTwoRight={<TableSearchInput/>}
+                bottomColOneLeft={<TableCreateButton/>}
+                bottomColOneRight={<ActionsDropdownButton/>}
+                bottomColTwoRight={<CustomPagination/>}
             />
-            <CustomTable
-                {...tableState}
-                {...tableActions}
-                columns={columns}
-                manifest={manifest}
-            />
+            <CustomTable columns={columns}/>
         </ListContextProvider>
     )
 };
