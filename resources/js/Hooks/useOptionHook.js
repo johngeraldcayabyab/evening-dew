@@ -13,16 +13,21 @@ const useOptionHook = (url, query) => {
     });
 
     const optionActions = {
-        getOptions: (search) => {
+        getOptions: (search = null, callback) => {
             const field = query.split('.').slice(-1)[0];
-            const params = {
+            let params = {
                 page_size: 10,
                 selected_fields: ['id', 'slug'],
                 orderByColumn: field,
                 orderByDirection: 'asc',
             };
-            if (search) {
+            if (typeof search === 'string') {
                 params[field] = search;
+            } else if (typeof search === 'object') {
+                params = {
+                    ...params,
+                    ...search
+                };
             }
             useFetch(`${url}`, GET, params).then((response) => {
                 const data = response.data;
