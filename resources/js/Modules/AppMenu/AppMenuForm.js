@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
@@ -10,14 +10,23 @@ import CustomForm from "../../Components/CustomForm";
 import FormItemText from "../../Components/FormItem/FormItemText";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
-import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
+import useOptionHook from "../../Hooks/useOptionHook";
+import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
 
 const AppMenuForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const menuOptions = useOptionHook('/api/menus', 'menu.label');
+    const appMenuOptions = useOptionHook('/api/app_menus', 'parent_app_menu.label');
+
+    useEffect(() => {
+        menuOptions.getInitialOptions(formState);
+        appMenuOptions.getInitialOptions(formState);
+    }, [formState.initialLoad]);
+
     return (
         <FormContextProvider
             value={{
@@ -43,17 +52,15 @@ const AppMenuForm = () => {
                                 message={'Please input label'}
                                 required={true}
                             />
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Menu'}
                                 name={'menu_id'}
-                                url={'/api/menus'}
-                                query={'menu.label'}
+                                {...menuOptions}
                             />
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Parent App Menu'}
                                 name={'parent_app_menu_id'}
-                                url={'/api/app_menus'}
-                                query={'parent_app_menu.name'}
+                                {...appMenuOptions}
                             />
                         </ColForm>
                     </RowForm>
