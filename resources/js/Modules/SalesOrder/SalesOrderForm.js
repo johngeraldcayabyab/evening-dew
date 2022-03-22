@@ -193,11 +193,6 @@ const SalesOrderForm = () => {
                     bottomColOneLeft={<FormButtons/>}
                 />
                 <StatusBar
-                    id={id}
-                    form={form}
-                    formState={formState}
-                    formActions={formActions}
-                    manifest={manifest}
                     statuses={[
                         {
                             value: 'draft',
@@ -224,7 +219,6 @@ const SalesOrderForm = () => {
                 />
                 <FormCard>
                     <FormLinks
-                        formState={formState}
                         links={[
                             {
                                 module: 'transfers',

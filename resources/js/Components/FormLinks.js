@@ -4,12 +4,16 @@ import ColForm from "./Grid/ColForm";
 import {Link} from "react-router-dom";
 import {Button} from "antd";
 import {uuidv4} from "../Helpers/string";
+import {FormContext} from "../Contexts/FormContext";
+import {useContext} from "react";
 
 const FormLinks = (props) => {
+    const formContext = useContext(FormContext);
+
     let links = [];
-    if (objectHasValue(props.formState.initialValues)) {
+    if (objectHasValue(formContext.formState.initialValues)) {
         props.links.forEach((link) => {
-            if (objectHasValue(props.formState.initialValues[link.value])) {
+            if (objectHasValue(formContext.formState.initialValues[link.value])) {
                 links.push(link);
             }
         });
@@ -25,7 +29,7 @@ const FormLinks = (props) => {
                             {links.map(link => (
                                 <Link
                                     key={uuidv4()}
-                                    to={`/${link.module}?${link.param}=${props.formState.initialValues[link.value]}`}>
+                                    to={`/${link.module}?${link.param}=${formContext.formState.initialValues[link.value]}`}>
                                     <Button
                                         htmlType={"button"}
                                         type={"ghost"}
