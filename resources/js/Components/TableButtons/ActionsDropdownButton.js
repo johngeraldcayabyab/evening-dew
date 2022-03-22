@@ -1,7 +1,10 @@
 import {Dropdown, Menu} from "antd";
 import ListDeleteButton from "./ListDeleteButton";
+import {ListContext} from "../../Contexts/ListContext";
+import {useContext} from "react";
 
-const ActionsDropdownButton = (props) => {
+const ActionsDropdownButton = () => {
+    const listContext = useContext(ListContext);
 
     function handleMenuClick(e) {
 
@@ -9,11 +12,11 @@ const ActionsDropdownButton = (props) => {
 
     const menu = (
         <Menu onClick={handleMenuClick}>
-            <ListDeleteButton {...props}/>
+            <ListDeleteButton/>
         </Menu>
     );
 
-    if (props.selectedRows.length) {
+    if (listContext.tableState.selectedRows.length) {
         return (
             <Dropdown.Button overlay={menu}>Actions</Dropdown.Button>
         )
