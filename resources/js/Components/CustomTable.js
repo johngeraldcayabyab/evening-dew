@@ -1,8 +1,9 @@
-import {Button, Input, Space, Table} from "antd";
+import {Table} from "antd";
 import React, {useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
 import {ListContext} from "../Contexts/ListContext";
+import FilterDropdown from "./TableButtons/FilterDropdown";
 
 const CustomTable = (props) => {
     const listContext = useContext(ListContext);
@@ -33,40 +34,12 @@ const CustomTable = (props) => {
     function getColumnSearchProps(dataIndex) {
         return {
             filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
-                <div style={{padding: 8}}>
-                    <Input
-                        placeholder={`Search ${dataIndex}`}
-                        value={selectedKeys}
-                        onChange={e => setSelectedKeys(e.target.value ? e.target.value : null)}
-                        onPressEnter={() => {
-                            confirm();
-                        }}
-                        style={{marginBottom: 8, display: 'block'}}
-                    />
-                    <Space>
-                        <Button
-                            type="primary"
-                            onClick={() => {
-                                confirm();
-                            }}
-                            icon={<SearchOutlined/>}
-                            size="small"
-                            style={{width: 90}}
-                        >
-                            Search
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                clearFilters();
-                                // confirm();
-                            }}
-                            size={"small"}
-                            style={{width: 90}}
-                        >
-                            Reset
-                        </Button>
-                    </Space>
-                </div>
+                <FilterDropdown
+                    setSelectedKeys={setSelectedKeys}
+                    selectedKeys={selectedKeys}
+                    confirm={confirm}
+                    clearFilters={clearFilters}
+                />
             ),
             filterIcon: filtered => <SearchOutlined style={{color: filtered ? '#1890ff' : undefined}}/>,
         }
