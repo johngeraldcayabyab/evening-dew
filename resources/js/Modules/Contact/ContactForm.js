@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
@@ -11,14 +11,21 @@ import FormItemText from "../../Components/FormItem/FormItemText";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import FormItemUpload from "../../Components/FormItem/FormItemUpload";
-import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
+import useOptionHook from "../../Hooks/useOptionHook";
+import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
 
 const ContactForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const countryOptions = useOptionHook('/api/countries', 'country.country_name');
+
+    useEffect(() => {
+        countryOptions.getInitialOptions(formState);
+    }, [formState.initialLoad]);
+
     return (
         <FormContextProvider
             value={{
@@ -82,11 +89,11 @@ const ContactForm = () => {
                                 name={'zip'}
                             />
 
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Country'}
                                 name={'country_id'}
                                 url={'/api/countries'}
-                                query={'country.country_name'}
+                                {...countryOptions}
                             />
 
                             <FormItemText
