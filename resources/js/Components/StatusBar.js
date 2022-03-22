@@ -8,7 +8,7 @@ const StatusBar = (props) => {
     const formContext = useContext(FormContext);
 
     let statusButtons = [];
-    formContext.statuses.forEach((status) => {
+    props.statuses.forEach((status) => {
         if (status.hasOwnProperty('type') && status.visibility[formContext.formState.initialValues.status] === 'visible') {
             statusButtons.push(status);
         }
