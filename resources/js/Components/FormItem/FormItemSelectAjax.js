@@ -11,7 +11,7 @@ import {FormContext} from "../../Contexts/FormContext";
 
 const FormItemSelectAjax = (props) => {
     const formContext = useContext(FormContext);
-    const [useFetch, fetchAbort] = useFetchHook();
+    const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
         options: [],
@@ -25,12 +25,6 @@ const FormItemSelectAjax = (props) => {
         filterOption: state.filterOption,
         onClear: onClear,
     });
-
-    useEffect(() => {
-        return () => {
-            fetchAbort();
-        };
-    }, []);
 
     useEffect(() => {
         if (!formContext.formState.initialLoad) {

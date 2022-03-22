@@ -32,7 +32,7 @@ const TransferForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
-    const [useFetch, fetchAbort] = useFetchHook();
+    const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
         defaultSourceLocationReload: false,
@@ -40,12 +40,6 @@ const TransferForm = () => {
         transferLinesOptionReload: [],
         transferLinesDeleted: [],
     });
-
-    useEffect(() => {
-        return () => {
-            fetchAbort();
-        };
-    }, []);
 
     function onValuesChange(changedValues, allValues) {
         if (changedValues.operation_type_id) {

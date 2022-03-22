@@ -15,7 +15,7 @@ const Login = () => {
         loading: false,
         errors: {},
     });
-    const [useFetch, fetchAbort] = useFetchHook();
+    const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const history = useHistory();
     const appContext = useContext(AppContext);
@@ -58,9 +58,6 @@ const Login = () => {
         useFetch(`/api/sanctum/csrf-cookie`, GET).catch((responseErr) => {
             fetchCatcher.get(responseErr);
         });
-        return () => {
-            fetchAbort();
-        };
     }, []);
 
     return (
