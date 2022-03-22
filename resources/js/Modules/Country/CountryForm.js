@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
@@ -10,14 +10,21 @@ import CustomForm from "../../Components/CustomForm";
 import FormItemText from "../../Components/FormItem/FormItemText";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
-import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
+import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import useOptionHook from "../../Hooks/useOptionHook";
 
 const CountryForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest);
+    const currencyOptions = useOptionHook('/api/currencies', 'currency.currency');
+
+    useEffect(() => {
+        currencyOptions.getInitialOptions(formState);
+    }, [formState.initialLoad]);
+
     return (
         <FormContextProvider
             value={{
@@ -44,11 +51,10 @@ const CountryForm = () => {
                                 required={true}
                             />
 
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Currency'}
                                 name={'currency_id'}
-                                url={'/api/currencies'}
-                                query={'currency.currency'}
+                                {...currencyOptions}
                             />
 
                             <FormItemText
