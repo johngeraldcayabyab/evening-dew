@@ -8,12 +8,12 @@ const useOptionLineHook = (url, query) => {
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
-        options: [],
-        optionsLoading: true,
+        options: {},
+        optionsLoading: {},
     });
 
     const optionActions = {
-        getOptions: (search = null, callback) => {
+        getOptions: (search = null, key) => {
             const field = query.split('.').slice(-1)[0];
             let params = {
                 page_size: 10,
@@ -31,23 +31,28 @@ const useOptionLineHook = (url, query) => {
             }
             useFetch(`${url}`, GET, params).then((response) => {
                 const data = response.data;
+                const options = state.options;
+                options[key] = data.map((option) => ({
+                    value: option.id,
+                    label: option.slug
+                }));
+                const optionsLoading = state.optionsLoading;
+                optionsLoading[key] = false;
                 setState((prevState) => ({
                     ...prevState,
-                    options: data.map((option) => ({
-                        value: option.id,
-                        label: option.slug
-                    })),
-                    optionsLoading: false,
+                    options: options,
+                    optionsLoading: optionsLoading,
                 }));
+                console.log(state);
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
             });
         },
-        onSearch: (search) => {
-            optionActions.getOptions(search)
+        onSearch: (search, key) => {
+            optionActions.getOptions(search, key)
         },
         onClear: () => {
-            optionActions.getOptions();
+            optionActions.getOptions(null, key);
         },
         getFieldFromInitialValues: (initialValues) => {
             let search = initialValues;
@@ -62,13 +67,14 @@ const useOptionLineHook = (url, query) => {
         },
         getInitialOptions: (formState) => {
             if (!formState.initialLoad) {
-                let initialValue = null;
-                if (objectHasValue(formState.initialValues)) {
-                    initialValue = optionActions.getFieldFromInitialValues(formState.initialValues);
+                if (objectHasValue(formState.initialValues) && formState.initialValues.hasOwnProperty('transfer_lines')) {
+                    formState.initialValues.transfer_lines.forEach((transferLine, key) => {
+                        const field = optionActions.getFieldFromInitialValues(transferLine);
+                        optionActions.getOptions(field, key);
+                    });
                 }
-                optionActions.getOptions(initialValue);
             }
-        }
+        },
     }
 
     return {

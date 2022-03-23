@@ -13,7 +13,7 @@ const useOptionHook = (url, query) => {
     });
 
     const optionActions = {
-        getOptions: (search = null, callback) => {
+        getOptions: (search = null) => {
             const field = query.split('.').slice(-1)[0];
             let params = {
                 page_size: 10,

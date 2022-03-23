@@ -27,6 +27,7 @@ import RemoveLineButton from "../../Components/FormLines/RemoveLineButton";
 import LineColumn from "../../Components/FormLines/LineColumn";
 import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import useOptionLineHook from "../../Hooks/useOptionLineHook";
 
 const {TabPane} = Tabs;
 
@@ -41,6 +42,8 @@ const TransferForm = () => {
     const destinationLocationOptions = useOptionHook('/api/locations', 'destination_location.name');
     const responsibleOptions = useOptionHook('/api/users', 'responsible.name');
 
+    const productLineOptions = useOptionLineHook('/api/products', 'product.name');
+
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
@@ -53,6 +56,8 @@ const TransferForm = () => {
         operationTypeOptions.getInitialOptions(formState);
         sourceLocationOptions.getInitialOptions(formState);
         destinationLocationOptions.getInitialOptions(formState);
+        responsibleOptions.getInitialOptions(formState);
+        productLineOptions.getInitialOptions(formState);
     }, [formState.initialLoad]);
 
 
@@ -253,18 +258,18 @@ const TransferForm = () => {
                                                                 listName={'transfer_lines'}
                                                             />
 
-                                                            <FormItemSelectAjax
-                                                                {...restField}
-                                                                placeholder={'Product'}
-                                                                name={'product_id'}
-                                                                message={'Please select a product'}
-                                                                required={true}
-                                                                url={'/api/products'}
-                                                                style={{display: 'inline-block', width: '25%'}}
-                                                                query={`transfer_lines.${name}.product.name`}
-                                                                groupName={name}
-                                                                listName={'transfer_lines'}
-                                                            />
+                                                            {/*<FormItemSelectAjax*/}
+                                                            {/*    {...restField}*/}
+                                                            {/*    placeholder={'Product'}*/}
+                                                            {/*    name={'product_id'}*/}
+                                                            {/*    message={'Please select a product'}*/}
+                                                            {/*    required={true}*/}
+                                                            {/*    url={'/api/products'}*/}
+                                                            {/*    style={{display: 'inline-block', width: '25%'}}*/}
+                                                            {/*    query={`transfer_lines.${name}.product.name`}*/}
+                                                            {/*    groupName={name}*/}
+                                                            {/*    listName={'transfer_lines'}*/}
+                                                            {/*/>*/}
 
                                                             <FormItemText
                                                                 {...restField}
@@ -286,19 +291,19 @@ const TransferForm = () => {
                                                                 listName={'transfer_lines'}
                                                             />
 
-                                                            <FormItemSelect
-                                                                {...restField}
-                                                                placeholder={'Measurement'}
-                                                                name={'measurement_id'}
-                                                                message={'Please select a measurement'}
-                                                                required={true}
-                                                                url={'/api/measurements'}
-                                                                search={state.transferLinesOptionReload[name] ? state.transferLinesOptionReload[name].isReload : null}
-                                                                style={{display: 'inline-block', width: '25%'}}
-                                                                query={`transfer_lines.${name}.measurement.name`}
-                                                                groupName={name}
-                                                                listName={'transfer_lines'}
-                                                            />
+                                                            {/*<FormItemSelectAjax*/}
+                                                            {/*    {...restField}*/}
+                                                            {/*    placeholder={'Measurement'}*/}
+                                                            {/*    name={'measurement_id'}*/}
+                                                            {/*    message={'Please select a measurement'}*/}
+                                                            {/*    required={true}*/}
+                                                            {/*    url={'/api/measurements'}*/}
+                                                            {/*    search={state.transferLinesOptionReload[name] ? state.transferLinesOptionReload[name].isReload : null}*/}
+                                                            {/*    style={{display: 'inline-block', width: '25%'}}*/}
+                                                            {/*    query={`transfer_lines.${name}.measurement.name`}*/}
+                                                            {/*    groupName={name}*/}
+                                                            {/*    listName={'transfer_lines'}*/}
+                                                            {/*/>*/}
                                                         </ColForm>
 
                                                         <RemoveLineButton
