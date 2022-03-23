@@ -6,19 +6,20 @@ import {FormContext} from "../../Contexts/FormContext";
 
 const RemoveLineButton = (props) => {
     const formContext = useContext(FormContext);
+    const form = formContext.form;
 
     return (
         <ColForm lg={1}>
             {!formContext.formState.formDisabled &&
-            <MinusCircleOutlined onClick={(item) => {
-                if (formContext.form.getFieldsValue()[props.dynamicName] && formContext.form.getFieldsValue()[props.dynamicName][props.name]) {
-                    if (formContext.form.getFieldsValue()[props.dynamicName][props.name].id) {
+            <MinusCircleOutlined onClick={() => {
+                if (form.getFieldsValue()[props.listName] && form.getFieldsValue()[props.listName][props.name]) {
+                    if (form.getFieldsValue()[props.listName][props.name].id) {
                         formContext.setState((prevState) => {
                             let newState = {
                                 ...prevState
                             };
-                            newState[`${snakeToCamel(props.dynamicName)}OptionReload`] = [];
-                            newState[`${snakeToCamel(props.dynamicName)}Deleted`] = [...prevState[`${snakeToCamel(props.dynamicName)}Deleted`], formContext.form.getFieldsValue()[props.dynamicName][props.name].id];
+                            // newState[`${snakeToCamel(props.listName)}OptionReload`] = [];
+                            newState[`${snakeToCamel(props.listName)}Deleted`] = [...prevState[`${snakeToCamel(props.listName)}Deleted`], form.getFieldsValue()[props.listName][props.name].id];
                             return newState
                         });
                     }
