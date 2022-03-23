@@ -49,6 +49,36 @@ export const formItemFieldProps = (props, specialFieldProps = {}) => {
     return [formItemProps, fieldProps];
 };
 
+export const getSpecificLine = (changedValues) => {
+    let lines = getPresentLines(changedValues);
+    let line;
+    if (lines) {
+        line = getChangedLine(lines);
+    }
+    if (isOnlyTwoProperty(line)) {
+        return line;
+    }
+    return false;
+}
+
+export const getPresentLines = (changedValues) => {
+    if (changedValues.hasOwnProperty('transfer_lines')) {
+        return changedValues.transfer_lines;
+    }
+    return false;
+}
+
+export const getChangedLine = (lines) => {
+    let changedLine;
+    lines.forEach((line, key) => {
+        changedLine = {...line, key: key};
+    });
+    if (changedLine && changedLine.hasOwnProperty('product_id')) {
+        return changedLine;
+    }
+    return false;
+}
+
 export const checkIfADynamicInputChangedAndDoSomething = (changedValues, allValues, dynamicName, dynamicProperty, callback) => {
     if (checkIfADynamicInputChanged(changedValues, dynamicName)) {
         const transactionLines = allValues[dynamicName];
@@ -81,6 +111,15 @@ export const getSpecificInputChange = (changedValues, dynamicName, dynamicProper
     });
     return changedSalesOrderLine;
 }
+
+export const isOnlyTwoProperty = (line) => {
+    let keys = Object.keys(line);
+    if (keys.length === 2) {
+        return true;
+    }
+    return false;
+}
+
 
 export const isOnlyOneProperty = (changedSalesOrderLine) => {
     let keys = Object.keys(changedSalesOrderLine);

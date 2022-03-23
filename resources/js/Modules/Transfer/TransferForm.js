@@ -16,7 +16,7 @@ import FormItemDate from "../../Components/FormItem/FormItemDate";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {GET, POST} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
-import {checkIfADynamicInputChangedAndDoSomething} from "../../Helpers/form";
+import {checkIfADynamicInputChangedAndDoSomething, getSpecificLine} from "../../Helpers/form";
 import StatusBar from "../../Components/StatusBar";
 import FormItemStatus from "../../Components/FormItem/FormItemStatus";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
@@ -58,7 +58,11 @@ const TransferForm = () => {
 
     function onValuesChange(changedValues, allValues) {
         setDefaultLocationsFromOperationType(changedValues);
-        checkIfADynamicInputChangedAndDoSomething(changedValues, allValues, 'transfer_lines', 'product_id', getProductDataAndFillDefaultValues);
+        const line = getSpecificLine(changedValues);
+        if (line) {
+            console.log(line);
+        }
+        // checkIfADynamicInputChangedAndDoSomething(changedValues, allValues, 'transfer_lines', 'product_id', getProductDataAndFillDefaultValues);
     }
 
     function setDefaultLocationsFromOperationType(changedValues) {
@@ -81,33 +85,33 @@ const TransferForm = () => {
         }
     }
 
-    function getProductDataAndFillDefaultValues(changedTransferLine, transferLines) {
-        useFetch(`/api/products`, GET, {
-            id: changedTransferLine.product_id
-        }).then((response) => {
-            const product = response.data[0];
-            transferLines[changedTransferLine.key] = {
-                ...transferLines[changedTransferLine.key],
-                ...{
-                    measurement_id: product.measurement_id,
-                    isReload: product.measurement.name
-                }
-            };
-            setTransferLinesReload(transferLines);
-        }).catch((responseErr) => {
-            fetchCatcher.get(responseErr);
-        });
-    }
-
-    function setTransferLinesReload(transferLines) {
-        setState((prevState) => ({
-            ...prevState,
-            transferLinesOptionReload: transferLines
-        }));
-        form.setFieldsValue({
-            transfer_lines: transferLines
-        });
-    }
+    // function getProductDataAndFillDefaultValues(changedTransferLine, transferLines) {
+    //     useFetch(`/api/products`, GET, {
+    //         id: changedTransferLine.product_id
+    //     }).then((response) => {
+    //         const product = response.data[0];
+    //         transferLines[changedTransferLine.key] = {
+    //             ...transferLines[changedTransferLine.key],
+    //             ...{
+    //                 measurement_id: product.measurement_id,
+    //                 isReload: product.measurement.name
+    //             }
+    //         };
+    //         setTransferLinesReload(transferLines);
+    //     }).catch((responseErr) => {
+    //         fetchCatcher.get(responseErr);
+    //     });
+    // }
+    //
+    // function setTransferLinesReload(transferLines) {
+    //     setState((prevState) => ({
+    //         ...prevState,
+    //         transferLinesOptionReload: transferLines
+    //     }));
+    //     form.setFieldsValue({
+    //         transfer_lines: transferLines
+    //     });
+    // }
 
     function onFinish(values) {
         if (id) {
