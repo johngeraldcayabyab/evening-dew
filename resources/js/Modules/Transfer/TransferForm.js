@@ -65,7 +65,7 @@ const TransferForm = () => {
      */
     function onValuesChange(changedValues, allValues) {
         // console.log(changedValues, allValues);
-        setDefaultLocationsFromOperationType(changedValues);
+        // setDefaultLocationsFromOperationType(changedValues);
         // const line = getSpecificLine(changedValues);
         // if (line) {
         //     console.log(line);
@@ -317,7 +317,7 @@ const TransferForm = () => {
                                                         <RemoveLineButton
                                                             remove={remove}
                                                             listName={'transfer_lines'}
-                                                            name={name}
+                                                            name={restField.fieldKey}
                                                         />
                                                     </RowForm>
                                                 ))}
