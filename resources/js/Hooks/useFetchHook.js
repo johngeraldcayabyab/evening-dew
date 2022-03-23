@@ -8,7 +8,6 @@ const useFetchHook = () => {
 
     useEffect(() => {
         return () => {
-            console.log('unmounted');
             controller.abort.bind(controller)();
         };
     }, []);
