@@ -17,7 +17,6 @@ const RemoveLineButton = (props) => {
     function checkIfRemovedLineIsInDatabase(actualFieldsValue) {
         if (actualFieldsValue[props.listName] && actualFieldsValue[props.listName][props.name]) {
             if (actualFieldsValue[props.listName][props.name].id) {
-                console.log('yes its from db');
                 return true;
             }
         }

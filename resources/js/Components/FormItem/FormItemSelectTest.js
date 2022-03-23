@@ -1,5 +1,5 @@
 import {Form, Select} from "antd";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import CustomInputSkeleton from "../CustomInputSkeleton";
 import {formItemFieldProps} from "../../Helpers/form";
 import {FormContext} from "../../Contexts/FormContext";
@@ -15,11 +15,22 @@ const FormItemSelectTest = (props) => {
         onClear: props.onClear,
     });
 
+    useEffect(() => {
+        if (props.listName) {
+            props.addSelf(props.fieldKey);
+        }
+        return () => {
+            if (props.listName) {
+                props.removeSelf(props.fieldKey);
+            }
+        };
+    }, []);
+
     return (
         <Form.Item {...formItemProps}>
             {formContext.formState.loading || props.optionsLoading ? <CustomInputSkeleton {...props}/> :
                 <Select {...fieldProps}>
-                    {props.options.map((option) => {
+                    {props.options && props.options.map((option) => {
                         return (
                             <Select.Option key={option.value} value={option.value}>
                                 {option.label}
