@@ -4,25 +4,41 @@ import React, {useContext} from "react";
 import {snakeToCamel} from "../../Helpers/string";
 import {FormContext} from "../../Contexts/FormContext";
 
+/**
+ *
+ * This thing can only understand the resetting key
+ *
+ */
 const RemoveLineButton = (props) => {
     const formContext = useContext(FormContext);
     const form = formContext.form;
+    const formState = formContext.formState;
+
+    function checkIfRemovedLineIsInDatabase(actualFieldsValue) {
+        if (actualFieldsValue[props.listName] && actualFieldsValue[props.listName][props.name]) {
+            if (actualFieldsValue[props.listName][props.name].id) {
+                console.log('yes its from db');
+                return true;
+            }
+        }
+        return false;
+    }
 
     return (
         <ColForm lg={1}>
-            {!formContext.formState.formDisabled &&
+            {!formState.formDisabled &&
             <MinusCircleOutlined onClick={() => {
-                if (form.getFieldsValue()[props.listName] && form.getFieldsValue()[props.listName][props.name]) {
-                    if (form.getFieldsValue()[props.listName][props.name].id) {
-                        formContext.setState((prevState) => {
-                            let newState = {
-                                ...prevState
-                            };
-                            // newState[`${snakeToCamel(props.listName)}OptionReload`] = [];
-                            newState[`${snakeToCamel(props.listName)}Deleted`] = [...prevState[`${snakeToCamel(props.listName)}Deleted`], form.getFieldsValue()[props.listName][props.name].id];
-                            return newState
-                        });
-                    }
+                const actualFieldsValue = form.getFieldsValue();
+                if (checkIfRemovedLineIsInDatabase(actualFieldsValue)) {
+                    const field = `${snakeToCamel(props.listName)}Deleted`;
+                    const deletedLines = [
+                        ...formContext.state[field],
+                        actualFieldsValue[props.listName][props.name].id
+                    ];
+                    formContext.setState(prevState => ({
+                        ...prevState,
+                        [field]: deletedLines,
+                    }));
                 }
                 props.remove(props.name);
             }}/>}
