@@ -286,7 +286,7 @@ const TransferForm = () => {
                                                                 listName={'transfer_lines'}
                                                             />
 
-                                                            <FormItemSelectAjax
+                                                            <FormItemSelect
                                                                 {...restField}
                                                                 placeholder={'Measurement'}
                                                                 name={'measurement_id'}
