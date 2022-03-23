@@ -9,10 +9,14 @@ const AddLineButton = (props) => {
     return (
         <Form.Item>
             {!formContext.formState.formDisabled &&
-            <Button type="dashed" onClick={() => {
-                props.add();
-            }} block
-                    icon={<PlusOutlined/>}>
+            <Button
+                type="dashed"
+                onClick={() => {
+                    props.add();
+                }}
+                block
+                icon={<PlusOutlined/>}
+            >
                 {props.label}
             </Button>}
         </Form.Item>

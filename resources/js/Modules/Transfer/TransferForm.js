@@ -10,13 +10,11 @@ import CustomForm from "../../Components/CustomForm";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import FormItemText from "../../Components/FormItem/FormItemText";
-import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import FormItemDate from "../../Components/FormItem/FormItemDate";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {GET, POST} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
-import {checkIfADynamicInputChangedAndDoSomething, getSpecificLine} from "../../Helpers/form";
 import StatusBar from "../../Components/StatusBar";
 import FormItemStatus from "../../Components/FormItem/FormItemStatus";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
@@ -41,13 +39,12 @@ const TransferForm = () => {
     const sourceLocationOptions = useOptionHook('/api/locations', 'source_location.name');
     const destinationLocationOptions = useOptionHook('/api/locations', 'destination_location.name');
     const responsibleOptions = useOptionHook('/api/users', 'responsible.name');
-
     const productLineOptions = useOptionLineHook('/api/products', 'product.name');
+    const measurementLineOptions = useOptionLineHook('/api/measurements', 'measurement.name');
 
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
-        transferLinesOptionReload: [],
         transferLinesDeleted: [],
     });
 
@@ -57,16 +54,22 @@ const TransferForm = () => {
         sourceLocationOptions.getInitialOptions(formState);
         destinationLocationOptions.getInitialOptions(formState);
         responsibleOptions.getInitialOptions(formState);
-        productLineOptions.getInitialOptions(formState);
+        productLineOptions.getInitialOptions(formState, 'transfer_lines');
+        measurementLineOptions.getInitialOptions(formState, 'transfer_lines');
     }, [formState.initialLoad]);
 
 
+    /**
+     * This thing can only understand the resetting key
+     *
+     */
     function onValuesChange(changedValues, allValues) {
+        // console.log(changedValues, allValues);
         setDefaultLocationsFromOperationType(changedValues);
-        const line = getSpecificLine(changedValues);
-        if (line) {
-            console.log(line);
-        }
+        // const line = getSpecificLine(changedValues);
+        // if (line) {
+        //     console.log(line);
+        // }
         // checkIfADynamicInputChangedAndDoSomething(changedValues, allValues, 'transfer_lines', 'product_id', getProductDataAndFillDefaultValues);
     }
 
@@ -143,6 +146,7 @@ const TransferForm = () => {
                 form: form,
                 formState: formState,
                 formActions: formActions,
+                state: state,
                 setState: setState,
                 onFinish: onFinish,
                 onValuesChange: onValuesChange,
@@ -223,7 +227,6 @@ const TransferForm = () => {
                             />
                         </ColForm>
                         <ColForm>
-
                             <FormItemDate
                                 label={'Scheduled date'}
                                 name={'scheduled_date'}
@@ -258,18 +261,21 @@ const TransferForm = () => {
                                                                 listName={'transfer_lines'}
                                                             />
 
-                                                            {/*<FormItemSelectAjax*/}
-                                                            {/*    {...restField}*/}
-                                                            {/*    placeholder={'Product'}*/}
-                                                            {/*    name={'product_id'}*/}
-                                                            {/*    message={'Please select a product'}*/}
-                                                            {/*    required={true}*/}
-                                                            {/*    url={'/api/products'}*/}
-                                                            {/*    style={{display: 'inline-block', width: '25%'}}*/}
-                                                            {/*    query={`transfer_lines.${name}.product.name`}*/}
-                                                            {/*    groupName={name}*/}
-                                                            {/*    listName={'transfer_lines'}*/}
-                                                            {/*/>*/}
+                                                            <FormItemSelectTest
+                                                                {...restField}
+                                                                placeholder={'Product'}
+                                                                name={'product_id'}
+                                                                message={'Please select a product'}
+                                                                required={true}
+                                                                style={{display: 'inline-block', width: '25%'}}
+                                                                groupName={name}
+                                                                listName={'transfer_lines'}
+                                                                options={productLineOptions.options[parseInt(restField.fieldKey)]}
+                                                                onSearch={(search) => (productLineOptions.onSearch(search, restField.fieldKey))}
+                                                                onClear={() => productLineOptions.onClear(restField.fieldKey)}
+                                                                addSelf={()=> productLineOptions.addSelf(restField.fieldKey)}
+                                                                removeSelf={()=> productLineOptions.removeSelf(restField.fieldKey)}
+                                                            />
 
                                                             <FormItemText
                                                                 {...restField}
@@ -291,32 +297,31 @@ const TransferForm = () => {
                                                                 listName={'transfer_lines'}
                                                             />
 
-                                                            {/*<FormItemSelectAjax*/}
-                                                            {/*    {...restField}*/}
-                                                            {/*    placeholder={'Measurement'}*/}
-                                                            {/*    name={'measurement_id'}*/}
-                                                            {/*    message={'Please select a measurement'}*/}
-                                                            {/*    required={true}*/}
-                                                            {/*    url={'/api/measurements'}*/}
-                                                            {/*    search={state.transferLinesOptionReload[name] ? state.transferLinesOptionReload[name].isReload : null}*/}
-                                                            {/*    style={{display: 'inline-block', width: '25%'}}*/}
-                                                            {/*    query={`transfer_lines.${name}.measurement.name`}*/}
-                                                            {/*    groupName={name}*/}
-                                                            {/*    listName={'transfer_lines'}*/}
-                                                            {/*/>*/}
+                                                            <FormItemSelectTest
+                                                                {...restField}
+                                                                placeholder={'Measurement'}
+                                                                name={'measurement_id'}
+                                                                message={'Please select a measurement'}
+                                                                required={true}
+                                                                style={{display: 'inline-block', width: '25%'}}
+                                                                groupName={name}
+                                                                listName={'transfer_lines'}
+                                                                options={measurementLineOptions.options[parseInt(restField.fieldKey)]}
+                                                                onSearch={(search) => measurementLineOptions.onSearch(search, restField.fieldKey)}
+                                                                onClear={() => measurementLineOptions.onClear(restField.fieldKey)}
+                                                                addSelf={()=> measurementLineOptions.addSelf(restField.fieldKey)}
+                                                                removeSelf={()=> measurementLineOptions.removeSelf(restField.fieldKey)}
+                                                            />
                                                         </ColForm>
 
                                                         <RemoveLineButton
                                                             remove={remove}
-                                                            dynamicName={'transfer_lines'}
+                                                            listName={'transfer_lines'}
                                                             name={name}
                                                         />
                                                     </RowForm>
                                                 ))}
-                                                <AddLineButton
-                                                    add={add}
-                                                    label={'Add a product'}
-                                                />
+                                                <AddLineButton add={add} label={'Add a product'}/>
                                             </>
                                         )}
                                     </Form.List>

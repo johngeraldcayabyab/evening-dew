@@ -43,7 +43,6 @@ const useOptionLineHook = (url, query) => {
                     options: options,
                     optionsLoading: optionsLoading,
                 }));
-                console.log(state);
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
             });
@@ -51,7 +50,7 @@ const useOptionLineHook = (url, query) => {
         onSearch: (search, key) => {
             optionActions.getOptions(search, key)
         },
-        onClear: () => {
+        onClear: (key) => {
             optionActions.getOptions(null, key);
         },
         getFieldFromInitialValues: (initialValues) => {
@@ -65,17 +64,31 @@ const useOptionLineHook = (url, query) => {
             });
             return search;
         },
-        getInitialOptions: (formState) => {
+        getInitialOptions: (formState, lineName) => {
             if (!formState.initialLoad) {
-                if (objectHasValue(formState.initialValues) && formState.initialValues.hasOwnProperty('transfer_lines')) {
-                    formState.initialValues.transfer_lines.forEach((transferLine, key) => {
-                        const field = optionActions.getFieldFromInitialValues(transferLine);
+                if (objectHasValue(formState.initialValues) && formState.initialValues.hasOwnProperty(lineName)) {
+                    formState.initialValues[lineName].forEach((line, key) => {
+                        const field = optionActions.getFieldFromInitialValues(line);
                         optionActions.getOptions(field, key);
                     });
                 }
             }
         },
-    }
+        addSelf: (key) => {
+            optionActions.getOptions(null, key);
+        },
+        removeSelf: (key) => {
+            const options = state.options;
+            delete options[key];
+            const optionsLoading = state.optionsLoading;
+            delete optionsLoading[key];
+            setState((prevState) => ({
+                ...prevState,
+                options: options,
+                optionsLoading: optionsLoading,
+            }));
+        }
+    };
 
     return {
         ...optionActions,

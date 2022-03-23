@@ -38,7 +38,7 @@ export const formItemFieldProps = (props, specialFieldProps = {}) => {
         delete formItemProps.labelCol;
         formItemProps.wrapperCol = {span: 24};
         formItemProps.style = props.style;
-        formItemProps.name = [props.groupName, props.name];
+        formItemProps.name = [props.fieldKey, props.name];
         if (formContext.formState.errors[`${props.listName}.${props.fieldKey}.${props.name}`]) {
             formItemProps.validateStatus = 'error';
             formItemProps.help = formContext.formState.errors[`${props.listName}.${props.fieldKey}.${props.name}`];
