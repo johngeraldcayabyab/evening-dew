@@ -19,9 +19,6 @@ export const formItemFieldProps = (props, specialFieldProps = {}) => {
     if (formContext.formState.errors[props.name]) {
         formItemProps.validateStatus = 'error';
         formItemProps.help = formContext.formState.errors[props.name];
-    } else if (formContext.formState.errors[`${props.listName}.${props.groupName}.${props.name}`]) {
-        formItemProps.validateStatus = 'error';
-        formItemProps.help = formContext.formState.errors[`${props.listName}.${props.groupName}.${props.name}`];
     }
 
     const fieldProps = {
@@ -42,6 +39,10 @@ export const formItemFieldProps = (props, specialFieldProps = {}) => {
         formItemProps.wrapperCol = {span: 24};
         formItemProps.style = props.style;
         formItemProps.name = [props.groupName, props.name];
+        if (formContext.formState.errors[`${props.listName}.${props.fieldKey}.${props.name}`]) {
+            formItemProps.validateStatus = 'error';
+            formItemProps.help = formContext.formState.errors[`${props.listName}.${props.fieldKey}.${props.name}`];
+        }
     }
 
     // console.log(props);
