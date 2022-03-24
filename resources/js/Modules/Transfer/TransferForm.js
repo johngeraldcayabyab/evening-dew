@@ -35,7 +35,6 @@ const TransferForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
-
     const contactOptions = useOptionHook('/api/contacts', 'contact.name');
     const operationTypeOptions = useOptionHook('/api/operations_types', 'operation_type.name');
     const sourceLocationOptions = useOptionHook('/api/locations', 'source_location.name');
@@ -61,10 +60,6 @@ const TransferForm = () => {
     }, [formState.initialLoad]);
 
     function onValuesChange(changedValues, allValues) {
-        /**
-         * It knows what field value to set based on the dynamic property.
-         * But for reloads, dynamic property wont work UNLESS I ALSO PASS THE DYNAMIC PROP
-         */
         setDefaultLocationsFromOperationType(changedValues);
         isLineFieldExecute(changedValues, 'transfer_lines', 'product_id', (line) => {
             useFetch(`/api/products/${line.product_id}`, GET).then((response) => {
@@ -76,11 +71,24 @@ const TransferForm = () => {
                 form.setFieldsValue({
                     transfer_lines: transferLines
                 });
-                console.log(productLineOptions.options);
+                const persistedKey = getPersistedKey(line, measurementLineOptions.options)
+                measurementLineOptions.getOptions(response.measurement.name, persistedKey);
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
             });
         });
+    }
+
+    function getPersistedKey(line, options) {
+        let key = 0;
+        for (let persistedKey in options) {
+            if (options.hasOwnProperty(persistedKey)) {
+                if (line.key === key) {
+                    return persistedKey;
+                }
+                key++;
+            }
+        }
     }
 
     function setDefaultLocationsFromOperationType(changedValues) {
@@ -103,34 +111,6 @@ const TransferForm = () => {
         }
     }
 
-    // function getProductDataAndFillDefaultValues(changedTransferLine, transferLines) {
-    //     useFetch(`/api/products`, GET, {
-    //         id: changedTransferLine.product_id
-    //     }).then((response) => {
-    //         const product = response.data[0];
-    //         transferLines[changedTransferLine.key] = {
-    //             ...transferLines[changedTransferLine.key],
-    //             ...{
-    //                 measurement_id: product.measurement_id,
-    //                 isReload: product.measurement.name
-    //             }
-    //         };
-    //         setTransferLinesReload(transferLines);
-    //     }).catch((responseErr) => {
-    //         fetchCatcher.get(responseErr);
-    //     });
-    // }
-
-    function setTransferLinesReload(transferLines) {
-        setState((prevState) => ({
-            ...prevState,
-            transferLinesOptionReload: transferLines
-        }));
-        form.setFieldsValue({
-            transfer_lines: transferLines
-        });
-    }
-
     function onFinish(values) {
         if (id) {
             if (state.transferLinesDeleted.length) {
@@ -138,7 +118,6 @@ const TransferForm = () => {
                     setState((prevState) => ({
                         ...prevState,
                         transferLinesDeleted: [],
-                        transferLinesOptionReload: [],
                     }));
                 }).catch((responseErr) => {
                     fetchCatcher.get(responseErr);
