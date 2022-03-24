@@ -40,6 +40,7 @@ const RemoveLineButton = (props) => {
                     }));
                 }
                 props.remove(props.name);
+                console.log(actualFieldsValue);
             }}/>}
         </ColForm>
     )
