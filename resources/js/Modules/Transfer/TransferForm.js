@@ -248,7 +248,6 @@ const TransferForm = () => {
                                                                 groupName={name}
                                                                 listName={'transfer_lines'}
                                                             />
-
                                                             <FormItemSelectTest
                                                                 {...restField}
                                                                 placeholder={'Product'}
@@ -258,13 +257,8 @@ const TransferForm = () => {
                                                                 style={{display: 'inline-block', width: '25%'}}
                                                                 groupName={name}
                                                                 listName={'transfer_lines'}
-                                                                options={productLineOptions.options[parseInt(restField.fieldKey)]}
-                                                                onSearch={(search) => (productLineOptions.onSearch(search, restField.fieldKey))}
-                                                                onClear={() => productLineOptions.onClear(restField.fieldKey)}
-                                                                addSelf={() => productLineOptions.addSelf(restField.fieldKey)}
-                                                                removeSelf={() => productLineOptions.removeSelf(restField.fieldKey)}
+                                                                {...productLineOptions.aggregate(productLineOptions, restField.fieldKey)}
                                                             />
-
                                                             <FormItemText
                                                                 {...restField}
                                                                 placeholder={'Description'}
@@ -273,7 +267,6 @@ const TransferForm = () => {
                                                                 groupName={name}
                                                                 listName={'transfer_lines'}
                                                             />
-
                                                             <FormItemNumber
                                                                 {...restField}
                                                                 placeholder={'Demand'}
@@ -284,7 +277,6 @@ const TransferForm = () => {
                                                                 groupName={name}
                                                                 listName={'transfer_lines'}
                                                             />
-
                                                             <FormItemSelectTest
                                                                 {...restField}
                                                                 placeholder={'Measurement'}
@@ -294,14 +286,9 @@ const TransferForm = () => {
                                                                 style={{display: 'inline-block', width: '25%'}}
                                                                 groupName={name}
                                                                 listName={'transfer_lines'}
-                                                                options={measurementLineOptions.options[parseInt(restField.fieldKey)]}
-                                                                onSearch={(search) => measurementLineOptions.onSearch(search, restField.fieldKey)}
-                                                                onClear={() => measurementLineOptions.onClear(restField.fieldKey)}
-                                                                addSelf={() => measurementLineOptions.addSelf(restField.fieldKey)}
-                                                                removeSelf={() => measurementLineOptions.removeSelf(restField.fieldKey)}
+                                                                {...measurementLineOptions.aggregate(measurementLineOptions, restField.fieldKey)}
                                                             />
                                                         </ColForm>
-
                                                         <RemoveLineButton
                                                             remove={remove}
                                                             listName={'transfer_lines'}
@@ -316,8 +303,6 @@ const TransferForm = () => {
                                 </ColForm>
                             </RowForm>
                         </TabPane>
-
-
                         <TabPane tab="Additional Info" key="2">
                             <RowForm>
                                 <ColForm>
@@ -326,7 +311,6 @@ const TransferForm = () => {
                                         name={'tracking_reference'}
                                     />
                                 </ColForm>
-
                                 <ColForm>
                                     <FormItemSelect
                                         label={'Shipping Policy'}
@@ -341,7 +325,6 @@ const TransferForm = () => {
                                             },
                                         ]}
                                     />
-
                                     <FormItemSelectTest
                                         label={'Responsible'}
                                         name={'responsible_id'}
