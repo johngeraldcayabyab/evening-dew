@@ -50,10 +50,10 @@ export const formItemFieldProps = (props, specialFieldProps = {}) => {
     return [formItemProps, fieldProps];
 };
 
-export const isLineFieldExecute = (changedValues, lineName, field, callback) => {
+export const isLineFieldExecute = (changedValues, allValues, lineName, field, callback) => {
     const line = getChangedLineField(changedValues, lineName, field);
     if (line && line[field]) {
-        callback(line);
+        callback(line, allValues);
     }
 };
 
