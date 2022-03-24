@@ -26,6 +26,7 @@ import LineColumn from "../../Components/FormLines/LineColumn";
 import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
 import useOptionLineHook from "../../Hooks/useOptionLineHook";
+import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 
 const {TabPane} = Tabs;
 
@@ -253,10 +254,9 @@ const TransferForm = () => {
                                                 {fields.map(({key, name, ...restField}) => (
                                                     <RowForm key={key}>
                                                         <ColForm lg={23}>
-                                                            <FormItemNumber
+                                                            <FormItemLineId
                                                                 {...restField}
                                                                 name={'id'}
-                                                                style={{display: 'hidden', position: 'absolute'}}
                                                                 groupName={name}
                                                                 listName={'transfer_lines'}
                                                             />
@@ -273,8 +273,8 @@ const TransferForm = () => {
                                                                 options={productLineOptions.options[parseInt(restField.fieldKey)]}
                                                                 onSearch={(search) => (productLineOptions.onSearch(search, restField.fieldKey))}
                                                                 onClear={() => productLineOptions.onClear(restField.fieldKey)}
-                                                                addSelf={()=> productLineOptions.addSelf(restField.fieldKey)}
-                                                                removeSelf={()=> productLineOptions.removeSelf(restField.fieldKey)}
+                                                                addSelf={() => productLineOptions.addSelf(restField.fieldKey)}
+                                                                removeSelf={() => productLineOptions.removeSelf(restField.fieldKey)}
                                                             />
 
                                                             <FormItemText
@@ -309,8 +309,8 @@ const TransferForm = () => {
                                                                 options={measurementLineOptions.options[parseInt(restField.fieldKey)]}
                                                                 onSearch={(search) => measurementLineOptions.onSearch(search, restField.fieldKey)}
                                                                 onClear={() => measurementLineOptions.onClear(restField.fieldKey)}
-                                                                addSelf={()=> measurementLineOptions.addSelf(restField.fieldKey)}
-                                                                removeSelf={()=> measurementLineOptions.removeSelf(restField.fieldKey)}
+                                                                addSelf={() => measurementLineOptions.addSelf(restField.fieldKey)}
+                                                                removeSelf={() => measurementLineOptions.removeSelf(restField.fieldKey)}
                                                             />
                                                         </ColForm>
 
