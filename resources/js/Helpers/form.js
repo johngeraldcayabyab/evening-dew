@@ -50,11 +50,18 @@ export const formItemFieldProps = (props, specialFieldProps = {}) => {
     return [formItemProps, fieldProps];
 };
 
-export const getSpecificLine = (changedValues) => {
-    let lines = getPresentLines(changedValues);
+export const isLineFieldExecute = (changedValues, lineName, field, callback) => {
+    const line = getChangedLineField(changedValues, lineName, field);
+    if (line && line[field]) {
+        callback(line);
+    }
+};
+
+export const getChangedLineField = (changedValues, lineName, field) => {
+    let lines = getPresentLines(changedValues, lineName);
     let line;
     if (lines) {
-        line = getChangedLine(lines);
+        line = getChangedLine(lines, field);
     }
     if (isOnlyTwoProperty(line)) {
         return line;
@@ -62,19 +69,19 @@ export const getSpecificLine = (changedValues) => {
     return false;
 }
 
-export const getPresentLines = (changedValues) => {
-    if (changedValues.hasOwnProperty('transfer_lines')) {
-        return changedValues.transfer_lines;
+export const getPresentLines = (changedValues, lineName) => {
+    if (changedValues.hasOwnProperty(lineName)) {
+        return changedValues[lineName];
     }
     return false;
 }
 
-export const getChangedLine = (lines) => {
+export const getChangedLine = (lines, field) => {
     let changedLine;
     lines.forEach((line, key) => {
         changedLine = {...line, key: key};
     });
-    if (changedLine && changedLine.hasOwnProperty('product_id')) {
+    if (changedLine && changedLine.hasOwnProperty(field)) {
         return changedLine;
     }
     return false;

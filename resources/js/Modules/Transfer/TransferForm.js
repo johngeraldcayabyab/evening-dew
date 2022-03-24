@@ -27,6 +27,7 @@ import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
 import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
+import {isLineFieldExecute} from "../../Helpers/form";
 
 const {TabPane} = Tabs;
 
@@ -59,19 +60,27 @@ const TransferForm = () => {
         measurementLineOptions.getInitialOptions(formState, 'transfer_lines');
     }, [formState.initialLoad]);
 
-
-    /**
-     * This thing can only understand the resetting key
-     *
-     */
     function onValuesChange(changedValues, allValues) {
-        // console.log(changedValues, allValues);
-        // setDefaultLocationsFromOperationType(changedValues);
-        // const line = getSpecificLine(changedValues);
-        // if (line) {
-        //     console.log(line);
-        // }
-        // checkIfADynamicInputChangedAndDoSomething(changedValues, allValues, 'transfer_lines', 'product_id', getProductDataAndFillDefaultValues);
+        /**
+         * It knows what field value to set based on the dynamic property.
+         * But for reloads, dynamic property wont work UNLESS I ALSO PASS THE DYNAMIC PROP
+         */
+        setDefaultLocationsFromOperationType(changedValues);
+        isLineFieldExecute(changedValues, 'transfer_lines', 'product_id', (line) => {
+            useFetch(`/api/products/${line.product_id}`, GET).then((response) => {
+                const transferLines = allValues.transfer_lines;
+                transferLines[line.key] = {
+                    ...transferLines[line.key],
+                    measurement_id: response.measurement_id,
+                };
+                form.setFieldsValue({
+                    transfer_lines: transferLines
+                });
+                console.log(productLineOptions.options);
+            }).catch((responseErr) => {
+                fetchCatcher.get(responseErr);
+            });
+        });
     }
 
     function setDefaultLocationsFromOperationType(changedValues) {
@@ -111,16 +120,16 @@ const TransferForm = () => {
     //         fetchCatcher.get(responseErr);
     //     });
     // }
-    //
-    // function setTransferLinesReload(transferLines) {
-    //     setState((prevState) => ({
-    //         ...prevState,
-    //         transferLinesOptionReload: transferLines
-    //     }));
-    //     form.setFieldsValue({
-    //         transfer_lines: transferLines
-    //     });
-    // }
+
+    function setTransferLinesReload(transferLines) {
+        setState((prevState) => ({
+            ...prevState,
+            transferLinesOptionReload: transferLines
+        }));
+        form.setFieldsValue({
+            transfer_lines: transferLines
+        });
+    }
 
     function onFinish(values) {
         if (id) {
