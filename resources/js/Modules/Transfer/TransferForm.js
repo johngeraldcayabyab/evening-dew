@@ -317,7 +317,7 @@ const TransferForm = () => {
                                                         <RemoveLineButton
                                                             remove={remove}
                                                             listName={'transfer_lines'}
-                                                            name={restField.fieldKey}
+                                                            name={name}
                                                         />
                                                     </RowForm>
                                                 ))}
