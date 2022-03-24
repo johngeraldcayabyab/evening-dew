@@ -10,11 +10,10 @@ import CustomForm from "../../Components/CustomForm";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import FormItemText from "../../Components/FormItem/FormItemText";
-import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {GET, POST} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
-import {checkIfADynamicInputChangedAndDoSomething} from "../../Helpers/form";
+import {checkIfADynamicInputChangedAndDoSomething, getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
 import FormItemDate from "../../Components/FormItem/FormItemDate";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import StatusBar from "../../Components/StatusBar";
@@ -28,6 +27,10 @@ import {FormContextProvider} from "../../Contexts/FormContext";
 import RemoveLineButton from "../../Components/FormLines/RemoveLineButton";
 import AddLineButton from "../../Components/FormLines/AddLineButton";
 import LineColumn from "../../Components/FormLines/LineColumn";
+import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import useOptionHook from "../../Hooks/useOptionHook";
+import useOptionLineHook from "../../Hooks/useOptionLineHook";
+import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 
 const {TabPane} = Tabs;
 
@@ -35,12 +38,17 @@ const SalesOrderForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const customerOptions = useOptionHook('/api/contacts', 'customer.name');
+    const invoiceAddressOptions = useOptionHook('/api/addresses', 'invoice_address.address_name');
+    const deliveryAddressOptions = useOptionHook('/api/addresses', 'delivery_address.address_name');
+    const paymentTermOptions = useOptionHook('/api/payment_terms', 'payment_term.name');
+    const salespersonOption = useOptionHook('/api/users', 'responsible.name');
+    const productLineOptions = useOptionLineHook('/api/products', 'product.name');
+    const salesMeasurementOptions = useOptionLineHook('/api/measurements', 'measurement.name');
+
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
-        invoiceAddressOptionReload: false,
-        deliveryAddressOptionReload: false,
-        salesOrderLinesOptionReload: [],
         salesOrderLinesDeleted: [],
         breakdown: {
             untaxedAmount: 0,
@@ -63,23 +71,35 @@ const SalesOrderForm = () => {
                 }));
             }
         }
+        customerOptions.getInitialOptions(formState);
+        invoiceAddressOptions.getInitialOptions(formState);
+        deliveryAddressOptions.getInitialOptions(formState);
+        paymentTermOptions.getInitialOptions(formState);
+        salespersonOption.getInitialOptions(formState);
+        productLineOptions.getInitialOptions(formState, 'sales_order_lines');
+        salesMeasurementOptions.getInitialOptions(formState, 'sales_order_lines');
     }, [formState.initialValues]);
 
     function onValuesChange(changedValues, allValues) {
+        setDefaultValuesFromCustomer(changedValues);
+        isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'product_id', getProductInfoAndSetValues);
+        isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'quantity', computeSubtotal);
+        isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'unit_price', computeSubtotal);
+    }
+
+    function setDefaultValuesFromCustomer(changedValues) {
         if (changedValues.customer_id) {
             useFetch(`/api/addresses`, GET, {
                 contact_id: changedValues.customer_id
             }).then((response) => {
-                let defaultAddress = response.data.find((address) => (address.type === 'default'));
-                let invoiceAddress = response.data.find((address) => (address.type === 'invoice'));
-                let deliveryAddress = response.data.find((address) => (address.type === 'delivery'));
+                const data = response.data;
+                let defaultAddress = data.find((address) => (address.type === 'default'));
+                let invoiceAddress = data.find((address) => (address.type === 'invoice'));
+                let deliveryAddress = data.find((address) => (address.type === 'delivery'));
                 invoiceAddress = invoiceAddress ? invoiceAddress : defaultAddress;
                 deliveryAddress = deliveryAddress ? deliveryAddress : defaultAddress;
-                setState((prevState) => ({
-                    ...prevState,
-                    invoiceAddressOptionReload: invoiceAddress.address_name,
-                    deliveryAddressOptionReload: deliveryAddress.address_name,
-                }));
+                invoiceAddressOptions.getOptions({id: invoiceAddress.id});
+                deliveryAddressOptions.getOptions({id: deliveryAddress.id});
                 form.setFieldsValue({
                     invoice_address_id: invoiceAddress.id,
                     delivery_address_id: deliveryAddress.id
@@ -88,32 +108,28 @@ const SalesOrderForm = () => {
                 fetchCatcher.get(responseErr);
             });
         }
-        checkIfADynamicInputChangedAndDoSomething(changedValues, allValues, 'sales_order_lines', 'product_id', getProductDataAndFillDefaultValues);
-        checkIfADynamicInputChangedAndDoSomething(changedValues, allValues, 'sales_order_lines', 'quantity', computeSubtotal);
-        checkIfADynamicInputChangedAndDoSomething(changedValues, allValues, 'sales_order_lines', 'unit_price', computeSubtotal);
     }
 
-    function getProductDataAndFillDefaultValues(changedSalesOrderLine, salesOrderLines) {
-        useFetch(`/api/products`, GET, {
-            id: changedSalesOrderLine.product_id
-        }).then((response) => {
-            const product = response.data[0];
-            salesOrderLines[changedSalesOrderLine.key] = {
-                ...salesOrderLines[changedSalesOrderLine.key],
-                ...{
-                    description: product.sales_description,
-                    measurement_id: product.sales_measurement_id,
-                    unit_price: product.sales_price,
-                    isReload: product.sales_measurement.name
-                }
+    function getProductInfoAndSetValues(line, allValues) {
+        useFetch(`/api/products/${line.product_id}`, GET).then((response) => {
+            const salesOrderLines = allValues.sales_order_lines;
+            salesOrderLines[line.key] = {
+                ...salesOrderLines[line.key],
+                measurement_id: response.sales_measurement_id,
+                unit_price: response.sales_price,
             };
-            setSalesOrderLinesReload(salesOrderLines);
+            form.setFieldsValue({
+                sales_order_lines: salesOrderLines
+            });
+            const persistedKey = getPersistedKey(line, salesMeasurementOptions.options)
+            salesMeasurementOptions.getOptions(response.sales_measurement.name, persistedKey);
         }).catch((responseErr) => {
             fetchCatcher.get(responseErr);
         });
     }
 
-    function computeSubtotal(changedSalesOrderLine, salesOrderLines) {
+    function computeSubtotal(changedSalesOrderLine, allValues) {
+        const salesOrderLines = allValues.sales_order_lines;
         let salesOrderLine = salesOrderLines[changedSalesOrderLine.key];
         if (changedSalesOrderLine.hasOwnProperty('unit_price')) {
             salesOrderLine.subtotal = salesOrderLine.quantity * changedSalesOrderLine.unit_price;
@@ -124,9 +140,7 @@ const SalesOrderForm = () => {
         form.setFieldsValue({
             sales_order_lines: salesOrderLines
         });
-
         const total = computeTotal(salesOrderLines);
-
         setState((prevState) => ({
             ...prevState,
             breakdown: {
@@ -141,16 +155,6 @@ const SalesOrderForm = () => {
         return salesOrderLines.map((salesOrderLine) => (salesOrderLine.subtotal)).reduce((total, subtotal) => (total + subtotal));
     }
 
-    function setSalesOrderLinesReload(salesOrderLines) {
-        setState((prevState) => ({
-            ...prevState,
-            salesOrderLinesOptionReload: salesOrderLines
-        }));
-        form.setFieldsValue({
-            sales_order_lines: salesOrderLines
-        });
-    }
-
     function onFinish(values) {
         if (id) {
             if (state.salesOrderLinesDeleted.length) {
@@ -158,7 +162,6 @@ const SalesOrderForm = () => {
                     setState((prevState) => ({
                         ...prevState,
                         salesOrderLinesDeleted: [],
-                        salesOrderLinesOptionReload: [],
                     }));
                 }).catch((responseErr) => {
                     fetchCatcher.get(responseErr);
@@ -176,6 +179,7 @@ const SalesOrderForm = () => {
                 form: form,
                 formState: formState,
                 formActions: formActions,
+                state: state,
                 setState: setState,
                 onFinish: onFinish,
                 onValuesChange: onValuesChange,
@@ -240,31 +244,26 @@ const SalesOrderForm = () => {
 
                     <RowForm>
                         <ColForm>
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Customer'}
                                 name={'customer_id'}
                                 message={'Please select a customer'}
                                 required={true}
-                                url={'/api/contacts'}
-                                query={'customer.name'}
+                                {...customerOptions}
                             />
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Invoice address'}
                                 name={'invoice_address_id'}
                                 message={'Please select a invoice address'}
                                 required={true}
-                                url={'/api/addresses'}
-                                search={state.invoiceAddressOptionReload}
-                                query={'invoice_address.address_name'}
+                                {...invoiceAddressOptions}
                             />
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Delivery address'}
                                 name={'delivery_address_id'}
                                 message={'Please select a delivery address'}
                                 required={true}
-                                url={'/api/addresses'}
-                                search={state.deliveryAddressOptionReload}
-                                query={'delivery_address.address_name'}
+                                {...deliveryAddressOptions}
                             />
                         </ColForm>
                         <ColForm>
@@ -278,11 +277,10 @@ const SalesOrderForm = () => {
                                 name={'quotation_date'}
                             />
 
-                            <FormItemSelectAjax
+                            <FormItemSelectTest
                                 label={'Payment Term'}
                                 name={'payment_term_id'}
-                                url={'/api/payment_terms'}
-                                query={'payment_term.name'}
+                                {...paymentTermOptions}
                             />
                         </ColForm>
                     </RowForm>
@@ -300,27 +298,23 @@ const SalesOrderForm = () => {
                                                 {fields.map(({key, name, ...restField}) => (
                                                     <RowForm key={key}>
                                                         <ColForm lg={23}>
-                                                            <FormItemNumber
+                                                            <FormItemLineId
                                                                 {...restField}
                                                                 name={'id'}
-                                                                style={{display: 'hidden', position: 'absolute'}}
                                                                 groupName={name}
                                                                 listName={'sales_order_lines'}
                                                             />
-
-                                                            <FormItemSelectAjax
+                                                            <FormItemSelectTest
                                                                 {...restField}
                                                                 placeholder={'Product'}
                                                                 name={'product_id'}
                                                                 message={'Please select a product'}
                                                                 required={true}
-                                                                url={'/api/products'}
                                                                 style={{display: 'inline-block', width: `${100 / 6}%`}}
-                                                                query={`sales_order_lines.${name}.product.name`}
                                                                 groupName={name}
                                                                 listName={'sales_order_lines'}
+                                                                {...productLineOptions.aggregate(productLineOptions, restField.fieldKey)}
                                                             />
-
                                                             <FormItemText
                                                                 {...restField}
                                                                 placeholder={'Description'}
@@ -329,7 +323,6 @@ const SalesOrderForm = () => {
                                                                 groupName={name}
                                                                 listName={'sales_order_lines'}
                                                             />
-
                                                             <FormItemNumber
                                                                 {...restField}
                                                                 placeholder={'Quantity'}
@@ -340,21 +333,17 @@ const SalesOrderForm = () => {
                                                                 groupName={name}
                                                                 listName={'sales_order_lines'}
                                                             />
-
-                                                            <FormItemSelectAjax
+                                                            <FormItemSelectTest
                                                                 {...restField}
                                                                 placeholder={'Measurement'}
                                                                 name={'measurement_id'}
                                                                 message={'Please select a measurement'}
                                                                 required={true}
-                                                                url={'/api/measurements'}
-                                                                search={state.salesOrderLinesOptionReload[name] ? state.salesOrderLinesOptionReload[name].isReload : null}
                                                                 style={{display: 'inline-block', width: `${100 / 6}%`}}
-                                                                query={`sales_order_lines.${name}.measurement.name`}
                                                                 groupName={name}
                                                                 listName={'sales_order_lines'}
+                                                                {...salesMeasurementOptions.aggregate(salesMeasurementOptions, restField.fieldKey)}
                                                             />
-
                                                             <FormItemNumber
                                                                 {...restField}
                                                                 placeholder={'Unit Price'}
@@ -365,7 +354,6 @@ const SalesOrderForm = () => {
                                                                 groupName={name}
                                                                 listName={'sales_order_lines'}
                                                             />
-
                                                             <FormItemNumber
                                                                 overrideDisabled={true}
                                                                 {...restField}
@@ -376,18 +364,14 @@ const SalesOrderForm = () => {
                                                                 listName={'sales_order_lines'}
                                                             />
                                                         </ColForm>
-
                                                         <RemoveLineButton
                                                             remove={remove}
-                                                            dynamicName={'sales_order_lines'}
+                                                            listName={'sales_order_lines'}
                                                             name={name}
                                                         />
                                                     </RowForm>
                                                 ))}
-                                                <AddLineButton
-                                                    add={add}
-                                                    label={'Add a product'}
-                                                />
+                                                <AddLineButton add={add} label={'Add a product'}/>
                                             </>
                                         )}
                                     </Form.List>
@@ -446,13 +430,12 @@ const SalesOrderForm = () => {
                                     <Divider orientation={'left'}>
                                         Sales
                                     </Divider>
-                                    <FormItemSelectAjax
+                                    <FormItemSelectTest
                                         label={'Salesperson'}
                                         name={'salesperson_id'}
                                         message={'Please select a salesperson'}
                                         required={true}
-                                        url={'/api/users'}
-                                        query={'salesperson.name'}
+                                        {...salespersonOption}
                                     />
 
                                     <FormItemText

@@ -59,26 +59,9 @@ const TransferForm = () => {
         measurementLineOptions.getInitialOptions(formState, 'transfer_lines');
     }, [formState.initialLoad]);
 
-    function onValuesChange(changedValues) {
+    function onValuesChange(changedValues, allValues) {
         setDefaultLocationsFromOperationType(changedValues);
-        isLineFieldExecute(changedValues, 'transfer_lines', 'product_id', getProductInfoAndSetValues);
-    }
-
-    function getProductInfoAndSetValues(line) {
-        useFetch(`/api/products/${line.product_id}`, GET).then((response) => {
-            const transferLines = allValues.transfer_lines;
-            transferLines[line.key] = {
-                ...transferLines[line.key],
-                measurement_id: response.measurement_id,
-            };
-            form.setFieldsValue({
-                transfer_lines: transferLines
-            });
-            const persistedKey = getPersistedKey(line, measurementLineOptions.options)
-            measurementLineOptions.getOptions(response.measurement.name, persistedKey);
-        }).catch((responseErr) => {
-            fetchCatcher.get(responseErr);
-        });
+        isLineFieldExecute(changedValues, allValues, 'transfer_lines', 'product_id', getProductInfoAndSetValues);
     }
 
     function setDefaultLocationsFromOperationType(changedValues) {
@@ -99,6 +82,23 @@ const TransferForm = () => {
                 fetchCatcher.get(responseErr);
             });
         }
+    }
+
+    function getProductInfoAndSetValues(line, allValues) {
+        useFetch(`/api/products/${line.product_id}`, GET).then((response) => {
+            const transferLines = allValues.transfer_lines;
+            transferLines[line.key] = {
+                ...transferLines[line.key],
+                measurement_id: response.measurement_id,
+            };
+            form.setFieldsValue({
+                transfer_lines: transferLines
+            });
+            const persistedKey = getPersistedKey(line, measurementLineOptions.options)
+            measurementLineOptions.getOptions(response.measurement.name, persistedKey);
+        }).catch((responseErr) => {
+            fetchCatcher.get(responseErr);
+        });
     }
 
     function onFinish(values) {
@@ -167,7 +167,6 @@ const TransferForm = () => {
                             <FormItemStatus
                                 name={'status'}
                             />
-
                             <FormItemText
                                 overrideDisabled={true}
                                 label={'Reference'}
