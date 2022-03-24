@@ -27,7 +27,7 @@ import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
 import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
-import {isLineFieldExecute} from "../../Helpers/form";
+import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
 
 const {TabPane} = Tabs;
 
@@ -77,18 +77,6 @@ const TransferForm = () => {
                 fetchCatcher.get(responseErr);
             });
         });
-    }
-
-    function getPersistedKey(line, options) {
-        let key = 0;
-        for (let persistedKey in options) {
-            if (options.hasOwnProperty(persistedKey)) {
-                if (line.key === key) {
-                    return persistedKey;
-                }
-                key++;
-            }
-        }
     }
 
     function setDefaultLocationsFromOperationType(changedValues) {
