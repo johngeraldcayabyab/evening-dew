@@ -11,9 +11,8 @@ import FormItemText from "../../Components/FormItem/FormItemText";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import ControlPanel from "../../Components/ControlPanel";
-import FormItemSelectAjax from "../../Components/FormItem/FormItemSelectAjax";
 import FormCard from "../../Components/FormCard";
-import {checkIfADynamicInputChangedAndDoSomething} from "../../Helpers/form";
+import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {GET, POST} from "../../consts";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
@@ -24,6 +23,7 @@ import RemoveLineButton from "../../Components/FormLines/RemoveLineButton";
 import LineColumn from "../../Components/FormLines/LineColumn";
 import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import useOptionLineHook from "../../Hooks/useOptionLineHook";
 
 const {TabPane} = Tabs;
 
@@ -35,45 +35,37 @@ const MaterialForm = () => {
     const fetchCatcher = useFetchCatcherHook();
     const productOptions = useOptionHook('/api/products', 'product.name');
     const measurementOptions = useOptionHook('/api/measurements', 'measurement.name');
+    const productLineOptions = useOptionLineHook('/api/products', 'product.name');
+    const measurementLineOptions = useOptionLineHook('/api/measurements', 'measurement.name');
     const [state, setState] = useState({
-        materialLinesOptionReload: [],
         materialLinesDeleted: [],
     });
 
     useEffect(() => {
         productOptions.getInitialOptions(formState);
         measurementOptions.getInitialOptions(formState);
+        productLineOptions.getInitialOptions(formState, 'material_lines');
+        measurementLineOptions.getInitialOptions(formState, 'material_lines');
     }, [formState.initialLoad]);
 
     function onValuesChange(changedValues, allValues) {
-        checkIfADynamicInputChangedAndDoSomething(changedValues, allValues, 'material_lines', 'product_id', getProductDataAndFillDefaultValues);
+        isLineFieldExecute(changedValues, allValues, 'material_lines', 'product_id', getProductInfoAndSetValues);
     }
 
-    function getProductDataAndFillDefaultValues(changeMaterialLine, materialLines) {
-        useFetch(`/api/products`, GET, {
-            id: changeMaterialLine.product_id
-        }).then((response) => {
-            const product = response.data[0];
-            materialLines[changeMaterialLine.key] = {
-                ...materialLines[changeMaterialLine.key],
-                ...{
-                    measurement_id: product.measurement_id,
-                    isReload: product.measurement.name
-                }
+    function getProductInfoAndSetValues(line, allValues) {
+        useFetch(`/api/products/${line.product_id}`, GET).then((response) => {
+            const materialLines = allValues.material_lines;
+            materialLines[line.key] = {
+                ...materialLines[line.key],
+                measurement_id: response.measurement_id,
             };
-            setMaterialLinesReload(materialLines);
+            form.setFieldsValue({
+                material_lines: materialLines
+            });
+            const persistedKey = getPersistedKey(line, measurementLineOptions.options)
+            measurementLineOptions.getOptions(response.measurement.name, persistedKey);
         }).catch((responseErr) => {
             fetchCatcher.get(responseErr);
-        });
-    }
-
-    function setMaterialLinesReload(materialLines) {
-        setState((prevState) => ({
-            ...prevState,
-            materialLinesOptionReload: materialLines
-        }));
-        form.setFieldsValue({
-            material_lines: materialLines
         });
     }
 
@@ -84,7 +76,6 @@ const MaterialForm = () => {
                     setState((prevState) => ({
                         ...prevState,
                         materialLinesDeleted: [],
-                        materialLinesOptionReload: [],
                     }));
                 }).catch((responseErr) => {
                     fetchCatcher.get(responseErr);
@@ -102,9 +93,10 @@ const MaterialForm = () => {
                 form: form,
                 formState: formState,
                 formActions: formActions,
+                state: state,
                 setState: setState,
                 onFinish: onFinish,
-                onValuesChange: onValuesChange
+                onValuesChange: onValuesChange,
             }}
         >
             <CustomForm>
@@ -173,17 +165,16 @@ const MaterialForm = () => {
                                                                 listName={'material_lines'}
                                                             />
 
-                                                            <FormItemSelectAjax
+                                                            <FormItemSelectTest
                                                                 {...restField}
                                                                 placeholder={'Product'}
                                                                 name={'product_id'}
                                                                 message={'Please select a product'}
                                                                 required={true}
-                                                                url={'/api/products'}
                                                                 style={{display: 'inline-block', width: '33.33%'}}
-                                                                query={`material_lines.${name}.product.name`}
                                                                 groupName={name}
                                                                 listName={'material_lines'}
+                                                                {...productLineOptions.aggregate(productLineOptions, restField.fieldKey)}
                                                             />
 
                                                             <FormItemNumber
@@ -197,40 +188,32 @@ const MaterialForm = () => {
                                                                 listName={'material_lines'}
                                                             />
 
-                                                            <FormItemSelectAjax
+                                                            <FormItemSelectTest
                                                                 {...restField}
                                                                 placeholder={'Measurement'}
                                                                 name={'measurement_id'}
                                                                 message={'Please select a measurement'}
                                                                 required={true}
-                                                                url={'/api/measurements'}
-                                                                search={state.materialLinesOptionReload[name] ? state.materialLinesOptionReload[name].isReload : null}
                                                                 style={{display: 'inline-block', width: '33.33%'}}
-                                                                query={`material_lines.${name}.measurement.name`}
                                                                 groupName={name}
                                                                 listName={'material_lines'}
+                                                                {...measurementLineOptions.aggregate(measurementLineOptions, restField.fieldKey)}
                                                             />
                                                         </ColForm>
-
                                                         <RemoveLineButton
                                                             remove={remove}
-                                                            dynamicName={'material_lines'}
+                                                            listName={'material_lines'}
                                                             name={name}
                                                         />
                                                     </RowForm>
                                                 ))}
-                                                <AddLineButton
-                                                    add={add}
-                                                    label={'Add a component'}
-                                                />
+                                                <AddLineButton add={add} label={'Add a component'}/>
                                             </>
                                         )}
                                     </Form.List>
                                 </ColForm>
                             </RowForm>
-
                         </TabPane>
-
                         <TabPane tab="Miscellaneous" key="2">
                             <RowForm>
                                 <ColForm>
@@ -249,7 +232,6 @@ const MaterialForm = () => {
                             </RowForm>
                         </TabPane>
                     </Tabs>
-
                 </FormCard>
             </CustomForm>
         </FormContextProvider>

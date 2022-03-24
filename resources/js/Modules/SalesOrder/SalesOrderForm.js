@@ -13,7 +13,7 @@ import FormItemText from "../../Components/FormItem/FormItemText";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {GET, POST} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
-import {checkIfADynamicInputChangedAndDoSomething, getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
+import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
 import FormItemDate from "../../Components/FormItem/FormItemDate";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import StatusBar from "../../Components/StatusBar";

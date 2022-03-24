@@ -17,10 +17,10 @@ class MaterialUpdateRequest extends FormRequest
             'reference' => ['nullable'],
             'material_type' => ['required', "in:$materialTypes"],
             'flexible_consumptions' => ['nullable', "in:$flexibleConsumptions"],
-            'transfer_lines.*.id' => ['nullable', 'exists:transfer_lines,id'],
-            'transfer_lines.*.product_id' => ['required', "exists:products,id"],
-            'transfer_lines.*.quantity' => ['required'],
-            'transfer_lines.*.measurement_id' => ["required", "exists:measurements,id"],
+            'material_lines.*.id' => ['nullable', 'exists:material_lines,id'],
+            'material_lines.*.product_id' => ['required', "exists:products,id"],
+            'material_lines.*.quantity' => ['required'],
+            'material_lines.*.measurement_id' => ["required", "exists:measurements,id"],
         ];
     }
 }
