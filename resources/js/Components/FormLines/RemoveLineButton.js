@@ -4,11 +4,6 @@ import React, {useContext} from "react";
 import {snakeToCamel} from "../../Helpers/string";
 import {FormContext} from "../../Contexts/FormContext";
 
-/**
- *
- * This thing can only understand the resetting key
- *
- */
 const RemoveLineButton = (props) => {
     const formContext = useContext(FormContext);
     const form = formContext.form;

@@ -87,10 +87,18 @@ const useOptionLineHook = (url, query) => {
                 options: options,
                 optionsLoading: optionsLoading,
             }));
-        }
+        },
+        aggregate: (lineOptions, fieldKey) => {
+            fieldKey = parseInt(fieldKey);
+            return {
+                options: lineOptions.options[fieldKey],
+                onSearch: (search) => (lineOptions.onSearch(search, fieldKey)),
+                onClear: () => lineOptions.onClear(fieldKey),
+                addSelf: () => lineOptions.addSelf(fieldKey),
+                removeSelf: () => lineOptions.removeSelf(fieldKey),
+            }
+        },
     };
-
-    // console.log(state);
 
     return {
         ...optionActions,
