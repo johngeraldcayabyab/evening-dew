@@ -87,6 +87,18 @@ export const getChangedLine = (lines, field) => {
     return false;
 }
 
+export const getPersistedKey = (line, options) => {
+    let key = 0;
+    for (let persistedKey in options) {
+        if (options.hasOwnProperty(persistedKey)) {
+            if (line.key === key) {
+                return persistedKey;
+            }
+            key++;
+        }
+    }
+};
+
 export const checkIfADynamicInputChangedAndDoSomething = (changedValues, allValues, dynamicName, dynamicProperty, callback) => {
     if (checkIfADynamicInputChanged(changedValues, dynamicName)) {
         const transactionLines = allValues[dynamicName];
