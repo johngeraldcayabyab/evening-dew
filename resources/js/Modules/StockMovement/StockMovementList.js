@@ -88,9 +88,7 @@ const StockMovementList = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={
-                    <TableSearchInput/>
-                }
+                topColTwoRight={<TableSearchInput/>}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}
