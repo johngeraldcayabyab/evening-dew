@@ -15,6 +15,7 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import {snakeToCamel} from "../../Helpers/string";
 
 const {TabPane} = Tabs;
 
@@ -22,41 +23,32 @@ const WarehouseForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
-
-    const viewLocationOptions = useOptionHook('/api/locations', 'view_location.name');
-    const stockLocationOptions = useOptionHook('/api/locations', 'stock_location.name');
-    const inputLocationOptions = useOptionHook('/api/locations', 'input_location.name');
-    const qualityControlLocationOptions = useOptionHook('/api/locations', 'quality_control_location.name');
-    const packingLocationOptions = useOptionHook('/api/locations', 'packing_location.name');
-    const outputLocationOptions = useOptionHook('/api/locations', 'output_location.name');
-    const stockAfterManufacturingLocationOptions = useOptionHook('/api/locations', 'stock_after_manufacturing_location.name');
-    const pickingBeforeManufacturingLocationOptions = useOptionHook('/api/locations', 'picking_before_manufacturing_location.name');
-    const inTypeOptions = useOptionHook('/api/operations_types', 'in_type.name');
-    const internalTypeOptions = useOptionHook('/api/operations_types', 'internal_type.name');
-    const pickTypeOptions = useOptionHook('/api/operations_types', 'pick_type.name');
-    const packTypeOptions = useOptionHook('/api/operations_types', 'pack_type.name');
-    const outTypeOptions = useOptionHook('/api/operations_types', 'out_type.name');
-    const stockAfterManufacturingOperationTypeOptions = useOptionHook('/api/operations_types', 'stock_after_manufacturing_operation_type.name');
-    const pickingBeforeManufacturingOperationTypeOptions = useOptionHook('/api/operations_types', 'picking_before_manufacturing_operation_type.name');
-    const manufacturingOperationTypeOperationTypeOptions = useOptionHook('/api/operations_types', 'manufacturing_operation_type.name');
-
+    let urlQueries = [
+        {url: '/api/locations', query: 'view_location.name'},
+        {url: '/api/locations', query: 'stock_location.name'},
+        {url: '/api/locations', query: 'input_location.name'},
+        {url: '/api/locations', query: 'quality_control_location.name'},
+        {url: '/api/locations', query: 'packing_location.name'},
+        {url: '/api/locations', query: 'output_location.name'},
+        {url: '/api/locations', query: 'stock_after_manufacturing_location.name'},
+        {url: '/api/locations', query: 'picking_before_manufacturing_location.name'},
+        {url: '/api/operations_types', query: 'in_type.name'},
+        {url: '/api/operations_types', query: 'internal_type.name'},
+        {url: '/api/operations_types', query: 'pick_type.name'},
+        {url: '/api/operations_types', query: 'pack_type.name'},
+        {url: '/api/operations_types', query: 'out_type.name'},
+        {url: '/api/operations_types', query: 'stock_after_manufacturing_operation_type.name'},
+        {url: '/api/operations_types', query: 'picking_before_manufacturing_operation_type.name'},
+        {url: '/api/operations_types', query: 'manufacturing_operation_type.name'},
+    ];
+    const options = {};
+    urlQueries.forEach((urlQuery) => {
+        options[snakeToCamel(urlQuery.query.split('.')[0])] = useOptionHook(urlQuery.url, urlQuery.query);
+    });
     useEffect(() => {
-        viewLocationOptions.getInitialOptions(formState);
-        stockLocationOptions.getInitialOptions(formState);
-        inputLocationOptions.getInitialOptions(formState);
-        qualityControlLocationOptions.getInitialOptions(formState);
-        packingLocationOptions.getInitialOptions(formState);
-        outputLocationOptions.getInitialOptions(formState);
-        stockAfterManufacturingLocationOptions.getInitialOptions(formState);
-        pickingBeforeManufacturingLocationOptions.getInitialOptions(formState);
-        inTypeOptions.getInitialOptions(formState);
-        internalTypeOptions.getInitialOptions(formState);
-        pickTypeOptions.getInitialOptions(formState);
-        packTypeOptions.getInitialOptions(formState);
-        outTypeOptions.getInitialOptions(formState);
-        stockAfterManufacturingOperationTypeOptions.getInitialOptions(formState);
-        pickingBeforeManufacturingOperationTypeOptions.getInitialOptions(formState);
-        manufacturingOperationTypeOperationTypeOptions.getInitialOptions(formState);
+        for (const option in options) {
+            options[option].getInitialOptions(formState);
+        }
     }, [formState.initialLoad]);
 
     return (
@@ -126,7 +118,7 @@ const WarehouseForm = () => {
                                             name={'view_location_id'}
                                             message={'Please select a view location'}
                                             required={true}
-                                            {...viewLocationOptions}
+                                            {...options.viewLocation}
                                         />
 
                                         <FormItemSelectTest
@@ -134,7 +126,7 @@ const WarehouseForm = () => {
                                             name={'stock_location_id'}
                                             message={'Please select a stock location'}
                                             required={true}
-                                            {...stockLocationOptions}
+                                            {...options.stockLocation}
                                         />
 
                                         <FormItemSelectTest
@@ -142,7 +134,7 @@ const WarehouseForm = () => {
                                             name={'input_location_id'}
                                             message={'Please select a input location'}
                                             required={true}
-                                            {...inputLocationOptions}
+                                            {...options.inputLocation}
                                         />
 
                                         <FormItemSelectTest
@@ -150,7 +142,7 @@ const WarehouseForm = () => {
                                             name={'quality_control_location_id'}
                                             message={'Please select a quality control location'}
                                             required={true}
-                                            {...qualityControlLocationOptions}
+                                            {...options.qualityControlLocation}
                                         />
 
                                         <FormItemSelectTest
@@ -158,7 +150,7 @@ const WarehouseForm = () => {
                                             name={'packing_location_id'}
                                             message={'Please select a packing location'}
                                             required={true}
-                                            {...packingLocationOptions}
+                                            {...options.packingLocation}
                                         />
 
                                         <FormItemSelectTest
@@ -166,7 +158,7 @@ const WarehouseForm = () => {
                                             name={'output_location_id'}
                                             message={'Please select a output location'}
                                             required={true}
-                                            {...outputLocationOptions}
+                                            {...options.outputLocation}
                                         />
 
                                         <FormItemSelectTest
@@ -174,7 +166,7 @@ const WarehouseForm = () => {
                                             name={'stock_after_manufacturing_location_id'}
                                             message={'Please select a stock after manufacturing location'}
                                             required={true}
-                                            {...stockAfterManufacturingLocationOptions}
+                                            {...options.stockAfterManufacturingLocation}
                                         />
 
                                         <FormItemSelectTest
@@ -182,7 +174,7 @@ const WarehouseForm = () => {
                                             name={'picking_before_manufacturing_location_id'}
                                             message={'Please select a picking before manufacturing location'}
                                             required={true}
-                                            {...pickingBeforeManufacturingLocationOptions}
+                                            {...options.pickingBeforeManufacturingLocation}
                                         />
                                     </ColForm>
 
@@ -196,56 +188,56 @@ const WarehouseForm = () => {
                                             name={'in_type_id'}
                                             message={'Please select a in operation type'}
                                             required={true}
-                                            {...inTypeOptions}
+                                            {...options.inType}
                                         />
                                         <FormItemSelectTest
                                             label={'Internal Type'}
                                             name={'internal_type_id'}
                                             message={'Please select a internal operation type'}
                                             required={true}
-                                            {...internalTypeOptions}
+                                            {...options.internalType}
                                         />
                                         <FormItemSelectTest
                                             label={'Pick Type'}
                                             name={'pick_type_id'}
                                             message={'Please select a pick operation type'}
                                             required={true}
-                                            {...pickTypeOptions}
+                                            {...options.pickType}
                                         />
                                         <FormItemSelectTest
                                             label={'Pack Type'}
                                             name={'pack_type_id'}
                                             message={'Please select a pack operation type'}
                                             required={true}
-                                            {...packTypeOptions}
+                                            {...options.packType}
                                         />
                                         <FormItemSelectTest
                                             label={'Out Type'}
                                             name={'out_type_id'}
                                             message={'Please select a out operation type'}
                                             required={true}
-                                            {...outTypeOptions}
+                                            {...options.outType}
                                         />
                                         <FormItemSelectTest
                                             label={'Stock After Manufacturing Operation Type'}
                                             name={'stock_after_manufacturing_operation_type_id'}
                                             message={'Please select a stock after manufacturing operation type'}
                                             required={true}
-                                            {...stockAfterManufacturingOperationTypeOptions}
+                                            {...options.stockAfterManufacturingOperationType}
                                         />
                                         <FormItemSelectTest
                                             label={'Picking Before Manufacturing Operation Type'}
                                             name={'picking_before_manufacturing_operation_type_id'}
                                             message={'Please select a picking before manufacturing operation type'}
                                             required={true}
-                                            {...pickingBeforeManufacturingOperationTypeOptions}
+                                            {...options.pickingBeforeManufacturingOperationType}
                                         />
                                         <FormItemSelectTest
                                             label={'Manufacturing Operation Type'}
                                             name={'manufacturing_operation_type_id'}
                                             message={'Please select a manufacturing operation type'}
                                             required={true}
-                                            {...manufacturingOperationTypeOperationTypeOptions}
+                                            {...options.manufacturingOperationTypeOperationType}
                                         />
                                     </ColForm>
                                 </RowForm>
