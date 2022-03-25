@@ -11,33 +11,34 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {ListContextProvider} from "../../Contexts/ListContext";
 
 const WarehouseList = () => {
-    const [tableState, tableActions, columns] = useListHook(manifest, [
-        {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
-            sorter: true,
-            searchFilter: true,
-        },
-        {
-            title: 'Short Name',
-            dataIndex: 'short_name',
-            key: 'short_name',
-            sorter: true,
-            searchFilter: true,
-        },
-        {
-            title: 'Created At',
-            dataIndex: 'created_at',
-            key: 'created_at',
-            sorter: true,
-        },
-    ]);
+    const [tableState, tableActions] = useListHook(manifest);
     return (
         <ListContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
+            columns: [
+                {
+                    title: 'Name',
+                    dataIndex: 'name',
+                    key: 'name',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
+                    title: 'Short Name',
+                    dataIndex: 'short_name',
+                    key: 'short_name',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
+                    title: 'Created At',
+                    dataIndex: 'created_at',
+                    key: 'created_at',
+                    sorter: true,
+                },
+            ]
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
@@ -48,7 +49,7 @@ const WarehouseList = () => {
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}
             />
-            <CustomTable columns={columns}/>
+            <CustomTable/>
         </ListContextProvider>
     )
 };

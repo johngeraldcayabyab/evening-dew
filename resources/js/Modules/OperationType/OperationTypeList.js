@@ -11,54 +11,53 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {ListContextProvider} from "../../Contexts/ListContext";
 
 const OperationTypeList = () => {
-    const [tableState, tableActions, columns] = useListHook(manifest, [
-            {
-                title: 'Name',
-                dataIndex: 'name',
-                key: 'name',
-                sorter: true,
-                searchFilter: true,
-            },
-            {
-                title: 'Warehouse',
-                dataIndex: 'warehouse',
-                key: 'warehouse',
-                sorter: true,
-                searchFilter: true,
-                render: (text, record) => {
-                    if (record.warehouse) {
-                        return record.warehouse.name;
-                    }
-                    return null;
-                }
-            },
-            {
-                title: 'Reference Sequence',
-                dataIndex: 'reference_sequence',
-                key: 'reference_sequence',
-                sorter: true,
-                searchFilter: true,
-                render: (text, record) => {
-                    if (record.reference_sequence) {
-                        return record.reference_sequence.name;
-                    }
-                    return null;
-                }
-            },
-            {
-                title: 'Created At',
-                dataIndex: 'created_at',
-                key: 'created_at',
-                sorter: true,
-            }
-        ]
-    );
-
+    const [tableState, tableActions] = useListHook(manifest);
     return (
         <ListContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
+            columns: [
+                {
+                    title: 'Name',
+                    dataIndex: 'name',
+                    key: 'name',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
+                    title: 'Warehouse',
+                    dataIndex: 'warehouse',
+                    key: 'warehouse',
+                    sorter: true,
+                    searchFilter: true,
+                    render: (text, record) => {
+                        if (record.warehouse) {
+                            return record.warehouse.name;
+                        }
+                        return null;
+                    }
+                },
+                {
+                    title: 'Reference Sequence',
+                    dataIndex: 'reference_sequence',
+                    key: 'reference_sequence',
+                    sorter: true,
+                    searchFilter: true,
+                    render: (text, record) => {
+                        if (record.reference_sequence) {
+                            return record.reference_sequence.name;
+                        }
+                        return null;
+                    }
+                },
+                {
+                    title: 'Created At',
+                    dataIndex: 'created_at',
+                    key: 'created_at',
+                    sorter: true,
+                }
+            ]
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
@@ -69,7 +68,7 @@ const OperationTypeList = () => {
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}
             />
-            <CustomTable columns={columns}/>
+            <CustomTable/>
         </ListContextProvider>
     )
 };
