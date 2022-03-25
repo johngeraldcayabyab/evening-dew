@@ -5,12 +5,12 @@ import {SearchOutlined} from "@ant-design/icons";
 import {ListContext} from "../Contexts/ListContext";
 import FilterDropdown from "./TableButtons/FilterDropdown";
 
-const CustomTable = (props) => {
+const CustomTable = () => {
     const listContext = useContext(ListContext);
     const history = useHistory();
     const [state, setState] = useState({
-        columns: props.columns
-    })
+        columns: listContext.columns
+    });
 
     useEffect(() => {
         return (() => {
