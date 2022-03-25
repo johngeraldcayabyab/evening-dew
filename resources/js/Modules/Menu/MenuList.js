@@ -11,33 +11,34 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {ListContextProvider} from "../../Contexts/ListContext";
 
 const MenuList = () => {
-    const [tableState, tableActions, columns] = useListHook(manifest, [
-        {
-            title: 'Label',
-            dataIndex: 'label',
-            key: 'label',
-            sorter: true,
-            searchFilter: true,
-        },
-        {
-            title: 'Url',
-            dataIndex: 'url',
-            key: 'url',
-            sorter: true,
-            searchFilter: true,
-        },
-        {
-            title: 'Created At',
-            dataIndex: 'created_at',
-            key: 'created_at',
-            sorter: true,
-        },
-    ]);
+    const [tableState, tableActions] = useListHook(manifest);
     return (
         <ListContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
+            columns: [
+                {
+                    title: 'Label',
+                    dataIndex: 'label',
+                    key: 'label',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
+                    title: 'Url',
+                    dataIndex: 'url',
+                    key: 'url',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
+                    title: 'Created At',
+                    dataIndex: 'created_at',
+                    key: 'created_at',
+                    sorter: true,
+                },
+            ],
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
@@ -48,7 +49,7 @@ const MenuList = () => {
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}
             />
-            <CustomTable columns={columns}/>
+            <CustomTable/>
         </ListContextProvider>
     )
 };

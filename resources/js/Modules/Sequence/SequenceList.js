@@ -11,75 +11,76 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {ListContextProvider} from "../../Contexts/ListContext";
 
 const SequenceList = () => {
-    const [tableState, tableActions, columns] = useListHook(manifest, [
-        {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
-            sorter: true,
-            searchFilter: true,
-        },
-        {
-            title: 'Sequence Code',
-            dataIndex: 'sequence_code',
-            key: 'sequence_code',
-            sorter: true,
-            searchFilter: true,
-        },
-        {
-            title: 'Implementation',
-            dataIndex: 'implementation',
-            key: 'implementation',
-            sorter: true,
-            searchFilter: true,
-        },
-        {
-            title: 'Prefix',
-            dataIndex: 'prefix',
-            key: 'prefix',
-            sorter: true,
-            searchFilter: true,
-        },
-        {
-            title: 'Suffix',
-            dataIndex: 'suffix',
-            key: 'suffix',
-            sorter: true,
-            searchFilter: true,
-        },
-        {
-            title: 'Sequence Size',
-            dataIndex: 'sequence_size',
-            key: 'sequence_size',
-            sorter: true,
-            searchFilter: true,
-        },
-        {
-            title: 'Step',
-            dataIndex: 'step',
-            key: 'step',
-            sorter: true,
-            searchFilter: true,
-        },
-        {
-            title: 'Next Number',
-            dataIndex: 'next_number',
-            key: 'next_number',
-            sorter: true,
-            searchFilter: true,
-        },
-        {
-            title: 'Created At',
-            dataIndex: 'created_at',
-            key: 'created_at',
-            sorter: true,
-        },
-    ]);
+    const [tableState, tableActions] = useListHook(manifest);
     return (
         <ListContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
+            columns: [
+                {
+                    title: 'Name',
+                    dataIndex: 'name',
+                    key: 'name',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
+                    title: 'Sequence Code',
+                    dataIndex: 'sequence_code',
+                    key: 'sequence_code',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
+                    title: 'Implementation',
+                    dataIndex: 'implementation',
+                    key: 'implementation',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
+                    title: 'Prefix',
+                    dataIndex: 'prefix',
+                    key: 'prefix',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
+                    title: 'Suffix',
+                    dataIndex: 'suffix',
+                    key: 'suffix',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
+                    title: 'Sequence Size',
+                    dataIndex: 'sequence_size',
+                    key: 'sequence_size',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
+                    title: 'Step',
+                    dataIndex: 'step',
+                    key: 'step',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
+                    title: 'Next Number',
+                    dataIndex: 'next_number',
+                    key: 'next_number',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
+                    title: 'Created At',
+                    dataIndex: 'created_at',
+                    key: 'created_at',
+                    sorter: true,
+                },
+            ]
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
@@ -90,7 +91,7 @@ const SequenceList = () => {
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}
             />
-            <CustomTable columns={columns}/>
+            <CustomTable/>
         </ListContextProvider>
     )
 };

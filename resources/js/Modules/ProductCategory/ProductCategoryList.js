@@ -11,26 +11,27 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {ListContextProvider} from "../../Contexts/ListContext";
 
 const ProductCategoryList = () => {
-    const [tableState, tableActions, columns] = useListHook(manifest, [
-        {
-            title: 'Category',
-            dataIndex: 'parents',
-            key: 'category',
-            sorter: true,
-            searchFilter: true,
-        },
-        {
-            title: 'Created At',
-            dataIndex: 'created_at',
-            key: 'created_at',
-            sorter: true,
-        },
-    ]);
+    const [tableState, tableActions] = useListHook(manifest);
     return (
         <ListContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
+            columns: [
+                {
+                    title: 'Category',
+                    dataIndex: 'parents',
+                    key: 'category',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
+                    title: 'Created At',
+                    dataIndex: 'created_at',
+                    key: 'created_at',
+                    sorter: true,
+                },
+            ]
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
@@ -41,7 +42,7 @@ const ProductCategoryList = () => {
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}
             />
-            <CustomTable columns={columns}/>
+            <CustomTable/>
         </ListContextProvider>
     )
 };
