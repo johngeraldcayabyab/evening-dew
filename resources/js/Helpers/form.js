@@ -45,8 +45,6 @@ export const formItemFieldProps = (props, specialFieldProps = {}) => {
         }
     }
 
-    // console.log(props);
-
     return [formItemProps, fieldProps];
 };
 
@@ -99,51 +97,9 @@ export const getPersistedKey = (line, options) => {
     }
 };
 
-export const checkIfADynamicInputChangedAndDoSomething = (changedValues, allValues, dynamicName, dynamicProperty, callback) => {
-    if (checkIfADynamicInputChanged(changedValues, dynamicName)) {
-        const transactionLines = allValues[dynamicName];
-        let changedTransactionLine = getSpecificInputChange(changedValues, dynamicName, dynamicProperty);
-        if (changedTransactionLine) {
-            callback(changedTransactionLine, transactionLines);
-        }
-    }
-}
-
-
-export const checkIfADynamicInputChanged = (changedValues, dynamicName) => {
-    if (changedValues[dynamicName] && !changedValues[dynamicName].some(item => item === undefined || item.id)) {
-        return true;
-    }
-    return false;
-}
-
-export const getSpecificInputChange = (changedValues, dynamicName, dynamicProperty) => {
-    let changedSalesOrderLine = false;
-    changedValues[dynamicName].forEach((salesOrderLine, key) => {
-        if (salesOrderLine && salesOrderLine[dynamicProperty]) {
-            if (isOnlyOneProperty(salesOrderLine)) {
-                changedSalesOrderLine = {
-                    key: key,
-                };
-                changedSalesOrderLine[dynamicProperty] = salesOrderLine[dynamicProperty]
-            }
-        }
-    });
-    return changedSalesOrderLine;
-}
-
 export const isOnlyTwoProperty = (line) => {
     let keys = Object.keys(line);
     if (keys.length === 2) {
-        return true;
-    }
-    return false;
-}
-
-
-export const isOnlyOneProperty = (changedSalesOrderLine) => {
-    let keys = Object.keys(changedSalesOrderLine);
-    if (keys.length === 1) {
         return true;
     }
     return false;
