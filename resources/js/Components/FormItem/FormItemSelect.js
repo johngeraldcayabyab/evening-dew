@@ -4,7 +4,7 @@ import CustomInputSkeleton from "../CustomInputSkeleton";
 import {formItemFieldProps} from "../../Helpers/form";
 import {FormContext} from "../../Contexts/FormContext";
 
-const FormItemSelectTest = (props) => {
+const FormItemSelect = (props) => {
     const formContext = useContext(FormContext);
     const [formItemProps, fieldProps] = formItemFieldProps(props, {
         allowClear: true,
@@ -43,4 +43,4 @@ const FormItemSelectTest = (props) => {
     )
 }
 
-export default FormItemSelectTest;
+export default FormItemSelect;

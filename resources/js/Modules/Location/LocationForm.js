@@ -14,7 +14,7 @@ import FormItemCheckbox from "../../Components/FormItem/FormItemCheckbox";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
-import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 
 const LocationForm = () => {
     let {id} = useParams();
@@ -51,7 +51,7 @@ const LocationForm = () => {
                                 size={'large'}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Parent Category'}
                                 name={'parent_location_id'}
                                 size={'medium'}
@@ -66,7 +66,7 @@ const LocationForm = () => {
 
                     <RowForm>
                         <ColForm>
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Type'}
                                 name={'type'}
                                 message={'Please select a location type'}

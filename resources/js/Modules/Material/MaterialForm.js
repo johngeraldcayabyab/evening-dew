@@ -9,7 +9,7 @@ import ColForm from "../../Components/Grid/ColForm";
 import CustomForm from "../../Components/CustomForm";
 import FormItemText from "../../Components/FormItem/FormItemText";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
-import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
@@ -22,7 +22,7 @@ import AddLineButton from "../../Components/FormLines/AddLineButton";
 import RemoveLineButton from "../../Components/FormLines/RemoveLineButton";
 import LineColumn from "../../Components/FormLines/LineColumn";
 import useOptionHook from "../../Hooks/useOptionHook";
-import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import useOptionLineHook from "../../Hooks/useOptionLineHook";
 
 const {TabPane} = Tabs;
@@ -107,7 +107,7 @@ const MaterialForm = () => {
                 <FormCard>
                     <RowForm>
                         <ColForm>
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Product'}
                                 name={'product_id'}
                                 message={'Please select a product'}
@@ -115,7 +115,7 @@ const MaterialForm = () => {
                                 {...productOptions}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Measurement'}
                                 name={'measurement_id'}
                                 message={'Please select a measurement'}
@@ -130,7 +130,7 @@ const MaterialForm = () => {
                                 name={'reference'}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Material Type'}
                                 name={'material_type'}
                                 message={'Please select a material type'}
@@ -165,7 +165,7 @@ const MaterialForm = () => {
                                                                 listName={'material_lines'}
                                                             />
 
-                                                            <FormItemSelectTest
+                                                            <FormItemSelect
                                                                 {...restField}
                                                                 placeholder={'Product'}
                                                                 name={'product_id'}
@@ -188,7 +188,7 @@ const MaterialForm = () => {
                                                                 listName={'material_lines'}
                                                             />
 
-                                                            <FormItemSelectTest
+                                                            <FormItemSelect
                                                                 {...restField}
                                                                 placeholder={'Measurement'}
                                                                 name={'measurement_id'}

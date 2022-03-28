@@ -9,7 +9,7 @@ import ColForm from "../../Components/Grid/ColForm";
 import CustomForm from "../../Components/CustomForm";
 import FormItemText from "../../Components/FormItem/FormItemText";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
-import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
@@ -82,7 +82,7 @@ const CurrencyForm = () => {
                                 required={true}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Symbol Position'}
                                 name={'symbol_position'}
                                 message={'Please select symbol position'}

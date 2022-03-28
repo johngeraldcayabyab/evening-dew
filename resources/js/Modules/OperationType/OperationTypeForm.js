@@ -10,7 +10,7 @@ import CustomForm from "../../Components/CustomForm";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import FormItemText from "../../Components/FormItem/FormItemText";
-import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import FormItemCheckbox from "../../Components/FormItem/FormItemCheckbox";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
@@ -62,7 +62,7 @@ const OperationTypeForm = () => {
                                 required={true}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Reference Sequence'}
                                 name={'reference_sequence_id'}
                                 {...referenceSequenceOptions}
@@ -75,13 +75,13 @@ const OperationTypeForm = () => {
                                 required={true}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Warehouse'}
                                 name={'warehouse_id'}
                                 {...warehouseOptions}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Reservation Method'}
                                 name={'reservation_method'}
                                 options={[
@@ -103,7 +103,7 @@ const OperationTypeForm = () => {
                         </ColForm>
 
                         <ColForm>
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Type Of Operation'}
                                 name={'type'}
                                 message={'Please select an address type'}
@@ -116,7 +116,7 @@ const OperationTypeForm = () => {
                                 ]}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Operation Type For Returns'}
                                 name={'operation_type_for_returns_id'}
                                 {...operationTypeForReturnOptions}
@@ -155,13 +155,13 @@ const OperationTypeForm = () => {
                         </ColForm>
                         <ColForm>
                             {/*Locations*/}
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Default Source Location'}
                                 name={'default_source_location_id'}
                                 {...defaultSourceLocationOptions}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Default Destination Location'}
                                 name={'default_destination_location_id'}
                                 {...defaultDestinationLocationOptions}

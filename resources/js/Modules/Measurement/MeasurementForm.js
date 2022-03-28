@@ -9,12 +9,12 @@ import ColForm from "../../Components/Grid/ColForm";
 import CustomForm from "../../Components/CustomForm";
 import FormItemText from "../../Components/FormItem/FormItemText";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
-import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
-import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import useOptionHook from "../../Hooks/useOptionHook";
 
 const MeasurementForm = () => {
@@ -51,7 +51,7 @@ const MeasurementForm = () => {
                                 required={true}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Type'}
                                 name={'type'}
                                 message={'Please select a type'}
@@ -76,7 +76,7 @@ const MeasurementForm = () => {
                                 required={true}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Measurement Category'}
                                 name={'measurement_category_id'}
                                 message={'Please select a measurement category'}

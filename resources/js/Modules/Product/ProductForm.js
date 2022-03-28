@@ -15,7 +15,7 @@ import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
-import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 
 const {TabPane} = Tabs;
 
@@ -79,7 +79,7 @@ const ProductForm = () => {
                         <TabPane tab="General Information" key="1">
                             <RowForm>
                                 <ColForm>
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Product Type'}
                                         name={'product_type'}
                                         message={'Please select a product type'}
@@ -91,7 +91,7 @@ const ProductForm = () => {
                                         ]}
                                     />
 
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Invoicing Policy'}
                                         name={'invoicing_policy'}
                                         message={'Please select an invoicing policy'}
@@ -102,7 +102,7 @@ const ProductForm = () => {
                                         ]}
                                     />
 
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Measurement'}
                                         name={'measurement_id'}
                                         message={'Please select a measurement'}
@@ -110,7 +110,7 @@ const ProductForm = () => {
                                         {...measurementOptions}
                                     />
 
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Purchase Measurement'}
                                         name={'purchase_measurement_id'}
                                         message={'Please select a purchase measurement'}
@@ -118,7 +118,7 @@ const ProductForm = () => {
                                         {...purchaseMeasurementOptions}
                                     />
 
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Sales Measurement'}
                                         name={'sales_measurement_id'}
                                         message={'Please select a sales measurement'}
@@ -143,7 +143,7 @@ const ProductForm = () => {
                                         required={true}
                                     />
 
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Product Category'}
                                         name={'product_category_id'}
                                         message={'Please select a product category'}

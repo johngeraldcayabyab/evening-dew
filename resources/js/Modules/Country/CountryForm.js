@@ -12,7 +12,7 @@ import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
-import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import useOptionHook from "../../Hooks/useOptionHook";
 
 const CountryForm = () => {
@@ -51,7 +51,7 @@ const CountryForm = () => {
                                 required={true}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Currency'}
                                 name={'currency_id'}
                                 {...currencyOptions}

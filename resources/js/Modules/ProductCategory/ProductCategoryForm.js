@@ -13,7 +13,7 @@ import FormItemText from "../../Components/FormItem/FormItemText";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
-import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 
 const ProductCategoryForm = () => {
     let {id} = useParams();
@@ -51,7 +51,7 @@ const ProductCategoryForm = () => {
                                 size={'large'}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Parent Category'}
                                 name={'parent_product_category_id'}
                                 {...parentCategoryOptions}

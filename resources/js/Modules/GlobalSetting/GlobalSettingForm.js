@@ -13,7 +13,7 @@ import FormItemCheckbox from "../../Components/FormItem/FormItemCheckbox";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
-import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 
 const {TabPane} = Tabs;
 
@@ -74,7 +74,7 @@ const GlobalSettingForm = () => {
                         <TabPane tab="General" key="1">
                             <RowForm>
                                 <ColForm>
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Default Country'}
                                         name={'general_default_country_id'}
                                         message={'Please select a default country'}
@@ -90,7 +90,7 @@ const GlobalSettingForm = () => {
                                     <Divider orientation={'left'}>
                                         Measurements
                                     </Divider>
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Default Measurement Category'}
                                         name={'inventory_default_measurement_category_id'}
                                         message={'Please select a default measurement category'}
@@ -98,7 +98,7 @@ const GlobalSettingForm = () => {
                                         {...inventoryDefaultMeasurementCategoryOptions}
                                     />
 
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Default Measurement'}
                                         name={'inventory_default_measurement_id'}
                                         message={'Please select a default measurement'}
@@ -106,7 +106,7 @@ const GlobalSettingForm = () => {
                                         {...inventoryDefaultMeasurementOptions}
                                     />
 
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Default Purchase Measurement'}
                                         name={'inventory_default_purchase_measurement_id'}
                                         message={'Please select a default purchase measurement'}
@@ -114,7 +114,7 @@ const GlobalSettingForm = () => {
                                         {...inventoryDefaultPurchaseMeasurementOptions}
                                     />
 
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Default Sales Measurement'}
                                         name={'inventory_default_sales_measurement_id'}
                                         message={'Please select a default sales measurement'}
@@ -128,7 +128,7 @@ const GlobalSettingForm = () => {
                                         Category
                                     </Divider>
 
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Default Product Category'}
                                         name={'inventory_default_product_category_id'}
                                         message={'Please select a default product category'}
@@ -144,7 +144,7 @@ const GlobalSettingForm = () => {
                                 </Divider>
 
                                 <ColForm>
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Default Customer Location'}
                                         name={'inventory_default_customer_location_id'}
                                         message={'Please select a default customer location'}
@@ -152,7 +152,7 @@ const GlobalSettingForm = () => {
                                         {...inventoryDefaultCustomerLocationOptions}
                                     />
 
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Default Vendor Location'}
                                         name={'inventory_default_vendor_location_id'}
                                         message={'Please select a default customer location'}
@@ -160,7 +160,7 @@ const GlobalSettingForm = () => {
                                         {...inventoryDefaultVendorLocationOptions}
                                     />
 
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Default Inventory Adjustment Location'}
                                         name={'inventory_default_inventory_adjustment_id'}
                                         message={'Please select a default customer location'}
@@ -170,7 +170,7 @@ const GlobalSettingForm = () => {
                                 </ColForm>
 
                                 <ColForm>
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Default Production Location'}
                                         name={'inventory_default_production_id'}
                                         message={'Please select a default customer location'}
@@ -178,7 +178,7 @@ const GlobalSettingForm = () => {
                                         {...inventoryDefaultProductionOptions}
                                     />
 
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Default Scrap Location'}
                                         name={'inventory_default_scrap_id'}
                                         message={'Please select a default customer location'}
@@ -193,7 +193,7 @@ const GlobalSettingForm = () => {
                                     Defaults
                                 </Divider>
                                 <ColForm>
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Default Warehouse'}
                                         name={'inventory_default_warehouse_id'}
                                         {...inventoryDefaultWarehouseOptions}
@@ -212,7 +212,7 @@ const GlobalSettingForm = () => {
                         <TabPane tab="Accounting" key="3">
                             <RowForm>
                                 <ColForm>
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Default Currency'}
                                         name={'accounting_default_currency_id'}
                                         message={'Please select a default currency'}
@@ -226,7 +226,7 @@ const GlobalSettingForm = () => {
                         <TabPane tab="Sales" key="4">
                             <RowForm>
                                 <ColForm>
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Sales Default Sequence'}
                                         name={'sales_order_default_sequence_id'}
                                         {...salesOrderDefaultSequenceOptions}

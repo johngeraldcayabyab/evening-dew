@@ -14,7 +14,7 @@ import FormItemCheckbox from "../../Components/FormItem/FormItemCheckbox";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
-import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import {snakeToCamel} from "../../Helpers/string";
 
 const {TabPane} = Tabs;
@@ -113,7 +113,7 @@ const WarehouseForm = () => {
                                         <Divider orientation={'left'}>
                                             Locations
                                         </Divider>
-                                        <FormItemSelectTest
+                                        <FormItemSelect
                                             label={'View Location'}
                                             name={'view_location_id'}
                                             message={'Please select a view location'}
@@ -121,7 +121,7 @@ const WarehouseForm = () => {
                                             {...options.viewLocation}
                                         />
 
-                                        <FormItemSelectTest
+                                        <FormItemSelect
                                             label={'Stock Location'}
                                             name={'stock_location_id'}
                                             message={'Please select a stock location'}
@@ -129,7 +129,7 @@ const WarehouseForm = () => {
                                             {...options.stockLocation}
                                         />
 
-                                        <FormItemSelectTest
+                                        <FormItemSelect
                                             label={'Input Location'}
                                             name={'input_location_id'}
                                             message={'Please select a input location'}
@@ -137,7 +137,7 @@ const WarehouseForm = () => {
                                             {...options.inputLocation}
                                         />
 
-                                        <FormItemSelectTest
+                                        <FormItemSelect
                                             label={'Quality Control Location'}
                                             name={'quality_control_location_id'}
                                             message={'Please select a quality control location'}
@@ -145,7 +145,7 @@ const WarehouseForm = () => {
                                             {...options.qualityControlLocation}
                                         />
 
-                                        <FormItemSelectTest
+                                        <FormItemSelect
                                             label={'Packing Location'}
                                             name={'packing_location_id'}
                                             message={'Please select a packing location'}
@@ -153,7 +153,7 @@ const WarehouseForm = () => {
                                             {...options.packingLocation}
                                         />
 
-                                        <FormItemSelectTest
+                                        <FormItemSelect
                                             label={'Output Location'}
                                             name={'output_location_id'}
                                             message={'Please select a output location'}
@@ -161,7 +161,7 @@ const WarehouseForm = () => {
                                             {...options.outputLocation}
                                         />
 
-                                        <FormItemSelectTest
+                                        <FormItemSelect
                                             label={'Stock after manufacturing location'}
                                             name={'stock_after_manufacturing_location_id'}
                                             message={'Please select a stock after manufacturing location'}
@@ -169,7 +169,7 @@ const WarehouseForm = () => {
                                             {...options.stockAfterManufacturingLocation}
                                         />
 
-                                        <FormItemSelectTest
+                                        <FormItemSelect
                                             label={'Picking before manufacturing location'}
                                             name={'picking_before_manufacturing_location_id'}
                                             message={'Please select a picking before manufacturing location'}
@@ -183,56 +183,56 @@ const WarehouseForm = () => {
                                             Operation Types
                                         </Divider>
 
-                                        <FormItemSelectTest
+                                        <FormItemSelect
                                             label={'In Type'}
                                             name={'in_type_id'}
                                             message={'Please select a in operation type'}
                                             required={true}
                                             {...options.inType}
                                         />
-                                        <FormItemSelectTest
+                                        <FormItemSelect
                                             label={'Internal Type'}
                                             name={'internal_type_id'}
                                             message={'Please select a internal operation type'}
                                             required={true}
                                             {...options.internalType}
                                         />
-                                        <FormItemSelectTest
+                                        <FormItemSelect
                                             label={'Pick Type'}
                                             name={'pick_type_id'}
                                             message={'Please select a pick operation type'}
                                             required={true}
                                             {...options.pickType}
                                         />
-                                        <FormItemSelectTest
+                                        <FormItemSelect
                                             label={'Pack Type'}
                                             name={'pack_type_id'}
                                             message={'Please select a pack operation type'}
                                             required={true}
                                             {...options.packType}
                                         />
-                                        <FormItemSelectTest
+                                        <FormItemSelect
                                             label={'Out Type'}
                                             name={'out_type_id'}
                                             message={'Please select a out operation type'}
                                             required={true}
                                             {...options.outType}
                                         />
-                                        <FormItemSelectTest
+                                        <FormItemSelect
                                             label={'Stock After Manufacturing Operation Type'}
                                             name={'stock_after_manufacturing_operation_type_id'}
                                             message={'Please select a stock after manufacturing operation type'}
                                             required={true}
                                             {...options.stockAfterManufacturingOperationType}
                                         />
-                                        <FormItemSelectTest
+                                        <FormItemSelect
                                             label={'Picking Before Manufacturing Operation Type'}
                                             name={'picking_before_manufacturing_operation_type_id'}
                                             message={'Please select a picking before manufacturing operation type'}
                                             required={true}
                                             {...options.pickingBeforeManufacturingOperationType}
                                         />
-                                        <FormItemSelectTest
+                                        <FormItemSelect
                                             label={'Manufacturing Operation Type'}
                                             name={'manufacturing_operation_type_id'}
                                             message={'Please select a manufacturing operation type'}

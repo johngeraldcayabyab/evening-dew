@@ -14,7 +14,7 @@ import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
-import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 
 const StockMovementForm = () => {
     let {id} = useParams();
@@ -61,7 +61,7 @@ const StockMovementForm = () => {
                                 name={'source'}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Product'}
                                 name={'product_id'}
                                 message={'Please select product'}
@@ -69,7 +69,7 @@ const StockMovementForm = () => {
                                 {...productOptions}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Source Location'}
                                 name={'source_location_id'}
                                 message={'Please select source location'}
@@ -77,7 +77,7 @@ const StockMovementForm = () => {
                                 {...sourceLocationOptions}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Destination Location'}
                                 name={'destination_location_id'}
                                 message={'Please select destination location'}

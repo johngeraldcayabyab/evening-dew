@@ -13,7 +13,7 @@ import FormCard from "../../Components/FormCard";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
-import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 
 const AppMenuForm = () => {
     let {id} = useParams();
@@ -52,12 +52,12 @@ const AppMenuForm = () => {
                                 message={'Please input label'}
                                 required={true}
                             />
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Menu'}
                                 name={'menu_id'}
                                 {...menuOptions}
                             />
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Parent App Menu'}
                                 name={'parent_app_menu_id'}
                                 {...appMenuOptions}
