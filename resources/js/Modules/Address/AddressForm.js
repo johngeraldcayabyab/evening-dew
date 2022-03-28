@@ -10,7 +10,6 @@ import CustomForm from "../../Components/CustomForm";
 import FormItemText from "../../Components/FormItem/FormItemText";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
-import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
@@ -100,7 +99,7 @@ const AddressForm = () => {
                                 {...contactOptions}
                             />
 
-                            <FormItemSelect
+                            <FormItemSelectTest
                                 label={'Type'}
                                 name={'type'}
                                 message={'Please select an address type'}

@@ -10,7 +10,6 @@ import CustomForm from "../../Components/CustomForm";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import FormItemText from "../../Components/FormItem/FormItemText";
-import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import FormItemCheckbox from "../../Components/FormItem/FormItemCheckbox";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
@@ -67,7 +66,7 @@ const LocationForm = () => {
 
                     <RowForm>
                         <ColForm>
-                            <FormItemSelect
+                            <FormItemSelectTest
                                 label={'Type'}
                                 name={'type'}
                                 message={'Please select a location type'}

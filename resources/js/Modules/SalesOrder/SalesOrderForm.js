@@ -15,7 +15,6 @@ import {GET, POST} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
 import FormItemDate from "../../Components/FormItem/FormItemDate";
-import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import StatusBar from "../../Components/StatusBar";
 import FormItemStatus from "../../Components/FormItem/FormItemStatus";
 import FormLinks from "../../Components/FormLinks";
@@ -456,7 +455,7 @@ const SalesOrderForm = () => {
                                     <Divider orientation={'left'}>
                                         Delivery
                                     </Divider>
-                                    <FormItemSelect
+                                    <FormItemSelectTest
                                         label={'Shipping Policy'}
                                         name={'shipping_policy'}
                                         message={'Please select an shipping policy'}

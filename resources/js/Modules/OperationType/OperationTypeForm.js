@@ -11,7 +11,6 @@ import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import FormItemText from "../../Components/FormItem/FormItemText";
 import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
-import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import FormItemCheckbox from "../../Components/FormItem/FormItemCheckbox";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
@@ -82,7 +81,7 @@ const OperationTypeForm = () => {
                                 {...warehouseOptions}
                             />
 
-                            <FormItemSelect
+                            <FormItemSelectTest
                                 label={'Reservation Method'}
                                 name={'reservation_method'}
                                 options={[
@@ -104,7 +103,7 @@ const OperationTypeForm = () => {
                         </ColForm>
 
                         <ColForm>
-                            <FormItemSelect
+                            <FormItemSelectTest
                                 label={'Type Of Operation'}
                                 name={'type'}
                                 message={'Please select an address type'}
