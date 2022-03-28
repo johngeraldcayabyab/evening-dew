@@ -14,7 +14,6 @@ import FormItemUpload from "../../Components/FormItem/FormItemUpload";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
-import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 
 const ContactForm = () => {
     let {id} = useParams();
