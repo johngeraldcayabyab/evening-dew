@@ -21,11 +21,20 @@ rm -rf "./builds/${BUILD_FOLDER}"
 
 ssh tasteandtell umask 002
 #
-#scp "./builds/${BUILD_FOLDER_ZIP}" "tasteandtell:/opt/bitnami/projects/builds"
+scp "./builds/${BUILD_FOLDER_ZIP}" "tasteandtell:/opt/bitnami/projects/builds"
 #
-#ssh tasteandtell "cd /opt/bitnami/projects/builds; unzip ${BUILD_FOLDER_ZIP} -d ${BUILD_FOLDER}"
-#ssh tasteandtell "rm /opt/bitnami/projects/builds/${BUILD_FOLDER_ZIP}"
-#ssh tasteandtell "ln -nsf /opt/bitnami/projects/storage /opt/bitnami/projects/builds/${BUILD_FOLDER}/storage"
+ssh tasteandtell "cd /opt/bitnami/projects/builds; unzip ${BUILD_FOLDER_ZIP} -d ${BUILD_FOLDER}"
+ssh tasteandtell "rm /opt/bitnami/projects/builds/${BUILD_FOLDER_ZIP}"
+ssh tasteandtell "ln -nsf /opt/bitnami/projects/storage /opt/bitnami/projects/builds/${BUILD_FOLDER}/storage"
+ssh tasteandtell "ln -nsf /opt/bitnami/projects/.env /opt/bitnami/projects/builds/${BUILD_FOLDER}/.env"
+
+
+
+#ssh tasteandtell ""
+
+
+
+
 #
 #ln -nsf /opt/bitnami/projects/builds/build_2022.03.25_15.31.20 /opt/bitnami/projects/evening-dew
 #
@@ -46,3 +55,18 @@ ssh tasteandtell umask 002
 #sudo find . -type d -exec chmod 775 {} \;
 #sudo chgrp -R daemon storage bootstrap/cache
 #sudo chmod -R ug+rwx storage bootstrap/cache
+
+
+ssh tasteandtell "sudo chown -R daemon:daemon /opt/bitnami/projects/evening-dew"
+ssh tasteandtell "sudo find /opt/bitnami/projects/evening-dew -type f -exec chmod 644 {} \;"
+ssh tasteandtell "sudo find /opt/bitnami/projects/evening-dew -type d -exec chmod 755 {} \;"
+
+ssh tasteandtell "ln -nsf /opt/bitnami/projects/builds/${BUILD_FOLDER} /opt/bitnami/projects/evening-dew"
+
+#ssh tasteandtell "/opt/bitnami/php/bin/composer /opt/bitnami/projects/builds/${BUILD_FOLDER} dump:autoload"
+
+ssh tasteandtell "/opt/bitnami/php/bin/php /opt/bitnami/projects/evening-dew artisan optimize:clear"
+ssh tasteandtell "/opt/bitnami/php/bin/php /opt/bitnami/projects/evening-dew artisan queue:restart"
+
+
+
