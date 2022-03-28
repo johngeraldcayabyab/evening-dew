@@ -132,35 +132,6 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
         formActions.fetchData();
     }, []);
 
-    /**
-     * three use effects just for redirect
-     * there must be some way to shorten this
-     */
-    useEffect(() => {
-        if (formState.pathname !== location.pathname) {
-            setFormState(state => ({
-                ...state,
-                pathname: location.pathname,
-                backtrack: true,
-            }));
-        }
-    });
-
-    useEffect(() => {
-        if (formState.backtrack) {
-            setFormState((state) => ({
-                ...state,
-                id: id,
-            }));
-        }
-    }, [formState.pathname]);
-
-    useEffect(() => {
-        if (formState.backtrack) {
-            formActions.fetchData(formState.id);
-        }
-    }, [formState.id]);
-
     return [formState, formActions];
 };
 
