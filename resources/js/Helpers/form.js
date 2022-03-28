@@ -98,6 +98,9 @@ export const getPersistedKey = (line, options) => {
 };
 
 export const isOnlyTwoProperty = (line) => {
+    if (line === undefined) {
+        return false;
+    }
     let keys = Object.keys(line);
     if (keys.length === 2) {
         return true;
