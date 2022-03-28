@@ -61,6 +61,7 @@ ssh evening-dew "/opt/bitnami/php/bin/php /opt/bitnami/php/bin/composer --workin
 ssh evening-dew "/opt/bitnami/php/bin/php /opt/bitnami/projects/evening-dew artisan storage:link"
 ssh evening-dew "sudo /opt/bitnami/ctlscript.sh restart php-fpm"
 ssh evening-dew "sudo supervisorctl restart all"
+ssh evening-dew "/opt/bitnami/php/bin/php /opt/bitnami/projects/evening-dew artisan migrate --no-interaction --force"
 
 
 
