@@ -23,7 +23,7 @@ import AddLineButton from "../../Components/FormLines/AddLineButton";
 import RemoveLineButton from "../../Components/FormLines/RemoveLineButton";
 import LineColumn from "../../Components/FormLines/LineColumn";
 import useOptionHook from "../../Hooks/useOptionHook";
-import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
@@ -177,13 +177,13 @@ const TransferForm = () => {
 
                     <RowForm>
                         <ColForm>
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Contact'}
                                 name={'contact_id'}
                                 {...contactOptions}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Operation Type'}
                                 name={'operation_type_id'}
                                 message={'Please select a operation type'}
@@ -191,13 +191,13 @@ const TransferForm = () => {
                                 {...operationTypeOptions}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Source Location'}
                                 name={'source_location_id'}
                                 {...sourceLocationOptions}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Destination Location'}
                                 name={'destination_location_id'}
                                 {...destinationLocationOptions}
@@ -236,7 +236,7 @@ const TransferForm = () => {
                                                                 groupName={name}
                                                                 listName={'transfer_lines'}
                                                             />
-                                                            <FormItemSelectTest
+                                                            <FormItemSelect
                                                                 {...restField}
                                                                 placeholder={'Product'}
                                                                 name={'product_id'}
@@ -265,7 +265,7 @@ const TransferForm = () => {
                                                                 groupName={name}
                                                                 listName={'transfer_lines'}
                                                             />
-                                                            <FormItemSelectTest
+                                                            <FormItemSelect
                                                                 {...restField}
                                                                 placeholder={'Measurement'}
                                                                 name={'measurement_id'}
@@ -313,7 +313,7 @@ const TransferForm = () => {
                                             },
                                         ]}
                                     />
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Responsible'}
                                         name={'responsible_id'}
                                         {...responsibleOptions}

@@ -26,7 +26,7 @@ import {FormContextProvider} from "../../Contexts/FormContext";
 import RemoveLineButton from "../../Components/FormLines/RemoveLineButton";
 import AddLineButton from "../../Components/FormLines/AddLineButton";
 import LineColumn from "../../Components/FormLines/LineColumn";
-import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import useOptionHook from "../../Hooks/useOptionHook";
 import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
@@ -243,21 +243,21 @@ const SalesOrderForm = () => {
 
                     <RowForm>
                         <ColForm>
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Customer'}
                                 name={'customer_id'}
                                 message={'Please select a customer'}
                                 required={true}
                                 {...customerOptions}
                             />
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Invoice address'}
                                 name={'invoice_address_id'}
                                 message={'Please select a invoice address'}
                                 required={true}
                                 {...invoiceAddressOptions}
                             />
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Delivery address'}
                                 name={'delivery_address_id'}
                                 message={'Please select a delivery address'}
@@ -276,7 +276,7 @@ const SalesOrderForm = () => {
                                 name={'quotation_date'}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Payment Term'}
                                 name={'payment_term_id'}
                                 {...paymentTermOptions}
@@ -303,7 +303,7 @@ const SalesOrderForm = () => {
                                                                 groupName={name}
                                                                 listName={'sales_order_lines'}
                                                             />
-                                                            <FormItemSelectTest
+                                                            <FormItemSelect
                                                                 {...restField}
                                                                 placeholder={'Product'}
                                                                 name={'product_id'}
@@ -332,7 +332,7 @@ const SalesOrderForm = () => {
                                                                 groupName={name}
                                                                 listName={'sales_order_lines'}
                                                             />
-                                                            <FormItemSelectTest
+                                                            <FormItemSelect
                                                                 {...restField}
                                                                 placeholder={'Measurement'}
                                                                 name={'measurement_id'}
@@ -429,7 +429,7 @@ const SalesOrderForm = () => {
                                     <Divider orientation={'left'}>
                                         Sales
                                     </Divider>
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Salesperson'}
                                         name={'salesperson_id'}
                                         message={'Please select a salesperson'}
@@ -455,7 +455,7 @@ const SalesOrderForm = () => {
                                     <Divider orientation={'left'}>
                                         Delivery
                                     </Divider>
-                                    <FormItemSelectTest
+                                    <FormItemSelect
                                         label={'Shipping Policy'}
                                         name={'shipping_policy'}
                                         message={'Please select an shipping policy'}

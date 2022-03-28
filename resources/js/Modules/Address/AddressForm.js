@@ -13,7 +13,7 @@ import FormCard from "../../Components/FormCard";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
-import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 
 const AddressForm = () => {
     let {id} = useParams();
@@ -83,7 +83,7 @@ const AddressForm = () => {
                                 name={'zip'}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Country'}
                                 name={'country_id'}
                                 {...countryOptions}
@@ -91,7 +91,7 @@ const AddressForm = () => {
                         </ColForm>
 
                         <ColForm>
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Contact'}
                                 name={'contact_id'}
                                 message={'Please select a contact'}
@@ -99,7 +99,7 @@ const AddressForm = () => {
                                 {...contactOptions}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Type'}
                                 name={'type'}
                                 message={'Please select an address type'}

@@ -10,7 +10,7 @@ import CustomForm from "../../Components/CustomForm";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import FormItemText from "../../Components/FormItem/FormItemText";
-import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
@@ -45,7 +45,7 @@ const SequenceForm = () => {
                                 message={'Please input name'}
                                 required={true}
                             />
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Implementation'}
                                 name={'implementation'}
                                 message={'Please select an implementation'}

@@ -14,7 +14,7 @@ import FormItemUpload from "../../Components/FormItem/FormItemUpload";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
-import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 
 const ContactForm = () => {
     let {id} = useParams();
@@ -89,7 +89,7 @@ const ContactForm = () => {
                                 name={'zip'}
                             />
 
-                            <FormItemSelectTest
+                            <FormItemSelect
                                 label={'Country'}
                                 name={'country_id'}
                                 url={'/api/countries'}
