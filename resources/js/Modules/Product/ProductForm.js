@@ -12,7 +12,6 @@ import FormCard from "../../Components/FormCard";
 import FormItemText from "../../Components/FormItem/FormItemText";
 import FormItemUpload from "../../Components/FormItem/FormItemUpload";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
-import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
@@ -80,7 +79,7 @@ const ProductForm = () => {
                         <TabPane tab="General Information" key="1">
                             <RowForm>
                                 <ColForm>
-                                    <FormItemSelect
+                                    <FormItemSelectTest
                                         label={'Product Type'}
                                         name={'product_type'}
                                         message={'Please select a product type'}
@@ -92,7 +91,7 @@ const ProductForm = () => {
                                         ]}
                                     />
 
-                                    <FormItemSelect
+                                    <FormItemSelectTest
                                         label={'Invoicing Policy'}
                                         name={'invoicing_policy'}
                                         message={'Please select an invoicing policy'}

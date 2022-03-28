@@ -10,7 +10,6 @@ import CustomForm from "../../Components/CustomForm";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import FormItemText from "../../Components/FormItem/FormItemText";
-import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import FormItemDate from "../../Components/FormItem/FormItemDate";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {GET, POST} from "../../consts";

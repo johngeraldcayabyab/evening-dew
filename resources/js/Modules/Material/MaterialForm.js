@@ -9,7 +9,7 @@ import ColForm from "../../Components/Grid/ColForm";
 import CustomForm from "../../Components/CustomForm";
 import FormItemText from "../../Components/FormItem/FormItemText";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
-import FormItemSelect from "../../Components/FormItem/FormItemSelect";
+import FormItemSelectTest from "../../Components/FormItem/FormItemSelectTest";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
@@ -130,7 +130,7 @@ const MaterialForm = () => {
                                 name={'reference'}
                             />
 
-                            <FormItemSelect
+                            <FormItemSelectTest
                                 label={'Material Type'}
                                 name={'material_type'}
                                 message={'Please select a material type'}
