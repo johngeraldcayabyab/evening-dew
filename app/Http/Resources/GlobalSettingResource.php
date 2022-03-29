@@ -24,6 +24,7 @@ class GlobalSettingResource extends JsonResource
             'accounting_default_currency_id' => $this->accounting_default_currency_id,
             'general_default_country_id' => $this->general_default_country_id,
             'sales_order_default_sequence_id' => $this->sales_order_default_sequence_id,
+            'adjustment_default_sequence_id' => $this->adjustment_default_sequence_id,
             'inventory_default_measurement_category' => $this->inventoryDefaultMeasurementCategory,
             'inventory_default_measurement' => $this->inventoryDefaultMeasurement,
             'inventory_default_purchase_measurement' => $this->inventoryDefaultPurchaseMeasurement,
@@ -37,7 +38,8 @@ class GlobalSettingResource extends JsonResource
             'inventory_default_warehouse' => $this->inventoryDefaultWarehouse,
             'accounting_default_currency' => $this->accountingDefaultCurrency,
             'general_default_country' => $this->generalDefaultCountry,
-            'sales_order_default_sequence' => $this->salesOrderDefaultSequence
+            'sales_order_default_sequence' => $this->salesOrderDefaultSequence,
+            'adjustment_default_sequence' => $this->adjustmentDefaultSequence,
         ];
     }
 }

@@ -35,6 +35,7 @@ const GlobalSettingForm = () => {
     const inventoryDefaultWarehouseOptions = useOptionHook('/api/warehouses', 'inventory_default_warehouse.name');
     const accountingDefaultCurrencyOptions = useOptionHook('/api/currencies', 'accounting_default_currency.currency');
     const salesOrderDefaultSequenceOptions = useOptionHook('/api/sequences', 'sales_order_default_sequence.name');
+    const adjustmentDefaultSequenceOptions = useOptionHook('/api/sequences', 'adjustment_default_sequence.name');
 
     useEffect(() => {
         generalDefaultCountryOptions.getInitialOptions(formState);
@@ -206,6 +207,14 @@ const GlobalSettingForm = () => {
                                         name={'inventory_auto_validate_draft'}
                                     />
                                 </ColForm>
+                            </RowForm>
+
+                            <RowForm>
+                                <FormItemSelect
+                                    label={'Adjustment Default Sequence'}
+                                    name={'adjustment_default_sequence_id'}
+                                    {...adjustmentDefaultSequenceOptions}
+                                />
                             </RowForm>
                         </TabPane>
 
