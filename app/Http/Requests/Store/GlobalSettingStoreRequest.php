@@ -24,6 +24,7 @@ class GlobalSettingStoreRequest extends FormRequest
             'accounting_default_currency_id' => ['nullable', "exists:currencies,id"],
             'general_default_country_id' => ['nullable', "exists:countries,id"],
             'sales_order_default_sequence_id' => ['nullable', "exists:sequences,id"],
+            'adjustment_default_sequence_id' => ['nullable', "exists:sequences,id"]
         ];
     }
 }
