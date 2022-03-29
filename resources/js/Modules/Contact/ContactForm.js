@@ -14,6 +14,7 @@ import FormItemUpload from "../../Components/FormItem/FormItemUpload";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
+import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 
 const ContactForm = () => {
     let {id} = useParams();
@@ -52,49 +53,40 @@ const ContactForm = () => {
                                 size={'large'}
                             />
                         </ColForm>
-
                         <ColForm>
                             <FormItemUpload
                                 name={'avatar'}
                             />
                         </ColForm>
                     </RowForm>
-
-
                     <RowForm>
                         <ColForm>
                             <FormItemText
                                 label={'Street 1'}
                                 name={'street_one'}
                             />
-
                             <FormItemText
                                 label={'Street 2'}
                                 name={'street_two'}
                             />
-
                             <FormItemText
                                 label={'City'}
                                 name={'city'}
                             />
-
                             <FormItemText
                                 label={'State'}
                                 name={'state'}
                             />
-
                             <FormItemText
                                 label={'Zip'}
                                 name={'zip'}
                             />
-
                             <FormItemSelect
                                 label={'Country'}
                                 name={'country_id'}
                                 url={'/api/countries'}
                                 {...countryOptions}
                             />
-
                             <FormItemText
                                 label={'Tax ID'}
                                 name={'tax_id'}
@@ -106,17 +98,14 @@ const ContactForm = () => {
                                 label={'Phone'}
                                 name={'phone'}
                             />
-
                             <FormItemText
                                 label={'Mobile'}
                                 name={'mobile'}
                             />
-
                             <FormItemText
                                 label={'Email'}
                                 name={'email'}
                             />
-
                             <FormItemText
                                 label={'Website'}
                                 name={'website'}
