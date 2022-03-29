@@ -6,9 +6,12 @@ use App\Contacts\Sluggable;
 use App\Traits\ModelHelperTrait;
 use Database\Factories\JobFactory;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Job extends Model implements Sluggable
@@ -24,14 +27,14 @@ class Job extends Model implements Sluggable
         return JobFactory::new();
     }
 
-    public function scopeWhereJob($query, $where)
+    public function scopeFilter($query, $filter)
     {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeOrderByJob($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
+        if ($filter[0] === 'whereJob') {
+            return $query->where('job', 'like', "%$filter[1]%");
+        } elseif ($filter[0] === 'orderJob') {
+            return $query->orderBy('job', "$filter[1]");
+        }
+        return $query;
     }
 
     public function slug()
