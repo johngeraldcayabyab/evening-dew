@@ -19,7 +19,7 @@ class WarehouseController
     public function index(Request $request): ResourceCollection
     {
         $model = new Warehouse();
-        $model = $this->searchSortThenPaginate($model, $request);
+        $model = $model->filterAndOrder($request);
         return WarehouseResource::collection($model);
     }
 
