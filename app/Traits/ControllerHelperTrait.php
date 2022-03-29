@@ -32,9 +32,9 @@ trait ControllerHelperTrait
         foreach ($f->getMethods() as $m) {
             if ($m->class == get_class($model)) {
                 if (Str::contains($m->name, 'scopeWhere')) {
-                    $searchable[] = Str::snake(Str::replace('scopeWhere', '', $m->name));
+//                    $searchable[] = Str::snake(Str::replace('scopeWhere', '', $m->name));
                 } elseif (Str::contains($m->name, 'scopeOrderBy')) {
-                    $sortable[] = Str::snake(Str::replace('scopeOrderBy', '', $m->name));
+//                    $sortable[] = Str::snake(Str::replace('scopeOrderBy', '', $m->name));
                 }
             }
         }

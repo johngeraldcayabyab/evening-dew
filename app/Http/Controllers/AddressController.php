@@ -20,7 +20,7 @@ class AddressController
     public function index(Request $request): ResourceCollection
     {
         $model = new Address();
-        $model = $this->searchSortThenPaginate($model, $request);
+        $model = $model->filterAndOrder($request);
         return AddressResource::collection($model);
     }
 
