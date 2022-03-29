@@ -25,6 +25,7 @@ class CreateGlobalSettingsTable extends Migration
             $table->unsignedInteger('accounting_default_currency_id')->nullable();
             $table->unsignedInteger('general_default_country_id')->nullable();
             $table->unsignedInteger('sales_order_default_sequence_id')->nullable();
+            $table->unsignedInteger('adjustment_default_sequence_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

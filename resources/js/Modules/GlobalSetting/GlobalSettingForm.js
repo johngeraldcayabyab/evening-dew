@@ -52,6 +52,7 @@ const GlobalSettingForm = () => {
         inventoryDefaultWarehouseOptions.getInitialOptions(formState);
         accountingDefaultCurrencyOptions.getInitialOptions(formState);
         salesOrderDefaultSequenceOptions.getInitialOptions(formState);
+        adjustmentDefaultSequenceOptions.getInitialOptions(formState);
     }, [formState.initialLoad]);
 
     return (
@@ -210,11 +211,13 @@ const GlobalSettingForm = () => {
                             </RowForm>
 
                             <RowForm>
-                                <FormItemSelect
-                                    label={'Adjustment Default Sequence'}
-                                    name={'adjustment_default_sequence_id'}
-                                    {...adjustmentDefaultSequenceOptions}
-                                />
+                                <ColForm>
+                                    <FormItemSelect
+                                        label={'Adjustment Default Sequence'}
+                                        name={'adjustment_default_sequence_id'}
+                                        {...adjustmentDefaultSequenceOptions}
+                                    />
+                                </ColForm>
                             </RowForm>
                         </TabPane>
 
