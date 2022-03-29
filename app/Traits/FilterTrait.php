@@ -22,8 +22,12 @@ trait FilterTrait
             if ($request->$field) {
                 if (method_exists($modelClone, Str::camel($field))) {
                     $has = Str::camel($field);
-
-                    $model = $model->filterHas([$has, $modelClone->$has()->getRelated()->slug(), $request->$field]);
+                    $related = $modelClone->$has()->getRelated();
+                    $relatedField = $related->slug();
+                    if (Str::contains($relatedField, 'parent')) {
+                        $relatedField = explode('.', $relatedField)[1];
+                    }
+                    $model = $model->filterHas([$has, $relatedField, $request->$field]);
                 } else {
                     $model = $model->filter([$field, $request->$field]);
                 }
@@ -70,17 +74,6 @@ trait FilterTrait
     public function scopeOrder($query, $filter)
     {
         return $query->orderBy($filter[0], "$filter[1]");
-    }
-
-    public function scopeOrderHas($query, $filter)
-    {
-//        $column = $request->orderByColumn;
-//        $related = $modelClone->$column()->getRelated();
-//        $relatedField = $related->slug();
-//        $shing = $related->getTable() . '.id';
-//        $parentTable = $this->getTable();
-//        $foreignKey = $modelClone->$column()->getForeignKeyName();
-//        $model = $query->orderBy($related::select($relatedField)->whereColumn($shing, "$parentTable.$foreignKey"), $request->orderByDirection);
     }
 
     public function getFields()
