@@ -17,24 +17,30 @@ trait FilterTrait
     {
         $model = $this;
         $modelClone = $this;
-        $columns = $model->getFields();
-        foreach ($columns as $column) {
-            if ($request->$column) {
-                if (method_exists($modelClone, $column)) {
-                    $model = $model->filterHas([$column, $modelClone->$column()->getRelated()->slug(), $request->$column]);
+        $fields = $model->getFields();
+        foreach ($fields as $field) {
+            if ($request->$field) {
+                if (method_exists($modelClone, Str::camel($field))) {
+                    $has = Str::camel($field);
+
+                    $model = $model->filterHas([$has, $modelClone->$has()->getRelated()->slug(), $request->$field]);
                 } else {
-                    $model = $model->filter([$column, $request->$column]);
+                    $model = $model->filter([$field, $request->$field]);
                 }
             }
         }
         if ($request->orderByColumn && $request->orderByDirection) {
-            if (method_exists($modelClone, $request->orderByColumn)) {
-                $column = $request->orderByColumn;
-                $related = $modelClone->$column()->getRelated();
+            if (method_exists($modelClone, Str::camel($request->orderByColumn))) {
+                $field = $request->orderByColumn;
+                $field = Str::camel($field);
+                $related = $modelClone->$field()->getRelated();
                 $relatedField = $related->slug();
+                if (Str::contains($relatedField, 'parent')) {
+                    $relatedField = explode('.', $relatedField)[1];
+                }
                 $shing = $related->getTable() . '.id';
                 $parentTable = $this->getTable();
-                $foreignKey = $modelClone->$column()->getForeignKeyName();
+                $foreignKey = $modelClone->$field()->getForeignKeyName();
                 $model = $model->orderBy($related::select($relatedField)->whereColumn($shing, "$parentTable.$foreignKey"), $request->orderByDirection);
             } else {
                 $model = $model->order([$request->orderByColumn, $request->orderByDirection]);

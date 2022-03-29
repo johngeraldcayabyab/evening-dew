@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Contacts\Sluggable;
 use App\Traits\ModelHelperTrait;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
