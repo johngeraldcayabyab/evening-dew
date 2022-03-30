@@ -9,8 +9,8 @@ class OperationTypeStoreRequest extends FormRequest
 {
     public function rules()
     {
-        $reservationMethods = implode(',', OperationType::getReservationMethods());
-        $types = implode(',', OperationType::getTypes());
+        $reservationMethods = implode_types(OperationType::getReservationMethods());
+        $types = implode_types(OperationType::getTypes());
         return [
             'name' => ['required'],
             'reference_sequence_id' => ['nullable', 'exists:sequences,id'],

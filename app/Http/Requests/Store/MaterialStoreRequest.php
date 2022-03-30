@@ -9,8 +9,8 @@ class MaterialStoreRequest extends FormRequest
 {
     public function rules()
     {
-        $materialTypes = implode(',', Material::getMaterialTypes());
-        $flexibleConsumptions = implode(',', Material::getFlexibleConsumptions());
+        $materialTypes = implode_types(Material::getMaterialTypes());
+        $flexibleConsumptions = implode_types(Material::getFlexibleConsumptions());
         return [
             'product_id' => ['required', "exists:products,id"],
             'measurement_id' => ['required', "exists:measurements,id"],

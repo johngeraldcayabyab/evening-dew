@@ -14,3 +14,11 @@ if (!function_exists('get_modules')) {
         return array_diff(scandir(get_modules_path()), array('..', '.'));
     }
 }
+
+
+if (!function_exists('implode_types')) {
+    function implode_types($types)
+    {
+        return implode(',', $types);
+    }
+}
