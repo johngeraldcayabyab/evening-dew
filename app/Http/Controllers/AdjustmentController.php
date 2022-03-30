@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AdjustmentValidatedEvent;
 use App\Http\Requests\AdjustmentRequest;
 use App\Http\Resources\AdjustmentResource;
 use App\Models\Adjustment;
@@ -38,6 +39,9 @@ class AdjustmentController
             $adjustmentLinesData = $data['adjustment_lines'];
             AdjustmentLine::insertMany($adjustmentLinesData, $adjustment->id);
         }
+        if ($adjustment->status === Adjustment::DONE) {
+            AdjustmentValidatedEvent::dispatch($adjustment);
+        }
         return response()->json([], STATUS_CREATE, $this->locationHeader($adjustment));
     }
 
@@ -49,6 +53,9 @@ class AdjustmentController
         if (isset($data['adjustment_lines'])) {
             $adjustmentLinesData = $data['adjustment_lines'];
             AdjustmentLine::updateOrCreateMany($adjustmentLinesData, $adjustment->id);
+        }
+        if ($adjustment->status === Adjustment::DONE) {
+            AdjustmentValidatedEvent::dispatch($adjustment);
         }
         return response()->json([], STATUS_UPDATE);
     }

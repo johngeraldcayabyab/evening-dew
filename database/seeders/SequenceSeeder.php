@@ -18,15 +18,5 @@ class SequenceSeeder extends Seeder
             'step' => Sequence::STEP,
             'next_number' => Sequence::NEXT_NUMBER,
         ]);
-
-        Sequence::create([
-            'name' => "Adjustment Sequence",
-            'sequence_code' => "adjustment.sequence",
-            'implementation' => Sequence::STANDARD,
-            'prefix' => "ADJ/",
-            'sequence_size' => Sequence::SEQUENCE_SIZE,
-            'step' => Sequence::STEP,
-            'next_number' => Sequence::NEXT_NUMBER,
-        ]);
     }
 }

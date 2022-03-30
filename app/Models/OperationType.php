@@ -28,6 +28,7 @@ class OperationType extends Model implements Sluggable
     const DELIVERY = 'delivery';
     const INTERNAL = 'internal';
     const MANUFACTURING = 'manufacturing';
+    const ADJUSTMENT = 'adjustment';
 
     protected $table = 'operations_types';
     protected $guarded = [];
@@ -40,7 +41,7 @@ class OperationType extends Model implements Sluggable
 
     public static function getTypes()
     {
-        return [self::RECEIPT, self::DELIVERY, self::INTERNAL, self::MANUFACTURING];
+        return [self::RECEIPT, self::DELIVERY, self::INTERNAL, self::MANUFACTURING, self::ADJUSTMENT];
     }
 
     public function referenceSequence()

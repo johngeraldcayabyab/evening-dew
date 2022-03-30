@@ -12,7 +12,7 @@ use App\Models\TransferLine;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class GenerateTransferFromValidatedSalesOrderListener implements ShouldQueue
+class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
 {
     public function handle(SalesOrderValidatedEvent $event)
     {
