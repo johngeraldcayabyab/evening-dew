@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MassDestroy\TransferLineMassDestroyRequest;
 use App\Models\TransferLine;
+use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class TransferLineController
 {
-    public function mass_destroy(TransferLineMassDestroyRequest $request): JsonResponse
+    use ControllerHelperTrait;
+
+    public function mass_destroy(Request $request): JsonResponse
     {
-        TransferLine::massDelete($request->validated()['ids']);
+        $this->massDelete(new TransferLine(), $request);
         return response()->json([], STATUS_DELETE);
     }
 }

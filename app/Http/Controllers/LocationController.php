@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MassDestroy\LocationMassDestroyRequest;
 use App\Http\Requests\Store\LocationStoreRequest;
 use App\Http\Requests\Update\LocationUpdateRequest;
 use App\Http\Resources\LocationResource;
@@ -45,9 +44,9 @@ class LocationController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function mass_destroy(LocationMassDestroyRequest $request): JsonResponse
+    public function mass_destroy(Request $request): JsonResponse
     {
-        Location::massDelete($request->validated()['ids']);
+        $this->massDelete(new Location(), $request);
         return response()->json([], STATUS_DELETE);
     }
 

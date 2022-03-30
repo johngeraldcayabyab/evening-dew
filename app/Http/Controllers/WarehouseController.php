@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MassDestroy\WarehouseMassDestroyRequest;
 use App\Http\Requests\Store\WarehouseStoreRequest;
 use App\Http\Requests\Update\WarehouseUpdateRequest;
 use App\Http\Resources\WarehouseResource;
@@ -45,9 +44,9 @@ class WarehouseController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function mass_destroy(WarehouseMassDestroyRequest $request): JsonResponse
+    public function mass_destroy(Request $request): JsonResponse
     {
-        Warehouse::massDelete($request->validated()['ids']);
+        $this->massDelete(new Warehouse(), $request);
         return response()->json([], STATUS_DELETE);
     }
 

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MassDestroy\UserMassDestroyRequest;
 use App\Http\Requests\Store\UserStoreRequest;
 use App\Http\Requests\Update\UserUpdateRequest;
 use App\Http\Resources\UserResource;
@@ -49,9 +48,9 @@ class UserController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function mass_destroy(UserMassDestroyRequest $request): JsonResponse
+    public function mass_destroy(Request $request): JsonResponse
     {
-        User::massDelete($request->validated()['ids']);
+        $this->massDelete(new User(), $request);
         return response()->json([], STATUS_DELETE);
     }
 }

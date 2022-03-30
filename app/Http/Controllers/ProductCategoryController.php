@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MassDestroy\ProductCategoryMassDestroyRequest;
 use App\Http\Requests\Store\ProductCategoryStoreRequest;
 use App\Http\Requests\Update\ProductCategoryUpdateRequest;
 use App\Http\Resources\ProductCategoryResource;
@@ -45,9 +44,9 @@ class ProductCategoryController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function mass_destroy(ProductCategoryMassDestroyRequest $request): JsonResponse
+    public function mass_destroy(Request $request): JsonResponse
     {
-        ProductCategory::massDelete($request->validated()['ids']);
+        $this->massDelete(new ProductCategory(), $request);
         return response()->json([], STATUS_DELETE);
     }
 }

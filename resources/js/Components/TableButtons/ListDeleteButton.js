@@ -11,7 +11,7 @@ const ListDeleteButton = () => {
                 title={`Are you sure you want to delete the selected items?`}
                 okText="Yes"
                 cancelText="No" onConfirm={() => {
-                let ids = listContext.formState.selectedRows.map((row) => (row.id));
+                let ids = listContext.tableState.selectedRows.map((row) => (row.id));
                 listContext.tableActions.handleMassDelete(ids);
             }}
             >

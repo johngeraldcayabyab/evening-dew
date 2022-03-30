@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MassDestroy\MaterialMassDestroyRequest;
 use App\Http\Requests\Store\MaterialStoreRequest;
 use App\Http\Requests\Update\MaterialUpdateRequest;
 use App\Http\Resources\MaterialResource;
@@ -61,9 +60,9 @@ class MaterialController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function mass_destroy(MaterialMassDestroyRequest $request): JsonResponse
+    public function mass_destroy(Request $request): JsonResponse
     {
-        Material::massDelete($request->validated()['ids']);
+        $this->massDelete(new Material(), $request);
         return response()->json([], STATUS_DELETE);
     }
 

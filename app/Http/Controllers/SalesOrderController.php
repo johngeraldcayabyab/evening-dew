@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Data\SystemSetting;
 use App\Events\SalesOrderValidatedEvent;
-use App\Http\Requests\MassDestroy\SalesOrderMassDestroyRequest;
 use App\Http\Requests\Store\SalesOrderStoreRequest;
 use App\Http\Requests\Update\SalesOrderUpdateRequest;
 use App\Http\Resources\SalesOrderResource;
@@ -71,9 +70,9 @@ class SalesOrderController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function mass_destroy(SalesOrderMassDestroyRequest $request): JsonResponse
+    public function mass_destroy(Request $request): JsonResponse
     {
-        SalesOrder::massDelete($request->validated()['ids']);
+        $this->massDelete(new SalesOrder(), $request);
         return response()->json([], STATUS_DELETE);
     }
 
