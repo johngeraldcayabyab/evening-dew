@@ -19,7 +19,7 @@ class ProductCategoryController
     public function index(Request $request): ResourceCollection
     {
         $model = new ProductCategory();
-        $model = $this->searchSortThenPaginate($model, $request);
+        $model = $model->filterAndOrder($request);
         return ProductCategoryResource::collection($model);
     }
 

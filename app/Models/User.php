@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Contacts\Sluggable;
+use App\Traits\FilterTrait;
 use App\Traits\ModelHelperTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,9 +15,14 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable implements Sluggable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, BroadcastsEvents;
-    use ModelHelperTrait;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+    use SoftDeletes;
+    use BroadcastsEvents;
+    use FilterTrait;
     use LogsActivity;
+    use ModelHelperTrait;
 
     protected $table = 'users';
     protected $fillable = [
@@ -35,46 +41,6 @@ class User extends Authenticatable implements Sluggable
     public function contact()
     {
         return $this->belongsTo(Contact::class);
-    }
-
-    public function scopeWhereName($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereEmail($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereContactId($query, $where)
-    {
-        return $this->whereSingle($query, __FUNCTION__, $where);
-    }
-
-    public function scopeOrderByName($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByEmail($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByContactId($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeWhereUser($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'name', $where);
-    }
-
-    public function scopeOrderByUser($query, $order)
-    {
-        return $this->orderHas($query, new Contact(), 'name', __FUNCTION__, $order);
     }
 
     public function slug()

@@ -19,7 +19,7 @@ class StockMovementController
     public function index(Request $request): ResourceCollection
     {
         $model = new StockMovement();
-        $model = $this->searchSortThenPaginate($model, $request);
+        $model = $model->filterAndOrder($request);
         return StockMovementResource::collection($model);
     }
 

@@ -18,6 +18,7 @@ class Adjustment extends Model implements Sluggable
     use BroadcastsEvents;
     use FilterTrait;
     use LogsActivity;
+    use ModelHelperTrait;
 
     protected $table = 'adjustments';
     protected $guarded = [];
@@ -31,36 +32,6 @@ class Adjustment extends Model implements Sluggable
     public function adjustmentLines()
     {
         return $this->hasMany(AdjustmentLine::class);
-    }
-
-    public function scopeWhereNumber($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereProductCategoryId($query, $where)
-    {
-        return $this->whereSingle($query, __FUNCTION__, $where);
-    }
-
-    public function scopeOrderByNumber($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByProductCategoryId($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeWhereProductCategory($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'category', $where);
-    }
-
-    public function scopeOrderByProductCategory($query, $order)
-    {
-        return $this->orderHas($query, new ProductCategory(), 'category', __FUNCTION__, $order);
     }
 
     public function slug()

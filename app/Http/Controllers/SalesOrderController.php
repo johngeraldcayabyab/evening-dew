@@ -26,7 +26,7 @@ class SalesOrderController
     public function index(Request $request): ResourceCollection
     {
         $model = new SalesOrder();
-        $model = $this->searchSortThenPaginate($model, $request);
+        $model = $model->filterAndOrder($request);
         return SalesOrderResource::collection($model);
     }
 

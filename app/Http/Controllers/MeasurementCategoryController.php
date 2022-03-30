@@ -20,7 +20,7 @@ class MeasurementCategoryController
     public function index(Request $request): ResourceCollection
     {
         $model = new MeasurementCategory();
-        $model = $this->searchSortThenPaginate($model, $request);
+        $model = $model->filterAndOrder($request);
         return MeasurementCategoryResource::collection($model);
     }
 

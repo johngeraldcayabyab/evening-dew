@@ -19,7 +19,7 @@ class PaymentTermController
     public function index(Request $request): ResourceCollection
     {
         $model = new PaymentTerm();
-        $model = $this->searchSortThenPaginate($model, $request);
+        $model = $model->filterAndOrder($request);
         return PaymentTermResource::collection($model);
     }
 

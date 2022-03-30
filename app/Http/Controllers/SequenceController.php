@@ -19,7 +19,7 @@ class SequenceController
     public function index(Request $request): ResourceCollection
     {
         $model = new Sequence();
-        $model = $this->searchSortThenPaginate($model, $request);
+        $model = $model->filterAndOrder($request);
         return SequenceResource::collection($model);
     }
 

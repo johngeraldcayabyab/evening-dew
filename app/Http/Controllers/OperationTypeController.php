@@ -19,7 +19,7 @@ class OperationTypeController
     public function index(Request $request): ResourceCollection
     {
         $model = new OperationType();
-        $model = $this->searchSortThenPaginate($model, $request);
+        $model = $model->filterAndOrder($request);
         return OperationTypeResource::collection($model);
     }
 

@@ -19,7 +19,7 @@ class CountryController
     public function index(Request $request): ResourceCollection
     {
         $model = new Country();
-        $model = $this->searchSortThenPaginate($model, $request);
+        $model = $model->filterAndOrder($request);
         return CountryResource::collection($model);
     }
 

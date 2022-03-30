@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\FilterTrait;
 use App\Traits\ModelHelperTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,8 +15,9 @@ class TransferLine extends Model
     use HasFactory;
     use SoftDeletes;
     use BroadcastsEvents;
-    use ModelHelperTrait;
+    use FilterTrait;
     use LogsActivity;
+    use ModelHelperTrait;
 
     protected $table = 'transfer_lines';
     protected $guarded = [];
@@ -34,71 +36,6 @@ class TransferLine extends Model
     public function transfer()
     {
         return $this->belongsTo(Transfer::class);
-    }
-
-    public function scopeWhereProductId($query, $where)
-    {
-        return $this->whereSingle($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereDescription($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereDemand($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereMeasurementId($query, $where)
-    {
-        return $this->whereSingle($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereTransferId($query, $where)
-    {
-        return $this->whereSingle($query, __FUNCTION__, $where);
-    }
-
-    public function scopeOrderByProductId($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByDescription($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByDemand($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByMeasurementId($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByTransferId($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeWhereProduct($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'name', $where);
-    }
-
-    public function scopeWhereMeasurement($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'name', $where);
-    }
-
-    public function scopeWhereTransfer($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'reference', $where);
     }
 
     public function scopeInsertMany($query, $data, $transferId)

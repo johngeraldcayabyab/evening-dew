@@ -22,7 +22,7 @@ class MaterialController
     public function index(Request $request): ResourceCollection
     {
         $model = new Material();
-        $model = $this->searchSortThenPaginate($model, $request);
+        $model = $model->filterAndOrder($request);
         return MaterialResource::collection($model);
     }
 

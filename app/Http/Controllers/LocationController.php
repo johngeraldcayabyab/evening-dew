@@ -19,7 +19,7 @@ class LocationController
     public function index(Request $request): ResourceCollection
     {
         $model = new Location();
-        $model = $this->searchSortThenPaginate($model, $request);
+        $model = $model->filterAndOrder($request);
         return LocationResource::collection($model);
     }
 

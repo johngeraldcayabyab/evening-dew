@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Contacts\Sluggable;
+use App\Traits\FilterTrait;
 use App\Traits\ModelHelperTrait;
 use Database\Factories\MeasurementCategoryFactory;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
@@ -16,8 +17,9 @@ class MeasurementCategory extends Model implements Sluggable
     use HasFactory;
     use SoftDeletes;
     use BroadcastsEvents;
-    use ModelHelperTrait;
+    use FilterTrait;
     use LogsActivity;
+    use ModelHelperTrait;
 
     protected $table = 'measurement_categories';
     protected $guarded = [];
@@ -31,16 +33,6 @@ class MeasurementCategory extends Model implements Sluggable
     public function measurements()
     {
         return $this->hasMany(Measurement::class);
-    }
-
-    public function scopeWhereName($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeOrderByName($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function slug()
