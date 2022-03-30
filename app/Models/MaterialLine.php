@@ -38,44 +38,44 @@ class MaterialLine extends Model
         return $this->belongsTo(Material::class);
     }
 
-    public function scopeInsertMany($query, $data, $materialId)
+    public function scopeInsertMany($query, $data, $parentId)
     {
-        $materialLines = [];
+        $lines = [];
         $date = now();
         foreach ($data as $datum) {
-            $transactionLine = [
+            $line = [
                 'product_id' => $datum['product_id'],
                 'quantity' => $datum['quantity'],
                 'measurement_id' => $datum['measurement_id'],
-                'material_id' => $materialId,
+                'material_id' => $parentId,
                 'created_at' => $date,
                 'updated_at' => $date,
             ];
-            $materialLines[] = $transactionLine;
+            $lines[] = $line;
         }
-        $query->insert($materialLines);
+        $query->insert($lines);
         return $query;
     }
 
-    public function scopeUpdateOrCreateMany($query, $data, $materialId)
+    public function scopeUpdateOrCreateMany($query, $data, $parentId)
     {
-        $materialLines = [];
+        $lines = [];
         $date = now();
         foreach ($data as $datum) {
-            $transactionLine = [
+            $line = [
                 'id' => isset($datum['id']) ? $datum['id'] : null,
                 'product_id' => $datum['product_id'],
                 'quantity' => $datum['quantity'],
                 'measurement_id' => $datum['measurement_id'],
-                'material_id' => $materialId,
+                'material_id' => $parentId,
                 'updated_at' => $date,
             ];
             if (isset($datum['id'])) {
-                $transactionLine['created_at'] = $date;
+                $line['created_at'] = $date;
             }
-            $materialLines[] = $transactionLine;
+            $lines[] = $line;
         }
-        $query->upsert($materialLines, ['id']);
+        $query->upsert($lines, ['id']);
         return $query;
     }
 }

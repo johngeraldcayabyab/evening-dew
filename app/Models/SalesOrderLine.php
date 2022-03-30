@@ -38,34 +38,34 @@ class SalesOrderLine extends Model
         return $this->belongsTo(SalesOrder::class);
     }
 
-    public function scopeInsertMany($query, $data, $salesOrderId)
+    public function scopeInsertMany($query, $data, $parentId)
     {
-        $transactionLines = [];
+        $lines = [];
         $date = now();
         foreach ($data as $datum) {
-            $transactionLine = [
+            $line = [
                 'product_id' => $datum['product_id'],
                 'description' => isset($datum['description']) ? $datum['description'] : null,
                 'quantity' => $datum['quantity'],
                 'measurement_id' => $datum['measurement_id'],
                 'unit_price' => $datum['unit_price'],
                 'subtotal' => $datum['unit_price'] * $datum['quantity'],
-                'sales_order_id' => $salesOrderId,
+                'sales_order_id' => $parentId,
                 'created_at' => $date,
                 'updated_at' => $date,
             ];
-            $transactionLines[] = $transactionLine;
+            $lines[] = $line;
         }
-        $query->insert($transactionLines);
+        $query->insert($lines);
         return $query;
     }
 
-    public function scopeUpdateOrCreateMany($query, $data, $salesOrderId)
+    public function scopeUpdateOrCreateMany($query, $data, $parentId)
     {
-        $transactionLines = [];
+        $lines = [];
         $date = now();
         foreach ($data as $datum) {
-            $transactionLine = [
+            $line = [
                 'id' => isset($datum['id']) ? $datum['id'] : null,
                 'product_id' => $datum['product_id'],
                 'description' => isset($datum['description']) ? $datum['description'] : null,
@@ -73,15 +73,15 @@ class SalesOrderLine extends Model
                 'measurement_id' => $datum['measurement_id'],
                 'unit_price' => $datum['unit_price'],
                 'subtotal' => $datum['unit_price'] * $datum['quantity'],
-                'sales_order_id' => $salesOrderId,
+                'sales_order_id' => $parentId,
                 'updated_at' => $date,
             ];
             if (isset($datum['id'])) {
-                $transactionLine['created_at'] = $date;
+                $line['created_at'] = $date;
             }
-            $transactionLines[] = $transactionLine;
+            $lines[] = $line;
         }
-        $query->upsert($transactionLines, ['id']);
+        $query->upsert($lines, ['id']);
         return $query;
     }
 }
