@@ -18,7 +18,7 @@ class GenerateStockMovementForMaterialLines implements ShouldQueue
         $stockMovementData = [];
         foreach ($materialLines as $materialLine) {
             $materialLineProduct = $materialLine->product;
-            if ($materialLineProduct->product_type === Product::STORABLE) {
+            if (Product::isStorable($materialLineProduct->product_type)) {
                 $stockMovementData[] = [
                     'reference' => $transfer->reference,
                     'source' => $transfer->reference,
@@ -27,7 +27,6 @@ class GenerateStockMovementForMaterialLines implements ShouldQueue
                     'destination_location_id' => $transfer->destination_location_id,
                     'quantity_done' => $materialLine->quantity * $event->demand,
                 ];
-
             }
             if ($materialLineProduct->material()->exists()) {
                 ProductHasMaterialEvent::dispatch($transfer, $operationType, $materialLineProduct->material, $materialLine->quantity);
