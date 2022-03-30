@@ -31,7 +31,6 @@ const AdjustmentForm = () => {
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const productCategoryOptions = useOptionHook('/api/product_categories', 'product_categories.category');
-    const locationLineOptions = useOptionLineHook('/api/locations', 'location.name');
     const productLineOptions = useOptionLineHook('/api/products', 'product.name');
     const measurementLineOptions = useOptionLineHook('/api/measurements', 'measurement.name');
     const [state, setState] = useState({
@@ -42,7 +41,6 @@ const AdjustmentForm = () => {
         productCategoryOptions.getInitialOptions(formState);
         productLineOptions.getInitialOptions(formState, 'adjustment_lines');
         measurementLineOptions.getInitialOptions(formState, 'adjustment_lines');
-        locationLineOptions.getInitialOptions(formState, 'adjustment_lines')
     }, [formState.initialLoad]);
 
     function onValuesChange(changedValues, allValues) {
@@ -123,7 +121,7 @@ const AdjustmentForm = () => {
                         </ColForm>
                     </RowForm>
                     <LineColumn
-                        columns={['Product', 'Location', 'Measurement', 'Quantity On Hand', 'Quantity Counted']}
+                        columns={['Product', 'Measurement', 'Quantity On Hand', 'Quantity Counted']}
                     />
                     <RowForm>
                         <ColForm lg={24}>
@@ -140,61 +138,45 @@ const AdjustmentForm = () => {
                                                         groupName={name}
                                                         listName={'adjustment_lines'}
                                                     />
-
                                                     <FormItemSelect
                                                         {...restField}
                                                         placeholder={'Product'}
                                                         name={'product_id'}
                                                         message={'Please select a product'}
                                                         required={true}
-                                                        style={{display: 'inline-block', width: '20%'}}
+                                                        style={{display: 'inline-block', width: '25%'}}
                                                         groupName={name}
                                                         listName={'adjustment_lines'}
                                                         {...productLineOptions.aggregate(productLineOptions, restField.fieldKey)}
                                                     />
-
-                                                    <FormItemSelect
-                                                        {...restField}
-                                                        placeholder={'Location'}
-                                                        name={'location_id'}
-                                                        message={'Please select a product'}
-                                                        required={true}
-                                                        style={{display: 'inline-block', width: '20%'}}
-                                                        groupName={name}
-                                                        listName={'adjustment_lines'}
-                                                        {...locationLineOptions.aggregate(locationLineOptions, restField.fieldKey)}
-                                                    />
-
                                                     <FormItemSelect
                                                         {...restField}
                                                         placeholder={'Measurement'}
                                                         name={'measurement_id'}
                                                         message={'Please select a measurement'}
                                                         required={true}
-                                                        style={{display: 'inline-block', width: '20%'}}
+                                                        style={{display: 'inline-block', width: '25%'}}
                                                         groupName={name}
                                                         listName={'adjustment_lines'}
                                                         {...measurementLineOptions.aggregate(measurementLineOptions, restField.fieldKey)}
                                                     />
-
                                                     <FormItemNumber
                                                         {...restField}
                                                         placeholder={'Quantity on hand'}
                                                         name={'quantity_on_hand'}
                                                         message={'Please input a quantity on hand'}
                                                         required={true}
-                                                        style={{display: 'inline-block', width: '20%'}}
+                                                        style={{display: 'inline-block', width: '25%'}}
                                                         groupName={name}
                                                         listName={'adjustment_lines'}
                                                     />
-
                                                     <FormItemNumber
                                                         {...restField}
                                                         placeholder={'Quantity counted'}
                                                         name={'quantity_counted'}
                                                         message={'Please input a counted quantity'}
                                                         required={true}
-                                                        style={{display: 'inline-block', width: '20%'}}
+                                                        style={{display: 'inline-block', width: '25%'}}
                                                         groupName={name}
                                                         listName={'adjustment_lines'}
                                                     />

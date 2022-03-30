@@ -49,7 +49,6 @@ class AdjustmentLine extends Model
         $date = now();
         foreach ($data as $datum) {
             $line = [
-                'location_id' => $datum['location_id'],
                 'product_id' => $datum['product_id'],
                 'measurement_id' => $datum['measurement_id'],
                 'quantity_on_hand' => $datum['quantity_on_hand'],
@@ -72,7 +71,6 @@ class AdjustmentLine extends Model
             $line = [
                 'id' => isset($datum['id']) ? $datum['id'] : null,
                 'product_id' => $datum['product_id'],
-                'location_id' => $datum['location_id'],
                 'measurement_id' => $datum['measurement_id'],
                 'quantity_on_hand' => $datum['quantity_on_hand'],
                 'quantity_counted' => $datum['quantity_counted'],
