@@ -20,7 +20,7 @@ class AppMenuController
     public function index(Request $request): ResourceCollection
     {
         $model = new AppMenu();
-        $model = $this->searchSortThenPaginate($model, $request);
+        $model = $model->filterAndOrder($request);
         return AppMenuResource::collection($model);
     }
 

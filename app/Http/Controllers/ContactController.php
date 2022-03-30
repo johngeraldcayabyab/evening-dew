@@ -22,7 +22,7 @@ class ContactController
     public function index(Request $request): ResourceCollection
     {
         $model = new Contact();
-        $model = $this->searchSortThenPaginate($model, $request);
+        $model = $model->filterAndOrder($request);
         return ContactResource::collection($model);
     }
 

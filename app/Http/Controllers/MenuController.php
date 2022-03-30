@@ -20,7 +20,7 @@ class MenuController
     public function index(Request $request): ResourceCollection
     {
         $model = new Menu();
-        $model = $this->searchSortThenPaginate($model, $request);
+        $model = $model->filterAndOrder($request);
         return MenuResource::collection($model);
     }
 

@@ -20,7 +20,7 @@ class UserController
     public function index(Request $request): ResourceCollection
     {
         $model = new User();
-        $model = $this->searchSortThenPaginate($model, $request);
+        $model = $model->filterAndOrder($request);
         return UserResource::collection($model);
     }
 

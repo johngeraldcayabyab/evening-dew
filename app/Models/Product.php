@@ -18,6 +18,7 @@ class Product extends Model implements Sluggable
     use BroadcastsEvents;
     use FilterTrait;
     use LogsActivity;
+    use ModelHelperTrait;
 
     const STORABLE = 'storable';
     const CONSUMABLE = 'consumable';

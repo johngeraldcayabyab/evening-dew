@@ -23,7 +23,7 @@ class TransferController
     public function index(Request $request): ResourceCollection
     {
         $model = new Transfer();
-        $model = $this->searchSortThenPaginate($model, $request);
+        $model = $model->filterAndOrder($request);
         return TransferResource::collection($model);
     }
 

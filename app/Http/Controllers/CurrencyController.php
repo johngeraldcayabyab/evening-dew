@@ -19,7 +19,7 @@ class CurrencyController
     public function index(Request $request): ResourceCollection
     {
         $model = new Currency();
-        $model = $this->searchSortThenPaginate($model, $request);
+        $model = $model->filterAndOrder($request);
         return CurrencyResource::collection($model);
     }
 

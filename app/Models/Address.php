@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Contacts\Sluggable;
 use App\Traits\FilterTrait;
+use App\Traits\ModelHelperTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +18,7 @@ class Address extends Model implements Sluggable
     use BroadcastsEvents;
     use FilterTrait;
     use LogsActivity;
+    use ModelHelperTrait;
 
     const DEFAULT = 'default';
     const INVOICE = 'invoice';

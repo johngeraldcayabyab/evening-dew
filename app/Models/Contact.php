@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Contacts\Sluggable;
+use App\Traits\FilterTrait;
 use App\Traits\ModelHelperTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,8 +16,9 @@ class Contact extends Model implements Sluggable
     use HasFactory;
     use SoftDeletes;
     use BroadcastsEvents;
-    use ModelHelperTrait;
+    use FilterTrait;
     use LogsActivity;
+    use ModelHelperTrait;
 
     protected $table = 'contacts';
     protected $guarded = [];
@@ -50,66 +52,6 @@ class Contact extends Model implements Sluggable
     public function privateAddress()
     {
         return $this->addresses->where('type', Address::PRIVATE)->last();
-    }
-
-    public function scopeWhereName($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWherePhone($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereMobile($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereEmail($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereWebsite($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereTaxId($query, $where)
-    {
-        return $this->whereSingle($query, __FUNCTION__, $where);
-    }
-
-    public function scopeOrderByName($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByPhone($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByMobile($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByEmail($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByWebsite($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByTaxId($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
     }
 
     public function slug()

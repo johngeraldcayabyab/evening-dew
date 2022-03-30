@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\FilterTrait;
 use App\Traits\ModelHelperTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,8 +15,9 @@ class SalesOrderTransfer extends Model
     use HasFactory;
     use SoftDeletes;
     use BroadcastsEvents;
-    use ModelHelperTrait;
+    use FilterTrait;
     use LogsActivity;
+    use ModelHelperTrait;
 
     protected $table = 'sales_order_transfers';
     protected $guarded = [];
@@ -29,25 +31,5 @@ class SalesOrderTransfer extends Model
     public function transfer()
     {
         return $this->belongsTo(Transfer::class);
-    }
-
-    public function scopeWhereSalesOrderId($query, $where)
-    {
-        return $this->whereSingle($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereTransferId($query, $where)
-    {
-        return $this->whereSingle($query, __FUNCTION__, $where);
-    }
-
-    public function scopeOrderBySalesOrderId($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByTransferId($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
     }
 }

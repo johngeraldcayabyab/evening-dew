@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Contacts\Sluggable;
+use App\Traits\FilterTrait;
 use App\Traits\ModelHelperTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,8 +16,9 @@ class SalesOrder extends Model implements Sluggable
     use HasFactory;
     use SoftDeletes;
     use BroadcastsEvents;
-    use ModelHelperTrait;
+    use FilterTrait;
     use LogsActivity;
+    use ModelHelperTrait;
 
     protected $table = 'sales_orders';
     protected $guarded = [];
@@ -64,186 +66,6 @@ class SalesOrder extends Model implements Sluggable
     public function salesOrderTransfer()
     {
         return $this->hasOne(SalesOrderTransfer::class);
-    }
-
-    public function scopeWhereNumber($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereCustomerId($query, $where)
-    {
-        return $this->whereSingle($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereInvoiceAddressId($query, $where)
-    {
-        return $this->whereSingle($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereDeliveryAddressId($query, $where)
-    {
-        return $this->whereSingle($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereExpirationDate($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereQuotationDate($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWherePaymentTermId($query, $where)
-    {
-        return $this->whereSingle($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereSalespersonId($query, $where)
-    {
-        return $this->whereSingle($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereCustomerReference($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereShippingPolicy($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereExpectedDeliveryDate($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereSourceDocument($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereStatus($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeOrderByNumber($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByCustomerId($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByInvoiceAddressId($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByDeliveryAddressId($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByExpirationDate($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByQuotationDate($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByPaymentTermId($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderBySalespersonId($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByCustomerReference($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByShippingPolicy($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByExpectedDeliveryDate($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderBySourceDocument($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByStatus($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeWhereCustomer($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'name', $where);
-    }
-
-    public function scopeWhereInvoiceAddress($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'address_name', $where);
-    }
-
-    public function scopeWhereDeliveryAddress($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'address_name', $where);
-    }
-
-    public function scopeWherePaymentTerm($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'name', $where);
-    }
-
-    public function scopeWhereSalesperson($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'name', $where);
-    }
-
-    public function scopeOrderByCustomer($query, $order)
-    {
-        return $this->orderHas($query, new Contact(), 'name', __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByInvoiceAddress($query, $order)
-    {
-        return $this->orderHas($query, new Address(), 'address_name', __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByDeliveryAddress($query, $order)
-    {
-        return $this->orderHas($query, new Address(), 'address_name', __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByPaymentTerm($query, $order)
-    {
-        return $this->orderHas($query, new PaymentTerm(), 'name', __FUNCTION__, $order);
-    }
-
-    public function scopeOrderBySalesperson($query, $order)
-    {
-        return $this->orderHas($query, new User(), 'name', __FUNCTION__, $order);
     }
 
     public function slug()

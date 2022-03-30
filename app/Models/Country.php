@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Contacts\Sluggable;
+use App\Traits\FilterTrait;
 use App\Traits\ModelHelperTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,8 +16,9 @@ class Country extends Model implements Sluggable
     use HasFactory;
     use SoftDeletes;
     use BroadcastsEvents;
-    use ModelHelperTrait;
+    use FilterTrait;
     use LogsActivity;
+    use ModelHelperTrait;
 
     protected $table = 'countries';
     protected $guarded = [];
@@ -25,66 +27,6 @@ class Country extends Model implements Sluggable
     public function currency()
     {
         return $this->belongsTo(Currency::class);
-    }
-
-    public function scopeWhereCountryName($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereCurrencyId($query, $where)
-    {
-        return $this->whereSingle($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereCountryCode($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereCountryCallingCode($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereVatLabel($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeOrderByCountryName($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByCurrencyId($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByCountryCode($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByCountryCallingCode($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByVatLabel($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeWhereCurrency($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'currency', $where);
-    }
-
-    public function scopeOrderByCurrency($query, $order)
-    {
-        return $this->orderHas($query, new Currency(), 'currency', __FUNCTION__, $order);
     }
 
     public function slug()

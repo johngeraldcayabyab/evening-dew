@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\FilterTrait;
 use App\Traits\ModelHelperTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,8 +15,9 @@ class AdjustmentLine extends Model
     use HasFactory;
     use SoftDeletes;
     use BroadcastsEvents;
-    use ModelHelperTrait;
+    use FilterTrait;
     use LogsActivity;
+    use ModelHelperTrait;
 
     protected $table = 'adjustment_lines';
     protected $guarded = [];
@@ -39,107 +41,6 @@ class AdjustmentLine extends Model
     public function measurement()
     {
         return $this->belongsTo(Measurement::class);
-    }
-
-    public function scopeWhereAdjustmentId($query, $where)
-    {
-        return $this->whereSingle($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereLocationId($query, $where)
-    {
-        return $this->whereSingle($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereProductId($query, $where)
-    {
-        return $this->whereSingle($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereMeasurementId($query, $where)
-    {
-        return $this->whereSingle($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereQuantityOnHand($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeWhereQuantityCounted($query, $where)
-    {
-        return $this->like($query, __FUNCTION__, $where);
-    }
-
-    public function scopeOrderByAdjustmentId($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByLocationId($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByProductId($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByMeasurementId($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByQuantityOnHand($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByQuantityCounted($query, $order)
-    {
-        return $this->order($query, __FUNCTION__, $order);
-    }
-
-    public function scopeWhereAdjustment($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'number', $where);
-    }
-
-    public function scopeWhereLocation($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'number', $where);
-    }
-
-    public function scopeWhereProduct($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'name', $where);
-    }
-
-    public function scopeWhereMeasurement($query, $where)
-    {
-        return $this->likeHas($query, __FUNCTION__, 'name', $where);
-    }
-
-    public function scopeOrderByAdjustment($query, $order)
-    {
-        return $this->orderHas($query, new Adjustment(), 'number', __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByLocation($query, $order)
-    {
-        return $this->orderHas($query, new Location(), 'name', __FUNCTION__, $order);
-    }
-
-    public function scopeOrderByProduct($query, $order)
-    {
-        return $this->orderHas($query, new Product(), 'name', __FUNCTION__, $order);
-    }
-
-
-    public function scopeOrderByMeasurement($query, $order)
-    {
-        return $this->orderHas($query, new Measurement(), 'name', __FUNCTION__, $order);
     }
 
     public function scopeInsertMany($query, $data, $materialId)
