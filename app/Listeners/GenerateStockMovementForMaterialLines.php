@@ -20,14 +20,8 @@ class GenerateStockMovementForMaterialLines implements ShouldQueue
         foreach ($materialLines as $materialLine) {
             $materialLineProduct = $materialLine->product;
             if (Product::isStorable($materialLineProduct->product_type)) {
-
                 $sourceLocationId = $transfer->source_location_id;
                 $destinationLocationId = $transfer->destination_location_id;
-
-                if ($operationType->type === OperationType::ADJUSTMENT) {
-
-                }
-
                 $stockMovementData[] = [
                     'reference' => $transfer->reference,
                     'source' => $transfer->reference,
