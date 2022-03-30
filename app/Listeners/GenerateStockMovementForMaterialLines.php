@@ -3,7 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\ProductHasMaterialEvent;
-use App\Models\OperationType;
 use App\Models\Product;
 use App\Models\StockMovement;
 use Illuminate\Contracts\Queue\ShouldQueue;
