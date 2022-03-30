@@ -12,6 +12,7 @@ class CreateAdjustmentsTable extends Migration
             $table->id();
             $table->string('number');
             $table->bigInteger('product_category_id')->nullable();
+            $table->string('status')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

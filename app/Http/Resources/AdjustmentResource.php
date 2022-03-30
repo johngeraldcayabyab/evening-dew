@@ -17,6 +17,7 @@ class AdjustmentResource extends JsonResource
             'product_category_id' => $this->product_category_id,
             'product_category' => new ProductCategoryResource($this->productCategory),
             'adjustment_lines' => AdjustmentLineResource::collection($this->adjustmentLines),
+            'status' => $this->status,
             'slug' => $this->$slug,
         ]);
     }

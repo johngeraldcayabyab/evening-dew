@@ -23,6 +23,8 @@ import LineColumn from "../../Components/FormLines/LineColumn";
 import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import useOptionLineHook from "../../Hooks/useOptionLineHook";
+import FormItemStatus from "../../Components/FormItem/FormItemStatus";
+import StatusBar from "../../Components/StatusBar";
 
 const AdjustmentForm = () => {
     let {id} = useParams();
@@ -100,9 +102,38 @@ const AdjustmentForm = () => {
                     topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={<FormButtons/>}
                 />
+                <StatusBar
+                    statuses={[
+                        {
+                            value: 'draft',
+                            title: 'Draft',
+                            status: {draft: 'process', done: 'finish', cancelled: 'wait'}
+                        },
+                        {
+                            value: 'done',
+                            title: 'Done',
+                            type: 'primary',
+                            label: 'Validate',
+                            status: {draft: 'wait', done: 'finish', cancelled: 'wait'},
+                            visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
+                        },
+                        {
+                            value: 'cancelled',
+                            title: 'Cancelled',
+                            type: 'ghost',
+                            label: 'Cancel',
+                            status: {draft: 'wait', done: 'wait', cancelled: 'finish'},
+                            visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
+                        },
+                    ]}
+                />
                 <FormCard>
                     <RowForm>
                         <ColForm>
+                            <FormItemStatus
+                                name={'status'}
+                            />
+
                             <FormItemText
                                 label={'Number'}
                                 name={'number'}
