@@ -17,7 +17,6 @@ class SalesOrderObserver
 
     public function created(SalesOrder $model)
     {
-        GlobalSetting::latestFirst()->salesOrderDefaultSequence;
         $salesOrderDefaultSequence = GlobalSetting::latestFirst()->salesOrderDefaultSequence;
         if ($salesOrderDefaultSequence) {
             $salesOrderDefaultSequence->next_number = $salesOrderDefaultSequence->next_number + $salesOrderDefaultSequence->step;

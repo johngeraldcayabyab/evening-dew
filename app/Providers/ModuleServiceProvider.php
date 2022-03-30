@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Address;
+use App\Models\Adjustment;
 use App\Models\Location;
 use App\Models\Material;
 use App\Models\ProductCategory;
@@ -11,6 +12,7 @@ use App\Models\Transfer;
 use App\Models\User;
 use App\Models\Warehouse;
 use App\Observers\AddressObserver;
+use App\Observers\AdjustmentObserver;
 use App\Observers\LocationObserver;
 use App\Observers\MaterialObserver;
 use App\Observers\ProductCategoryObserver;
@@ -30,6 +32,7 @@ class ModuleServiceProvider extends ServiceProvider
     private function observe()
     {
         Address::observe(AddressObserver::class);
+        Adjustment::observe(AdjustmentObserver::class);
         Location::observe(LocationObserver::class);
         Material::observe(MaterialObserver::class);
         ProductCategory::observe(ProductCategoryObserver::class);
