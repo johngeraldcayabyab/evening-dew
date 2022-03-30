@@ -15,7 +15,7 @@ trait ControllerHelperTrait
     {
         $tableName = $model->getTable();
         $model::massDelete($request->validate([
-            'ids.*' => "exists:${$tableName},id"
+            'ids.*' => "exists:$tableName,id"
         ])['ids']);
     }
 }
