@@ -20,6 +20,7 @@ class CreateWarehousesTable extends Migration
             $table->bigInteger('quality_control_location_id')->nullable();
             $table->bigInteger('packing_location_id')->nullable();
             $table->bigInteger('output_location_id')->nullable();
+            $table->bigInteger('adjustment_location_id')->nullable();
             $table->bigInteger('stock_after_manufacturing_location_id')->nullable();
             $table->bigInteger('picking_before_manufacturing_location_id')->nullable();
             $table->bigInteger('in_type_id')->nullable();
@@ -30,6 +31,7 @@ class CreateWarehousesTable extends Migration
             $table->bigInteger('stock_after_manufacturing_operation_type_id')->nullable();
             $table->bigInteger('picking_before_manufacturing_operation_type_id')->nullable();
             $table->bigInteger('manufacturing_operation_type_id')->nullable();
+            $table->bigInteger('adjustment_operation_type_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

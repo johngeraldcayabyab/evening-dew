@@ -23,6 +23,7 @@ class WarehouseInitializeListener implements ShouldQueue
         $outputLocation = $this->createOutputLocation($viewLocation);
         $postProductionLocation = $this->createPostProductionLocation($viewLocation);
         $preProductionLocation = $this->createPreProductionLocation($viewLocation);
+        $adjustmentLocation = $this->createAdjustmentLocation($viewLocation);
 
 
         $receiptsOperationType = $this->createReceiptsOperationType($warehouse, $stockLocation);
@@ -34,6 +35,7 @@ class WarehouseInitializeListener implements ShouldQueue
         $storeFinishedProductionOperationType = $this->createStoreFinishedProductOperationType($warehouse, $postProductionLocation, $stockLocation);
         $pickComponentsOperationType = $this->createPickComponentsOperationType($warehouse, $stockLocation, $preProductionLocation);
         $manufacturingOperationType = $this->createManufacturingOperationType($warehouse, $stockLocation);
+        $adjustmentOperationType = $this->createAdjustmentOperationType($warehouse);
 
 
         $inSequence = $this->createInSequence($warehouse, $receiptsOperationType);
@@ -45,6 +47,9 @@ class WarehouseInitializeListener implements ShouldQueue
         $stockAfterManufacturingSequence = $this->createStockAfterManufacturingSequence($warehouse, $storeFinishedProductionOperationType);
         $pickingBeforeManufacturingSequence = $this->createPickingBeforeManufacturingSequence($warehouse, $pickComponentsOperationType);
         $productionSequence = $this->createProductionSequence($warehouse, $manufacturingOperationType);
+        $adjustmentSequence = $this->createAdjustmentSequence($warehouse, $adjustmentOperationType);
+
+        info($adjustmentSequence);
 
         $receiptsOperationType->operation_type_for_returns_id = $deliveryOrderOperationType->id;
         $deliveryOrderOperationType->operation_type_for_returns_id = $returnsOperationType->id;
@@ -58,6 +63,7 @@ class WarehouseInitializeListener implements ShouldQueue
         $storeFinishedProductionOperationType->reference_sequence_id = $stockAfterManufacturingSequence->id;
         $pickComponentsOperationType->reference_sequence_id = $pickingBeforeManufacturingSequence->id;
         $manufacturingOperationType->reference_sequence_id = $productionSequence->id;
+        $adjustmentOperationType->reference_sequence_id = $adjustmentSequence->id;
 
         $receiptsOperationType->save();
         $internalTransferOperationType->save();
@@ -68,6 +74,7 @@ class WarehouseInitializeListener implements ShouldQueue
         $storeFinishedProductionOperationType->save();
         $pickComponentsOperationType->save();
         $manufacturingOperationType->save();
+        $adjustmentOperationType->save();
 
         $warehouse->view_location_id = $viewLocation->id;
         $warehouse->stock_location_id = $stockLocation->id;
@@ -77,6 +84,7 @@ class WarehouseInitializeListener implements ShouldQueue
         $warehouse->output_location_id = $outputLocation->id;
         $warehouse->stock_after_manufacturing_location_id = $postProductionLocation->id;
         $warehouse->picking_before_manufacturing_location_id = $preProductionLocation->id;
+        $warehouse->adjustment_location_id = $adjustmentLocation->id;
 
         $warehouse->in_type_id = $receiptsOperationType->id;
         $warehouse->internal_type_id = $internalTransferOperationType->id;
@@ -86,6 +94,7 @@ class WarehouseInitializeListener implements ShouldQueue
         $warehouse->stock_after_manufacturing_operation_type_id = $storeFinishedProductionOperationType->id;
         $warehouse->picking_before_manufacturing_operation_type_id = $pickComponentsOperationType->id;
         $warehouse->manufacturing_operation_type_id = $manufacturingOperationType->id;
+        $warehouse->adjustment_operation_type_id = $adjustmentOperationType->id;
 
         $warehouse->save();
     }
@@ -169,133 +178,15 @@ class WarehouseInitializeListener implements ShouldQueue
         return $location;
     }
 
-    private function createInSequence($warehouse, $operationType)
+    private function createAdjustmentLocation($parentLocation)
     {
-        $sequence = new Sequence();
-        $sequence->name = "{$warehouse->name} In Sequence";
-        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
-        $sequence->implementation = Sequence::STANDARD;
-        $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
-        $sequence->sequence_size = 6;
-        $sequence->step = 1;
-        $sequence->next_number = 0;
-        $sequence->save();
-        return $sequence;
+        $location = new Location();
+        $location->type = Location::INVENTORY_LOSS;
+        $location->name = 'Adjustment';
+        $location->parent_location_id = $parentLocation->id;
+        $location->save();
+        return $location;
     }
-
-    private function createInternalSequence($warehouse, $operationType)
-    {
-        $sequence = new Sequence();
-        $sequence->name = "{$warehouse->name} Internal Sequence";
-        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
-        $sequence->implementation = Sequence::STANDARD;
-        $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
-        $sequence->sequence_size = 6;
-        $sequence->step = 1;
-        $sequence->next_number = 0;
-        $sequence->save();
-        return $sequence;
-    }
-
-
-    private function createPickingSequence($warehouse, $operationType)
-    {
-        $sequence = new Sequence();
-        $sequence->name = "{$warehouse->name} Picking Sequence";
-        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
-        $sequence->implementation = Sequence::STANDARD;
-        $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
-        $sequence->sequence_size = 6;
-        $sequence->step = 1;
-        $sequence->next_number = 0;
-        $sequence->save();
-        return $sequence;
-    }
-
-    private function createPackingSequence($warehouse, $operationType)
-    {
-        $sequence = new Sequence();
-        $sequence->name = "{$warehouse->name} Packing Sequence";
-        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
-        $sequence->implementation = Sequence::STANDARD;
-        $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
-        $sequence->sequence_size = 6;
-        $sequence->step = 1;
-        $sequence->next_number = 0;
-        $sequence->save();
-        return $sequence;
-    }
-
-    private function createOutSequence($warehouse, $operationType)
-    {
-        $sequence = new Sequence();
-        $sequence->name = "{$warehouse->name} Out Sequence";
-        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
-        $sequence->implementation = Sequence::STANDARD;
-        $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
-        $sequence->sequence_size = 6;
-        $sequence->step = 1;
-        $sequence->next_number = 0;
-        $sequence->save();
-        return $sequence;
-    }
-
-    private function createReturnSequence($warehouse, $operationType)
-    {
-        $sequence = new Sequence();
-        $sequence->name = "{$warehouse->name} Return Sequence";
-        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
-        $sequence->implementation = Sequence::STANDARD;
-        $sequence->prefix = "{$warehouse->short_name}/RET/";
-        $sequence->sequence_size = 6;
-        $sequence->step = 1;
-        $sequence->next_number = 0;
-        $sequence->save();
-        return $sequence;
-    }
-
-    private function createStockAfterManufacturingSequence($warehouse, $operationType)
-    {
-        $sequence = new Sequence();
-        $sequence->name = "{$warehouse->name} Stock After Manufacturing Sequence";
-        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
-        $sequence->implementation = Sequence::STANDARD;
-        $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
-        $sequence->sequence_size = 6;
-        $sequence->step = 1;
-        $sequence->next_number = 0;
-        $sequence->save();
-        return $sequence;
-    }
-
-    private function createPickingBeforeManufacturingSequence($warehouse, $operationType)
-    {
-        $sequence = new Sequence();
-        $sequence->name = "{$warehouse->name} Picking Before Manufacturing Sequence";
-        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
-        $sequence->implementation = Sequence::STANDARD;
-        $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
-        $sequence->sequence_size = 6;
-        $sequence->step = 1;
-        $sequence->next_number = 0;
-        $sequence->save();
-        return $sequence;
-    }
-
-    private function createProductionSequence($warehouse, $operationType)
-    {
-        $sequence = new Sequence();
-        $sequence->name = "{$warehouse->name} Production Sequence";
-        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
-        $sequence->implementation = Sequence::STANDARD;
-        $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
-        $sequence->sequence_size = 6;
-        $sequence->step = 1;
-        $sequence->next_number = 0;
-        $sequence->save();
-        return $sequence;
-    }
-
 
     /**
      * Operations Types
@@ -438,6 +329,161 @@ class WarehouseInitializeListener implements ShouldQueue
         $operationType->default_destination_location_id = $sourceAndDestinationLocation->id;
         $operationType->save();
         return $operationType;
+    }
+
+    private function createAdjustmentOperationType($warehouse)
+    {
+        $operationType = new OperationType();
+        $operationType->name = "{$warehouse->name}: Adjustment";
+        $operationType->code = 'ADJ';
+        $operationType->warehouse_id = $warehouse->id;
+        $operationType->reservation_method = OperationType::AT_CONFIRMATION;
+        $operationType->type = OperationType::ADJUSTMENT;
+        $operationType->show_detailed_operation = true;
+        $operationType->use_existing_lots_serial_numbers = true;
+        $operationType->save();
+        return $operationType;
+    }
+
+    private function createInSequence($warehouse, $operationType)
+    {
+        $sequence = new Sequence();
+        $sequence->name = "{$warehouse->name} In Sequence";
+        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
+        $sequence->implementation = Sequence::STANDARD;
+        $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
+        $sequence->sequence_size = 6;
+        $sequence->step = 1;
+        $sequence->next_number = 0;
+        $sequence->save();
+        return $sequence;
+    }
+
+    private function createInternalSequence($warehouse, $operationType)
+    {
+        $sequence = new Sequence();
+        $sequence->name = "{$warehouse->name} Internal Sequence";
+        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
+        $sequence->implementation = Sequence::STANDARD;
+        $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
+        $sequence->sequence_size = 6;
+        $sequence->step = 1;
+        $sequence->next_number = 0;
+        $sequence->save();
+        return $sequence;
+    }
+
+
+    private function createPickingSequence($warehouse, $operationType)
+    {
+        $sequence = new Sequence();
+        $sequence->name = "{$warehouse->name} Picking Sequence";
+        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
+        $sequence->implementation = Sequence::STANDARD;
+        $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
+        $sequence->sequence_size = 6;
+        $sequence->step = 1;
+        $sequence->next_number = 0;
+        $sequence->save();
+        return $sequence;
+    }
+
+    private function createPackingSequence($warehouse, $operationType)
+    {
+        $sequence = new Sequence();
+        $sequence->name = "{$warehouse->name} Packing Sequence";
+        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
+        $sequence->implementation = Sequence::STANDARD;
+        $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
+        $sequence->sequence_size = 6;
+        $sequence->step = 1;
+        $sequence->next_number = 0;
+        $sequence->save();
+        return $sequence;
+    }
+
+    private function createOutSequence($warehouse, $operationType)
+    {
+        $sequence = new Sequence();
+        $sequence->name = "{$warehouse->name} Out Sequence";
+        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
+        $sequence->implementation = Sequence::STANDARD;
+        $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
+        $sequence->sequence_size = 6;
+        $sequence->step = 1;
+        $sequence->next_number = 0;
+        $sequence->save();
+        return $sequence;
+    }
+
+    private function createReturnSequence($warehouse, $operationType)
+    {
+        $sequence = new Sequence();
+        $sequence->name = "{$warehouse->name} Return Sequence";
+        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
+        $sequence->implementation = Sequence::STANDARD;
+        $sequence->prefix = "{$warehouse->short_name}/RET/";
+        $sequence->sequence_size = 6;
+        $sequence->step = 1;
+        $sequence->next_number = 0;
+        $sequence->save();
+        return $sequence;
+    }
+
+    private function createStockAfterManufacturingSequence($warehouse, $operationType)
+    {
+        $sequence = new Sequence();
+        $sequence->name = "{$warehouse->name} Stock After Manufacturing Sequence";
+        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
+        $sequence->implementation = Sequence::STANDARD;
+        $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
+        $sequence->sequence_size = 6;
+        $sequence->step = 1;
+        $sequence->next_number = 0;
+        $sequence->save();
+        return $sequence;
+    }
+
+    private function createPickingBeforeManufacturingSequence($warehouse, $operationType)
+    {
+        $sequence = new Sequence();
+        $sequence->name = "{$warehouse->name} Picking Before Manufacturing Sequence";
+        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
+        $sequence->implementation = Sequence::STANDARD;
+        $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
+        $sequence->sequence_size = 6;
+        $sequence->step = 1;
+        $sequence->next_number = 0;
+        $sequence->save();
+        return $sequence;
+    }
+
+    private function createProductionSequence($warehouse, $operationType)
+    {
+        $sequence = new Sequence();
+        $sequence->name = "{$warehouse->name} Production Sequence";
+        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
+        $sequence->implementation = Sequence::STANDARD;
+        $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
+        $sequence->sequence_size = 6;
+        $sequence->step = 1;
+        $sequence->next_number = 0;
+        $sequence->save();
+        return $sequence;
+    }
+
+    private function createAdjustmentSequence($warehouse, $operationType)
+    {
+        $sequence = new Sequence();
+        $sequence->name = "{$warehouse->name} Adjustment Sequence";
+        $sequence->sequence_code = $this->generateSequenceCodeFromName($sequence->name);
+        $sequence->implementation = Sequence::STANDARD;
+        $sequence->prefix = "{$warehouse->short_name}/{$operationType->code}/";
+        $sequence->sequence_size = 6;
+        $sequence->step = 1;
+        $sequence->next_number = 0;
+        $sequence->save();
+        return $sequence;
     }
 
     private function generateSequenceCodeFromName($name)

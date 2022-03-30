@@ -32,6 +32,7 @@ const WarehouseForm = () => {
         {url: '/api/locations', query: 'output_location.name'},
         {url: '/api/locations', query: 'stock_after_manufacturing_location.name'},
         {url: '/api/locations', query: 'picking_before_manufacturing_location.name'},
+        {url: '/api/locations', query: 'adjustment_location.name'},
         {url: '/api/operations_types', query: 'in_type.name'},
         {url: '/api/operations_types', query: 'internal_type.name'},
         {url: '/api/operations_types', query: 'pick_type.name'},
@@ -40,6 +41,7 @@ const WarehouseForm = () => {
         {url: '/api/operations_types', query: 'stock_after_manufacturing_operation_type.name'},
         {url: '/api/operations_types', query: 'picking_before_manufacturing_operation_type.name'},
         {url: '/api/operations_types', query: 'manufacturing_operation_type.name'},
+        {url: '/api/operations_types', query: 'adjustment_operation_type.name'},
     ];
     const options = {};
     urlQueries.forEach((urlQuery) => {
@@ -176,6 +178,14 @@ const WarehouseForm = () => {
                                             required={true}
                                             {...options.pickingBeforeManufacturingLocation}
                                         />
+
+                                        <FormItemSelect
+                                            label={'Adjustment Location'}
+                                            name={'adjustment_location_id'}
+                                            message={'Please select an adjustment location'}
+                                            required={true}
+                                            {...options.adjustmentLocation}
+                                        />
                                     </ColForm>
 
                                     <ColForm>
@@ -238,6 +248,13 @@ const WarehouseForm = () => {
                                             message={'Please select a manufacturing operation type'}
                                             required={true}
                                             {...options.manufacturingOperationType}
+                                        />
+                                        <FormItemSelect
+                                            label={'Adjustment Operation Type'}
+                                            name={'adjustment_operation_type_id'}
+                                            message={'Please select an adjustment operation type'}
+                                            required={true}
+                                            {...options.adjustmentOperationType}
                                         />
                                     </ColForm>
                                 </RowForm>

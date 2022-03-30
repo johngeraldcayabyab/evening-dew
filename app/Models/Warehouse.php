@@ -64,6 +64,11 @@ class Warehouse extends Model implements Sluggable
         return $this->belongsTo(Location::class, 'picking_before_manufacturing_location_id', 'id');
     }
 
+    public function adjustmentLocation()
+    {
+        return $this->belongsTo(Location::class, 'adjustment_location_id', 'id');
+    }
+
     public function inType()
     {
         return $this->belongsTo(OperationType::class, 'in_type_id', 'id');
@@ -102,6 +107,11 @@ class Warehouse extends Model implements Sluggable
     public function manufacturingOperationType()
     {
         return $this->belongsTo(OperationType::class, 'manufacturing_operation_type_id', 'id');
+    }
+
+    public function adjustmentOperationType()
+    {
+        return $this->belongsTo(OperationType::class, 'adjustment_operation_type_id', 'id');
     }
 
     public function slug()

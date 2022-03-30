@@ -25,6 +25,7 @@ class WarehouseResource extends JsonResource
             'output_location_id' => $this->output_location_id,
             'stock_after_manufacturing_location_id' => $this->stock_after_manufacturing_location_id,
             'picking_before_manufacturing_location_id' => $this->picking_before_manufacturing_location_id,
+            'adjustment_location_id' => $this->adjustment_location_id,
             'in_type_id' => $this->in_type_id,
             'internal_type_id' => $this->internal_type_id,
             'pick_type_id' => $this->pick_type_id,
@@ -33,6 +34,7 @@ class WarehouseResource extends JsonResource
             'stock_after_manufacturing_operation_type_id' => $this->stock_after_manufacturing_operation_type_id,
             'picking_before_manufacturing_operation_type_id' => $this->picking_before_manufacturing_operation_type_id,
             'manufacturing_operation_type_id' => $this->manufacturing_operation_type_id,
+            'adjustment_operation_type_id' => $this->adjustment_operation_type_id,
             'stock_location' => new LocationResource($this->stockLocation),
             'view_location' => new LocationResource($this->viewLocation),
             'input_location' => new LocationResource($this->inputLocation),
@@ -41,6 +43,7 @@ class WarehouseResource extends JsonResource
             'output_location' => new LocationResource($this->outputLocation),
             'stock_after_manufacturing_location' => new LocationResource($this->stockAfterManufacturingLocation),
             'picking_before_manufacturing_location' => new LocationResource($this->pickingBeforeManufacturingLocation),
+            'adjustment_location' => new LocationResource($this->adjustmentLocation),
             'in_type' => new OperationTypeResource($this->inType),
             'internal_type' => new OperationTypeResource($this->internalType),
             'pick_type' => new OperationTypeResource($this->pickType),
@@ -49,6 +52,7 @@ class WarehouseResource extends JsonResource
             'stock_after_manufacturing_operation_type' => new OperationTypeResource($this->stockAfterManufacturingOperationType),
             'picking_before_manufacturing_operation_type' => new OperationTypeResource($this->pickingBeforeManufacturingOperationType),
             'manufacturing_operation_type' => new OperationTypeResource($this->manufacturingOperationType),
+            'adjustment_operation_type' => new OperationTypeResource($this->adjustmentOperationType),
             'slug' => $this->$slug,
         ]);
     }
