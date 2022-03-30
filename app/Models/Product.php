@@ -85,6 +85,14 @@ class Product extends Model implements Sluggable
     //        return $this;
     //    }
 
+    public static function isStorable($type)
+    {
+        if ($type === Product::STORABLE) {
+            return true;
+        }
+        return false;
+    }
+
     public function slug()
     {
         return 'name';
