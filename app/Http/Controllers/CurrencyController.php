@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Store\CurrencyStoreRequest;
-use App\Http\Requests\Update\CurrencyUpdateRequest;
+use App\Http\Requests\CurrencyRequest;
 use App\Http\Resources\CurrencyResource;
 use App\Models\Currency;
 use App\Traits\ControllerHelperTrait;
@@ -27,12 +26,12 @@ class CurrencyController
         return response()->json(new CurrencyResource($currency));
     }
 
-    public function store(CurrencyStoreRequest $request): JsonResponse
+    public function store(CurrencyRequest $request): JsonResponse
     {
         return response()->json([], STATUS_CREATE, $this->locationHeader(Currency::create($request->validated())));
     }
 
-    public function update(CurrencyUpdateRequest $request, Currency $currency): JsonResponse
+    public function update(CurrencyRequest $request, Currency $currency): JsonResponse
     {
         $currency->update($request->validated());
         return response()->json([], STATUS_UPDATE);

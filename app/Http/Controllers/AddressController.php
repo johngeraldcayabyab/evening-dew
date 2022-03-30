@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Store\AddressStoreRequest;
-use App\Http\Requests\Update\AddressUpdateRequest;
+use App\Http\Requests\AddressRequest;
 use App\Http\Resources\AddressResource;
 use App\Models\Address;
 use App\Models\GlobalSetting;
@@ -28,12 +27,12 @@ class AddressController
         return response()->json(new AddressResource($address));
     }
 
-    public function store(AddressStoreRequest $request): JsonResponse
+    public function store(AddressRequest $request): JsonResponse
     {
         return response()->json([], STATUS_CREATE, $this->locationHeader(Address::create($request->validated())));
     }
 
-    public function update(AddressUpdateRequest $request, Address $address): JsonResponse
+    public function update(AddressRequest $request, Address $address): JsonResponse
     {
         $address->update($request->validated());
         return response()->json([], STATUS_UPDATE);

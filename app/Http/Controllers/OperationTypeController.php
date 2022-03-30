@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Store\OperationTypeStoreRequest;
-use App\Http\Requests\Update\OperationTypeUpdateRequest;
+use App\Http\Requests\OperationTypeRequest;
 use App\Http\Resources\OperationTypeResource;
 use App\Models\OperationType;
 use App\Traits\ControllerHelperTrait;
@@ -27,12 +26,12 @@ class OperationTypeController
         return response()->json(new OperationTypeResource($operationType));
     }
 
-    public function store(OperationTypeStoreRequest $request): JsonResponse
+    public function store(OperationTypeRequest $request): JsonResponse
     {
         return response()->json([], STATUS_CREATE, $this->locationHeader(OperationType::create($request->validated())));
     }
 
-    public function update(OperationTypeUpdateRequest $request, OperationType $operationType): JsonResponse
+    public function update(OperationTypeRequest $request, OperationType $operationType): JsonResponse
     {
         $operationType->update($request->validated());
         return response()->json([], STATUS_UPDATE);

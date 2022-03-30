@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Store\AppMenuStoreRequest;
-use App\Http\Requests\Update\AppMenuUpdateRequest;
+use App\Http\Requests\AppMenuRequest;
 use App\Http\Resources\AppMenuResource;
 use App\Models\AppMenu;
 use App\Traits\ControllerHelperTrait;
@@ -27,12 +26,12 @@ class AppMenuController
         return response()->json(new AppMenuResource($appMenu));
     }
 
-    public function store(AppMenuStoreRequest $request): JsonResponse
+    public function store(AppMenuRequest $request): JsonResponse
     {
         return response()->json([], STATUS_CREATE, $this->locationHeader(AppMenu::create($request->validated())));
     }
 
-    public function update(AppMenuUpdateRequest $request, AppMenu $appMenu): JsonResponse
+    public function update(AppMenuRequest $request, AppMenu $appMenu): JsonResponse
     {
         $appMenu->update($request->validated());
         return response()->json([], STATUS_UPDATE);

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Store;
+namespace App\Http\Requests;
 
 use App\Models\Transfer;
 use Illuminate\Foundation\Http\FormRequest;
 
-class TransferStoreRequest extends FormRequest
+class TransferRequest extends FormRequest
 {
     public function rules()
     {
@@ -26,6 +26,7 @@ class TransferStoreRequest extends FormRequest
             'responsible_id' => ['nullable', 'exists:users,id'],
             'note' => ['nullable'],
             'status' => ['nullable', "in:$statuses"],
+            'transfer_lines.*.id' => ['nullable', 'exists:transfer_lines,id'],
             'transfer_lines.*.product_id' => ['required', "exists:products,id"],
             'transfer_lines.*.description' => ['nullable'],
             'transfer_lines.*.demand' => ['required'],

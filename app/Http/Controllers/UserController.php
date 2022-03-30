@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Store\UserStoreRequest;
-use App\Http\Requests\Update\UserUpdateRequest;
+use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Traits\ControllerHelperTrait;
@@ -28,14 +27,14 @@ class UserController
         return response()->json(new UserResource($user));
     }
 
-    public function store(UserStoreRequest $request): JsonResponse
+    public function store(UserRequest $request): JsonResponse
     {
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
         return response()->json([], STATUS_CREATE, $this->locationHeader(User::create($data)));
     }
 
-    public function update(UserUpdateRequest $request, User $user): JsonResponse
+    public function update(UserRequest $request, User $user): JsonResponse
     {
         $data = $request->validated();
         $user->update($data);

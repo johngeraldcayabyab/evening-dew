@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Http\Requests\Store\MeasurementCategoryStoreRequest;
-use App\Http\Requests\Update\MeasurementCategoryUpdateRequest;
+use App\Http\Requests\MeasurementCategoryRequest;
 use App\Http\Resources\MeasurementCategoryResource;
 use App\Models\MeasurementCategory;
 use App\Traits\ControllerHelperTrait;
@@ -28,12 +26,12 @@ class MeasurementCategoryController
         return response()->json(new MeasurementCategoryResource($measurementCategory));
     }
 
-    public function store(MeasurementCategoryStoreRequest $request): JsonResponse
+    public function store(MeasurementCategoryRequest $request): JsonResponse
     {
         return response()->json([], STATUS_CREATE, $this->locationHeader(MeasurementCategory::create($request->validated())));
     }
 
-    public function update(MeasurementCategoryUpdateRequest $request, MeasurementCategory $measurementCategory): JsonResponse
+    public function update(MeasurementCategoryRequest $request, MeasurementCategory $measurementCategory): JsonResponse
     {
         $measurementCategory->update($request->validated());
         return response()->json([], STATUS_UPDATE);

@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Store\CountryStoreRequest;
-use App\Http\Requests\Update\CountryUpdateRequest;
+use App\Http\Requests\CountryRequest;
 use App\Http\Resources\CountryResource;
 use App\Models\Country;
 use App\Traits\ControllerHelperTrait;
@@ -27,12 +26,12 @@ class CountryController
         return response()->json(new CountryResource($Country));
     }
 
-    public function store(CountryStoreRequest $request): JsonResponse
+    public function store(CountryRequest $request): JsonResponse
     {
         return response()->json([], STATUS_CREATE, $this->locationHeader(Country::create($request->validated())));
     }
 
-    public function update(CountryUpdateRequest $request, Country $country): JsonResponse
+    public function update(CountryRequest $request, Country $country): JsonResponse
     {
         $country->update($request->validated());
         return response()->json([], STATUS_UPDATE);

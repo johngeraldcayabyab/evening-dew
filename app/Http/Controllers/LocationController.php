@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Store\LocationStoreRequest;
-use App\Http\Requests\Update\LocationUpdateRequest;
+use App\Http\Requests\LocationRequest;
 use App\Http\Resources\LocationResource;
 use App\Models\Location;
 use App\Traits\ControllerHelperTrait;
@@ -27,12 +26,12 @@ class LocationController
         return response()->json(new LocationResource($location));
     }
 
-    public function store(LocationStoreRequest $request): JsonResponse
+    public function store(LocationRequest $request): JsonResponse
     {
         return response()->json([], STATUS_CREATE, $this->locationHeader(Location::create($request->validated())));
     }
 
-    public function update(LocationUpdateRequest $request, Location $location): JsonResponse
+    public function update(LocationRequest $request, Location $location): JsonResponse
     {
         $location->update($request->validated());
         return response()->json([], STATUS_UPDATE);

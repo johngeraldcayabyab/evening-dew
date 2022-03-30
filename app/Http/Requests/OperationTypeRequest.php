@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Store;
+namespace App\Http\Requests;
 
 use App\Models\OperationType;
 use Illuminate\Foundation\Http\FormRequest;
 
-class OperationTypeStoreRequest extends FormRequest
+class OperationTypeRequest extends FormRequest
 {
     public function rules()
     {
