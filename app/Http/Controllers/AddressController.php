@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MassDestroy\AddressMassDestroyRequest;
 use App\Http\Requests\Store\AddressStoreRequest;
 use App\Http\Requests\Update\AddressUpdateRequest;
 use App\Http\Resources\AddressResource;
@@ -46,9 +45,9 @@ class AddressController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function mass_destroy(AddressMassDestroyRequest $request): JsonResponse
+    public function mass_destroy(Request $request): JsonResponse
     {
-        Address::massDelete($request->validated()['ids']);
+        $this->massDelete(new Address(), $request);
         return response()->json([], STATUS_DELETE);
     }
 

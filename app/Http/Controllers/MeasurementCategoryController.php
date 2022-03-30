@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Requests\MassDestroy\MeasurementCategoryMassDestroyRequest;
 use App\Http\Requests\Store\MeasurementCategoryStoreRequest;
 use App\Http\Requests\Update\MeasurementCategoryUpdateRequest;
 use App\Http\Resources\MeasurementCategoryResource;
@@ -46,9 +45,9 @@ class MeasurementCategoryController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function mass_destroy(MeasurementCategoryMassDestroyRequest $request): JsonResponse
+    public function mass_destroy(Request $request): JsonResponse
     {
-        MeasurementCategory::massDelete($request->validated()['ids']);
+        $this->massDelete(new MeasurementCategory(), $request);
         return response()->json([], STATUS_DELETE);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MassDestroy\SequenceMassDestroyRequest;
 use App\Http\Requests\Store\SequenceStoreRequest;
 use App\Http\Requests\Update\SequenceUpdateRequest;
 use App\Http\Resources\SequenceResource;
@@ -45,9 +44,9 @@ class SequenceController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function mass_destroy(SequenceMassDestroyRequest $request): JsonResponse
+    public function mass_destroy(Request $request): JsonResponse
     {
-        Sequence::massDelete($request->validated()['ids']);
+        $this->massDelete(new Sequence(), $request);
         return response()->json([], STATUS_DELETE);
     }
 

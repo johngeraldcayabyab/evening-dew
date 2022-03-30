@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MassDestroy\OperationTypeMassDestroyRequest;
 use App\Http\Requests\Store\OperationTypeStoreRequest;
 use App\Http\Requests\Update\OperationTypeUpdateRequest;
 use App\Http\Resources\OperationTypeResource;
@@ -45,9 +44,9 @@ class OperationTypeController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function mass_destroy(OperationTypeMassDestroyRequest $request): JsonResponse
+    public function mass_destroy(Request $request): JsonResponse
     {
-        OperationType::massDelete($request->validated()['ids']);
+        $this->massDelete(new OperationType(), $request);
         return response()->json([], STATUS_DELETE);
     }
 

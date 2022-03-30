@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MassDestroy\PaymentTermMassDestroyRequest;
 use App\Http\Requests\Store\PaymentTermStoreRequest;
 use App\Http\Requests\Update\PaymentTermUpdateRequest;
 use App\Http\Resources\PaymentTermResource;
@@ -45,9 +44,9 @@ class PaymentTermController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function mass_destroy(PaymentTermMassDestroyRequest $request): JsonResponse
+    public function mass_destroy(Request $request): JsonResponse
     {
-        PaymentTerm::massDelete($request->validated()['ids']);
+        $this->massDelete(new PaymentTerm(), $request);
         return response()->json([], STATUS_DELETE);
     }
 }

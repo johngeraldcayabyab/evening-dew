@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MassDestroy\CountryMassDestroyRequest;
 use App\Http\Requests\Store\CountryStoreRequest;
 use App\Http\Requests\Update\CountryUpdateRequest;
 use App\Http\Resources\CountryResource;
@@ -45,9 +44,9 @@ class CountryController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function mass_destroy(CountryMassDestroyRequest $request): JsonResponse
+    public function mass_destroy(Request $request): JsonResponse
     {
-        Country::massDelete($request->validated()['ids']);
+        $this->massDelete(new Country(), $request);
         return response()->json([], STATUS_DELETE);
     }
 }

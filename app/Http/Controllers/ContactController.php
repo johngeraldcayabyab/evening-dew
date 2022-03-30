@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Events\ContactUpsertEvent;
-use App\Http\Requests\MassDestroy\ContactMassDestroyRequest;
 use App\Http\Requests\Store\ContactStoreRequest;
 use App\Http\Requests\Update\ContactUpdateRequest;
 use App\Http\Resources\ContactResource;
@@ -55,9 +54,9 @@ class ContactController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function mass_destroy(ContactMassDestroyRequest $request): JsonResponse
+    public function mass_destroy(Request $request): JsonResponse
     {
-        Contact::massDelete($request->validated()['ids']);
+        $this->massDelete(new Contact(), $request);
         return response()->json([], STATUS_DELETE);
     }
 

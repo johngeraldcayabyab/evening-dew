@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MassDestroy\MaterialLineMassDestroyRequest;
 use App\Models\MaterialLine;
+use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class MaterialLineController
 {
-    public function mass_destroy(MaterialLineMassDestroyRequest $request): JsonResponse
+    use ControllerHelperTrait;
+
+    public function mass_destroy(Request $request): JsonResponse
     {
-        MaterialLine::massDelete($request->validated()['ids']);
+        $this->massDelete(new MaterialLine(), $request);
         return response()->json([], STATUS_DELETE);
     }
 }

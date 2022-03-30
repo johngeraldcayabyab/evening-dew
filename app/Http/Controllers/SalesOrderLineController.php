@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MassDestroy\SalesOrderLinesMassDestroyRequest;
 use App\Models\SalesOrderLine;
+use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class SalesOrderLineController
 {
-    public function mass_destroy(SalesOrderLinesMassDestroyRequest $request): JsonResponse
+    use ControllerHelperTrait;
+
+    public function mass_destroy(Request $request): JsonResponse
     {
-        SalesOrderLine::massDelete($request->validated()['ids']);
+        $this->massDelete(new SalesOrderLine(), $request);
         return response()->json([], STATUS_DELETE);
     }
 }

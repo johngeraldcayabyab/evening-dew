@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MassDestroy\StockMovementMassDestroyRequest;
 use App\Http\Requests\Store\StockMovementStoreRequest;
 use App\Http\Requests\Update\StockMovementUpdateRequest;
 use App\Http\Resources\StockMovementResource;
@@ -45,9 +44,9 @@ class StockMovementController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function mass_destroy(StockMovementMassDestroyRequest $request): JsonResponse
+    public function mass_destroy(Request $request): JsonResponse
     {
-        StockMovement::massDelete($request->validated()['ids']);
+        $this->massDelete(new StockMovement(), $request);
         return response()->json([], STATUS_DELETE);
     }
 

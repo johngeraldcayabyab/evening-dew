@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Requests\MassDestroy\MenuMassDestroyRequest;
 use App\Http\Requests\Store\MenuStoreRequest;
 use App\Http\Requests\Update\MenuUpdateRequest;
 use App\Http\Resources\MenuResource;
@@ -46,9 +45,9 @@ class MenuController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function mass_destroy(MenuMassDestroyRequest $request): JsonResponse
+    public function mass_destroy(Request $request): JsonResponse
     {
-        Menu::massDelete($request->validated()['ids']);
+        $this->massDelete(new Menu(), $request);
         return response()->json([], STATUS_DELETE);
     }
 }

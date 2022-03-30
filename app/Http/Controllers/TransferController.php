@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Data\SystemSetting;
 use App\Events\TransferValidatedEvent;
-use App\Http\Requests\MassDestroy\TransferMassDestroyRequest;
 use App\Http\Requests\Store\TransferStoreRequest;
 use App\Http\Requests\Update\TransferUpdateRequest;
 use App\Http\Resources\TransferResource;
@@ -68,9 +67,9 @@ class TransferController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function mass_destroy(TransferMassDestroyRequest $request): JsonResponse
+    public function mass_destroy(Request $request): JsonResponse
     {
-        Transfer::massDelete($request->validated()['ids']);
+        $this->massDelete(new Transfer(), $request);
         return response()->json([], STATUS_DELETE);
     }
 

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MassDestroy\ProductMassDestroyRequest;
 use App\Http\Requests\Store\ProductStoreRequest;
 use App\Http\Requests\Update\ProductUpdateRequest;
 use App\Http\Resources\ProductResource;
@@ -46,9 +45,9 @@ class ProductController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function mass_destroy(ProductMassDestroyRequest $request): JsonResponse
+    public function mass_destroy(Request $request): JsonResponse
     {
-        Product::massDelete($request->validated()['ids']);
+        $this->massDelete(new Product(), $request);
         return response()->json([], STATUS_DELETE);
     }
 

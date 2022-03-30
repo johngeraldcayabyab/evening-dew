@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MassDestroy\CurrencyMassDestroyRequest;
 use App\Http\Requests\Store\CurrencyStoreRequest;
 use App\Http\Requests\Update\CurrencyUpdateRequest;
 use App\Http\Resources\CurrencyResource;
@@ -45,9 +44,9 @@ class CurrencyController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function mass_destroy(CurrencyMassDestroyRequest $request): JsonResponse
+    public function mass_destroy(Request $request): JsonResponse
     {
-        Currency::massDelete($request->validated()['ids']);
+        $this->massDelete(new Currency(), $request);
         return response()->json([], STATUS_DELETE);
     }
 
