@@ -75,7 +75,6 @@ class AdjustmentController
     public function initial_values()
     {
         return [
-            'number' => Sequence::generateAdjustmentSequence(),
             'status' => Adjustment::DRAFT,
         ];
     }
