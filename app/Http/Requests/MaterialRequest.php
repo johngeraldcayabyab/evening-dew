@@ -17,6 +17,8 @@ class MaterialRequest extends FormRequest
             'reference' => ['nullable'],
             'material_type' => ['required', "in:$materialTypes"],
             'flexible_consumption' => ['nullable', "in:$flexibleConsumptions"],
+
+
             'material_lines.*.id' => ['nullable', 'exists:material_lines,id'],
             'material_lines.*.product_id' => ['required', "exists:products,id"],
             'material_lines.*.quantity' => ['required'],

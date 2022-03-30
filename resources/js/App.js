@@ -29,6 +29,7 @@ import TransferRoute from "./Modules/Transfer/TransferRoute";
 import StockMovementRoute from "./Modules/StockMovement/StockMovementRoute";
 import AppMenuRoute from "./Modules/AppMenu/AppMenuRoute";
 import MaterialRoute from "./Modules/Material/MaterialRoute";
+import AdjustmentRoute from "./Modules/Adjustment/AdjustmentRoute";
 
 export const AppContext = React.createContext({});
 export const AppContextProvider = AppContext.Provider;
@@ -45,6 +46,7 @@ const App = () => {
                     <CustomMenu/>
                     <Content style={{marginTop: '50px', borderTop: 'none'}}>
                         <AddressRoute/>
+                        <AdjustmentRoute/>
                         <AppMenuRoute/>
                         <ContactRoute/>
                         <CountryRoute/>

@@ -44,8 +44,17 @@ class AppMenuSeeder extends Seeder
                         'menu_key' => 'Transfers',
                         'children' => [
                             [
-                                'label' => 'Transfers',
-                                'menu_key' => 'Transfers',
+                                'label' => 'Operations',
+                                'children' => [
+                                    [
+                                        'label' => 'Transfers',
+                                        'menu_key' => 'Transfers',
+                                    ],
+                                    [
+                                        'label' => 'Adjustments',
+                                        'menu_key' => 'Adjustments',
+                                    ],
+                                ],
                             ],
                             [
                                 'label' => 'Reporting',
