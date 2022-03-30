@@ -20,15 +20,8 @@ class GenerateStockMovementFromValidatedTransfer implements ShouldQueue
         foreach ($transferLines as $transferLine) {
             $product = $transferLine->product;
             if (Product::isStorable($product->product_type)) {
-
-
                 $sourceLocationId = $transfer->source_location_id;
                 $destinationLocationId = $transfer->destination_location_id;
-
-                if ($operationType->type === OperationType::ADJUSTMENT) {
-
-                }
-
                 $stockMovementData[] = [
                     'reference' => $transfer->reference,
                     'source' => $transfer->reference,
