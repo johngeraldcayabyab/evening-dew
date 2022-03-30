@@ -18,21 +18,21 @@ class GenerateStockMovementFromValidatedAdjustment implements ShouldQueue
         $operationType = $warehouse->adjustmentOperationType;
         $stockMovementData = [];
         foreach ($adjustmentLines as $adjustmentLine) {
-            $adjustmentLineProduct = $adjustmentLine->product;
-            if (Product::isStorable($adjustmentLineProduct->product_type)) {
-                $sourceLocationId = null;
-                $destinationLocationId = null;
-                $quantityDone = $adjustmentLine->quantity_on_hand;
-                if ($adjustmentLine->quantity_on_hand > $adjustmentLine->quantity_counted) {
-                    $sourceLocationId = $warehouse->stock_location_id;
-                    $destinationLocationId = $warehouse->adjustment_location_id;
-                    $quantityDone = $adjustmentLine->quantity_on_hand - $adjustmentLine->quantity_counted;
-                }
-                if ($adjustmentLine->quantity_on_hand < $adjustmentLine->quantity_counted) {
-                    $sourceLocationId = $warehouse->adjustment_location_id;
-                    $destinationLocationId = $warehouse->stock_location_id;
-                    $quantityDone = $adjustmentLine->quantity_counted - $adjustmentLine->quantity_on_hand;
-                }
+            $product = $adjustmentLine->product;
+            $quantityDone = $adjustmentLine->quantity_on_hand;
+            $sourceLocationId = null;
+            $destinationLocationId = null;
+            if ($adjustmentLine->quantity_on_hand > $adjustmentLine->quantity_counted) {
+                $sourceLocationId = $warehouse->stock_location_id;
+                $destinationLocationId = $warehouse->adjustment_location_id;
+                $quantityDone = $adjustmentLine->quantity_on_hand - $adjustmentLine->quantity_counted;
+            }
+            if ($adjustmentLine->quantity_on_hand < $adjustmentLine->quantity_counted) {
+                $sourceLocationId = $warehouse->adjustment_location_id;
+                $destinationLocationId = $warehouse->stock_location_id;
+                $quantityDone = $adjustmentLine->quantity_counted - $adjustmentLine->quantity_on_hand;
+            }
+            if (Product::isStorable($product->product_type)) {
                 $stockMovementData[] = [
                     'reference' => $adjustment->number,
                     'source' => $adjustment->number,
@@ -42,8 +42,15 @@ class GenerateStockMovementFromValidatedAdjustment implements ShouldQueue
                     'quantity_done' => $quantityDone,
                 ];
             }
-            if ($adjustmentLineProduct->material()->exists()) {
-
+            if ($product->material()->exists()) {
+                ProductHasMaterialEvent::dispatch(
+                    $adjustment->number,
+                    $adjustment->number,
+                    $sourceLocationId,
+                    $destinationLocationId,
+                    $product->material,
+                    $quantityDone,
+                );
             }
         }
         if (count($stockMovementData)) {

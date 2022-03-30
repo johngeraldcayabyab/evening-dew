@@ -11,19 +11,19 @@ class GenerateStockMovementForMaterialLines implements ShouldQueue
 {
     public function handle(ProductHasMaterialEvent $event)
     {
-        $transfer = $event->transfer;
-        $operationType = $event->operationType;
+        $reference = $event->reference;
+        $source = $event->source;
+        $sourceLocationId = $event->sourceLocationId;
+        $destinationLocationId = $event->destinationLocationId;
         $material = $event->material;
         $materialLines = $material->materialLines;
         $stockMovementData = [];
         foreach ($materialLines as $materialLine) {
             $materialLineProduct = $materialLine->product;
             if (Product::isStorable($materialLineProduct->product_type)) {
-                $sourceLocationId = $transfer->source_location_id;
-                $destinationLocationId = $transfer->destination_location_id;
                 $stockMovementData[] = [
-                    'reference' => $transfer->reference,
-                    'source' => $transfer->reference,
+                    'reference' => $reference,
+                    'source' => $source,
                     'product_id' => $materialLine->product_id,
                     'source_location_id' => $sourceLocationId,
                     'destination_location_id' => $destinationLocationId,
@@ -31,7 +31,14 @@ class GenerateStockMovementForMaterialLines implements ShouldQueue
                 ];
             }
             if ($materialLineProduct->material()->exists()) {
-                ProductHasMaterialEvent::dispatch($transfer, $operationType, $materialLineProduct->material, $materialLine->quantity);
+                ProductHasMaterialEvent::dispatch(
+                    $reference,
+                    $source,
+                    $sourceLocationId,
+                    $destinationLocationId,
+                    $materialLineProduct->material,
+                    $materialLine->quantity
+                );
             }
         }
         if (count($stockMovementData)) {

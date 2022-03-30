@@ -4,7 +4,6 @@ namespace App\Listeners;
 
 use App\Events\ProductHasMaterialEvent;
 use App\Events\TransferValidatedEvent;
-use App\Models\OperationType;
 use App\Models\Product;
 use App\Models\StockMovement;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -15,13 +14,12 @@ class GenerateStockMovementFromValidatedTransfer implements ShouldQueue
     {
         $transfer = $event->transfer;
         $transferLines = $transfer->transferLines;
-        $operationType = $transfer->operationType;
         $stockMovementData = [];
         foreach ($transferLines as $transferLine) {
             $product = $transferLine->product;
+            $sourceLocationId = $transfer->source_location_id;
+            $destinationLocationId = $transfer->destination_location_id;
             if (Product::isStorable($product->product_type)) {
-                $sourceLocationId = $transfer->source_location_id;
-                $destinationLocationId = $transfer->destination_location_id;
                 $stockMovementData[] = [
                     'reference' => $transfer->reference,
                     'source' => $transfer->reference,
@@ -32,7 +30,14 @@ class GenerateStockMovementFromValidatedTransfer implements ShouldQueue
                 ];
             }
             if ($product->material()->exists()) {
-                ProductHasMaterialEvent::dispatch($transfer, $operationType, $product->material, $transferLine->demand);
+                ProductHasMaterialEvent::dispatch(
+                    $transfer->reference,
+                    $transfer->reference,
+                    $sourceLocationId,
+                    $destinationLocationId,
+                    $product->material,
+                    $transferLine->demand
+                );
             }
         }
         if (count($stockMovementData)) {
