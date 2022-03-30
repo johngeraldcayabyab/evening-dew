@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Store\ProductCategoryStoreRequest;
 use App\Http\Requests\Update\ProductCategoryUpdateRequest;
 use App\Http\Resources\ProductCategoryResource;
+use App\Models\GlobalSetting;
 use App\Models\ProductCategory;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
@@ -48,5 +49,13 @@ class ProductCategoryController
     {
         $this->massDelete(new ProductCategory(), $request);
         return response()->json([], STATUS_DELETE);
+    }
+
+    public function initial_values()
+    {
+        $inventoryDefaultProductCategory = GlobalSetting::latestFirst()->inventoryDefaultProductCategory;
+        return [
+            'parent_product_category_id' => $inventoryDefaultProductCategory->id,
+        ];
     }
 }
