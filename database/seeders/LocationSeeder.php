@@ -41,13 +41,6 @@ class LocationSeeder extends Seeder
                 'type' => Location::VENDOR,
             ],
             [
-                'name' => 'Inventory Adjustment',
-                'parent_location_id' => $virtualLocations->id,
-                'is_a_scrap_location' => false,
-                'is_a_return_location' => false,
-                'type' => Location::INVENTORY_LOSS,
-            ],
-            [
                 'name' => 'Production',
                 'parent_location_id' => $virtualLocations->id,
                 'is_a_scrap_location' => false,
