@@ -11,7 +11,6 @@ class CreateAdjustmentLinesTable extends Migration
         Schema::create('adjustment_lines', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('adjustment_id')->nullable();
-            $table->bigInteger('location_id')->nullable();
             $table->bigInteger('product_id')->nullable();
             $table->bigInteger('measurement_id');
             $table->integer('quantity_on_hand');

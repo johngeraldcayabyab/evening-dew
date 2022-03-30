@@ -13,12 +13,10 @@ class AdjustmentLineResource extends JsonResource
     {
         return $this->defaults($this, $request, [
             'product_id' => $this->product_id,
-            'location_id' => $this->location_id,
             'measurement_id' => $this->measurement_id,
             'material_id' => $this->material_id,
             'quantity_on_hand' => $this->quantity_on_hand,
             'quantity_counted' => $this->quantity_counted,
-            'location' => new LocationResource($this->location),
             'product' => new ProductResource($this->product),
             'measurement' => new MeasurementResource($this->measurement),
         ]);
