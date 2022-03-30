@@ -25,22 +25,22 @@ class AdjustmentLine extends Model
 
     public function adjustment()
     {
-        return $this->belongsTo(Adjustment::class);
+        return $this->belongsTo(Adjustment::class, 'adjustment_id');
     }
 
     public function location()
     {
-        return $this->belongsTo(Location::class);
+        return $this->belongsTo(Location::class, 'location_id');
     }
 
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     public function measurement()
     {
-        return $this->belongsTo(Measurement::class);
+        return $this->belongsTo(Measurement::class, 'measurement_id');
     }
 
     public function scopeInsertMany($query, $data, $parentId)
@@ -49,8 +49,8 @@ class AdjustmentLine extends Model
         $date = now();
         foreach ($data as $datum) {
             $line = [
-                'location_id' => $datum['product_id'],
-                'product_id' => $datum['quantity'],
+                'location_id' => $datum['location_id'],
+                'product_id' => $datum['product_id'],
                 'measurement_id' => $datum['measurement_id'],
                 'quantity_on_hand' => $datum['quantity_on_hand'],
                 'quantity_counted' => $datum['quantity_counted'],

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\AdjustmentController;
+use App\Http\Controllers\AdjustmentLineController;
 use App\Http\Controllers\AppMenuController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CountryController;
@@ -27,6 +29,8 @@ use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarehouseController;
 use App\Models\Address;
+use App\Models\Adjustment;
+use App\Models\AdjustmentLine;
 use App\Models\AppMenu;
 use App\Models\Contact;
 use App\Models\Country;
@@ -56,6 +60,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['api', 'cors']], function () {
     (new RouteGenerator(Address::class))::generate(AddressController::class);
+    (new RouteGenerator(Adjustment::class))::generate(AdjustmentController::class);
+    (new RouteGenerator(AdjustmentLine::class))::generate(AdjustmentLineController::class);
     (new RouteGenerator(AppMenu::class))::generate(AppMenuController::class);
     (new RouteGenerator(Contact::class))::generate(ContactController::class);
     (new RouteGenerator(Country::class))::generate(CountryController::class);
