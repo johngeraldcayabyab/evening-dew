@@ -9,7 +9,7 @@ class AddressStoreRequest extends FormRequest
 {
     public function rules()
     {
-        $types = implode(',', Address::getTypes());
+        $types = implode_types(Address::getTypes());
         return [
             'address_name' => ['required'],
             'street_one' => ['nullable'],

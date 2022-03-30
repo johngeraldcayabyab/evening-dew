@@ -9,7 +9,7 @@ class MeasurementStoreRequest extends FormRequest
 {
     public function rules()
     {
-        $types = implode(',', Measurement::getTypes());
+        $types = implode_types(Measurement::getTypes());
         return [
             'name' => ['required', "unique:measurements,name"],
             'type' => ['required', "in:$types"],

@@ -9,7 +9,7 @@ class LocationStoreRequest extends FormRequest
 {
     public function rules()
     {
-        $types = implode(',', Location::getTypes());
+        $types = implode_types(Location::getTypes());
         return [
             'name' => ['required'],
             'parent_location_id' => ['nullable', "exists:locations,id"],

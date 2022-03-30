@@ -9,8 +9,8 @@ class ProductStoreRequest extends FormRequest
 {
     public function rules()
     {
-        $productTypes = implode(',', Product::getProductTypes());
-        $invoicingPolicies = implode(',', Product::getInvoicingPolicies());
+        $productTypes = implode_types(Product::getProductTypes());
+        $invoicingPolicies = implode_types(Product::getInvoicingPolicies());
         return [
             'name' => 'required',
             'product_type' => ['required', "in:$productTypes"],
