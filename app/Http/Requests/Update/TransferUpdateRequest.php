@@ -9,8 +9,8 @@ class TransferUpdateRequest extends FormRequest
 {
     public function rules()
     {
-        $shippingPolicies = implode(',', Transfer::getShippingPolicies());
-        $statuses = implode(',', Transfer::getStatuses());
+        $shippingPolicies = implode_types(Transfer::getShippingPolicies());
+        $statuses = implode_types(Transfer::getStatuses());
         return [
             'reference' => ['nullable'],
             'contact_id' => 'nullable',

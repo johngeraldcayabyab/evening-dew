@@ -10,8 +10,8 @@ class SalesOrderUpdateRequest extends FormRequest
 {
     public function rules()
     {
-        $shippingPolicies = implode(',', Transfer::getShippingPolicies());
-        $statuses = implode(',', SalesOrder::getStatuses());
+        $shippingPolicies = implode_types(Transfer::getShippingPolicies());
+        $statuses = implode_types(SalesOrder::getStatuses());
         return [
             'number' => 'required',
             'customer_id' => ['required', "exists:contacts,id"],
