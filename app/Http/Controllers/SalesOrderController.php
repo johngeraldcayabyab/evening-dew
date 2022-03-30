@@ -84,7 +84,7 @@ class SalesOrderController
             'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
             'salesperson_id' => auth()->user()->id,
             'salesperson' => auth()->user(),
-            'status' => Transfer::DRAFT,
+            'status' => SalesOrder::DRAFT,
         ];
     }
 }

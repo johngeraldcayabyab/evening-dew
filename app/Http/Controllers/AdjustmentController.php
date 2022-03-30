@@ -69,6 +69,7 @@ class AdjustmentController
     {
         return [
             'number' => Sequence::generateAdjustmentSequence(),
+            'status' => Adjustment::DRAFT,
         ];
     }
 }

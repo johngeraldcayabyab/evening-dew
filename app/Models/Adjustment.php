@@ -24,6 +24,15 @@ class Adjustment extends Model implements Sluggable
     protected $guarded = [];
     protected static $logAttributes = ['*'];
 
+    const DRAFT = 'draft';
+    const DONE = 'done';
+    const CANCELLED = 'cancelled';
+
+    public static function getStatuses()
+    {
+        return [self::DRAFT, self::DONE, self::CANCELLED];
+    }
+
     public function productCategory()
     {
         return $this->belongsTo(ProductCategory::class);
