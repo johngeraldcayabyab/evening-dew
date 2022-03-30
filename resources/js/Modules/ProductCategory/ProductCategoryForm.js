@@ -18,8 +18,9 @@ import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 const ProductCategoryForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest);
-    const parentCategoryOptions = useOptionHook('/api/product_categories', 'parent_category.name');
+    const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const parentCategoryOptions = useOptionHook('/api/product_categories', 'parent_category.category');
+    
     useEffect(() => {
         parentCategoryOptions.getInitialOptions(formState);
     }, [formState.initialLoad]);
@@ -50,7 +51,6 @@ const ProductCategoryForm = () => {
                                 required={true}
                                 size={'large'}
                             />
-
                             <FormItemSelect
                                 label={'Parent Category'}
                                 name={'parent_product_category_id'}
