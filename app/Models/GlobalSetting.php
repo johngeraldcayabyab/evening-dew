@@ -97,9 +97,4 @@ class GlobalSetting extends Model
     {
         return $this->belongsTo(Sequence::class, 'sales_order_default_sequence_id', 'id');
     }
-
-    public function adjustmentDefaultSequence()
-    {
-        return $this->belongsTo(Sequence::class, 'adjustment_default_sequence_id', 'id');
-    }
 }
