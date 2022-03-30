@@ -9,7 +9,7 @@ class CurrencyUpdateRequest extends FormRequest
 {
     public function rules()
     {
-        $symbolPositions = implode(',', Currency::getSymbolPositions());
+        $symbolPositions = implode_types(Currency::getSymbolPositions());
         return [
             'currency' => ['required'],
             'name' => ['nullable'],
