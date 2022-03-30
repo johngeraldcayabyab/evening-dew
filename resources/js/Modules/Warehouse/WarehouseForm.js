@@ -237,7 +237,7 @@ const WarehouseForm = () => {
                                             name={'manufacturing_operation_type_id'}
                                             message={'Please select a manufacturing operation type'}
                                             required={true}
-                                            {...options.manufacturingOperationTypeOperationType}
+                                            {...options.manufacturingOperationType}
                                         />
                                     </ColForm>
                                 </RowForm>
