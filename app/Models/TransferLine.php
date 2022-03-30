@@ -40,10 +40,10 @@ class TransferLine extends Model
 
     public function scopeInsertMany($query, $data, $transferId)
     {
-        $transactionLines = [];
+        $lines = [];
         $date = now();
         foreach ($data as $datum) {
-            $transactionLine = [
+            $line = [
                 'product_id' => $datum['product_id'],
                 'description' => isset($datum['description']) ? $datum['description'] : null,
                 'demand' => $datum['demand'],
@@ -52,18 +52,18 @@ class TransferLine extends Model
                 'created_at' => $date,
                 'updated_at' => $date,
             ];
-            $transactionLines[] = $transactionLine;
+            $lines[] = $line;
         }
-        $query->insert($transactionLines);
+        $query->insert($lines);
         return $query;
     }
 
     public function scopeUpdateOrCreateMany($query, $data, $transferId)
     {
-        $transactionLines = [];
+        $lines = [];
         $date = now();
         foreach ($data as $datum) {
-            $transactionLine = [
+            $line = [
                 'id' => isset($datum['id']) ? $datum['id'] : null,
                 'product_id' => $datum['product_id'],
                 'description' => isset($datum['description']) ? $datum['description'] : null,
@@ -73,11 +73,11 @@ class TransferLine extends Model
                 'updated_at' => $date,
             ];
             if (isset($datum['id'])) {
-                $transactionLine['created_at'] = $date;
+                $line['created_at'] = $date;
             }
-            $transactionLines[] = $transactionLine;
+            $lines[] = $line;
         }
-        $query->upsert($transactionLines, ['id']);
+        $query->upsert($lines, ['id']);
         return $query;
     }
 }
