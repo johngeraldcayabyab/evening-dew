@@ -22,14 +22,16 @@ class GenerateStockMovementFromValidatedAdjustment implements ShouldQueue
             if (Product::isStorable($adjustmentLineProduct->product_type)) {
                 $sourceLocationId = null;
                 $destinationLocationId = null;
-                $quantityDone = $adjustmentLine->quantity_on_hand - $adjustmentLine->quantity_counted;
+                $quantityDone = $adjustmentLine->quantity_on_hand;
                 if ($adjustmentLine->quantity_on_hand > $adjustmentLine->quantity_counted) {
                     $sourceLocationId = $warehouse->stock_location_id;
                     $destinationLocationId = $warehouse->adjustment_location_id;
+                    $quantityDone = $adjustmentLine->quantity_on_hand - $adjustmentLine->quantity_counted;
                 }
                 if ($adjustmentLine->quantity_on_hand < $adjustmentLine->quantity_counted) {
                     $sourceLocationId = $warehouse->adjustment_location_id;
                     $destinationLocationId = $warehouse->stock_location_id;
+                    $quantityDone = $adjustmentLine->quantity_counted - $adjustmentLine->quantity_on_hand;
                 }
                 $stockMovementData[] = [
                     'reference' => $adjustment->number,
