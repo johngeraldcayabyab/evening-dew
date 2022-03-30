@@ -4,8 +4,6 @@ namespace App\Listeners;
 
 use App\Events\ContactUpsertEvent;
 use App\Models\Address;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Arr;
 
 class UpsertAddressOnContactUpsertListener

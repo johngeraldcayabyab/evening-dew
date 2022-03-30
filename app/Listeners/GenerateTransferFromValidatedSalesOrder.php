@@ -10,7 +10,6 @@ use App\Models\SalesOrderTransfer;
 use App\Models\Transfer;
 use App\Models\TransferLine;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
 {
