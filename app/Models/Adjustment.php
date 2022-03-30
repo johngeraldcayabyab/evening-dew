@@ -38,6 +38,11 @@ class Adjustment extends Model implements Sluggable
         return $this->belongsTo(ProductCategory::class);
     }
 
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class);
+    }
+
     public function adjustmentLines()
     {
         return $this->hasMany(AdjustmentLine::class);

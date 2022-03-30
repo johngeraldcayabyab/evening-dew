@@ -7,6 +7,7 @@ use App\Http\Requests\AdjustmentRequest;
 use App\Http\Resources\AdjustmentResource;
 use App\Models\Adjustment;
 use App\Models\AdjustmentLine;
+use App\Models\GlobalSetting;
 use App\Models\Sequence;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
@@ -74,8 +75,10 @@ class AdjustmentController
 
     public function initial_values()
     {
+        $inventoryDefaultWarehouse = GlobalSetting::latestFirst()->inventoryDefaultWarehouse;
         return [
             'status' => Adjustment::DRAFT,
+            'warehouse_id' => $inventoryDefaultWarehouse->id,
         ];
     }
 }

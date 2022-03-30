@@ -32,7 +32,8 @@ const AdjustmentForm = () => {
     const [formState, formActions] = useFormHook(id, form, manifest, true);
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
-    const productCategoryOptions = useOptionHook('/api/product_categories', 'product_categories.category');
+    const productCategoryOptions = useOptionHook('/api/product_categories', 'product_category.category');
+    const warehouseOptions = useOptionHook('/api/warehouses', 'warehouse.name');
     const productLineOptions = useOptionLineHook('/api/products', 'product.name');
     const measurementLineOptions = useOptionLineHook('/api/measurements', 'measurement.name');
     const [state, setState] = useState({
@@ -41,6 +42,7 @@ const AdjustmentForm = () => {
 
     useEffect(() => {
         productCategoryOptions.getInitialOptions(formState);
+        warehouseOptions.getInitialOptions(formState);
         productLineOptions.getInitialOptions(formState, 'adjustment_lines');
         measurementLineOptions.getInitialOptions(formState, 'adjustment_lines');
     }, [formState.initialLoad]);
@@ -148,6 +150,14 @@ const AdjustmentForm = () => {
                                 message={'Please select a product category'}
                                 required={true}
                                 {...productCategoryOptions}
+                            />
+
+                            <FormItemSelect
+                                label={'Warehouse'}
+                                name={'warehouse_id'}
+                                message={'Please select a warehouse'}
+                                required={true}
+                                {...warehouseOptions}
                             />
                         </ColForm>
                     </RowForm>
