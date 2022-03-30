@@ -9,6 +9,6 @@ class GenerateStockMovementFromValidatedAdjustment implements ShouldQueue
 {
     public function handle(AdjustmentValidatedEvent $event)
     {
-
+        $adjustment = $event->adjustment;
     }
 }
