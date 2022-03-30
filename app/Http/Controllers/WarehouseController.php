@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Store\WarehouseStoreRequest;
-use App\Http\Requests\Update\WarehouseUpdateRequest;
+use App\Http\Requests\WarehouseRequest;
 use App\Http\Resources\WarehouseResource;
 use App\Models\Warehouse;
 use App\Traits\ControllerHelperTrait;
@@ -27,12 +26,12 @@ class WarehouseController
         return response()->json(new WarehouseResource($warehouse));
     }
 
-    public function store(WarehouseStoreRequest $request): JsonResponse
+    public function store(WarehouseRequest $request): JsonResponse
     {
         return response()->json([], STATUS_CREATE, $this->locationHeader(Warehouse::create($request->validated())));
     }
 
-    public function update(WarehouseUpdateRequest $request, Warehouse $warehouse): JsonResponse
+    public function update(WarehouseRequest $request, Warehouse $warehouse): JsonResponse
     {
         $warehouse->update($request->validated());
         return response()->json([], STATUS_UPDATE);

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Store;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class WarehouseStoreRequest extends FormRequest
+class WarehouseRequest extends FormRequest
 {
     public function rules()
     {

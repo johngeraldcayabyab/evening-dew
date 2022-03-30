@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Data\SystemSetting;
 use App\Events\SalesOrderValidatedEvent;
-use App\Http\Requests\Store\SalesOrderStoreRequest;
-use App\Http\Requests\Update\SalesOrderUpdateRequest;
+use App\Http\Requests\SalesOrderRequest;
 use App\Http\Resources\SalesOrderResource;
 use App\Models\GlobalSetting;
 use App\Models\SalesOrder;
@@ -34,7 +33,7 @@ class SalesOrderController
         return response()->json(new SalesOrderResource($salesOrder));
     }
 
-    public function store(SalesOrderStoreRequest $request): JsonResponse
+    public function store(SalesOrderRequest $request): JsonResponse
     {
         $data = $request->validated();
         $salesOrderData = Arr::except($data, ['sales_order_lines']);
@@ -49,7 +48,7 @@ class SalesOrderController
         return response()->json([], STATUS_CREATE, $this->locationHeader($salesOrder));
     }
 
-    public function update(SalesOrderUpdateRequest $request, SalesOrder $salesOrder): JsonResponse
+    public function update(SalesOrderRequest $request, SalesOrder $salesOrder): JsonResponse
     {
         $data = $request->validated();
         $salesOrderData = Arr::except($data, ['sales_order_lines']);

@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Store\ProductCategoryStoreRequest;
-use App\Http\Requests\Update\ProductCategoryUpdateRequest;
+use App\Http\Requests\ProductCategoryRequest;
 use App\Http\Resources\ProductCategoryResource;
 use App\Models\GlobalSetting;
 use App\Models\ProductCategory;
@@ -28,12 +27,12 @@ class ProductCategoryController
         return response()->json(new ProductCategoryResource($productCategory));
     }
 
-    public function store(ProductCategoryStoreRequest $request): JsonResponse
+    public function store(ProductCategoryRequest $request): JsonResponse
     {
         return response()->json([], STATUS_CREATE, $this->locationHeader(ProductCategory::create($request->validated())));
     }
 
-    public function update(ProductCategoryUpdateRequest $request, ProductCategory $productCategory): JsonResponse
+    public function update(ProductCategoryRequest $request, ProductCategory $productCategory): JsonResponse
     {
         $productCategory->update($request->validated());
         return response()->json([], STATUS_UPDATE);

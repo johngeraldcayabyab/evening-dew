@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Update;
+namespace App\Http\Requests;
 
 use App\Models\Location;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LocationUpdateRequest extends FormRequest
+class LocationRequest extends FormRequest
 {
     public function rules()
     {

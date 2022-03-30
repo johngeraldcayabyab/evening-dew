@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Update;
+namespace App\Http\Requests;
 
 use App\Models\Material;
 use Illuminate\Foundation\Http\FormRequest;
 
-class MaterialUpdateRequest extends FormRequest
+class MaterialRequest extends FormRequest
 {
     public function rules()
     {
@@ -16,7 +16,7 @@ class MaterialUpdateRequest extends FormRequest
             'measurement_id' => ['required', "exists:measurements,id"],
             'reference' => ['nullable'],
             'material_type' => ['required', "in:$materialTypes"],
-            'flexible_consumptions' => ['nullable', "in:$flexibleConsumptions"],
+            'flexible_consumption' => ['nullable', "in:$flexibleConsumptions"],
             'material_lines.*.id' => ['nullable', 'exists:material_lines,id'],
             'material_lines.*.product_id' => ['required', "exists:products,id"],
             'material_lines.*.quantity' => ['required'],

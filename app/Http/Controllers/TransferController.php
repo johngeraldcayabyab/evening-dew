@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Data\SystemSetting;
 use App\Events\TransferValidatedEvent;
-use App\Http\Requests\Store\TransferStoreRequest;
-use App\Http\Requests\Update\TransferUpdateRequest;
+use App\Http\Requests\TransferRequest;
 use App\Http\Resources\TransferResource;
 use App\Models\Transfer;
 use App\Models\TransferLine;
@@ -31,7 +30,7 @@ class TransferController
         return response()->json(new TransferResource($transfer));
     }
 
-    public function store(TransferStoreRequest $request): JsonResponse
+    public function store(TransferRequest $request): JsonResponse
     {
         $data = $request->validated();
         $transferData = Arr::except($data, ['transfer_lines']);
@@ -46,7 +45,7 @@ class TransferController
         return response()->json([], STATUS_CREATE, $this->locationHeader($transfer));
     }
 
-    public function update(TransferUpdateRequest $request, Transfer $transfer): JsonResponse
+    public function update(TransferRequest $request, Transfer $transfer): JsonResponse
     {
         $data = $request->validated();
         $transferData = Arr::except($data, ['transfer_lines']);

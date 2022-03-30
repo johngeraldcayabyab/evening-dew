@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Store\SequenceStoreRequest;
-use App\Http\Requests\Update\SequenceUpdateRequest;
+use App\Http\Requests\SequenceRequest;
 use App\Http\Resources\SequenceResource;
 use App\Models\Sequence;
 use App\Traits\ControllerHelperTrait;
@@ -27,12 +26,12 @@ class SequenceController
         return response()->json(new SequenceResource($sequence));
     }
 
-    public function store(SequenceStoreRequest $request): JsonResponse
+    public function store(SequenceRequest $request): JsonResponse
     {
         return response()->json([], STATUS_CREATE, $this->locationHeader(Sequence::create($request->validated())));
     }
 
-    public function update(SequenceUpdateRequest $request, Sequence $sequence): JsonResponse
+    public function update(SequenceRequest $request, Sequence $sequence): JsonResponse
     {
         $sequence->update($request->validated());
         return response()->json([], STATUS_UPDATE);

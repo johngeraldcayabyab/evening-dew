@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Http\Requests\Update;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserUpdateRequest extends FormRequest
+class PaymentTermRequest extends FormRequest
 {
     public function rules()
     {
         return [
             'name' => 'required',
-            'email' => 'required',
-            'avatar' => 'nullable',
         ];
     }
 }

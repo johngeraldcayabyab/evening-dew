@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Store;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StockMovementStoreRequest extends FormRequest
+class StockMovementRequest extends FormRequest
 {
     public function rules()
     {

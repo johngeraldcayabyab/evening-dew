@@ -1,27 +1,25 @@
 <?php
 
-namespace App\Http\Requests\Store;
+namespace App\Http\Requests;
 
+use App\Models\Address;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ContactStoreRequest extends FormRequest
+class AddressRequest extends FormRequest
 {
     public function rules()
     {
+        $types = implode_types(Address::getTypes());
         return [
-            'name' => ['required'],
-            'phone' => ['nullable'],
-            'mobile' => ['nullable'],
-            'email' => ['nullable'],
-            'website' => ['nullable'],
-            'tax_id' => ['nullable'],
-            'avatar' => ['nullable'],
+            'address_name' => ['required'],
             'street_one' => ['nullable'],
             'street_two' => ['nullable'],
             'city' => ['nullable'],
             'state' => ['nullable'],
             'zip' => ['nullable'],
             'country_id' => ['nullable', "exists:countries,id"],
+            'contact_id' => ['required', "exists:contacts,id"],
+            'type' => ['required', "in:$types"],
         ];
     }
 }

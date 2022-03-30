@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Store;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AppMenuStoreRequest extends FormRequest
+class AppMenuRequest extends FormRequest
 {
     public function rules()
     {

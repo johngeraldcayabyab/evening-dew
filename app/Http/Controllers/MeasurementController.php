@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Store\MeasurementStoreRequest;
-use App\Http\Requests\Update\MeasurementUpdateRequest;
+use App\Http\Requests\MeasurementRequest;
 use App\Http\Resources\MeasurementResource;
 use App\Models\GlobalSetting;
 use App\Models\Measurement;
@@ -28,12 +27,12 @@ class MeasurementController
         return response()->json(new MeasurementResource($measurement));
     }
 
-    public function store(MeasurementStoreRequest $request): JsonResponse
+    public function store(MeasurementRequest $request): JsonResponse
     {
         return response()->json([], STATUS_CREATE, $this->locationHeader(Measurement::create($request->validated())));
     }
 
-    public function update(MeasurementUpdateRequest $request, Measurement $measurement): JsonResponse
+    public function update(MeasurementRequest $request, Measurement $measurement): JsonResponse
     {
         $measurement->update($request->validated());
         return response()->json([], STATUS_UPDATE);

@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests\Store;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserStoreRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     public function rules()
     {
         return [
             'name' => 'required',
             'email' => 'required',
-            'password' => 'required|confirmed|min:6',
+            'password' => 'nullable|confirmed|min:6',
             'avatar' => 'nullable'
         ];
     }

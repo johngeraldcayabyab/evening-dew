@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Store\StockMovementStoreRequest;
-use App\Http\Requests\Update\StockMovementUpdateRequest;
+use App\Http\Requests\StockMovementRequest;
 use App\Http\Resources\StockMovementResource;
 use App\Models\StockMovement;
 use App\Traits\ControllerHelperTrait;
@@ -27,12 +26,12 @@ class StockMovementController
         return response()->json(new StockMovementResource($stockMovement));
     }
 
-    public function store(StockMovementStoreRequest $request): JsonResponse
+    public function store(StockMovementRequest $request): JsonResponse
     {
         return response()->json([], STATUS_CREATE, $this->locationHeader(StockMovement::create($request->validated())));
     }
 
-    public function update(StockMovementUpdateRequest $request, StockMovement $stockMovement): JsonResponse
+    public function update(StockMovementRequest $request, StockMovement $stockMovement): JsonResponse
     {
         $stockMovement->update($request->validated());
         return response()->json([], STATUS_UPDATE);

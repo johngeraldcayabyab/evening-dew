@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Http\Requests\Store\MenuStoreRequest;
-use App\Http\Requests\Update\MenuUpdateRequest;
+use App\Http\Requests\MenuRequest;
 use App\Http\Resources\MenuResource;
 use App\Models\Menu;
 use App\Traits\ControllerHelperTrait;
@@ -28,12 +26,12 @@ class MenuController
         return response()->json(new MenuResource($menu));
     }
 
-    public function store(MenuStoreRequest $request): JsonResponse
+    public function store(MenuRequest $request): JsonResponse
     {
         return response()->json([], STATUS_CREATE, $this->locationHeader(Menu::create($request->validated())));
     }
 
-    public function update(MenuUpdateRequest $request, Menu $menu): JsonResponse
+    public function update(MenuRequest $request, Menu $menu): JsonResponse
     {
         $menu->update($request->validated());
         return response()->json([], STATUS_UPDATE);

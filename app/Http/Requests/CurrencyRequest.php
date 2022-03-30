@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Store;
+namespace App\Http\Requests;
 
 use App\Models\Currency;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CurrencyStoreRequest extends FormRequest
+class CurrencyRequest extends FormRequest
 {
     public function rules()
     {

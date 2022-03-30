@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\ContactUpsertEvent;
-use App\Http\Requests\Store\ContactStoreRequest;
-use App\Http\Requests\Update\ContactUpdateRequest;
+use App\Http\Requests\ContactRequest;
 use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use App\Models\GlobalSetting;
@@ -30,7 +29,7 @@ class ContactController
         return response()->json(new ContactResource($contact));
     }
 
-    public function store(ContactStoreRequest $request): JsonResponse
+    public function store(ContactRequest $request): JsonResponse
     {
         $data = $request->validated();
         $contactData = Arr::only($data, (new Contact())->getFields());
@@ -39,7 +38,7 @@ class ContactController
         return response()->json([], STATUS_CREATE, $this->locationHeader($contact));
     }
 
-    public function update(ContactUpdateRequest $request, Contact $contact): JsonResponse
+    public function update(ContactRequest $request, Contact $contact): JsonResponse
     {
         $data = $request->validated();
         $contactData = Arr::only($data, (new Contact())->getFields());

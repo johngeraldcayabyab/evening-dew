@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Store\MaterialStoreRequest;
-use App\Http\Requests\Update\MaterialUpdateRequest;
+use App\Http\Requests\MaterialRequest;
 use App\Http\Resources\MaterialResource;
 use App\Models\GlobalSetting;
 use App\Models\Material;
@@ -30,7 +29,7 @@ class MaterialController
         return response()->json(new MaterialResource($material));
     }
 
-    public function store(MaterialStoreRequest $request): JsonResponse
+    public function store(MaterialRequest $request): JsonResponse
     {
         $data = $request->validated();
         $materialData = Arr::except($data, ['material_lines']);
@@ -42,7 +41,7 @@ class MaterialController
         return response()->json([], STATUS_CREATE, $this->locationHeader($material));
     }
 
-    public function update(MaterialUpdateRequest $request, Material $material): JsonResponse
+    public function update(MaterialRequest $request, Material $material): JsonResponse
     {
         $data = $request->validated();
         $materialData = Arr::except($data, ['material_lines']);

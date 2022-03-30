@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Update;
+namespace App\Http\Requests;
 
 use App\Models\SalesOrder;
 use App\Models\Transfer;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SalesOrderUpdateRequest extends FormRequest
+class SalesOrderRequest extends FormRequest
 {
     public function rules()
     {
