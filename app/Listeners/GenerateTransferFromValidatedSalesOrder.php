@@ -18,10 +18,9 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
     {
         $salesOrder = $event->salesOrder;
         $transfer = new Transfer();
-
         $inventoryDefaultWarehouse = GlobalSetting::latestFirst()->inventoryDefaultWarehouse;
         if ($inventoryDefaultWarehouse) {
-            $operationType = OperationType::whereWarehouseId($inventoryDefaultWarehouse->id)->whereType(OperationType::DELIVERY)->first(); //By default, it gets the latest operation type created
+            $operationType = OperationType::where('warehouse_id', $inventoryDefaultWarehouse->id)->where('type', OperationType::DELIVERY)->first(); //By default, it gets the latest operation type created
             if ($operationType) {
                 $transfer->contact_id = $salesOrder->customer_id;
                 $transfer->operation_type_id = $operationType->id;

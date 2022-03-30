@@ -27,7 +27,7 @@ class GenerateStockMovementForMaterialLines implements ShouldQueue
                     'destination_location_id' => $transfer->destination_location_id,
                     'quantity_done' => $materialLine->quantity * $event->demand,
                 ];
-                $materialLineProduct->updateQuantity($operationType, $materialLine->quantity, $event->demand);
+
             }
             if ($materialLineProduct->material()->exists()) {
                 ProductHasMaterialEvent::dispatch($transfer, $operationType, $materialLineProduct->material, $materialLine->quantity);
