@@ -113,6 +113,7 @@ const OperationTypeForm = () => {
                                     {value: 'delivery', label: 'Delivery'},
                                     {value: 'internal', label: 'Internal'},
                                     {value: 'manufacturing', label: 'Manufacturing'},
+                                    {value: 'adjustment', label: 'Adjustment'},
                                 ]}
                             />
 
