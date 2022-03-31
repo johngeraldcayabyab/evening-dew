@@ -23,13 +23,11 @@ import {objectHasValue} from "../../Helpers/object";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import useFetchHook from "../../Hooks/useFetchHook";
 import {FormContextProvider} from "../../Contexts/FormContext";
-import RemoveLineButton from "../../Components/FormLines/RemoveLineButton";
-import AddLineButton from "../../Components/FormLines/AddLineButton";
-import LineColumn from "../../Components/FormLines/LineColumn";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import useOptionHook from "../../Hooks/useOptionHook";
 import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
+import FormLineParent from "../../Components/FormLines/FormLineParent";
 
 const {TabPane} = Tabs;
 
@@ -286,94 +284,52 @@ const SalesOrderForm = () => {
 
                     <Tabs defaultActiveKey="1">
                         <TabPane tab="Order Lines" key="1">
-                            <LineColumn
-                                columns={['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Subtotal']}
-                            />
                             <RowForm>
                                 <ColForm lg={24}>
-                                    <Form.List name="sales_order_lines">
-                                        {(fields, {add, remove}) => (
-                                            <>
-                                                {fields.map(({key, name, ...restField}) => (
-                                                    <RowForm key={key}>
-                                                        <ColForm lg={23}>
-                                                            <FormItemLineId
-                                                                {...restField}
-                                                                name={'id'}
-                                                                groupName={name}
-                                                                listName={'sales_order_lines'}
-                                                            />
-                                                            <FormItemSelect
-                                                                {...restField}
-                                                                placeholder={'Product'}
-                                                                name={'product_id'}
-                                                                message={'Please select a product'}
-                                                                required={true}
-                                                                style={{display: 'inline-block', width: `${100 / 6}%`}}
-                                                                groupName={name}
-                                                                listName={'sales_order_lines'}
-                                                                {...productLineOptions.aggregate(productLineOptions, restField.fieldKey)}
-                                                            />
-                                                            <FormItemText
-                                                                {...restField}
-                                                                placeholder={'Description'}
-                                                                name={'description'}
-                                                                style={{display: 'inline-block', width: `${100 / 6}%`}}
-                                                                groupName={name}
-                                                                listName={'sales_order_lines'}
-                                                            />
-                                                            <FormItemNumber
-                                                                {...restField}
-                                                                placeholder={'Quantity'}
-                                                                name={'quantity'}
-                                                                message={'Please input a quantity'}
-                                                                required={true}
-                                                                style={{display: 'inline-block', width: `${100 / 6}%`}}
-                                                                groupName={name}
-                                                                listName={'sales_order_lines'}
-                                                            />
-                                                            <FormItemSelect
-                                                                {...restField}
-                                                                placeholder={'Measurement'}
-                                                                name={'measurement_id'}
-                                                                message={'Please select a measurement'}
-                                                                required={true}
-                                                                style={{display: 'inline-block', width: `${100 / 6}%`}}
-                                                                groupName={name}
-                                                                listName={'sales_order_lines'}
-                                                                {...salesMeasurementOptions.aggregate(salesMeasurementOptions, restField.fieldKey)}
-                                                            />
-                                                            <FormItemNumber
-                                                                {...restField}
-                                                                placeholder={'Unit Price'}
-                                                                name={'unit_price'}
-                                                                message={'Please input a unit price'}
-                                                                required={true}
-                                                                style={{display: 'inline-block', width: `${100 / 6}%`}}
-                                                                groupName={name}
-                                                                listName={'sales_order_lines'}
-                                                            />
-                                                            <FormItemNumber
-                                                                overrideDisabled={true}
-                                                                {...restField}
-                                                                placeholder={'Subtotal'}
-                                                                name={'subtotal'}
-                                                                style={{display: 'inline-block', width: `${100 / 6}%`}}
-                                                                groupName={name}
-                                                                listName={'sales_order_lines'}
-                                                            />
-                                                        </ColForm>
-                                                        <RemoveLineButton
-                                                            remove={remove}
-                                                            listName={'sales_order_lines'}
-                                                            name={name}
-                                                        />
-                                                    </RowForm>
-                                                ))}
-                                                <AddLineButton add={add} label={'Add a product'}/>
-                                            </>
-                                        )}
-                                    </Form.List>
+                                    <FormLineParent
+                                        columns={['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Subtotal']}
+                                        listName={'sales_order_lines'}
+                                    >
+                                        <FormItemLineId
+                                            name={'id'}
+                                        />
+                                        <FormItemSelect
+                                            placeholder={'Product'}
+                                            name={'product_id'}
+                                            message={'Please select a product'}
+                                            required={true}
+                                            optionAggregate={productLineOptions}
+                                        />
+                                        <FormItemText
+                                            placeholder={'Description'}
+                                            name={'description'}
+                                            listName={'sales_order_lines'}
+                                        />
+                                        <FormItemNumber
+                                            placeholder={'Quantity'}
+                                            name={'quantity'}
+                                            message={'Please input a quantity'}
+                                            required={true}
+                                        />
+                                        <FormItemSelect
+                                            placeholder={'Measurement'}
+                                            name={'measurement_id'}
+                                            message={'Please select a measurement'}
+                                            required={true}
+                                            optionAggregate={salesMeasurementOptions}
+                                        />
+                                        <FormItemNumber
+                                            placeholder={'Unit Price'}
+                                            name={'unit_price'}
+                                            message={'Please input a unit price'}
+                                            required={true}
+                                        />
+                                        <FormItemNumber
+                                            overrideDisabled={true}
+                                            placeholder={'Subtotal'}
+                                            name={'subtotal'}
+                                        />
+                                    </FormLineParent>
                                 </ColForm>
                             </RowForm>
 
