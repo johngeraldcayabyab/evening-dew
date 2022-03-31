@@ -10,44 +10,27 @@ const FormLineParent = (props) => {
     return (
         <>
             <LineColumn
-                columns={['Product', 'Quantity', 'Measurement']}
+                columns={props.columns}
             />
-            <Form.List name="material_lines">
+            <Form.List name={props.listName}>
                 {(fields, {add, remove}) => (
                     <>
-                        <FormLineTest listName={'material_lines'}>
-                            {fields.map(({key, name, ...restField}) => (
-                                <RowForm key={key}>
-                                    <FormLineTest listName={'material_lines'}>
-
-                                    </FormLineTest>
-                                    {/*{React.Children.map(props.children, child => {*/}
-                                    {/*    if (React.isValidElement(child)) {*/}
-                                    {/*        let style = {display: 'inline-block', width: `${width}%`};*/}
-                                    {/*        if (child.props.name === 'id') {*/}
-                                    {/*            style = {display: 'none', position: 'absolute', top: '-9999%'};*/}
-                                    {/*        }*/}
-                                    {/*        const cloneChild = React.cloneElement(child, {*/}
-                                    {/*            ...props,*/}
-                                    {/*            listName: listName,*/}
-                                    {/*            style: style,*/}
-                                    {/*        });*/}
-                                    {/*        return (*/}
-                                    {/*            <>*/}
-                                    {/*                {cloneChild}*/}
-                                    {/*            </>*/}
-                                    {/*        );*/}
-                                    {/*    }*/}
-                                    {/*    return child;*/}
-                                    {/*})}*/}
-                                </RowForm>
-                            ))}
-                        </FormLineTest>
-                        <RemoveLineButton
-                            remove={remove}
-                            listName={'material_lines'}
-                            name={name}
-                        />
+                        {fields.map(({key, name, ...restField}) => (
+                            <RowForm key={key}>
+                                <FormLineTest
+                                    restField={restField}
+                                    groupName={name}
+                                    listName={props.listName}
+                                >
+                                    {props.children}
+                                </FormLineTest>
+                                <RemoveLineButton
+                                    remove={remove}
+                                    listName={props.listName}
+                                    name={name}
+                                />
+                            </RowForm>
+                        ))}
                         <AddLineButton add={add} label={'Add a component'}/>
                     </>
                 )}

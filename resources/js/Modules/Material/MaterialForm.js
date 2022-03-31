@@ -17,13 +17,10 @@ import {GET, POST} from "../../consts";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import useFetchHook from "../../Hooks/useFetchHook";
 import {FormContextProvider} from "../../Contexts/FormContext";
-import AddLineButton from "../../Components/FormLines/AddLineButton";
-import RemoveLineButton from "../../Components/FormLines/RemoveLineButton";
-import LineColumn from "../../Components/FormLines/LineColumn";
 import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import useOptionLineHook from "../../Hooks/useOptionLineHook";
-import FormLineTest from "../../Components/FormLines/FormLineTest";
+import FormLineParent from "../../Components/FormLines/FormLineParent";
 
 const {TabPane} = Tabs;
 
@@ -147,54 +144,34 @@ const MaterialForm = () => {
                         <TabPane tab="Components" key="1">
                             <RowForm>
                                 <ColForm lg={24}>
-                                    <LineColumn
+                                    <FormLineParent
                                         columns={['Product', 'Quantity', 'Measurement']}
-                                    />
-                                    <Form.List name="material_lines">
-                                        {(fields, {add, remove}) => (
-                                            <>
-                                                {fields.map(({key, name, ...restField}) => (
-                                                    <RowForm key={key}>
-                                                        <FormLineTest
-                                                            restField={restField}
-                                                            groupName={name}
-                                                            listName={'material_lines'}
-                                                        >
-                                                            <FormItemNumber
-                                                                name={'id'}
-                                                            />
-                                                            <FormItemSelect
-                                                                placeholder={'Product'}
-                                                                name={'product_id'}
-                                                                message={'Please select a product'}
-                                                                required={true}
-                                                                optionAggregate={productLineOptions}
-                                                            />
-                                                            <FormItemNumber
-                                                                placeholder={'Quantity'}
-                                                                name={'quantity'}
-                                                                message={'Please input a quantity'}
-                                                                required={true}
-                                                            />
-                                                            <FormItemSelect
-                                                                placeholder={'Measurement'}
-                                                                name={'measurement_id'}
-                                                                message={'Please select a measurement'}
-                                                                required={true}
-                                                                optionAggregate={measurementLineOptions}
-                                                            />
-                                                        </FormLineTest>
-                                                        <RemoveLineButton
-                                                            remove={remove}
-                                                            listName={'material_lines'}
-                                                            name={name}
-                                                        />
-                                                    </RowForm>
-                                                ))}
-                                                <AddLineButton add={add} label={'Add a component'}/>
-                                            </>
-                                        )}
-                                    </Form.List>
+                                        listName={'material_lines'}
+                                    >
+                                        <FormItemNumber
+                                            name={'id'}
+                                        />
+                                        <FormItemSelect
+                                            placeholder={'Product'}
+                                            name={'product_id'}
+                                            message={'Please select a product'}
+                                            required={true}
+                                            optionAggregate={productLineOptions}
+                                        />
+                                        <FormItemNumber
+                                            placeholder={'Quantity'}
+                                            name={'quantity'}
+                                            message={'Please input a quantity'}
+                                            required={true}
+                                        />
+                                        <FormItemSelect
+                                            placeholder={'Measurement'}
+                                            name={'measurement_id'}
+                                            message={'Please select a measurement'}
+                                            required={true}
+                                            optionAggregate={measurementLineOptions}
+                                        />
+                                    </FormLineParent>
                                 </ColForm>
                             </RowForm>
                         </TabPane>
