@@ -17,14 +17,13 @@ import {GET, POST} from "../../consts";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import useFetchHook from "../../Hooks/useFetchHook";
 import {FormContextProvider} from "../../Contexts/FormContext";
-import AddLineButton from "../../Components/FormLines/AddLineButton";
-import RemoveLineButton from "../../Components/FormLines/RemoveLineButton";
-import LineColumn from "../../Components/FormLines/LineColumn";
 import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import FormItemStatus from "../../Components/FormItem/FormItemStatus";
 import StatusBar from "../../Components/StatusBar";
+import FormLineParent from "../../Components/FormLines/FormLineParent";
+import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 
 const AdjustmentForm = () => {
     let {id} = useParams();
@@ -161,78 +160,41 @@ const AdjustmentForm = () => {
                             />
                         </ColForm>
                     </RowForm>
-                    <LineColumn
-                        columns={['Product', 'Measurement', 'Quantity On Hand', 'Quantity Counted']}
-                    />
                     <RowForm>
                         <ColForm lg={24}>
-                            <Form.List name="adjustment_lines">
-                                {(fields, {add, remove}) => (
-                                    <>
-                                        {fields.map(({key, name, ...restField}) => (
-                                            <RowForm key={key}>
-                                                <ColForm lg={23}>
-                                                    <FormItemNumber
-                                                        {...restField}
-                                                        name={'id'}
-                                                        style={{display: 'hidden', position: 'absolute'}}
-                                                        groupName={name}
-                                                        listName={'adjustment_lines'}
-                                                    />
-                                                    <FormItemSelect
-                                                        {...restField}
-                                                        placeholder={'Product'}
-                                                        name={'product_id'}
-                                                        message={'Please select a product'}
-                                                        required={true}
-                                                        style={{display: 'inline-block', width: '25%'}}
-                                                        groupName={name}
-                                                        listName={'adjustment_lines'}
-                                                        {...productLineOptions.aggregate(productLineOptions, restField.fieldKey)}
-                                                    />
-                                                    <FormItemSelect
-                                                        {...restField}
-                                                        placeholder={'Measurement'}
-                                                        name={'measurement_id'}
-                                                        message={'Please select a measurement'}
-                                                        required={true}
-                                                        style={{display: 'inline-block', width: '25%'}}
-                                                        groupName={name}
-                                                        listName={'adjustment_lines'}
-                                                        {...measurementLineOptions.aggregate(measurementLineOptions, restField.fieldKey)}
-                                                    />
-                                                    <FormItemNumber
-                                                        {...restField}
-                                                        placeholder={'Quantity on hand'}
-                                                        name={'quantity_on_hand'}
-                                                        message={'Please input a quantity on hand'}
-                                                        required={true}
-                                                        style={{display: 'inline-block', width: '25%'}}
-                                                        groupName={name}
-                                                        listName={'adjustment_lines'}
-                                                    />
-                                                    <FormItemNumber
-                                                        {...restField}
-                                                        placeholder={'Quantity counted'}
-                                                        name={'quantity_counted'}
-                                                        message={'Please input a counted quantity'}
-                                                        required={true}
-                                                        style={{display: 'inline-block', width: '25%'}}
-                                                        groupName={name}
-                                                        listName={'adjustment_lines'}
-                                                    />
-                                                </ColForm>
-                                                <RemoveLineButton
-                                                    remove={remove}
-                                                    listName={'adjustment_lines'}
-                                                    name={name}
-                                                />
-                                            </RowForm>
-                                        ))}
-                                        <AddLineButton add={add} label={'Add a component'}/>
-                                    </>
-                                )}
-                            </Form.List>
+                            <FormLineParent
+                                columns={['Product', 'Measurement', 'Quantity On Hand', 'Quantity Counted']}
+                                listName={'transfer_lines'}
+                            >
+                                <FormItemLineId name={'id'}/>
+                                <FormItemSelect
+                                    placeholder={'Product'}
+                                    name={'product_id'}
+                                    message={'Please select a product'}
+                                    required={true}
+                                    optionAggregate={productLineOptions}
+                                />
+                                <FormItemSelect
+                                    placeholder={'Measurement'}
+                                    name={'measurement_id'}
+                                    message={'Please select a measurement'}
+                                    required={true}
+                                    optionAggregate={measurementLineOptions}
+                                />
+                                <FormItemNumber
+                                    placeholder={'Quantity on hand'}
+                                    name={'quantity_on_hand'}
+                                    message={'Please input a quantity on hand'}
+                                    required={true}
+                                />
+                                <FormItemNumber
+                                    placeholder={'Quantity counted'}
+                                    name={'quantity_counted'}
+                                    message={'Please input a counted quantity'}
+                                    required={true}
+                                />
+                            </FormLineParent>
+
                         </ColForm>
                     </RowForm>
                 </FormCard>
