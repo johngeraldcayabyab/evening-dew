@@ -23,6 +23,7 @@ import LineColumn from "../../Components/FormLines/LineColumn";
 import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import useOptionLineHook from "../../Hooks/useOptionLineHook";
+import FormLineTest from "../../Components/FormLines/FormLineTest";
 
 const {TabPane} = Tabs;
 
@@ -142,63 +143,47 @@ const MaterialForm = () => {
                         </ColForm>
                     </RowForm>
 
-
                     <Tabs defaultActiveKey="1">
                         <TabPane tab="Components" key="1">
-                            <LineColumn
-                                columns={['Product', 'Quantity', 'Measurement']}
-                            />
                             <RowForm>
                                 <ColForm lg={24}>
+                                    <LineColumn
+                                        columns={['Product', 'Quantity', 'Measurement']}
+                                    />
                                     <Form.List name="material_lines">
                                         {(fields, {add, remove}) => (
                                             <>
                                                 {fields.map(({key, name, ...restField}) => (
                                                     <RowForm key={key}>
-                                                        <ColForm lg={23}>
+                                                        <FormLineTest
+                                                            restField={restField}
+                                                            groupName={name}
+                                                            listName={'material_lines'}
+                                                        >
                                                             <FormItemNumber
-                                                                {...restField}
                                                                 name={'id'}
-                                                                style={{display: 'hidden', position: 'absolute'}}
-                                                                groupName={name}
-                                                                listName={'material_lines'}
                                                             />
-
                                                             <FormItemSelect
-                                                                {...restField}
                                                                 placeholder={'Product'}
                                                                 name={'product_id'}
                                                                 message={'Please select a product'}
                                                                 required={true}
-                                                                style={{display: 'inline-block', width: '33.33%'}}
-                                                                groupName={name}
-                                                                listName={'material_lines'}
-                                                                {...productLineOptions.aggregate(productLineOptions, restField.fieldKey)}
+                                                                optionAggregate={productLineOptions}
                                                             />
-
                                                             <FormItemNumber
-                                                                {...restField}
                                                                 placeholder={'Quantity'}
                                                                 name={'quantity'}
                                                                 message={'Please input a quantity'}
                                                                 required={true}
-                                                                style={{display: 'inline-block', width: '33.33%'}}
-                                                                groupName={name}
-                                                                listName={'material_lines'}
                                                             />
-
                                                             <FormItemSelect
-                                                                {...restField}
                                                                 placeholder={'Measurement'}
                                                                 name={'measurement_id'}
                                                                 message={'Please select a measurement'}
                                                                 required={true}
-                                                                style={{display: 'inline-block', width: '33.33%'}}
-                                                                groupName={name}
-                                                                listName={'material_lines'}
-                                                                {...measurementLineOptions.aggregate(measurementLineOptions, restField.fieldKey)}
+                                                                optionAggregate={measurementLineOptions}
                                                             />
-                                                        </ColForm>
+                                                        </FormLineTest>
                                                         <RemoveLineButton
                                                             remove={remove}
                                                             listName={'material_lines'}
