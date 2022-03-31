@@ -74,8 +74,10 @@ const useOptionLineHook = (url, query) => {
                 }
             }
         },
-        addSelf: (key) => {
-            optionActions.getOptions(null, key);
+        addSelf: (key, formState, lineName) => {
+            if (formState.initialValues.hasOwnProperty(lineName) && !formState.initialValues[lineName][key]) {
+                optionActions.getOptions(null, key);
+            }
         },
         removeSelf: (key) => {
             const options = state.options;
@@ -88,13 +90,13 @@ const useOptionLineHook = (url, query) => {
                 optionsLoading: optionsLoading,
             }));
         },
-        aggregate: (lineOptions, fieldKey) => {
+        aggregate: (lineOptions, fieldKey, formState, lineName) => {
             fieldKey = parseInt(fieldKey);
             return {
                 options: lineOptions.options[fieldKey],
                 onSearch: (search) => (lineOptions.onSearch(search, fieldKey)),
                 onClear: () => lineOptions.onClear(fieldKey),
-                addSelf: () => lineOptions.addSelf(fieldKey),
+                addSelf: () => lineOptions.addSelf(fieldKey, formState, lineName),
                 removeSelf: () => lineOptions.removeSelf(fieldKey),
             }
         },
