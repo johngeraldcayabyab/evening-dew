@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\ComputeProductQuantityEvent;
 use App\Models\Product;
 use App\Models\StockMovement;
 use Illuminate\Bus\Queueable;
@@ -17,7 +18,9 @@ class ComputeProductQuantity implements ShouldQueue
     public function handle()
     {
         $product = new Product();
-        $productIds = $product->get(['id'])->pluck('id');
-        info($productIds);
+        $products = $product->where('product_type', Product::STORABLE)->get();
+        foreach ($products as $product) {
+            ComputeProductQuantityEvent::dispatch($product);
+        }
     }
 }

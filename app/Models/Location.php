@@ -48,4 +48,36 @@ class Location extends Model implements Sluggable
     {
         return 'parent.name';
     }
+
+    public static function isVendor($location)
+    {
+        if ($location->type === Location::VENDOR) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function isInternal($location)
+    {
+        if ($location->type === Location::INTERNAL) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function isCustomer($location)
+    {
+        if ($location->type === Location::CUSTOMER) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function isInventoryLoss($location)
+    {
+        if ($location->type === Location::INVENTORY_LOSS) {
+            return true;
+        }
+        return false;
+    }
 }
