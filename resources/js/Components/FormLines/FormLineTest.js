@@ -11,16 +11,14 @@ const FormLineTest = (props) => {
         <ColForm lg={23}>
             {React.Children.map(props.children, child => {
                 if (React.isValidElement(child)) {
-                    let style = {display: 'inline-block', width: `${width}%`};
-                    if (child.props.name === 'id') {
-                        style = {display: 'none', position: 'absolute', top: '-9999%'};
-                    }
                     let childProps = {
                         ...props,
                         listName: listName,
-                        style: style,
                         ...restGroup
                     };
+                    if (child.props.name !== 'id') {
+                        childProps.style = {display: 'inline-block', width: `${width}%`};
+                    }
                     if (child.props.optionAggregate) {
                         childProps = {
                             ...childProps,

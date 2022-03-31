@@ -21,6 +21,7 @@ import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
+import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 
 const {TabPane} = Tabs;
 
@@ -148,7 +149,7 @@ const MaterialForm = () => {
                                         columns={['Product', 'Quantity', 'Measurement']}
                                         listName={'material_lines'}
                                     >
-                                        <FormItemNumber
+                                        <FormItemLineId
                                             name={'id'}
                                         />
                                         <FormItemSelect
