@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\ComputeProductQuantity;
 use App\Jobs\ValidateAllDraftTransfersJob;
 use App\Models\GlobalSetting;
 use Illuminate\Console\Scheduling\Schedule;
@@ -17,6 +18,7 @@ class Kernel extends ConsoleKernel
             if (GlobalSetting::latestFirst()->inventory_auto_validate_draft) {
                 ValidateAllDraftTransfersJob::dispatch();
             }
+            ComputeProductQuantity::dispatch();
         })->everyMinute();
     }
 
