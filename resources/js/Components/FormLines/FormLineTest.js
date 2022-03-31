@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useContext} from "react";
 import ColForm from "../Grid/ColForm";
+import {FormContext} from "../../Contexts/FormContext";
 
 const FormLineTest = (props) => {
+    const formContext = useContext(FormContext);
     const listName = props.listName;
     const restGroup = {...props.restField, groupName: props.groupName};
     const width = 100 / (props.children.length - 1);
@@ -22,7 +24,7 @@ const FormLineTest = (props) => {
                     if (child.props.optionAggregate) {
                         childProps = {
                             ...childProps,
-                            ...child.props.optionAggregate.aggregate(child.props.optionAggregate, restGroup.fieldKey),
+                            ...child.props.optionAggregate.aggregate(child.props.optionAggregate, restGroup.fieldKey, formContext.formState, listName),
                         };
                     }
                     const cloneChild = React.cloneElement(child, childProps);
