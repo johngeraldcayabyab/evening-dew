@@ -19,14 +19,12 @@ import FormItemStatus from "../../Components/FormItem/FormItemStatus";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import useFetchHook from "../../Hooks/useFetchHook";
 import {FormContextProvider} from "../../Contexts/FormContext";
-import AddLineButton from "../../Components/FormLines/AddLineButton";
-import RemoveLineButton from "../../Components/FormLines/RemoveLineButton";
-import LineColumn from "../../Components/FormLines/LineColumn";
 import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
+import FormLineParent from "../../Components/FormLines/FormLineParent";
 
 const {TabPane} = Tabs;
 
@@ -218,76 +216,39 @@ const TransferForm = () => {
 
                     <Tabs defaultActiveKey="1">
                         <TabPane tab="Operations" key="1">
-                            <LineColumn
-                                columns={['Product', 'Description', 'Demand', 'Measurement']}
-                            />
-
                             <RowForm>
                                 <ColForm lg={24}>
-                                    <Form.List name="transfer_lines">
-                                        {(fields, {add, remove}) => (
-                                            <>
-                                                {fields.map(({key, name, ...restField}) => (
-                                                    <RowForm key={key}>
-                                                        <ColForm lg={23}>
-                                                            <FormItemLineId
-                                                                {...restField}
-                                                                name={'id'}
-                                                                groupName={name}
-                                                                listName={'transfer_lines'}
-                                                            />
-                                                            <FormItemSelect
-                                                                {...restField}
-                                                                placeholder={'Product'}
-                                                                name={'product_id'}
-                                                                message={'Please select a product'}
-                                                                required={true}
-                                                                style={{display: 'inline-block', width: '25%'}}
-                                                                groupName={name}
-                                                                listName={'transfer_lines'}
-                                                                {...productLineOptions.aggregate(productLineOptions, restField.fieldKey)}
-                                                            />
-                                                            <FormItemText
-                                                                {...restField}
-                                                                placeholder={'Description'}
-                                                                name={'description'}
-                                                                style={{display: 'inline-block', width: '25%'}}
-                                                                groupName={name}
-                                                                listName={'transfer_lines'}
-                                                            />
-                                                            <FormItemNumber
-                                                                {...restField}
-                                                                placeholder={'Demand'}
-                                                                name={'demand'}
-                                                                message={'Please input a demand'}
-                                                                required={true}
-                                                                style={{display: 'inline-block', width: '25%'}}
-                                                                groupName={name}
-                                                                listName={'transfer_lines'}
-                                                            />
-                                                            <FormItemSelect
-                                                                {...restField}
-                                                                placeholder={'Measurement'}
-                                                                name={'measurement_id'}
-                                                                message={'Please select a measurement'}
-                                                                required={true}
-                                                                style={{display: 'inline-block', width: '25%'}}
-                                                                groupName={name}
-                                                                listName={'transfer_lines'}
-                                                                {...measurementLineOptions.aggregate(measurementLineOptions, restField.fieldKey)}
-                                                            />
-                                                        </ColForm>
-                                                        <RemoveLineButton
-                                                            remove={remove}
-                                                            listName={'transfer_lines'}
-                                                            name={name}
-                                                        />
-                                                    </RowForm>
-                                                ))}
-                                                <AddLineButton add={add} label={'Add a product'}/>
-                                            </>
-                                        )}
-                                    </Form.List>
+                                    <FormLineParent
+                                        columns={['Product', 'Description', 'Demand', 'Measurement']}
+                                        listName={'transfer_lines'}
+                                    >
+                                        <FormItemLineId name={'id'}/>
+                                        <FormItemSelect
+                                            placeholder={'Product'}
+                                            name={'product_id'}
+                                            message={'Please select a product'}
+                                            required={true}
+                                            optionAggregate={productLineOptions}
+                                        />
+                                        <FormItemText
+                                            placeholder={'Description'}
+                                            name={'description'}
+                                        />
+                                        <FormItemNumber
+                                            placeholder={'Demand'}
+                                            name={'demand'}
+                                            message={'Please input a demand'}
+                                            required={true}
+                                        />
+                                        <FormItemSelect
+                                            placeholder={'Measurement'}
+                                            name={'measurement_id'}
+                                            message={'Please select a measurement'}
+                                            required={true}
+                                            optionAggregate={measurementLineOptions}
+                                        />
+                                    </FormLineParent>
+
                                 </ColForm>
                             </RowForm>
                         </TabPane>

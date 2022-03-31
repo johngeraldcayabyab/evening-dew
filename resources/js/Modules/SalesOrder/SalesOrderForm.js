@@ -290,9 +290,7 @@ const SalesOrderForm = () => {
                                         columns={['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Subtotal']}
                                         listName={'sales_order_lines'}
                                     >
-                                        <FormItemLineId
-                                            name={'id'}
-                                        />
+                                        <FormItemLineId name={'id'}/>
                                         <FormItemSelect
                                             placeholder={'Product'}
                                             name={'product_id'}
