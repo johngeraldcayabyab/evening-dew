@@ -75,7 +75,11 @@ const useOptionLineHook = (url, query) => {
             }
         },
         addSelf: (key, formState, lineName) => {
-            if (!formState.initialLoad && !formState.initialValues[lineName][key]) {
+            if (formState.id) {
+                if (!formState.initialLoad && !formState.initialValues[lineName][key]) {
+                    optionActions.getOptions(null, key);
+                }
+            } else {
                 optionActions.getOptions(null, key);
             }
         },
