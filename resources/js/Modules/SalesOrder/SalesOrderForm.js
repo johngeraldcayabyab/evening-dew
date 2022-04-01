@@ -250,9 +250,7 @@ const SalesOrderForm = () => {
                                 dropdownRender={(menu) => (
                                     <CustomDropdownMenu
                                         menu={menu}
-                                        onChange={customerOptions.onChange}
-                                        onCreate={customerOptions.onCreate}
-                                        value={customerOptions.value}
+                                        {...customerOptions}
                                     />
                                 )}
                                 {...customerOptions}
@@ -306,6 +304,12 @@ const SalesOrderForm = () => {
                                             message={'Please select a product'}
                                             required={true}
                                             optionAggregate={productLineOptions}
+                                            dropdownRender={(menu) => (
+                                                <CustomDropdownMenu
+                                                    menu={menu}
+                                                    {...productLineOptions}
+                                                />
+                                            )}
                                         />
                                         <FormItemText
                                             placeholder={'Description'}
