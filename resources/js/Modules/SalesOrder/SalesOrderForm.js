@@ -247,13 +247,8 @@ const SalesOrderForm = () => {
                                 name={'customer_id'}
                                 message={'Please select a customer'}
                                 required={true}
-                                dropdownRender={(menu) => (
-                                    <CustomDropdownMenu
-                                        menu={menu}
-                                        {...customerOptions}
-                                    />
-                                )}
                                 {...customerOptions}
+                                dropdownRender={customerOptions}
                             />
                             <FormItemSelect
                                 label={'Invoice address'}

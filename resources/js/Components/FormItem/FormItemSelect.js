@@ -3,6 +3,7 @@ import {useContext, useEffect} from "react";
 import CustomInputSkeleton from "../CustomInputSkeleton";
 import {formItemFieldProps} from "../../Helpers/form";
 import {FormContext} from "../../Contexts/FormContext";
+import CustomDropdownMenu from "../CustomDropdownMenu";
 
 const FormItemSelect = (props) => {
     const formContext = useContext(FormContext);
@@ -13,11 +14,27 @@ const FormItemSelect = (props) => {
         optionFilterProp: "children",
         filterOption: [],
         onClear: props.onClear,
-        dropdownRender: props.dropdownRender,
     };
 
-    if (props.listName) {
-        // specialFieldProps.dropdownRender =
+    if (props.dropdownRender) {
+        specialFieldProps.dropdownRender = (menu) => {
+            if (!props.listName) {
+                return (
+                    <CustomDropdownMenu
+                        menu={menu}
+                        {...props.dropdownRender}
+                    />
+                )
+            }
+            if(props.listName){
+                // console.log(props.optionAggregate);
+                // return (
+                //     <CustomDropdownMenu
+                //         menu={menu}
+                //     />
+                // )
+            }
+        }
     }
 
     const [formItemProps, fieldProps] = formItemFieldProps(props, specialFieldProps);
