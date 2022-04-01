@@ -278,6 +278,10 @@ const SalesOrderForm = () => {
                                 label={'Quotation Date'}
                                 name={'quotation_date'}
                             />
+                            <FormItemText
+                                label={'Source document'}
+                                name={'source_document'}
+                            />
                         </ColForm>
                     </RowForm>
 
@@ -426,10 +430,6 @@ const SalesOrderForm = () => {
                                     <Divider orientation={'left'}>
                                         Tracking
                                     </Divider>
-                                    <FormItemText
-                                        label={'Source document'}
-                                        name={'source_document'}
-                                    />
                                 </ColForm>
                             </RowForm>
 
