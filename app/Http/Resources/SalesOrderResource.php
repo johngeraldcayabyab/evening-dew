@@ -17,6 +17,7 @@ class SalesOrderResource extends JsonResource
             'customer_id' => $this->customer_id,
             'invoice_address_id' => $this->invoice_address_id,
             'delivery_address_id' => $this->delivery_address_id,
+            'phone' => $this->phone,
             'expiration_date' => $this->expiration_date,
             'quotation_date' => $this->quotation_date,
             'payment_term_id' => $this->payment_term_id,

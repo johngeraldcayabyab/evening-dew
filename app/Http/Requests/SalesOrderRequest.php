@@ -17,6 +17,7 @@ class SalesOrderRequest extends FormRequest
             'customer_id' => ['required', "exists:contacts,id"],
             'invoice_address_id' => ['required', "exists:addresses,id"],
             'delivery_address_id' => ['required', "exists:addresses,id"],
+            'phone' => ['nullable'],
             'expiration_date' => ['nullable'],
             'quotation_date' => ['required'],
             'payment_term_id' => ['nullable', "exists:payment_terms,id"],

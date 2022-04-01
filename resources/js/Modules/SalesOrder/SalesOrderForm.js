@@ -98,6 +98,7 @@ const SalesOrderForm = () => {
                 invoiceAddressOptions.getOptions({id: invoiceAddress.id});
                 deliveryAddressOptions.getOptions({id: deliveryAddress.id});
                 form.setFieldsValue({
+                    phone: 1231231231,
                     invoice_address_id: invoiceAddress.id,
                     delivery_address_id: deliveryAddress.id
                 });
@@ -262,6 +263,10 @@ const SalesOrderForm = () => {
                                 message={'Please select a delivery address'}
                                 required={true}
                                 {...deliveryAddressOptions}
+                            />
+                            <FormItemText
+                                label={'Phone'}
+                                name={'phone'}
                             />
                         </ColForm>
                         <ColForm>
