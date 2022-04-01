@@ -266,19 +266,12 @@ const SalesOrderForm = () => {
                         </ColForm>
                         <ColForm>
                             <FormItemDate
-                                label={'Expiration Date'}
-                                name={'expiration_date'}
+                                label={'Expected delivery date'}
+                                name={'expected_delivery_date'}
                             />
-
                             <FormItemDate
                                 label={'Quotation Date'}
                                 name={'quotation_date'}
-                            />
-
-                            <FormItemSelect
-                                label={'Payment Term'}
-                                name={'payment_term_id'}
-                                {...paymentTermOptions}
                             />
                         </ColForm>
                     </RowForm>
@@ -423,10 +416,6 @@ const SalesOrderForm = () => {
                                             },
                                         ]}
                                     />
-                                    <FormItemDate
-                                        label={'Expected delivery date'}
-                                        name={'expected_delivery_date'}
-                                    />
                                 </ColForm>
                                 <ColForm>
                                     <Divider orientation={'left'}>
@@ -435,6 +424,21 @@ const SalesOrderForm = () => {
                                     <FormItemText
                                         label={'Source document'}
                                         name={'source_document'}
+                                    />
+                                </ColForm>
+                            </RowForm>
+
+                            <RowForm>
+                                <ColForm>
+                                    <FormItemDate
+                                        label={'Expiration Date'}
+                                        name={'expiration_date'}
+                                    />
+
+                                    <FormItemSelect
+                                        label={'Payment Term'}
+                                        name={'payment_term_id'}
+                                        {...paymentTermOptions}
                                     />
                                 </ColForm>
                             </RowForm>
