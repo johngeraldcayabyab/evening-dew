@@ -1,9 +1,10 @@
 import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
-import SalesOrderList from "./SalesOrderList";
-import SalesOrderForm from "./SalesOrderForm";
 import {uuidv4} from "../../Helpers/string";
+
+const SalesOrderList = React.lazy(() => import('./SalesOrderList'));
+const SalesOrderForm = React.lazy(() => import('./SalesOrderForm'));
 
 const SalesOrderRoute = () => {
     const moduleName = manifest.moduleName;

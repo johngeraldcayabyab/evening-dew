@@ -1,9 +1,10 @@
 import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
-import OperationTypeList from "./OperationTypeList";
-import OperationTypeForm from "./OperationTypeForm";
 import {uuidv4} from "../../Helpers/string";
+
+const OperationTypeList = React.lazy(() => import('./OperationTypeList'));
+const OperationTypeForm = React.lazy(() => import('./OperationTypeForm'));
 
 const OperationTypeRoute = () => {
     const moduleName = manifest.moduleName;

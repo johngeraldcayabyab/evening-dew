@@ -1,6 +1,8 @@
 import {Route, Switch} from "react-router-dom";
-import Login from "./Login";
 import {uuidv4} from "../../Helpers/string";
+import React from "react";
+
+const Login = React.lazy(() => import('./Login'));
 
 const LoginRoute = () => {
     return (

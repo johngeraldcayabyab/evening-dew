@@ -1,9 +1,10 @@
 import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
-import ContactList from "./ContactList";
-import ContactForm from "./ContactForm";
 import {uuidv4} from "../../Helpers/string";
+
+const ContactList = React.lazy(() => import('./ContactList'));
+const ContactForm = React.lazy(() => import('./ContactForm'));
 
 const ContactRoute = () => {
     const moduleName = manifest.moduleName;

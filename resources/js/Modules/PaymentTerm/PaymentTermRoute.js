@@ -1,9 +1,10 @@
 import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
-import PaymentTermList from "./PaymentTermList";
-import PaymentTermForm from "./PaymentTermForm";
 import {uuidv4} from "../../Helpers/string";
+
+const PaymentTermList = React.lazy(() => import('./PaymentTermList'));
+const PaymentTermForm = React.lazy(() => import('./PaymentTermForm'));
 
 const PaymentTermRoute = () => {
     const moduleName = manifest.moduleName;
