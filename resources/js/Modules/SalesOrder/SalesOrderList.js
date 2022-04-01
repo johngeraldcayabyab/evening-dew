@@ -62,6 +62,13 @@ const SalesOrderList = () => {
                     }
                 },
                 {
+                    title: 'Source Document',
+                    dataIndex: 'source_document',
+                    key: 'source_document',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
                     title: 'Created At',
                     dataIndex: 'created_at',
                     key: 'created_at',
