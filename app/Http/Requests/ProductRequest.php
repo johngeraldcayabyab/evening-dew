@@ -13,14 +13,14 @@ class ProductRequest extends FormRequest
         $invoicingPolicies = implode_types(Product::getInvoicingPolicies());
         return [
             'name' => 'required',
-            'product_type' => ['required', "in:$productTypes"],
-            'invoicing_policy' => ['required', "in:$invoicingPolicies"],
-            'sales_price' => 'required',
-            'cost' => 'required',
-            'measurement_id' => ['required', "exists:measurements,id"],
-            'purchase_measurement_id' => ['required', "exists:measurements,id"],
-            'sales_measurement_id' => ['required', "exists:measurements,id"],
-            'product_category_id' => ['required', "exists:product_categories,id"],
+            'product_type' => ['nullable', "in:$productTypes"], //required in front end
+            'invoicing_policy' => ['nullable', "in:$invoicingPolicies"], //required in front end
+            'sales_price' => 'nullable', //required in front end
+            'cost' => 'nullable', //required in front end
+            'measurement_id' => ['nullable', "exists:measurements,id"], //required in front end
+            'purchase_measurement_id' => ['nullable', "exists:measurements,id"], //required in front end
+            'sales_measurement_id' => ['nullable', "exists:measurements,id"], //required in front end
+            'product_category_id' => ['nullable', "exists:product_categories,id"], //required in front end
             'internal_reference' => 'nullable',
             'avatar' => 'nullable',
             'sales_description' => 'nullable',

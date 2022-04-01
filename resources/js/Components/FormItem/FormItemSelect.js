@@ -6,7 +6,7 @@ import {FormContext} from "../../Contexts/FormContext";
 
 const FormItemSelect = (props) => {
     const formContext = useContext(FormContext);
-    const [formItemProps, fieldProps] = formItemFieldProps(props, {
+    const specialFieldProps = {
         allowClear: true,
         showSearch: true,
         onSearch: props.onSearch,
@@ -14,7 +14,13 @@ const FormItemSelect = (props) => {
         filterOption: [],
         onClear: props.onClear,
         dropdownRender: props.dropdownRender,
-    });
+    };
+
+    if (props.listName) {
+        // specialFieldProps.dropdownRender =
+    }
+
+    const [formItemProps, fieldProps] = formItemFieldProps(props, specialFieldProps);
 
     useEffect(() => {
         if (props.listName) {
