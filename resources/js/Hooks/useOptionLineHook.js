@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {GET} from "../consts";
+import {GET, POST} from "../consts";
 import useFetchHook from "./useFetchHook";
 import useFetchCatcherHook from "./useFetchCatcherHook";
 import {objectHasValue} from "../Helpers/object";
@@ -8,9 +8,14 @@ const useOptionLineHook = (url, query) => {
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
+        values: {},
         options: {},
         optionsLoading: {},
     });
+
+    function getField() {
+        return query.split('.').slice(-1)[0];
+    }
 
     const optionActions = {
         getOptions: (search = null, key) => {
@@ -43,6 +48,29 @@ const useOptionLineHook = (url, query) => {
                     options: options,
                     optionsLoading: optionsLoading,
                 }));
+            }).catch((responseErr) => {
+                fetchCatcher.get(responseErr);
+            });
+        },
+        onChange: (event, key) => {
+            const values = state.values;
+            values[key] = event.target.value;
+            setState((prevState) => ({
+                ...prevState,
+                values: values
+            }));
+        },
+        onCreate: (key) => {
+            const values = state.values;
+            const params = {};
+            params[getField()] = values[key];
+            useFetch(`${url}`, POST, params).then((response) => {
+                values[key] = null;
+                setState(prevState => ({
+                    ...prevState,
+                    values: values
+                }));
+                optionActions.getOptions(null, key);
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
             });
@@ -98,7 +126,10 @@ const useOptionLineHook = (url, query) => {
             fieldKey = parseInt(fieldKey);
             return {
                 options: lineOptions.options[fieldKey],
-                onSearch: (search) => (lineOptions.onSearch(search, fieldKey)),
+                optionsLoading: lineOptions.optionsLoading[fieldKey],
+                onChange: (event) => lineOptions.onChange(event, fieldKey),
+                onCreate: () => lineOptions.onCreate(fieldKey),
+                onSearch: (search) => lineOptions.onSearch(search, fieldKey),
                 onClear: () => lineOptions.onClear(fieldKey),
                 addSelf: () => lineOptions.addSelf(fieldKey, formState, lineName),
                 removeSelf: () => lineOptions.removeSelf(fieldKey),
