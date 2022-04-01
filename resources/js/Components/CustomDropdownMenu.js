@@ -2,6 +2,7 @@ import {Divider, Input, Space, Typography} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
 
 const CustomDropdownMenu = (props) => {
+    console.log(props);
     return (
         <>
             {props.menu}

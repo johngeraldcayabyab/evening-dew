@@ -304,12 +304,6 @@ const SalesOrderForm = () => {
                                             message={'Please select a product'}
                                             required={true}
                                             optionAggregate={productLineOptions}
-                                            dropdownRender={(menu) => (
-                                                <CustomDropdownMenu
-                                                    menu={menu}
-                                                    {...productLineOptions}
-                                                />
-                                            )}
                                         />
                                         <FormItemText
                                             placeholder={'Description'}
