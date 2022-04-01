@@ -8,12 +8,12 @@ class ProductObserver
 {
     public function creating(Product $product)
     {
-        $this->setDefaults($product);
+//        $this->setDefaults($product);
     }
 
     public function updating(Product $product)
     {
-        $this->setDefaults($product);
+//        $this->setDefaults($product);
     }
 
     public function setDefaults($model)
