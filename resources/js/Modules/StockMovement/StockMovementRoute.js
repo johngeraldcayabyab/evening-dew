@@ -1,9 +1,10 @@
 import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
-import StockMovementList from "./StockMovementList";
-import StockMovementForm from "./StockMovementForm";
 import {uuidv4} from "../../Helpers/string";
+
+const StockMovementList = React.lazy(() => import('./StockMovementList'));
+const StockMovementForm = React.lazy(() => import('./StockMovementForm'));
 
 const StockMovementRoute = () => {
     const moduleName = manifest.moduleName;

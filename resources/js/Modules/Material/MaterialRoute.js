@@ -1,9 +1,10 @@
 import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
-import MaterialList from "./MaterialList";
-import MaterialForm from "./MaterialForm";
 import {uuidv4} from "../../Helpers/string";
+
+const MaterialList = React.lazy(() => import('./MaterialList'));
+const MaterialForm = React.lazy(() => import('./MaterialForm'));
 
 const MaterialRoute = () => {
     const moduleName = manifest.moduleName;

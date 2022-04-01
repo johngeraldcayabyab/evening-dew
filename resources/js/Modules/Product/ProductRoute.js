@@ -1,9 +1,10 @@
 import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
-import ProductForm from "./ProductForm";
-import ProductList from "./ProductList";
 import {uuidv4} from "../../Helpers/string";
+
+const ProductList = React.lazy(() => import('./ProductList'));
+const ProductForm = React.lazy(() => import('./ProductForm'));
 
 const ProductRoute = () => {
     const moduleName = manifest.moduleName;

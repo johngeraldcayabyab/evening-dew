@@ -1,9 +1,10 @@
 import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
-import TransferList from "./TransferList";
-import TransferForm from "./TransferForm";
 import {uuidv4} from "../../Helpers/string";
+
+const TransferList = React.lazy(() => import('./TransferList'));
+const TransferForm = React.lazy(() => import('./TransferForm'));
 
 const TransferRoute = () => {
     const moduleName = manifest.moduleName;

@@ -1,9 +1,10 @@
 import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
-import CurrencyList from "./CurrencyList";
-import CurrencyForm from "./CurrencyForm";
 import {uuidv4} from "../../Helpers/string";
+
+const CurrencyList = React.lazy(() => import('./CurrencyList'));
+const CurrencyForm = React.lazy(() => import('./CurrencyForm'));
 
 const CurrencyRoute = () => {
     const moduleName = manifest.moduleName;

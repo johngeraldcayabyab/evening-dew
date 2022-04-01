@@ -1,9 +1,10 @@
 import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
-import MeasurementCategoryList from "./MeasurementCategoryList";
-import MeasurementCategoryForm from "./MeasurementCategoryForm";
 import {uuidv4} from "../../Helpers/string";
+
+const MeasurementCategoryList = React.lazy(() => import('./MeasurementCategoryList'));
+const MeasurementCategoryForm = React.lazy(() => import('./MeasurementCategoryForm'));
 
 const MeasurementCategoryRoute = () => {
     const moduleName = manifest.moduleName;

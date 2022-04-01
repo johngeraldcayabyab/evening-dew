@@ -1,9 +1,10 @@
 import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
-import MenuList from "./MenuList";
-import MenuForm from "./MenuForm";
 import {uuidv4} from "../../Helpers/string";
+
+const MenuList = React.lazy(() => import('./MenuList'));
+const MenuForm = React.lazy(() => import('./MenuForm'));
 
 const MenuRoute = () => {
     const moduleName = manifest.moduleName;
