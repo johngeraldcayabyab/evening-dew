@@ -4,6 +4,7 @@ import React, {useState, Suspense} from 'react';
 import {render} from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import {getCookie} from "./Helpers/cookie";
+import {Spin} from "antd";
 
 const AppContainerWithContent = React.lazy(() => import('./Components/AppContainterWithContent'));
 
@@ -41,7 +42,7 @@ const App = () => {
         });
 
         return (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Spin/>}>
                 <BrowserRouter>
                     <AppContextProvider value={{appState: appState, setAppState: setAppState}}>
                         <AppContainerWithContent>

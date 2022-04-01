@@ -28,6 +28,7 @@ import useOptionHook from "../../Hooks/useOptionHook";
 import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
+import CustomDropdownMenu from "../../Components/CustomDropdownMenu";
 
 const {TabPane} = Tabs;
 
@@ -246,6 +247,14 @@ const SalesOrderForm = () => {
                                 name={'customer_id'}
                                 message={'Please select a customer'}
                                 required={true}
+                                dropdownRender={(menu) => (
+                                    <CustomDropdownMenu
+                                        menu={menu}
+                                        onChange={customerOptions.onChange}
+                                        onCreate={customerOptions.onCreate}
+                                        value={customerOptions.value}
+                                    />
+                                )}
                                 {...customerOptions}
                             />
                             <FormItemSelect

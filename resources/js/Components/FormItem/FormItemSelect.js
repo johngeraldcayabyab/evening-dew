@@ -13,6 +13,7 @@ const FormItemSelect = (props) => {
         optionFilterProp: "children",
         filterOption: [],
         onClear: props.onClear,
+        dropdownRender: props.dropdownRender,
     });
 
     useEffect(() => {
