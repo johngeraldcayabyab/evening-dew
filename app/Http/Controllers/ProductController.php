@@ -52,6 +52,6 @@ class ProductController
 
     public function initial_values()
     {
-        Product::defaults();
+        return Product::defaults();
     }
 }
