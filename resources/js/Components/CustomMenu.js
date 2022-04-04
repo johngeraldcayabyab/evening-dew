@@ -13,6 +13,7 @@ import {setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import {getAppMenu, setAppMenu} from "../Helpers/app_menu";
 import {objectHasValue} from "../Helpers/object";
+import MenuLink from "./MenuLink";
 
 const {SubMenu} = Menu;
 
@@ -132,12 +133,8 @@ const CustomMenu = () => {
                         className={'top-nav-avatar'}
                         key={'menu-profile-sub-menu'}
                     >
-                        <Menu.Item key="menu-profile">
-                            <a href="#">Profile</a>
-                        </Menu.Item>
-                        <Menu.Item key="menu-activity-logs">
-                            <a href="#">Activity Logs</a>
-                        </Menu.Item>
+                        <MenuLink key={'menu-profile'} label={'Profile'}/>
+                        <MenuLink key={'menu-activity-logs'} label={'Activity Logs'}/>
                         <Menu.Divider/>
                         <Menu.Item key="menu-logout" onClick={() => {
                             useFetch('/api/logout', POST).then((response) => {
