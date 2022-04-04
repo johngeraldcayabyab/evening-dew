@@ -3,7 +3,7 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-const GlobalSettingForm = React.lazy(() => import('./GlobalSettingForm'));
+import GlobalSettingForm from './GlobalSettingForm';
 
 const GlobalSettingRoute = () => {
     const moduleName = manifest.moduleName;

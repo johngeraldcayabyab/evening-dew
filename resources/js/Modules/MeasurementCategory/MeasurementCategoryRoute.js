@@ -3,8 +3,8 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-const MeasurementCategoryList = React.lazy(() => import('./MeasurementCategoryList'));
-const MeasurementCategoryForm = React.lazy(() => import('./MeasurementCategoryForm'));
+import MeasurementCategoryList from './MeasurementCategoryList';
+import MeasurementCategoryForm from './MeasurementCategoryForm';
 
 const MeasurementCategoryRoute = () => {
     const moduleName = manifest.moduleName;

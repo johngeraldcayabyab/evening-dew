@@ -2,8 +2,8 @@ import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
 
-const AddressList = React.lazy(() => import('./AddressList'));
-const AddressForm = React.lazy(() => import('./AddressForm'));
+import AddressList from './AddressList';
+import AddressForm from './AddressForm';
 
 const AddressRoute = () => {
     const moduleName = manifest.moduleName;

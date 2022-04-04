@@ -3,8 +3,8 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-const ProductCategoryList = React.lazy(() => import('./ProductCategoryList'));
-const ProductCategoryForm = React.lazy(() => import('./ProductCategoryForm'));
+import ProductCategoryList from './ProductCategoryList';
+import ProductCategoryForm from './ProductCategoryForm';
 
 const ProductCategoryRoute = () => {
     const moduleName = manifest.moduleName;

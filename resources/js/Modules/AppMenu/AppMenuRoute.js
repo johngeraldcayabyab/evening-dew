@@ -3,8 +3,8 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-const AppMenuList = React.lazy(() => import('./AppMenuList'));
-const AppMenuForm = React.lazy(() => import('./AppMenuForm'));
+import AppMenuList from './AppMenuList';
+import AppMenuForm from './AppMenuForm';
 
 const AppMenuRoute = () => {
     const moduleName = manifest.moduleName;

@@ -3,8 +3,8 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-const OperationTypeList = React.lazy(() => import('./OperationTypeList'));
-const OperationTypeForm = React.lazy(() => import('./OperationTypeForm'));
+import OperationTypeList from './OperationTypeList';
+import OperationTypeForm from './OperationTypeForm';
 
 const OperationTypeRoute = () => {
     const moduleName = manifest.moduleName;
