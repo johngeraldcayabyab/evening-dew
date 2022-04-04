@@ -41,37 +41,35 @@ const App = () => {
         });
 
         return (
-            <Suspense fallback={<Spin/>}>
-                <BrowserRouter>
-                    <AppContextProvider value={{appState: appState, setAppState: setAppState}}>
-                        <AppContainerWithContent>
-                            <AddressRoute/>
-                            <AdjustmentRoute/>
-                            <AppMenuRoute/>
-                            <ContactRoute/>
-                            <CountryRoute/>
-                            <CurrencyRoute/>
-                            <GlobalSettingRoute/>
-                            <LocationRoute/>
-                            <LoginRoute/>
-                            <MaterialRoute/>
-                            <MeasurementCategoryRoute/>
-                            <MeasurementRoute/>
-                            <MenuRoute/>
-                            <OperationTypeRoute/>
-                            <PaymentTermRoute/>
-                            <ProductRoute/>
-                            <ProductCategoryRoute/>
-                            <SalesOrderRoute/>
-                            <SequenceRoute/>
-                            <StockMovementRoute/>
-                            <TransferRoute/>
-                            <UserRoute/>
-                            <WarehouseRoute/>
-                        </AppContainerWithContent>
-                    </AppContextProvider>
-                </BrowserRouter>
-            </Suspense>
+            <BrowserRouter>
+                <AppContextProvider value={{appState: appState, setAppState: setAppState}}>
+                    <AppContainerWithContent>
+                        <AddressRoute/>
+                        <AdjustmentRoute/>
+                        <AppMenuRoute/>
+                        <ContactRoute/>
+                        <CountryRoute/>
+                        <CurrencyRoute/>
+                        <GlobalSettingRoute/>
+                        <LocationRoute/>
+                        <LoginRoute/>
+                        <MaterialRoute/>
+                        <MeasurementCategoryRoute/>
+                        <MeasurementRoute/>
+                        <MenuRoute/>
+                        <OperationTypeRoute/>
+                        <PaymentTermRoute/>
+                        <ProductRoute/>
+                        <ProductCategoryRoute/>
+                        <SalesOrderRoute/>
+                        <SequenceRoute/>
+                        <StockMovementRoute/>
+                        <TransferRoute/>
+                        <UserRoute/>
+                        <WarehouseRoute/>
+                    </AppContainerWithContent>
+                </AppContextProvider>
+            </BrowserRouter>
         )
     }
 ;
