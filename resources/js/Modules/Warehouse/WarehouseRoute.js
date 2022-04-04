@@ -3,8 +3,8 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-const WarehouseList = React.lazy(() => import('./WarehouseList'));
-const WarehouseForm = React.lazy(() => import('./WarehouseForm'));
+import WarehouseList from './WarehouseList';
+import WarehouseForm from './WarehouseForm';
 
 const WarehouseRoute = () => {
     const moduleName = manifest.moduleName;

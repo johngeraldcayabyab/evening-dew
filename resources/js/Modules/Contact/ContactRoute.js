@@ -3,8 +3,8 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-const ContactList = React.lazy(() => import('./ContactList'));
-const ContactForm = React.lazy(() => import('./ContactForm'));
+import ContactList from './ContactList';
+import ContactForm from './ContactForm';
 
 const ContactRoute = () => {
     const moduleName = manifest.moduleName;

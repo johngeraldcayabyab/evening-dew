@@ -3,8 +3,8 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-const AdjustmentList = React.lazy(() => import('./AdjustmentList'));
-const AdjustmentForm = React.lazy(() => import('./AdjustmentForm'));
+import AdjustmentList from './AdjustmentList';
+import AdjustmentForm from './AdjustmentForm';
 
 const AdjustmentRoute = () => {
     const moduleName = manifest.moduleName;

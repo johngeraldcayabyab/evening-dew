@@ -3,8 +3,8 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-const StockMovementList = React.lazy(() => import('./StockMovementList'));
-const StockMovementForm = React.lazy(() => import('./StockMovementForm'));
+import StockMovementList from './StockMovementList';
+import StockMovementForm from './StockMovementForm';
 
 const StockMovementRoute = () => {
     const moduleName = manifest.moduleName;

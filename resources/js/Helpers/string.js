@@ -1,3 +1,5 @@
+import {CREATE, LIST, UPDATE} from "../consts";
+
 export const uuidv4 = () => {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
         let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -23,5 +25,16 @@ export const replaceUnderscoreWithSpace = (string) => {
     return string;
 };
 
+export const listKey = (name) => {
+    return `${name}-${LIST}`;
+};
+
+export const createKey = (name) => {
+    return `${name}-${CREATE}`;
+};
+
+export const updateKey = (name) => {
+    return `${name}-${UPDATE}`;
+};
 
 export const snakeToCamel = s => s.replace(/(_\w)/g, k => k[1].toUpperCase());

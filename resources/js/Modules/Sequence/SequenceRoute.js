@@ -3,8 +3,8 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-const SequenceList = React.lazy(() => import('./SequenceList'));
-const SequenceForm = React.lazy(() => import('./SequenceForm'));
+import SequenceList from './SequenceList';
+import SequenceForm from './SequenceForm';
 
 const SequenceRoute = () => {
     const moduleName = manifest.moduleName;

@@ -3,8 +3,8 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-const LocationList = React.lazy(() => import('./LocationList'));
-const LocationForm = React.lazy(() => import('./LocationForm'));
+import LocationList from './LocationList';
+import LocationForm from './LocationForm';
 
 const LocationRoute = () => {
     const moduleName = manifest.moduleName;

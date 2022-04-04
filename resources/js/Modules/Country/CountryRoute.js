@@ -3,8 +3,8 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-const CountryList = React.lazy(() => import('./CountryList'));
-const CountryForm = React.lazy(() => import('./CountryForm'));
+import CountryList from './CountryList';
+import CountryForm from './CountryForm';
 
 const CountryRoute = () => {
     const moduleName = manifest.moduleName;
