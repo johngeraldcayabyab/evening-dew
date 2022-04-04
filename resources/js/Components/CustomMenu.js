@@ -100,26 +100,49 @@ const CustomMenu = () => {
         }
     }
 
+    function onLogout() {
+        useFetch('/api/logout', POST).then((response) => {
+            eraseCookie('Authorization');
+            appContext.setAppState((prevState) => ({
+                ...prevState,
+                isLogin: false,
+            }));
+            setBreadcrumbs([]);
+            setAppMenu({});
+            setClickedBreadcrumb({});
+            history.push('/login');
+            message.success('Logged Out!');
+        }).catch((responseErr) => {
+            fetchCatcher.get(responseErr);
+        });
+    }
+
     if (appContext.appState.isLogin) {
         return (
             <Header
-                style={{position: 'fixed', zIndex: 1, width: '100%', padding: 0, height: '50px', lineHeight: '50px'}}>
+                style={{
+                    position: 'fixed',
+                    zIndex: 1,
+                    width: '100%',
+                    padding: 0,
+                    height: '50px',
+                    lineHeight: '50px'
+                }}
+            >
                 <Menu theme={'dark'} mode={'horizontal'} onClick={handleClick}>
                     <SubMenu key="app-menu" icon={<AppstoreOutlined/>} title={''}>
-                        {state.appMenu.map((menu) => {
-                            return (
-                                <Menu.Item key={`parent-${menu.id}`}>
-                                    {
-                                        menu.menu ?
-                                            <Link to={menu.menu.url} onClick={() => {
-                                                resetBreadcrumbs(menu.menu.url);
-                                                setAppMenu(menu);
-                                            }}>{menu.label}</Link>
-                                            : menu.label
+                        {state.appMenu.map((menu) =>
+                            <MenuLink
+                                key={`parent-${menu.id}`}
+                                to={menu.menu ? menu.menu.url : null}
+                                onClick={() => {
+                                    if (menu.menu) {
+                                        resetBreadcrumbs(menu.menu.url);
+                                        setAppMenu(menu);
                                     }
-                                </Menu.Item>
-                            );
-                        })}
+                                }} label={menu.label}
+                            />
+                        )}
                     </SubMenu>
 
                     {makeMenu(state.appMenuChildren)}
@@ -136,22 +159,7 @@ const CustomMenu = () => {
                         <MenuLink key={'menu-profile'} label={'Profile'}/>
                         <MenuLink key={'menu-activity-logs'} label={'Activity Logs'}/>
                         <Menu.Divider/>
-                        <Menu.Item key="menu-logout" onClick={() => {
-                            useFetch('/api/logout', POST).then((response) => {
-                                eraseCookie('Authorization');
-                                appContext.setAppState((prevState) => ({
-                                    ...prevState,
-                                    isLogin: false,
-                                }));
-                                setBreadcrumbs([]);
-                                setAppMenu({});
-                                setClickedBreadcrumb({});
-                                history.push('/login');
-                                message.success('Logged Out!');
-                            }).catch((responseErr) => {
-                                fetchCatcher.get(responseErr);
-                            });
-                        }}>Log out</Menu.Item>
+                        <MenuLink key={'menu-logout'} onClick={() => onLogout()} label={'Logout'}/>
                     </Menu.SubMenu>
                 </Menu>
             </Header>
