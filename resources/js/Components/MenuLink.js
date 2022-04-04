@@ -1,12 +1,13 @@
 import {Menu} from "antd";
 import React from "react";
+import {Link} from "react-router-dom";
 
-const MenuItemLink = (props) => {
+const MenuLink = (props) => {
     return (
         <Menu.Item key={props.key}>
-            <a href={props.href}>{props.label}</a>
+            <Link to={props.to}>{props.label}</Link>
         </Menu.Item>
     )
 };
 
-export default MenuItemLink;
+export default MenuLink;
