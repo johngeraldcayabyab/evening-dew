@@ -4,8 +4,21 @@ mix.options({
     legacyNodePolyfills: false
 });
 
-mix.disableNotifications();
+mix.sass('resources/sass/App.scss', 'public/css');
 
 mix.js('resources/js/App.js', 'public/js')
-    .react();
-// .sass('resources/sass/App.scss', 'public/css');
+    .react()
+    .extract([
+        'react',
+        'react-router',
+        'react-dom',
+        'react-router-dom',
+        'moment',
+        'antd',
+        '@ant-design/icons'
+    ]);
+
+if (mix.inProduction()) {
+    mix.version();
+    mix.disableNotifications();
+}

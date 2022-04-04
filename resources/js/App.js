@@ -1,4 +1,4 @@
-import '../css/App.scss';
+// import '../css/App.scss';
 
 import React, {useState, Suspense} from 'react';
 import {render} from 'react-dom';

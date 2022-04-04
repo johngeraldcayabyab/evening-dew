@@ -4,13 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Evening Dew</title>
+    <link rel="stylesheet" href="{{mix('/css/App.css')}}">
 </head>
 <body>
 
 <div id="root" style="height: 100%;">
 </div>
 
-<script src="{{ asset('/js/App.js') }}"></script>
+<script src="{{ mix('/js/manifest.js') }}"></script>
+<script src="{{ mix('/js/vendor.js') }}"></script>
+<script src="{{ mix('/js/App.js') }}"></script>
 
 </body>
 </html>
