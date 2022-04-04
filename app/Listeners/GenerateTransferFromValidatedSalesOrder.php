@@ -51,17 +51,22 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
         $transferLinesDataUpdate = [];
         $salesOrderLines = $salesOrder->salesOrderLines;
         foreach ($salesOrderLines as $salesOrderLine) {
-
             if ($salesOrderLine->salesOrderTransferLine()->exists()) {
-
+                $transferLinesDataUpdate[] = [
+                    'id' => $salesOrderLine->salesOrderTransferLine->transfer_line_id,
+                    'product_id' => $salesOrderLine->product_id,
+                    'description' => $salesOrderLine->description,
+                    'demand' => $salesOrderLine->quantity,
+                    'measurement_id' => $salesOrderLine->measurement_id,
+                ];
+            } else {
+                $transferLinesDataCreate[] = [
+                    'product_id' => $salesOrderLine->product_id,
+                    'description' => $salesOrderLine->description,
+                    'demand' => $salesOrderLine->quantity,
+                    'measurement_id' => $salesOrderLine->measurement_id,
+                ];
             }
-
-            $transferLinesDataCreate[] = [
-                'product_id' => $salesOrderLine->product_id,
-                'description' => $salesOrderLine->description,
-                'demand' => $salesOrderLine->quantity,
-                'measurement_id' => $salesOrderLine->measurement_id,
-            ];
         }
         if (count($transferLinesDataCreate)) {
             TransferLine::insertMany($transferLinesDataCreate, $transfer->id);
