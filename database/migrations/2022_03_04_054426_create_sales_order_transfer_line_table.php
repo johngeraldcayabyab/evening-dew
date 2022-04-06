@@ -13,7 +13,8 @@ class CreateSalesOrderTransferLineTable extends Migration
             $table->bigInteger('sales_order_id')->nullable();
             $table->bigInteger('transfer_id')->nullable();
             $table->bigInteger('sales_order_line_id')->nullable();
-            $table->string('transfer_line_id')->nullable();
+            $table->bigInteger('transfer_line_id')->nullable();
+            $table->bigInteger('sales_order_transfer_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
