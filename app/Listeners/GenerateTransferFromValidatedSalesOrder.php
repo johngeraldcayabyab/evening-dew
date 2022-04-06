@@ -22,7 +22,7 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
             $operationType = OperationType::where('warehouse_id', $inventoryDefaultWarehouse->id)->where('type', OperationType::DELIVERY)->first(); //By default, it gets the latest operation type created
             if ($operationType) {
                 $transfer = $this->createTransferAndLines($salesOrder, $operationType);
-                SalesOrderTransfer::create([
+                $salesOrderTransfer = SalesOrderTransfer::create([
                     'sales_order_id' => $salesOrder->id,
                     'transfer_id' => $transfer->id
                 ]);
@@ -41,7 +41,6 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
         $transfer->source_document = $salesOrder->number;
         $transfer->status = Transfer::DRAFT;
         $transfer->save();
-        $this->createTransferLines($transfer, $salesOrder);
         return $transfer;
     }
 
