@@ -13,7 +13,6 @@ import {setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import {getAppMenu, setAppMenu} from "../Helpers/app_menu";
 import {objectHasValue} from "../Helpers/object";
-import MenuLink from "./MenuLink";
 
 const {SubMenu} = Menu;
 
