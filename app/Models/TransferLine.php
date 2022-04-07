@@ -38,26 +38,6 @@ class TransferLine extends Model
         return $this->belongsTo(Transfer::class);
     }
 
-    public function scopeInsertMany($query, $data, $transferId)
-    {
-        $lines = [];
-        $date = now();
-        foreach ($data as $datum) {
-            $line = [
-                'product_id' => $datum['product_id'],
-                'description' => isset($datum['description']) ? $datum['description'] : null,
-                'demand' => $datum['demand'],
-                'measurement_id' => $datum['measurement_id'],
-                'transfer_id' => $transferId,
-                'created_at' => $date,
-                'updated_at' => $date,
-            ];
-            $lines[] = $line;
-        }
-        $query->insert($lines);
-        return $query;
-    }
-
     public function scopeUpdateOrCreateMany($query, $data, $transferId)
     {
         $lines = [];
