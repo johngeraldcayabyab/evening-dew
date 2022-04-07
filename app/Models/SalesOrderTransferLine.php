@@ -43,26 +43,6 @@ class SalesOrderTransferLine extends Model
         return $this->belongsTo(TransferLine::class);
     }
 
-    public function scopeInsertMany($query, $data, $salesOrderTransferId)
-    {
-        $lines = [];
-        $date = now();
-        foreach ($data as $datum) {
-            $line = [
-                'sales_order_id' => $datum['sales_order_id'],
-                'transfer_id' => $datum['transfer_id'],
-                'sales_order_line_id' => $datum['sales_order_line_id'],
-                'transfer_line_id' => $datum['transfer_line_id'],
-                'sales_order_transfer_id' => $salesOrderTransferId,
-                'created_at' => $date,
-                'updated_at' => $date,
-            ];
-            $lines[] = $line;
-        }
-        $query->insert($lines);
-        return $query;
-    }
-
     public function scopeUpdateOrCreateMany($query, $data, $salesOrderTransferId)
     {
         $lines = [];
@@ -75,7 +55,7 @@ class SalesOrderTransferLine extends Model
                 'sales_order_line_id' => $datum['sales_order_line_id'],
                 'transfer_line_id' => $datum['transfer_line_id'],
                 'sales_order_transfer_id' => $salesOrderTransferId,
-                'updated_at' => $date,
+//                'updated_at' => $date,
             ];
             if (isset($datum['id'])) {
                 $line['created_at'] = $date;
