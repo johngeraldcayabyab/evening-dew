@@ -38,6 +38,11 @@ class TransferLine extends Model
         return $this->belongsTo(Transfer::class);
     }
 
+    public function salesOrderTransferLine()
+    {
+        return $this->hasOne(SalesOrderTransferLine::class);
+    }
+
     public function scopeUpdateOrCreateMany($query, $data, $transferId)
     {
         $lines = [];

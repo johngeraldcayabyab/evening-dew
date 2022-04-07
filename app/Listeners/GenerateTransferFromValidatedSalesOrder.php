@@ -32,8 +32,8 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
         }
         $salesOrderTransfer = $salesOrder->salesOrderTransfer;
         $transferLinesData = [];
-        $transfer = null;
         $newSalesOrderLine = [];
+        $transfer = null;
         foreach ($salesOrderLines as $salesOrderLine) {
             if ($salesOrderLine->salesOrderTransferLine()->exists()) {
                 $transfer = $salesOrderLine->salesOrderTransferLine->transfer;
