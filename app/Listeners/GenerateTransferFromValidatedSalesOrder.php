@@ -17,47 +17,50 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
     public function handle(SalesOrderValidatedEvent $event)
     {
         $salesOrder = $event->salesOrder;
-        $operationType = $this->getOperationType();
-        if ($operationType) {
-            $salesOrderLines = $salesOrder->salesOrderLines;
-            if (!$salesOrder->salesOrderTransfer()->exists()) {
-                if (count($salesOrderLines)) {
-                    $transfer = $this->createTransferAndLines($operationType, $salesOrder);
-                    $salesOrderTransfer = $this->createSalesOrderTransfer($salesOrder, $transfer);
-                    $this->createSalesOrderTransferLines($salesOrderTransfer, $salesOrder, $transfer, $salesOrderLines);
-                    return;
-                }
+        $operationType = $this->getOperationTypeDelivery();
+        if (!$operationType) {
+            return;
+        }
+        $salesOrderLines = $salesOrder->salesOrderLines;
+        if (!$salesOrder->salesOrderTransfer()->exists()) {
+            if (count($salesOrderLines)) {
+                $transfer = $this->createTransferAndLines($operationType, $salesOrder);
+                $salesOrderTransfer = $this->createSalesOrderTransfer($salesOrder, $transfer);
+                $this->createSalesOrderTransferLines($salesOrderTransfer, $salesOrder, $transfer, $salesOrderLines);
                 return;
             }
+            return;
+        }
 
 
-            $salesOrderTransferLineData = [];
-            $transferLinesData = [];
-            $transferId = null;
+        $salesOrderTransferLineData = [];
+        $transferLinesData = [];
+        $transferId = null;
 
-            foreach ($salesOrderLines as $salesOrderLine) {
-                if ($salesOrderLine->salesOrderTransferLine()->exists()) {
-                    $transferLine = $salesOrderLine->salesOrderTransferLine->transferLine;
-                    $transferLine->description = $salesOrderLine->description;
-                    $transferLine->demand = $salesOrderLine->quantity;
-                    $transferLine->measurement_id = $salesOrderLine->measurement_id;
-                    $transferLine = $transferLine->toArray();
-                    unset($transferLine['updated_at']);
-                    $transferLinesData[] = $transferLine;
-                } else {
-                    $transferLinesData[] = [
-                        'product_id' => $salesOrderLine->product_id,
-                        'description' => $salesOrderLine->description,
-                        'demand' => $salesOrderLine->quantity,
-                        'measurement_id' => $salesOrderLine->measurement_id,
-                        'created_at' => $salesOrderLine->created_at,
-                    ];
-                }
+        foreach ($salesOrderLines as $salesOrderLine) {
+            if ($salesOrderLine->salesOrderTransferLine()->exists()) {
+                $transferId = $salesOrderLine->salesOrderTransferLine->transfer->id;
+                $transferLine = $salesOrderLine->salesOrderTransferLine->transferLine;
+                $transferLine->description = $salesOrderLine->description;
+                $transferLine->demand = $salesOrderLine->quantity;
+                $transferLine->measurement_id = $salesOrderLine->measurement_id;
+                $transferLine = $transferLine->toArray();
+                unset($transferLine['updated_at']);
+                $transferLinesData[] = $transferLine;
+            } else {
+                $transferLinesData[] = [
+                    'product_id' => $salesOrderLine->product_id,
+                    'description' => $salesOrderLine->description,
+                    'demand' => $salesOrderLine->quantity,
+                    'measurement_id' => $salesOrderLine->measurement_id,
+                    'created_at' => $salesOrderLine->created_at,
+                ];
             }
+        }
 
-            if (count($transferLinesData)) {
-                TransferLine::updateOrCreateMany($transferLinesDataCreate, $transfer->id);
-            }
+        if (count($transferLinesData)) {
+            TransferLine::updateOrCreateMany($transferLinesData, $transferId);
+        }
 
 
 //            $transferLineData = [];
@@ -102,10 +105,9 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
 //                ]);
 //            }
 //            $this->createSalesOrderTransferLines($salesOrderTransfer, $salesOrder->salesOrderLines, $transfer->transferLines);
-        }
     }
 
-    private function getOperationType()
+    private function getOperationTypeDelivery()
     {
         $inventoryDefaultWarehouse = GlobalSetting::latestFirst()->inventoryDefaultWarehouse;
         if (!$inventoryDefaultWarehouse) {
