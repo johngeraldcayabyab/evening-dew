@@ -93,6 +93,7 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
         $salesOrderTransfer = new SalesOrderTransfer();
         $salesOrderTransfer->sales_order_id = $salesOrder->id;
         $salesOrderTransfer->transfer_id = $transfer->id;
+        $salesOrderTransfer->save();
         return $salesOrderTransfer;
     }
 
