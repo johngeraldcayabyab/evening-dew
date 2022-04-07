@@ -21,25 +21,43 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
         if ($operationType) {
             $salesOrderLines = $salesOrder->salesOrderLines;
             if (!$salesOrder->salesOrderTransfer()->exists()) {
-                $transfer = $this->createTransferAndLines($operationType, $salesOrder);
-                $salesOrderTransfer = $this->createSalesOrderTransfer($salesOrder, $transfer);
-                $this->createSalesOrderTransferLines($salesOrderTransfer, $salesOrder, $transfer, $salesOrderLines);
+                if (count($salesOrderLines)) {
+                    $transfer = $this->createTransferAndLines($operationType, $salesOrder);
+                    $salesOrderTransfer = $this->createSalesOrderTransfer($salesOrder, $transfer);
+                    $this->createSalesOrderTransferLines($salesOrderTransfer, $salesOrder, $transfer, $salesOrderLines);
+                    return;
+                }
                 return;
             }
 
 
-//            $salesOrderTransferLineData = [];
+            $salesOrderTransferLineData = [];
             $transferLinesData = [];
+            $transferId = null;
 
-//            foreach ($salesOrderLines as $salesOrderLine) {
-//
-//                if($salesOrderLine->salesOrderTransferLine()->){
-//
-//                }
-//
-//
-//
-//            }
+            foreach ($salesOrderLines as $salesOrderLine) {
+                if ($salesOrderLine->salesOrderTransferLine()->exists()) {
+                    $transferLine = $salesOrderLine->salesOrderTransferLine->transferLine;
+                    $transferLine->description = $salesOrderLine->description;
+                    $transferLine->demand = $salesOrderLine->quantity;
+                    $transferLine->measurement_id = $salesOrderLine->measurement_id;
+                    $transferLine = $transferLine->toArray();
+                    unset($transferLine['updated_at']);
+                    $transferLinesData[] = $transferLine;
+                } else {
+                    $transferLinesData[] = [
+                        'product_id' => $salesOrderLine->product_id,
+                        'description' => $salesOrderLine->description,
+                        'demand' => $salesOrderLine->quantity,
+                        'measurement_id' => $salesOrderLine->measurement_id,
+                        'created_at' => $salesOrderLine->created_at,
+                    ];
+                }
+            }
+
+            if (count($transferLinesData)) {
+                TransferLine::updateOrCreateMany($transferLinesDataCreate, $transfer->id);
+            }
 
 
 //            $transferLineData = [];
