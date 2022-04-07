@@ -19,13 +19,15 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
         $salesOrder = $event->salesOrder;
         $operationType = $this->getOperationType();
         if ($operationType) {
+            $salesOrderLines = $salesOrder->salesOrderLines;
             if (!$salesOrder->salesOrderTransfer()->exists()) {
                 $transfer = $this->createTransferAndLines($operationType, $salesOrder);
                 $salesOrderTransfer = $this->createSalesOrderTransfer($salesOrder, $transfer);
+                $this->createSalesOrderTransferLines($salesOrderTransfer, $salesOrder, $transfer, $salesOrderLines);
                 return;
             }
 
-            $salesOrderLines = $salesOrder->salesOrderLines;
+
 //            $salesOrderTransferLineData = [];
             $transferLinesData = [];
 
@@ -133,6 +135,7 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
                 'description' => $salesOrderLine->description,
                 'demand' => $salesOrderLine->quantity,
                 'measurement_id' => $salesOrderLine->measurement_id,
+                'created_at' => $salesOrderLine->created_at,
             ];
         }
         if (count($transferLinesDataCreate)) {
@@ -140,42 +143,29 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
         }
     }
 
-    private function createSalesOrderTransferLines($salesOrderTransfer, $salesOrderLines, $transferLines)
+    private function createSalesOrderTransferLines
+    (
+        $salesOrderTransfer,
+        $salesOrder,
+        $transfer,
+        $salesOrderLines
+    )
     {
         $lines = [];
         foreach ($salesOrderLines as $salesOrderLine) {
-
+            $transferLine = TransferLine::where('transfer_id', $transfer->id)
+                ->where('product_id', $salesOrderLine->product_id)
+                ->where('measurement_id', $salesOrderLine->measurement_id)
+                ->where('created_at', $salesOrderLine->created_at)
+                ->first();
+            $lines[] = [
+                'sales_order_id' => $salesOrder->id,
+                'transfer_id' => $transfer->id,
+                'sales_order_line_id' => $salesOrderLine->id,
+                'transfer_line_id' => $transferLine->id,
+                'sales_order_transfer_id' => $salesOrderTransfer->id,
+            ];
         }
+        SalesOrderTransferLine::updateOrCreateMany($lines);
     }
-
-//    private function createSalesOrderTransferLines($salesOrderTransfer, $salesOrderLines, $transferLines)
-//    {
-//        $lines = [];
-//        foreach ($salesOrderLines as $salesOrderLine) {
-//
-//        }
-//
-////        foreach ($salesOrderLines as $salesOrderLine) {
-////            foreach ($transferLines as $transferLine) {
-////                if ($salesOrderLine->product_id !== $transferLine->product_id) {
-////                    continue;
-////                }
-////                if ($salesOrderLine->description !== $transferLine->description) {
-////                    continue;
-////                }
-////                if ($salesOrderLine->quantity !== $transferLine->demand) {
-////                    continue;
-////                }
-////                if ($salesOrderLine->measurement_id !== $transferLine->measurement_id) {
-////                    continue;
-////                }
-////                $salesOrderTransferLine = new SalesOrderTransferLine();
-////                $salesOrderTransferLine->sales_order_id = $salesOrderLine->sales_order_id;
-////                $salesOrderTransferLine->transfer_id = $transferLine->transfer_id;
-////                $salesOrderTransferLine->sales_order_line_id = $salesOrderLine->id;
-////                $salesOrderTransferLine->transfer_line_id = $transferLine->id;
-////                $salesOrderTransferLine->save();
-////            }
-////        }
-//    }
 }
