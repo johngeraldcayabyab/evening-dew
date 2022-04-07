@@ -33,12 +33,11 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
         }
         $salesOrderTransfer = $salesOrder->salesOrderTransfer;
         $transferLinesData = [];
-        $transferId = null;
+        $transfer = null;
         $newSalesOrderLine = [];
-
         foreach ($salesOrderLines as $salesOrderLine) {
             if ($salesOrderLine->salesOrderTransferLine()->exists()) {
-                $transferId = $salesOrderLine->salesOrderTransferLine->transfer->id;
+                $transfer = $salesOrderLine->salesOrderTransferLine->transfer;
                 $transferLine = $salesOrderLine->salesOrderTransferLine->transferLine;
                 $transferLine->description = $salesOrderLine->description;
                 $transferLine->demand = $salesOrderLine->quantity;
@@ -58,26 +57,8 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
             }
         }
         if (count($transferLinesData)) {
-            TransferLine::updateOrCreateMany($transferLinesData, $transferId);
-        }
-
-        $salesOrderTransferLinesData = [];
-        foreach ($newSalesOrderLine as $salesOrderLine) {
-            $transferLine = TransferLine::where('transfer_id', $transferId)
-                ->where('product_id', $salesOrderLine->product_id)
-                ->where('measurement_id', $salesOrderLine->measurement_id)
-                ->where('created_at', $salesOrderLine->created_at)
-                ->first();
-            $salesOrderTransferLinesData[] = [
-                'sales_order_id' => $salesOrder->id,
-                'transfer_id' => $transferId,
-                'sales_order_line_id' => $salesOrderLine->id,
-                'transfer_line_id' => $transferLine->id,
-                'sales_order_transfer_id' => $salesOrderTransfer->id,
-            ];
-        }
-        if (count($salesOrderTransferLinesData)) {
-            SalesOrderTransferLine::updateOrCreateMany($salesOrderTransferLinesData, $salesOrderTransfer->id);
+            TransferLine::updateOrCreateMany($transferLinesData, $transfer->id);
+            $this->createSalesOrderTransferLines($salesOrderTransfer, $salesOrder, $transfer, $newSalesOrderLine);
         }
     }
 
@@ -160,6 +141,8 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
                 'sales_order_transfer_id' => $salesOrderTransfer->id,
             ];
         }
-        SalesOrderTransferLine::updateOrCreateMany($lines, $salesOrderTransfer->id);
+        if (count($lines)) {
+            SalesOrderTransferLine::updateOrCreateMany($lines, $salesOrderTransfer->id);
+        }
     }
 }
