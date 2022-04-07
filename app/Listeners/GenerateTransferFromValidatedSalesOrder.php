@@ -139,7 +139,7 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
             ];
         }
         if (count($transferLinesDataCreate)) {
-            TransferLine::insertMany($transferLinesDataCreate, $transfer->id);
+            TransferLine::updateOrCreateMany($transferLinesDataCreate, $transfer->id);
         }
     }
 
@@ -166,6 +166,6 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
                 'sales_order_transfer_id' => $salesOrderTransfer->id,
             ];
         }
-        SalesOrderTransferLine::updateOrCreateMany($lines);
+        SalesOrderTransferLine::updateOrCreateMany($lines, $salesOrderTransfer->id);
     }
 }
