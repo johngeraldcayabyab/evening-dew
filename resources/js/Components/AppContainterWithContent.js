@@ -1,8 +1,7 @@
 import AppContainer from "./AppContainer";
 import React from "react";
 import {Content} from "antd/es/layout/layout";
-
-const CustomMenu = React.lazy(() => import('./CustomMenu'));
+import CustomMenu from './CustomMenu';
 
 const AppContainerWithContent = (props) => {
     return (
