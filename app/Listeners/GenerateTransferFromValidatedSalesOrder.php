@@ -19,17 +19,27 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
         $salesOrder = $event->salesOrder;
         $operationType = $this->getOperationType();
         if ($operationType) {
-
             if (!$salesOrder->salesOrderTransfer()->exists()) {
                 $transfer = $this->createTransferAndLines($operationType, $salesOrder);
                 $salesOrderTransfer = $this->createSalesOrderTransfer($salesOrder, $transfer);
+                return;
             }
 
+            $salesOrderLines = $salesOrder->salesOrderLines;
+//            $salesOrderTransferLineData = [];
+            $transferLinesData = [];
 
-//            $salesOrderLines = $salesOrder->salesOrderLines;
+//            foreach ($salesOrderLines as $salesOrderLine) {
+//
+//                if($salesOrderLine->salesOrderTransferLine()->){
+//
+//                }
+//
+//
+//
+//            }
 
 
-            $salesOrderTransferLineData = [];
 //            $transferLineData = [];
 //
 ////            $existingSalesOrderLines = [];
@@ -136,28 +146,36 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
         foreach ($salesOrderLines as $salesOrderLine) {
 
         }
-
-//        foreach ($salesOrderLines as $salesOrderLine) {
-//            foreach ($transferLines as $transferLine) {
-//                if ($salesOrderLine->product_id !== $transferLine->product_id) {
-//                    continue;
-//                }
-//                if ($salesOrderLine->description !== $transferLine->description) {
-//                    continue;
-//                }
-//                if ($salesOrderLine->quantity !== $transferLine->demand) {
-//                    continue;
-//                }
-//                if ($salesOrderLine->measurement_id !== $transferLine->measurement_id) {
-//                    continue;
-//                }
-//                $salesOrderTransferLine = new SalesOrderTransferLine();
-//                $salesOrderTransferLine->sales_order_id = $salesOrderLine->sales_order_id;
-//                $salesOrderTransferLine->transfer_id = $transferLine->transfer_id;
-//                $salesOrderTransferLine->sales_order_line_id = $salesOrderLine->id;
-//                $salesOrderTransferLine->transfer_line_id = $transferLine->id;
-//                $salesOrderTransferLine->save();
-//            }
-//        }
     }
+
+//    private function createSalesOrderTransferLines($salesOrderTransfer, $salesOrderLines, $transferLines)
+//    {
+//        $lines = [];
+//        foreach ($salesOrderLines as $salesOrderLine) {
+//
+//        }
+//
+////        foreach ($salesOrderLines as $salesOrderLine) {
+////            foreach ($transferLines as $transferLine) {
+////                if ($salesOrderLine->product_id !== $transferLine->product_id) {
+////                    continue;
+////                }
+////                if ($salesOrderLine->description !== $transferLine->description) {
+////                    continue;
+////                }
+////                if ($salesOrderLine->quantity !== $transferLine->demand) {
+////                    continue;
+////                }
+////                if ($salesOrderLine->measurement_id !== $transferLine->measurement_id) {
+////                    continue;
+////                }
+////                $salesOrderTransferLine = new SalesOrderTransferLine();
+////                $salesOrderTransferLine->sales_order_id = $salesOrderLine->sales_order_id;
+////                $salesOrderTransferLine->transfer_id = $transferLine->transfer_id;
+////                $salesOrderTransferLine->sales_order_line_id = $salesOrderLine->id;
+////                $salesOrderTransferLine->transfer_line_id = $transferLine->id;
+////                $salesOrderTransferLine->save();
+////            }
+////        }
+//    }
 }
