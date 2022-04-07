@@ -17,14 +17,14 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
     public function handle(SalesOrderValidatedEvent $event)
     {
         $salesOrder = $event->salesOrder;
-        $operationType = $this->getOperationTypeDelivery();
-        if (!$operationType) {
+        $operationTypeDelivery = OperationType::defaultDelivery();
+        if (!$operationTypeDelivery) {
             return;
         }
         $salesOrderLines = $salesOrder->salesOrderLines;
         if (!$salesOrder->salesOrderTransfer()->exists()) {
             if (count($salesOrderLines)) {
-                $transfer = $this->createTransferAndLines($operationType, $salesOrder);
+                $transfer = $this->createTransferAndLines($operationTypeDelivery, $salesOrder);
                 $salesOrderTransfer = $this->createSalesOrderTransfer($salesOrder, $transfer);
                 $this->createSalesOrderTransferLines($salesOrderTransfer, $salesOrder, $transfer, $salesOrderLines);
                 return;
@@ -62,19 +62,6 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
         }
     }
 
-    private function getOperationTypeDelivery()
-    {
-        $inventoryDefaultWarehouse = GlobalSetting::latestFirst()->inventoryDefaultWarehouse;
-        if (!$inventoryDefaultWarehouse) {
-            return false;
-        }
-        $operationType = OperationType::where('warehouse_id', $inventoryDefaultWarehouse->id)->where('type', OperationType::DELIVERY)->first(); //By default, it gets the latest operation type created
-        if (!$operationType) {
-            return false;
-        }
-        return $operationType;
-    }
-
     private function createSalesOrderTransfer($salesOrder, $transfer)
     {
         $salesOrderTransfer = new SalesOrderTransfer();
@@ -83,7 +70,6 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
         $salesOrderTransfer->save();
         return $salesOrderTransfer;
     }
-
 
     private function createTransferAndLines($operationType, $salesOrder)
     {
