@@ -132,16 +132,16 @@ const CustomMenu = () => {
                 <Menu theme={'dark'} mode={'horizontal'} onClick={handleClick}>
                     <SubMenu key="app-menu" icon={<AppstoreOutlined/>} title={''}>
                         {state.appMenu.map((menu) =>
-                            <MenuLink
-                                key={`parent-${menu.id}`}
-                                to={menu.menu ? menu.menu.url : null}
-                                onClick={() => {
-                                    if (menu.menu) {
-                                        resetBreadcrumbs(menu.menu.url);
-                                        setAppMenu(menu);
-                                    }
-                                }} label={menu.label}
-                            />
+                            <Menu.Item key={`parent-${menu.id}`} onClick={() => {
+                                if (menu.menu) {
+                                    resetBreadcrumbs(menu.menu.url);
+                                    setAppMenu(menu);
+                                }
+                            }}>
+                                {menu.menu ?
+                                    <Link to={menu.menu.url}>{menu.label}</Link>
+                                    : menu.label}
+                            </Menu.Item>
                         )}
                     </SubMenu>
 
@@ -156,10 +156,16 @@ const CustomMenu = () => {
                         className={'top-nav-avatar'}
                         key={'menu-profile-sub-menu'}
                     >
-                        <MenuLink key={'menu-profile'} label={'Profile'}/>
-                        <MenuLink key={'menu-activity-logs'} label={'Activity Logs'}/>
+                        <Menu.Item key={`menu-profile`}>
+                            Profile
+                        </Menu.Item>
+                        <Menu.Item key={`menu-activity-logs`}>
+                            Activity Logs
+                        </Menu.Item>
                         <Menu.Divider/>
-                        <MenuLink key={'menu-logout'} onClick={() => onLogout()} label={'Logout'}/>
+                        <Menu.Item key={`menu-logout`} onClick={() => onLogout()}>
+                            Logout
+                        </Menu.Item>
                     </Menu.SubMenu>
                 </Menu>
             </Header>
