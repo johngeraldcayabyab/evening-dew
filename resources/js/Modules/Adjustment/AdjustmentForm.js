@@ -164,7 +164,7 @@ const AdjustmentForm = () => {
                         <ColForm lg={24}>
                             <FormLineParent
                                 columns={['Product', 'Measurement', 'Quantity On Hand', 'Quantity Counted']}
-                                listName={'transfer_lines'}
+                                listName={'adjustment_lines'}
                             >
                                 <FormItemLineId name={'id'}/>
                                 <FormItemSelect

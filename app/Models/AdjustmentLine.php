@@ -43,26 +43,6 @@ class AdjustmentLine extends Model
         return $this->belongsTo(Measurement::class, 'measurement_id');
     }
 
-    public function scopeInsertMany($query, $data, $parentId)
-    {
-        $lines = [];
-        $date = now();
-        foreach ($data as $datum) {
-            $line = [
-                'product_id' => $datum['product_id'],
-                'measurement_id' => $datum['measurement_id'],
-                'quantity_on_hand' => $datum['quantity_on_hand'],
-                'quantity_counted' => $datum['quantity_counted'],
-                'adjustment_id' => $parentId,
-                'created_at' => $date,
-                'updated_at' => $date,
-            ];
-            $lines[] = $line;
-        }
-        $query->insert($lines);
-        return $query;
-    }
-
     public function scopeUpdateOrCreateMany($query, $data, $parentId)
     {
         $lines = [];
@@ -75,10 +55,10 @@ class AdjustmentLine extends Model
                 'quantity_on_hand' => $datum['quantity_on_hand'],
                 'quantity_counted' => $datum['quantity_counted'],
                 'adjustment_id' => $parentId,
-                'updated_at' => $date,
+                'updated_at' => $datum['updated_at'] ?? $date,
             ];
             if (isset($datum['id'])) {
-                $line['created_at'] = $date;
+                $line['created_at'] = $datum['created_at'] ?? $date;
             }
             $lines[] = $line;
         }

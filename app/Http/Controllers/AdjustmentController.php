@@ -38,7 +38,7 @@ class AdjustmentController
         $adjustment = Adjustment::create($adjustmentData);
         if (isset($data['adjustment_lines'])) {
             $adjustmentLinesData = $data['adjustment_lines'];
-            AdjustmentLine::insertMany($adjustmentLinesData, $adjustment->id);
+            AdjustmentLine::updateOrCreateMany($adjustmentLinesData, $adjustment->id);
         }
         if ($adjustment->status === Adjustment::DONE) {
             AdjustmentValidatedEvent::dispatch($adjustment);
