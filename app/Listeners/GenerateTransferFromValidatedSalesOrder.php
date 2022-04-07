@@ -4,7 +4,6 @@ namespace App\Listeners;
 
 use App\Data\SystemSetting;
 use App\Events\SalesOrderValidatedEvent;
-use App\Models\GlobalSetting;
 use App\Models\OperationType;
 use App\Models\SalesOrderTransfer;
 use App\Models\SalesOrderTransferLine;
