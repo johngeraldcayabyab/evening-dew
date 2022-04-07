@@ -31,11 +31,10 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
             }
             return;
         }
-
-
-        $salesOrderTransferLineData = [];
+        $salesOrderTransfer = $salesOrder->salesOrderTransfer;
         $transferLinesData = [];
         $transferId = null;
+        $newSalesOrderLine = [];
 
         foreach ($salesOrderLines as $salesOrderLine) {
             if ($salesOrderLine->salesOrderTransferLine()->exists()) {
@@ -55,56 +54,31 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
                     'measurement_id' => $salesOrderLine->measurement_id,
                     'created_at' => $salesOrderLine->created_at,
                 ];
+                $newSalesOrderLine[] = $salesOrderLine;
             }
         }
-
         if (count($transferLinesData)) {
             TransferLine::updateOrCreateMany($transferLinesData, $transferId);
         }
 
-
-//            $transferLineData = [];
-//
-////            $existingSalesOrderLines = [];
-////            $newSalesOrderLines = [];
-//            $salesOrderTransferLinesData = [];
-
-//
-//            foreach ($salesOrderLines as $salesOrderLine) {
-//                if ($salesOrderLine->salesOrderTransferLine()->exists()) {
-//                    // Since you exists, you dont need to create a new transfer line, you just need to update the transfer line
-////                    $salesOrderTransferLine = $salesOrderLine->salesOrderTransferLine;
-////                    $salesOrderTransferData[] = [
-////                        'id' => $salesOrderTransferLine->id,
-////                        'sales_order_id' => $salesOrderTransferLine->sales_order_id,
-////                        'transfer_id' => $salesOrderTransferLine['transfer_id'],
-////                        'sales_order_line_id' => $datum['sales_order_line_id'],
-////                        'transfer_line_id' => $datum['transfer_line_id'],
-////                    ];
-//                } else {
-//                    // Since you DONT exists, you need to create a new transfer line
-//                    // Create a line first before creating sales order transfer line
-//
-//
-////                    $salesOrderTransferLineData[] = [
-////                        'sales_order_id' => $salesOrderLine->sales_order_id,
-////                        'transfer_id' => $salesOrderLine['transfer_id'],
-////                        'sales_order_line_id' => $datum['sales_order_line_id'],
-////                        'transfer_line_id' => $datum['transfer_line_id'],
-////                    ];
-//                }
-//            }
-
-
-//            $transfer = $this->createTransferAndLines($salesOrder, $operationType);
-//            $salesOrderTransfer = SalesOrderTransfer::where('sales_order_id', $salesOrder->id)->where('transfer_id', $transfer->id)->first();
-//            if (!$salesOrderTransfer) {
-//                $salesOrderTransfer = SalesOrderTransfer::create([
-//                    'sales_order_id' => $salesOrder->id,
-//                    'transfer_id' => $transfer->id
-//                ]);
-//            }
-//            $this->createSalesOrderTransferLines($salesOrderTransfer, $salesOrder->salesOrderLines, $transfer->transferLines);
+        $salesOrderTransferLinesData = [];
+        foreach ($newSalesOrderLine as $salesOrderLine) {
+            $transferLine = TransferLine::where('transfer_id', $transferId)
+                ->where('product_id', $salesOrderLine->product_id)
+                ->where('measurement_id', $salesOrderLine->measurement_id)
+                ->where('created_at', $salesOrderLine->created_at)
+                ->first();
+            $salesOrderTransferLinesData[] = [
+                'sales_order_id' => $salesOrder->id,
+                'transfer_id' => $transferId,
+                'sales_order_line_id' => $salesOrderLine->id,
+                'transfer_line_id' => $transferLine->id,
+                'sales_order_transfer_id' => $salesOrderTransfer->id,
+            ];
+        }
+        if (count($salesOrderTransferLinesData)) {
+            SalesOrderTransferLine::updateOrCreateMany($salesOrderTransferLinesData, $salesOrderTransfer->id);
+        }
     }
 
     private function getOperationTypeDelivery()
