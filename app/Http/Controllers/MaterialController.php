@@ -36,7 +36,7 @@ class MaterialController
         $material = Material::create($materialData);
         if (isset($data['material_lines'])) {
             $materialLinesData = $data['material_lines'];
-            MaterialLine::insertMany($materialLinesData, $material->id);
+            MaterialLine::updateOrCreateMany($materialLinesData, $material->id);
         }
         return response()->json([], STATUS_CREATE, $this->locationHeader($material));
     }

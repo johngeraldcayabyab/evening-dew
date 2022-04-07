@@ -38,25 +38,6 @@ class MaterialLine extends Model
         return $this->belongsTo(Material::class);
     }
 
-    public function scopeInsertMany($query, $data, $parentId)
-    {
-        $lines = [];
-        $date = now();
-        foreach ($data as $datum) {
-            $line = [
-                'product_id' => $datum['product_id'],
-                'quantity' => $datum['quantity'],
-                'measurement_id' => $datum['measurement_id'],
-                'material_id' => $parentId,
-                'created_at' => $date,
-                'updated_at' => $date,
-            ];
-            $lines[] = $line;
-        }
-        $query->insert($lines);
-        return $query;
-    }
-
     public function scopeUpdateOrCreateMany($query, $data, $parentId)
     {
         $lines = [];
@@ -68,10 +49,10 @@ class MaterialLine extends Model
                 'quantity' => $datum['quantity'],
                 'measurement_id' => $datum['measurement_id'],
                 'material_id' => $parentId,
-                'updated_at' => $date,
+                'updated_at' => $datum['updated_at'] ?? $date,
             ];
-            if (isset($datum['id'])) {
-                $line['created_at'] = $date;
+            if (!isset($datum['id'])) {
+                $line['created_at'] = $datum['created_at'] ?? $date;
             }
             $lines[] = $line;
         }
