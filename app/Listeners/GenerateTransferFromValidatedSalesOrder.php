@@ -59,6 +59,19 @@ class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
             TransferLine::updateOrCreateMany($transferLinesData, $transfer->id);
             $this->createSalesOrderTransferLines($salesOrderTransfer, $salesOrder, $transfer, $newSalesOrderLine);
         }
+        $trashedSalesOrderLines = $salesOrder->salesOrderLines()->onlyTrashed()->get();
+        foreach ($trashedSalesOrderLines as $trashedSalesOrderLine) {
+            $salesOrderTransferLine = $trashedSalesOrderLine->salesOrderTransferLine;
+            if (!$salesOrderTransferLine) {
+                continue;
+            }
+            $transferLine = $salesOrderTransferLine->transferLine;
+            if (!$transferLine) {
+                continue;
+            }
+            $salesOrderTransferLine->delete();
+            $transferLine->delete();
+        }
     }
 
     private function createSalesOrderTransfer($salesOrder, $transfer)
