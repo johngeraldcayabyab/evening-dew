@@ -37,7 +37,7 @@ class TransferController
         $transfer = Transfer::create($transferData);
         if (isset($data['transfer_lines'])) {
             $transferLinesData = $data['transfer_lines'];
-            TransferLine::insertMany($transferLinesData, $transfer->id);
+            TransferLine::updateOrCreateMany($transferLinesData, $transfer->id);
         }
         if ($transfer->status === Transfer::DONE) {
             TransferValidatedEvent::dispatch($transfer);
