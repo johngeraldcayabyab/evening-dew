@@ -55,10 +55,10 @@ class SalesOrderTransferLine extends Model
                 'sales_order_line_id' => $datum['sales_order_line_id'],
                 'transfer_line_id' => $datum['transfer_line_id'],
                 'sales_order_transfer_id' => $salesOrderTransferId,
-                'updated_at' => $date,
+                'updated_at' => $datum['updated_at'] ?? $date,
             ];
-            if (isset($datum['id'])) {
-                $line['created_at'] = $date;
+            if (!isset($datum['id'])) {
+                $line['created_at'] = $datum['created_at'] ?? $date;
             }
             $lines[] = $line;
         }

@@ -43,28 +43,6 @@ class SalesOrderLine extends Model
         return $this->hasOne(SalesOrderTransferLine::class);
     }
 
-    public function scopeInsertMany($query, $data, $parentId)
-    {
-        $lines = [];
-        $date = now();
-        foreach ($data as $datum) {
-            $line = [
-                'product_id' => $datum['product_id'],
-                'description' => isset($datum['description']) ? $datum['description'] : null,
-                'quantity' => $datum['quantity'],
-                'measurement_id' => $datum['measurement_id'],
-                'unit_price' => $datum['unit_price'],
-                'subtotal' => $datum['unit_price'] * $datum['quantity'],
-                'sales_order_id' => $parentId,
-                'created_at' => $date,
-                'updated_at' => $date,
-            ];
-            $lines[] = $line;
-        }
-        $query->insert($lines);
-        return $query;
-    }
-
     public function scopeUpdateOrCreateMany($query, $data, $parentId)
     {
         $lines = [];
@@ -79,10 +57,10 @@ class SalesOrderLine extends Model
                 'unit_price' => $datum['unit_price'],
                 'subtotal' => $datum['unit_price'] * $datum['quantity'],
                 'sales_order_id' => $parentId,
-                'updated_at' => $date,
+                'updated_at' => $datum['updated_at'] ?? $date,
             ];
-            if (isset($datum['id'])) {
-                $line['created_at'] = $date;
+            if (!isset($datum['id'])) {
+                $line['created_at'] = $datum['created_at'] ?? $date;
             }
             $lines[] = $line;
         }

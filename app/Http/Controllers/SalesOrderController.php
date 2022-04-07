@@ -40,7 +40,7 @@ class SalesOrderController
         $salesOrder = SalesOrder::create($salesOrderData);
         if (isset($data['sales_order_lines'])) {
             $salesOrderLinesData = $data['sales_order_lines'];
-            SalesOrderLine::insertMany($salesOrderLinesData, $salesOrder->id);
+            SalesOrderLine::updateOrCreateMany($salesOrderLinesData, $salesOrder->id);
         }
         if ($salesOrder->status === SalesOrder::DONE) {
             SalesOrderValidatedEvent::dispatch($salesOrder);
