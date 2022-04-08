@@ -54,7 +54,7 @@ class StockMovement extends Model
                 'updated_at' => $datum['updated_at'] ?? $date,
             ];
             if (!isset($datum['id'])) {
-                $line['created_at'] = $datum['created_at'] ?? $date;
+                $transactionLine['created_at'] = $datum['created_at'] ?? $date;
             }
             $transactionLines[] = $transactionLine;
         }

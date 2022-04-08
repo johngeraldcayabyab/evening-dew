@@ -52,24 +52,21 @@ class GenerateStockMovementFromValidatedTransfer implements ShouldQueue
         }
         if (count($stockMovementData)) {
             StockMovement::updateOrCreateMany($stockMovementData);
-
-
-            $lines = [];
+            $transferLineStockMovementLines = [];
             $transferLines = $transfer->transferLines;
             foreach ($transferLines as $transferLine) {
-                $stockMovement =
+                $stockMovement = StockMovement::where('product_id', $transferLine->product_id)
+                    ->where('created_at', $transferLine->created_at)
+                    ->first();
+                $transferLineStockMovementLines[] = [
+                    'transfer_id' => $transfer->id,
+                    'transfer_line_id' => $transferLine->id,
+                    'stock_movement_id' => $stockMovement->id,
+                ];
             }
-
-
-//            foreach ($transferLine)
         }
-        if (count($lines)) {
-            TransferLineStockMovement::updateOrCreateMany($lines);
+        if (count($transferLineStockMovementLines)) {
+            TransferLineStockMovement::updateOrCreateMany($transferLineStockMovementLines);
         }
-    }
-
-    private function createTransferLineStockMovement()
-    {
-
     }
 }
