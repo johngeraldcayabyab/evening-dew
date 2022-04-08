@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class TransferLine extends Model
+class TransferLineStockMovement extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -19,47 +19,35 @@ class TransferLine extends Model
     use LogsActivity;
     use ModelHelperTrait;
 
-    protected $table = 'transfer_lines';
+    protected $table = 'transfer_lines_stock_movement';
     protected $guarded = [];
     protected static $logAttributes = ['*'];
-
-    public function product()
-    {
-        return $this->belongsTo(Product::class);
-    }
-
-    public function measurement()
-    {
-        return $this->belongsTo(Measurement::class);
-    }
 
     public function transfer()
     {
         return $this->belongsTo(Transfer::class);
     }
 
-    public function salesOrderTransferLine()
+    public function transferLine()
     {
-        return $this->hasOne(SalesOrderTransferLine::class);
+        return $this->belongsTo(TransferLine::class);
     }
 
-    public function transferLineStockMovement()
+    public function stockMovement()
     {
-        return $this->hasOne(TransferLineStockMovement::class);
+        return $this->belongsTo(StockMovement::class);
     }
 
-    public function scopeUpdateOrCreateMany($query, $data, $transferId)
+    public function scopeUpdateOrCreateMany($query, $data)
     {
         $lines = [];
         $date = now();
         foreach ($data as $datum) {
             $line = [
                 'id' => isset($datum['id']) ? $datum['id'] : null,
-                'product_id' => $datum['product_id'],
-                'description' => isset($datum['description']) ? $datum['description'] : null,
-                'demand' => $datum['demand'],
-                'measurement_id' => $datum['measurement_id'],
-                'transfer_id' => $transferId,
+                'transfer_id' => $datum['transfer_id'],
+                'transfer_line_id' => $datum['transfer_line_id'],
+                'stock_movement_id' => $datum['stock_movement_id'],
                 'updated_at' => $datum['updated_at'] ?? $date,
             ];
             if (!isset($datum['id'])) {
