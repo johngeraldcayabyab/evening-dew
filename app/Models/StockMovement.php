@@ -38,6 +38,11 @@ class StockMovement extends Model
         return $this->belongsTo(Location::class, 'destination_location_id', 'id');
     }
 
+    public function transferLineStockMovement()
+    {
+        return $this->hasOne(TransferLineStockMovement::class);
+    }
+
     public function scopeUpdateOrCreateMany($query, $data)
     {
         $transactionLines = [];

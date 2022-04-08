@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MatchStockMovementToTransferLine;
 use App\Http\Requests\StockMovementRequest;
 use App\Http\Resources\StockMovementResource;
 use App\Models\StockMovement;
@@ -34,6 +35,7 @@ class StockMovementController
     public function update(StockMovementRequest $request, StockMovement $stockMovement): JsonResponse
     {
         $stockMovement->update($request->validated());
+        MatchStockMovementToTransferLine::dispatch($stockMovement);
         return response()->json([], STATUS_UPDATE);
     }
 
