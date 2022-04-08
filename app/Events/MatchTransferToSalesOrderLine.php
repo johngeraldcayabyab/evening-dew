@@ -47,6 +47,19 @@ class MatchTransferToSalesOrderLine implements ShouldQueue
                 SalesOrderLine::updateOrCreateMany($salesOrderLineData, $salesOrder->id);
                 $this->createSalesOrderTransferLines($salesOrderTransfer, $salesOrder, $transfer, $newTransferLines);
             }
+            $trashedTransferLines = $transfer->transferLines()->onlyTrashed()->get();
+            foreach ($trashedTransferLines as $trashedTransferLine) {
+                $salesOrderTransferLine = $trashedTransferLine->salesOrderTransferLine;
+                if (!$salesOrderTransferLine) {
+                    continue;
+                }
+                $salesOrderLine = $salesOrderTransferLine->salesOrderLine;
+                if (!$salesOrderLine) {
+                    continue;
+                }
+                $salesOrderTransferLine->delete();
+                $salesOrderLine->delete();
+            }
         }
     }
 
