@@ -72,17 +72,17 @@ class MatchTransferToSalesOrderLine implements ShouldQueue
     )
     {
         $lines = [];
-        foreach ($transferLines as $salesOrderLine) {
+        foreach ($transferLines as $transferLine) {
             $salesOrderLine = SalesOrderLine::where('sales_order_id', $salesOrder->id)
-                ->where('product_id', $salesOrderLine->product_id)
-                ->where('measurement_id', $salesOrderLine->measurement_id)
-                ->where('created_at', $salesOrderLine->created_at)
+                ->where('product_id', $transferLine->product_id)
+                ->where('measurement_id', $transferLine->measurement_id)
+                ->where('created_at', $transferLine->created_at)
                 ->first();
             $lines[] = [
                 'sales_order_id' => $salesOrder->id,
                 'transfer_id' => $transfer->id,
                 'sales_order_line_id' => $salesOrderLine->id,
-                'transfer_line_id' => $salesOrderLine->id,
+                'transfer_line_id' => $transferLine->id,
                 'sales_order_transfer_id' => $salesOrderTransfer->id,
             ];
         }
