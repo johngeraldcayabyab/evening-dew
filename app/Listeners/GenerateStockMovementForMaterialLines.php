@@ -42,7 +42,7 @@ class GenerateStockMovementForMaterialLines implements ShouldQueue
             }
         }
         if (count($stockMovementData)) {
-            StockMovement::insertMany($stockMovementData);
+            StockMovement::updateOrCreateMany($stockMovementData);
         }
     }
 }

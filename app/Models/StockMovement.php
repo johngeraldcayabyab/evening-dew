@@ -38,24 +38,27 @@ class StockMovement extends Model
         return $this->belongsTo(Location::class, 'destination_location_id', 'id');
     }
 
-    public function scopeInsertMany($query, $data)
+    public function scopeUpdateOrCreateMany($query, $data)
     {
         $transactionLines = [];
         $date = now();
         foreach ($data as $datum) {
             $transactionLine = [
+                'id' => isset($datum['id']) ? $datum['id'] : null,
                 'reference' => $datum['reference'],
                 'source' => $datum['source'],
                 'product_id' => $datum['product_id'],
                 'source_location_id' => $datum['source_location_id'],
                 'destination_location_id' => $datum['destination_location_id'],
                 'quantity_done' => $datum['quantity_done'],
-                'created_at' => $date,
-                'updated_at' => $date,
+                'updated_at' => $datum['updated_at'] ?? $date,
             ];
+            if (!isset($datum['id'])) {
+                $line['created_at'] = $datum['created_at'] ?? $date;
+            }
             $transactionLines[] = $transactionLine;
         }
-        $query->insert($transactionLines);
+        $query->upsert($transactionLines, ['id']);
         return $query;
     }
 
