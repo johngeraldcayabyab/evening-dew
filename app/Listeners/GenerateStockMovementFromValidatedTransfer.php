@@ -64,9 +64,9 @@ class GenerateStockMovementFromValidatedTransfer implements ShouldQueue
                     'stock_movement_id' => $stockMovement->id,
                 ];
             }
-        }
-        if (count($transferLineStockMovementLines)) {
-            TransferLineStockMovement::updateOrCreateMany($transferLineStockMovementLines);
+            if (count($transferLineStockMovementLines)) {
+                TransferLineStockMovement::updateOrCreateMany($transferLineStockMovementLines);
+            }
         }
     }
 }
