@@ -16,7 +16,6 @@ class GenerateStockMovementFromValidatedTransfer implements ShouldQueue
         $transfer = $event->transfer;
         $transferLines = $transfer->transferLines;
         $stockMovementData = [];
-        $transferLineStockMovement = [];
         foreach ($transferLines as $transferLine) {
             $product = $transferLine->product;
             $sourceLocationId = $transfer->source_location_id;
@@ -36,6 +35,7 @@ class GenerateStockMovementFromValidatedTransfer implements ShouldQueue
                         'source_location_id' => $sourceLocationId,
                         'destination_location_id' => $destinationLocationId,
                         'quantity_done' => $transferLine->demand,
+                        'created_at' => $transferLine->created_at,
                     ];
                 }
             }
@@ -52,9 +52,24 @@ class GenerateStockMovementFromValidatedTransfer implements ShouldQueue
         }
         if (count($stockMovementData)) {
             StockMovement::updateOrCreateMany($stockMovementData);
+
+
+            $lines = [];
+            $transferLines = $transfer->transferLines;
+            foreach ($transferLines as $transferLine) {
+                $stockMovement =
+            }
+
+
+//            foreach ($transferLine)
         }
-        if (count($transferLineStockMovement)) {
-            TransferLineStockMovement::updateOrCreateMany($transferLineStockMovement);
+        if (count($lines)) {
+            TransferLineStockMovement::updateOrCreateMany($lines);
         }
+    }
+
+    private function createTransferLineStockMovement()
+    {
+
     }
 }
