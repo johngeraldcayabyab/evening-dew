@@ -22,6 +22,7 @@ class ContactRequest extends FormRequest
             'state' => ['nullable'],
             'zip' => ['nullable'],
             'country_id' => ['nullable', "exists:countries,id"],
+            'region_id' => ['nullable', "exists:regions,id"],
         ];
     }
 }

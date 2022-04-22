@@ -18,6 +18,7 @@ class AddressRequest extends FormRequest
             'state' => ['nullable'],
             'zip' => ['nullable'],
             'country_id' => ['nullable', "exists:countries,id"],
+            'region_id' => ['nullable', "exists:regions,id"],
             'contact_id' => ['required', "exists:contacts,id"],
             'type' => ['required', "in:$types"],
         ];

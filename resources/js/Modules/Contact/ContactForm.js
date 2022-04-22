@@ -21,9 +21,11 @@ const ContactForm = () => {
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
     const countryOptions = useOptionHook('/api/countries', 'country.country_name');
+    const regionOptions = useOptionHook('/api/regions', 'regions.region_name');
 
     useEffect(() => {
         countryOptions.getInitialOptions(formState);
+        regionOptions.getInitialOptions(formState);
     }, [formState.initialLoad]);
 
     return (
@@ -84,9 +86,15 @@ const ContactForm = () => {
                             <FormItemSelect
                                 label={'Country'}
                                 name={'country_id'}
-                                url={'/api/countries'}
                                 {...countryOptions}
                             />
+
+                            <FormItemSelect
+                                label={'Region'}
+                                name={'region_id'}
+                                {...regionOptions}
+                            />
+
                             <FormItemText
                                 label={'Tax ID'}
                                 name={'tax_id'}

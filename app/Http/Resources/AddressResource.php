@@ -20,9 +20,11 @@ class AddressResource extends JsonResource
             'state' => $this->state,
             'zip' => $this->zip,
             'country_id' => $this->country_id,
+            'region_id' => $this->region_id,
             'contact_id' => $this->contact_id,
             'type' => $this->type,
             'country' => new CountryResource($this->country),
+            'region' => new RegionResource($this->region),
             'contact' => new ContactResource($this->contact),
             'slug' => $this->$slug,
         ]);
