@@ -76,11 +76,6 @@ const AddressForm = () => {
                             />
 
                             <FormItemText
-                                label={'State'}
-                                name={'state'}
-                            />
-
-                            <FormItemText
                                 label={'Zip'}
                                 name={'zip'}
                             />

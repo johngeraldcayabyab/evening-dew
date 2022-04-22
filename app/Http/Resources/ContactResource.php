@@ -24,7 +24,6 @@ class ContactResource extends JsonResource
             'street_one' => $defaultAddress->street_one,
             'street_two' => $defaultAddress->street_two,
             'city' => $defaultAddress->city,
-            'state' => $defaultAddress->state,
             'zip' => $defaultAddress->zip,
             'country_id' => $defaultAddress->country_id,
             'region_id' => $defaultAddress->region_id,

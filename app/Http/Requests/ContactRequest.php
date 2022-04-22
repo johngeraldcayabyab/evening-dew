@@ -19,7 +19,6 @@ class ContactRequest extends FormRequest
             'street_one' => ['nullable'],
             'street_two' => ['nullable'],
             'city' => ['nullable'],
-            'state' => ['nullable'],
             'zip' => ['nullable'],
             'country_id' => ['nullable', "exists:countries,id"],
             'region_id' => ['nullable', "exists:regions,id"],
