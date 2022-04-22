@@ -76,10 +76,6 @@ const ContactForm = () => {
                                 name={'city'}
                             />
                             <FormItemText
-                                label={'State'}
-                                name={'state'}
-                            />
-                            <FormItemText
                                 label={'Zip'}
                                 name={'zip'}
                             />
