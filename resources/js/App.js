@@ -30,6 +30,7 @@ import OperationTypeRoute from './Modules/OperationType/OperationTypeRoute';
 import TransferRoute from './Modules/Transfer/TransferRoute';
 import StockMovementRoute from './Modules/StockMovement/StockMovementRoute';
 import MaterialRoute from './Modules/Material/MaterialRoute';
+import RegionRoute from "./Modules/Region/RegionRoute";
 
 
 export const AppContext = React.createContext({});
@@ -61,6 +62,7 @@ const App = () => {
                         <PaymentTermRoute/>
                         <ProductRoute/>
                         <ProductCategoryRoute/>
+                        <RegionRoute/>
                         <SalesOrderRoute/>
                         <SequenceRoute/>
                         <StockMovementRoute/>

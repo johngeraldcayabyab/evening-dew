@@ -96,10 +96,13 @@ class RegionSeeder extends Seeder
         ];
         $data = [];
         foreach ($regions as $region) {
+            $date = now();
             $data[] = [
                 'region_name' => $region,
                 'region_code' => Str::of($region)->snake(),
                 'country_id' => 1,
+                'created_at' => $date,
+                'updated_at' => $date,
             ];
         }
         Region::insert($data);
