@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AddressRequest;
-use App\Http\Resources\AddressResource;
+use App\Http\Requests\RegionRequest;
+use App\Http\Resources\RegionResource;
 use App\Models\Region;
 use App\Models\GlobalSetting;
 use App\Traits\ControllerHelperTrait;
@@ -19,28 +19,28 @@ class RegionController
     {
         $model = new Region();
         $model = $model->filterAndOrder($request);
-        return AddressResource::collection($model);
+        return RegionResource::collection($model);
     }
 
-    public function show(Region $address): JsonResponse
+    public function show(Region $region): JsonResponse
     {
-        return response()->json(new AddressResource($address));
+        return response()->json(new RegionResource($region));
     }
 
-    public function store(AddressRequest $request): JsonResponse
+    public function store(RegionRequest $request): JsonResponse
     {
         return response()->json([], STATUS_CREATE, $this->locationHeader(Region::create($request->validated())));
     }
 
-    public function update(AddressRequest $request, Region $address): JsonResponse
+    public function update(RegionRequest $request, Region $region): JsonResponse
     {
-        $address->update($request->validated());
+        $region->update($request->validated());
         return response()->json([], STATUS_UPDATE);
     }
 
-    public function destroy(Region $address): JsonResponse
+    public function destroy(Region $region): JsonResponse
     {
-        $address->delete();
+        $region->delete();
         return response()->json([], STATUS_DELETE);
     }
 
@@ -54,9 +54,8 @@ class RegionController
     {
         $generalDefaultCountry = GlobalSetting::latestFirst()->generalDefaultCountry;
         return [
-            'country' => $generalDefaultCountry,
             'country_id' => $generalDefaultCountry->id,
-            'type' => Region::DEFAULT
+            'country' => $generalDefaultCountry,
         ];
     }
 }
