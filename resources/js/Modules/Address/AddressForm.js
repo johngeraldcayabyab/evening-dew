@@ -20,10 +20,12 @@ const AddressForm = () => {
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
     const countryOptions = useOptionHook('/api/countries', 'country.country_name');
+    const regionOptions = useOptionHook('/api/regions', 'regions.region_name');
     const contactOptions = useOptionHook('/api/contacts', 'contact.name');
 
     useEffect(() => {
         countryOptions.getInitialOptions(formState);
+        regionOptions.getInitialOptions(formState);
         contactOptions.getInitialOptions(formState);
     }, [formState.initialLoad]);
 
@@ -87,6 +89,12 @@ const AddressForm = () => {
                                 label={'Country'}
                                 name={'country_id'}
                                 {...countryOptions}
+                            />
+
+                            <FormItemSelect
+                                label={'Region'}
+                                name={'region_id'}
+                                {...regionOptions}
                             />
                         </ColForm>
 

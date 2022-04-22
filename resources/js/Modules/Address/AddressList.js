@@ -60,6 +60,19 @@ const AddressList = () => {
                     }
                 },
                 {
+                    title: 'Region',
+                    dataIndex: 'region',
+                    key: 'region',
+                    sorter: true,
+                    searchFilter: true,
+                    render: (text, record) => {
+                        if (record.region) {
+                            return record.region.region_name;
+                        }
+                        return null;
+                    }
+                },
+                {
                     title: 'Created At',
                     dataIndex: 'created_at',
                     key: 'created_at',
