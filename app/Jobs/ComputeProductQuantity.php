@@ -4,7 +4,6 @@ namespace App\Jobs;
 
 use App\Events\ComputeProductQuantityEvent;
 use App\Models\Product;
-use App\Models\StockMovement;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
