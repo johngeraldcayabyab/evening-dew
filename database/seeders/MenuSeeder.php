@@ -67,6 +67,10 @@ class MenuSeeder extends Seeder
                 'url' => '/product_categories',
             ],
             [
+                'label' => 'Regions',
+                'url' => '/Regions',
+            ],
+            [
                 'label' => 'Sales Orders',
                 'url' => '/sales_orders',
             ],

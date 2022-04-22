@@ -35,6 +35,10 @@ class AppMenuSeeder extends Seeder
                                         'label' => 'Countries',
                                         'menu_key' => 'Countries',
                                     ],
+                                    [
+                                        'label' => 'Regions',
+                                        'menu_key' => 'Regions',
+                                    ],
                                 ]
                             ],
                         ],
