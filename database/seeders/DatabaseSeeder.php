@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             MenuSeeder::class,
             OperationTypeSeeder::class,
             ProductCategorySeeder::class,
+            RegionSeeder::class,
             SequenceSeeder::class,
             UserSeeder::class,
             WarehouseSeeder::class
