@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CurrencyRequest;
-use App\Http\Resources\CurrencyResource;
+use App\Http\Requests\DeliveryFeeRequest;
 use App\Http\Resources\DeliveryFeeResource;
 use App\Models\DeliveryFee;
 use App\Traits\ControllerHelperTrait;
@@ -27,20 +26,20 @@ class DeliveryFeeController extends Controller
         return response()->json(new DeliveryFeeResource($deliveryFee));
     }
 
-    public function store(CurrencyRequest $request): JsonResponse
+    public function store(DeliveryFeeRequest $request): JsonResponse
     {
         return response()->json([], STATUS_CREATE, $this->locationHeader(DeliveryFee::create($request->validated())));
     }
 
-    public function update(CurrencyRequest $request, DeliveryFee $currency): JsonResponse
+    public function update(DeliveryFeeRequest $request, DeliveryFee $deliveryFee): JsonResponse
     {
-        $currency->update($request->validated());
+        $deliveryFee->update($request->validated());
         return response()->json([], STATUS_UPDATE);
     }
 
-    public function destroy(DeliveryFee $currency): JsonResponse
+    public function destroy(DeliveryFee $deliveryFee): JsonResponse
     {
-        $currency->delete();
+        $deliveryFee->delete();
         return response()->json([], STATUS_DELETE);
     }
 
@@ -53,9 +52,7 @@ class DeliveryFeeController extends Controller
     public function initial_values()
     {
         return [
-            'symbol_position' => DeliveryFee::AFTER_AMOUNT,
-            'rounding_factor' => 0.010000,
-            'decimal_places' => 2,
+            'is_enabled' => true,
         ];
     }
 }

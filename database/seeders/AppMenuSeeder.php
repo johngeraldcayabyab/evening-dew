@@ -128,6 +128,10 @@ class AppMenuSeeder extends Seeder
                                         'label' => 'Payment Terms',
                                         'menu_key' => 'Payment Terms',
                                     ],
+                                    [
+                                        'label' => 'Delivery Fees',
+                                        'menu_key' => 'Delivery Fees',
+                                    ],
                                 ]
                             ],
                         ],
