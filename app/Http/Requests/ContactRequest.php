@@ -17,10 +17,9 @@ class ContactRequest extends FormRequest
             'tax_id' => ['nullable'],
             'avatar' => ['nullable'],
             'address' => ['nullable'],
-            'city' => ['nullable'],
             'zip' => ['nullable'],
             'country_id' => ['nullable', "exists:countries,id"],
-            'region_id' => ['nullable', "exists:regions,id"],
+            'city_id' => ['nullable', "exists:cities,id"],
         ];
     }
 }

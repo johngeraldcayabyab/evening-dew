@@ -22,12 +22,11 @@ class ContactResource extends JsonResource
             'tax_id' => $this->tax_id,
             'avatar' => $this->avatar ? asset("storage/images/" . $this->avatar) : null,
             'address' => $defaultAddress->address,
-            'city' => $defaultAddress->city,
             'zip' => $defaultAddress->zip,
             'country_id' => $defaultAddress->country_id,
-            'region_id' => $defaultAddress->region_id,
+            'city_id' => $defaultAddress->city_id,
             'country' => new CountryResource($defaultAddress->country),
-            'region' => new RegionResource($defaultAddress->region),
+            'city' => new CityResource($defaultAddress->city),
             'slug' => $this->$slug,
         ]);
     }

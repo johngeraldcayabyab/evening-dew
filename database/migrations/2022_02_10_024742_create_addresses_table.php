@@ -12,10 +12,9 @@ class CreateAddressesTable extends Migration
             $table->id();
             $table->string('address_name')->nullable();
             $table->string('address')->nullable();
-            $table->string('city')->nullable();
             $table->string('zip')->nullable();
             $table->bigInteger('country_id')->nullable();
-            $table->bigInteger('region_id')->nullable();
+            $table->bigInteger('city_id')->nullable();
             $table->bigInteger('contact_id')->nullable();
             $table->string('type');
             $table->softDeletes();

@@ -53,14 +53,14 @@ const AddressList = () => {
                     }
                 },
                 {
-                    title: 'Region',
-                    dataIndex: 'region',
-                    key: 'region',
+                    title: 'City',
+                    dataIndex: 'city',
+                    key: 'city',
                     sorter: true,
                     searchFilter: true,
                     render: (text, record) => {
-                        if (record.region) {
-                            return record.region.region;
+                        if (record.city) {
+                            return record.city.name;
                         }
                         return null;
                     }
