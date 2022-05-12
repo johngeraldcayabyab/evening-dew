@@ -16,7 +16,7 @@ class ContactRequest extends FormRequest
             'website' => ['nullable'],
             'tax_id' => ['nullable'],
             'avatar' => ['nullable'],
-            'street_one' => ['nullable'],
+            'address' => ['nullable'],
             'city' => ['nullable'],
             'zip' => ['nullable'],
             'country_id' => ['nullable', "exists:countries,id"],

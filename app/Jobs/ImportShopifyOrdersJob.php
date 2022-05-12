@@ -62,7 +62,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
             }
 
             $address = Address::where('address_name', $contact->name . " " . Address::DEFAULT . " address")
-                ->where('street_one', $address['address1'])
+                ->where('address', $address['address1'])
                 ->where('zip', $address['zip'])
                 ->where('city', $address['city'])
                 ->where('type', Address::DEFAULT)
@@ -72,7 +72,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
             if (!$address) {
                 Address::updateOrCreate([
                     'address_name' => $contact->name . " " . Address::DEFAULT . " address",
-                    'street_one' => $address['address1'],
+                    'address' => $address['address1'],
                     'zip' => $address['zip'],
                     'city' => $address['city'],
                     'type' => Address::DEFAULT,
@@ -80,7 +80,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
                     'contact_id' => $contact->id,
                 ]);
                 $address = Address::where('address_name', $contact->name . " " . Address::DEFAULT . " address")
-                    ->where('street_one', $address['address1'])
+                    ->where('address', $address['address1'])
                     ->where('zip', $address['zip'])
                     ->where('city', $address['city'])
                     ->where('type', Address::DEFAULT)

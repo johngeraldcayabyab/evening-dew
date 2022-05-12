@@ -26,9 +26,9 @@ const AddressList = () => {
                     searchFilter: true,
                 },
                 {
-                    title: 'Street 1',
-                    dataIndex: 'street_one',
-                    key: 'street_one',
+                    title: 'Address',
+                    dataIndex: 'address',
+                    key: 'address',
                     sorter: true,
                     searchFilter: true,
                 },
