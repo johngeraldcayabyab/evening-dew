@@ -64,6 +64,8 @@ const DeliveryFeeForm = () => {
                 form: form,
                 formState: formState,
                 formActions: formActions,
+                state: state,
+                setState: setState,
                 onFinish: onFinish,
             }}
         >
