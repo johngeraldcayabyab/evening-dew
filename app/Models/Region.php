@@ -24,11 +24,6 @@ class Region extends Model implements Sluggable
     protected $guarded = [];
     protected static $logAttributes = ['*'];
 
-    public function country()
-    {
-        return $this->belongsTo(Country::class);
-    }
-
     public function slug()
     {
         return 'region';
