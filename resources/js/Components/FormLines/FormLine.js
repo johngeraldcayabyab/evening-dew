@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import ColForm from "../Grid/ColForm";
 import {FormContext} from "../../Contexts/FormContext";
 
-const FormLineTest = (props) => {
+const FormLine = (props) => {
     const formContext = useContext(FormContext);
     const listName = props.listName;
     const restGroup = {...props.restField, groupName: props.groupName};
@@ -38,4 +38,4 @@ const FormLineTest = (props) => {
     )
 };
 
-export default FormLineTest;
+export default FormLine;
