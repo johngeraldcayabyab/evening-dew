@@ -13,7 +13,6 @@ class AddressRequest extends FormRequest
         return [
             'address_name' => ['required'],
             'street_one' => ['nullable'],
-            'street_two' => ['nullable'],
             'city' => ['nullable'],
             'zip' => ['nullable'],
             'country_id' => ['nullable', "exists:countries,id"],

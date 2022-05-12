@@ -33,13 +33,6 @@ const AddressList = () => {
                     searchFilter: true,
                 },
                 {
-                    title: 'Street 2',
-                    dataIndex: 'street_two',
-                    key: 'street_two',
-                    sorter: true,
-                    searchFilter: true,
-                },
-                {
                     title: 'Type',
                     dataIndex: 'type',
                     key: 'type',
