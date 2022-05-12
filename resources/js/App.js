@@ -31,6 +31,7 @@ import TransferRoute from './Modules/Transfer/TransferRoute';
 import StockMovementRoute from './Modules/StockMovement/StockMovementRoute';
 import MaterialRoute from './Modules/Material/MaterialRoute';
 import RegionRoute from "./Modules/Region/RegionRoute";
+import DeliveryFeeRoute from "./Modules/DeliveryFee/DeliveryFeeRoute";
 
 
 export const AppContext = React.createContext({});
@@ -51,6 +52,7 @@ const App = () => {
                         <ContactRoute/>
                         <CountryRoute/>
                         <CurrencyRoute/>
+                        <DeliveryFeeRoute/>
                         <GlobalSettingRoute/>
                         <LocationRoute/>
                         <LoginRoute/>

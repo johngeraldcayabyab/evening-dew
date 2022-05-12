@@ -1,0 +1,7 @@
+{
+    "moduleName": "delivery_fees",
+    "eventName": "delivery_fees",
+    "modelName": "DeliveryFee"
+}
+
+

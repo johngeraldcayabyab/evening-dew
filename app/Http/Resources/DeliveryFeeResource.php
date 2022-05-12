@@ -13,8 +13,8 @@ class DeliveryFeeResource extends JsonResource
     {
         $slug = $this->slug();
         return $this->defaults($this, $request, [
-            'name' => $this->currency,
-            'is_enabled' => $this->name,
+            'name' => $this->name,
+            'is_enabled' => $this->is_enabled,
             'slug' => $this->$slug,
         ]);
     }
