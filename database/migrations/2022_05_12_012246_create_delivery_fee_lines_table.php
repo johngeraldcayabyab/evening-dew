@@ -10,9 +10,8 @@ class CreateDeliveryFeeLinesTable extends Migration
     {
         Schema::create('delivery_fee_lines', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('product_id')->nullable();
-            $table->integer('quantity');
-            $table->bigInteger('measurement_id');
+            $table->bigInteger('city_id')->nullable();
+            $table->integer('amount');
             $table->bigInteger('delivery_fee_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
