@@ -12,7 +12,6 @@ class CreateAddressesTable extends Migration
             $table->id();
             $table->string('address_name')->nullable();
             $table->string('street_one')->nullable();
-            $table->string('street_two')->nullable();
             $table->string('city')->nullable();
             $table->string('zip')->nullable();
             $table->bigInteger('country_id')->nullable();

@@ -68,10 +68,6 @@ const ContactForm = () => {
                                 name={'street_one'}
                             />
                             <FormItemText
-                                label={'Street 2'}
-                                name={'street_two'}
-                            />
-                            <FormItemText
                                 label={'City'}
                                 name={'city'}
                             />
