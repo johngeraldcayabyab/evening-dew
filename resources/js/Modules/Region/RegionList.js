@@ -19,9 +19,9 @@ const RegionList = () => {
             tableActions: tableActions,
             columns: [
                 {
-                    title: 'Region Name',
-                    dataIndex: 'region_name',
-                    key: 'region_name',
+                    title: 'Region',
+                    dataIndex: 'region',
+                    key: 'region',
                     sorter: true,
                     searchFilter: true,
                 },

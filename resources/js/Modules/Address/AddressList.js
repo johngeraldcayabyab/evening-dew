@@ -60,7 +60,7 @@ const AddressList = () => {
                     searchFilter: true,
                     render: (text, record) => {
                         if (record.region) {
-                            return record.region.region_name;
+                            return record.region.region;
                         }
                         return null;
                     }
