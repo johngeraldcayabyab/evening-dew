@@ -21,11 +21,11 @@ const ContactForm = () => {
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
     const countryOptions = useOptionHook('/api/countries', 'country.country_name');
-    const regionOptions = useOptionHook('/api/regions', 'regions.region');
+    const cityOptions = useOptionHook('/api/cities', 'cities.name');
 
     useEffect(() => {
         countryOptions.getInitialOptions(formState);
-        regionOptions.getInitialOptions(formState);
+        cityOptions.getInitialOptions(formState);
     }, [formState.initialLoad]);
 
     return (
@@ -68,10 +68,6 @@ const ContactForm = () => {
                                 name={'address'}
                             />
                             <FormItemText
-                                label={'City'}
-                                name={'city'}
-                            />
-                            <FormItemText
                                 label={'Zip'}
                                 name={'zip'}
                             />
@@ -82,9 +78,9 @@ const ContactForm = () => {
                             />
 
                             <FormItemSelect
-                                label={'Region'}
-                                name={'region_id'}
-                                {...regionOptions}
+                                label={'City'}
+                                name={'city_id'}
+                                {...cityOptions}
                             />
 
                             <FormItemText

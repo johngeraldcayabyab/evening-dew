@@ -15,14 +15,13 @@ class AddressResource extends JsonResource
         return $this->defaults($this, $request, [
             'address_name' => $this->address_name,
             'address' => $this->address,
-            'city' => $this->city,
             'zip' => $this->zip,
             'country_id' => $this->country_id,
-            'region_id' => $this->region_id,
+            'city_id' => $this->city_id,
             'contact_id' => $this->contact_id,
             'type' => $this->type,
             'country' => new CountryResource($this->country),
-            'region' => new RegionResource($this->region),
+            'city' => new CityResource($this->city),
             'contact' => new ContactResource($this->contact),
             'slug' => $this->$slug,
         ]);

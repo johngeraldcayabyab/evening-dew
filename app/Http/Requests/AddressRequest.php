@@ -13,10 +13,9 @@ class AddressRequest extends FormRequest
         return [
             'address_name' => ['required'],
             'address' => ['nullable'],
-            'city' => ['nullable'],
             'zip' => ['nullable'],
             'country_id' => ['nullable', "exists:countries,id"],
-            'region_id' => ['nullable', "exists:regions,id"],
+            'city_id' => ['nullable', "exists:cities,id"],
             'contact_id' => ['required', "exists:contacts,id"],
             'type' => ['required', "in:$types"],
         ];

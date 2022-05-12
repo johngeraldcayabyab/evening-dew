@@ -40,9 +40,9 @@ class Address extends Model implements Sluggable
         return $this->belongsTo(Country::class);
     }
 
-    public function region()
+    public function city()
     {
-        return $this->belongsTo(Region::class);
+        return $this->belongsTo(City::class);
     }
 
     public function contact()
