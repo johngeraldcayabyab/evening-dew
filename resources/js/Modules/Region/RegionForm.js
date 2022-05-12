@@ -18,12 +18,7 @@ import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 const RegionForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, true);
-    const countryOptions = useOptionHook('/api/countries', 'country.country_name');
-
-    useEffect(() => {
-        countryOptions.getInitialOptions(formState);
-    }, [formState.initialLoad]);
+    const [formState, formActions] = useFormHook(id, form, manifest);
 
     return (
         <FormContextProvider
@@ -53,19 +48,11 @@ const RegionForm = () => {
                             />
 
                             <FormItemText
-                                label={'Region Code'}
-                                name={'region_code'}
-                                message={'Please input region code'}
+                                label={'Region Center'}
+                                name={'region_center'}
+                                message={'Please input region center'}
                                 required={true}
                                 size={'large'}
-                            />
-
-                            <FormItemSelect
-                                label={'Country'}
-                                name={'country_id'}
-                                message={'Please select country'}
-                                required={true}
-                                {...countryOptions}
                             />
                         </ColForm>
                     </RowForm>

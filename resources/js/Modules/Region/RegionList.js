@@ -26,9 +26,9 @@ const RegionList = () => {
                     searchFilter: true,
                 },
                 {
-                    title: 'Region Code',
-                    dataIndex: 'region_code',
-                    key: 'region_code',
+                    title: 'Region Center',
+                    dataIndex: 'region_center',
+                    key: 'region_center',
                     sorter: true,
                     searchFilter: true,
                 },
