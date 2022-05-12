@@ -61,8 +61,8 @@ const AddressForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemText
-                                label={'Street 1'}
-                                name={'street_one'}
+                                label={'Address'}
+                                name={'address'}
                             />
 
                             <FormItemText

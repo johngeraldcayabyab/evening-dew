@@ -12,7 +12,7 @@ class AddressRequest extends FormRequest
         $types = implode_types(Address::getTypes());
         return [
             'address_name' => ['required'],
-            'street_one' => ['nullable'],
+            'address' => ['nullable'],
             'city' => ['nullable'],
             'zip' => ['nullable'],
             'country_id' => ['nullable', "exists:countries,id"],
