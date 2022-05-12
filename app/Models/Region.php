@@ -31,6 +31,6 @@ class Region extends Model implements Sluggable
 
     public function slug()
     {
-        return 'region_name';
+        return 'region';
     }
 }

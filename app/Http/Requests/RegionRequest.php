@@ -9,7 +9,7 @@ class RegionRequest extends FormRequest
     public function rules()
     {
         return [
-            'region_name' => ['required'],
+            'region' => ['required'],
             'region_code' => ['required'],
             'country_id' => ['nullable', "exists:countries,id"],
         ];

@@ -45,9 +45,9 @@ const RegionForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemText
-                                label={'Region Name'}
-                                name={'region_name'}
-                                message={'Please input region name'}
+                                label={'Region'}
+                                name={'region'}
+                                message={'Please input region'}
                                 required={true}
                                 size={'large'}
                             />

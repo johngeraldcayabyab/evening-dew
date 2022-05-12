@@ -21,7 +21,7 @@ const ContactForm = () => {
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
     const countryOptions = useOptionHook('/api/countries', 'country.country_name');
-    const regionOptions = useOptionHook('/api/regions', 'regions.region_name');
+    const regionOptions = useOptionHook('/api/regions', 'regions.region');
 
     useEffect(() => {
         countryOptions.getInitialOptions(formState);
