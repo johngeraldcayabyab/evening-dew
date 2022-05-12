@@ -1,6 +1,6 @@
 import LineColumn from "./LineColumn";
 import {Form} from "antd";
-import FormLineTest from "./FormLineTest";
+import FormLine from "./FormLine";
 import RowForm from "../Grid/RowForm";
 import RemoveLineButton from "./RemoveLineButton";
 import AddLineButton from "./AddLineButton";
@@ -17,13 +17,13 @@ const FormLineParent = (props) => {
                     <>
                         {fields.map(({key, name, ...restField}) => (
                             <RowForm key={key}>
-                                <FormLineTest
+                                <FormLine
                                     restField={restField}
                                     groupName={name}
                                     listName={props.listName}
                                 >
                                     {props.children}
-                                </FormLineTest>
+                                </FormLine>
                                 <RemoveLineButton
                                     remove={remove}
                                     listName={props.listName}
