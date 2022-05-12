@@ -6,24 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateDeliveryFeeLinesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('delivery_fee_lines', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('product_id')->nullable();
+            $table->integer('quantity');
+            $table->bigInteger('measurement_id');
+            $table->bigInteger('delivery_fee_id')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('delivery_fee_lines');
