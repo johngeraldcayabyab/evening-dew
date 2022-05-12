@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RegionRequest;
 use App\Http\Resources\RegionResource;
 use App\Models\Region;
-use App\Models\GlobalSetting;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -48,14 +47,5 @@ class RegionController
     {
         $this->massDelete(new Region(), $request);
         return response()->json([], STATUS_DELETE);
-    }
-
-    public function initial_values()
-    {
-        $generalDefaultCountry = GlobalSetting::latestFirst()->generalDefaultCountry;
-        return [
-            'country_id' => $generalDefaultCountry->id,
-            'country' => $generalDefaultCountry,
-        ];
     }
 }

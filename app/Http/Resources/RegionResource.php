@@ -14,8 +14,7 @@ class RegionResource extends JsonResource
         $slug = $this->slug();
         return $this->defaults($this, $request, [
             'region' => $this->region,
-            'region_code' => $this->region_code,
-            'country_id' => $this->country_id,
+            'region_center' => $this->region_center,
             'country' => new CountryResource($this->country),
             'slug' => $this->$slug,
         ]);

@@ -10,8 +10,7 @@ class RegionRequest extends FormRequest
     {
         return [
             'region' => ['required'],
-            'region_code' => ['required'],
-            'country_id' => ['nullable', "exists:countries,id"],
+            'region_center' => ['required'],
         ];
     }
 }
