@@ -23,6 +23,10 @@ class MenuSeeder extends Seeder
                 'url' => '/app_menus',
             ],
             [
+                'label' => 'Cities',
+                'url' => '/cities',
+            ],
+            [
                 'label' => 'Contacts',
                 'url' => '/contacts',
             ],
