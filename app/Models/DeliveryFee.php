@@ -24,6 +24,11 @@ class DeliveryFee extends Model implements Sluggable
     protected $guarded = [];
     protected static $logAttributes = ['*'];
 
+    public function deliveryFeeLines()
+    {
+        return $this->hasMany(DeliveryFeeLine::class);
+    }
+
     public function slug()
     {
         return 'name';
