@@ -31,7 +31,7 @@ class DeliveryFeeController extends Controller
     public function store(DeliveryFeeRequest $request): JsonResponse
     {
         $data = $request->validated();
-        $deliveryFeeData = Arr::except($data, ['delivery_fee_lines']);
+        $deliveryFeeData = Arr::except($data, ['delivery_fee_lines', 'delivery_fee_lines_deleted']);
         $deliveryFee = DeliveryFee::create($deliveryFeeData);
         if (isset($data['delivery_fee_lines'])) {
             $deliveryFeeLinesData = $data['delivery_fee_lines'];
@@ -43,11 +43,14 @@ class DeliveryFeeController extends Controller
     public function update(DeliveryFeeRequest $request, DeliveryFee $deliveryFee): JsonResponse
     {
         $data = $request->validated();
-        $deliveryFeeData = Arr::except($data, ['delivery_fee_lines']);
+        $deliveryFeeData = Arr::except($data, ['delivery_fee_lines', 'delivery_fee_lines_deleted']);
         $deliveryFee->update($deliveryFeeData);
         if (isset($data['delivery_fee_lines'])) {
             $deliveryFeeLinesData = $data['delivery_fee_lines'];
             DeliveryFeeLine::updateOrCreateMany($deliveryFeeLinesData, $deliveryFee->id);
+        }
+        if (isset($data['delivery_fee_lines_deleted'])) {
+            DeliveryFeeLine::massDelete(collect($data['delivery_fee_lines_deleted'])->pluck('id'));
         }
         return response()->json([], STATUS_UPDATE);
     }

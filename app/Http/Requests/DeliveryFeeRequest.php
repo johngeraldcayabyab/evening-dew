@@ -14,6 +14,7 @@ class DeliveryFeeRequest extends FormRequest
             'delivery_fee_lines.*.id' => ['nullable', 'exists:delivery_fee_lines,id'],
             'delivery_fee_lines.*.city_id' => ['required', "exists:cities,id"],
             'delivery_fee_lines.*.amount' => ['required'],
+            'delivery_fee_lines_deleted.*.id' => ['nullable', 'exists:delivery_fee_lines,id'],
         ];
     }
 }
