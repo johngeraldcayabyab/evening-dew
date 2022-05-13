@@ -81,3 +81,7 @@ php artisan storage:link php artisan event:cache
 <li><code>php artisan optimize:clear</code></li>
 </ul>
 
+
+<h5>Initial Value Rules</h5>
+<p>Initial values can have nullable FormRequest fields but should be required in the front-end</p>
+<p>But the initial values that are supposed to be required in the FormRequest are now "auto-filled" in the observer</p>

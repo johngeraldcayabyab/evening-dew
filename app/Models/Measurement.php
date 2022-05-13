@@ -24,6 +24,9 @@ class Measurement extends Model implements Sluggable
     const SMALLER = 'smaller';
     const REFERENCE = 'reference';
 
+    const DEFAULT_RATIO = 1;
+    const DEFAULT_ROUNDING_PRECISION = 0.01;
+
     protected $table = 'measurements';
     protected $guarded = [];
     protected static $logAttributes = ['*'];
