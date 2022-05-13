@@ -49,11 +49,14 @@ class AdjustmentController
     public function update(AdjustmentRequest $request, Adjustment $adjustment): JsonResponse
     {
         $data = $request->validated();
-        $adjustmentData = Arr::except($data, ['adjustment_lines']);
+        $adjustmentData = Arr::except($data, ['adjustment_lines', 'adjustment_lines_deleted']);
         $adjustment->update($adjustmentData);
         if (isset($data['adjustment_lines'])) {
             $adjustmentLinesData = $data['adjustment_lines'];
             AdjustmentLine::updateOrCreateMany($adjustmentLinesData, $adjustment->id);
+        }
+        if (isset($data['adjustment_lines_deleted'])) {
+            AdjustmentLine::massDelete(collect($data['adjustment_lines_deleted'])->pluck('id'));
         }
         if ($adjustment->status === Adjustment::DONE) {
             AdjustmentValidatedEvent::dispatch($adjustment);

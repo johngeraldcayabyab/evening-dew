@@ -20,6 +20,7 @@ class AdjustmentRequest extends FormRequest
             'adjustment_lines.*.quantity_on_hand' => ['required'],
             'adjustment_lines.*.quantity_counted' => ['required'],
             'adjustment_lines.*.measurement_id' => ["required", "exists:measurements,id"],
+            'adjustment_lines_deleted.*.id' => ['nullable', 'exists:adjustment_lines,id'],
         ];
     }
 }

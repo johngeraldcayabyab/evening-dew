@@ -35,9 +35,6 @@ const MaterialForm = () => {
     const measurementOptions = useOptionHook('/api/measurements', 'measurement.name');
     const productLineOptions = useOptionLineHook('/api/products', 'product.name');
     const measurementLineOptions = useOptionLineHook('/api/measurements', 'measurement.name');
-    const [state, setState] = useState({
-        materialLinesDeleted: [],
-    });
 
     useEffect(() => {
         productOptions.getInitialOptions(formState);
@@ -67,22 +64,6 @@ const MaterialForm = () => {
         });
     }
 
-    function onFinish(values) {
-        if (id) {
-            if (state.materialLinesDeleted.length) {
-                useFetch(`/api/material_lines/mass_destroy`, POST, {ids: state.materialLinesDeleted}).then(() => {
-                    setState((prevState) => ({
-                        ...prevState,
-                        materialLinesDeleted: [],
-                    }));
-                }).catch((responseErr) => {
-                    fetchCatcher.get(responseErr);
-                });
-            }
-        }
-        formActions.onFinish(values);
-    }
-
     return (
         <FormContextProvider
             value={{
@@ -91,9 +72,7 @@ const MaterialForm = () => {
                 form: form,
                 formState: formState,
                 formActions: formActions,
-                state: state,
-                setState: setState,
-                onFinish: onFinish,
+                onFinish: formActions.onFinish,
                 onValuesChange: onValuesChange,
             }}
         >

@@ -23,6 +23,7 @@ class MaterialRequest extends FormRequest
             'material_lines.*.product_id' => ['required', "exists:products,id"],
             'material_lines.*.quantity' => ['required'],
             'material_lines.*.measurement_id' => ["required", "exists:measurements,id"],
+            'material_lines_deleted.*.id' => ['nullable', 'exists:material_lines,id'],
         ];
     }
 }

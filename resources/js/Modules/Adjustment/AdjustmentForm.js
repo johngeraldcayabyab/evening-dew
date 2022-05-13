@@ -35,9 +35,6 @@ const AdjustmentForm = () => {
     const warehouseOptions = useOptionHook('/api/warehouses', 'warehouse.name');
     const productLineOptions = useOptionLineHook('/api/products', 'product.name');
     const measurementLineOptions = useOptionLineHook('/api/measurements', 'measurement.name');
-    const [state, setState] = useState({
-        adjustmentLinesDeleted: [],
-    });
 
     useEffect(() => {
         productCategoryOptions.getInitialOptions(formState);
@@ -68,22 +65,6 @@ const AdjustmentForm = () => {
         });
     }
 
-    function onFinish(values) {
-        if (id) {
-            if (state.adjustmentLinesDeleted.length) {
-                useFetch(`/api/adjustment_lines/mass_destroy`, POST, {ids: state.adjustmentLinesDeleted}).then(() => {
-                    setState((prevState) => ({
-                        ...prevState,
-                        adjustmentLinesDeleted: [],
-                    }));
-                }).catch((responseErr) => {
-                    fetchCatcher.get(responseErr);
-                });
-            }
-        }
-        formActions.onFinish(values);
-    }
-
     return (
         <FormContextProvider
             value={{
@@ -92,9 +73,7 @@ const AdjustmentForm = () => {
                 form: form,
                 formState: formState,
                 formActions: formActions,
-                state: state,
-                setState: setState,
-                onFinish: onFinish,
+                onFinish: formActions.onFinish,
                 onValuesChange: onValuesChange,
             }}
         >
