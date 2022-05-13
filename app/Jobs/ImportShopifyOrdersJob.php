@@ -37,7 +37,6 @@ class ImportShopifyOrdersJob implements ShouldQueue
         $responseJson = $response->json();
         $orders = $responseJson['orders'];
 
-
         foreach ($orders as $order) {
             $orderNumber = $order['order_number'];
             $email = $order['email'];
@@ -45,9 +44,15 @@ class ImportShopifyOrdersJob implements ShouldQueue
 
             $address = [];
 
+
+            $shopifyShippingAddress = false;
+            $shopifyBillingAddress = false;
+
             if (isset($order['shipping_address'])) {
+                $shopifyShippingAddress = $order['shipping_address'];
                 $address = $order['shipping_address'];
             } else if (isset($order['billing_address'])) {
+                $shopifyBillingAddress = $order['billing_address'];
                 $address = $order['billing_address'];
             }
 
@@ -55,36 +60,37 @@ class ImportShopifyOrdersJob implements ShouldQueue
             if (!$contact) {
                 Contact::updateOrCreate([
                     'name' => $address['name'],
-                    'mobile' => $address['phone'],
-                    'email' => $email,
-                ]);
+                ],
+                    [
+                        'mobile' => $address['phone'],
+                        'email' => $email,
+                    ]);
                 $contact = Contact::where('name', $address['name'])->where('mobile', $address['phone'])->where('email', $email)->first();
             }
 
-            $address = Address::where('address_name', $contact->name . " " . Address::DEFAULT . " address")
+            $addressName = $contact->name . " " . Address::DEFAULT . " address";
+
+            $address = Address::where('address_name', $addressName)
                 ->where('address', $address['address1'])
                 ->where('zip', $address['zip'])
                 ->where('city', $address['city'])
                 ->where('type', Address::DEFAULT)
-                ->where('country_id', 1)
                 ->where('contact_id', $contact->id)
                 ->first();
             if (!$address) {
                 Address::updateOrCreate([
-                    'address_name' => $contact->name . " " . Address::DEFAULT . " address",
+                    'address_name' => $addressName,
+                    'contact_id' => $contact->id,
+                ], [
                     'address' => $address['address1'],
                     'zip' => $address['zip'],
                     'city' => $address['city'],
-                    'type' => Address::DEFAULT,
-                    'country_id' => 1,
-                    'contact_id' => $contact->id,
                 ]);
-                $address = Address::where('address_name', $contact->name . " " . Address::DEFAULT . " address")
+                $address = Address::where('address_name', $addressName)
                     ->where('address', $address['address1'])
                     ->where('zip', $address['zip'])
                     ->where('city', $address['city'])
                     ->where('type', Address::DEFAULT)
-                    ->where('country_id', 1)
                     ->where('contact_id', $contact->id)
                     ->first();
             }
@@ -92,18 +98,20 @@ class ImportShopifyOrdersJob implements ShouldQueue
             if (!SalesOrder::where('number', $orderNumber)->first()) {
                 SalesOrder::updateOrCreate([
                     'number' => $orderNumber,
-                    'customer_id' => $contact->id,
-                    'invoice_address_id' => $address->id,
-                    'delivery_address_id' => $address->id,
-                    'phone' => $address['phone'],
-                    'quotation_date' => now(),
-                    'salesperson_id' => 1,
-                    'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
-                    'source_document' => "Shopify {$orderNumber}",
-                    'status' => SalesOrder::DRAFT,
-                    'created_at' => $createdAt,
-                    'updated_at' => $createdAt,
-                ]);
+                ],
+                    [
+                        'customer_id' => $contact->id,
+                        'invoice_address_id' => $address->id,
+                        'delivery_address_id' => $address->id,
+                        'phone' => $contact->phone,
+                        'quotation_date' => now(),
+                        'salesperson_id' => 1,
+                        'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
+                        'source_document' => "Shopify {$orderNumber}",
+                        'status' => SalesOrder::DRAFT,
+                        'created_at' => $createdAt,
+                        'updated_at' => $createdAt,
+                    ]);
             }
         }
 
