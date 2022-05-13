@@ -52,6 +52,24 @@ class ProductController
 
     public function initial_values()
     {
-        return Product::defaults();
+        $globalSetting = GlobalSetting::latestFirst();
+        $inventoryDefaultMeasurement = $globalSetting->inventoryDefaultMeasurement;
+        $inventoryDefaultPurchaseMeasurement = $globalSetting->inventoryDefaultPurchaseMeasurement;
+        $inventoryDefaultSalesMeasurement = $globalSetting->inventoryDefaultSalesMeasurement;
+        $inventoryDefaultProductCategory = $globalSetting->inventoryDefaultProductCategory;
+        return [
+            'product_type' => Product::STORABLE,
+            'invoicing_policy' => Product::ORDERED_QUANTITIES,
+            'sales_price' => Product::DEFAULT_SALES_PRICE,
+            'cost' => Product::DEFAULT_COST,
+            'measurement' => $inventoryDefaultMeasurement,
+            'measurement_id' => $inventoryDefaultMeasurement->id,
+            'purchase_measurement' => $inventoryDefaultPurchaseMeasurement,
+            'purchase_measurement_id' => $inventoryDefaultPurchaseMeasurement->id,
+            'sales_measurement' => $inventoryDefaultSalesMeasurement,
+            'sales_measurement_id' => $inventoryDefaultSalesMeasurement->id,
+            'product_category' => $inventoryDefaultProductCategory,
+            'product_category_id' => $inventoryDefaultProductCategory->id,
+        ];
     }
 }

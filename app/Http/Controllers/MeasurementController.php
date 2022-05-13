@@ -55,8 +55,8 @@ class MeasurementController
         $inventoryDefaultMeasurementCategory = GlobalSetting::latestFirst()->inventoryDefaultMeasurementCategory;
         return [
             'type' => Measurement::REFERENCE,
-            'ratio' => 1,
-            'rounding_precision' => 0.01,
+            'ratio' => Measurement::DEFAULT_RATIO,
+            'rounding_precision' => Measurement::DEFAULT_ROUNDING_PRECISION,
             'measurement_category' => $inventoryDefaultMeasurementCategory,
             'measurement_category_id' => $inventoryDefaultMeasurementCategory->id,
         ];

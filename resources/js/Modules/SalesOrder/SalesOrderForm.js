@@ -300,6 +300,7 @@ const SalesOrderForm = () => {
                                             message={'Please select a product'}
                                             required={true}
                                             optionAggregate={productLineOptions}
+                                            dropdownRender={productLineOptions}
                                         />
                                         <FormItemText
                                             placeholder={'Description'}
