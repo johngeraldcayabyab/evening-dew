@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Contacts\Generator;
+use App\Contracts\Generator;
 use App\Data\SystemSetting;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;

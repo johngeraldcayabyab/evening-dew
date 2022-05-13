@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contacts;
+namespace App\Contracts;
 
 interface Generator
 {
