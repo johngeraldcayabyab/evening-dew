@@ -65,10 +65,11 @@ const useOptionLineHook = (url, query) => {
             const values = state.values;
             const params = {};
             params[field] = values[key];
+            values[key] = null;
             useFetch(`${url}`, POST, params).then((response) => {
                 setState(prevState => ({
                     ...prevState,
-                    values: {}
+                    values: values
                 }));
                 optionActions.getOptions(null, key);
             }).catch((responseErr) => {
@@ -125,6 +126,7 @@ const useOptionLineHook = (url, query) => {
         aggregate: (lineOptions, fieldKey, formState, lineName) => {
             fieldKey = parseInt(fieldKey);
             return {
+                value: lineOptions.values[fieldKey],
                 options: lineOptions.options[fieldKey],
                 optionsLoading: lineOptions.optionsLoading[fieldKey],
                 onChange: (event) => lineOptions.onChange(event, fieldKey),
