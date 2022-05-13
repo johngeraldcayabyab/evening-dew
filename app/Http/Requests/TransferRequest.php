@@ -31,6 +31,7 @@ class TransferRequest extends FormRequest
             'transfer_lines.*.description' => ['nullable'],
             'transfer_lines.*.demand' => ['required'],
             'transfer_lines.*.measurement_id' => ["required", "exists:measurements,id"],
+            'transfer_lines_deleted.*.id' => ['nullable', 'exists:transfer_lines,id'],
         ];
     }
 }

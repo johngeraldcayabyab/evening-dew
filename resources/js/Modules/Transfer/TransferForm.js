@@ -42,9 +42,6 @@ const TransferForm = () => {
 
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
-    const [state, setState] = useState({
-        transferLinesDeleted: [],
-    });
 
     useEffect(() => {
         contactOptions.getInitialOptions(formState);
@@ -98,22 +95,6 @@ const TransferForm = () => {
         });
     }
 
-    function onFinish(values) {
-        if (id) {
-            if (state.transferLinesDeleted.length) {
-                useFetch(`/api/transfer_lines/mass_destroy`, POST, {ids: state.transferLinesDeleted}).then(() => {
-                    setState((prevState) => ({
-                        ...prevState,
-                        transferLinesDeleted: [],
-                    }));
-                }).catch((responseErr) => {
-                    fetchCatcher.get(responseErr);
-                });
-            }
-        }
-        formActions.onFinish(values);
-    }
-
     return (
         <FormContextProvider
             value={{
@@ -122,9 +103,7 @@ const TransferForm = () => {
                 form: form,
                 formState: formState,
                 formActions: formActions,
-                state: state,
-                setState: setState,
-                onFinish: onFinish,
+                onFinish: formActions.onFinish,
                 onValuesChange: onValuesChange,
             }}
         >

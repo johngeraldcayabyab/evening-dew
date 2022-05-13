@@ -49,11 +49,14 @@ class TransferController
     public function update(TransferRequest $request, Transfer $transfer): JsonResponse
     {
         $data = $request->validated();
-        $transferData = Arr::except($data, ['transfer_lines']);
+        $transferData = Arr::except($data, ['transfer_lines', 'transfer_lines_deleted']);
         $transfer->update($transferData);
         if (isset($data['transfer_lines'])) {
             $transferLinesData = $data['transfer_lines'];
             TransferLine::updateOrCreateMany($transferLinesData, $transfer->id);
+        }
+        if (isset($data['transfer_lines_deleted'])) {
+            TransferLine::massDelete(collect($data['transfer_lines_deleted'])->pluck('id'));
         }
         if ($transfer->status === Transfer::DONE) {
             TransferValidatedEvent::dispatch($transfer);
