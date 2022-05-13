@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Contacts\Sluggable;
+use App\Contracts\Sluggable;
 use App\Traits\FilterTrait;
 use App\Traits\ModelHelperTrait;
 use Database\Factories\MeasurementCategoryFactory;
