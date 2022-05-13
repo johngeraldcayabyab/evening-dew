@@ -20,6 +20,9 @@ class Warehouse extends Model implements Sluggable
     use LogsActivity;
     use ModelHelperTrait;
 
+    const DEFAULT_MANUFACTURE_TO_RESUPPLY = true;
+    const DEFAULT_BUY_TO_RESUPPLY = true;
+
     protected $table = 'warehouses';
     protected $guarded = [];
     protected static $logAttributes = ['*'];
