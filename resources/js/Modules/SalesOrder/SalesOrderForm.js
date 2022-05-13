@@ -11,7 +11,7 @@ import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import FormItemText from "../../Components/FormItem/FormItemText";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
-import {GET, POST} from "../../consts";
+import {GET} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
 import FormItemDate from "../../Components/FormItem/FormItemDate";
@@ -46,7 +46,6 @@ const SalesOrderForm = () => {
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
-        salesOrderLinesDeleted: [],
         breakdown: {
             untaxedAmount: 0,
             tax: 0,
@@ -153,22 +152,6 @@ const SalesOrderForm = () => {
         return salesOrderLines.map((salesOrderLine) => (salesOrderLine.subtotal)).reduce((total, subtotal) => (total + subtotal));
     }
 
-    function onFinish(values) {
-        if (id) {
-            if (state.salesOrderLinesDeleted.length) {
-                useFetch(`/api/sales_order_lines/mass_destroy`, POST, {ids: state.salesOrderLinesDeleted}).then(() => {
-                    setState((prevState) => ({
-                        ...prevState,
-                        salesOrderLinesDeleted: [],
-                    }));
-                }).catch((responseErr) => {
-                    fetchCatcher.get(responseErr);
-                });
-            }
-        }
-        formActions.onFinish(values);
-    }
-
     return (
         <FormContextProvider
             value={{
@@ -179,7 +162,7 @@ const SalesOrderForm = () => {
                 formActions: formActions,
                 state: state,
                 setState: setState,
-                onFinish: onFinish,
+                onFinish: formActions.onFinish,
                 onValuesChange: onValuesChange,
             }}
         >
