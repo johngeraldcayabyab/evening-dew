@@ -4,8 +4,11 @@ namespace App\Jobs;
 
 use App\Events\ContactUpsertEvent;
 use App\Models\Address;
+use App\Models\City;
 use App\Models\Contact;
+use App\Models\Product;
 use App\Models\SalesOrder;
+use App\Models\SalesOrderLine;
 use App\Models\Transfer;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
@@ -37,85 +40,111 @@ class ImportShopifyOrdersJob implements ShouldQueue
         $responseJson = $response->json();
         $orders = $responseJson['orders'];
 
+//        info($orders);
+
+
         foreach ($orders as $order) {
-            $orderNumber = $order['order_number'];
-            $email = $order['email'];
-            $createdAt = Carbon::parse($order['created_at']);
-
-            $address = [];
-
-
-            $shopifyShippingAddress = false;
-            $shopifyBillingAddress = false;
-
-            if (isset($order['shipping_address'])) {
-                $shopifyShippingAddress = $order['shipping_address'];
-                $address = $order['shipping_address'];
-            } else if (isset($order['billing_address'])) {
-                $shopifyBillingAddress = $order['billing_address'];
-                $address = $order['billing_address'];
+            $shopifyOrderNumber = $order['order_number'];
+            if (SalesOrder::where('number', $shopifyOrderNumber)->first()) {
+                continue;
             }
 
-            $contact = Contact::where('name', $address['name'])->where('mobile', $address['phone'])->where('email', $email)->first();
-            if (!$contact) {
-                Contact::updateOrCreate([
-                    'name' => $address['name'],
-                ],
-                    [
-                        'mobile' => $address['phone'],
-                        'email' => $email,
-                    ]);
-                $contact = Contact::where('name', $address['name'])->where('mobile', $address['phone'])->where('email', $email)->first();
-            }
+            $shopifyCustomer = $order['customer'];
+            $shopifyCreatedAt = Carbon::parse($order['created_at']);
+            $shopifyDefaultAddress = $shopifyCustomer['default_address'] ?? false;
+            $shopifyShippingAddress = $order['shipping_address'] ?? false;
+            $shopifyBillingAddress = $order['billing_address'] ?? false;
+            $shopifyLineItems = $order['line_items'];
 
-            $addressName = $contact->name . " " . Address::DEFAULT . " address";
+            $contact = Contact::firstOrCreate([
+                'name' => $shopifyCustomer['first_name'] . " " . $shopifyCustomer['last_name'],
+                'phone' => $shopifyDefaultAddress ? $shopifyDefaultAddress['phone'] : null,
+                'email' => $shopifyCustomer['email'],
+            ]);
 
-            $address = Address::where('address_name', $addressName)
-                ->where('address', $address['address1'])
-                ->where('zip', $address['zip'])
-                ->where('city', $address['city'])
-                ->where('type', Address::DEFAULT)
-                ->where('contact_id', $contact->id)
-                ->first();
-            if (!$address) {
-                Address::updateOrCreate([
-                    'address_name' => $addressName,
-                    'contact_id' => $contact->id,
-                ], [
-                    'address' => $address['address1'],
-                    'zip' => $address['zip'],
-                    'city' => $address['city'],
+            $defaultAddress = false;
+            $deliveryAddress = false;
+            $invoiceAddress = false;
+
+            if ($shopifyDefaultAddress) {
+                $defaultCity = City::firstOrCreate([
+                    'name' => $shopifyDefaultAddress['city']
                 ]);
-                $address = Address::where('address_name', $addressName)
-                    ->where('address', $address['address1'])
-                    ->where('zip', $address['zip'])
-                    ->where('city', $address['city'])
-                    ->where('type', Address::DEFAULT)
-                    ->where('contact_id', $contact->id)
-                    ->first();
+                $defaultAddressName = $contact->name . " " . Address::DEFAULT . " address";
+                $defaultAddress = Address::firstOrCreate([
+                    'address_name' => $defaultAddressName,
+                    'address' => $shopifyDefaultAddress['address1'],
+                    'contact_id' => $contact->id,
+                    'city_id' => $defaultCity->id,
+                    'type' => Address::DEFAULT,
+                ]);
             }
 
-            if (!SalesOrder::where('number', $orderNumber)->first()) {
-                SalesOrder::updateOrCreate([
-                    'number' => $orderNumber,
-                ],
-                    [
-                        'customer_id' => $contact->id,
-                        'invoice_address_id' => $address->id,
-                        'delivery_address_id' => $address->id,
-                        'phone' => $contact->phone,
-                        'quotation_date' => now(),
-                        'salesperson_id' => 1,
-                        'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
-                        'source_document' => "Shopify {$orderNumber}",
-                        'status' => SalesOrder::DRAFT,
-                        'created_at' => $createdAt,
-                        'updated_at' => $createdAt,
-                    ]);
+            if ($shopifyShippingAddress) {
+                $deliveryCity = City::firstOrCreate([
+                    'name' => $shopifyShippingAddress['city']
+                ]);
+                $deliveryAddressName = $contact->name . " " . Address::DELIVERY . " address";
+                $deliveryAddress = Address::firstOrCreate([
+                    'address_name' => $deliveryAddressName,
+                    'address' => $shopifyShippingAddress['address1'],
+                    'contact_id' => $contact->id,
+                    'city_id' => $deliveryCity->id,
+                    'type' => Address::DELIVERY,
+                ]);
+            }
+
+            if ($shopifyBillingAddress) {
+                $invoiceCity = City::firstOrCreate([
+                    'name' => $shopifyBillingAddress['city']
+                ]);
+                $invoiceAddressName = $contact->name . " " . Address::INVOICE . " address";
+                $invoiceAddress = Address::firstOrCreate([
+                    'address_name' => $invoiceAddressName,
+                    'address' => $shopifyBillingAddress['address1'],
+                    'contact_id' => $contact->id,
+                    'city_id' => $invoiceCity->id,
+                    'type' => Address::INVOICE,
+                ]);
+            }
+
+            $salesOrderInvoiceAddress = $invoiceAddress ? $invoiceAddress : $defaultAddress;
+            $salesOrderDeliveryAddress = $deliveryAddress ? $deliveryAddress : $defaultAddress;
+
+            $salesOrder = SalesOrder::create([
+                'number' => $shopifyOrderNumber,
+                'customer_id' => $contact->id,
+                'invoice_address_id' => $salesOrderInvoiceAddress->id,
+                'delivery_address_id' => $salesOrderDeliveryAddress->id,
+                'phone' => $contact->phone,
+                'quotation_date' => now(),
+                'salesperson_id' => 1,
+                'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
+                'source_document' => "Shopify {$shopifyOrderNumber}",
+                'status' => SalesOrder::DRAFT,
+                'created_at' => $shopifyCreatedAt,
+                'updated_at' => $shopifyCreatedAt,
+            ]);
+
+            foreach ($shopifyLineItems as $shopifyLineItem) {
+
+                $product = Product::firstOrCreate([
+                    'name' => $shopifyLineItem['name'],
+                    'internal_reference' => $shopifyLineItem['sku'],
+                ]);
+
+
+                SalesOrderLine::create([
+                    'product_id' => $product->id,
+                    'quantity' => $shopifyLineItem['fulfillable_quantity'],
+                    'measurement_id' => 1,
+                    'unit_price' => $shopifyLineItem['price'],
+                    'subtotal' => $shopifyLineItem['price'] * $shopifyLineItem['fulfillable_quantity'],
+                    'sales_order_id' => $salesOrder->id,
+                    'created_at' => $salesOrder->created_at,
+                    'updated_at' => $salesOrder->updated_at,
+                ]);
             }
         }
-
-
-//        info($orders[0]);
     }
 }
