@@ -52,8 +52,8 @@ class WarehouseController
     public function initial_values()
     {
         return [
-            'manufacture_to_resupply' => true,
-            'buy_to_resupply' => true,
+            'manufacture_to_resupply' => Warehouse::DEFAULT_MANUFACTURE_TO_RESUPPLY,
+            'buy_to_resupply' => Warehouse::DEFAULT_BUY_TO_RESUPPLY,
         ];
     }
 }
