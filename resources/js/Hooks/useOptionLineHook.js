@@ -53,32 +53,30 @@ const useOptionLineHook = (url, query) => {
             });
         },
         onChange: (event, key) => {
-            console.log(event.target.value, key);
-            // const values = state.values;
-            // values[key] = event.target.value;
-            // setState((prevState) => ({
-            //     ...prevState,
-            //     values: values
-            // }));
+            const values = state.values;
+            values[key] = event.target.value;
+            setState((prevState) => ({
+                ...prevState,
+                values: values
+            }));
         },
         onCreate: (key) => {
-            console.log(state.values, key, getField());
-            // const values = state.values;
-            // const params = {};
-            // params[getField()] = values[key];
-            // useFetch(`${url}`, POST, params).then((response) => {
-            //     values[key] = null;
-            //     setState(prevState => ({
-            //         ...prevState,
-            //         values: values
-            //     }));
-            //     optionActions.getOptions(null, key);
-            // }).catch((responseErr) => {
-            //     fetchCatcher.get(responseErr);
-            // });
+            const field = query.split('.').slice(-1)[0];
+            const values = state.values;
+            const params = {};
+            params[field] = values[key];
+            values[key] = null;
+            useFetch(`${url}`, POST, params).then((response) => {
+                setState(prevState => ({
+                    ...prevState,
+                    values: values
+                }));
+                optionActions.getOptions(null, key);
+            }).catch((responseErr) => {
+                fetchCatcher.get(responseErr);
+            });
         },
         onSearch: (search, key) => {
-            console.log(search, key);
             optionActions.getOptions(search, key)
         },
         onClear: (key) => {
@@ -128,6 +126,7 @@ const useOptionLineHook = (url, query) => {
         aggregate: (lineOptions, fieldKey, formState, lineName) => {
             fieldKey = parseInt(fieldKey);
             return {
+                value: lineOptions.values[fieldKey],
                 options: lineOptions.options[fieldKey],
                 optionsLoading: lineOptions.optionsLoading[fieldKey],
                 onChange: (event) => lineOptions.onChange(event, fieldKey),
