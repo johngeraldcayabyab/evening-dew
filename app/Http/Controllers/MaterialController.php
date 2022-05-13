@@ -44,11 +44,14 @@ class MaterialController
     public function update(MaterialRequest $request, Material $material): JsonResponse
     {
         $data = $request->validated();
-        $materialData = Arr::except($data, ['material_lines']);
+        $materialData = Arr::except($data, ['material_lines', 'material_lines_deleted']);
         $material->update($materialData);
         if (isset($data['material_lines'])) {
             $materialLinesData = $data['material_lines'];
             MaterialLine::updateOrCreateMany($materialLinesData, $material->id);
+        }
+        if (isset($data['material_lines_deleted'])) {
+            MaterialLine::massDelete(collect($data['material_lines_deleted'])->pluck('id'));
         }
         return response()->json([], STATUS_UPDATE);
     }
