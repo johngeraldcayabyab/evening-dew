@@ -121,6 +121,7 @@ const WarehouseForm = () => {
                                             message={'Please select a view location'}
                                             required={true}
                                             {...options.viewLocation}
+                                            dropdownRender={options.viewLocation}
                                         />
 
                                         <FormItemSelect
@@ -129,6 +130,7 @@ const WarehouseForm = () => {
                                             message={'Please select a stock location'}
                                             required={true}
                                             {...options.stockLocation}
+                                            dropdownRender={options.stockLocation}
                                         />
 
                                         <FormItemSelect
@@ -137,6 +139,7 @@ const WarehouseForm = () => {
                                             message={'Please select a input location'}
                                             required={true}
                                             {...options.inputLocation}
+                                            dropdownRender={options.inputLocation}
                                         />
 
                                         <FormItemSelect
@@ -145,6 +148,7 @@ const WarehouseForm = () => {
                                             message={'Please select a quality control location'}
                                             required={true}
                                             {...options.qualityControlLocation}
+                                            dropdownRender={options.qualityControlLocation}
                                         />
 
                                         <FormItemSelect
@@ -153,6 +157,7 @@ const WarehouseForm = () => {
                                             message={'Please select a packing location'}
                                             required={true}
                                             {...options.packingLocation}
+                                            dropdownRender={options.packingLocation}
                                         />
 
                                         <FormItemSelect
@@ -161,6 +166,7 @@ const WarehouseForm = () => {
                                             message={'Please select a output location'}
                                             required={true}
                                             {...options.outputLocation}
+                                            dropdownRender={options.outputLocation}
                                         />
 
                                         <FormItemSelect
@@ -169,6 +175,7 @@ const WarehouseForm = () => {
                                             message={'Please select a stock after manufacturing location'}
                                             required={true}
                                             {...options.stockAfterManufacturingLocation}
+                                            dropdownRender={options.stockAfterManufacturingLocation}
                                         />
 
                                         <FormItemSelect
@@ -177,6 +184,7 @@ const WarehouseForm = () => {
                                             message={'Please select a picking before manufacturing location'}
                                             required={true}
                                             {...options.pickingBeforeManufacturingLocation}
+                                            dropdownRender={options.pickingBeforeManufacturingLocation}
                                         />
 
                                         <FormItemSelect
@@ -185,6 +193,7 @@ const WarehouseForm = () => {
                                             message={'Please select an adjustment location'}
                                             required={true}
                                             {...options.adjustmentLocation}
+                                            dropdownRender={options.adjustmentLocation}
                                         />
                                     </ColForm>
 

@@ -50,9 +50,4 @@ class StockMovementController
         $this->massDelete(new StockMovement(), $request);
         return response()->json([], STATUS_DELETE);
     }
-
-    public function initial_values()
-    {
-        return [];
-    }
 }

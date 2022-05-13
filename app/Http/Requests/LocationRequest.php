@@ -15,7 +15,7 @@ class LocationRequest extends FormRequest
             'parent_location_id' => ['nullable', "exists:locations,id"],
             'is_a_scrap_location' => ['nullable'],
             'is_a_return_location' => ['nullable'],
-            'type' => ['required', "in:$types"],
+            'type' => ['nullable', "in:$types"],
         ];
     }
 }

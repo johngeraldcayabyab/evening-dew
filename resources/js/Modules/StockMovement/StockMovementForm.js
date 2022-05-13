@@ -19,7 +19,7 @@ import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 const StockMovementForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, manifest);
 
     const productOptions = useOptionHook('/api/products', 'product.name');
     const sourceLocationOptions = useOptionHook('/api/locations', 'source_location.name');
