@@ -19,17 +19,18 @@ class MeasurementObserver
 
     public function setDefaults($model)
     {
+        $modelArray = $model->toArray();
         $inventoryDefaultMeasurementCategory = GlobalSetting::latestFirst()->inventoryDefaultMeasurementCategory;
-        if (!isset($array['type'])) {
+        if (!isset($modelArray['type'])) {
             $model->type = Measurement::REFERENCE;
         }
-        if (!isset($array['ratio'])) {
+        if (!isset($modelArray['ratio'])) {
             $model->ratio = Measurement::DEFAULT_RATIO;
         }
-        if (!isset($array['rounding_precision'])) {
+        if (!isset($modelArray['rounding_precision'])) {
             $model->rounding_precision = Measurement::DEFAULT_ROUNDING_PRECISION;
         }
-        if (!isset($array['measurement_category_id'])) {
+        if (!isset($modelArray['measurement_category_id'])) {
             $model->measurement_category_id = $inventoryDefaultMeasurementCategory->id;
         }
     }
