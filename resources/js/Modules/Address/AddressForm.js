@@ -20,7 +20,7 @@ const AddressForm = () => {
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
     const countryOptions = useOptionHook('/api/countries', 'country.country_name');
-    const cityOptions = useOptionHook('/api/cities', 'cities.name');
+    const cityOptions = useOptionHook('/api/cities', 'city.name');
     const contactOptions = useOptionHook('/api/contacts', 'contact.name');
 
     useEffect(() => {

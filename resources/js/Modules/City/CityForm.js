@@ -19,7 +19,7 @@ const CityForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest);
-    const regionOptions = useOptionHook('/api/regions', 'regions.region');
+    const regionOptions = useOptionHook('/api/regions', 'region.region');
 
     useEffect(() => {
         regionOptions.getInitialOptions(formState);
