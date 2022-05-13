@@ -26,13 +26,13 @@ const FormItemSelect = (props) => {
                     />
                 )
             }
-            if(props.listName){
-                // console.log(props.optionAggregate);
-                // return (
-                //     <CustomDropdownMenu
-                //         menu={menu}
-                //     />
-                // )
+            if (props.listName) {
+                return (
+                    <CustomDropdownMenu
+                        menu={menu}
+                        {...props.optionAggregate.aggregate(props.optionAggregate, props.fieldKey, formContext.formState, props.listName)}
+                    />
+                )
             }
         }
     }
