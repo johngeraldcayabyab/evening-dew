@@ -25,13 +25,21 @@ const FormLineParent = (props) => {
                                     {props.children}
                                 </FormLine>
                                 <RemoveLineButton
-                                    remove={remove}
+                                    remove={() => {
+                                        remove(name);
+                                    }}
                                     listName={props.listName}
                                     name={name}
                                 />
                             </RowForm>
                         ))}
                         <AddLineButton add={add} label={'Add a component'}/>
+                    </>
+                )}
+            </Form.List>
+            <Form.List name={`${props.listName}_deleted`}>
+                {(fields, {add, remove}) => (
+                    <>
                     </>
                 )}
             </Form.List>
