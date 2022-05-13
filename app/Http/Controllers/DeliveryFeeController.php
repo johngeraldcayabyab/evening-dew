@@ -31,7 +31,7 @@ class DeliveryFeeController extends Controller
     public function store(DeliveryFeeRequest $request): JsonResponse
     {
         $data = $request->validated();
-        $deliveryFeeData = Arr::except($data, ['delivery_fee_lines', 'delivery_fee_lines_deleted']);
+        $deliveryFeeData = Arr::except($data, ['delivery_fee_lines']);
         $deliveryFee = DeliveryFee::create($deliveryFeeData);
         if (isset($data['delivery_fee_lines'])) {
             $deliveryFeeLinesData = $data['delivery_fee_lines'];

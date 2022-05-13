@@ -43,7 +43,7 @@ class SalesOrderController
             SalesOrderLine::updateOrCreateMany($salesOrderLinesData, $salesOrder->id);
         }
         if ($salesOrder->status === SalesOrder::DONE) {
-            SalesOrderValidatedEvent::dispatch($salesOrder);
+//            SalesOrderValidatedEvent::dispatch($salesOrder);
         }
         return response()->json([], STATUS_CREATE, $this->locationHeader($salesOrder));
     }
@@ -51,14 +51,17 @@ class SalesOrderController
     public function update(SalesOrderRequest $request, SalesOrder $salesOrder): JsonResponse
     {
         $data = $request->validated();
-        $salesOrderData = Arr::except($data, ['sales_order_lines']);
+        $salesOrderData = Arr::except($data, ['sales_order_lines', 'sales_order_lines_deleted']);
         $salesOrder->update($salesOrderData);
         if (isset($data['sales_order_lines'])) {
             $salesOrderLinesData = $data['sales_order_lines'];
             SalesOrderLine::updateOrCreateMany($salesOrderLinesData, $salesOrder->id);
         }
+        if (isset($data['sales_order_lines_deleted'])) {
+            SalesOrderLine::massDelete(collect($data['sales_order_lines_deleted'])->pluck('id'));
+        }
         if ($salesOrder->status === SalesOrder::DONE) {
-            SalesOrderValidatedEvent::dispatch($salesOrder);
+//            SalesOrderValidatedEvent::dispatch($salesOrder);
         }
         return response()->json([], STATUS_UPDATE);
     }
