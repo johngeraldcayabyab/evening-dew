@@ -26,7 +26,7 @@ class ContactResource extends JsonResource
             'country_id' => $defaultAddress->country_id,
             'city_id' => $defaultAddress->city_id,
             'country' => new CountryResource($defaultAddress->country),
-            'city' => $defaultAddress->city,
+            'city' => new CityResource($defaultAddress->city),
             'slug' => $this->$slug,
         ]);
     }
