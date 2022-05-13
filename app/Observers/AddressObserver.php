@@ -9,15 +9,23 @@ class AddressObserver
 {
     public function creating(Address $address)
     {
-        if (!$address->country_id) {
-            $address->country_id = GlobalSetting::latestFirst()->generalDefaultCountry->id;
-        }
+        $this->setDefaults($address);
     }
 
     public function updating(Address $address)
     {
-        if (!$address->country_id) {
-            $address->country_id = GlobalSetting::latestFirst()->generalDefaultCountry->id;
+        $this->setDefaults($address);
+    }
+
+    public function setDefaults($model)
+    {
+        $generalDefaultCountry = GlobalSetting::latestFirst()->generalDefaultCountry;
+        $modelArray = $model->toArray();
+        if (!isset($modelArray['country_id'])) {
+            $model->country_id = $generalDefaultCountry->id;
+        }
+        if (!isset($modelArray['type'])) {
+            $model->type = Address::DEFAULT;
         }
     }
 }

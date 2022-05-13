@@ -19,33 +19,34 @@ class ProductObserver
 
     public function setDefaults($model)
     {
+        $modelArray = $model->toArray();
         $globalSetting = GlobalSetting::latestFirst();
         $inventoryDefaultMeasurement = $globalSetting->inventoryDefaultMeasurement;
         $inventoryDefaultPurchaseMeasurement = $globalSetting->inventoryDefaultPurchaseMeasurement;
         $inventoryDefaultSalesMeasurement = $globalSetting->inventoryDefaultSalesMeasurement;
         $inventoryDefaultProductCategory = $globalSetting->inventoryDefaultProductCategory;
-        if (!isset($array['product_type'])) {
+        if (!isset($modelArray['product_type'])) {
             $model->product_type = Product::STORABLE;
         }
-        if (!isset($array['invoicing_policy'])) {
+        if (!isset($modelArray['invoicing_policy'])) {
             $model->invoicing_policy = Product::ORDERED_QUANTITIES;
         }
-        if (!isset($array['sales_price'])) {
+        if (!isset($modelArray['sales_price'])) {
             $model->sales_price = Product::DEFAULT_SALES_PRICE;
         }
-        if (!isset($array['cost'])) {
+        if (!isset($modelArray['cost'])) {
             $model->cost = Product::DEFAULT_COST;
         }
-        if (!isset($array['measurement_id'])) {
+        if (!isset($modelArray['measurement_id'])) {
             $model->measurement_id = $inventoryDefaultMeasurement->id;
         }
-        if (!isset($array['purchase_measurement_id'])) {
+        if (!isset($modelArray['purchase_measurement_id'])) {
             $model->purchase_measurement_id = $inventoryDefaultPurchaseMeasurement->id;
         }
-        if (!isset($array['sales_measurement_id'])) {
+        if (!isset($modelArray['sales_measurement_id'])) {
             $model->sales_measurement_id = $inventoryDefaultSalesMeasurement->id;
         }
-        if (!isset($array['product_category_id'])) {
+        if (!isset($modelArray['product_category_id'])) {
             $model->product_category_id = $inventoryDefaultProductCategory->id;
         }
     }

@@ -319,6 +319,7 @@ const SalesOrderForm = () => {
                                             message={'Please select a measurement'}
                                             required={true}
                                             optionAggregate={salesMeasurementOptions}
+                                            dropdownRender={salesMeasurementOptions}
                                         />
                                         <FormItemNumber
                                             placeholder={'Unit Price'}
