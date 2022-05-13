@@ -105,6 +105,7 @@ const DeliveryFeeForm = () => {
                                             message={'Please select a city'}
                                             required={true}
                                             optionAggregate={cityOptions}
+                                            dropdownRender={cityOptions}
                                         />
                                         <FormItemNumber
                                             placeholder={'Amount'}

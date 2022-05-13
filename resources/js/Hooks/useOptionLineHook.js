@@ -53,32 +53,29 @@ const useOptionLineHook = (url, query) => {
             });
         },
         onChange: (event, key) => {
-            console.log(event.target.value, key);
-            // const values = state.values;
-            // values[key] = event.target.value;
-            // setState((prevState) => ({
-            //     ...prevState,
-            //     values: values
-            // }));
+            const values = state.values;
+            values[key] = event.target.value;
+            setState((prevState) => ({
+                ...prevState,
+                values: values
+            }));
         },
         onCreate: (key) => {
-            console.log(state.values, key, getField());
-            // const values = state.values;
-            // const params = {};
-            // params[getField()] = values[key];
-            // useFetch(`${url}`, POST, params).then((response) => {
-            //     values[key] = null;
-            //     setState(prevState => ({
-            //         ...prevState,
-            //         values: values
-            //     }));
-            //     optionActions.getOptions(null, key);
-            // }).catch((responseErr) => {
-            //     fetchCatcher.get(responseErr);
-            // });
+            const field = query.split('.').slice(-1)[0];
+            const values = state.values;
+            const params = {};
+            params[field] = values[key];
+            useFetch(`${url}`, POST, params).then((response) => {
+                setState(prevState => ({
+                    ...prevState,
+                    values: {}
+                }));
+                optionActions.getOptions(null, key);
+            }).catch((responseErr) => {
+                fetchCatcher.get(responseErr);
+            });
         },
         onSearch: (search, key) => {
-            console.log(search, key);
             optionActions.getOptions(search, key)
         },
         onClear: (key) => {
