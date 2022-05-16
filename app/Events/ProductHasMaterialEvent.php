@@ -4,13 +4,10 @@ namespace App\Events;
 
 use App\Models\Material;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ProductHasMaterialEvent implements ShouldBroadcast, ShouldQueue
+class ProductHasMaterialEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -29,10 +26,5 @@ class ProductHasMaterialEvent implements ShouldBroadcast, ShouldQueue
         $this->destinationLocationId = $destinationLocationId;
         $this->material = $material;
         $this->demand = $demand;
-    }
-
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
     }
 }

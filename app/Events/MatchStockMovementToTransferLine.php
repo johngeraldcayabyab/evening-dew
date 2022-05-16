@@ -4,11 +4,10 @@ namespace App\Events;
 
 use App\Models\StockMovement;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class MatchStockMovementToTransferLine implements ShouldQueue
+class MatchStockMovementToTransferLine
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

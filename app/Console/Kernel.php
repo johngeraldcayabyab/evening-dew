@@ -2,7 +2,7 @@
 
 namespace App\Console;
 
-use App\Jobs\ComputeProductQuantity;
+use App\Jobs\ComputeProductQuantityJob;
 use App\Jobs\ImportShopifyOrdersJob;
 use App\Jobs\ValidateAllDraftTransfersJob;
 use App\Models\GlobalSetting;
@@ -19,7 +19,7 @@ class Kernel extends ConsoleKernel
             if (GlobalSetting::latestFirst()->inventory_auto_validate_draft) {
                 ValidateAllDraftTransfersJob::dispatch();
             }
-            ComputeProductQuantity::dispatch();
+            ComputeProductQuantityJob::dispatch();
             ImportShopifyOrdersJob::dispatch();
         })->everyMinute();
     }
