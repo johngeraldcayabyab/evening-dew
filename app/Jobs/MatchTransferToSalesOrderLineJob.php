@@ -1,21 +1,30 @@
 <?php
 
-namespace App\Events;
+namespace App\Jobs;
 
 use App\Models\SalesOrderLine;
 use App\Models\SalesOrderTransferLine;
 use App\Models\Transfer;
-use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class MatchTransferToSalesOrderLine implements ShouldQueue
+class MatchTransferToSalesOrderLineJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    private $transfer;
 
     public function __construct(Transfer $transfer)
     {
+        $this->transfer = $transfer;
+    }
+
+    public function handle()
+    {
+        $transfer = $this->transfer;
         if ($transfer->salesOrderTransfer()->exists()) {
             $transferLines = $transfer->transferLines;
             $salesOrderTransfer = $transfer->salesOrderTransfer;

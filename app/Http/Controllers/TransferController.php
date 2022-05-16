@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Data\SystemSetting;
-use App\Events\MatchTransferToSalesOrderLine;
 use App\Events\TransferValidatedEvent;
 use App\Http\Requests\TransferRequest;
 use App\Http\Resources\TransferResource;
@@ -61,7 +60,6 @@ class TransferController
         if ($transfer->status === Transfer::DONE) {
             TransferValidatedEvent::dispatch($transfer);
         }
-        MatchTransferToSalesOrderLine::dispatch($transfer);
         return response()->json([], STATUS_UPDATE);
     }
 

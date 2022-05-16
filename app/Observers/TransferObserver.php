@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Data\SystemSetting;
+use App\Jobs\MatchTransferToSalesOrderLineJob;
 use App\Models\GlobalSetting;
 use App\Models\OperationType;
 use App\Models\Sequence;
@@ -48,6 +49,11 @@ class TransferObserver
         }
     }
 
+    public function created(Transfer $transfer)
+    {
+
+    }
+
     public function updating(Transfer $transfer)
     {
         $transfer->scheduled_date = Carbon::parse($transfer->scheduled_date)->format(SystemSetting::DATE_TIME_FORMAT);
@@ -59,5 +65,10 @@ class TransferObserver
                 $transfer->responsible_id = auth()->user()->id;
             }
         }
+    }
+
+    public function updated(Transfer $transfer)
+    {
+        MatchTransferToSalesOrderLineJob::dispatch($transfer);
     }
 }

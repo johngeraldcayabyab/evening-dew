@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace App\Jobs;
 
 use App\Models\Location;
 use App\Models\Product;
@@ -9,16 +9,26 @@ use App\Services\LocationCompute\CustomerCompute;
 use App\Services\LocationCompute\InternalCompute;
 use App\Services\LocationCompute\InventoryLossCompute;
 use App\Services\LocationCompute\VendorCompute;
-use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class ComputeProductQuantityEvent implements ShouldQueue
+class ComputeProductQuantityJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(Product $product)
+    public function handle()
+    {
+        $product = new Product();
+        $products = $product->where('product_type', Product::STORABLE)->get();
+        foreach ($products as $product) {
+            $this->construct($product);
+        }
+    }
+
+    public function construct(Product $product)
     {
         $currentQuantity = $product->quantity;
         $stockMovements = StockMovement::where('product_id', $product->id)->get();
