@@ -4,7 +4,7 @@ import {DELETE, GET, POST} from "../consts";
 import {getAllUrlParams} from "../Helpers/url";
 import useFetchCatcherHook from "./useFetchCatcherHook";
 
-const useListHook = (manifest, columns) => {
+const useListHook = (manifest) => {
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const moduleName = manifest.moduleName;
@@ -70,10 +70,10 @@ const useListHook = (manifest, columns) => {
     });
 
 
-    useEffect(() => {
-        const urlParams = getAllUrlParams();
-        tableActions.renderData(urlParams);
-    }, []);
+    // useEffect(() => {
+    //     // const urlParams = getAllUrlParams();
+    //     // tableActions.renderData(urlParams);
+    // }, []);
 
 
     useEffect(() => {
@@ -110,7 +110,7 @@ const useListHook = (manifest, columns) => {
         // };
     }, []);
 
-    return [tableState, tableActions, columns]
+    return [tableState, tableActions]
 };
 
 export default useListHook;
