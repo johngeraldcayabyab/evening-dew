@@ -83,6 +83,16 @@ php artisan storage:link php artisan event:cache
 
 
 <h5>Initial Value Rules</h5>
-<p>Initial values can have nullable FormRequest fields but should be required in the front-end</p>
-<p>But the initial values that are supposed to be required in the FormRequest are now "auto-filled" in the observer</p>
-<p>If something really is required from the FormRequest, then the value must always be provided</p>
+<ul>
+<li>Initial values can have nullable FormRequest fields but should be required in the front-end</li>
+<li>But the initial values that are supposed to be required in the FormRequest are now "auto-filled" in the observer</li>
+<li>If something really is required from the FormRequest, then the value must always be provided</li>
+</ul>
+
+<h5>Events and Jobs</h5>
+<ul>
+<li>Make sure the order of jobs and events respects the pre-requisites first before dispatching</li>
+<li>Pre-mature dispatching of events and jobs may cause bad data.</li>
+</ul>
+
+

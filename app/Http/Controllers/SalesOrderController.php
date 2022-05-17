@@ -43,7 +43,7 @@ class SalesOrderController
             SalesOrderLine::updateOrCreateMany($salesOrderLinesData, $salesOrder->id);
         }
         if ($salesOrder->status === SalesOrder::DONE) {
-//            SalesOrderValidatedEvent::dispatch($salesOrder);
+            SalesOrderValidatedEvent::dispatch($salesOrder);
         }
         return response()->json([], STATUS_CREATE, $this->locationHeader($salesOrder));
     }
@@ -61,7 +61,7 @@ class SalesOrderController
             SalesOrderLine::massDelete(collect($data['sales_order_lines_deleted'])->pluck('id'));
         }
         if ($salesOrder->status === SalesOrder::DONE) {
-//            SalesOrderValidatedEvent::dispatch($salesOrder);
+            SalesOrderValidatedEvent::dispatch($salesOrder);
         }
         return response()->json([], STATUS_UPDATE);
     }

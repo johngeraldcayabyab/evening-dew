@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Data\SystemSetting;
+use App\Events\SalesOrderValidatedEvent;
 use App\Models\GlobalSetting;
 use App\Models\SalesOrder;
 use App\Models\Transfer;
@@ -15,7 +16,7 @@ class SalesOrderObserver
         $this->setDefaults($model);
     }
 
-    public function created(SalesOrder $model)
+    public function created(SalesOrder $salesOrder)
     {
         $salesOrderDefaultSequence = GlobalSetting::latestFirst()->salesOrderDefaultSequence;
         if ($salesOrderDefaultSequence) {
@@ -29,6 +30,11 @@ class SalesOrderObserver
         $this->setDefaults($model);
     }
 
+    public function updated(SalesOrder $salesOrder)
+    {
+
+    }
+
     public function setDefaults($model)
     {
         if ($model->expiration_date) {
@@ -36,7 +42,7 @@ class SalesOrderObserver
         }
         $model->quotation_date = Carbon::parse($model->quotation_date)->format(SystemSetting::DATE_TIME_FORMAT);
         if (!$model->salesperson_id) {
-            if(auth()->user()){
+            if (auth()->user()) {
                 $model->salesperson_id = auth()->user()->id;
             }
         }
