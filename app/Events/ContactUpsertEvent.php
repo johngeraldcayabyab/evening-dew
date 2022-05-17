@@ -4,7 +4,6 @@ namespace App\Events;
 
 use App\Models\Contact;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
@@ -19,10 +18,5 @@ class ContactUpsertEvent
     {
         $this->contact = $contact;
         $this->data = $data;
-    }
-
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
     }
 }
