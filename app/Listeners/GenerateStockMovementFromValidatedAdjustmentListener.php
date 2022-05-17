@@ -8,7 +8,7 @@ use App\Models\Product;
 use App\Models\StockMovement;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class GenerateStockMovementFromValidatedAdjustment implements ShouldQueue
+class GenerateStockMovementFromValidatedAdjustmentListener implements ShouldQueue
 {
     public function handle(AdjustmentValidatedEvent $event)
     {

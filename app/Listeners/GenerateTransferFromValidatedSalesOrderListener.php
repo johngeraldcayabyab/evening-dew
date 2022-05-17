@@ -11,7 +11,7 @@ use App\Models\Transfer;
 use App\Models\TransferLine;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
+class GenerateTransferFromValidatedSalesOrderListener implements ShouldQueue
 {
     public function handle(SalesOrderValidatedEvent $event)
     {
