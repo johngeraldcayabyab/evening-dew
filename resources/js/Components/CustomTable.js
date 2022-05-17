@@ -46,6 +46,41 @@ const CustomTable = () => {
         }
     }
 
+    function onRow(record, rowIndex) {
+        return {
+            onClick: event => {
+                history.push(`/${listContext.manifest.moduleName}/${record.id}`);
+            },
+            onDoubleClick: event => {
+            },
+            onContextMenu: event => {
+            },
+            onMouseEnter: event => {
+                document.body.style.cursor = "pointer";
+            },
+            onMouseLeave: event => {
+                document.body.style.cursor = "default";
+            },
+        };
+    }
+
+    function onChange(pagination, filters, sorter) {
+        let orderByDirection = sorter.order;
+        if (orderByDirection === 'ascend') {
+            orderByDirection = 'asc';
+        } else if (orderByDirection === 'descend') {
+            orderByDirection = 'desc';
+        }
+        listContext.tableState.params.orderByColumn = sorter.column ? sorter.column.key : null;
+        listContext.tableState.params.orderByDirection = orderByDirection;
+        for (let key in filters) {
+            if (filters.hasOwnProperty(key)) {
+                listContext.tableState.params[key] = filters[key];
+            }
+        }
+        listContext.tableActions.renderData(listContext.tableState.params);
+    }
+
     return (
         <Table
             rowSelection={listContext.tableActions.rowSelection}
@@ -53,41 +88,10 @@ const CustomTable = () => {
             dataSource={listContext.tableState.dataSource}
             columns={state.columns}
             rowKey={'id'}
-            onRow={(record, rowIndex) => {
-                return {
-                    onClick: event => {
-                        history.push(`/${listContext.manifest.moduleName}/${record.id}`);
-                    },
-                    onDoubleClick: event => {
-                    },
-                    onContextMenu: event => {
-                    },
-                    onMouseEnter: event => {
-                        document.body.style.cursor = "pointer";
-                    },
-                    onMouseLeave: event => {
-                        document.body.style.cursor = "default";
-                    },
-                };
-            }}
+            onRow={onRow}
             pagination={false}
             childrenColumnName={'test'}
-            onChange={(pagination, filters, sorter) => {
-                let orderByDirection = sorter.order;
-                if (orderByDirection === 'ascend') {
-                    orderByDirection = 'asc';
-                } else if (orderByDirection === 'descend') {
-                    orderByDirection = 'desc';
-                }
-                listContext.tableState.params.orderByColumn = sorter.column ? sorter.column.key : null;
-                listContext.tableState.params.orderByDirection = orderByDirection;
-                for (let key in filters) {
-                    if (filters.hasOwnProperty(key)) {
-                        listContext.tableState.params[key] = filters[key];
-                    }
-                }
-                listContext.tableActions.renderData(listContext.tableState.params);
-            }}
+            onChange={onChange}
             size={'small'}
         />
     )

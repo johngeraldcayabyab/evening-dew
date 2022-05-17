@@ -71,7 +71,8 @@ const useListHook = (manifest, columns) => {
 
 
     useEffect(() => {
-        tableActions.renderData(getAllUrlParams());
+        const urlParams = getAllUrlParams();
+        tableActions.renderData(urlParams);
     }, []);
 
 
