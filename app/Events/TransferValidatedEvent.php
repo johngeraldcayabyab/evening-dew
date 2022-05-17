@@ -17,9 +17,4 @@ class TransferValidatedEvent
     {
         $this->transfer = $transfer;
     }
-
-    public function handle()
-    {
-        
-    }
 }
