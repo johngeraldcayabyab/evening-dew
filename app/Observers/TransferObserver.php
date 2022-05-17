@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Data\SystemSetting;
-use App\Jobs\MatchTransferToSalesOrderLineJob;
 use App\Models\GlobalSetting;
 use App\Models\OperationType;
 use App\Models\Sequence;
@@ -69,6 +68,6 @@ class TransferObserver
 
     public function updated(Transfer $transfer)
     {
-        MatchTransferToSalesOrderLineJob::dispatch($transfer);
+
     }
 }

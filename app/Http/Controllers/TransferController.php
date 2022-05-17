@@ -6,6 +6,7 @@ use App\Data\SystemSetting;
 use App\Events\TransferValidatedEvent;
 use App\Http\Requests\TransferRequest;
 use App\Http\Resources\TransferResource;
+use App\Jobs\MatchTransferToSalesOrderLineJob;
 use App\Models\Transfer;
 use App\Models\TransferLine;
 use App\Traits\ControllerHelperTrait;
@@ -60,6 +61,7 @@ class TransferController
         if ($transfer->status === Transfer::DONE) {
             TransferValidatedEvent::dispatch($transfer);
         }
+        MatchTransferToSalesOrderLineJob::dispatch($transfer);
         return response()->json([], STATUS_UPDATE);
     }
 
