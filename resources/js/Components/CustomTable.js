@@ -4,6 +4,7 @@ import {useHistory} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
 import {ListContext} from "../Contexts/ListContext";
 import FilterDropdown from "./TableButtons/FilterDropdown";
+import {getAllUrlParams} from "../Helpers/url";
 
 const CustomTable = () => {
     const listContext = useContext(ListContext);
@@ -19,9 +20,13 @@ const CustomTable = () => {
     }, []);
 
     useEffect(() => {
+        const selectedFields = [];
         const columns = state.columns.map((column) => {
             if (column.hasOwnProperty('searchFilter')) {
                 column = {...column, ...getColumnSearchProps(column.dataIndex)};
+            }
+            if (!column.hasOwnProperty('hidden')) {
+                selectedFields.push(column.dataIndex);
             }
             return column;
         });
@@ -29,6 +34,9 @@ const CustomTable = () => {
             ...prevState,
             columns: columns,
         }));
+        const urlParams = getAllUrlParams();
+        urlParams.selected_fields = selectedFields;
+        listContext.tableActions.renderData(urlParams);
     }, []);
 
     function getColumnSearchProps(dataIndex) {
