@@ -30,7 +30,6 @@ class ImportShopifyOrdersJob implements ShouldQueue
     {
         $shopifyLink = env('SHOPIFY_URL');
         $shopifyAccessToken = env('SHOPIFY_ACCESS_TOKEN');
-
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'X-Shopify-Access-Token' => $shopifyAccessToken
@@ -39,15 +38,11 @@ class ImportShopifyOrdersJob implements ShouldQueue
         $responseJson = $response->json();
         $orders = $responseJson['orders'];
 
-//        info($orders);
-
-
         foreach ($orders as $order) {
             $shopifyOrderNumber = $order['order_number'];
             if (SalesOrder::where('number', $shopifyOrderNumber)->first()) {
                 continue;
             }
-
             $shopifyCustomer = $order['customer'];
             $shopifyCreatedAt = Carbon::parse($order['created_at']);
             $shopifyDefaultAddress = $shopifyCustomer['default_address'] ?? false;
@@ -126,13 +121,10 @@ class ImportShopifyOrdersJob implements ShouldQueue
             ]);
 
             foreach ($shopifyLineItems as $shopifyLineItem) {
-
                 $product = Product::firstOrCreate([
                     'name' => $shopifyLineItem['name'],
                     'internal_reference' => $shopifyLineItem['sku'],
                 ]);
-
-
                 SalesOrderLine::create([
                     'product_id' => $product->id,
                     'quantity' => $shopifyLineItem['fulfillable_quantity'],
