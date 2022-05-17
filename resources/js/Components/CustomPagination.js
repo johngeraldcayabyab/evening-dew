@@ -4,13 +4,13 @@ import {useContext} from "react";
 
 const CustomPagination = () => {
     const listContext = useContext(ListContext);
-
+    // console.lo
     return (
         <Pagination
             size={'small'}
             current={listContext.tableState.meta ? listContext.tableState.meta.current_page : 1}
             total={listContext.tableState.meta ? listContext.tableState.meta.total : 1}
-            pageSize={80} // not respecting meta condition if null
+            pageSize={30} // not respecting meta condition if null
             showSizeChanger={false}
             showQuickJumper
             onChange={(page, pageSize) => {

@@ -71,8 +71,8 @@ const TransferList = () => {
                 },
                 {
                     title: 'Scheduled Date',
-                    dataIndex: 'scheduled_date',
-                    key: 'scheduled_date',
+                    dataIndex: 'scheduled_date_human',
+                    key: 'scheduled_date_human',
                     sorter: true,
                     searchFilter: true,
                     render: (text, record) => {
