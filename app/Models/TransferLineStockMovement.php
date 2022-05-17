@@ -38,7 +38,7 @@ class TransferLineStockMovement extends Model
         return $this->belongsTo(StockMovement::class);
     }
 
-    public function scopeUpdateOrCreateMany($query, $data)
+    public function scopeMassUpsert($query, $data)
     {
         $lines = [];
         $date = now();

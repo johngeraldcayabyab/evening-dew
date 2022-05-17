@@ -36,7 +36,7 @@ class MaterialController
         $material = Material::create($materialData);
         if (isset($data['material_lines'])) {
             $materialLinesData = $data['material_lines'];
-            MaterialLine::updateOrCreateMany($materialLinesData, $material->id);
+            MaterialLine::massUpsert($materialLinesData, $material->id);
         }
         return response()->json([], STATUS_CREATE, $this->locationHeader($material));
     }
@@ -48,7 +48,7 @@ class MaterialController
         $material->update($materialData);
         if (isset($data['material_lines'])) {
             $materialLinesData = $data['material_lines'];
-            MaterialLine::updateOrCreateMany($materialLinesData, $material->id);
+            MaterialLine::massUpsert($materialLinesData, $material->id);
         }
         if (isset($data['material_lines_deleted'])) {
             MaterialLine::massDelete(collect($data['material_lines_deleted'])->pluck('id'));

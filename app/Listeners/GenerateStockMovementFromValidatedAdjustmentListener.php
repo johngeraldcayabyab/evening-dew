@@ -54,7 +54,7 @@ class GenerateStockMovementFromValidatedAdjustmentListener implements ShouldQueu
             }
         }
         if (count($stockMovementData)) {
-            StockMovement::updateOrCreateMany($stockMovementData);
+            StockMovement::massUpsert($stockMovementData);
         }
     }
 }

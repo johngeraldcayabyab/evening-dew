@@ -33,7 +33,7 @@ class DeliveryFeeLine extends Model
         return $this->belongsTo(DeliveryFee::class);
     }
 
-    public function scopeUpdateOrCreateMany($query, $data, $parentId)
+    public function scopeMassUpsert($query, $data, $parentId)
     {
         $lines = [];
         $date = now();

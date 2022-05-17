@@ -40,7 +40,7 @@ class SalesOrderController
         $salesOrder = SalesOrder::create($salesOrderData);
         if (isset($data['sales_order_lines'])) {
             $salesOrderLinesData = $data['sales_order_lines'];
-            SalesOrderLine::updateOrCreateMany($salesOrderLinesData, $salesOrder->id);
+            SalesOrderLine::massUpsert($salesOrderLinesData, $salesOrder->id);
         }
         if ($salesOrder->status === SalesOrder::DONE) {
             SalesOrderValidatedEvent::dispatch($salesOrder);
@@ -55,7 +55,7 @@ class SalesOrderController
         $salesOrder->update($salesOrderData);
         if (isset($data['sales_order_lines'])) {
             $salesOrderLinesData = $data['sales_order_lines'];
-            SalesOrderLine::updateOrCreateMany($salesOrderLinesData, $salesOrder->id);
+            SalesOrderLine::massUpsert($salesOrderLinesData, $salesOrder->id);
         }
         if (isset($data['sales_order_lines_deleted'])) {
             SalesOrderLine::massDelete(collect($data['sales_order_lines_deleted'])->pluck('id'));

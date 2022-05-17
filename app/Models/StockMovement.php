@@ -43,7 +43,7 @@ class StockMovement extends Model
         return $this->hasOne(TransferLineStockMovement::class);
     }
 
-    public function scopeUpdateOrCreateMany($query, $data)
+    public function scopeMassUpsert($query, $data)
     {
         $transactionLines = [];
         $date = now();

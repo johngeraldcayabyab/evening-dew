@@ -35,7 +35,7 @@ class DeliveryFeeController extends Controller
         $deliveryFee = DeliveryFee::create($deliveryFeeData);
         if (isset($data['delivery_fee_lines'])) {
             $deliveryFeeLinesData = $data['delivery_fee_lines'];
-            DeliveryFeeLine::updateOrCreateMany($deliveryFeeLinesData, $deliveryFee->id);
+            DeliveryFeeLine::massUpsert($deliveryFeeLinesData, $deliveryFee->id);
         }
         return response()->json([], STATUS_CREATE, $this->locationHeader($deliveryFee));
     }
@@ -47,7 +47,7 @@ class DeliveryFeeController extends Controller
         $deliveryFee->update($deliveryFeeData);
         if (isset($data['delivery_fee_lines'])) {
             $deliveryFeeLinesData = $data['delivery_fee_lines'];
-            DeliveryFeeLine::updateOrCreateMany($deliveryFeeLinesData, $deliveryFee->id);
+            DeliveryFeeLine::massUpsert($deliveryFeeLinesData, $deliveryFee->id);
         }
         if (isset($data['delivery_fee_lines_deleted'])) {
             DeliveryFeeLine::massDelete(collect($data['delivery_fee_lines_deleted'])->pluck('id'));

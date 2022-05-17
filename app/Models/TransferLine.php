@@ -48,7 +48,7 @@ class TransferLine extends Model
         return $this->hasOne(TransferLineStockMovement::class);
     }
 
-    public function scopeUpdateOrCreateMany($query, $data, $transferId)
+    public function scopeMassUpsert($query, $data, $transferId)
     {
         $lines = [];
         $date = now();

@@ -51,7 +51,7 @@ class GenerateStockMovementFromValidatedTransferListener implements ShouldQueue
             }
         }
         if (count($stockMovementData)) {
-            StockMovement::updateOrCreateMany($stockMovementData);
+            StockMovement::massUpsert($stockMovementData);
             $transferLineStockMovementLines = [];
             $transferLines = $transfer->transferLines;
             foreach ($transferLines as $transferLine) {
@@ -65,7 +65,7 @@ class GenerateStockMovementFromValidatedTransferListener implements ShouldQueue
                 ];
             }
             if (count($transferLineStockMovementLines)) {
-                TransferLineStockMovement::updateOrCreateMany($transferLineStockMovementLines);
+                TransferLineStockMovement::massUpsert($transferLineStockMovementLines);
             }
         }
     }
