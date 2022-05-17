@@ -17,14 +17,6 @@ trait ResourceHelper
         if ($request->selected_fields) {
             if (Str::contains($request->url(), $this->getTable())) {
                 $selectedFields = explode(',', $request->selected_fields);
-                $selectedFieldsClone = $selectedFields;
-                foreach ($selectedFieldsClone as $selectedField) {
-                    foreach ($defaultFields as $key => $defaultField) {
-                        if ("{$selectedField}_id" === $key) {
-                            $selectedFields[] = $key;
-                        }
-                    }
-                }
                 $defaultFields = Arr::only($defaultFields, $selectedFields);
             }
         }
