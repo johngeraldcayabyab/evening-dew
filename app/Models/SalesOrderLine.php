@@ -43,7 +43,7 @@ class SalesOrderLine extends Model
         return $this->hasOne(SalesOrderTransferLine::class);
     }
 
-    public function scopeUpdateOrCreateMany($query, $data, $parentId)
+    public function scopeMassUpsert($query, $data, $parentId)
     {
         $lines = [];
         $date = now();
