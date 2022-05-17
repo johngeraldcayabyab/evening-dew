@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Events\ContactUpsertEvent;
 use App\Models\Address;
 use App\Models\City;
 use App\Models\Contact;
