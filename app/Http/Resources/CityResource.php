@@ -18,6 +18,8 @@ class CityResource extends JsonResource
             'region_id' => $this->region_id,
             'region' => new RegionResource($this->region),
             'slug' => $this->$slug,
+//            'next_record' => $this->id ? $this->nextRecord() : null,
+//            'previous_record' => $this->id ? $this->previousRecord() : null,
         ]);
     }
 }
