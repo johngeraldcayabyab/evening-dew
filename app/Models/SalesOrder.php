@@ -38,14 +38,14 @@ class SalesOrder extends Model implements Sluggable
         return $this->belongsTo(Contact::class, 'customer_id', 'id');
     }
 
-    public function invoiceAddress()
+    public function invoiceCity()
     {
-        return $this->belongsTo(Address::class, 'invoice_address_id', 'id');
+        return $this->belongsTo(City::class, 'invoice_city_id', 'id');
     }
 
-    public function deliveryAddress()
+    public function deliveryCity()
     {
-        return $this->belongsTo(Address::class, 'delivery_address_id', 'id');
+        return $this->belongsTo(City::class, 'delivery_city_id', 'id');
     }
 
     public function paymentTerm()
