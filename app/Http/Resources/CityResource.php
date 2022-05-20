@@ -18,6 +18,7 @@ class CityResource extends JsonResource
             'region_id' => $this->region_id,
             'region' => new RegionResource($this->region),
             'slug' => $this->$slug,
+            'delivery_fee_lines' => DeliveryFeeLineResource::collection($this->deliveryFeeLines)
 //            'next_record' => $this->id ? $this->nextRecord() : null,
 //            'previous_record' => $this->id ? $this->previousRecord() : null,
         ]);
