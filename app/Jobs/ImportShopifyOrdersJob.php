@@ -116,6 +116,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
                 'source_document' => "Shopify {$shopifyOrderNumber}",
                 'status' => SalesOrder::DRAFT,
+                'shipping_method' => Transfer::DELIVERY,
                 'created_at' => $shopifyCreatedAt,
                 'updated_at' => $shopifyCreatedAt,
             ]);
