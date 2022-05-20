@@ -97,7 +97,7 @@ const SalesOrderForm = () => {
                 invoiceAddressOptions.getOptions({id: invoiceAddress.id});
                 deliveryAddressOptions.getOptions({id: deliveryAddress.id});
                 form.setFieldsValue({
-                    phone: 1231231231,
+                    phone: defaultAddress.contact.phone,
                     invoice_address_id: invoiceAddress.id,
                     delivery_address_id: deliveryAddress.id
                 });
@@ -233,23 +233,19 @@ const SalesOrderForm = () => {
                                 {...customerOptions}
                                 dropdownRender={customerOptions}
                             />
-                            <FormItemSelect
-                                label={'Invoice address'}
-                                name={'invoice_address_id'}
-                                message={'Please select a invoice address'}
-                                required={true}
-                                {...invoiceAddressOptions}
-                            />
-                            <FormItemSelect
-                                label={'Delivery address'}
-                                name={'delivery_address_id'}
-                                message={'Please select a delivery address'}
-                                required={true}
-                                {...deliveryAddressOptions}
-                            />
                             <FormItemText
                                 label={'Phone'}
                                 name={'phone'}
+                            />
+                            <FormItemSelect
+                                label={'Shipping Method'}
+                                name={'shipping_method'}
+                                message={'Please select an shipping method'}
+                                required={true}
+                                options={[
+                                    {value: 'delivery', label: 'Delivery'},
+                                    {value: 'pickup', label: 'Pickup'},
+                                ]}
                             />
                         </ColForm>
                         <ColForm>
@@ -269,18 +265,32 @@ const SalesOrderForm = () => {
                                 label={'Notes'}
                                 name={'notes'}
                             />
+                        </ColForm>
+                    </RowForm>
+
+                    <RowForm>
+                        <ColForm>
                             <FormItemSelect
-                                label={'Shipping Method'}
-                                name={'shipping_method'}
-                                message={'Please select an shipping method'}
+                                label={'Invoice address'}
+                                name={'invoice_address_id'}
+                                message={'Please select a invoice address'}
                                 required={true}
-                                options={[
-                                    {value: 'delivery', label: 'Delivery'},
-                                    {value: 'pickup', label: 'Pickup'},
-                                ]}
+                                {...invoiceAddressOptions}
+                            />
+                        </ColForm>
+                        <ColForm>
+                            <FormItemSelect
+                                label={'Delivery address'}
+                                name={'delivery_address_id'}
+                                message={'Please select a delivery address'}
+                                required={true}
+                                {...deliveryAddressOptions}
                             />
                         </ColForm>
                     </RowForm>
+
+
+                    <Divider/>
 
                     <Tabs defaultActiveKey="1">
                         <TabPane tab="Order Lines" key="1">
