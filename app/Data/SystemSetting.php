@@ -4,7 +4,7 @@ namespace App\Data;
 
 class SystemSetting
 {
-    const PAGE_SIZE = 30;
+    const PAGE_SIZE = 20;
     const TIME_STAMP_FORMAT = 'm/d/Y h:i:s A';
     const DATE_TIME_FORMAT = 'Y-m-d H:i:s';
     const INITIAL_VALUES = 'initial_values';
