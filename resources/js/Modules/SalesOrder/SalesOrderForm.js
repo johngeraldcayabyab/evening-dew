@@ -269,6 +269,9 @@ const SalesOrderForm = () => {
                     </RowForm>
 
                     <RowForm>
+                        <Divider orientation={'left'}>
+                            Addresses
+                        </Divider>
                         <ColForm>
                             <FormItemSelect
                                 label={'Invoice address'}
