@@ -92,6 +92,7 @@ class GenerateTransferFromValidatedSalesOrderListener implements ShouldQueue
         $transfer->scheduled_date = now()->format(SystemSetting::DATE_TIME_FORMAT);
         $transfer->responsible_id = $salesOrder->salesperson_id;
         $transfer->source_document = $salesOrder->number;
+        $transfer->shipping_method = $salesOrder->shipping_method;
         $transfer->status = Transfer::DRAFT;
         $transfer->save();
         $this->createTransferLines($transfer, $salesOrder);
