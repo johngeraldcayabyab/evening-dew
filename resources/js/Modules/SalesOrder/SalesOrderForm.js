@@ -265,6 +265,20 @@ const SalesOrderForm = () => {
                                 label={'Source document'}
                                 name={'source_document'}
                             />
+                            <FormItemText
+                                label={'Notes'}
+                                name={'notes'}
+                            />
+                            <FormItemSelect
+                                label={'Shipping Method'}
+                                name={'shipping_method'}
+                                message={'Please select an shipping method'}
+                                required={true}
+                                options={[
+                                    {value: 'delivery', label: 'Delivery'},
+                                    {value: 'pickup', label: 'Pickup'},
+                                ]}
+                            />
                         </ColForm>
                     </RowForm>
 
@@ -378,7 +392,6 @@ const SalesOrderForm = () => {
                                         required={true}
                                         {...salespersonOption}
                                     />
-
                                     <FormItemText
                                         label={'Customer Reference'}
                                         name={'customer_reference'}

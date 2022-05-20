@@ -190,6 +190,20 @@ const TransferForm = () => {
                                 label={'Source Document'}
                                 name={'source_document'}
                             />
+                            <FormItemText
+                                label={'Notes'}
+                                name={'notes'}
+                            />
+                            <FormItemSelect
+                                label={'Shipping Method'}
+                                name={'shipping_method'}
+                                message={'Please select an shipping method'}
+                                required={true}
+                                options={[
+                                    {value: 'delivery', label: 'Delivery'},
+                                    {value: 'pickup', label: 'Pickup'},
+                                ]}
+                            />
                         </ColForm>
                     </RowForm>
 

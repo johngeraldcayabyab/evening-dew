@@ -85,6 +85,7 @@ class SalesOrderController
             'measurement' => GlobalSetting::latestFirst()->inventoryDefaultSalesMeasurement,
             'number' => Sequence::generateSalesOrderSequence(),
             'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
+            'shipping_method' => Transfer::DELIVERY,
             'salesperson_id' => auth()->user()->id,
             'salesperson' => auth()->user(),
             'status' => SalesOrder::DRAFT,
