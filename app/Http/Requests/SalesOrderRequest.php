@@ -12,6 +12,7 @@ class SalesOrderRequest extends FormRequest
     {
         $shippingPolicies = implode_types(Transfer::getShippingPolicies());
         $statuses = implode_types(SalesOrder::getStatuses());
+        $shippingMethods = implode_types(Transfer::getShippingMethods());
         return [
             'number' => 'required',
             'customer_id' => ['required', "exists:contacts,id"],
@@ -27,6 +28,8 @@ class SalesOrderRequest extends FormRequest
             'expected_delivery_date' => ['nullable'],
             'source_document' => ['nullable'],
             'status' => ['nullable', "in:$statuses"],
+            'notes' => ['nullable'],
+            'shipping_method' => ['nullable', "in:$shippingMethods"],
             'sales_order_lines.*.id' => ['nullable', 'exists:sales_order_lines,id'],
             'sales_order_lines.*.product_id' => ['required', "exists:products,id"],
             'sales_order_lines.*.description' => ['nullable'],

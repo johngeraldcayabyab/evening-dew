@@ -28,6 +28,7 @@ class TransferResource extends JsonResource
             'responsible_id' => $this->responsible_id,
             'note' => $this->note,
             'status' => $this->status,
+            'shipping_method' => $this->shipping_method,
             'contact' => new ContactResource($this->contact),
             'operation_type' => new OperationTypeResource($this->operationType),
             'source_location' => new LocationResource($this->sourceLocation),

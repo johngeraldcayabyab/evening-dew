@@ -31,6 +31,9 @@ class Transfer extends Model implements Sluggable
     const DONE = 'done';
     const CANCELLED = 'cancelled';
 
+    const DELIVERY = 'delivery';
+    const PICKUP = 'pickup';
+
     public static function getShippingPolicies()
     {
         return [self::AS_SOON_AS_POSSIBLE, self::WHEN_ALL_PRODUCTS_ARE_READY];
@@ -39,6 +42,11 @@ class Transfer extends Model implements Sluggable
     public static function getStatuses()
     {
         return [self::DRAFT, self::DONE, self::CANCELLED];
+    }
+
+    public static function getShippingMethods()
+    {
+        return [self::DELIVERY, self::PICKUP];
     }
 
     public function contact()
