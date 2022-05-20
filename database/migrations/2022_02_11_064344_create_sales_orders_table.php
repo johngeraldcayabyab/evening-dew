@@ -25,6 +25,7 @@ class CreateSalesOrdersTable extends Migration
             $table->string('source_document')->nullable();
             $table->string('notes')->nullable();
             $table->string('status')->nullable();
+            $table->string('shipping_method')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
