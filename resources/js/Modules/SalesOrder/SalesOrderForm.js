@@ -36,8 +36,8 @@ const SalesOrderForm = () => {
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
     const customerOptions = useOptionHook('/api/contacts', 'customer.name');
-    const invoiceAddressOptions = useOptionHook('/api/addresses', 'invoice_address.address_name');
-    const deliveryAddressOptions = useOptionHook('/api/addresses', 'delivery_address.address_name');
+    const invoiceCityOptions = useOptionHook('/api/cities', 'invoice_city.name');
+    const deliveryCityOptions = useOptionHook('/api/cities', 'delivery_city.name');
     const paymentTermOptions = useOptionHook('/api/payment_terms', 'payment_term.name');
     const salespersonOption = useOptionHook('/api/users', 'responsible.name');
     const productLineOptions = useOptionLineHook('/api/products', 'product.name');
@@ -68,8 +68,8 @@ const SalesOrderForm = () => {
             }
         }
         customerOptions.getInitialOptions(formState);
-        invoiceAddressOptions.getInitialOptions(formState);
-        deliveryAddressOptions.getInitialOptions(formState);
+        invoiceCityOptions.getInitialOptions(formState);
+        deliveryCityOptions.getInitialOptions(formState);
         paymentTermOptions.getInitialOptions(formState);
         salespersonOption.getInitialOptions(formState);
         productLineOptions.getInitialOptions(formState, 'sales_order_lines');
@@ -94,12 +94,14 @@ const SalesOrderForm = () => {
                 let deliveryAddress = data.find((address) => (address.type === 'delivery'));
                 invoiceAddress = invoiceAddress ? invoiceAddress : defaultAddress;
                 deliveryAddress = deliveryAddress ? deliveryAddress : defaultAddress;
-                invoiceAddressOptions.getOptions({id: invoiceAddress.id});
-                deliveryAddressOptions.getOptions({id: deliveryAddress.id});
+                invoiceCityOptions.getOptions({id: invoiceAddress.city.id});
+                deliveryCityOptions.getOptions({id: deliveryAddress.city.id});
                 form.setFieldsValue({
                     phone: defaultAddress.contact.phone,
-                    invoice_address_id: invoiceAddress.id,
-                    delivery_address_id: deliveryAddress.id
+                    invoice_address: invoiceAddress.address,
+                    delivery_address: deliveryAddress.address,
+                    invoice_city_id: invoiceAddress.city.id,
+                    delivery_city_id: deliveryAddress.city.id,
                 });
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
@@ -273,21 +275,31 @@ const SalesOrderForm = () => {
                             Addresses
                         </Divider>
                         <ColForm>
-                            <FormItemSelect
+                            <FormItemText
                                 label={'Invoice address'}
-                                name={'invoice_address_id'}
-                                message={'Please select a invoice address'}
+                                name={'invoice_address'}
+                            />
+
+                            <FormItemSelect
+                                label={'Invoice city'}
+                                name={'invoice_city_id'}
+                                message={'Please select a invoice city'}
                                 required={true}
-                                {...invoiceAddressOptions}
+                                {...invoiceCityOptions}
                             />
                         </ColForm>
                         <ColForm>
-                            <FormItemSelect
+                            <FormItemText
                                 label={'Delivery address'}
-                                name={'delivery_address_id'}
-                                message={'Please select a delivery address'}
+                                name={'delivery_address'}
+                            />
+
+                            <FormItemSelect
+                                label={'Delivery city'}
+                                name={'delivery_city_id'}
+                                message={'Please select a delivery city'}
                                 required={true}
-                                {...deliveryAddressOptions}
+                                {...deliveryCityOptions}
                             />
                         </ColForm>
                     </RowForm>
