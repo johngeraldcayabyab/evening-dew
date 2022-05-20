@@ -11,6 +11,7 @@ class TransferRequest extends FormRequest
     {
         $shippingPolicies = implode_types(Transfer::getShippingPolicies());
         $statuses = implode_types(Transfer::getStatuses());
+        $shippingMethods = implode_types(Transfer::getShippingMethods());
         return [
             'reference' => ['nullable'],
             'contact_id' => ['nullable', 'exists:contacts,id'],
@@ -26,6 +27,7 @@ class TransferRequest extends FormRequest
             'responsible_id' => ['nullable', 'exists:users,id'],
             'note' => ['nullable'],
             'status' => ['nullable', "in:$statuses"],
+            'shipping_method' => ['nullable', "in:$shippingMethods"],
             'transfer_lines.*.id' => ['nullable', 'exists:transfer_lines,id'],
             'transfer_lines.*.product_id' => ['required', "exists:products,id"],
             'transfer_lines.*.description' => ['nullable'],

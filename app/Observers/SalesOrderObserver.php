@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Data\SystemSetting;
-use App\Events\SalesOrderValidatedEvent;
 use App\Models\GlobalSetting;
 use App\Models\SalesOrder;
 use App\Models\Transfer;
@@ -51,6 +50,9 @@ class SalesOrderObserver
         }
         if (!$model->shipping_policy) {
             $model->shipping_policy = Transfer::AS_SOON_AS_POSSIBLE;
+        }
+        if (!$model->shipping_method) {
+            $model->shipping_method = Transfer::DELIVERY;
         }
     }
 }
