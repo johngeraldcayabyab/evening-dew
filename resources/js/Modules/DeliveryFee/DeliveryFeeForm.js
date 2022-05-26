@@ -68,7 +68,7 @@ const DeliveryFeeForm = () => {
                             <RowForm>
                                 <ColForm lg={24}>
                                     <FormLineParent
-                                        columns={['City', 'Amount']}
+                                        columns={['City']}
                                         listName={'delivery_fee_lines'}
                                     >
                                         <FormItemLineId name={'id'}/>
@@ -79,12 +79,6 @@ const DeliveryFeeForm = () => {
                                             required={true}
                                             optionAggregate={cityOptions}
                                             dropdownRender={cityOptions}
-                                        />
-                                        <FormItemNumber
-                                            placeholder={'Amount'}
-                                            name={'amount'}
-                                            message={'Please input a amount'}
-                                            required={true}
                                         />
                                     </FormLineParent>
                                 </ColForm>
