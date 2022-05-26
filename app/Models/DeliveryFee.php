@@ -29,6 +29,11 @@ class DeliveryFee extends Model implements Sluggable
         return $this->hasMany(DeliveryFeeLine::class);
     }
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
     public function slug()
     {
         return 'name';
