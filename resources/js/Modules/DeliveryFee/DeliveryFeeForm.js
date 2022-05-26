@@ -18,6 +18,7 @@ import FormItemCheckbox from "../../Components/FormItem/FormItemCheckbox";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import useOptionLineHook from "../../Hooks/useOptionLineHook";
+import useOptionHook from "../../Hooks/useOptionHook";
 
 const {TabPane} = Tabs;
 
@@ -25,9 +26,12 @@ const DeliveryFeeForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const productOptions = useOptionHook('/api/products', 'products.name');
     const cityOptions = useOptionLineHook('/api/cities', 'cities.name');
 
+
     useEffect(() => {
+        productOptions.getInitialOptions(formState);
         cityOptions.getInitialOptions(formState, 'delivery_fee_lines');
     }, [formState.initialValues]);
 
@@ -60,6 +64,15 @@ const DeliveryFeeForm = () => {
                             <FormItemCheckbox
                                 label={'Enabled'}
                                 name={'is_enabled'}
+                            />
+                        </ColForm>
+                        <ColForm>
+                            <FormItemSelect
+                                label={'Product'}
+                                name={'product_id'}
+                                {...productOptions}
+                                message={'Please select product'}
+                                required={true}
                             />
                         </ColForm>
                     </RowForm>

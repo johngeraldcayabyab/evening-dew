@@ -15,6 +15,8 @@ class DeliveryFeeResource extends JsonResource
         return $this->defaults($this, $request, [
             'name' => $this->name,
             'is_enabled' => $this->is_enabled,
+            'product_id' => $this->product_id,
+            'product' => $this->product,
             'delivery_fee_lines' => DeliveryFeeLineResource::collection($this->deliveryFeeLines),
             'slug' => $this->$slug,
         ]);
