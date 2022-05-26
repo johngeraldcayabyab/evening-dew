@@ -8,7 +8,6 @@ import RowForm from "../../Components/Grid/RowForm";
 import ColForm from "../../Components/Grid/ColForm";
 import CustomForm from "../../Components/CustomForm";
 import FormItemText from "../../Components/FormItem/FormItemText";
-import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
@@ -26,8 +25,8 @@ const DeliveryFeeForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
-    const productOptions = useOptionHook('/api/products', 'products.name');
-    const cityOptions = useOptionLineHook('/api/cities', 'cities.name');
+    const productOptions = useOptionHook('/api/products', 'product.name');
+    const cityOptions = useOptionLineHook('/api/cities', 'city.name');
 
 
     useEffect(() => {

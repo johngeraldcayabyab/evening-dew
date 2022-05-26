@@ -78,6 +78,7 @@ const SalesOrderForm = () => {
 
     function onValuesChange(changedValues, allValues) {
         setDefaultValuesFromCustomer(changedValues);
+        setDeliveryFeeByCity(changedValues, allValues);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'product_id', getProductInfoAndSetValues);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'quantity', computeSubtotal);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'unit_price', computeSubtotal);
@@ -103,6 +104,36 @@ const SalesOrderForm = () => {
                     invoice_city_id: invoiceAddress.city.id,
                     delivery_city_id: deliveryAddress.city.id,
                 });
+            }).catch((responseErr) => {
+                fetchCatcher.get(responseErr);
+            });
+        }
+    }
+
+    function setDeliveryFeeByCity(changedValues, allValues) {
+        const cityId = changedValues.delivery_city_id;
+        if (cityId) {
+            useFetch(`/api/cities/${cityId}`, GET).then((response) => {
+                if (response.delivery_fee_lines.length) {
+                    const product = response.delivery_fee_lines[0].product;
+                    let salesOrderLines = allValues.sales_order_lines;
+                    const deliveryFeeData = {
+                        product_id: product.id,
+                        description: product.sales_description,
+                        quantity: 1,
+                        measurement_id: product.sales_measurement_id,
+                        unit_price: product.sales_price,
+                    };
+                    if (salesOrderLines) {
+                        salesOrderLines.push(deliveryFeeData);
+                    } else {
+                        salesOrderLines = [];
+                        salesOrderLines.push(deliveryFeeData);
+                    }
+                    form.setFieldsValue({
+                        sales_order_lines: salesOrderLines
+                    });
+                }
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
             });

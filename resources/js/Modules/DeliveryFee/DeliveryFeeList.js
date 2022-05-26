@@ -27,6 +27,16 @@ const DeliveryFeeList = () => {
                     searchFilter: true,
                 },
                 {
+                    title: 'Fee',
+                    dataIndex: 'product',
+                    key: 'product',
+                    sorter: true,
+                    searchFilter: true,
+                    render: (text, record) => {
+                        return record.product.sales_price;
+                    }
+                },
+                {
                     title: 'Enabled',
                     dataIndex: 'is_enabled',
                     key: 'is_enabled',

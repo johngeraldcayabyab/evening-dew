@@ -74,6 +74,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 ]);
             }
 
+            $deliveryCity = null;
             if ($shopifyShippingAddress) {
                 $deliveryCity = City::firstOrCreate([
                     'name' => $shopifyShippingAddress['city']
@@ -88,6 +89,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 ]);
             }
 
+            $invoiceCity = null;
             if ($shopifyBillingAddress) {
                 $invoiceCity = City::firstOrCreate([
                     'name' => $shopifyBillingAddress['city']
@@ -125,6 +127,21 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 'created_at' => $shopifyCreatedAt,
                 'updated_at' => $shopifyCreatedAt,
             ]);
+
+            if ($salesOrderDeliveryCity->deliveryFeeLines()->exists()) {
+                $deliveryFeeProduct = $salesOrderDeliveryCity->deliveryFeeLines[0]->deliveryFee->product;
+                SalesOrderLine::create([
+                    'product_id' => $deliveryFeeProduct->id,
+                    'quantity' => 1,
+                    'measurement_id' => $deliveryFeeProduct->sales_measurement_id,
+                    'unit_price' => $deliveryFeeProduct->sales_price,
+                    'subtotal' => $deliveryFeeProduct->sales_price,
+                    'sales_order_id' => $salesOrder->id,
+                    'created_at' => $salesOrder->created_at,
+                    'updated_at' => $salesOrder->updated_at,
+                ]);
+            }
+
 
             foreach ($shopifyLineItems as $shopifyLineItem) {
                 $product = Product::firstOrCreate([
