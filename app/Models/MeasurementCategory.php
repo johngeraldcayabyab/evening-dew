@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Contracts\Sluggable;
 use App\Traits\FilterTrait;
 use App\Traits\ModelHelperTrait;
+use App\Traits\NextAndPreviousRecordTrait;
 use Database\Factories\MeasurementCategoryFactory;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,6 +21,7 @@ class MeasurementCategory extends Model implements Sluggable
     use FilterTrait;
     use LogsActivity;
     use ModelHelperTrait;
+    use NextAndPreviousRecordTrait;
 
     protected $table = 'measurement_categories';
     protected $guarded = [];
