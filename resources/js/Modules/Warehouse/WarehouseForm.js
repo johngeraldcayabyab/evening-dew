@@ -16,6 +16,7 @@ import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import {snakeToCamel} from "../../Helpers/string";
+import NextPreviousRecord from "../../Components/NextPreviousRecord";
 
 const {TabPane} = Tabs;
 
@@ -68,6 +69,7 @@ const WarehouseForm = () => {
                 <ControlPanel
                     topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={<FormButtons/>}
+                    bottomColTwoRight={<NextPreviousRecord/>}
                 />
                 <FormCard>
                     <RowForm>

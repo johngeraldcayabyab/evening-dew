@@ -14,13 +14,14 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
+import NextPreviousRecord from "../../Components/NextPreviousRecord";
 
 const ProductCategoryForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
     const parentCategoryOptions = useOptionHook('/api/product_categories', 'parent_category.category');
-    
+
     useEffect(() => {
         parentCategoryOptions.getInitialOptions(formState);
     }, [formState.initialLoad]);
@@ -40,6 +41,7 @@ const ProductCategoryForm = () => {
                 <ControlPanel
                     topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={<FormButtons/>}
+                    bottomColTwoRight={<NextPreviousRecord/>}
                 />
                 <FormCard>
                     <RowForm>

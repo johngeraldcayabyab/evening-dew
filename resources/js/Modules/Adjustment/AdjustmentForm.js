@@ -24,6 +24,7 @@ import FormItemStatus from "../../Components/FormItem/FormItemStatus";
 import StatusBar from "../../Components/StatusBar";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
+import NextPreviousRecord from "../../Components/NextPreviousRecord";
 
 const AdjustmentForm = () => {
     let {id} = useParams();
@@ -81,6 +82,7 @@ const AdjustmentForm = () => {
                 <ControlPanel
                     topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={<FormButtons/>}
+                    bottomColTwoRight={<NextPreviousRecord/>}
                 />
                 <StatusBar
                     statuses={[

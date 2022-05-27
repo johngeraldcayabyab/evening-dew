@@ -25,6 +25,7 @@ import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
+import NextPreviousRecord from "../../Components/NextPreviousRecord";
 
 const {TabPane} = Tabs;
 
@@ -111,6 +112,7 @@ const TransferForm = () => {
                 <ControlPanel
                     topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={<FormButtons/>}
+                    bottomColTwoRight={<NextPreviousRecord/>}
                 />
                 <StatusBar
                     statuses={[
