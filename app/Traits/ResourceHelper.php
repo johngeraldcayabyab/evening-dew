@@ -21,6 +21,14 @@ trait ResourceHelper
             }
         }
         $defaultFields['id'] = $object->id;
+
+        if ($object->id) {
+            $defaultFields['next_record'] = $object->nextRecord($object->id);
+            $defaultFields['previous_record'] = $object->previousRecord($object->id);
+        }
+
         return $defaultFields;
     }
+
+//    public function
 }
