@@ -16,24 +16,26 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class ImportShopifyOrdersJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct()
-    {
-        //
-    }
-
     public function handle()
     {
-        $shopifyLink = env('SHOPIFY_URL');
-        $shopifyAccessToken = env('SHOPIFY_ACCESS_TOKEN');
+        $shopifyUrl = config('shopify.url');
+        $shopifyAccessToken = config('shopify.access_token');
+
+        if (!$shopifyUrl || !$shopifyAccessToken) {
+            $this->log('Check your shopify credentials!!');
+            return false;
+        }
+
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'X-Shopify-Access-Token' => $shopifyAccessToken
-        ])->get("{$shopifyLink}/admin/api/2022-04/orders.json?status=any");
+        ])->get("{$shopifyUrl}/admin/api/2022-04/orders.json?status=any");
 
         $responseJson = $response->json();
         $orders = $responseJson['orders'];
@@ -142,7 +144,6 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 ]);
             }
 
-
             foreach ($shopifyLineItems as $shopifyLineItem) {
                 $product = Product::firstOrCreate([
                     'name' => $shopifyLineItem['name'],
@@ -159,6 +160,13 @@ class ImportShopifyOrdersJob implements ShouldQueue
                     'updated_at' => $salesOrder->updated_at,
                 ]);
             }
+
+            $this->log("New shopify sales order created {$salesOrder->number}");
         }
+    }
+
+    private function log($message)
+    {
+        Log::channel('shopify')->info($message);
     }
 }
