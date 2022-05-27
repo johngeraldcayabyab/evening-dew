@@ -22,6 +22,7 @@ import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
+import NextPreviousRecord from "../../Components/NextPreviousRecord";
 
 const {TabPane} = Tabs;
 
@@ -80,6 +81,7 @@ const MaterialForm = () => {
                 <ControlPanel
                     topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={<FormButtons/>}
+                    bottomColTwoRight={<NextPreviousRecord/>}
                 />
                 <FormCard>
                     <RowForm>

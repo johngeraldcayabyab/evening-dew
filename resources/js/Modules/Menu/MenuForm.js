@@ -12,6 +12,7 @@ import FormCard from "../../Components/FormCard";
 import FormItemText from "../../Components/FormItem/FormItemText";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
+import NextPreviousRecord from "../../Components/NextPreviousRecord";
 
 const MenuForm = () => {
     let {id} = useParams();
@@ -33,6 +34,7 @@ const MenuForm = () => {
                 <ControlPanel
                     topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={<FormButtons/>}
+                    bottomColTwoRight={<NextPreviousRecord/>}
                 />
                 <FormCard>
                     <RowForm>

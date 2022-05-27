@@ -18,6 +18,7 @@ import FormLineParent from "../../Components/FormLines/FormLineParent";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import useOptionHook from "../../Hooks/useOptionHook";
+import NextPreviousRecord from "../../Components/NextPreviousRecord";
 
 const {TabPane} = Tabs;
 
@@ -49,6 +50,7 @@ const DeliveryFeeForm = () => {
                 <ControlPanel
                     topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={<FormButtons/>}
+                    bottomColTwoRight={<NextPreviousRecord/>}
                 />
                 <FormCard>
                     <RowForm>

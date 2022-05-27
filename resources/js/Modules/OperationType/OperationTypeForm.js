@@ -16,6 +16,7 @@ import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
+import NextPreviousRecord from "../../Components/NextPreviousRecord";
 
 const OperationTypeForm = () => {
     let {id} = useParams();
@@ -51,6 +52,7 @@ const OperationTypeForm = () => {
                 <ControlPanel
                     topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={<FormButtons/>}
+                    bottomColTwoRight={<NextPreviousRecord/>}
                 />
                 <FormCard>
                     <RowForm>

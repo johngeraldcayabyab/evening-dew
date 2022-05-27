@@ -14,6 +14,7 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import useOptionHook from "../../Hooks/useOptionHook";
+import NextPreviousRecord from "../../Components/NextPreviousRecord";
 
 const CountryForm = () => {
     let {id} = useParams();
@@ -40,6 +41,7 @@ const CountryForm = () => {
                 <ControlPanel
                     topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={<FormButtons/>}
+                    bottomColTwoRight={<NextPreviousRecord/>}
                 />
                 <FormCard>
                     <RowForm>

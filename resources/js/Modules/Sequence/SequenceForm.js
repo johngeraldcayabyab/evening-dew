@@ -14,6 +14,7 @@ import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
+import NextPreviousRecord from "../../Components/NextPreviousRecord";
 
 const SequenceForm = () => {
     let {id} = useParams();
@@ -35,6 +36,7 @@ const SequenceForm = () => {
                 <ControlPanel
                     topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={<FormButtons/>}
+                    bottomColTwoRight={<NextPreviousRecord/>}
                 />
                 <FormCard>
                     <RowForm>
