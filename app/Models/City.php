@@ -15,8 +15,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class City extends Model implements Sluggable
 {
     use HasFactory;
-
-    use HasFactory;
     use SoftDeletes;
     use BroadcastsEvents;
     use FilterTrait;
