@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Contracts\Sluggable;
 use App\Traits\FilterTrait;
 use App\Traits\ModelHelperTrait;
+use App\Traits\NextAndPreviousRecordTrait;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +20,7 @@ class Currency extends Model implements Sluggable
     use FilterTrait;
     use LogsActivity;
     use ModelHelperTrait;
+    use NextAndPreviousRecordTrait;
 
     const BEFORE_AMOUNT = 'before_amount';
     const AFTER_AMOUNT = 'after_amount';
