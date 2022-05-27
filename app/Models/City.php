@@ -36,16 +36,6 @@ class City extends Model implements Sluggable
         return 'name';
     }
 
-    public function nextRecord()
-    {
-        return City::select('id')->where('id', '>', $this->id)->orderBy('id', 'asc')->first()->id;
-    }
-
-    public function previousRecord()
-    {
-        return City::select('id')->where('id', '<', $this->id)->orderBy('id', 'desc')->first()->id;
-    }
-
     public function deliveryFeeLines()
     {
         return $this->hasMany(DeliveryFeeLine::class);
