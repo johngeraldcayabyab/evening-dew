@@ -27,7 +27,7 @@ class SalesOrderRequest extends FormRequest
             'salesperson_id' => ['nullable', 'exists:users,id'],
             'customer_reference' => ['nullable'],
             'shipping_policy' => ['nullable', "in:$shippingPolicies"],
-            'expected_delivery_date' => ['nullable'],
+            'expected_shipping_date' => ['nullable'],
             'source_document' => ['nullable'],
             'status' => ['nullable', "in:$statuses"],
             'notes' => ['nullable'],

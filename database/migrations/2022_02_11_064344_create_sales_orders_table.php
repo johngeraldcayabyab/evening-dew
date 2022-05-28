@@ -23,7 +23,7 @@ class CreateSalesOrdersTable extends Migration
             $table->bigInteger('salesperson_id')->nullable();
             $table->string('customer_reference')->nullable();
             $table->string('shipping_policy')->nullable();
-            $table->dateTime('expected_delivery_date')->nullable();
+            $table->dateTime('expected_shipping_date')->nullable();
             $table->string('source_document')->nullable();
             $table->string('notes')->nullable();
             $table->string('status')->nullable();
