@@ -7,16 +7,16 @@ import UserList from './UserList';
 import UserForm from './UserForm';
 
 const UserRoute = () => {
-    const moduleName = manifest.moduleName;
+    const displayName = manifest.displayName;
     return (
         <Switch>
-            <Route exact key={uuidv4()} path={`/${moduleName}`}
+            <Route exact key={uuidv4()} path={`/${displayName}`}
                    render={props => <UserList key={props.location.key}/>}
             />
-            <Route exact key={uuidv4()} path={`/${moduleName}/create`}
+            <Route exact key={uuidv4()} path={`/${displayName}/create`}
                    render={props => <UserForm key={props.location.key}/>}
             />
-            <Route exact key={uuidv4()} path={`/${moduleName}/:id`}
+            <Route exact key={uuidv4()} path={`/${displayName}/:id`}
                    render={props => <UserForm key={props.location.key}/>}
             />
         </Switch>

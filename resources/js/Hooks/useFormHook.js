@@ -79,9 +79,9 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
                 if (headerLocation) {
                     let locationId = headerLocation.split('/').pop();
                     if (parseInt(locationId)) {
-                        history.push(`/${manifest.moduleName}/${locationId}`);
+                        history.push(`/${manifest.displayName}/${locationId}`);
                     } else {
-                        history.push(`/${manifest.moduleName}`);
+                        history.push(`/${manifest.displayName}`);
                     }
                 }
             }).catch((responseErr) => {

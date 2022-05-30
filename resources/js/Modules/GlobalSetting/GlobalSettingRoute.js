@@ -6,10 +6,10 @@ import {uuidv4} from "../../Helpers/string";
 import GlobalSettingForm from './GlobalSettingForm';
 
 const GlobalSettingRoute = () => {
-    const moduleName = manifest.moduleName;
+    const displayName = manifest.displayName;
     return (
         <Switch>
-            <Route exact key={uuidv4()} path={`/${moduleName}`}
+            <Route exact key={uuidv4()} path={`/${displayName}`}
                    render={props => <GlobalSettingForm key={props.location.key}/>}
             />
         </Switch>

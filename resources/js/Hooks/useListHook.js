@@ -20,7 +20,7 @@ const useListHook = (manifest) => {
     });
     const [tableActions] = useState({
         handleDelete: (id) => {
-            useFetch(`api/${moduleName}/${id}`, DELETE).then(() => {
+            useFetch(`api/${manifest.moduleName}/${id}`, DELETE).then(() => {
                 // haven't decided yet what to do if an individual data is deleted
                 // maybe you can use this endpoint in the table for single data delete
                 // maybe delete data in the form page and redirect to the nearest neighbour
@@ -34,7 +34,7 @@ const useListHook = (manifest) => {
                 ...state,
                 loading: true,
             }));
-            useFetch(`api/${moduleName}/mass_destroy`, POST, {ids: ids}).then(() => {
+            useFetch(`api/${manifest.moduleName}/mass_destroy`, POST, {ids: ids}).then(() => {
                 tableActions.renderData(tableState.params);
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr).then(() => {
@@ -54,7 +54,7 @@ const useListHook = (manifest) => {
             }
         },
         renderData: (params = {}) => {
-            useFetch(`/api/${moduleName}`, GET, params).then((response) => {
+            useFetch(`/api/${manifest.moduleName}`, GET, params).then((response) => {
                 setTableState(state => ({
                     ...state,
                     initialLoad: false,
@@ -81,7 +81,7 @@ const useListHook = (manifest) => {
         //
         // });
 
-        // Echo.channel(`${moduleName}_channel`).listen(`.${moduleName}_event`, e => {
+        // Echo.channel(`${manifest.moduleName}_channel`).listen(`.${manifest.moduleName}_event`, e => {
         //
         //     setTableState(state => {
         //         let newState = {

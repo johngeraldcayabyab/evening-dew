@@ -7,16 +7,16 @@ import AdjustmentList from './AdjustmentList';
 import AdjustmentForm from './AdjustmentForm';
 
 const AdjustmentRoute = () => {
-    const moduleName = manifest.moduleName;
+    const displayName = manifest.displayName;
     return (
         <Switch>
-            <Route exact key={uuidv4()} path={`/${moduleName}`}
+            <Route exact key={uuidv4()} path={`/${displayName}`}
                    render={props => <AdjustmentList key={props.location.key}/>}
             />
-            <Route exact key={uuidv4()} path={`/${moduleName}/create`}
+            <Route exact key={uuidv4()} path={`/${displayName}/create`}
                    render={props => <AdjustmentForm key={props.location.key}/>}
             />
-            <Route exact key={uuidv4()} path={`/${moduleName}/:id`}
+            <Route exact key={uuidv4()} path={`/${displayName}/:id`}
                    render={props => <AdjustmentForm key={props.location.key}/>}
             />
         </Switch>
