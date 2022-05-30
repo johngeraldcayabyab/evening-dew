@@ -13,7 +13,7 @@ const DiscardCreateButton = () => {
                 type={"primary"}
                 size={'default'}
             >
-                <Link to={`/${formContext.manifest.moduleName}`}>
+                <Link to={`/${formContext.manifest.displayName}`}>
                     Discard
                 </Link>
             </Button>

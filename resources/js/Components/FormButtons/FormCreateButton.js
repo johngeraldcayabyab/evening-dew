@@ -12,7 +12,7 @@ const FormCreateButton = () => {
             type={"primary"}
             size={'default'}
         >
-            <Link to={`/${formContext.manifest.moduleName}/create`}>
+            <Link to={`/${formContext.manifest.displayName}/create`}>
                 Create
             </Link>
         </Button>)
