@@ -26,7 +26,7 @@ class SalesOrderResource extends JsonResource
             'salesperson_id' => $this->salesperson_id,
             'customer_reference' => $this->customer_reference,
             'shipping_policy' => $this->shipping_policy,
-            'expected_delivery_date' => $this->expected_delivery_date,
+            'expected_shipping_date' => $this->expected_shipping_date,
             'source_document' => $this->source_document,
             'status' => $this->status,
             'notes' => $this->notes,
