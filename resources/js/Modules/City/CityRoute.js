@@ -6,14 +6,14 @@ import CityList from './CityList';
 import CityForm from './CityForm';
 
 const CityRoute = () => {
-    const moduleName = manifest.moduleName;
+    const displayName = manifest.displayName;
     return (
         <Switch>
-            <Route exact key={`${moduleName}-list`} path={`/${moduleName}`}
+            <Route exact key={`${displayName}-list`} path={`/${displayName}`}
                    render={props => <CityList key={props.location.key}/>}/>
-            <Route exact key={`${moduleName}-create`} path={`/${moduleName}/create`}
+            <Route exact key={`${displayName}-create`} path={`/${displayName}/create`}
                    render={props => <CityForm key={props.location.key}/>}/>
-            <Route exact key={`${moduleName}-update`} path={`/${moduleName}/:id`}
+            <Route exact key={`${displayName}-update`} path={`/${displayName}/:id`}
                    render={props => <CityForm key={props.location.key}/>}/>
         </Switch>
     );

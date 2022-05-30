@@ -7,16 +7,16 @@ import PaymentTermList from './PaymentTermList';
 import PaymentTermForm from './PaymentTermForm';
 
 const PaymentTermRoute = () => {
-    const moduleName = manifest.moduleName;
+    const displayName = manifest.displayName;
     return (
         <Switch>
-            <Route exact key={uuidv4()} path={`/${moduleName}`}
+            <Route exact key={uuidv4()} path={`/${displayName}`}
                    render={props => <PaymentTermList key={props.location.key}/>}
             />
-            <Route exact key={uuidv4()} path={`/${moduleName}/create`}
+            <Route exact key={uuidv4()} path={`/${displayName}/create`}
                    render={props => <PaymentTermForm key={props.location.key}/>}
             />
-            <Route exact key={uuidv4()} path={`/${moduleName}/:id`}
+            <Route exact key={uuidv4()} path={`/${displayName}/:id`}
                    render={props => <PaymentTermForm key={props.location.key}/>}
             />
         </Switch>
