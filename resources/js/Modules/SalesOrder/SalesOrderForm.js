@@ -285,8 +285,8 @@ const SalesOrderForm = () => {
                         </ColForm>
                         <ColForm>
                             <FormItemDate
-                                label={'Expected delivery date'}
-                                name={'expected_delivery_date'}
+                                label={'Expected shipping date'}
+                                name={'expected_shipping_date'}
                             />
                             <FormItemDate
                                 label={'Quotation Date'}
