@@ -1,6 +1,6 @@
 {
     "moduleName": "payment_terms",
-    "eventName": "payment_terms",
+    "displayName": "payment_terms",
     "modelName": "PaymentTerm"
 }
 

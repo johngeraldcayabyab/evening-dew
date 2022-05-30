@@ -1,6 +1,6 @@
 {
     "moduleName": "sales_orders",
-    "eventName": "sales_orders",
+    "displayName": "sales_orders",
     "modelName": "SalesOrder"
 }
 

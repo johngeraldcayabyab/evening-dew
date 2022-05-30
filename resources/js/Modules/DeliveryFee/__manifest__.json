@@ -1,6 +1,6 @@
 {
     "moduleName": "delivery_fees",
-    "eventName": "delivery_fees",
+    "displayName": "delivery_fees",
     "modelName": "DeliveryFee"
 }
 

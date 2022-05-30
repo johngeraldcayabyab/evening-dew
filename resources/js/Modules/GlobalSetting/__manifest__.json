@@ -1,6 +1,6 @@
 {
     "moduleName": "global_settings",
-    "eventName": "global_settings",
+    "displayName": "global_settings",
     "modelName": "GlobalSetting"
 }
 

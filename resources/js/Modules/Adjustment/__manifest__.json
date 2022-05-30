@@ -1,6 +1,6 @@
 {
     "moduleName": "adjustments",
-    "eventName": "adjustments",
+    "displayName": "adjustments",
     "modelName": "Adjustment"
 }
 

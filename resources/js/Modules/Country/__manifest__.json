@@ -1,6 +1,6 @@
 {
     "moduleName": "countries",
-    "eventName": "countries",
+    "displayName": "countries",
     "modelName": "Country"
 }
 

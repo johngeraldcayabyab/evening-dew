@@ -1,6 +1,6 @@
 {
     "moduleName": "regions",
-    "eventName": "regions",
+    "displayName": "regions",
     "modelName": "Region"
 }
 

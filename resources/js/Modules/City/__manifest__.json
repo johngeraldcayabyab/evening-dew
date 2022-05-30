@@ -1,6 +1,6 @@
 {
     "moduleName": "cities",
-    "eventName": "cities",
+    "displayName": "cities",
     "modelName": "City"
 }
 
