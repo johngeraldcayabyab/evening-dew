@@ -19,7 +19,7 @@ const useOptionLineHook = (url, query) => {
 
     const optionActions = {
         getOptions: (search = null, key) => {
-            const field = query.split('.').slice(-1)[0];
+            const field = getField();
             let params = {
                 page_size: 10,
                 selected_fields: ['id', 'slug'],
@@ -61,10 +61,9 @@ const useOptionLineHook = (url, query) => {
             }));
         },
         onCreate: (key) => {
-            const field = query.split('.').slice(-1)[0];
             const values = state.values;
             const params = {};
-            params[field] = values[key];
+            params[getField()] = values[key];
             values[key] = null;
             useFetch(`${url}`, POST, params).then((response) => {
                 setState(prevState => ({
