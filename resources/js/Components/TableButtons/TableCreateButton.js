@@ -12,7 +12,7 @@ const TableCreateButton = () => {
             type={"primary"}
             size={'default'}
         >
-            <Link to={`/${listContext.manifest.moduleName}/create`}>
+            <Link to={`/${listContext.manifest.displayName}/create`}>
                 Create
             </Link>
         </Button>
