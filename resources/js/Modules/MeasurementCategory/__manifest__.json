@@ -1,6 +1,6 @@
 {
     "moduleName": "measurement_categories",
-    "eventName": "measurement_categories",
+    "displayName": "measurement_categories",
     "modelName": "MeasurementCategory"
 }
 

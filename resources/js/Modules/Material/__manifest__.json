@@ -1,6 +1,6 @@
 {
     "moduleName": "materials",
-    "eventName": "materials",
+    "displayName": "materials",
     "modelName": "Material"
 }
 

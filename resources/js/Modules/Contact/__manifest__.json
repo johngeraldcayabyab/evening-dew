@@ -1,6 +1,6 @@
 {
     "moduleName": "contacts",
-    "eventName": "contacts",
+    "displayName": "contacts",
     "modelName": "Contact"
 }
 

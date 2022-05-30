@@ -1,6 +1,6 @@
 {
     "moduleName": "currencies",
-    "eventName": "currencies",
+    "displayName": "currencies",
     "modelName": "Currency"
 }
 

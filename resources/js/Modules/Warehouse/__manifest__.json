@@ -1,6 +1,6 @@
 {
     "moduleName": "warehouses",
-    "eventName": "warehouses",
+    "displayName": "warehouses",
     "modelName": "Warehouse"
 }
 

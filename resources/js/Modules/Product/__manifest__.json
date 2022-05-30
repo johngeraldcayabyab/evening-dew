@@ -1,6 +1,6 @@
 {
     "moduleName": "products",
-    "eventName": "products",
+    "displayName": "products",
     "modelName": "Product"
 }
 

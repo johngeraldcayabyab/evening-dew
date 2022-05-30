@@ -1,6 +1,6 @@
 {
     "moduleName": "users",
-    "eventName": "users",
+    "displayName": "users",
     "modelName": "User"
 }
 

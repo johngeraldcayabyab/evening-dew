@@ -1,6 +1,6 @@
 {
     "moduleName": "app_menus",
-    "eventName": "app_menus",
+    "displayName": "app_menus",
     "modelName": "AppMenu"
 }
 
