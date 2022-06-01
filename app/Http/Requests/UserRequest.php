@@ -10,8 +10,8 @@ class UserRequest extends FormRequest
     {
         $id = $this->user->id ?? null;
         return [
-            'name' => "unique:measurement_categories,name,{$id}",
-            'email' => 'required|unique:users,id',
+            'name' => "required|unique:users,name,{$id}",
+            'email' => "required|unique:users,email,{$id}",
             'password' => 'nullable|confirmed|min:6',
             'avatar' => 'nullable'
         ];
