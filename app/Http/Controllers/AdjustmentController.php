@@ -78,12 +78,15 @@ class AdjustmentController
 
     public function initial_values()
     {
-        $inventoryDefaultWarehouse = GlobalSetting::latestFirst()->inventoryDefaultWarehouse;
+        $globalSetting = GlobalSetting::latestFirst();
+        $inventoryDefaultWarehouse = $globalSetting->inventoryDefaultWarehouse;
+        $inventoryDefaultProductCategory = $globalSetting->inventoryDefaultProductCategory;
         $adjustmentOperationType = $inventoryDefaultWarehouse->adjustmentOperationType;
         return [
             'number' => Sequence::generateSequence($adjustmentOperationType->reference_sequence_id),
             'status' => Adjustment::DRAFT,
             'warehouse_id' => $inventoryDefaultWarehouse->id,
+            'product_category_id' => $inventoryDefaultProductCategory->id,
         ];
     }
 }

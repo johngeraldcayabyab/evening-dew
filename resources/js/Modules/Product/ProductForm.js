@@ -17,6 +17,7 @@ import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import FormLinks from "../../Components/FormLinks";
 
 const {TabPane} = Tabs;
 
@@ -54,6 +55,14 @@ const ProductForm = () => {
                     bottomColTwoRight={<NextPreviousRecord/>}
                 />
                 <FormCard>
+                    <FormLinks
+                        links={[
+                            {
+                                value: 'name',
+                                label: `Quantity: ${formState.initialValues.quantity} ${formState.initialValues.measurement ? formState.initialValues.measurement.name : null}`,
+                            },
+                        ]}
+                    />
                     <RowForm>
                         <ColForm>
                             <FormItemText
