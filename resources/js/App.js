@@ -41,6 +41,7 @@ export const AppContextProvider = AppContext.Provider;
 const App = () => {
         const [appState, setAppState] = useState({
             isLogin: getCookie('Authorization'),
+            userEmail: getCookie('userEmail'),
         });
 
         return (

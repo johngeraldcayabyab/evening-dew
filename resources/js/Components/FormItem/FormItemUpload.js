@@ -9,6 +9,7 @@ import {FormContext} from "../../Contexts/FormContext";
 
 const FormItemUpload = (props) => {
     const formContext = useContext(FormContext);
+    const form = formContext.form;
     const [state, setState] = useState({
         imageUrl: null,
         loading: false,
@@ -52,7 +53,7 @@ const FormItemUpload = (props) => {
         if (info.file.status === 'done') {
             let fields = {};
             fields[props.name] = info.file.response.name;
-            props.form.setFieldsValue(fields);
+            form.setFieldsValue(fields);
             getBase64(info.file.originFileObj, (imageUrl) => {
                 setState((...prevState) => ({
                     ...prevState,
@@ -66,7 +67,7 @@ const FormItemUpload = (props) => {
     function removeImage() {
         let fields = {};
         fields[props.name] = null;
-        props.form.setFieldsValue(fields);
+        form.setFieldsValue(fields);
         setState((prevState) => {
             return {
                 ...prevState,
