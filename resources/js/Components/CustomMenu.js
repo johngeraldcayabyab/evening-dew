@@ -13,6 +13,7 @@ import {setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import {getAppMenu, setAppMenu} from "../Helpers/app_menu";
 import {objectHasValue} from "../Helpers/object";
+import AvatarUser from "./AvatarUser";
 
 const {SubMenu} = Menu;
 
@@ -147,11 +148,7 @@ const CustomMenu = () => {
                     {makeMenu(state.appMenuChildren)}
 
                     <Menu.SubMenu
-                        title={
-                            <React.Fragment>
-                                <Avatar><UserOutlined/></Avatar>
-                            </React.Fragment>
-                        }
+                        title={<AvatarUser/>}
                         className={'top-nav-avatar'}
                         key={'menu-profile-sub-menu'}
                     >

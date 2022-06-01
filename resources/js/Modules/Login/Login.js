@@ -1,7 +1,6 @@
 import {Button, Card, Checkbox, Form, Input, message, Spin} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {useContext, useEffect, useState} from "react";
-import {fetchPost} from "../../Helpers/fetcher";
 import {setCookie} from "../../Helpers/cookie";
 import {getDevice} from "../../Helpers/device";
 import {useHistory} from "react-router";
@@ -33,14 +32,11 @@ const Login = () => {
         }).then((responseText) => {
             message.success('Welcome back!');
             setCookie('Authorization', `Bearer ${responseText}`, 365);
-
-
-
-
-
+            setCookie('userEmail', values.email);
             appContext.setAppState((prevState) => ({
                 ...prevState,
                 isLogin: true,
+                userEmail: values.email,
             }));
             history.push('/');
         }).catch((responseErr) => {
