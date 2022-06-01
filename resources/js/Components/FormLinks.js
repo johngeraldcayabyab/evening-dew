@@ -13,6 +13,9 @@ const FormLinks = (props) => {
     let links = [];
     if (objectHasValue(formContext.formState.initialValues)) {
         props.links.forEach((link) => {
+            /**
+             * this needs to be refactored
+             */
             if (objectHasValue(formContext.formState.initialValues[link.value])) {
                 links.push(link);
             }
@@ -26,19 +29,33 @@ const FormLinks = (props) => {
                 }}>
                     <RowForm align={'right'}>
                         <ColForm lg={24} style={{textAlign: 'right'}}>
-                            {links.map(link => (
-                                <Link
-                                    key={uuidv4()}
-                                    to={`/${link.module}?${link.param}=${formContext.formState.initialValues[link.value]}`}>
+                            {links.map(link => {
+                                if (link.module) {
+                                    return (
+                                        <Link
+                                            key={uuidv4()}
+                                            to={`/${link.module}?${link.param}=${formContext.formState.initialValues[link.value]}`}>
+                                            <Button
+                                                htmlType={"button"}
+                                                type={"ghost"}
+                                                size={'default'}
+                                            >
+                                                {link.label}
+                                            </Button>
+                                        </Link>
+                                    )
+                                }
+                                return (
                                     <Button
+                                        key={uuidv4()}
                                         htmlType={"button"}
                                         type={"ghost"}
                                         size={'default'}
                                     >
                                         {link.label}
                                     </Button>
-                                </Link>
-                            ))}
+                                )
+                            })}
                         </ColForm>
                     </RowForm>
                 </div>
