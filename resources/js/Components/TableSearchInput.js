@@ -1,7 +1,12 @@
-import {Input, Tooltip} from "antd";
+import {DatePicker, Input, Tooltip} from "antd";
 import React, {useCallback} from "react";
 import {SearchOutlined} from "@ant-design/icons";
 import {debounce} from "../Helpers/debounce";
+import moment from "moment";
+
+const {RangePicker} = DatePicker;
+
+const DATE_TIME_FORMAT = 'Y-m-d H:i:s';
 
 const TableSearchInput = () => {
     const handleChange = (value) => {
@@ -9,6 +14,14 @@ const TableSearchInput = () => {
     };
 
     const optimizedFn = useCallback(debounce(handleChange, this), []);
+
+    return (
+        <RangePicker
+            defaultValue={[moment(new Date(), DATE_TIME_FORMAT), moment(new Date(), DATE_TIME_FORMAT)]}
+            style={{'width': '100%'}}
+            size={'small'}
+        />
+    )
 
     return (
         <Input
