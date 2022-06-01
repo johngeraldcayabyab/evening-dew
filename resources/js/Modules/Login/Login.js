@@ -5,7 +5,7 @@ import {fetchPost} from "../../Helpers/fetcher";
 import {setCookie} from "../../Helpers/cookie";
 import {getDevice} from "../../Helpers/device";
 import {useHistory} from "react-router";
-import {GET} from "../../consts";
+import {GET, POST} from "../../consts";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {AppContext} from "../../App";
 import useFetchHook from "../../Hooks/useFetchHook";
@@ -25,23 +25,26 @@ const Login = () => {
             ...prevState,
             loading: true,
         }));
-        fetchPost(`/api/sanctum/token`, {
+        useFetch(`/api/sanctum/token`, POST, {
             'email': values.email,
             'password': values.password,
             'remember_me': values.remember_me,
             'device_name': getDevice(),
-        }).then((response) => {
-            return response.text();
-        }).then((text) => {
+        }).then((responseText) => {
             message.success('Welcome back!');
-            setCookie('Authorization', `Bearer ${text}`, 365);
-            appContext.setAppState((state) => ({
-                ...state,
+            setCookie('Authorization', `Bearer ${responseText}`, 365);
+
+
+
+
+
+            appContext.setAppState((prevState) => ({
+                ...prevState,
                 isLogin: true,
             }));
             history.push('/');
-        }).catch(error => {
-            fetchCatcher.get(error).then((errors) => {
+        }).catch((responseErr) => {
+            fetchCatcher.get(responseErr).then((errors) => {
                 setState(prevState => ({
                     ...prevState,
                     loading: false,
