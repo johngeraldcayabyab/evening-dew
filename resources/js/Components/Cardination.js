@@ -1,4 +1,4 @@
-import {Avatar, Card, Col, Row, Space, Typography} from "antd";
+import {Avatar, Card, Col, Row, Space, Spin, Typography} from "antd";
 import {useContext, useEffect, useState} from "react";
 import {TableContext} from "../Contexts/TableContext";
 import {useHistory} from "react-router-dom";
@@ -44,60 +44,71 @@ const Cardination = () => {
         )
     }
 
+    const divStyle = {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        marginTop: '11px',
+        height: ''
+    };
+
+    if (listContext.tableState.loading) {
+        divStyle.height = '200px';
+    } else {
+        delete divStyle.height;
+    }
+
     return (
-        <div style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-around',
-            marginTop: '11px'
-        }}>
-            {listContext.tableState.dataSource.map((data) => {
-                return (
-                    <Card
-                        size={'small'}
-                        style={{
-                            width: '300px',
-                            margin: '4px 8px',
-                        }}
-                        onClick={(event) => {
-                            history.push(`/${listContext.manifest.moduleName}/${data.id}`);
-                        }}
-                        onMouseEnter={(event) => {
-                            document.body.style.cursor = "pointer";
-                        }}
-                        onMouseLeave={(event) => {
-                            document.body.style.cursor = "default";
-                        }}
-                    >
-                        <Meta
-                            avatar={
-                                <Avatar
-                                    shape="square"
-                                    size={64}
-                                    src={data[listContext.kanban.avatar] ? data[listContext.kanban.avatar] : '/images/no-image.jpg'}
-                                />
-                            }
-                            title={data[listContext.kanban.title]}
-                            description={
-                                <Space direction={'vertical'} size={0}>
-                                    {
-                                        listContext.kanban.description.map((description) => {
-                                            const dataValue = data[description.key];
-                                            if (dataValue) {
-                                                return (
-                                                    <Text style={{fontSize: '13px'}}>{description.render(data)}</Text>
-                                                )
-                                            }
-                                        })
-                                    }
-                                </Space>
-                            }
-                        />
-                    </Card>
-                )
-            })}
-            {hiddenDrag}
-        </div>
+        <Spin spinning={listContext.tableState.loading}>
+            <div style={divStyle}>
+                {listContext.tableState.dataSource.map((data) => {
+                    return (
+                        <Card
+                            size={'small'}
+                            style={{
+                                width: '300px',
+                                margin: '4px 8px',
+                            }}
+                            onClick={(event) => {
+                                history.push(`/${listContext.manifest.moduleName}/${data.id}`);
+                            }}
+                            onMouseEnter={(event) => {
+                                document.body.style.cursor = "pointer";
+                            }}
+                            onMouseLeave={(event) => {
+                                document.body.style.cursor = "default";
+                            }}
+                        >
+                            <Meta
+                                avatar={
+                                    <Avatar
+                                        shape="square"
+                                        size={64}
+                                        src={data[listContext.kanban.avatar] ? data[listContext.kanban.avatar] : '/images/no-image.jpg'}
+                                    />
+                                }
+                                title={data[listContext.kanban.title]}
+                                description={
+                                    <Space direction={'vertical'} size={0}>
+                                        {
+                                            listContext.kanban.description.map((description) => {
+                                                const dataValue = data[description.key];
+                                                if (dataValue) {
+                                                    return (
+                                                        <Text style={{fontSize: '13px'}}>{description.render(data)}</Text>
+                                                    )
+                                                }
+                                            })
+                                        }
+                                    </Space>
+                                }
+                            />
+                        </Card>
+                    )
+                })}
+                {hiddenDrag}
+            </div>
+        </Spin>
     )
 };
 
