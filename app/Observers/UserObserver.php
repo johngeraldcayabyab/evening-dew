@@ -22,6 +22,7 @@ class UserObserver
 
     public function updating(User $user)
     {
+        $user->avatar = avatar_filter($user->avatar);
         $data = [
             'name' => $user->name,
             'email' => $user->email,

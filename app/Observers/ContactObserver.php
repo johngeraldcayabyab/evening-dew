@@ -3,15 +3,18 @@
 namespace App\Observers;
 
 use App\Models\Contact;
+use App\Models\User;
 
 class ContactObserver
 {
     public function updating(Contact $contact)
     {
-        if (filter_var($contact->avatar, FILTER_VALIDATE_URL)) {
-            $parsedUrl = parse_url($contact->avatar);
-            $path = explode('/', $parsedUrl['path']);
-            $contact->avatar = end($path);
-        }
+        $contact->avatar = avatar_filter($contact->avatar);
+        $data = [
+            'name' => $contact->name,
+            'email' => $contact->email,
+            'avatar' => $contact->avatar,
+        ];
+        User::where('email', $contact->email)->update($data);
     }
 }
