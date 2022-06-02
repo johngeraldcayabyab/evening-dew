@@ -17,7 +17,7 @@ const AppContainer = (props) => {
     }, []);
 
     return (
-        <Layout style={{height: '100%', background: '#ffffff'}}>
+        <Layout style={{height: '100%', background: '#f6f7fa'}}>
             {props.children}
         </Layout>
     )

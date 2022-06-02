@@ -9,6 +9,7 @@ import TableSearchInput from "../../Components/TableSearchInput";
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
+import Cardination from "../../Components/Cardination";
 
 const ProductTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -88,7 +89,8 @@ const ProductTable = () => {
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}
             />
-            <CustomTable/>
+            <Cardination/>
+            {/*<CustomTable/>*/}
         </TableContextProvider>
     )
 };
