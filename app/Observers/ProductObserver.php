@@ -14,6 +14,7 @@ class ProductObserver
 
     public function updating(Product $product)
     {
+        $product->avatar = avatar_filter($product->avatar);
         $this->setDefaults($product);
     }
 

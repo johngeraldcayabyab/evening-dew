@@ -22,3 +22,15 @@ if (!function_exists('implode_types')) {
         return implode(',', $types);
     }
 }
+
+if (!function_exists('avatar_filter')) {
+    function avatar_filter($avatar)
+    {
+        if (filter_var($avatar, FILTER_VALIDATE_URL)) {
+            $parsedUrl = parse_url($avatar);
+            $path = explode('/', $parsedUrl['path']);
+            return end($path);
+        }
+        return $avatar;
+    }
+}
