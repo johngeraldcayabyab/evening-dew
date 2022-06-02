@@ -10,6 +10,9 @@ import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import Cardination from "../../Components/Cardination";
+import {AppstoreOutlined, BarsOutlined} from "@ant-design/icons";
+import KanbanTablePicker from "../../Components/KanbanTablePicker";
+import {Col, Row} from "antd";
 
 const ProductTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -87,7 +90,12 @@ const ProductTable = () => {
                 topColTwoRight={<TableSearchInput/>}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
-                bottomColTwoRight={<CustomPagination/>}
+                bottomColTwoRight={
+                    <Row align={'right'}>
+                        <Col span={20}><CustomPagination/></Col>
+                        <Col span={4}><KanbanTablePicker/></Col>
+                    </Row>
+                }
             />
             <Cardination/>
             {/*<CustomTable/>*/}
