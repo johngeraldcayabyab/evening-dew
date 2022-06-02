@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\WarehouseCreatedEvent;
 use App\Http\Requests\WarehouseRequest;
 use App\Http\Resources\WarehouseResource;
 use App\Models\Warehouse;
@@ -28,7 +29,9 @@ class WarehouseController
 
     public function store(WarehouseRequest $request): JsonResponse
     {
-        return response()->json([], STATUS_CREATE, $this->locationHeader(Warehouse::create($request->validated())));
+        $warehouse = Warehouse::create($request->validated());
+        WarehouseCreatedEvent::dispatch($warehouse);
+        return response()->json([], STATUS_CREATE, $this->locationHeader($warehouse));
     }
 
     public function update(WarehouseRequest $request, Warehouse $warehouse): JsonResponse

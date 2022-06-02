@@ -2,13 +2,14 @@
 
 namespace App\Listeners;
 
-use App\Events\ContactUpsertEvent;
+use App\Events\ContactUpdatedEvent;
 use App\Models\Address;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Arr;
 
-class UpsertAddressOnContactUpsertListener
+class ContactUpdateAddressListener implements ShouldQueue
 {
-    public function handle(ContactUpsertEvent $event)
+    public function handle(ContactUpdatedEvent $event)
     {
         $contact = $event->contact;
         $data = $event->data;
@@ -16,11 +17,6 @@ class UpsertAddressOnContactUpsertListener
         $addressData['address_name'] = $contact->name . " " . Address::DEFAULT . " address";
         $addressData['type'] = Address::DEFAULT;
         $defaultAddress = $contact->defaultAddress();
-        if ($defaultAddress) {
-            Address::find($defaultAddress->id)->update($addressData);
-        } else {
-            $addressData['contact_id'] = $contact->id;
-            Address::create($addressData);
-        }
+        Address::find($defaultAddress->id)->update($addressData);
     }
 }
