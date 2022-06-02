@@ -3,7 +3,7 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-import TransferList from './TransferList';
+import TransferTable from './TransferTable';
 import TransferForm from './TransferForm';
 
 const TransferRoute = () => {
@@ -11,7 +11,7 @@ const TransferRoute = () => {
     return (
         <Switch>
             <Route exact key={uuidv4()} path={`/${displayName}`}
-                   render={props => <TransferList key={props.location.key}/>}
+                   render={props => <TransferTable key={props.location.key}/>}
             />
             <Route exact key={uuidv4()} path={`/${displayName}/create`}
                    render={props => <TransferForm key={props.location.key}/>}

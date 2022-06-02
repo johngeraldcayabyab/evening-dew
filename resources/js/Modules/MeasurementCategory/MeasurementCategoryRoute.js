@@ -3,7 +3,7 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-import MeasurementCategoryList from './MeasurementCategoryList';
+import MeasurementCategoryTable from './MeasurementCategoryTable';
 import MeasurementCategoryForm from './MeasurementCategoryForm';
 
 const MeasurementCategoryRoute = () => {
@@ -11,7 +11,7 @@ const MeasurementCategoryRoute = () => {
     return (
         <Switch>
             <Route exact key={uuidv4()} path={`/${moduleName}`}
-                   render={props => <MeasurementCategoryList key={props.location.key}/>}
+                   render={props => <MeasurementCategoryTable key={props.location.key}/>}
             />
             <Route exact key={uuidv4()} path={`/${moduleName}/create`}
                    render={props => <MeasurementCategoryForm key={props.location.key}/>}

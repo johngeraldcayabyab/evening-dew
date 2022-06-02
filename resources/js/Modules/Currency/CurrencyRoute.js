@@ -3,7 +3,7 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-import CurrencyList from './CurrencyList';
+import CurrencyTable from './CurrencyTable';
 import CurrencyForm from './CurrencyForm';
 
 const CurrencyRoute = () => {
@@ -11,7 +11,7 @@ const CurrencyRoute = () => {
     return (
         <Switch>
             <Route exact key={uuidv4()} path={`/${displayName}`}
-                   render={props => <CurrencyList key={props.location.key}/>}
+                   render={props => <CurrencyTable key={props.location.key}/>}
             />
             <Route exact key={uuidv4()} path={`/${displayName}/create`}
                    render={props => <CurrencyForm key={props.location.key}/>}

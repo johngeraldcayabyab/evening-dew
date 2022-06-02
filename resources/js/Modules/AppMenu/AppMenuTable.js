@@ -3,32 +3,25 @@ import useListHook from "../../Hooks/useListHook";
 import manifest from "./__manifest__.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
-import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
 import CustomTable from "../../Components/CustomTable";
-import TableSearchInput from "../../Components/TableSearchInput";
+import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
 import CustomPagination from "../../Components/CustomPagination";
+import TableSearchInput from "../../Components/TableSearchInput";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
-import {ListContextProvider} from "../../Contexts/ListContext";
+import {TableContextProvider} from "../../Contexts/TableContext";
 
-const WarehouseList = () => {
+const AppMenuTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
-        <ListContextProvider value={{
+        <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
             columns: [
                 {
-                    title: 'Name',
-                    dataIndex: 'name',
-                    key: 'name',
-                    sorter: true,
-                    searchFilter: true,
-                },
-                {
-                    title: 'Short Name',
-                    dataIndex: 'short_name',
-                    key: 'short_name',
+                    title: 'Label',
+                    dataIndex: 'parents',
+                    key: 'label',
                     sorter: true,
                     searchFilter: true,
                 },
@@ -37,8 +30,8 @@ const WarehouseList = () => {
                     dataIndex: 'created_at',
                     key: 'created_at',
                     sorter: true,
-                },
-            ]
+                }
+            ],
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
@@ -48,9 +41,8 @@ const WarehouseList = () => {
                 bottomColTwoRight={<CustomPagination/>}
             />
             <CustomTable/>
-        </ListContextProvider>
+        </TableContextProvider>
     )
 };
 
-export default WarehouseList;
-
+export default AppMenuTable;

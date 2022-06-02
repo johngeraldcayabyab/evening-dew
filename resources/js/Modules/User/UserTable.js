@@ -3,17 +3,17 @@ import useListHook from "../../Hooks/useListHook";
 import manifest from "./__manifest__.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
-import CustomTable from "../../Components/CustomTable";
 import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
-import CustomPagination from "../../Components/CustomPagination";
+import CustomTable from "../../Components/CustomTable";
 import TableSearchInput from "../../Components/TableSearchInput";
+import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
-import {ListContextProvider} from "../../Contexts/ListContext";
+import {TableContextProvider} from "../../Contexts/TableContext";
 
-const MeasurementList = () => {
+const UserTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
-        <ListContextProvider value={{
+        <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
@@ -26,42 +26,18 @@ const MeasurementList = () => {
                     searchFilter: true,
                 },
                 {
-                    title: 'Type',
-                    dataIndex: 'type',
-                    key: 'type',
+                    title: 'Email',
+                    dataIndex: 'email',
+                    key: 'email',
                     sorter: true,
                     searchFilter: true,
-                },
-                {
-                    title: 'Ratio',
-                    dataIndex: 'ratio',
-                    key: 'ratio',
-                    sorter: true,
-                    searchFilter: true,
-                },
-                {
-                    title: 'Rounding Precision',
-                    dataIndex: 'rounding_precision',
-                    key: 'rounding_precision',
-                    sorter: true,
-                    searchFilter: true,
-                },
-                {
-                    title: 'Category',
-                    dataIndex: 'measurement_category',
-                    key: 'measurement_category',
-                    sorter: true,
-                    searchFilter: true,
-                    render: (text, record) => {
-                        return record.measurement_category.name;
-                    }
                 },
                 {
                     title: 'Created At',
                     dataIndex: 'created_at',
                     key: 'created_at',
                     sorter: true,
-                }
+                },
             ]
         }}>
             <ControlPanel
@@ -72,8 +48,9 @@ const MeasurementList = () => {
                 bottomColTwoRight={<CustomPagination/>}
             />
             <CustomTable/>
-        </ListContextProvider>
+        </TableContextProvider>
     )
 };
 
-export default MeasurementList;
+export default UserTable;
+

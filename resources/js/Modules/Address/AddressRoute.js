@@ -2,7 +2,7 @@ import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
 
-import AddressList from './AddressList';
+import AddressTable from './AddressTable';
 import AddressForm from './AddressForm';
 
 const AddressRoute = () => {
@@ -10,7 +10,7 @@ const AddressRoute = () => {
     return (
         <Switch>
             <Route exact key={`${displayName}-list`} path={`/${displayName}`}
-                   render={props => <AddressList key={props.location.key}/>}/>
+                   render={props => <AddressTable key={props.location.key}/>}/>
             <Route exact key={`${displayName}-create`} path={`/${displayName}/create`}
                    render={props => <AddressForm key={props.location.key}/>}/>
             <Route exact key={`${displayName}-update`} path={`/${displayName}/:id`}

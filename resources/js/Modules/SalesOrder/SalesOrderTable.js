@@ -7,69 +7,64 @@ import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdown
 import CustomTable from "../../Components/CustomTable";
 import TableSearchInput from "../../Components/TableSearchInput";
 import CustomPagination from "../../Components/CustomPagination";
+import {Tag} from "antd";
+import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
-import {ListContextProvider} from "../../Contexts/ListContext";
+import {TableContextProvider} from "../../Contexts/TableContext";
 
-const ProductList = () => {
+const SalesOrderTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
-        <ListContextProvider value={{
+        <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
             columns: [
                 {
-                    title: 'Name',
-                    dataIndex: 'name',
-                    key: 'name',
-                    sorter: true,
-                    searchFilter: true,
-                },
-                {
-                    title: 'Internal Reference',
-                    dataIndex: 'internal_reference',
-                    key: 'internal_reference',
-                    sorter: true,
-                    searchFilter: true,
-                },
-                {
-                    title: 'Sales Price',
-                    dataIndex: 'sales_price',
-                    key: 'sales_price',
-                    sorter: true,
-                    searchFilter: true,
-                },
-                {
-                    title: 'Cost',
-                    dataIndex: 'cost',
-                    key: 'cost',
-                    sorter: true,
-                    searchFilter: true,
-                },
-                {
-                    title: 'Measurement',
-                    dataIndex: 'measurement',
-                    key: 'measurement',
+                    title: 'Number',
+                    dataIndex: 'number',
+                    key: 'number',
                     sorter: true,
                     searchFilter: true,
                     render: (text, record) => {
-                        return record.measurement.name;
+                        return <Text strong><span style={{fontSize: '12px'}}>{record.number}</span></Text>
                     }
                 },
                 {
-                    title: 'Product Category',
-                    dataIndex: 'product_category',
-                    key: 'product_category',
+                    title: 'Customer',
+                    dataIndex: 'customer',
+                    key: 'customer',
                     sorter: true,
                     searchFilter: true,
                     render: (text, record) => {
-                        return record.product_category.category;
+                        return record.customer.name;
                     }
                 },
                 {
-                    title: 'Quantity',
-                    dataIndex: 'quantity',
-                    key: 'quantity',
+                    title: 'Salesperson',
+                    dataIndex: 'salesperson',
+                    key: 'salesperson',
+                    sorter: true,
+                    searchFilter: true,
+                    render: (text, record) => {
+                        return record.salesperson.name;
+                    }
+                },
+                {
+                    title: 'Status',
+                    dataIndex: 'status',
+                    key: 'status',
+                    sorter: true,
+                    searchFilter: true,
+                    render: (text, record) => {
+                        const color = {draft: 'processing', done: 'success', cancelled: 'default'};
+                        return <Tag color={color[record.status]}>{record.status.toUpperCase()}</Tag>
+                    }
+                },
+                {
+                    title: 'Source Document',
+                    dataIndex: 'source_document',
+                    key: 'source_document',
                     sorter: true,
                     searchFilter: true,
                 },
@@ -89,9 +84,9 @@ const ProductList = () => {
                 bottomColTwoRight={<CustomPagination/>}
             />
             <CustomTable/>
-        </ListContextProvider>
+        </TableContextProvider>
     )
 };
 
-export default ProductList;
+export default SalesOrderTable;
 

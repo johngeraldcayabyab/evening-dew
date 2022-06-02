@@ -5,62 +5,48 @@ import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
 import CustomTable from "../../Components/CustomTable";
 import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
-import CustomPagination from "../../Components/CustomPagination";
 import TableSearchInput from "../../Components/TableSearchInput";
+import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
-import {ListContextProvider} from "../../Contexts/ListContext";
+import {TableContextProvider} from "../../Contexts/TableContext";
 
-const AddressList = () => {
+const OperationTypeTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
-        <ListContextProvider value={{
+        <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
             columns: [
                 {
-                    title: 'Address Name',
-                    dataIndex: 'address_name',
-                    key: 'address_name',
+                    title: 'Name',
+                    dataIndex: 'name',
+                    key: 'name',
                     sorter: true,
                     searchFilter: true,
                 },
                 {
-                    title: 'Address',
-                    dataIndex: 'address',
-                    key: 'address',
-                    sorter: true,
-                    searchFilter: true,
-                },
-                {
-                    title: 'Type',
-                    dataIndex: 'type',
-                    key: 'type',
-                    sorter: true,
-                    searchFilter: true,
-                },
-                {
-                    title: 'Country',
-                    dataIndex: 'country',
-                    key: 'country',
+                    title: 'Warehouse',
+                    dataIndex: 'warehouse',
+                    key: 'warehouse',
                     sorter: true,
                     searchFilter: true,
                     render: (text, record) => {
-                        if (record.country) {
-                            return record.country.country_name;
+                        if (record.warehouse) {
+                            return record.warehouse.name;
                         }
                         return null;
                     }
                 },
                 {
-                    title: 'City',
-                    dataIndex: 'city',
-                    key: 'city',
+                    title: 'Reference Sequence',
+                    dataIndex: 'reference_sequence',
+                    key: 'reference_sequence',
                     sorter: true,
                     searchFilter: true,
                     render: (text, record) => {
-                        if (record.city) {
-                            return record.city.name;
+                        if (record.reference_sequence) {
+                            return record.reference_sequence.name;
                         }
                         return null;
                     }
@@ -81,8 +67,8 @@ const AddressList = () => {
                 bottomColTwoRight={<CustomPagination/>}
             />
             <CustomTable/>
-        </ListContextProvider>
+        </TableContextProvider>
     )
 };
 
-export default AddressList;
+export default OperationTypeTable;

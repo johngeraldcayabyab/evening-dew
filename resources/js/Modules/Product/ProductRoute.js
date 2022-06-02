@@ -3,7 +3,7 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-import ProductList from './ProductList';
+import ProductTable from './ProductTable';
 import ProductForm from './ProductForm';
 
 const ProductRoute = () => {
@@ -11,7 +11,7 @@ const ProductRoute = () => {
     return (
         <Switch>
             <Route exact key={uuidv4()} path={`/${displayName}`}
-                   render={props => <ProductList key={props.location.key}/>}
+                   render={props => <ProductTable key={props.location.key}/>}
             />
             <Route exact key={uuidv4()} path={`/${displayName}/create`}
                    render={props => <ProductForm key={props.location.key}/>}

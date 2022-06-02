@@ -2,12 +2,12 @@ import {Table} from "antd";
 import React, {useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
-import {ListContext} from "../Contexts/ListContext";
+import {TableContext} from "../Contexts/TableContext";
 import FilterDropdown from "./TableButtons/FilterDropdown";
 import {getAllUrlParams} from "../Helpers/url";
 
 const CustomTable = () => {
-    const listContext = useContext(ListContext);
+    const listContext = useContext(TableContext);
     const history = useHistory();
     const [state, setState] = useState({
         columns: listContext.columns

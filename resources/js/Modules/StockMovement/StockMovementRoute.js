@@ -3,7 +3,7 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-import StockMovementList from './StockMovementList';
+import StockMovementTable from './StockMovementTable';
 import StockMovementForm from './StockMovementForm';
 
 const StockMovementRoute = () => {
@@ -11,7 +11,7 @@ const StockMovementRoute = () => {
     return (
         <Switch>
             <Route exact key={uuidv4()} path={`/${displayName}`}
-                   render={props => <StockMovementList key={props.location.key}/>}
+                   render={props => <StockMovementTable key={props.location.key}/>}
             />
             <Route exact key={uuidv4()} path={`/${displayName}/create`}
                    render={props => <StockMovementForm key={props.location.key}/>}

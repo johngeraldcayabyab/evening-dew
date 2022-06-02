@@ -3,7 +3,7 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-import AppMenuList from './AppMenuList';
+import AppMenuTable from './AppMenuTable';
 import AppMenuForm from './AppMenuForm';
 
 const AppMenuRoute = () => {
@@ -11,7 +11,7 @@ const AppMenuRoute = () => {
     return (
         <Switch>
             <Route exact key={uuidv4()} path={`/${displayName}`}
-                   render={props => <AppMenuList key={props.location.key}/>}
+                   render={props => <AppMenuTable key={props.location.key}/>}
             />
             <Route exact key={uuidv4()} path={`/${displayName}/create`}
                    render={props => <AppMenuForm key={props.location.key}/>}

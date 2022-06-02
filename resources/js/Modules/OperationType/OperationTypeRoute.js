@@ -3,7 +3,7 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-import OperationTypeList from './OperationTypeList';
+import OperationTypeTable from './OperationTypeTable';
 import OperationTypeForm from './OperationTypeForm';
 
 const OperationTypeRoute = () => {
@@ -11,7 +11,7 @@ const OperationTypeRoute = () => {
     return (
         <Switch>
             <Route exact key={uuidv4()} path={`/${moduleName}`}
-                   render={props => <OperationTypeList key={props.location.key}/>}
+                   render={props => <OperationTypeTable key={props.location.key}/>}
             />
             <Route exact key={uuidv4()} path={`/${moduleName}/create`}
                    render={props => <OperationTypeForm key={props.location.key}/>}

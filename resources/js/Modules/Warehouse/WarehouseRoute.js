@@ -3,7 +3,7 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-import WarehouseList from './WarehouseList';
+import WarehouseTable from './WarehouseTable';
 import WarehouseForm from './WarehouseForm';
 
 const WarehouseRoute = () => {
@@ -11,7 +11,7 @@ const WarehouseRoute = () => {
     return (
         <Switch>
             <Route exact key={uuidv4()} path={`/${displayName}`}
-                   render={props => <WarehouseList key={props.location.key}/>}
+                   render={props => <WarehouseTable key={props.location.key}/>}
             />
             <Route exact key={uuidv4()} path={`/${displayName}/create`}
                    render={props => <WarehouseForm key={props.location.key}/>}

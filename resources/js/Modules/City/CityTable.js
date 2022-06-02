@@ -8,12 +8,12 @@ import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdown
 import CustomPagination from "../../Components/CustomPagination";
 import TableSearchInput from "../../Components/TableSearchInput";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
-import {ListContextProvider} from "../../Contexts/ListContext";
+import {TableContextProvider} from "../../Contexts/TableContext";
 
-const ContactList = () => {
+const CityTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
-        <ListContextProvider value={{
+        <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
@@ -26,18 +26,24 @@ const ContactList = () => {
                     searchFilter: true,
                 },
                 {
-                    title: 'Phone',
-                    dataIndex: 'phone',
-                    key: 'phone',
+                    title: 'Province',
+                    dataIndex: 'province',
+                    key: 'province',
                     sorter: true,
                     searchFilter: true,
                 },
                 {
-                    title: 'Email',
-                    dataIndex: 'email',
-                    key: 'email',
+                    title: 'Region',
+                    dataIndex: 'region',
+                    key: 'region',
                     sorter: true,
                     searchFilter: true,
+                    render: (text, record) => {
+                        if (record.region) {
+                            return record.region.region;
+                        }
+                        return null;
+                    }
                 },
                 {
                     title: 'Created At',
@@ -55,8 +61,8 @@ const ContactList = () => {
                 bottomColTwoRight={<CustomPagination/>}
             />
             <CustomTable/>
-        </ListContextProvider>
+        </TableContextProvider>
     )
 };
 
-export default ContactList;
+export default CityTable;

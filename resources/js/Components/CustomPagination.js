@@ -1,9 +1,9 @@
 import {Pagination} from "antd";
-import {ListContext} from "../Contexts/ListContext";
+import {TableContext} from "../Contexts/TableContext";
 import {useContext} from "react";
 
 const CustomPagination = () => {
-    const listContext = useContext(ListContext);
+    const listContext = useContext(TableContext);
     // console.lo
     return (
         <Pagination
