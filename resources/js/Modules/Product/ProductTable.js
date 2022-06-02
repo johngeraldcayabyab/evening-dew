@@ -17,7 +17,7 @@ import {KANBAN, TABLE} from "../../consts";
 const ProductTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     const [dataState, setDataState] = useState({
-        mode: TABLE
+        mode: KANBAN
     });
     return (
         <TableContextProvider value={{
