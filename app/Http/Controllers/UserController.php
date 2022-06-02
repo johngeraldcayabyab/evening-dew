@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserCreatedEvent;
+use App\Events\UserUpdatedEvent;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -31,13 +33,16 @@ class UserController
     {
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
-        return response()->json([], STATUS_CREATE, $this->locationHeader(User::create($data)));
+        $user = User::create($data);
+        UserCreatedEvent::dispatch($user, $data);
+        return response()->json([], STATUS_CREATE, $this->locationHeader($user));
     }
 
     public function update(UserRequest $request, User $user): JsonResponse
     {
         $data = $request->validated();
         $user->update($data);
+        UserUpdatedEvent::dispatch($user, $data);
         return response()->json([], STATUS_UPDATE);
     }
 

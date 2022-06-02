@@ -2,7 +2,6 @@
 
 namespace App\Observers;
 
-use App\Events\WarehouseCreatedEvent;
 use App\Models\Warehouse;
 
 class WarehouseObserver
@@ -10,11 +9,6 @@ class WarehouseObserver
     public function creating(Warehouse $warehouse)
     {
         $this->setDefaults($warehouse);
-    }
-
-    public function created(Warehouse $warehouse)
-    {
-        WarehouseCreatedEvent::dispatch($warehouse);
     }
 
     public function updating(Warehouse $warehouse)

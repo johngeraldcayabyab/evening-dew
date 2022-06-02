@@ -7,7 +7,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ContactUpsertEvent
+class ContactCreatedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

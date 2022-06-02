@@ -9,7 +9,7 @@ use App\Models\Sequence;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Str;
 
-class WarehouseInitializeListener implements ShouldQueue
+class WarehouseInitializeDefaultsListener implements ShouldQueue
 {
     public function handle(WarehouseCreatedEvent $event)
     {

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\ContactUpsertEvent;
+use App\Events\ContactCreatedEvent;
+use App\Events\ContactUpdatedEvent;
 use App\Http\Requests\ContactRequest;
 use App\Http\Resources\ContactResource;
 use App\Models\Contact;
@@ -34,7 +35,7 @@ class ContactController
         $data = $request->validated();
         $contactData = Arr::only($data, (new Contact())->getFields());
         $contact = Contact::create($contactData);
-        ContactUpsertEvent::dispatch($contact, $data);
+        ContactCreatedEvent::dispatch($contact, $data);
         return response()->json([], STATUS_CREATE, $this->locationHeader($contact));
     }
 
@@ -43,7 +44,7 @@ class ContactController
         $data = $request->validated();
         $contactData = Arr::only($data, (new Contact())->getFields());
         $contact->update($contactData);
-        ContactUpsertEvent::dispatch($contact, $data);
+        ContactUpdatedEvent::dispatch($contact, $data);
         return response()->json([], STATUS_UPDATE);
     }
 
