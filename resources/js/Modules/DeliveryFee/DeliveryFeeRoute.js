@@ -3,7 +3,7 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-import DeliveryFeeList from './DeliveryFeeList';
+import DeliveryFeeTable from './DeliveryFeeTable';
 import DeliveryFeeForm from './DeliveryFeeForm';
 
 const DeliveryFeeRoute = () => {
@@ -11,7 +11,7 @@ const DeliveryFeeRoute = () => {
     return (
         <Switch>
             <Route exact key={uuidv4()} path={`/${displayName}`}
-                   render={props => <DeliveryFeeList key={props.location.key}/>}
+                   render={props => <DeliveryFeeTable key={props.location.key}/>}
             />
             <Route exact key={uuidv4()} path={`/${displayName}/create`}
                    render={props => <DeliveryFeeForm key={props.location.key}/>}

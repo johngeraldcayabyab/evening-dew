@@ -3,7 +3,7 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-import UserList from './UserList';
+import UserTable from './UserTable';
 import UserForm from './UserForm';
 
 const UserRoute = () => {
@@ -11,7 +11,7 @@ const UserRoute = () => {
     return (
         <Switch>
             <Route exact key={uuidv4()} path={`/${displayName}`}
-                   render={props => <UserList key={props.location.key}/>}
+                   render={props => <UserTable key={props.location.key}/>}
             />
             <Route exact key={uuidv4()} path={`/${displayName}/create`}
                    render={props => <UserForm key={props.location.key}/>}

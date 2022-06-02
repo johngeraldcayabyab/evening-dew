@@ -5,16 +5,15 @@ import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
 import CustomTable from "../../Components/CustomTable";
 import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
-import CustomPagination from "../../Components/CustomPagination";
 import TableSearchInput from "../../Components/TableSearchInput";
+import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
-import {ListContextProvider} from "../../Contexts/ListContext";
-import {Tag} from "antd";
+import {TableContextProvider} from "../../Contexts/TableContext";
 
-const DeliveryFeeList = () => {
+const MeasurementCategoryTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
-        <ListContextProvider value={{
+        <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
@@ -27,28 +26,11 @@ const DeliveryFeeList = () => {
                     searchFilter: true,
                 },
                 {
-                    title: 'Fee',
-                    dataIndex: 'product',
-                    key: 'product',
+                    title: 'Created At',
+                    dataIndex: 'created_at',
+                    key: 'created_at',
                     sorter: true,
-                    searchFilter: true,
-                    render: (text, record) => {
-                        return record.product.sales_price;
-                    }
-                },
-                {
-                    title: 'Enabled',
-                    dataIndex: 'is_enabled',
-                    key: 'is_enabled',
-                    sorter: true,
-                    searchFilter: true,
-                    render: (text, record) => {
-                        if(record.is_enabled){
-                            return <Tag color={'success'}>Yes</Tag>;
-                        }
-                        return <Tag color={'default'}>No</Tag>;
-                    }
-                },
+                }
             ]
         }}>
             <ControlPanel
@@ -59,8 +41,8 @@ const DeliveryFeeList = () => {
                 bottomColTwoRight={<CustomPagination/>}
             />
             <CustomTable/>
-        </ListContextProvider>
+        </TableContextProvider>
     )
 };
 
-export default DeliveryFeeList;
+export default MeasurementCategoryTable;

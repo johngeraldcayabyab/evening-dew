@@ -1,10 +1,10 @@
 import {Button} from "antd";
 import React, {useContext} from 'react';
 import {Link} from 'react-router-dom';
-import {ListContext} from "../../Contexts/ListContext";
+import {TableContext} from "../../Contexts/TableContext";
 
 const TableCreateButton = () => {
-    const listContext = useContext(ListContext);
+    const listContext = useContext(TableContext);
 
     return (
         <Button

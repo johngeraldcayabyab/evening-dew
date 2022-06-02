@@ -3,7 +3,7 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-import MaterialList from './MaterialList';
+import MaterialTable from './MaterialTable';
 import MaterialForm from './MaterialForm';
 
 const MaterialRoute = () => {
@@ -11,7 +11,7 @@ const MaterialRoute = () => {
     return (
         <Switch>
             <Route exact key={uuidv4()} path={`/${displayName}`}
-                   render={props => <MaterialList key={props.location.key}/>}
+                   render={props => <MaterialTable key={props.location.key}/>}
             />
             <Route exact key={uuidv4()} path={`/${displayName}/create`}
                    render={props => <MaterialForm key={props.location.key}/>}

@@ -3,35 +3,21 @@ import useListHook from "../../Hooks/useListHook";
 import manifest from "./__manifest__.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
-import CustomTable from "../../Components/CustomTable";
 import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
-import CustomPagination from "../../Components/CustomPagination";
+import CustomTable from "../../Components/CustomTable";
 import TableSearchInput from "../../Components/TableSearchInput";
+import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
-import {ListContextProvider} from "../../Contexts/ListContext";
+import {TableContextProvider} from "../../Contexts/TableContext";
 
-const CurrencyList = () => {
+const WarehouseTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
-        <ListContextProvider value={{
+        <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
             columns: [
-                {
-                    title: 'Currency',
-                    dataIndex: 'currency',
-                    key: 'currency',
-                    sorter: true,
-                    searchFilter: true,
-                },
-                {
-                    title: 'Symbol',
-                    dataIndex: 'symbol',
-                    key: 'symbol',
-                    sorter: true,
-                    searchFilter: true,
-                },
                 {
                     title: 'Name',
                     dataIndex: 'name',
@@ -40,11 +26,18 @@ const CurrencyList = () => {
                     searchFilter: true,
                 },
                 {
+                    title: 'Short Name',
+                    dataIndex: 'short_name',
+                    key: 'short_name',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
                     title: 'Created At',
                     dataIndex: 'created_at',
                     key: 'created_at',
                     sorter: true,
-                }
+                },
             ]
         }}>
             <ControlPanel
@@ -55,8 +48,9 @@ const CurrencyList = () => {
                 bottomColTwoRight={<CustomPagination/>}
             />
             <CustomTable/>
-        </ListContextProvider>
+        </TableContextProvider>
     )
 };
 
-export default CurrencyList;
+export default WarehouseTable;
+

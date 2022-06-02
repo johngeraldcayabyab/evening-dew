@@ -5,40 +5,23 @@ import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
 import CustomTable from "../../Components/CustomTable";
 import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
-import CustomPagination from "../../Components/CustomPagination";
 import TableSearchInput from "../../Components/TableSearchInput";
+import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
-import {ListContextProvider} from "../../Contexts/ListContext";
+import {TableContextProvider} from "../../Contexts/TableContext";
 
-const MaterialList = () => {
+const PaymentTermTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
-        <ListContextProvider value={{
+        <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
             columns: [
                 {
-                    title: 'Product',
-                    dataIndex: 'product',
-                    key: 'product',
-                    sorter: true,
-                    searchFilter: true,
-                    render: (text, record) => {
-                        return record.product.name;
-                    }
-                },
-                {
-                    title: 'Reference',
-                    dataIndex: 'reference',
-                    key: 'reference',
-                    sorter: true,
-                    searchFilter: true,
-                },
-                {
-                    title: 'Type',
-                    dataIndex: 'type',
-                    key: 'type',
+                    title: 'Name',
+                    dataIndex: 'name',
+                    key: 'name',
                     sorter: true,
                     searchFilter: true,
                 },
@@ -58,8 +41,8 @@ const MaterialList = () => {
                 bottomColTwoRight={<CustomPagination/>}
             />
             <CustomTable/>
-        </ListContextProvider>
+        </TableContextProvider>
     )
 };
 
-export default MaterialList;
+export default PaymentTermTable;

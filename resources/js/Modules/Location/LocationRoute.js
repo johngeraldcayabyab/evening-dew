@@ -3,7 +3,7 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-import LocationList from './LocationList';
+import LocationTable from './LocationTable';
 import LocationForm from './LocationForm';
 
 const LocationRoute = () => {
@@ -11,7 +11,7 @@ const LocationRoute = () => {
     return (
         <Switch>
             <Route exact key={uuidv4()} path={`/${displayName}`}
-                   render={props => <LocationList key={props.location.key}/>}
+                   render={props => <LocationTable key={props.location.key}/>}
             />
             <Route exact key={uuidv4()} path={`/${displayName}/create`}
                    render={props => <LocationForm key={props.location.key}/>}

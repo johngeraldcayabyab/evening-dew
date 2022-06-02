@@ -5,51 +5,42 @@ import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
 import CustomTable from "../../Components/CustomTable";
 import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
-import TableSearchInput from "../../Components/TableSearchInput";
 import CustomPagination from "../../Components/CustomPagination";
+import TableSearchInput from "../../Components/TableSearchInput";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
-import {ListContextProvider} from "../../Contexts/ListContext";
+import {TableContextProvider} from "../../Contexts/TableContext";
 
-const OperationTypeList = () => {
+const MaterialTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
-        <ListContextProvider value={{
+        <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
             columns: [
                 {
-                    title: 'Name',
-                    dataIndex: 'name',
-                    key: 'name',
+                    title: 'Product',
+                    dataIndex: 'product',
+                    key: 'product',
+                    sorter: true,
+                    searchFilter: true,
+                    render: (text, record) => {
+                        return record.product.name;
+                    }
+                },
+                {
+                    title: 'Reference',
+                    dataIndex: 'reference',
+                    key: 'reference',
                     sorter: true,
                     searchFilter: true,
                 },
                 {
-                    title: 'Warehouse',
-                    dataIndex: 'warehouse',
-                    key: 'warehouse',
+                    title: 'Type',
+                    dataIndex: 'type',
+                    key: 'type',
                     sorter: true,
                     searchFilter: true,
-                    render: (text, record) => {
-                        if (record.warehouse) {
-                            return record.warehouse.name;
-                        }
-                        return null;
-                    }
-                },
-                {
-                    title: 'Reference Sequence',
-                    dataIndex: 'reference_sequence',
-                    key: 'reference_sequence',
-                    sorter: true,
-                    searchFilter: true,
-                    render: (text, record) => {
-                        if (record.reference_sequence) {
-                            return record.reference_sequence.name;
-                        }
-                        return null;
-                    }
                 },
                 {
                     title: 'Created At',
@@ -67,8 +58,8 @@ const OperationTypeList = () => {
                 bottomColTwoRight={<CustomPagination/>}
             />
             <CustomTable/>
-        </ListContextProvider>
+        </TableContextProvider>
     )
 };
 
-export default OperationTypeList;
+export default MaterialTable;

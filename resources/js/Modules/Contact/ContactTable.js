@@ -8,20 +8,34 @@ import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdown
 import CustomPagination from "../../Components/CustomPagination";
 import TableSearchInput from "../../Components/TableSearchInput";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
-import {ListContextProvider} from "../../Contexts/ListContext";
+import {TableContextProvider} from "../../Contexts/TableContext";
 
-const AppMenuList = () => {
+const ContactTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
-        <ListContextProvider value={{
+        <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
             columns: [
                 {
-                    title: 'Label',
-                    dataIndex: 'parents',
-                    key: 'label',
+                    title: 'Name',
+                    dataIndex: 'name',
+                    key: 'name',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
+                    title: 'Phone',
+                    dataIndex: 'phone',
+                    key: 'phone',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
+                    title: 'Email',
+                    dataIndex: 'email',
+                    key: 'email',
                     sorter: true,
                     searchFilter: true,
                 },
@@ -31,7 +45,7 @@ const AppMenuList = () => {
                     key: 'created_at',
                     sorter: true,
                 }
-            ],
+            ]
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
@@ -41,8 +55,8 @@ const AppMenuList = () => {
                 bottomColTwoRight={<CustomPagination/>}
             />
             <CustomTable/>
-        </ListContextProvider>
+        </TableContextProvider>
     )
 };
 
-export default AppMenuList;
+export default ContactTable;

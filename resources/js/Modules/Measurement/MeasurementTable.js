@@ -3,17 +3,17 @@ import useListHook from "../../Hooks/useListHook";
 import manifest from "./__manifest__.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
-import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
 import CustomTable from "../../Components/CustomTable";
-import TableSearchInput from "../../Components/TableSearchInput";
+import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
 import CustomPagination from "../../Components/CustomPagination";
+import TableSearchInput from "../../Components/TableSearchInput";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
-import {ListContextProvider} from "../../Contexts/ListContext";
+import {TableContextProvider} from "../../Contexts/TableContext";
 
-const SequenceList = () => {
+const MeasurementTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
-        <ListContextProvider value={{
+        <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
@@ -26,60 +26,42 @@ const SequenceList = () => {
                     searchFilter: true,
                 },
                 {
-                    title: 'Sequence Code',
-                    dataIndex: 'sequence_code',
-                    key: 'sequence_code',
+                    title: 'Type',
+                    dataIndex: 'type',
+                    key: 'type',
                     sorter: true,
                     searchFilter: true,
                 },
                 {
-                    title: 'Implementation',
-                    dataIndex: 'implementation',
-                    key: 'implementation',
+                    title: 'Ratio',
+                    dataIndex: 'ratio',
+                    key: 'ratio',
                     sorter: true,
                     searchFilter: true,
                 },
                 {
-                    title: 'Prefix',
-                    dataIndex: 'prefix',
-                    key: 'prefix',
+                    title: 'Rounding Precision',
+                    dataIndex: 'rounding_precision',
+                    key: 'rounding_precision',
                     sorter: true,
                     searchFilter: true,
                 },
                 {
-                    title: 'Suffix',
-                    dataIndex: 'suffix',
-                    key: 'suffix',
+                    title: 'Category',
+                    dataIndex: 'measurement_category',
+                    key: 'measurement_category',
                     sorter: true,
                     searchFilter: true,
-                },
-                {
-                    title: 'Sequence Size',
-                    dataIndex: 'sequence_size',
-                    key: 'sequence_size',
-                    sorter: true,
-                    searchFilter: true,
-                },
-                {
-                    title: 'Step',
-                    dataIndex: 'step',
-                    key: 'step',
-                    sorter: true,
-                    searchFilter: true,
-                },
-                {
-                    title: 'Next Number',
-                    dataIndex: 'next_number',
-                    key: 'next_number',
-                    sorter: true,
-                    searchFilter: true,
+                    render: (text, record) => {
+                        return record.measurement_category.name;
+                    }
                 },
                 {
                     title: 'Created At',
                     dataIndex: 'created_at',
                     key: 'created_at',
                     sorter: true,
-                },
+                }
             ]
         }}>
             <ControlPanel
@@ -90,9 +72,8 @@ const SequenceList = () => {
                 bottomColTwoRight={<CustomPagination/>}
             />
             <CustomTable/>
-        </ListContextProvider>
+        </TableContextProvider>
     )
 };
 
-export default SequenceList;
-
+export default MeasurementTable;

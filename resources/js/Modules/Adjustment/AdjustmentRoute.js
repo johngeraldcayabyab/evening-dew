@@ -3,7 +3,7 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-import AdjustmentList from './AdjustmentList';
+import AdjustmentTable from './AdjustmentTable';
 import AdjustmentForm from './AdjustmentForm';
 
 const AdjustmentRoute = () => {
@@ -11,7 +11,7 @@ const AdjustmentRoute = () => {
     return (
         <Switch>
             <Route exact key={uuidv4()} path={`/${displayName}`}
-                   render={props => <AdjustmentList key={props.location.key}/>}
+                   render={props => <AdjustmentTable key={props.location.key}/>}
             />
             <Route exact key={uuidv4()} path={`/${displayName}/create`}
                    render={props => <AdjustmentForm key={props.location.key}/>}

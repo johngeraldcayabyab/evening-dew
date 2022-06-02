@@ -3,7 +3,7 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-import MenuList from './MenuList';
+import MenuTable from './MenuTable';
 import MenuForm from './MenuForm';
 
 const MenuRoute = () => {
@@ -11,7 +11,7 @@ const MenuRoute = () => {
     return (
         <Switch>
             <Route exact key={uuidv4()} path={`/${moduleName}`}
-                   render={props => <MenuList key={props.location.key}/>}
+                   render={props => <MenuTable key={props.location.key}/>}
             />
             <Route exact key={uuidv4()} path={`/${moduleName}/create`}
                    render={props => <MenuForm key={props.location.key}/>}

@@ -3,54 +3,34 @@ import useListHook from "../../Hooks/useListHook";
 import manifest from "./__manifest__.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
-import CustomTable from "../../Components/CustomTable";
 import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
-import CustomPagination from "../../Components/CustomPagination";
+import CustomTable from "../../Components/CustomTable";
 import TableSearchInput from "../../Components/TableSearchInput";
+import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
-import {ListContextProvider} from "../../Contexts/ListContext";
+import {TableContextProvider} from "../../Contexts/TableContext";
 
-const RegionList = () => {
+const ProductCategoryTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
-        <ListContextProvider value={{
+        <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
             columns: [
                 {
-                    title: 'Region',
-                    dataIndex: 'region',
-                    key: 'region',
+                    title: 'Category',
+                    dataIndex: 'parents',
+                    key: 'category',
                     sorter: true,
                     searchFilter: true,
-                },
-                {
-                    title: 'Region Center',
-                    dataIndex: 'region_center',
-                    key: 'region_center',
-                    sorter: true,
-                    searchFilter: true,
-                },
-                {
-                    title: 'Country',
-                    dataIndex: 'country',
-                    key: 'country',
-                    sorter: true,
-                    searchFilter: true,
-                    render: (text, record) => {
-                        if (record.country) {
-                            return record.country.country_name;
-                        }
-                        return null;
-                    }
                 },
                 {
                     title: 'Created At',
                     dataIndex: 'created_at',
                     key: 'created_at',
                     sorter: true,
-                }
+                },
             ]
         }}>
             <ControlPanel
@@ -61,8 +41,9 @@ const RegionList = () => {
                 bottomColTwoRight={<CustomPagination/>}
             />
             <CustomTable/>
-        </ListContextProvider>
+        </TableContextProvider>
     )
 };
 
-export default RegionList;
+export default ProductCategoryTable;
+

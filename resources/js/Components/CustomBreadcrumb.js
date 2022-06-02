@@ -7,12 +7,12 @@ import {getBreadcrumbs, getClickedBreadcrumb, setBreadcrumbs, setClickedBreadcru
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import {objectHasValue} from "../Helpers/object";
 import {FormContext} from "../Contexts/FormContext";
-import {ListContext} from "../Contexts/ListContext";
+import {TableContext} from "../Contexts/TableContext";
 
 const CustomBreadcrumb = () => {
     const location = useLocation();
     const formContext = useContext(FormContext);
-    const listContext = useContext(ListContext);
+    const listContext = useContext(TableContext);
     const [state, setState] = useState({
         breadcrumbs: [],
     });

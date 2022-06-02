@@ -7,64 +7,74 @@ import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdown
 import CustomTable from "../../Components/CustomTable";
 import TableSearchInput from "../../Components/TableSearchInput";
 import CustomPagination from "../../Components/CustomPagination";
-import {Tag} from "antd";
-import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
-import {ListContextProvider} from "../../Contexts/ListContext";
+import {TableContextProvider} from "../../Contexts/TableContext";
 
-const SalesOrderList = () => {
+const StockMovementTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
-        <ListContextProvider value={{
+        <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
             columns: [
                 {
-                    title: 'Number',
-                    dataIndex: 'number',
-                    key: 'number',
+                    title: 'Reference',
+                    dataIndex: 'reference',
+                    key: 'reference',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
+                    title: 'Source',
+                    dataIndex: 'source',
+                    key: 'source',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
+                    title: 'Product',
+                    dataIndex: 'product',
+                    key: 'product',
                     sorter: true,
                     searchFilter: true,
                     render: (text, record) => {
-                        return <Text strong><span style={{fontSize: '12px'}}>{record.number}</span></Text>
+                        if (record.product) {
+                            return record.product.name;
+                        }
+                        return null;
                     }
                 },
                 {
-                    title: 'Customer',
-                    dataIndex: 'customer',
-                    key: 'customer',
+                    title: 'From',
+                    dataIndex: 'source_location',
+                    key: 'source_location',
                     sorter: true,
                     searchFilter: true,
                     render: (text, record) => {
-                        return record.customer.name;
+                        if (record.source_location) {
+                            return record.source_location.parents;
+                        }
+                        return null;
                     }
                 },
                 {
-                    title: 'Salesperson',
-                    dataIndex: 'salesperson',
-                    key: 'salesperson',
+                    title: 'To',
+                    dataIndex: 'destination_location',
+                    key: 'destination_location',
                     sorter: true,
                     searchFilter: true,
                     render: (text, record) => {
-                        return record.salesperson.name;
+                        if (record.destination_location) {
+                            return record.destination_location.parents;
+                        }
+                        return null;
                     }
                 },
                 {
-                    title: 'Status',
-                    dataIndex: 'status',
-                    key: 'status',
-                    sorter: true,
-                    searchFilter: true,
-                    render: (text, record) => {
-                        const color = {draft: 'processing', done: 'success', cancelled: 'default'};
-                        return <Tag color={color[record.status]}>{record.status.toUpperCase()}</Tag>
-                    }
-                },
-                {
-                    title: 'Source Document',
-                    dataIndex: 'source_document',
-                    key: 'source_document',
+                    title: 'Quantity Done',
+                    dataIndex: 'quantity_done',
+                    key: 'quantity_done',
                     sorter: true,
                     searchFilter: true,
                 },
@@ -84,9 +94,9 @@ const SalesOrderList = () => {
                 bottomColTwoRight={<CustomPagination/>}
             />
             <CustomTable/>
-        </ListContextProvider>
+        </TableContextProvider>
     )
 };
 
-export default SalesOrderList;
+export default StockMovementTable;
 

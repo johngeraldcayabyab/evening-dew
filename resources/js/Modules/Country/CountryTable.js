@@ -3,25 +3,32 @@ import useListHook from "../../Hooks/useListHook";
 import manifest from "./__manifest__.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
-import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
 import CustomTable from "../../Components/CustomTable";
-import TableSearchInput from "../../Components/TableSearchInput";
+import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
 import CustomPagination from "../../Components/CustomPagination";
+import TableSearchInput from "../../Components/TableSearchInput";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
-import {ListContextProvider} from "../../Contexts/ListContext";
+import {TableContextProvider} from "../../Contexts/TableContext";
 
-const ProductCategoryList = () => {
+const CountryTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
-        <ListContextProvider value={{
+        <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
             columns: [
                 {
-                    title: 'Category',
-                    dataIndex: 'parents',
-                    key: 'category',
+                    title: 'Country Name',
+                    dataIndex: 'country_name',
+                    key: 'country_name',
+                    sorter: true,
+                    searchFilter: true,
+                },
+                {
+                    title: 'Country Code',
+                    dataIndex: 'country_code',
+                    key: 'country_code',
                     sorter: true,
                     searchFilter: true,
                 },
@@ -30,7 +37,7 @@ const ProductCategoryList = () => {
                     dataIndex: 'created_at',
                     key: 'created_at',
                     sorter: true,
-                },
+                }
             ]
         }}>
             <ControlPanel
@@ -41,9 +48,8 @@ const ProductCategoryList = () => {
                 bottomColTwoRight={<CustomPagination/>}
             />
             <CustomTable/>
-        </ListContextProvider>
+        </TableContextProvider>
     )
 };
 
-export default ProductCategoryList;
-
+export default CountryTable;

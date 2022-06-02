@@ -8,27 +8,27 @@ import CustomTable from "../../Components/CustomTable";
 import TableSearchInput from "../../Components/TableSearchInput";
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
-import {ListContextProvider} from "../../Contexts/ListContext";
+import {TableContextProvider} from "../../Contexts/TableContext";
 
-const UserList = () => {
+const MenuTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
-        <ListContextProvider value={{
+        <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
             columns: [
                 {
-                    title: 'Name',
-                    dataIndex: 'name',
-                    key: 'name',
+                    title: 'Label',
+                    dataIndex: 'label',
+                    key: 'label',
                     sorter: true,
                     searchFilter: true,
                 },
                 {
-                    title: 'Email',
-                    dataIndex: 'email',
-                    key: 'email',
+                    title: 'Url',
+                    dataIndex: 'url',
+                    key: 'url',
                     sorter: true,
                     searchFilter: true,
                 },
@@ -38,7 +38,7 @@ const UserList = () => {
                     key: 'created_at',
                     sorter: true,
                 },
-            ]
+            ],
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
@@ -48,9 +48,9 @@ const UserList = () => {
                 bottomColTwoRight={<CustomPagination/>}
             />
             <CustomTable/>
-        </ListContextProvider>
+        </TableContextProvider>
     )
 };
 
-export default UserList;
+export default MenuTable;
 

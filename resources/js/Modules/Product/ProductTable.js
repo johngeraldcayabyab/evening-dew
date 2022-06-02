@@ -8,73 +8,68 @@ import CustomTable from "../../Components/CustomTable";
 import TableSearchInput from "../../Components/TableSearchInput";
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
-import {ListContextProvider} from "../../Contexts/ListContext";
+import {TableContextProvider} from "../../Contexts/TableContext";
 
-const StockMovementList = () => {
+const ProductTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
-        <ListContextProvider value={{
+        <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
             columns: [
                 {
-                    title: 'Reference',
-                    dataIndex: 'reference',
-                    key: 'reference',
+                    title: 'Name',
+                    dataIndex: 'name',
+                    key: 'name',
                     sorter: true,
                     searchFilter: true,
                 },
                 {
-                    title: 'Source',
-                    dataIndex: 'source',
-                    key: 'source',
+                    title: 'Internal Reference',
+                    dataIndex: 'internal_reference',
+                    key: 'internal_reference',
                     sorter: true,
                     searchFilter: true,
                 },
                 {
-                    title: 'Product',
-                    dataIndex: 'product',
-                    key: 'product',
+                    title: 'Sales Price',
+                    dataIndex: 'sales_price',
+                    key: 'sales_price',
                     sorter: true,
                     searchFilter: true,
-                    render: (text, record) => {
-                        if (record.product) {
-                            return record.product.name;
-                        }
-                        return null;
-                    }
                 },
                 {
-                    title: 'From',
-                    dataIndex: 'source_location',
-                    key: 'source_location',
+                    title: 'Cost',
+                    dataIndex: 'cost',
+                    key: 'cost',
                     sorter: true,
                     searchFilter: true,
-                    render: (text, record) => {
-                        if (record.source_location) {
-                            return record.source_location.parents;
-                        }
-                        return null;
-                    }
                 },
                 {
-                    title: 'To',
-                    dataIndex: 'destination_location',
-                    key: 'destination_location',
+                    title: 'Measurement',
+                    dataIndex: 'measurement',
+                    key: 'measurement',
                     sorter: true,
                     searchFilter: true,
                     render: (text, record) => {
-                        if (record.destination_location) {
-                            return record.destination_location.parents;
-                        }
-                        return null;
+                        return record.measurement.name;
                     }
                 },
                 {
-                    title: 'Quantity Done',
-                    dataIndex: 'quantity_done',
-                    key: 'quantity_done',
+                    title: 'Product Category',
+                    dataIndex: 'product_category',
+                    key: 'product_category',
+                    sorter: true,
+                    searchFilter: true,
+                    render: (text, record) => {
+                        return record.product_category.category;
+                    }
+                },
+                {
+                    title: 'Quantity',
+                    dataIndex: 'quantity',
+                    key: 'quantity',
                     sorter: true,
                     searchFilter: true,
                 },
@@ -94,9 +89,9 @@ const StockMovementList = () => {
                 bottomColTwoRight={<CustomPagination/>}
             />
             <CustomTable/>
-        </ListContextProvider>
+        </TableContextProvider>
     )
 };
 
-export default StockMovementList;
+export default ProductTable;
 
