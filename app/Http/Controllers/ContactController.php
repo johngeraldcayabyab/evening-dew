@@ -41,6 +41,7 @@ class ContactController
     public function update(ContactRequest $request, Contact $contact): JsonResponse
     {
         $data = $request->validated();
+        info($data);
         $contactData = Arr::only($data, (new Contact())->getFields());
         $contact->update($contactData);
         ContactUpsertEvent::dispatch($contact, $data);
