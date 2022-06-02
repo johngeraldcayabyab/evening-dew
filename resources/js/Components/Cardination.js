@@ -11,9 +11,6 @@ const {Text} = Typography;
 const Cardination = () => {
     const listContext = useContext(TableContext);
     const history = useHistory();
-    const [state, setState] = useState({
-        columns: listContext.columns
-    });
 
     useEffect(() => {
         return (() => {
@@ -23,16 +20,6 @@ const Cardination = () => {
 
     useEffect(() => {
         const selectedFields = [];
-        /**
-         * cardination doesnt need this?
-         */
-        const columns = state.columns.map((column) => {
-            return column;
-        });
-        setState((prevState) => ({
-            ...prevState,
-            columns: columns,
-        }));
         const urlParams = getAllUrlParams();
         urlParams.selected_fields = selectedFields;
         listContext.tableActions.renderData(urlParams);
@@ -60,7 +47,8 @@ const Cardination = () => {
         <div style={{
             display: 'flex',
             flexWrap: 'wrap',
-            justifyContent: 'space-around'
+            justifyContent: 'space-around',
+            marginTop: '11px'
         }}>
             {listContext.tableState.dataSource.map((data) => {
                 return (
@@ -68,7 +56,7 @@ const Cardination = () => {
                         size={'small'}
                         style={{
                             width: '300px',
-                            margin: '15px 8px',
+                            margin: '4px 8px',
                         }}
                         onClick={(event) => {
                             history.push(`/${listContext.manifest.moduleName}/${data.id}`);
@@ -86,9 +74,11 @@ const Cardination = () => {
                             title={data.name}
                             description={
                                 <Space direction={'vertical'} size={0}>
-                                    {data.internal_reference ? <Text style={{fontSize:'13px'}}>[{data.internal_reference}]</Text> : null}
-                                    <Text style={{fontSize:'13px'}}>Price: $ {data.sales_price}</Text>
-                                    <Text style={{fontSize:'13px'}}>On Hand: {data.quantity} {data.measurement.name}</Text>
+                                    {data.internal_reference ?
+                                        <Text style={{fontSize: '13px'}}>[{data.internal_reference}]</Text> : null}
+                                    <Text style={{fontSize: '13px'}}>Price: $ {data.sales_price}</Text>
+                                    <Text style={{fontSize: '13px'}}>On
+                                        Hand: {data.quantity} {data.measurement.name}</Text>
                                 </Space>
                             }
                         />

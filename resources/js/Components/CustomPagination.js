@@ -4,7 +4,6 @@ import {useContext} from "react";
 
 const CustomPagination = () => {
     const listContext = useContext(TableContext);
-    // console.lo
     return (
         <Pagination
             size={'small'}
@@ -13,6 +12,7 @@ const CustomPagination = () => {
             pageSize={30} // not respecting meta condition if null
             showSizeChanger={false}
             showQuickJumper
+            simple={true}
             onChange={(page, pageSize) => {
                 listContext.tableState.params.page = page;
                 listContext.tableActions.renderData(listContext.tableState.params);
