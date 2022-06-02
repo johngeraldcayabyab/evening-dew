@@ -3,6 +3,7 @@ import {useContext, useEffect, useState} from "react";
 import {TableContext} from "../Contexts/TableContext";
 import {useHistory} from "react-router-dom";
 import {getAllUrlParams} from "../Helpers/url";
+import {uuidv4} from "../Helpers/string";
 
 
 const {Meta} = Card;
@@ -69,16 +70,26 @@ const Cardination = () => {
                         }}
                     >
                         <Meta
-                            avatar={<Avatar shape="square" size={64}
-                                            src={data.avatar ? data.avatar : '/images/no-image.jpg'}/>}
-                            title={data.name}
+                            avatar={
+                                <Avatar
+                                    shape="square"
+                                    size={64}
+                                    src={data[listContext.kanban.avatar] ? data[listContext.kanban.avatar] : '/images/no-image.jpg'}
+                                />
+                            }
+                            title={data[listContext.kanban.title]}
                             description={
                                 <Space direction={'vertical'} size={0}>
-                                    {data.internal_reference ?
-                                        <Text style={{fontSize: '13px'}}>[{data.internal_reference}]</Text> : null}
-                                    <Text style={{fontSize: '13px'}}>Price: $ {data.sales_price}</Text>
-                                    <Text style={{fontSize: '13px'}}>On
-                                        Hand: {data.quantity} {data.measurement.name}</Text>
+                                    {
+                                        listContext.kanban.description.map((description) => {
+                                            const dataValue = data[description.key];
+                                            if (dataValue) {
+                                                return (
+                                                    <Text style={{fontSize: '13px'}}>{description.render(data)}</Text>
+                                                )
+                                            }
+                                        })
+                                    }
                                 </Space>
                             }
                         />
