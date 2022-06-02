@@ -16,9 +16,8 @@ mix.js('resources/js/App.js', 'public/js')
         'moment',
         'antd',
         '@ant-design/icons'
-    ]);
+    ]).version();
 
 if (mix.inProduction()) {
-    mix.version();
     mix.disableNotifications();
 }
