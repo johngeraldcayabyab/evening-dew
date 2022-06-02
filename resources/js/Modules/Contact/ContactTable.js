@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import useListHook from "../../Hooks/useListHook";
 import manifest from "./__manifest__.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
@@ -9,14 +9,23 @@ import CustomPagination from "../../Components/CustomPagination";
 import TableSearchInput from "../../Components/TableSearchInput";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
+import {Col, Row} from "antd";
+import KanbanTablePicker from "../../Components/KanbanTablePicker";
+import {KANBAN, TABLE} from "../../consts";
+import Cardination from "../../Components/Cardination";
 
 const ContactTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
+    const [dataState, setDataState] = useState({
+        mode: TABLE
+    });
     return (
         <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
+            dataState: dataState,
+            setDataState: setDataState,
             columns: [
                 {
                     title: 'Name',
@@ -45,16 +54,40 @@ const ContactTable = () => {
                     key: 'created_at',
                     sorter: true,
                 }
-            ]
+            ],
+            kanban: {
+                title: 'name',
+                avatar: 'avatar',
+                description: [
+                    {
+                        key: 'phone',
+                        render: (record) => {
+                            return record.phone;
+                        }
+                    },
+                    {
+                        key: 'email',
+                        render: (record) => {
+                            return record.email;
+                        }
+                    },
+                ]
+            }
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
                 topColTwoRight={<TableSearchInput/>}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
-                bottomColTwoRight={<CustomPagination/>}
+                bottomColTwoRight={
+                    <Row align={'right'}>
+                        <Col span={20}><CustomPagination/></Col>
+                        <Col span={4}><KanbanTablePicker/></Col>
+                    </Row>
+                }
             />
-            <CustomTable/>
+            {dataState.mode === TABLE ? <CustomTable/> : null}
+            {dataState.mode === KANBAN ? <Cardination/> : null}
         </TableContextProvider>
     )
 };

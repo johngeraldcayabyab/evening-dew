@@ -12,7 +12,7 @@ import Cardination from "../../Components/Cardination";
 import KanbanTablePicker from "../../Components/KanbanTablePicker";
 import {Col, Row} from "antd";
 import CustomTable from "../../Components/CustomTable";
-import {TABLE} from "../../consts";
+import {KANBAN, TABLE} from "../../consts";
 
 const ProductTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -88,7 +88,31 @@ const ProductTable = () => {
                     key: 'created_at',
                     sorter: true,
                 },
-            ]
+            ],
+            kanban: {
+                title: 'name',
+                avatar: 'avatar',
+                description: [
+                    {
+                        key: 'internal_reference',
+                        render: (record) => {
+                            return record.internal_reference ? `[${record.internal_reference}]` : null;
+                        }
+                    },
+                    {
+                        key: 'sales_price',
+                        render: (record) => {
+                            return `Price: $${record.sales_price}`;
+                        }
+                    },
+                    {
+                        key: 'quantity',
+                        render: (record) => {
+                            return `On hand: ${record.quantity} ${record.measurement.name}`;
+                        }
+                    }
+                ]
+            }
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
