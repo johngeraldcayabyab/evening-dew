@@ -19,4 +19,14 @@ class UserObserver
         $user->contact_id = $contact->id;
         ContactUpsertEvent::dispatch($contact, $data);
     }
+
+    public function updating(User $user)
+    {
+        $data = [
+            'name' => $user->name,
+            'email' => $user->email,
+            'avatar' => $user->avatar,
+        ];
+        Contact::where('email', $user->email)->update($data);
+    }
 }

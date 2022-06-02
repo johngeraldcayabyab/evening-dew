@@ -80,7 +80,7 @@ const FormItemUpload = (props) => {
         <Form.Item
             label={<FormLabel/>}
             name={props.name}
-            rules={[{required: props.required, message: props.message}]}
+            // rules={[{required: props.required, message: props.message}]}
             colon={false}
             labelCol={{span: 20}}
             wrapperCol={{span: 4}}
