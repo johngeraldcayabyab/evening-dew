@@ -44,11 +44,8 @@ const FormItemUpload = (props) => {
 
     function handleChange(info) {
         if (info.file.status === 'uploading') {
-            setState((...prevState) => ({
-                ...prevState,
-                loading: true
-            }));
-            return;
+            getBase64(info.file.originFileObj, () => {
+            });
         }
         if (info.file.status === 'done') {
             let fields = {};
