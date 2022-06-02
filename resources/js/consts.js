@@ -5,3 +5,5 @@ export const POST = 'POST';
 export const CREATE = 'create';
 export const UPDATE = 'update';
 export const LIST = '';
+export const TABLE = 'table';
+export const KANBAN = 'kanban';
