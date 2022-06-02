@@ -1,26 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
 import useListHook from "../../Hooks/useListHook";
 import manifest from "./__manifest__.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
 import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
-import CustomTable from "../../Components/CustomTable";
 import TableSearchInput from "../../Components/TableSearchInput";
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import Cardination from "../../Components/Cardination";
-import {AppstoreOutlined, BarsOutlined} from "@ant-design/icons";
 import KanbanTablePicker from "../../Components/KanbanTablePicker";
 import {Col, Row} from "antd";
+import CustomTable from "../../Components/CustomTable";
+import {TABLE} from "../../consts";
 
 const ProductTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
+    const [dataState, setDataState] = useState({
+        mode: TABLE
+    });
     return (
         <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
+            dataState: dataState,
+            setDataState: setDataState,
             columns: [
                 {
                     title: 'Name',
@@ -97,8 +102,8 @@ const ProductTable = () => {
                     </Row>
                 }
             />
-            <Cardination/>
-            {/*<CustomTable/>*/}
+            {dataState.mode === TABLE ? <CustomTable/> : null}
+            {dataState.mode === KANBAN ? <Cardination/> : null}
         </TableContextProvider>
     )
 };
