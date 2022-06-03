@@ -33,6 +33,7 @@ import MaterialRoute from './Modules/Material/MaterialRoute';
 import RegionRoute from "./Modules/Region/RegionRoute";
 import DeliveryFeeRoute from "./Modules/DeliveryFee/DeliveryFeeRoute";
 import CityRoute from "./Modules/City/CityRoute";
+import {getUser} from "./Helpers/user_helpers";
 
 
 export const AppContext = React.createContext({});
@@ -42,6 +43,7 @@ const App = () => {
         const [appState, setAppState] = useState({
             isLogin: getCookie('Authorization'),
             userEmail: getCookie('userEmail'),
+            user: getUser()
         });
 
         return (

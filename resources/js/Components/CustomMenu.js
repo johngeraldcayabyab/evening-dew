@@ -14,6 +14,7 @@ import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import {getAppMenu, setAppMenu} from "../Helpers/app_menu";
 import {objectHasValue} from "../Helpers/object";
 import AvatarUser from "./AvatarUser";
+import {setUser} from "../Helpers/user_helpers";
 
 const {SubMenu} = Menu;
 
@@ -109,6 +110,7 @@ const CustomMenu = () => {
             }));
             setBreadcrumbs([]);
             setAppMenu({});
+            setUser({});
             setClickedBreadcrumb({});
             history.push('/login');
             message.success('Logged Out!');
