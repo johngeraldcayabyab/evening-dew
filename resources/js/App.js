@@ -34,6 +34,7 @@ import RegionRoute from "./Modules/Region/RegionRoute";
 import DeliveryFeeRoute from "./Modules/DeliveryFee/DeliveryFeeRoute";
 import CityRoute from "./Modules/City/CityRoute";
 import {getUser} from "./Helpers/user_helpers";
+import SourceRoute from "./Modules/Source/SourceRoute";
 
 
 export const AppContext = React.createContext({});
@@ -72,6 +73,7 @@ const App = () => {
                         <RegionRoute/>
                         <SalesOrderRoute/>
                         <SequenceRoute/>
+                        <SourceRoute/>
                         <StockMovementRoute/>
                         <TransferRoute/>
                         <UserRoute/>

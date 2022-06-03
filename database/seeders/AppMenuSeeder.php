@@ -165,6 +165,10 @@ class AppMenuSeeder extends Seeder
                                 'menu_key' => 'Sequences',
                             ],
                             [
+                                'label' => 'Sources',
+                                'menu_key' => 'Sources',
+                            ],
+                            [
                                 'label' => 'Users',
                                 'menu_key' => 'Users',
                             ],
