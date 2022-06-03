@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             RegionSeeder::class,
             CitySeeder::class,
             SequenceSeeder::class,
+            SourceSeeder::class,
             UserSeeder::class,
             WarehouseSeeder::class
         ]);

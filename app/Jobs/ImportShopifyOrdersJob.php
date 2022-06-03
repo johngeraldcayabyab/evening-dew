@@ -8,6 +8,7 @@ use App\Models\Contact;
 use App\Models\Product;
 use App\Models\SalesOrder;
 use App\Models\SalesOrderLine;
+use App\Models\Source;
 use App\Models\Transfer;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
@@ -112,6 +113,8 @@ class ImportShopifyOrdersJob implements ShouldQueue
             $salesOrderInvoiceCity = $invoiceCity ? $invoiceCity : $defaultCity;
             $salesOrderDeliveryCity = $deliveryCity ? $deliveryCity : $defaultCity;
 
+            $source = Source::where('name', 'Shopify')->first();
+
             $salesOrder = SalesOrder::create([
                 'number' => $shopifyOrderNumber,
                 'customer_id' => $contact->id,
@@ -123,9 +126,10 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 'quotation_date' => now(),
                 'salesperson_id' => 1,
                 'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
-                'source_document' => "Shopify {$shopifyOrderNumber}",
+                'customer_reference' => "Shopify {$shopifyOrderNumber}",
                 'status' => SalesOrder::DRAFT,
                 'shipping_method' => Transfer::DELIVERY,
+                'source_id' => $source->id,
                 'created_at' => $shopifyCreatedAt,
                 'updated_at' => $shopifyCreatedAt,
             ]);
