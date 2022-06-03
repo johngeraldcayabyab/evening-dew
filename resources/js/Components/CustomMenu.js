@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Header} from "antd/lib/layout/layout";
-import {Avatar, Menu, message} from "antd";
-import {AppstoreOutlined, UserOutlined} from "@ant-design/icons";
+import {Menu, message} from "antd";
+import {AppstoreOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 import useFetchCatcherHook from "../Hooks/useFetchCatcherHook";
 import useFetchHook from "../Hooks/useFetchHook";
