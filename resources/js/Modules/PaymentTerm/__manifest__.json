@@ -1,7 +1,8 @@
 {
     "moduleName": "payment_terms",
     "displayName": "payment_terms",
-    "modelName": "PaymentTerm"
+    "modelName": "PaymentTerm",
+    "queryDefaults": {}
 }
 
 

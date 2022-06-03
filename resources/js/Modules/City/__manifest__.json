@@ -1,7 +1,8 @@
 {
     "moduleName": "cities",
     "displayName": "cities",
-    "modelName": "City"
+    "modelName": "City",
+    "queryDefaults": {}
 }
 
 

@@ -1,7 +1,8 @@
 {
     "moduleName": "materials",
     "displayName": "materials",
-    "modelName": "Material"
+    "modelName": "Material",
+    "queryDefaults": {}
 }
 
 
