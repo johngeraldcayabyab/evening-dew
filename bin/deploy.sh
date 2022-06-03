@@ -21,8 +21,7 @@ mkdir "./builds/${BUILD_FOLDER}"
 cd "./builds/${BUILD_FOLDER}";
 git clone --depth 1 git@github.com:johngeraldcayabyab/evening-dew.git ./
 composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
-npm install
-npm run production
+npm install --production
 rm -rf storage
 
 BUILD_FOLDER_ZIP="${BUILD_FOLDER}.zip"
