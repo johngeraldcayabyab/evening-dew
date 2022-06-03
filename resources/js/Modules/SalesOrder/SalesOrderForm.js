@@ -40,7 +40,8 @@ const SalesOrderForm = () => {
     const invoiceCityOptions = useOptionHook('/api/cities', 'invoice_city.name');
     const deliveryCityOptions = useOptionHook('/api/cities', 'delivery_city.name');
     const paymentTermOptions = useOptionHook('/api/payment_terms', 'payment_term.name');
-    const salespersonOption = useOptionHook('/api/users', 'responsible.name');
+    const salespersonOptions = useOptionHook('/api/users', 'responsible.name');
+    const sourceOptions = useOptionHook('/api/sources', 'source.name');
     const productLineOptions = useOptionLineHook('/api/products', 'product.name');
     const salesMeasurementOptions = useOptionLineHook('/api/measurements', 'measurement.name');
 
@@ -72,7 +73,8 @@ const SalesOrderForm = () => {
         invoiceCityOptions.getInitialOptions(formState);
         deliveryCityOptions.getInitialOptions(formState);
         paymentTermOptions.getInitialOptions(formState);
-        salespersonOption.getInitialOptions(formState);
+        salespersonOptions.getInitialOptions(formState);
+        sourceOptions.getInitialOptions(formState);
         productLineOptions.getInitialOptions(formState, 'sales_order_lines');
         salesMeasurementOptions.getInitialOptions(formState, 'sales_order_lines');
     }, [formState.initialValues]);
@@ -448,7 +450,7 @@ const SalesOrderForm = () => {
                                         name={'salesperson_id'}
                                         message={'Please select a salesperson'}
                                         required={true}
-                                        {...salespersonOption}
+                                        {...salespersonOptions}
                                     />
                                     <FormItemText
                                         label={'Customer Reference'}
@@ -486,6 +488,11 @@ const SalesOrderForm = () => {
                                     <Divider orientation={'left'}>
                                         Tracking
                                     </Divider>
+                                    <FormItemSelect
+                                        label={'Source'}
+                                        name={'source_id'}
+                                        {...sourceOptions}
+                                    />
                                 </ColForm>
                             </RowForm>
 

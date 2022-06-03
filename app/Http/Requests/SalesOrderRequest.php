@@ -25,6 +25,7 @@ class SalesOrderRequest extends FormRequest
             'quotation_date' => ['required'],
             'payment_term_id' => ['nullable', "exists:payment_terms,id"],
             'salesperson_id' => ['nullable', 'exists:users,id'],
+            'source_id' => ['nullable', 'exists:sources,id'],
             'customer_reference' => ['nullable'],
             'shipping_policy' => ['nullable', "in:$shippingPolicies"],
             'expected_shipping_date' => ['nullable'],
