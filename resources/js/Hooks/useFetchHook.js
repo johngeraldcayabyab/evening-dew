@@ -19,10 +19,11 @@ const useFetchHook = () => {
         'Authorization': getCookie('Authorization')
     };
 
-    return (url, method, values = {}, withHeaders = false) => {
+    return (url, method, values = {}, withHeaders = false, customHeaders) => {
         const fetchInit = {
             headers: {
                 ...defaultHeaders,
+                ...customHeaders,
             },
             signal,
             method: method,

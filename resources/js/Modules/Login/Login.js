@@ -8,6 +8,7 @@ import {GET, POST} from "../../consts";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {AppContext} from "../../App";
 import useFetchHook from "../../Hooks/useFetchHook";
+import {setUser} from "../../Helpers/user_helpers";
 
 const Login = () => {
     const [state, setState] = useState({
@@ -31,14 +32,26 @@ const Login = () => {
             'device_name': getDevice(),
         }).then((responseText) => {
             message.success('Welcome back!');
-            setCookie('Authorization', `Bearer ${responseText}`, 365);
+            const authorization = `Bearer ${responseText}`
+            setCookie('Authorization', authorization, 365);
             setCookie('userEmail', values.email);
-            appContext.setAppState((prevState) => ({
-                ...prevState,
-                isLogin: true,
-                userEmail: values.email,
-            }));
-            history.push('/');
+            useFetch(`/api/users`, GET, {
+                email: appContext.appState.userEmail,
+            }, false, {
+                Authorization: authorization,
+            }).then((userResponse) => {
+                const user = userResponse.data[0];
+                appContext.setAppState((prevState) => ({
+                    ...prevState,
+                    isLogin: true,
+                    userEmail: values.email,
+                    user: user,
+                }));
+                setUser(user);
+                history.push('/');
+            }).catch((responseErr) => {
+                fetchCatcher.get(responseErr);
+            });
         }).catch((responseErr) => {
             fetchCatcher.get(responseErr).then((errors) => {
                 setState(prevState => ({
