@@ -4,7 +4,7 @@ import useFetchHook from "./useFetchHook";
 import useFetchCatcherHook from "./useFetchCatcherHook";
 import {objectHasValue} from "../Helpers/object";
 
-const useOptionHook = (url, query) => {
+const useOptionHook = (url, tableField) => {
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
@@ -14,7 +14,7 @@ const useOptionHook = (url, query) => {
     });
 
     function getField() {
-        return query.split('.').slice(-1)[0];
+        return tableField.split('.').slice(-1)[0];
     }
 
     const optionActions = {
@@ -74,21 +74,27 @@ const useOptionHook = (url, query) => {
             optionActions.getOptions();
         },
         getFieldFromInitialValues: (initialValues) => {
-            let search = initialValues;
-            query.split('.').forEach((query) => {
-                if (search && query in search) {
-                    search = search[query];
+            let field = initialValues;
+            const fields = tableField.split('.');
+            fields.pop();
+            fields.push('id');
+            fields.forEach((query) => {
+                if (field && query in field) {
+                    field = field[query];
                 } else {
-                    search = null;
+                    field = null;
                 }
             });
-            return search;
+            return field;
         },
         getInitialOptions: (formState) => {
             if (!formState.initialLoad) {
                 let initialValue = null;
                 if (objectHasValue(formState.initialValues)) {
                     initialValue = optionActions.getFieldFromInitialValues(formState.initialValues);
+                }
+                if (initialValue) {
+                    initialValue = {id: initialValue};
                 }
                 optionActions.getOptions(initialValue);
             }

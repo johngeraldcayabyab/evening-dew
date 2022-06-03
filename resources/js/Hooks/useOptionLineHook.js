@@ -4,7 +4,7 @@ import useFetchHook from "./useFetchHook";
 import useFetchCatcherHook from "./useFetchCatcherHook";
 import {objectHasValue} from "../Helpers/object";
 
-const useOptionLineHook = (url, query) => {
+const useOptionLineHook = (url, tableField) => {
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
@@ -14,7 +14,7 @@ const useOptionLineHook = (url, query) => {
     });
 
     function getField() {
-        return query.split('.').slice(-1)[0];
+        return tableField.split('.').slice(-1)[0];
     }
 
     const optionActions = {
@@ -82,22 +82,25 @@ const useOptionLineHook = (url, query) => {
             optionActions.getOptions(null, key);
         },
         getFieldFromInitialValues: (initialValues) => {
-            let search = initialValues;
-            query.split('.').forEach((query) => {
-                if (search && query in search) {
-                    search = search[query];
+            let field = initialValues;
+            const fields = tableField.split('.');
+            fields.pop();
+            fields.push('id');
+            fields.forEach((query) => {
+                if (field && query in field) {
+                    field = field[query];
                 } else {
-                    search = null;
+                    field = null;
                 }
             });
-            return search;
+            return field;
         },
         getInitialOptions: (formState, lineName) => {
             if (!formState.initialLoad) {
                 if (objectHasValue(formState.initialValues) && formState.initialValues.hasOwnProperty(lineName)) {
                     formState.initialValues[lineName].forEach((line, key) => {
                         const field = optionActions.getFieldFromInitialValues(line);
-                        optionActions.getOptions(field, key);
+                        optionActions.getOptions({id: field}, key);
                     });
                 }
             }
