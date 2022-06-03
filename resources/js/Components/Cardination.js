@@ -1,5 +1,5 @@
-import {Avatar, Card, Col, Row, Space, Spin, Typography} from "antd";
-import {useContext, useEffect, useState} from "react";
+import {Avatar, Card, Space, Spin, Typography} from "antd";
+import {useContext, useEffect} from "react";
 import {TableContext} from "../Contexts/TableContext";
 import {useHistory} from "react-router-dom";
 import {getAllUrlParams} from "../Helpers/url";
@@ -16,7 +16,7 @@ const Cardination = () => {
     useEffect(() => {
         return (() => {
             document.body.style.cursor = "default";
-        })
+        });
     }, []);
 
     useEffect(() => {
@@ -26,12 +26,11 @@ const Cardination = () => {
         listContext.tableActions.renderData(urlParams);
     }, []);
 
-
     const hiddenDrag = [];
-
     for (let i = 0; i < 12; i++) {
         hiddenDrag.push(
             <Card
+                key={'hidden' + uuidv4()}
                 bordered={false}
                 style={{
                     width: '300px',
@@ -64,6 +63,7 @@ const Cardination = () => {
                 {listContext.tableState.dataSource.map((data) => {
                     return (
                         <Card
+                            key={'show' + uuidv4()}
                             size={'small'}
                             style={{
                                 width: '300px',
@@ -95,7 +95,12 @@ const Cardination = () => {
                                                 const dataValue = data[description.key];
                                                 if (dataValue) {
                                                     return (
-                                                        <Text style={{fontSize: '13px'}}>{description.render(data)}</Text>
+                                                        <Text
+                                                            key={'text' + uuidv4()}
+                                                            style={{fontSize: '13px'}}
+                                                        >
+                                                            {description.render(data)}
+                                                        </Text>
                                                     )
                                                 }
                                             })
