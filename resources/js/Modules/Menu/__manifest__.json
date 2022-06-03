@@ -1,7 +1,8 @@
 {
     "moduleName": "menus",
     "displayName": "menus",
-    "modelName": "Menu"
+    "modelName": "Menu",
+    "queryDefaults": {}
 }
 
 
