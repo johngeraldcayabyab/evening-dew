@@ -61,6 +61,9 @@ trait FilterTrait
 
     public function scopeFilter($query, $filter)
     {
+        if ($filter[0] === 'id') {
+            return $query->where($filter[0], $filter[1]);
+        }
         return $query->where($filter[0], 'like', "%$filter[1]%");
     }
 
