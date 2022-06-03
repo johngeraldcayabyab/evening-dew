@@ -22,6 +22,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\SequenceController;
+use App\Http\Controllers\SourceController;
 use App\Http\Controllers\StockMovementController;
 use App\Http\Controllers\TransferController;
 use App\Http\Controllers\UploadController;
@@ -48,6 +49,7 @@ use App\Models\ProductCategory;
 use App\Models\Region;
 use App\Models\SalesOrder;
 use App\Models\Sequence;
+use App\Models\Source;
 use App\Models\StockMovement;
 use App\Models\Transfer;
 use App\Models\User;
@@ -83,6 +85,7 @@ Route::group(['middleware' => ['api', 'cors']], function () {
     (new RouteGenerator(SalesOrder::class))::generate(SalesOrderController::class);
     (new RouteGenerator(Product::class))::generate(ProductController::class);
     (new RouteGenerator(Sequence::class))::generate(SequenceController::class);
+    (new RouteGenerator(Source::class))::generate(SourceController::class);
     (new RouteGenerator(StockMovement::class))::generate(StockMovementController::class);
     (new RouteGenerator(Transfer::class))::generate(TransferController::class);
     Route::middleware('auth:sanctum')->group(function () {

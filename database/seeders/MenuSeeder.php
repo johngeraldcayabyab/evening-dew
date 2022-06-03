@@ -91,6 +91,10 @@ class MenuSeeder extends Seeder
                 'url' => '/sequences',
             ],
             [
+                'label' => 'Sources',
+                'url' => '/sources',
+            ],
+            [
                 'label' => 'Stock Movements',
                 'url' => '/stock_movements',
             ],
