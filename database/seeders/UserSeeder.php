@@ -16,15 +16,6 @@ class UserSeeder extends Seeder
             'email' => 'admin@example.com',
             'password' => Hash::make('admin')
         ]);
-
         UserCreatedEvent::dispatch($admin);
-
-        $tasteAndTell = User::create([
-            'name' => 'Taste and Tell',
-            'email' => 'tasteandtellmnla@gmail.com',
-            'password' => Hash::make('admin')
-        ]);
-
-        UserCreatedEvent::dispatch($tasteAndTell);
     }
 }
