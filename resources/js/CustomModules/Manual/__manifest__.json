@@ -1,7 +1,10 @@
 {
     "moduleName": "sales_orders",
     "displayName": "manual",
-    "modelName": "SalesOrder"
+    "modelName": "SalesOrder",
+    "queryDefaults": {
+        "source_document": "Manual"
+    }
 }
 
 
