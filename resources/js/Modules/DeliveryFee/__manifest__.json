@@ -1,7 +1,8 @@
 {
     "moduleName": "delivery_fees",
     "displayName": "delivery_fees",
-    "modelName": "DeliveryFee"
+    "modelName": "DeliveryFee",
+    "queryDefaults": {}
 }
 
 

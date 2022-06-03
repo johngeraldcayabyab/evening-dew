@@ -1,7 +1,8 @@
 {
     "moduleName": "locations",
     "displayName": "locations",
-    "modelName": "Location"
+    "modelName": "Location",
+    "queryDefaults": {}
 }
 
 

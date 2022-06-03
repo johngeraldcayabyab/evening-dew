@@ -34,8 +34,9 @@ const CustomTable = () => {
             ...prevState,
             columns: columns,
         }));
-        const urlParams = getAllUrlParams();
+        let urlParams = getAllUrlParams();
         urlParams.selected_fields = selectedFields;
+        urlParams = {...urlParams, ...listContext.manifest.queryDefaults};
         listContext.tableActions.renderData(urlParams);
     }, []);
 

@@ -1,7 +1,8 @@
 {
     "moduleName": "sequences",
     "displayName": "sequences",
-    "modelName": "Sequence"
+    "modelName": "Sequence",
+    "queryDefaults": {}
 }
 
 
