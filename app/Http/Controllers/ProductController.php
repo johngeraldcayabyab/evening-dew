@@ -17,6 +17,7 @@ class ProductController
 
     public function index(Request $request): ResourceCollection
     {
+        info($request->all());
         $model = new Product();
         $model = $model->filterAndOrder($request);
         return ProductResource::collection($model);
