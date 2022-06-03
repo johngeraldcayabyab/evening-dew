@@ -1,7 +1,8 @@
 {
     "moduleName": "measurement_categories",
     "displayName": "measurement_categories",
-    "modelName": "MeasurementCategory"
+    "modelName": "MeasurementCategory",
+    "queryDefaults": {}
 }
 
 
