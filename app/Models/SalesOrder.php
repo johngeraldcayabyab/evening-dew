@@ -30,9 +30,17 @@ class SalesOrder extends Model implements Sluggable
     const DONE = 'done';
     const CANCELLED = 'cancelled';
 
+    const MOTORCYCLE = 'motorcycle';
+    const CAR = 'car';
+
     public static function getStatuses()
     {
         return [self::DRAFT, self::DONE, self::CANCELLED];
+    }
+
+    public static function getVehicleTypes()
+    {
+        return [self::MOTORCYCLE, self::CAR];
     }
 
     public function customer()

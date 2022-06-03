@@ -89,6 +89,8 @@ class SalesOrderController
             'salesperson_id' => auth()->user()->id,
             'salesperson' => auth()->user(),
             'status' => SalesOrder::DRAFT,
+            'select_time' => '11_00_AM_01_00_PM',
+            'vehicle_type' => SalesOrder::MOTORCYCLE,
         ];
     }
 }

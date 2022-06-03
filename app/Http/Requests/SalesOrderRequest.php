@@ -32,6 +32,8 @@ class SalesOrderRequest extends FormRequest
             'status' => ['nullable', "in:$statuses"],
             'notes' => ['nullable'],
             'shipping_method' => ['nullable', "in:$shippingMethods"],
+            'select_time' => ['nullable'],
+            'vehicle_type' => ['nullable'],
             'sales_order_lines.*.id' => ['nullable', 'exists:sales_order_lines,id'],
             'sales_order_lines.*.product_id' => ['required', "exists:products,id"],
             'sales_order_lines.*.description' => ['nullable'],
