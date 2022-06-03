@@ -21,13 +21,14 @@ class CreateSalesOrdersTable extends Migration
             $table->dateTime('quotation_date')->nullable();
             $table->bigInteger('payment_term_id')->nullable();
             $table->bigInteger('salesperson_id')->nullable();
+            $table->string('shipping_method')->nullable();
             $table->string('customer_reference')->nullable();
             $table->string('shipping_policy')->nullable();
             $table->dateTime('expected_shipping_date')->nullable();
             $table->string('source_document')->nullable();
             $table->string('notes')->nullable();
             $table->string('status')->nullable();
-            $table->string('shipping_method')->nullable();
+            $table->bigInteger('source_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
