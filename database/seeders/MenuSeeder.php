@@ -110,6 +110,18 @@ class MenuSeeder extends Seeder
                 'label' => 'Warehouses',
                 'url' => '/warehouses',
             ],
+            [
+                'label' => 'Shopify',
+                'url' => '/shopify',
+            ],
+            [
+                'label' => 'Manual',
+                'url' => '/manual',
+            ],
+            [
+                'label' => 'Same Day',
+                'url' => '/same_day',
+            ],
         ];
     }
 
