@@ -43,8 +43,8 @@ class ImportShopifyOrdersJob implements ShouldQueue
 
         foreach ($orders as $order) {
             $shopifyOrderNumber = 'SP/' . $order['order_number'];
-            if (SalesOrder::where('number', $shopifyOrderNumber)->first()) {
-                continue;
+            if(isset($order['shipping_lines'])){
+//                $this->log($order['shipping_lines']);
             }
             $shopifyCustomer = $order['customer'];
             $shopifyCreatedAt = Carbon::parse($order['created_at']);
@@ -115,6 +115,25 @@ class ImportShopifyOrdersJob implements ShouldQueue
 
             $source = Source::where('name', 'Shopify')->first();
 
+
+            $shippingProperties = $shopifyLineItems[0]['properties'];
+
+            $expectedShippingDate = now();
+            $notes = null;
+
+            foreach ($shippingProperties as $shippingProperty){
+                if($shippingProperty['name'] === 'Delivery Date'){
+                    $shippingProperty['value'] = explode('-',$shippingProperty['value']);
+                   $expectedShippingDate = Carbon::parse($shippingProperty['value'][2] . '-' . $shippingProperty['value'][0] . '-' . $shippingProperty['value'][1]);
+                }
+                if($shippingProperty['name'] === 'Delivery Time'){
+//                    $expectedShippingDate = $shippingProperty['value'];
+                }
+                if($shippingProperty['name'] === 'Additional Comments'){
+                    $notes = $shippingProperty['value'];
+                }
+            }
+
             $salesOrder = SalesOrder::create([
                 'number' => $shopifyOrderNumber,
                 'customer_id' => $contact->id,
@@ -123,7 +142,9 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 'invoice_city_id' => $salesOrderInvoiceCity->id,
                 'delivery_city_id' => $salesOrderDeliveryCity->id,
                 'phone' => $contact->phone,
-                'quotation_date' => now(),
+                'quotation_date' => $shopifyCreatedAt,
+                'expected_shipping_date' => $expectedShippingDate,
+                'notes' => $notes,
                 'salesperson_id' => 1,
                 'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
                 'customer_reference' => "Shopify {$shopifyOrderNumber}",
