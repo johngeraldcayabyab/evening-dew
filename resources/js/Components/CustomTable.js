@@ -58,7 +58,7 @@ const CustomTable = () => {
     function onRow(record, rowIndex) {
         return {
             onClick: event => {
-                history.push(`/${listContext.manifest.moduleName}/${record.id}`);
+                history.push(`/${listContext.manifest.displayName}/${record.id}`);
             },
             onDoubleClick: event => {
             },
