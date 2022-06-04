@@ -307,8 +307,6 @@ const ShopifyForm = () => {
                             <FormItemSelect
                                 label={'Invoice city'}
                                 name={'invoice_city_id'}
-                                message={'Please select a invoice city'}
-                                required={true}
                                 {...invoiceCityOptions}
                             />
                         </ColForm>
@@ -321,8 +319,6 @@ const ShopifyForm = () => {
                             <FormItemSelect
                                 label={'Delivery city'}
                                 name={'delivery_city_id'}
-                                message={'Please select a delivery city'}
-                                required={true}
                                 {...deliveryCityOptions}
                             />
                         </ColForm>
