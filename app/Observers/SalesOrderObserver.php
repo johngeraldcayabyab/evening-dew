@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Data\SystemSetting;
 use App\Models\GlobalSetting;
 use App\Models\SalesOrder;
+use App\Models\Sequence;
 use App\Models\Transfer;
 use Carbon\Carbon;
 
@@ -19,8 +20,12 @@ class SalesOrderObserver
     {
         $salesOrderDefaultSequence = GlobalSetting::latestFirst()->salesOrderDefaultSequence;
         if ($salesOrderDefaultSequence) {
-            $salesOrderDefaultSequence->next_number = $salesOrderDefaultSequence->next_number + $salesOrderDefaultSequence->step;
-            $salesOrderDefaultSequence->save();
+
+            if($salesOrder->number === Sequence::generateSalesOrderSequence()){
+                $salesOrderDefaultSequence->next_number = $salesOrderDefaultSequence->next_number + $salesOrderDefaultSequence->step;
+                $salesOrderDefaultSequence->save();
+            }
+
         }
     }
 
