@@ -120,6 +120,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
 
             $expectedShippingDate = now();
             $notes = null;
+            $selectTime = null;
 
             foreach ($shippingProperties as $shippingProperty){
                 if($shippingProperty['name'] === 'Delivery Date'){
@@ -127,7 +128,22 @@ class ImportShopifyOrdersJob implements ShouldQueue
                    $expectedShippingDate = Carbon::parse($shippingProperty['value'][2] . '-' . $shippingProperty['value'][0] . '-' . $shippingProperty['value'][1]);
                 }
                 if($shippingProperty['name'] === 'Delivery Time'){
-//                    $expectedShippingDate = $shippingProperty['value'];
+
+                    if($shippingProperty['value'] === '11:00 AM - 01:00 PM'){
+                        $selectTime = '11_00_AM_01_00_PM';
+                    }elseif ($shippingProperty['value'] === '01:00 PM - 03:00 PM'){
+                        $selectTime = '01_00_PM_03_00_PM';
+                    }elseif ($shippingProperty['value'] === '03:PM PM - 04:00 PM'){
+                        $selectTime = '03_00_PM_04_00_PM';
+                    }elseif ($shippingProperty['value'] === '04:00 PM - 05:30 PM'){
+                        $selectTime = '04_00_PM_05_30_PM';
+                    }elseif ($shippingProperty['value'] === '04:00 PM - 06:00 PM'){
+                        $selectTime = '04_00_PM_06_00_PM';
+                    }elseif ($shippingProperty['value'] === '05:30 PM - 06:30 PM'){
+                        $selectTime = '05_30_PM_06_30_PM';
+                    }elseif ($shippingProperty['value'] === '06:00 PM - 07:00 PM'){
+                        $selectTime = '06_00_PM_07_00_PM';
+                    }
                 }
                 if($shippingProperty['name'] === 'Additional Comments'){
                     $notes = $shippingProperty['value'];
@@ -151,6 +167,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 'status' => SalesOrder::DRAFT,
                 'shipping_method' => Transfer::DELIVERY,
                 'source_id' => $source->id,
+                'select_time' => $selectTime,
                 'created_at' => $shopifyCreatedAt,
                 'updated_at' => $shopifyCreatedAt,
             ]);
