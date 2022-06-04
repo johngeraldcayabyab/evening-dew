@@ -51,9 +51,15 @@ const SameDayTable = () => {
                     }
                 },
                 {
-                    title: 'Created At',
-                    dataIndex: 'created_at',
-                    key: 'created_at',
+                    title: 'Shipping Date',
+                    dataIndex: 'expected_shipping_date',
+                    key: 'expected_shipping_date',
+                    sorter: true,
+                },
+                {
+                    title: 'Quotation Date',
+                    dataIndex: 'quotation_date',
+                    key: 'quotation_date',
                     sorter: true,
                 },
             ]
