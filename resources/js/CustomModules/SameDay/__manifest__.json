@@ -1,0 +1,10 @@
+{
+    "moduleName": "sales_orders",
+    "displayName": "same_day",
+    "modelName": "SalesOrder",
+    "queryDefaults": {
+        "source_id": 1
+    }
+}
+
+

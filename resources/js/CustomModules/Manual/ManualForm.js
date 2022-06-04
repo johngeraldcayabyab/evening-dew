@@ -266,7 +266,6 @@ const ManualForm = () => {
                             <FormItemSelect
                                 label={'Select Time'}
                                 name={'select_time'}
-                                message={'Please select a time'}
                                 options={[
                                     {value: '11_00_AM_01_00_PM', label: '11:00 AM - 01:00 PM'},
                                     {value: '01_00_PM_03_00_PM', label: '01:00 PM - 03:00 PM'},
