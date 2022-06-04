@@ -13,6 +13,7 @@ use App\Models\Sequence;
 use App\Models\Source;
 use App\Models\Transfer;
 use App\Traits\ControllerHelperTrait;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -26,6 +27,10 @@ class SalesOrderController
     {
         $model = new SalesOrder();
         $model = $model->filterAndOrder($request);
+        if ($request->same_day) {
+//            $model = $model->where('expected_shipping_date', '>=', Carbon::today());
+//            $model = $model->where('quotation_date', '>=', Carbon::today());
+        }
         return SalesOrderResource::collection($model);
     }
 

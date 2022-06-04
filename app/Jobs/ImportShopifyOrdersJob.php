@@ -43,6 +43,9 @@ class ImportShopifyOrdersJob implements ShouldQueue
 
         foreach ($orders as $order) {
             $shopifyOrderNumber = 'SP/' . $order['order_number'];
+            if(SalesOrder::where('number', $shopifyOrderNumber)->first()){
+                continue;
+            }
             if(isset($order['shipping_lines'])){
 //                $this->log($order['shipping_lines']);
             }
