@@ -115,6 +115,26 @@ class ImportShopifyOrdersJob implements ShouldQueue
 
             $source = Source::where('name', 'Shopify')->first();
 
+
+            $shippingProperties = $shopifyLineItems[0]['properties'];
+
+            $expectedShippingDate = now();
+            $notes = null;
+
+            foreach ($shippingProperties as $shippingProperty){
+                if($shippingProperty['name'] === 'Delivery Date'){
+                   $expectedShippingDate = $shippingProperty['value'];
+                }
+                if($shippingProperty['name'] === 'Delivery Time'){
+                    $expectedShippingDate = $shippingProperty['value'];
+                }
+                if($shippingProperty['name'] === 'Additional Comments'){
+                    $expectedShippingDate = $shippingProperty['value'];
+                }
+            }
+
+//            $shopifyLineItems
+
             $salesOrder = SalesOrder::create([
                 'number' => $shopifyOrderNumber,
                 'customer_id' => $contact->id,
@@ -124,6 +144,8 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 'delivery_city_id' => $salesOrderDeliveryCity->id,
                 'phone' => $contact->phone,
                 'quotation_date' => now(),
+                'expected_shipping_date' => $expectedShippingDate,
+                'notes' => $notes,
                 'salesperson_id' => 1,
                 'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
                 'customer_reference' => "Shopify {$shopifyOrderNumber}",
