@@ -199,7 +199,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
                     'quantity' => $shopifyLineItem['fulfillable_quantity'] ? $shopifyLineItem['fulfillable_quantity'] : 1,
                     'measurement_id' => 1,
                     'unit_price' => $shopifyLineItem['price'],
-                    'subtotal' => $shopifyLineItem['price'] * $shopifyLineItem['fulfillable_quantity'],
+                    'subtotal' => $shopifyLineItem['price'] * ($shopifyLineItem['fulfillable_quantity'] ? $shopifyLineItem['fulfillable_quantity'] : 1),
                     'sales_order_id' => $salesOrder->id,
                     'created_at' => $salesOrder->created_at,
                     'updated_at' => $salesOrder->updated_at,
