@@ -78,9 +78,9 @@ class SalesOrderController
         return response()->json([], STATUS_DELETE);
     }
 
-    public function initial_values()
+    public function initial_values(Request $request)
     {
-        return [
+        $initialValues = [
             'quotation_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
             'measurement' => GlobalSetting::latestFirst()->inventoryDefaultSalesMeasurement,
             'number' => Sequence::generateSalesOrderSequence(),
@@ -92,5 +92,11 @@ class SalesOrderController
             'select_time' => '11_00_AM_01_00_PM',
             'vehicle_type' => SalesOrder::MOTORCYCLE,
         ];
+
+        if ($request->source_id) {
+            $initialValues['source_id'] = $request->source_id;
+        }
+
+        return $initialValues;
     }
 }

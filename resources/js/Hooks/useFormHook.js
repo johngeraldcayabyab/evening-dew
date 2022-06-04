@@ -38,7 +38,7 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
                 });
             } else {
                 if (getInitialValues && formState.initialLoad) {
-                    useFetch(`/api/${manifest.moduleName}/initial_values`, GET).then((response) => {
+                    useFetch(`/api/${manifest.moduleName}/initial_values`, GET, manifest.queryDefaults).then((response) => {
                         setFormValuesAndState(response, {
                             initialValues: response,
                         });
