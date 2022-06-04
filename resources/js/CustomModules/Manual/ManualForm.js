@@ -49,8 +49,6 @@ const ManualForm = () => {
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
         breakdown: {
-            untaxedAmount: 0,
-            tax: 0,
             total: 0,
         }
     });
@@ -62,8 +60,6 @@ const ManualForm = () => {
                 setState((prevState) => ({
                     ...prevState,
                     breakdown: {
-                        untaxedAmount: total,
-                        tax: 0,
                         total: total,
                     }
                 }));
@@ -177,8 +173,6 @@ const ManualForm = () => {
         setState((prevState) => ({
             ...prevState,
             breakdown: {
-                untaxedAmount: total,
-                tax: 0,
                 total: total,
             }
         }));
@@ -397,16 +391,6 @@ const ManualForm = () => {
                                     <Table dataSource={[
                                         {
                                             key: '1',
-                                            label: 'Untaxed amount:',
-                                            value: state.breakdown.untaxedAmount,
-                                        },
-                                        {
-                                            key: '2',
-                                            label: 'Taxed:',
-                                            value: state.breakdown.tax,
-                                        },
-                                        {
-                                            key: '3',
                                             label: 'Total:',
                                             value: state.breakdown.total,
                                         },
