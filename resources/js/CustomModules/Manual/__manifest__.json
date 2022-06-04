@@ -3,7 +3,7 @@
     "displayName": "manual",
     "modelName": "SalesOrder",
     "queryDefaults": {
-        "source_document": "Manual"
+        "source_id": 2
     }
 }
 

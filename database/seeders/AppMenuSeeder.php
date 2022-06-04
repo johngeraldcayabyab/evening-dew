@@ -122,10 +122,6 @@ class AppMenuSeeder extends Seeder
                         'menu_key' => 'Shopify',
                         'children' => [
                             [
-                                'label' => 'Sales',
-                                'menu_key' => 'Sales Orders',
-                            ],
-                            [
                                 'label' => 'Shopify',
                                 'menu_key' => 'Shopify',
                             ],
