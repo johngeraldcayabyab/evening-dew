@@ -1,0 +1,10 @@
+{
+    "moduleName": "sales_orders",
+    "displayName": "manual",
+    "modelName": "SalesOrder",
+    "queryDefaults": {
+        "source_id": 2
+    }
+}
+
+
