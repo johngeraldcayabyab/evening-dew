@@ -19,7 +19,16 @@ mkdir "./builds/${BUILD_FOLDER}"
 
 # shellcheck disable=SC2164
 cd "./builds/${BUILD_FOLDER}";
-git clone --depth 1 git@github.com:johngeraldcayabyab/evening-dew.git ./
+
+if [ "$HOST_NAME" = "taste-and-tell" ]; then
+    git clone -b taste-and-tell --depth 1 git@github.com:johngeraldcayabyab/evening-dew.git ./
+else
+    git clone --depth 1 git@github.com:johngeraldcayabyab/evening-dew.git ./
+fi
+
+
+
+
 composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
 npm install --production
 npm run production
