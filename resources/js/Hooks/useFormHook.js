@@ -4,6 +4,7 @@ import useFetchCatcherHook from "./useFetchCatcherHook";
 import useFetchHook from "./useFetchHook";
 import {GET, POST, PUT} from "../consts";
 import {formatInitialValuesDatetimeToMoment} from "../Helpers/object";
+import moment from "moment";
 
 const useFormHook = (id, form, manifest, getInitialValues = false) => {
     const useFetch = useFetchHook();
@@ -54,6 +55,16 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
             }
         },
         onFinish: (values) => {
+
+            for (let key in values) {
+                if (values.hasOwnProperty(key)) {
+                    if(values[key] instanceof moment){
+                        values[key] = values[key].format('YYYY-MM-DD HH:mm:ss');
+                    }
+                    // console.log(key + " -> " + values[key]);
+                }
+            }
+
             if (id) {
                 formActions.update(values);
             } else {

@@ -44,7 +44,11 @@ class SalesOrderObserver
         if ($model->expiration_date) {
             $model->expiration_date = Carbon::parse($model->expiration_date)->format(SystemSetting::DATE_TIME_FORMAT);
         }
-        $model->quotation_date = Carbon::parse($model->quotation_date)->format(SystemSetting::DATE_TIME_FORMAT);
+
+        if($model->quotation_date){
+            $model->quotation_date = Carbon::parse($model->quotation_date)->format(SystemSetting::DATE_TIME_FORMAT);
+        }
+
         if (!$model->salesperson_id) {
             if (auth()->user()) {
                 $model->salesperson_id = auth()->user()->id;
