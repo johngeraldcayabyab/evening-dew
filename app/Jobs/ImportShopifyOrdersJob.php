@@ -128,7 +128,6 @@ class ImportShopifyOrdersJob implements ShouldQueue
                    $expectedShippingDate = Carbon::parse($shippingProperty['value'][2] . '-' . $shippingProperty['value'][0] . '-' . $shippingProperty['value'][1]);
                 }
                 if($shippingProperty['name'] === 'Delivery Time'){
-
                     if($shippingProperty['value'] === '11:00 AM - 01:00 PM'){
                         $selectTime = '11_00_AM_01_00_PM';
                     }elseif ($shippingProperty['value'] === '01:00 PM - 03:00 PM'){
@@ -164,6 +163,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 'salesperson_id' => 1,
                 'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
                 'customer_reference' => "Shopify {$shopifyOrderNumber}",
+                'vehicle_type' => SalesOrder::MOTORCYCLE,
                 'status' => SalesOrder::DRAFT,
                 'shipping_method' => Transfer::DELIVERY,
                 'source_id' => $source->id,
