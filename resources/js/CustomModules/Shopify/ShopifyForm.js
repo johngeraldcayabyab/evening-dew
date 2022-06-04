@@ -32,7 +32,7 @@ import NextPreviousRecord from "../../Components/NextPreviousRecord";
 
 const {TabPane} = Tabs;
 
-const ManualForm = () => {
+const ShopifyForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
@@ -492,4 +492,4 @@ const ManualForm = () => {
     );
 };
 
-export default ManualForm;
+export default ShopifyForm;
