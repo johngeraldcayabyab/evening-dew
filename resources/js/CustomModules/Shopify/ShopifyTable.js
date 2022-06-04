@@ -12,7 +12,7 @@ import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 
-const ManualTable = () => {
+const ShopifyTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
         <TableContextProvider value={{
@@ -70,5 +70,5 @@ const ManualTable = () => {
     )
 };
 
-export default ManualTable;
+export default ShopifyTable;
 

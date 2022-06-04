@@ -36,6 +36,7 @@ import CityRoute from "./Modules/City/CityRoute";
 import {getUser} from "./Helpers/user_helpers";
 import SourceRoute from "./Modules/Source/SourceRoute";
 import ManualRoute from "./CustomModules/Manual/ManualRoute";
+import ShopifyRoute from "./CustomModules/Shopify/ShopifyRoute";
 
 
 export const AppContext = React.createContext({});
@@ -82,6 +83,7 @@ const App = () => {
 
 
                         <ManualRoute/>
+                        <ShopifyRoute/>
                     </AppContainerWithContent>
                 </AppContextProvider>
             </BrowserRouter>

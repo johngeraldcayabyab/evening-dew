@@ -1,9 +1,9 @@
 {
     "moduleName": "sales_orders",
-    "displayName": "manual",
+    "displayName": "shopify",
     "modelName": "SalesOrder",
     "queryDefaults": {
-        "source_id": 2
+        "source_id": 1
     }
 }
 
