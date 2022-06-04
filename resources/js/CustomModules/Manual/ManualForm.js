@@ -43,6 +43,7 @@ const ManualForm = () => {
     const salespersonOption = useOptionHook('/api/users', 'responsible.name');
     const productLineOptions = useOptionLineHook('/api/products', 'product.name');
     const salesMeasurementOptions = useOptionLineHook('/api/measurements', 'measurement.name');
+    const sourceOptions = useOptionHook('/api/sources', 'source.name');
 
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
@@ -73,6 +74,7 @@ const ManualForm = () => {
         deliveryCityOptions.getInitialOptions(formState);
         paymentTermOptions.getInitialOptions(formState);
         salespersonOption.getInitialOptions(formState);
+        sourceOptions.getInitialOptions(formState);
         productLineOptions.getInitialOptions(formState, 'sales_order_lines');
         salesMeasurementOptions.getInitialOptions(formState, 'sales_order_lines');
     }, [formState.initialValues]);
@@ -288,6 +290,12 @@ const ManualForm = () => {
                             <FormItemText
                                 label={'Notes'}
                                 name={'notes'}
+                            />
+                            <FormItemSelect
+                                label={'Source'}
+                                name={'source_id'}
+                                disabled={true}
+                                {...sourceOptions}
                             />
                         </ColForm>
                     </RowForm>
