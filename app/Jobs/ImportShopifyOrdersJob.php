@@ -42,7 +42,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
         $orders = $responseJson['orders'];
 
         foreach ($orders as $order) {
-            $shopifyOrderNumber = $order['order_number'];
+            $shopifyOrderNumber = 'SP/' . $order['order_number'];
             if (SalesOrder::where('number', $shopifyOrderNumber)->first()) {
                 continue;
             }
@@ -165,7 +165,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 ]);
             }
 
-            $this->log("New shopify sales order created {$salesOrder->number}");
+            $this->log("New shopify sales order created {$shopifyOrderNumber}");
         }
     }
 

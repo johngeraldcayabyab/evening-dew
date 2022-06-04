@@ -10,6 +10,7 @@ use App\Models\GlobalSetting;
 use App\Models\SalesOrder;
 use App\Models\SalesOrderLine;
 use App\Models\Sequence;
+use App\Models\Source;
 use App\Models\Transfer;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
@@ -95,6 +96,7 @@ class SalesOrderController
 
         if ($request->source_id) {
             $initialValues['source_id'] = $request->source_id;
+            $initialValues['source'] = Source::find($request->source_id);
         }
 
         return $initialValues;
