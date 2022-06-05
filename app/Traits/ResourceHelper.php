@@ -10,9 +10,11 @@ trait ResourceHelper
 {
     public function defaults($object, $request, $fields)
     {
+        $timeStampFormat = 'm/d/Y h:i:s A';
+
         $defaultFields = array_merge([
-            'created_at' => $object->created_at->format(SystemSetting::TIME_STAMP_FORMAT),
-            'updated_at' => $object->updated_at->format(SystemSetting::TIME_STAMP_FORMAT),
+            'created_at' => $object->created_at->format($timeStampFormat),
+            'updated_at' => $object->updated_at->format($timeStampFormat),
         ], $fields);
         if ($request->selected_fields) {
             if (Str::contains($request->url(), $this->getTable())) {
