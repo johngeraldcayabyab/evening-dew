@@ -53,8 +53,8 @@ const ManualTable = () => {
                 },
                 {
                     title: 'Shipping Date',
-                    dataIndex: 'expected_shipping_date',
-                    key: 'expected_shipping_date',
+                    dataIndex: 'shipping_date',
+                    key: 'shipping_date',
                     sorter: true,
                     filter: DATE_RANGE,
                 },
