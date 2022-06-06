@@ -49,6 +49,7 @@ class SalesOrderLine extends Model
     {
         $lines = [];
         $date = now();
+        $subtotal = 0;
         foreach ($data as $datum) {
             $line = [
                 'id' => isset($datum['id']) ? $datum['id'] : null,
@@ -65,8 +66,11 @@ class SalesOrderLine extends Model
                 $line['created_at'] = $datum['created_at'] ?? $date;
             }
             $lines[] = $line;
+            $subtotal += $line['subtotal'];
         }
         $query->upsert($lines, ['id']);
+        $parent->subtotal = $subtotal;
+        $parent->save();
         return $query;
     }
 }
