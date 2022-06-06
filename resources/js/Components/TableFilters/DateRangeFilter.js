@@ -12,8 +12,8 @@ const DateRangeFilter = (props) => {
         <div style={{padding: 8}}>
             <RangePicker
                 onChange={e => {
-                    const date1 = e[0].format(dateFormat);
-                    const date2 = e[1].format(dateFormat);
+                    const date1 = e[0].format('YYYY-MM-DD') + ' 00:00:00';
+                    const date2 = e[1].format('YYYY-MM-DD') + ' 23:59:59';
                     return props.setSelectedKeys(`${date1},${date2}`);
                 }}
                 style={{marginBottom: 8, display: 'block'}}
