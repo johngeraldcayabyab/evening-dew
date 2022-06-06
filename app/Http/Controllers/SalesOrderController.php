@@ -28,9 +28,9 @@ class SalesOrderController
         $model = new SalesOrder();
         if ($request->same_day) {
             $today = Carbon::today()->format('Y-m-d');
-            $request->expected_shipping_date = $today;
+            $request->shipping_date = $today;
             $request->quotation_date = $today;
-//            $model = $model->where('expected_shipping_date', '>=', Carbon::today());
+//            $model = $model->where('shipping_date', '>=', Carbon::today());
 //            $model = $model->where('quotation_date', '>=', Carbon::today());
         }
         $model = $model->filterAndOrder($request);
@@ -91,7 +91,7 @@ class SalesOrderController
     public function initial_values(Request $request)
     {
         $initialValues = [
-            'expected_shipping_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
+            'shipping_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
             'quotation_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
             'measurement' => GlobalSetting::latestFirst()->inventoryDefaultSalesMeasurement,
             'number' => Sequence::generateSalesOrderSequence(),

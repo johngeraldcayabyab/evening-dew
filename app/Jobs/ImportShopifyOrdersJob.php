@@ -43,10 +43,10 @@ class ImportShopifyOrdersJob implements ShouldQueue
 
         foreach ($orders as $order) {
             $shopifyOrderNumber = 'SP/' . $order['order_number'];
-            if(SalesOrder::where('number', $shopifyOrderNumber)->first()){
+            if (SalesOrder::where('number', $shopifyOrderNumber)->first()) {
                 continue;
             }
-            if(isset($order['shipping_lines'])){
+            if (isset($order['shipping_lines'])) {
 //                $this->log($order['shipping_lines']);
             }
             $shopifyCustomer = $order['customer'];
@@ -121,33 +121,33 @@ class ImportShopifyOrdersJob implements ShouldQueue
 
             $shippingProperties = end($shopifyLineItems)['properties'];
 
-            $expectedShippingDate = now();
+            $shippingDate = now();
             $notes = null;
             $selectTime = null;
 
-            foreach ($shippingProperties as $shippingProperty){
-                if($shippingProperty['name'] === 'Delivery Date'){
-                    $shippingProperty['value'] = explode('-',$shippingProperty['value']);
-                   $expectedShippingDate = Carbon::parse($shippingProperty['value'][2] . '-' . $shippingProperty['value'][0] . '-' . $shippingProperty['value'][1]);
+            foreach ($shippingProperties as $shippingProperty) {
+                if ($shippingProperty['name'] === 'Delivery Date') {
+                    $shippingProperty['value'] = explode('-', $shippingProperty['value']);
+                    $shippingDate = Carbon::parse($shippingProperty['value'][2] . '-' . $shippingProperty['value'][0] . '-' . $shippingProperty['value'][1]);
                 }
-                if($shippingProperty['name'] === 'Delivery Time'){
-                    if($shippingProperty['value'] === '11:00 AM - 01:00 PM'){
+                if ($shippingProperty['name'] === 'Delivery Time') {
+                    if ($shippingProperty['value'] === '11:00 AM - 01:00 PM') {
                         $selectTime = '11_00_AM_01_00_PM';
-                    }elseif ($shippingProperty['value'] === '01:00 PM - 03:00 PM'){
+                    } elseif ($shippingProperty['value'] === '01:00 PM - 03:00 PM') {
                         $selectTime = '01_00_PM_03_00_PM';
-                    }elseif ($shippingProperty['value'] === '03:00 PM - 04:00 PM'){
+                    } elseif ($shippingProperty['value'] === '03:00 PM - 04:00 PM') {
                         $selectTime = '03_00_PM_04_00_PM';
-                    }elseif ($shippingProperty['value'] === '04:00 PM - 05:30 PM'){
+                    } elseif ($shippingProperty['value'] === '04:00 PM - 05:30 PM') {
                         $selectTime = '04_00_PM_05_30_PM';
-                    }elseif ($shippingProperty['value'] === '04:00 PM - 06:00 PM'){
+                    } elseif ($shippingProperty['value'] === '04:00 PM - 06:00 PM') {
                         $selectTime = '04_00_PM_06_00_PM';
-                    }elseif ($shippingProperty['value'] === '05:30 PM - 06:30 PM'){
+                    } elseif ($shippingProperty['value'] === '05:30 PM - 06:30 PM') {
                         $selectTime = '05_30_PM_06_30_PM';
-                    }elseif ($shippingProperty['value'] === '06:00 PM - 07:00 PM'){
+                    } elseif ($shippingProperty['value'] === '06:00 PM - 07:00 PM') {
                         $selectTime = '06_00_PM_07_00_PM';
                     }
                 }
-                if($shippingProperty['name'] === 'Additional Comments'){
+                if ($shippingProperty['name'] === 'Additional Comments') {
                     $notes = $shippingProperty['value'];
                 }
             }
@@ -161,7 +161,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 'delivery_city_id' => $salesOrderDeliveryCity->id,
                 'phone' => $contact->phone,
                 'quotation_date' => $shopifyCreatedAt,
-                'expected_shipping_date' => $expectedShippingDate,
+                'shipping_date' => $shippingDate,
                 'notes' => $notes,
                 'salesperson_id' => 1,
                 'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
