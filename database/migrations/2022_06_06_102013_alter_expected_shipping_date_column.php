@@ -8,15 +8,19 @@ class AlterExpectedShippingDateColumn extends Migration
 {
     public function up()
     {
-        Schema::table('sales_orders', function (Blueprint $table) {
-            $table->renameColumn('expected_shipping_date', 'shipping_date');
-        });
+        if (Schema::hasColumn('sales_orders', 'expected_shipping_date')) {
+            Schema::table('sales_orders', function (Blueprint $table) {
+                $table->renameColumn('expected_shipping_date', 'shipping_date');
+            });
+        }
     }
 
     public function down()
     {
-        Schema::table('sales_orders', function (Blueprint $table) {
-            $table->renameColumn('shipping_date', 'expected_shipping_date');
-        });
+        if (Schema::hasColumn('sales_orders', 'expected_shipping_date')) {
+            Schema::table('sales_orders', function (Blueprint $table) {
+                $table->renameColumn('shipping_date', 'expected_shipping_date');
+            });
+        }
     }
 }
