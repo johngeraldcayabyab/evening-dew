@@ -40,7 +40,7 @@ class MaterialLine extends Model
         return $this->belongsTo(Material::class);
     }
 
-    public function scopeMassUpsert($query, $data, $parentId)
+    public function scopeMassUpsert($query, $data, $parent)
     {
         $lines = [];
         $date = now();
@@ -50,7 +50,7 @@ class MaterialLine extends Model
                 'product_id' => $datum['product_id'],
                 'quantity' => $datum['quantity'],
                 'measurement_id' => $datum['measurement_id'],
-                'material_id' => $parentId,
+                'material_id' => $parent->id,
                 'updated_at' => $datum['updated_at'] ?? $date,
             ];
             if (!isset($datum['id'])) {

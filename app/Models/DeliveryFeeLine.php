@@ -35,7 +35,7 @@ class DeliveryFeeLine extends Model
         return $this->belongsTo(DeliveryFee::class);
     }
 
-    public function scopeMassUpsert($query, $data, $parentId)
+    public function scopeMassUpsert($query, $data, $parent)
     {
         $lines = [];
         $date = now();
@@ -43,7 +43,7 @@ class DeliveryFeeLine extends Model
             $line = [
                 'id' => isset($datum['id']) ? $datum['id'] : null,
                 'city_id' => $datum['city_id'],
-                'delivery_fee_id' => $parentId,
+                'delivery_fee_id' => $parent->id,
                 'updated_at' => $datum['updated_at'] ?? $date,
             ];
             if (!isset($datum['id'])) {

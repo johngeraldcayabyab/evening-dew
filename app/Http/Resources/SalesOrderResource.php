@@ -32,6 +32,7 @@ class SalesOrderResource extends JsonResource
             'status' => $this->status,
             'notes' => $this->notes,
             'shipping_method' => $this->shipping_method,
+            'subtotal' => $this->subtotal,
             'customer' => new ContactResource($this->customer),
             'invoice_city' => new CityResource($this->invoiceCity),
             'delivery_city' => new CityResource($this->deliveryCity),
