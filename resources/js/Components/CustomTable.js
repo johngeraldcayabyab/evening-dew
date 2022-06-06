@@ -5,7 +5,8 @@ import {SearchOutlined} from "@ant-design/icons";
 import {TableContext} from "../Contexts/TableContext";
 import SearchFilter from "./TableFilters/SearchFilter";
 import {getAllUrlParams} from "../Helpers/url";
-import {SEARCH} from "../consts";
+import {DATE_RANGE, SEARCH} from "../consts";
+import DateRangeFilter from "./TableFilters/DateRangeFilter";
 
 const CustomTable = () => {
     const listContext = useContext(TableContext);
@@ -50,6 +51,22 @@ const CustomTable = () => {
                 filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => {
                     return (
                         <SearchFilter
+                            dataIndex={dataIndex}
+                            setSelectedKeys={setSelectedKeys}
+                            selectedKeys={selectedKeys}
+                            confirm={confirm}
+                            clearFilters={clearFilters}
+                        />
+                    )
+                },
+                filterIcon: filtered => <SearchOutlined style={{color: filtered ? '#1890ff' : undefined}}/>,
+            }
+        }
+        if (filterType === DATE_RANGE) {
+            return {
+                filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => {
+                    return (
+                        <DateRangeFilter
                             dataIndex={dataIndex}
                             setSelectedKeys={setSelectedKeys}
                             selectedKeys={selectedKeys}

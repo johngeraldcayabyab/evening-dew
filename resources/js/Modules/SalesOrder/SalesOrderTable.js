@@ -11,7 +11,7 @@ import {Tag} from "antd";
 import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
-import {SEARCH} from "../../consts";
+import {DATE_RANGE, SEARCH} from "../../consts";
 
 const SalesOrderTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -74,6 +74,7 @@ const SalesOrderTable = () => {
                     dataIndex: 'created_at',
                     key: 'created_at',
                     sorter: true,
+                    filter: DATE_RANGE,
                 },
             ]
         }}>

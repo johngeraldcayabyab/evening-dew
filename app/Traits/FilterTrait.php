@@ -61,16 +61,21 @@ trait FilterTrait
 
     public function scopeFilter($query, $filter)
     {
-        if ($filter[0] === 'id') {
-            return $query->where($filter[0], $filter[1]);
+        $field = $filter[0];
+        $value = $filter[1];
+        if ($field === 'id') {
+            return $query->where($field, $value);
         }
-        return $query->where($filter[0], 'like', "%$filter[1]%");
+        return $query->where($field, 'like', "%$value%");
     }
 
     public function scopeFilterHas($query, $filter)
     {
-        return $query->whereHas($filter[0], function ($query) use ($filter) {
-            return $query->where($filter[1], 'like', "%$filter[2]%");
+        $relationship = $filter[0];
+        $field = $filter[1];
+        $value = $filter[2];
+        return $query->whereHas($relationship, function ($query) use ($field, $value) {
+            return $query->where($field, 'like', "%$value%");
         });
     }
 
