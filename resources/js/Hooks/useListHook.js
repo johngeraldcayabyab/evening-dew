@@ -6,8 +6,6 @@ import useFetchCatcherHook from "./useFetchCatcherHook";
 const useListHook = (manifest) => {
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
-    const moduleName = manifest.moduleName;
-    const displayName = manifest.displayName;
     const [tableState, setTableState] = useState({
         initialLoad: true,
         loading: true,
