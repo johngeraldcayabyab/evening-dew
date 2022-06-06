@@ -66,6 +66,9 @@ trait FilterTrait
         if ($field === 'id') {
             return $query->where($field, $value);
         }
+        if ($field === 'created_at' || $field === 'updated_at' || $field === 'deleted_at') {
+            return $query->whereBetween($field, explode(',', $value));
+        }
         return $query->where($field, 'like', "%$value%");
     }
 
