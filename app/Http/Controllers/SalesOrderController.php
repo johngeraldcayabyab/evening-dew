@@ -111,6 +111,7 @@ class SalesOrderController
             ->selectRaw('DATE(created_at) as time, SUM(subtotal) as total')
             ->whereBetween('created_at', [$from, $to])
             ->groupBy('time')
+            ->orderBy('time', 'asc')
             ->get();
         return $salesPerDay;
     }
