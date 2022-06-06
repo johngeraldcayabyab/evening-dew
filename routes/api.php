@@ -82,6 +82,9 @@ Route::group(['middleware' => ['api', 'cors']], function () {
     (new RouteGenerator(PaymentTerm::class))::generate(PaymentTermController::class);
     (new RouteGenerator(ProductCategory::class))::generate(ProductCategoryController::class);
     (new RouteGenerator(Region::class))::generate(RegionController::class);
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get("sales_orders/sales_per_day", [SalesOrderController::class, 'sales_per_day'])->name("sales_orders.sales_per_day");
+    });
     (new RouteGenerator(SalesOrder::class))::generate(SalesOrderController::class);
     (new RouteGenerator(Product::class))::generate(ProductController::class);
     (new RouteGenerator(Sequence::class))::generate(SequenceController::class);

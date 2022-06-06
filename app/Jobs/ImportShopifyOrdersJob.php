@@ -175,6 +175,8 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 'updated_at' => $shopifyCreatedAt,
             ]);
 
+            $subtotal = 0;
+
             if ($salesOrderDeliveryCity->deliveryFeeLines()->exists()) {
                 $deliveryFeeProduct = $salesOrderDeliveryCity->deliveryFeeLines[0]->deliveryFee->product;
                 SalesOrderLine::create([
@@ -187,6 +189,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
                     'created_at' => $salesOrder->created_at,
                     'updated_at' => $salesOrder->updated_at,
                 ]);
+                $subtotal = $deliveryFeeProduct->sales_price;
             }
 
             foreach ($shopifyLineItems as $shopifyLineItem) {
@@ -194,17 +197,22 @@ class ImportShopifyOrdersJob implements ShouldQueue
                     'name' => $shopifyLineItem['name'],
                     'internal_reference' => $shopifyLineItem['sku'],
                 ]);
+                $salesOrderLineSubtotal = $shopifyLineItem['price'] * ($shopifyLineItem['fulfillable_quantity'] ? $shopifyLineItem['fulfillable_quantity'] : 1);
                 SalesOrderLine::create([
                     'product_id' => $product->id,
                     'quantity' => $shopifyLineItem['fulfillable_quantity'] ? $shopifyLineItem['fulfillable_quantity'] : 1,
                     'measurement_id' => 1,
                     'unit_price' => $shopifyLineItem['price'],
-                    'subtotal' => $shopifyLineItem['price'] * ($shopifyLineItem['fulfillable_quantity'] ? $shopifyLineItem['fulfillable_quantity'] : 1),
+                    'subtotal' => $salesOrderLineSubtotal,
                     'sales_order_id' => $salesOrder->id,
                     'created_at' => $salesOrder->created_at,
                     'updated_at' => $salesOrder->updated_at,
                 ]);
+                $subtotal += $salesOrderLineSubtotal;
             }
+
+            $salesOrder->subtotal = $subtotal;
+            $salesOrder->save();
 
             $this->log("New shopify sales order created {$shopifyOrderNumber}");
         }

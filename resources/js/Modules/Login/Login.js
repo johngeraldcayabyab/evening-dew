@@ -48,7 +48,7 @@ const Login = () => {
                     user: user,
                 }));
                 setUser(user);
-                history.push('/');
+                history.push('/home');
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
             });

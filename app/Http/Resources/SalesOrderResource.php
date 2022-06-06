@@ -34,6 +34,7 @@ class SalesOrderResource extends JsonResource
             'shipping_method' => $this->shipping_method,
             'select_time' => $this->select_time,
             'vehicle_type' => $this->vehicle_type,
+            'subtotal' => $this->subtotal,
             'customer' => new ContactResource($this->customer),
             'invoice_city' => new CityResource($this->invoiceCity),
             'delivery_city' => new CityResource($this->deliveryCity),
