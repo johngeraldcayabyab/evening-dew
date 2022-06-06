@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\SalesOrder;
 use Mike42\Escpos\CapabilityProfile;
 use Mike42\Escpos\EscposImage;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
@@ -12,17 +13,20 @@ class PrintTest
     public function print()
     {
         try {
-            $connector = new WindowsPrintConnector("XprinterHello"); //name of shared printer
+            $connector = new WindowsPrintConnector("58Printer"); //name of shared printer
             $printer = new Printer($connector);
 
 
             $printer->text("--------------------------------" . "\n");
 
+            $salesOrder = SalesOrder::find(10);
+            $customerName = $salesOrder->customer->name;
+
             /* Name of shop */
             $printer->selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
-            $printer->text("Order#18090.\n");
+            $printer->text("$salesOrder->number.\n");
             $printer->selectPrintMode();
-            $printer->text("Maybel de Leon\n");
+            $printer->text("$customerName\n");
             $printer->feed();
 
             /**
@@ -35,10 +39,22 @@ class PrintTest
 
             /* Items */
             $items = [
-                "3  ZMD - Dragon Maki (6pcs) \n\n",
-                "1  KLS - Kani Aburi - Large 8x12' (6-8 pax) / Spicy \n\n",
-                "2  ZMF - Fantasy Roll (6pcs) \n\n",
+//                "3  ZMD - Dragon Maki (6pcs) \n\n",
+//                "1  KLS - Kani Aburi - Large 8x12' (6-8 pax) / Spicy \n\n",
+//                "2  ZMF - Fantasy Roll (6pcs) \n\n",
             ];
+
+
+            $salesOrderLines = $salesOrder->salesOrderLines;
+
+            foreach ($salesOrderLines as $salesOrderLine){
+                $quantity = $salesOrderLine->quantity;
+                $internalReference = $salesOrderLine->product->internal_reference;
+                $productName = $salesOrderLine->product->name;
+                $items[] = "$quantity $internalReference $productName \n\n";
+            }
+
+
             $printer->setJustification(Printer::JUSTIFY_LEFT);
             $printer->setEmphasis(true);
             foreach ($items as $item) {
