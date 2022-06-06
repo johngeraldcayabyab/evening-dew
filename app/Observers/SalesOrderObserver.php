@@ -54,8 +54,8 @@ class SalesOrderObserver
                 $model->salesperson_id = auth()->user()->id;
             }
         }
-        if ($model->expected_shipping_date) {
-            $model->expected_shipping_date = Carbon::parse($model->expected_shipping_date)->format(SystemSetting::DATE_TIME_FORMAT);
+        if ($model->shipping_date) {
+            $model->shipping_date = Carbon::parse($model->shipping_date)->format(SystemSetting::DATE_TIME_FORMAT);
         }
         if (!$model->shipping_policy) {
             $model->shipping_policy = Transfer::AS_SOON_AS_POSSIBLE;

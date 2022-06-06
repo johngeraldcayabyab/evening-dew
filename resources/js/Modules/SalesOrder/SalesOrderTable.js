@@ -70,9 +70,9 @@ const SalesOrderTable = () => {
                     filter: SEARCH,
                 },
                 {
-                    title: 'Expected shipping date',
-                    dataIndex: 'expected_shipping_date',
-                    key: 'expected_shipping_date',
+                    title: 'Shipping date',
+                    dataIndex: 'shipping_date',
+                    key: 'shipping_date',
                     sorter: true,
                     filter: DATE_RANGE,
                 },
