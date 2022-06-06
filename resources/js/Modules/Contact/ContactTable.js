@@ -11,7 +11,7 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {Col, Row} from "antd";
 import KanbanTablePicker from "../../Components/KanbanTablePicker";
-import {KANBAN, TABLE} from "../../consts";
+import {KANBAN, SEARCH, TABLE} from "../../consts";
 import Cardination from "../../Components/Cardination";
 
 const ContactTable = () => {
@@ -32,21 +32,21 @@ const ContactTable = () => {
                     dataIndex: 'name',
                     key: 'name',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Phone',
                     dataIndex: 'phone',
                     key: 'phone',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Email',
                     dataIndex: 'email',
                     key: 'email',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Created At',

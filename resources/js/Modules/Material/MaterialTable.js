@@ -9,6 +9,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import TableSearchInput from "../../Components/TableSearchInput";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
+import {SEARCH} from "../../consts";
 
 const MaterialTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -23,7 +24,7 @@ const MaterialTable = () => {
                     dataIndex: 'product',
                     key: 'product',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         return record.product.name;
                     }
@@ -33,14 +34,14 @@ const MaterialTable = () => {
                     dataIndex: 'reference',
                     key: 'reference',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Type',
                     dataIndex: 'type',
                     key: 'type',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Created At',

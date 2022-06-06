@@ -10,6 +10,7 @@ import TableSearchInput from "../../Components/TableSearchInput";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {Tag} from "antd";
+import {SEARCH} from "../../consts";
 
 const DeliveryFeeTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -24,14 +25,14 @@ const DeliveryFeeTable = () => {
                     dataIndex: 'name',
                     key: 'name',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Fee',
                     dataIndex: 'product',
                     key: 'product',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         return record.product.sales_price;
                     }
@@ -41,7 +42,7 @@ const DeliveryFeeTable = () => {
                     dataIndex: 'is_enabled',
                     key: 'is_enabled',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         if(record.is_enabled){
                             return <Tag color={'success'}>Yes</Tag>;

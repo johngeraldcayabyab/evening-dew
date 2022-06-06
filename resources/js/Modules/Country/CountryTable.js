@@ -23,14 +23,14 @@ const CountryTable = () => {
                     dataIndex: 'country_name',
                     key: 'country_name',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Country Code',
                     dataIndex: 'country_code',
                     key: 'country_code',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Created At',

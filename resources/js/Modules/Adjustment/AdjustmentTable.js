@@ -9,6 +9,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import TableSearchInput from "../../Components/TableSearchInput";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
+import {SEARCH} from "../../consts";
 
 const AdjustmentTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -23,14 +24,14 @@ const AdjustmentTable = () => {
                     dataIndex: 'number',
                     key: 'number',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Product Category',
                     dataIndex: 'product_category',
                     key: 'product_category',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         return record.product_category.category;
                     }
