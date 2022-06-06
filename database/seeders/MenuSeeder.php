@@ -43,6 +43,10 @@ class MenuSeeder extends Seeder
                 'url' => '/delivery_fees',
             ],
             [
+                'label' => 'Home',
+                'url' => '/home',
+            ],
+            [
                 'label' => 'Locations',
                 'url' => '/locations',
             ],

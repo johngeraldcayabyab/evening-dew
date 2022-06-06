@@ -45,7 +45,7 @@ class AdjustmentLine extends Model
         return $this->belongsTo(Measurement::class, 'measurement_id');
     }
 
-    public function scopeMassUpsert($query, $data, $parentId)
+    public function scopeMassUpsert($query, $data, $parent)
     {
         $lines = [];
         $date = now();
@@ -56,7 +56,7 @@ class AdjustmentLine extends Model
                 'measurement_id' => $datum['measurement_id'],
                 'quantity_on_hand' => $datum['quantity_on_hand'],
                 'quantity_counted' => $datum['quantity_counted'],
-                'adjustment_id' => $parentId,
+                'adjustment_id' => $parent->id,
                 'updated_at' => $datum['updated_at'] ?? $date,
             ];
             if (!isset($datum['id'])) {

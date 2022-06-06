@@ -45,7 +45,7 @@ class SalesOrderLine extends Model
         return $this->hasOne(SalesOrderTransferLine::class);
     }
 
-    public function scopeMassUpsert($query, $data, $parentId)
+    public function scopeMassUpsert($query, $data, $parent)
     {
         $lines = [];
         $date = now();
@@ -58,7 +58,7 @@ class SalesOrderLine extends Model
                 'measurement_id' => $datum['measurement_id'],
                 'unit_price' => $datum['unit_price'],
                 'subtotal' => $datum['unit_price'] * $datum['quantity'],
-                'sales_order_id' => $parentId,
+                'sales_order_id' => $parent->id,
                 'updated_at' => $datum['updated_at'] ?? $date,
             ];
             if (!isset($datum['id'])) {

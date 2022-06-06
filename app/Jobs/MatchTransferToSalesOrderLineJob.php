@@ -53,7 +53,7 @@ class MatchTransferToSalesOrderLineJob implements ShouldQueue
                 }
             }
             if (count($salesOrderLineData)) {
-                SalesOrderLine::massUpsert($salesOrderLineData, $salesOrder->id);
+                SalesOrderLine::massUpsert($salesOrderLineData, $salesOrder);
                 $this->createSalesOrderTransferLines($salesOrderTransfer, $salesOrder, $transfer, $newTransferLines);
             }
             $trashedTransferLines = $transfer->transferLines()->onlyTrashed()->get();
@@ -96,7 +96,7 @@ class MatchTransferToSalesOrderLineJob implements ShouldQueue
             ];
         }
         if (count($lines)) {
-            SalesOrderTransferLine::massUpsert($lines, $salesOrderTransfer->id);
+            SalesOrderTransferLine::massUpsert($lines, $salesOrderTransfer);
         }
     }
 }
