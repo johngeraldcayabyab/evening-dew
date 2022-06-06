@@ -43,10 +43,10 @@ class ImportShopifyOrdersJob implements ShouldQueue
 
         foreach ($orders as $order) {
             $shopifyOrderNumber = 'SP/' . $order['order_number'];
-            if(SalesOrder::where('number', $shopifyOrderNumber)->first()){
+            if (SalesOrder::where('number', $shopifyOrderNumber)->first()) {
                 continue;
             }
-            if(isset($order['shipping_lines'])){
+            if (isset($order['shipping_lines'])) {
 //                $this->log($order['shipping_lines']);
             }
             $shopifyCustomer = $order['customer'];
@@ -121,19 +121,19 @@ class ImportShopifyOrdersJob implements ShouldQueue
 
             $shippingProperties = end($shopifyLineItems)['properties'];
 
-            $expectedShippingDate = now();
+            $shippingDate = now();
             $notes = null;
             $selectTime = null;
 
-            foreach ($shippingProperties as $shippingProperty){
-                if($shippingProperty['name'] === 'Delivery Date'){
-                    $shippingProperty['value'] = explode('-',$shippingProperty['value']);
-                   $expectedShippingDate = Carbon::parse($shippingProperty['value'][2] . '-' . $shippingProperty['value'][0] . '-' . $shippingProperty['value'][1]);
+            foreach ($shippingProperties as $shippingProperty) {
+                if ($shippingProperty['name'] === 'Delivery Date') {
+                    $shippingProperty['value'] = explode('-', $shippingProperty['value']);
+                    $shippingDate = Carbon::parse($shippingProperty['value'][2] . '-' . $shippingProperty['value'][0] . '-' . $shippingProperty['value'][1]);
                 }
-                if($shippingProperty['name'] === 'Delivery Time'){
-//                    $expectedShippingDate = $shippingProperty['value'];
+                if ($shippingProperty['name'] === 'Delivery Time') {
+//                    $shippingDate = $shippingProperty['value'];
                 }
-                if($shippingProperty['name'] === 'Additional Comments'){
+                if ($shippingProperty['name'] === 'Additional Comments') {
                     $notes = $shippingProperty['value'];
                 }
             }
@@ -147,7 +147,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 'delivery_city_id' => $salesOrderDeliveryCity->id,
                 'phone' => $contact->phone,
                 'quotation_date' => $shopifyCreatedAt,
-                'expected_shipping_date' => $expectedShippingDate,
+                'shipping_date' => $shippingDate,
                 'notes' => $notes,
                 'salesperson_id' => 1,
                 'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
