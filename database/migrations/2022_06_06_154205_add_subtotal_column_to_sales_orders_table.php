@@ -8,15 +8,19 @@ class AddSubtotalColumnToSalesOrdersTable extends Migration
 {
     public function up()
     {
-        Schema::table('sales_orders', function (Blueprint $table) {
-            $table->integer('subtotal')->nullable()->default(0);
-        });
+        if (!Schema::hasColumn('sales_orders', 'subtotal')) {
+            Schema::table('sales_orders', function (Blueprint $table) {
+                $table->integer('subtotal')->nullable()->default(0);
+            });
+        }
     }
 
     public function down()
     {
-        Schema::table('sales_orders', function (Blueprint $table) {
-            $table->dropColumn('subtotal');
-        });
+        if (Schema::hasColumn('sales_orders', 'subtotal')) {
+            Schema::table('sales_orders', function (Blueprint $table) {
+                $table->dropColumn('subtotal');
+            });
+        }
     }
 }
