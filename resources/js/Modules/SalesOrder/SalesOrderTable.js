@@ -11,6 +11,7 @@ import {Tag} from "antd";
 import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
+import {SEARCH} from "../../consts";
 
 const SalesOrderTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -25,7 +26,7 @@ const SalesOrderTable = () => {
                     dataIndex: 'number',
                     key: 'number',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         return <Text strong><span style={{fontSize: '12px'}}>{record.number}</span></Text>
                     }
@@ -35,7 +36,7 @@ const SalesOrderTable = () => {
                     dataIndex: 'customer',
                     key: 'customer',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         return record.customer.name;
                     }
@@ -45,7 +46,7 @@ const SalesOrderTable = () => {
                     dataIndex: 'salesperson',
                     key: 'salesperson',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         return record.salesperson.name;
                     }
@@ -55,7 +56,7 @@ const SalesOrderTable = () => {
                     dataIndex: 'status',
                     key: 'status',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         const color = {draft: 'processing', done: 'success', cancelled: 'default'};
                         return <Tag color={color[record.status]}>{record.status.toUpperCase()}</Tag>
@@ -66,7 +67,7 @@ const SalesOrderTable = () => {
                     dataIndex: 'source_document',
                     key: 'source_document',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Created At',

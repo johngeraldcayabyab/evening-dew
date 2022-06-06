@@ -22,7 +22,7 @@ const CustomTable = () => {
     useEffect(() => {
         const selectedFields = [];
         const columns = state.columns.map((column) => {
-            if (column.hasOwnProperty('searchFilter')) {
+            if (column.hasOwnProperty('filter')) {
                 column = {...column, ...getColumnSearchProps(column.dataIndex)};
             }
             if (!column.hasOwnProperty('hidden')) {
@@ -42,15 +42,17 @@ const CustomTable = () => {
 
     function getColumnSearchProps(dataIndex) {
         return {
-            filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
-                <FilterDropdown
-                    dataIndex={dataIndex}
-                    setSelectedKeys={setSelectedKeys}
-                    selectedKeys={selectedKeys}
-                    confirm={confirm}
-                    clearFilters={clearFilters}
-                />
-            ),
+            filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => {
+                return (
+                    <FilterDropdown
+                        dataIndex={dataIndex}
+                        setSelectedKeys={setSelectedKeys}
+                        selectedKeys={selectedKeys}
+                        confirm={confirm}
+                        clearFilters={clearFilters}
+                    />
+                )
+            },
             filterIcon: filtered => <SearchOutlined style={{color: filtered ? '#1890ff' : undefined}}/>,
         }
     }
