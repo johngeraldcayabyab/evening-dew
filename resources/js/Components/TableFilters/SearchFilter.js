@@ -2,7 +2,7 @@ import {Button, Input, Space} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
 import {replaceUnderscoreWithSpace, titleCase} from "../../Helpers/string";
 
-const FilterDropdown = (props) => {
+const SearchFilter = (props) => {
     return (
         <div style={{padding: 8}}>
             <Input
@@ -41,4 +41,4 @@ const FilterDropdown = (props) => {
     )
 };
 
-export default FilterDropdown;
+export default SearchFilter;

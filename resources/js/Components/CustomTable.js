@@ -3,8 +3,9 @@ import React, {useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
 import {TableContext} from "../Contexts/TableContext";
-import FilterDropdown from "./TableFilters/FilterDropdown";
+import SearchFilter from "./TableFilters/SearchFilter";
 import {getAllUrlParams} from "../Helpers/url";
+import {SEARCH} from "../consts";
 
 const CustomTable = () => {
     const listContext = useContext(TableContext);
@@ -23,7 +24,10 @@ const CustomTable = () => {
         const selectedFields = [];
         const columns = state.columns.map((column) => {
             if (column.hasOwnProperty('filter')) {
-                column = {...column, ...getColumnSearchProps(column.dataIndex)};
+                const filterType = generateColumnFilterByType(column.dataIndex, column.filter);
+                if (filterType) {
+                    column = {...column, ...filterType};
+                }
             }
             if (!column.hasOwnProperty('hidden')) {
                 selectedFields.push(column.dataIndex);
@@ -40,21 +44,24 @@ const CustomTable = () => {
         listContext.tableActions.renderData(urlParams);
     }, []);
 
-    function getColumnSearchProps(dataIndex) {
-        return {
-            filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => {
-                return (
-                    <FilterDropdown
-                        dataIndex={dataIndex}
-                        setSelectedKeys={setSelectedKeys}
-                        selectedKeys={selectedKeys}
-                        confirm={confirm}
-                        clearFilters={clearFilters}
-                    />
-                )
-            },
-            filterIcon: filtered => <SearchOutlined style={{color: filtered ? '#1890ff' : undefined}}/>,
+    function generateColumnFilterByType(dataIndex, filterType) {
+        if (filterType === SEARCH) {
+            return {
+                filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => {
+                    return (
+                        <SearchFilter
+                            dataIndex={dataIndex}
+                            setSelectedKeys={setSelectedKeys}
+                            selectedKeys={selectedKeys}
+                            confirm={confirm}
+                            clearFilters={clearFilters}
+                        />
+                    )
+                },
+                filterIcon: filtered => <SearchOutlined style={{color: filtered ? '#1890ff' : undefined}}/>,
+            }
         }
+        return null;
     }
 
     function onRow(record, rowIndex) {

@@ -1,10 +1,10 @@
-import FilterDropdown from "./FilterDropdown";
+import SearchFilter from "./SearchFilter";
 import {SearchOutlined} from "@ant-design/icons";
 
 const FilterGenerator = (props) => {
     return {
         filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
-            <FilterDropdown
+            <SearchFilter
                 dataIndex={props.dataIndex}
                 setSelectedKeys={setSelectedKeys}
                 selectedKeys={selectedKeys}
