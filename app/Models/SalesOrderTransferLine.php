@@ -45,7 +45,7 @@ class SalesOrderTransferLine extends Model
         return $this->belongsTo(TransferLine::class);
     }
 
-    public function scopeMassUpsert($query, $data, $parentId)
+    public function scopeMassUpsert($query, $data, $parent)
     {
         $lines = [];
         $date = now();
@@ -56,7 +56,7 @@ class SalesOrderTransferLine extends Model
                 'transfer_id' => $datum['transfer_id'],
                 'sales_order_line_id' => $datum['sales_order_line_id'],
                 'transfer_line_id' => $datum['transfer_line_id'],
-                'sales_order_transfer_id' => $parentId,
+                'sales_order_transfer_id' => $parent->id,
                 'updated_at' => $datum['updated_at'] ?? $date,
             ];
             if (!isset($datum['id'])) {

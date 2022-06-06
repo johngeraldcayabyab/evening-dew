@@ -17,6 +17,16 @@ class AppMenuSeeder extends Seeder
                 'label' => 'Admin Menu',
                 'children' => [
                     [
+                        'label' => 'Home',
+                        'menu_key' => 'Home',
+                        'children' => [
+                            [
+                                'label' => 'Home',
+                                'menu_key' => 'Home',
+                            ],
+                        ],
+                    ],
+                    [
                         'label' => 'Contacts',
                         'menu_key' => 'Contacts',
                         'children' => [

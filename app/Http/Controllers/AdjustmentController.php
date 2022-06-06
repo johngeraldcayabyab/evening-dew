@@ -38,7 +38,7 @@ class AdjustmentController
         $adjustment = Adjustment::create($adjustmentData);
         if (isset($data['adjustment_lines'])) {
             $adjustmentLinesData = $data['adjustment_lines'];
-            AdjustmentLine::massUpsert($adjustmentLinesData, $adjustment->id);
+            AdjustmentLine::massUpsert($adjustmentLinesData, $adjustment);
         }
         if ($adjustment->status === Adjustment::DONE) {
             AdjustmentValidatedEvent::dispatch($adjustment);
@@ -53,7 +53,7 @@ class AdjustmentController
         $adjustment->update($adjustmentData);
         if (isset($data['adjustment_lines'])) {
             $adjustmentLinesData = $data['adjustment_lines'];
-            AdjustmentLine::massUpsert($adjustmentLinesData, $adjustment->id);
+            AdjustmentLine::massUpsert($adjustmentLinesData, $adjustment);
         }
         if (isset($data['adjustment_lines_deleted'])) {
             AdjustmentLine::massDelete(collect($data['adjustment_lines_deleted'])->pluck('id'));

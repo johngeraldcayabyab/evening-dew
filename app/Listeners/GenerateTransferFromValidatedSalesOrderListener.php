@@ -56,7 +56,7 @@ class GenerateTransferFromValidatedSalesOrderListener implements ShouldQueue
             }
         }
         if (count($transferLinesData)) {
-            TransferLine::massUpsert($transferLinesData, $transfer->id);
+            TransferLine::massUpsert($transferLinesData, $transfer);
             $this->createSalesOrderTransferLines($salesOrderTransfer, $salesOrder, $transfer, $newSalesOrderLine);
         }
         $trashedSalesOrderLines = $salesOrder->salesOrderLines()->onlyTrashed()->get();
@@ -113,7 +113,7 @@ class GenerateTransferFromValidatedSalesOrderListener implements ShouldQueue
             ];
         }
         if (count($transferLinesDataCreate)) {
-            TransferLine::massUpsert($transferLinesDataCreate, $transfer->id);
+            TransferLine::massUpsert($transferLinesDataCreate, $transfer);
         }
     }
 
@@ -141,7 +141,7 @@ class GenerateTransferFromValidatedSalesOrderListener implements ShouldQueue
             ];
         }
         if (count($lines)) {
-            SalesOrderTransferLine::massUpsert($lines, $salesOrderTransfer->id);
+            SalesOrderTransferLine::massUpsert($lines, $salesOrderTransfer);
         }
     }
 }

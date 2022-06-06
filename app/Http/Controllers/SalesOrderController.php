@@ -18,6 +18,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class SalesOrderController
 {
@@ -51,7 +52,7 @@ class SalesOrderController
         $salesOrder = SalesOrder::create($salesOrderData);
         if (isset($data['sales_order_lines'])) {
             $salesOrderLinesData = $data['sales_order_lines'];
-            SalesOrderLine::massUpsert($salesOrderLinesData, $salesOrder->id);
+            SalesOrderLine::massUpsert($salesOrderLinesData, $salesOrder);
         }
         if ($salesOrder->status === SalesOrder::DONE) {
             SalesOrderValidatedEvent::dispatch($salesOrder);
@@ -66,7 +67,7 @@ class SalesOrderController
         $salesOrder->update($salesOrderData);
         if (isset($data['sales_order_lines'])) {
             $salesOrderLinesData = $data['sales_order_lines'];
-            SalesOrderLine::massUpsert($salesOrderLinesData, $salesOrder->id);
+            SalesOrderLine::massUpsert($salesOrderLinesData, $salesOrder);
         }
         if (isset($data['sales_order_lines_deleted'])) {
             SalesOrderLine::massDelete(collect($data['sales_order_lines_deleted'])->pluck('id'));
@@ -111,5 +112,17 @@ class SalesOrderController
         }
 
         return $initialValues;
+    }
+
+    public function sales_per_day(Request $request)
+    {
+        $from = Carbon::parse('2022-06-03 00:00:00');
+        $to = Carbon::parse('2022-06-06 00:00:00');
+        $salesPerDay = DB::table('sales_orders')
+            ->selectRaw('DATE(created_at) as time, SUM(subtotal) as total')
+            ->whereBetween('created_at', [$from, $to])
+            ->groupBy('time')
+            ->get();
+        return $salesPerDay;
     }
 }

@@ -38,6 +38,7 @@ import SourceRoute from "./Modules/Source/SourceRoute";
 import ManualRoute from "./CustomModules/Manual/ManualRoute";
 import ShopifyRoute from "./CustomModules/Shopify/ShopifyRoute";
 import SameDayRoute from "./CustomModules/SameDay/SameDayRoute";
+import HomeRoute from "./Modules/Home/HomeRoute";
 
 
 export const AppContext = React.createContext({});
@@ -63,6 +64,7 @@ const App = () => {
                         <CurrencyRoute/>
                         <DeliveryFeeRoute/>
                         <GlobalSettingRoute/>
+                        <HomeRoute/>
                         <LocationRoute/>
                         <LoginRoute/>
                         <MaterialRoute/>

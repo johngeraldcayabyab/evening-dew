@@ -50,7 +50,7 @@ class TransferLine extends Model
         return $this->hasOne(TransferLineStockMovement::class);
     }
 
-    public function scopeMassUpsert($query, $data, $transferId)
+    public function scopeMassUpsert($query, $data, $parent)
     {
         $lines = [];
         $date = now();
@@ -61,7 +61,7 @@ class TransferLine extends Model
                 'description' => isset($datum['description']) ? $datum['description'] : null,
                 'demand' => $datum['demand'],
                 'measurement_id' => $datum['measurement_id'],
-                'transfer_id' => $transferId,
+                'transfer_id' => $parent->id,
                 'updated_at' => $datum['updated_at'] ?? $date,
             ];
             if (!isset($datum['id'])) {

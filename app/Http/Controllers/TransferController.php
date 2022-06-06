@@ -38,7 +38,7 @@ class TransferController
         $transfer = Transfer::create($transferData);
         if (isset($data['transfer_lines'])) {
             $transferLinesData = $data['transfer_lines'];
-            TransferLine::massUpsert($transferLinesData, $transfer->id);
+            TransferLine::massUpsert($transferLinesData, $transfer);
         }
         if ($transfer->status === Transfer::DONE) {
             TransferValidatedEvent::dispatch($transfer);
@@ -53,7 +53,7 @@ class TransferController
         $transfer->update($transferData);
         if (isset($data['transfer_lines'])) {
             $transferLinesData = $data['transfer_lines'];
-            TransferLine::massUpsert($transferLinesData, $transfer->id);
+            TransferLine::massUpsert($transferLinesData, $transfer);
         }
         if (isset($data['transfer_lines_deleted'])) {
             TransferLine::massDelete(collect($data['transfer_lines_deleted'])->pluck('id'));
