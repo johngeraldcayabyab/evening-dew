@@ -82,6 +82,7 @@ class SalesOrderController
     public function initial_values(Request $request)
     {
         $initialValues = [
+            'expected_shipping_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
             'quotation_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
             'measurement' => GlobalSetting::latestFirst()->inventoryDefaultSalesMeasurement,
             'number' => Sequence::generateSalesOrderSequence(),

@@ -43,6 +43,9 @@ class ImportShopifyOrdersJob implements ShouldQueue
 
         foreach ($orders as $order) {
             $shopifyOrderNumber = 'SP/' . $order['order_number'];
+            if(SalesOrder::where('number', $shopifyOrderNumber)->first()){
+                continue;
+            }
             if(isset($order['shipping_lines'])){
 //                $this->log($order['shipping_lines']);
             }
@@ -116,10 +119,11 @@ class ImportShopifyOrdersJob implements ShouldQueue
             $source = Source::where('name', 'Shopify')->first();
 
 
-            $shippingProperties = $shopifyLineItems[0]['properties'];
+            $shippingProperties = end($shopifyLineItems)['properties'];
 
             $expectedShippingDate = now();
             $notes = null;
+            $selectTime = null;
 
             foreach ($shippingProperties as $shippingProperty){
                 if($shippingProperty['name'] === 'Delivery Date'){
@@ -176,10 +180,10 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 ]);
                 SalesOrderLine::create([
                     'product_id' => $product->id,
-                    'quantity' => $shopifyLineItem['fulfillable_quantity'],
+                    'quantity' => $shopifyLineItem['fulfillable_quantity'] ? $shopifyLineItem['fulfillable_quantity'] : 1,
                     'measurement_id' => 1,
                     'unit_price' => $shopifyLineItem['price'],
-                    'subtotal' => $shopifyLineItem['price'] * $shopifyLineItem['fulfillable_quantity'],
+                    'subtotal' => $shopifyLineItem['price'] * ($shopifyLineItem['fulfillable_quantity'] ? $shopifyLineItem['fulfillable_quantity'] : 1),
                     'sales_order_id' => $salesOrder->id,
                     'created_at' => $salesOrder->created_at,
                     'updated_at' => $salesOrder->updated_at,
