@@ -92,10 +92,10 @@ class SalesOrderController
             'salesperson' => auth()->user(),
             'status' => SalesOrder::DRAFT,
         ];
-
-        if ($request->source_id) {
-            $initialValues['source_id'] = $request->source_id;
-            $initialValues['source'] = Source::find($request->source_id);
+        $sourceId = (int)$request->source_id;
+        if ($sourceId) {
+            $initialValues['source_id'] = $sourceId;
+            $initialValues['source'] = Source::find($sourceId);
         }
 
         return $initialValues;
