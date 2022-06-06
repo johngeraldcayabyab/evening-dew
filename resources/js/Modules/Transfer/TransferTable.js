@@ -11,6 +11,7 @@ import {Tag} from "antd";
 import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
+import {SEARCH} from "../../consts";
 
 const TransferTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -25,7 +26,7 @@ const TransferTable = () => {
                     dataIndex: 'reference',
                     key: 'reference',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         return <Text strong><span style={{fontSize: '12px'}}>{record.reference}</span></Text>
                     }
@@ -35,7 +36,7 @@ const TransferTable = () => {
                     dataIndex: 'source_location',
                     key: 'source_location',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         if (record.source_location) {
                             return record.source_location.parents;
@@ -48,7 +49,7 @@ const TransferTable = () => {
                     dataIndex: 'destination_location',
                     key: 'destination_location',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         if (record.destination_location) {
                             return record.destination_location.parents;
@@ -61,7 +62,7 @@ const TransferTable = () => {
                     dataIndex: 'contact',
                     key: 'contact',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         if (record.contact) {
                             return record.contact.name;
@@ -74,7 +75,7 @@ const TransferTable = () => {
                     dataIndex: 'scheduled_date_human',
                     key: 'scheduled_date_human',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         if (record.status !== 'done') {
                             if (record.scheduled_date_human.includes('ago')) {
@@ -93,14 +94,14 @@ const TransferTable = () => {
                     dataIndex: 'source_document',
                     key: 'source_document',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Status',
                     dataIndex: 'status',
                     key: 'status',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         const color = {draft: 'processing', done: 'success', cancelled: 'default'};
                         return <Tag color={color[record.status]}>{record.status.toUpperCase()}</Tag>

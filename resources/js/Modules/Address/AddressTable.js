@@ -9,6 +9,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import TableSearchInput from "../../Components/TableSearchInput";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
+import {SEARCH} from "../../consts";
 
 const AddressTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -23,28 +24,28 @@ const AddressTable = () => {
                     dataIndex: 'address_name',
                     key: 'address_name',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Address',
                     dataIndex: 'address',
                     key: 'address',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Type',
                     dataIndex: 'type',
                     key: 'type',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Country',
                     dataIndex: 'country',
                     key: 'country',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         if (record.country) {
                             return record.country.country_name;
@@ -57,7 +58,7 @@ const AddressTable = () => {
                     dataIndex: 'city',
                     key: 'city',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         if (record.city) {
                             return record.city.name;

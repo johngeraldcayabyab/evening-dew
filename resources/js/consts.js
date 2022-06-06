@@ -7,3 +7,4 @@ export const UPDATE = 'update';
 export const LIST = '';
 export const TABLE = 'table';
 export const KANBAN = 'kanban';
+export const SEARCH = 'search';

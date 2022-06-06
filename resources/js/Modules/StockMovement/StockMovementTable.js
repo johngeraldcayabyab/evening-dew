@@ -9,6 +9,7 @@ import TableSearchInput from "../../Components/TableSearchInput";
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
+import {SEARCH} from "../../consts";
 
 const StockMovementTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -23,21 +24,21 @@ const StockMovementTable = () => {
                     dataIndex: 'reference',
                     key: 'reference',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Source',
                     dataIndex: 'source',
                     key: 'source',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Product',
                     dataIndex: 'product',
                     key: 'product',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         if (record.product) {
                             return record.product.name;
@@ -50,7 +51,7 @@ const StockMovementTable = () => {
                     dataIndex: 'source_location',
                     key: 'source_location',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         if (record.source_location) {
                             return record.source_location.parents;
@@ -63,7 +64,7 @@ const StockMovementTable = () => {
                     dataIndex: 'destination_location',
                     key: 'destination_location',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         if (record.destination_location) {
                             return record.destination_location.parents;
@@ -76,7 +77,7 @@ const StockMovementTable = () => {
                     dataIndex: 'quantity_done',
                     key: 'quantity_done',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Created At',
