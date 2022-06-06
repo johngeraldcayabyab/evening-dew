@@ -70,6 +70,13 @@ const SalesOrderTable = () => {
                     filter: SEARCH,
                 },
                 {
+                    title: 'Expected shipping date',
+                    dataIndex: 'expected_shipping_date',
+                    key: 'expected_shipping_date',
+                    sorter: true,
+                    filter: DATE_RANGE,
+                },
+                {
                     title: 'Created At',
                     dataIndex: 'created_at',
                     key: 'created_at',

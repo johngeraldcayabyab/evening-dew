@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Data\SystemSetting;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use ReflectionClass;
@@ -66,8 +67,11 @@ trait FilterTrait
         if ($field === 'id') {
             return $query->where($field, $value);
         }
-        if ($field === 'created_at' || $field === 'updated_at' || $field === 'deleted_at') {
-            return $query->whereBetween($field, explode(',', $value));
+        if ($field === 'created_at' || $field === 'updated_at' || $field === 'deleted_at' || Str::contains($field, '_date')) {
+            $dateRange = explode(',', $value);
+            $from = Carbon::parse($dateRange[0]);
+            $to = Carbon::parse($dateRange[1]);
+            return $query->whereBetween($field, [$from, $to]);
         }
         return $query->where($field, 'like', "%$value%");
     }
