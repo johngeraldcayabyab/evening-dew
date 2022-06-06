@@ -3,7 +3,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
 import {TableContext} from "../Contexts/TableContext";
-import FilterDropdown from "./TableButtons/FilterDropdown";
+import FilterDropdown from "./TableFilters/FilterDropdown";
 import {getAllUrlParams} from "../Helpers/url";
 
 const CustomTable = () => {
@@ -44,7 +44,7 @@ const CustomTable = () => {
         return {
             filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
                 <FilterDropdown
-                    props={dataIndex}
+                    dataIndex={dataIndex}
                     setSelectedKeys={setSelectedKeys}
                     selectedKeys={selectedKeys}
                     confirm={confirm}

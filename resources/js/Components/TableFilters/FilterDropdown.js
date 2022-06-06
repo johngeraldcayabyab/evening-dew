@@ -1,11 +1,12 @@
 import {Button, Input, Space} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
+import {replaceUnderscoreWithSpace, titleCase} from "../../Helpers/string";
 
 const FilterDropdown = (props) => {
     return (
         <div style={{padding: 8}}>
             <Input
-                placeholder={`Search ${props.dataIndex}`}
+                placeholder={`Search ${titleCase(replaceUnderscoreWithSpace(props.dataIndex))}`}
                 value={props.selectedKeys}
                 onChange={e => props.setSelectedKeys(e.target.value ? e.target.value : null)}
                 onPressEnter={() => {
