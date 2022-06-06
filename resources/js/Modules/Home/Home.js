@@ -1,18 +1,12 @@
-import {DualAxes} from "@ant-design/charts";
-import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
-import FormButtons from "../../Components/FormButtons/FormButtons";
+import {Column} from "@ant-design/charts";
 import ControlPanel from "../../Components/ControlPanel";
 import {Link} from "react-router-dom";
-import {setClickedBreadcrumb} from "../../Helpers/breadcrumbs";
 import Title from "antd/lib/typography/Title";
-import RowForm from "../../Components/Grid/RowForm";
-import ColForm from "../../Components/Grid/ColForm";
 import {useEffect, useState} from "react";
 import useFetchHook from "../../Hooks/useFetchHook";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {GET} from "../../consts";
-import {setUser} from "../../Helpers/user_helpers";
-import {Skeleton, Spin} from "antd";
+import {Card, Col, Row} from "antd";
 
 const Home = () => {
     const useFetch = useFetchHook();
@@ -25,9 +19,14 @@ const Home = () => {
 
     useEffect(() => {
         useFetch(`/api/sales_orders/sales_per_day`, GET).then((response) => {
+            const salesPerDay = response.map((sales) => ({
+                time: sales.time,
+                total: parseInt(sales.total)
+            }));
+            console.log(salesPerDay);
             setState((prevState) => ({
                 ...prevState,
-                salesPerDay: response,
+                salesPerDay: salesPerDay,
                 salesPerDayLoading: false,
             }));
         }).catch((responseErr) => {
@@ -35,31 +34,31 @@ const Home = () => {
         });
     }, []);
 
-    const data = [
-        {
-            time: '2022-06-04',
-            total: 41245,
-        },
-        {
-            time: '2022-06-05',
-            total: 32360,
-        },
-    ];
-
     const config = {
-        data: [state.salesPerDay, state.salesPerDay],
+        data: state.salesPerDay,
         xField: 'time',
-        yField: ['total'],
-        geometryOptions: [
-            {
-                geometry: 'column',
-                color: '#5B8FF9',
-                columnWidthRatio: 0.4,
-                label: {
-                    position: 'middle',
-                },
+        yField: 'total',
+        label: {
+            position: 'middle',
+            style: {
+                fill: '#FFFFFF',
+                opacity: 0.6,
             },
-        ],
+        },
+        xAxis: {
+            label: {
+                autoHide: true,
+                autoRotate: false,
+            },
+        },
+        meta: {
+            time: {
+                alias: 'Time',
+            },
+            total: {
+                alias: 'Total',
+            },
+        },
     };
 
     return (
@@ -73,11 +72,21 @@ const Home = () => {
                     </Title>
                 }
             />
-            <RowForm>
-                <ColForm>
-                    <DualAxes {...config} />
-                </ColForm>
-            </RowForm>
+
+            <Row align={'middle'} style={{marginTop: '15px'}}>
+                <Col span={12}>
+                    <Card
+                        title="Sales Per Day"
+                        style={{margin: '5%', padding: '15px'}}
+                    >
+                        <Column {...config} />
+                    </Card>
+                </Col>
+                <Col span={12}>
+
+                </Col>
+            </Row>
+
 
         </>
     );
