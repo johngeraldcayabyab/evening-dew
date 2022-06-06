@@ -97,8 +97,13 @@ const CustomBreadcrumb = () => {
     }
 
     return (
-        <Breadcrumb>
-            {state.breadcrumbs.map((breadcrumb) => {
+        <Breadcrumb style={{
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            direction: 'rtl',
+            textAlign: 'left',
+        }}>
+            {state.breadcrumbs.slice().reverse().map((breadcrumb) => {
                 return (
                     <Breadcrumb.Item key={breadcrumb.key}>
                         <Title level={5} style={{display: 'inline-block'}}>
