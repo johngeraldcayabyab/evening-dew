@@ -9,6 +9,7 @@ import TableSearchInput from "../../Components/TableSearchInput";
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
+import {SEARCH} from "../../consts";
 
 const MenuTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -23,14 +24,14 @@ const MenuTable = () => {
                     dataIndex: 'label',
                     key: 'label',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Url',
                     dataIndex: 'url',
                     key: 'url',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Created At',

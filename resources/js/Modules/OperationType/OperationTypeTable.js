@@ -9,6 +9,7 @@ import TableSearchInput from "../../Components/TableSearchInput";
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
+import {SEARCH} from "../../consts";
 
 const OperationTypeTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -23,14 +24,14 @@ const OperationTypeTable = () => {
                     dataIndex: 'name',
                     key: 'name',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Warehouse',
                     dataIndex: 'warehouse',
                     key: 'warehouse',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         if (record.warehouse) {
                             return record.warehouse.name;
@@ -43,7 +44,7 @@ const OperationTypeTable = () => {
                     dataIndex: 'reference_sequence',
                     key: 'reference_sequence',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         if (record.reference_sequence) {
                             return record.reference_sequence.name;

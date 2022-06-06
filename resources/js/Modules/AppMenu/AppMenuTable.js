@@ -9,6 +9,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import TableSearchInput from "../../Components/TableSearchInput";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
+import {SEARCH} from "../../consts";
 
 const AppMenuTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -23,7 +24,7 @@ const AppMenuTable = () => {
                     dataIndex: 'parents',
                     key: 'label',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Created At',

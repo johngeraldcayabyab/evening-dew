@@ -9,6 +9,7 @@ import TableSearchInput from "../../Components/TableSearchInput";
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
+import {SEARCH} from "../../consts";
 
 const SequenceTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -23,56 +24,56 @@ const SequenceTable = () => {
                     dataIndex: 'name',
                     key: 'name',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Sequence Code',
                     dataIndex: 'sequence_code',
                     key: 'sequence_code',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Implementation',
                     dataIndex: 'implementation',
                     key: 'implementation',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Prefix',
                     dataIndex: 'prefix',
                     key: 'prefix',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Suffix',
                     dataIndex: 'suffix',
                     key: 'suffix',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Sequence Size',
                     dataIndex: 'sequence_size',
                     key: 'sequence_size',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Step',
                     dataIndex: 'step',
                     key: 'step',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Next Number',
                     dataIndex: 'next_number',
                     key: 'next_number',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Created At',

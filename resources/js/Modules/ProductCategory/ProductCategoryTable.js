@@ -9,6 +9,7 @@ import TableSearchInput from "../../Components/TableSearchInput";
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
+import {SEARCH} from "../../consts";
 
 const ProductCategoryTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -23,7 +24,7 @@ const ProductCategoryTable = () => {
                     dataIndex: 'parents',
                     key: 'category',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Created At',

@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Data\SystemSetting;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use ReflectionClass;
@@ -61,16 +62,27 @@ trait FilterTrait
 
     public function scopeFilter($query, $filter)
     {
-        if ($filter[0] === 'id') {
-            return $query->where($filter[0], $filter[1]);
+        $field = $filter[0];
+        $value = $filter[1];
+        if ($field === 'id') {
+            return $query->where($field, $value);
         }
-        return $query->where($filter[0], 'like', "%$filter[1]%");
+        if ($field === 'created_at' || $field === 'updated_at' || $field === 'deleted_at' || Str::contains($field, '_date')) {
+            $dateRange = explode(',', $value);
+            $from = Carbon::parse($dateRange[0]);
+            $to = Carbon::parse($dateRange[1]);
+            return $query->whereBetween($field, [$from, $to]);
+        }
+        return $query->where($field, 'like', "%$value%");
     }
 
     public function scopeFilterHas($query, $filter)
     {
-        return $query->whereHas($filter[0], function ($query) use ($filter) {
-            return $query->where($filter[1], 'like', "%$filter[2]%");
+        $relationship = $filter[0];
+        $field = $filter[1];
+        $value = $filter[2];
+        return $query->whereHas($relationship, function ($query) use ($field, $value) {
+            return $query->where($field, 'like', "%$value%");
         });
     }
 

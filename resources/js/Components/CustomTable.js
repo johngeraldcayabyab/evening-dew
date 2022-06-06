@@ -3,8 +3,10 @@ import React, {useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
 import {TableContext} from "../Contexts/TableContext";
-import FilterDropdown from "./TableButtons/FilterDropdown";
+import SearchFilter from "./TableFilters/SearchFilter";
 import {getAllUrlParams} from "../Helpers/url";
+import {DATE_RANGE, SEARCH} from "../consts";
+import DateRangeFilter from "./TableFilters/DateRangeFilter";
 
 const CustomTable = () => {
     const listContext = useContext(TableContext);
@@ -22,8 +24,11 @@ const CustomTable = () => {
     useEffect(() => {
         const selectedFields = [];
         const columns = state.columns.map((column) => {
-            if (column.hasOwnProperty('searchFilter')) {
-                column = {...column, ...getColumnSearchProps(column.dataIndex)};
+            if (column.hasOwnProperty('filter')) {
+                const filterType = generateColumnFilterByType(column.dataIndex, column.filter);
+                if (filterType) {
+                    column = {...column, ...filterType};
+                }
             }
             if (!column.hasOwnProperty('hidden')) {
                 selectedFields.push(column.dataIndex);
@@ -40,19 +45,40 @@ const CustomTable = () => {
         listContext.tableActions.renderData(urlParams);
     }, []);
 
-    function getColumnSearchProps(dataIndex) {
-        return {
-            filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
-                <FilterDropdown
-                    props={dataIndex}
-                    setSelectedKeys={setSelectedKeys}
-                    selectedKeys={selectedKeys}
-                    confirm={confirm}
-                    clearFilters={clearFilters}
-                />
-            ),
-            filterIcon: filtered => <SearchOutlined style={{color: filtered ? '#1890ff' : undefined}}/>,
+    function generateColumnFilterByType(dataIndex, filterType) {
+        if (filterType === SEARCH) {
+            return {
+                filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => {
+                    return (
+                        <SearchFilter
+                            dataIndex={dataIndex}
+                            setSelectedKeys={setSelectedKeys}
+                            selectedKeys={selectedKeys}
+                            confirm={confirm}
+                            clearFilters={clearFilters}
+                        />
+                    )
+                },
+                filterIcon: filtered => <SearchOutlined style={{color: filtered ? '#1890ff' : undefined}}/>,
+            }
         }
+        if (filterType === DATE_RANGE) {
+            return {
+                filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => {
+                    return (
+                        <DateRangeFilter
+                            dataIndex={dataIndex}
+                            setSelectedKeys={setSelectedKeys}
+                            selectedKeys={selectedKeys}
+                            confirm={confirm}
+                            clearFilters={clearFilters}
+                        />
+                    )
+                },
+                filterIcon: filtered => <SearchOutlined style={{color: filtered ? '#1890ff' : undefined}}/>,
+            }
+        }
+        return null;
     }
 
     function onRow(record, rowIndex) {

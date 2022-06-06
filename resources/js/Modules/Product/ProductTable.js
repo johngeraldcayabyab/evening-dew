@@ -12,7 +12,7 @@ import Cardination from "../../Components/Cardination";
 import KanbanTablePicker from "../../Components/KanbanTablePicker";
 import {Col, Row} from "antd";
 import CustomTable from "../../Components/CustomTable";
-import {KANBAN, TABLE} from "../../consts";
+import {KANBAN, SEARCH, TABLE} from "../../consts";
 
 const ProductTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -32,35 +32,35 @@ const ProductTable = () => {
                     dataIndex: 'name',
                     key: 'name',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Internal Reference',
                     dataIndex: 'internal_reference',
                     key: 'internal_reference',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Sales Price',
                     dataIndex: 'sales_price',
                     key: 'sales_price',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Cost',
                     dataIndex: 'cost',
                     key: 'cost',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Measurement',
                     dataIndex: 'measurement',
                     key: 'measurement',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         return record.measurement.name;
                     }
@@ -70,7 +70,7 @@ const ProductTable = () => {
                     dataIndex: 'product_category',
                     key: 'product_category',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         return record.product_category.category;
                     }
@@ -80,7 +80,7 @@ const ProductTable = () => {
                     dataIndex: 'quantity',
                     key: 'quantity',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Created At',

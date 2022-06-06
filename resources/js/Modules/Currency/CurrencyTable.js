@@ -9,6 +9,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import TableSearchInput from "../../Components/TableSearchInput";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
+import {SEARCH} from "../../consts";
 
 const CurrencyTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -23,21 +24,21 @@ const CurrencyTable = () => {
                     dataIndex: 'currency',
                     key: 'currency',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Symbol',
                     dataIndex: 'symbol',
                     key: 'symbol',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Name',
                     dataIndex: 'name',
                     key: 'name',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Created At',

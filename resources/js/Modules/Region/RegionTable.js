@@ -9,6 +9,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import TableSearchInput from "../../Components/TableSearchInput";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
+import {SEARCH} from "../../consts";
 
 const RegionTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -23,21 +24,21 @@ const RegionTable = () => {
                     dataIndex: 'region',
                     key: 'region',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Region Center',
                     dataIndex: 'region_center',
                     key: 'region_center',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Country',
                     dataIndex: 'country',
                     key: 'country',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         if (record.country) {
                             return record.country.country_name;

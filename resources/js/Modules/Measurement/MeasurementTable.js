@@ -9,6 +9,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import TableSearchInput from "../../Components/TableSearchInput";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
+import {SEARCH} from "../../consts";
 
 const MeasurementTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -23,35 +24,35 @@ const MeasurementTable = () => {
                     dataIndex: 'name',
                     key: 'name',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Type',
                     dataIndex: 'type',
                     key: 'type',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Ratio',
                     dataIndex: 'ratio',
                     key: 'ratio',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Rounding Precision',
                     dataIndex: 'rounding_precision',
                     key: 'rounding_precision',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Category',
                     dataIndex: 'measurement_category',
                     key: 'measurement_category',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         return record.measurement_category.name;
                     }
