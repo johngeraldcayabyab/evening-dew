@@ -12,10 +12,11 @@ const DateRangeFilter = (props) => {
         <div style={{padding: 8}}>
             <RangePicker
                 onChange={e => {
-                    console.log(e[0].format(dateFormat));
-                    console.log(e[1].format(dateFormat));
-                    // console.log(e);
+                    const date1 = e[0].format(dateFormat);
+                    const date2 = e[1].format(dateFormat);
+                    return props.setSelectedKeys(`${date1},${date2}`);
                 }}
+                style={{marginBottom: 8, display: 'block'}}
                 // defaultValue={[moment('2015/01/01', dateFormat), moment('2015/01/01', dateFormat)]}
                 format={dateFormat}
             />

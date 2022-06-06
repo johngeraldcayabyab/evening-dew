@@ -12,7 +12,7 @@ const SearchFilter = (props) => {
                 onPressEnter={() => {
                     props.confirm();
                 }}
-                style={{marginBottom: 8, display: 'block'}}
+                // style={{marginBottom: 8, display: 'block'}}
             />
             <Space>
                 <Button
