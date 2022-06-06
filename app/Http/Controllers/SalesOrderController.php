@@ -28,10 +28,11 @@ class SalesOrderController
         $model = new SalesOrder();
         if ($request->same_day) {
             $today = Carbon::today()->format('Y-m-d');
-            $request->shipping_date = $today;
-            $request->quotation_date = $today;
-//            $model = $model->where('shipping_date', '>=', Carbon::today());
-//            $model = $model->where('quotation_date', '>=', Carbon::today());
+            $from = $today . " 00:00:00";
+            $to = $today . " 23:59:59";
+            $date = "{$from},{$to}";
+            $request->shipping_date = $date;
+            $request->quotation_date = $date;
         }
         $model = $model->filterAndOrder($request);
 
