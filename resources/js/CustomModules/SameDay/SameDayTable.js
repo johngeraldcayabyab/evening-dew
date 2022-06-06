@@ -11,6 +11,7 @@ import {Tag} from "antd";
 import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
+import {DATE_RANGE, SEARCH} from "../../consts";
 
 const SameDayTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -25,7 +26,7 @@ const SameDayTable = () => {
                     dataIndex: 'number',
                     key: 'number',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         return <Text strong><span style={{fontSize: '12px'}}>{record.number}</span></Text>
                     }
@@ -35,7 +36,7 @@ const SameDayTable = () => {
                     dataIndex: 'customer',
                     key: 'customer',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         return record.customer.name;
                     }
@@ -45,7 +46,7 @@ const SameDayTable = () => {
                     dataIndex: 'salesperson',
                     key: 'salesperson',
                     sorter: true,
-                    searchFilter: true,
+                    filter: SEARCH,
                     render: (text, record) => {
                         return record.salesperson.name;
                     }
@@ -55,12 +56,14 @@ const SameDayTable = () => {
                     dataIndex: 'expected_shipping_date',
                     key: 'expected_shipping_date',
                     sorter: true,
+                    filter: DATE_RANGE,
                 },
                 {
                     title: 'Quotation Date',
                     dataIndex: 'quotation_date',
                     key: 'quotation_date',
                     sorter: true,
+                    filter: DATE_RANGE,
                 },
             ]
         }}>
