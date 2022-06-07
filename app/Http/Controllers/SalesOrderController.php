@@ -117,7 +117,7 @@ class SalesOrderController
     public function sales_per_day(Request $request)
     {
         $from = Carbon::parse('2022-06-03 00:00:00');
-        $to = Carbon::parse('2022-06-06 23:59:59');
+        $to = Carbon::parse(now()->endOfDay()->format(SystemSetting::DATE_TIME_FORMAT));
         $salesPerDay = DB::table('sales_orders')
             ->selectRaw('DATE(quotation_date) as time, SUM(subtotal) as total')
             ->whereBetween('quotation_date', [$from, $to])
