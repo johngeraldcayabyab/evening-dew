@@ -69,10 +69,10 @@ Route::group(['middleware' => ['api', 'cors']], function () {
     (new RouteGenerator(DeliveryFee::class))::generate(DeliveryFeeController::class);
     (new RouteGenerator(GlobalSetting::class))::generate(GlobalSettingController::class);
     (new RouteGenerator(Location::class))::generate(LocationController::class);
-    Route::post('/tokens/create', [LoginController::class, 'tokensCreate'])->name('csrf');
-    Route::post('/sanctum/token', [LoginController::class, 'authenticate'])->name('login');
+    Route::post('/tokens/create', [LoginController::class, 'tokensCreate'])->name('auth.csrf');
+    Route::post('/sanctum/token', [LoginController::class, 'authenticate'])->name('auth.login');
     Route::middleware('auth:sanctum')->group(function () {
-        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+        Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
     });
     (new RouteGenerator(Material::class))::generate(MaterialController::class);
     (new RouteGenerator(MeasurementCategory::class))::generate(MeasurementCategoryController::class);
