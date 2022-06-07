@@ -16,37 +16,38 @@ trait FilterTrait
 {
     public function filterAndOrder($request)
     {
+        $selectedFields = explode(',', $request->selected_fields);
         $model = $this;
         $modelClone = $this;
-        $fields = $model->getFields();
-        foreach ($fields as $field) {
-            if ($request->$field) {
-                if (method_exists($modelClone, Str::camel($field))) {
-                    $has = Str::camel($field);
+        $modelFields = $model->getFields();
+        foreach ($selectedFields as $selectedField) {
+            if ($this->isModelMethod($modelClone, $selectedField)) {
+                $selectedFields[] = $selectedField . "_id";
+            }
+        }
+        $selectedFields[] = 'id';
+        foreach ($modelFields as $modelField) {
+            $requestField = $request->$modelField;
+            if ($requestField) {
+                if ($this->isModelMethod($modelClone, $requestField)) {
+                    $has = Str::camel($requestField);
                     $related = $modelClone->$has()->getRelated();
-                    $relatedField = $related->slug();
-                    if (Str::contains($relatedField, 'parent')) {
-                        $relatedField = explode('.', $relatedField)[1];
-                    }
-                    $model = $model->filterHas([$has, $relatedField, $request->$field]);
+                    $relatedField = $this->isRelationship($related->slug());
+                    $model = $model->filterHas([$has, $relatedField, $requestField]);
                 } else {
-                    $model = $model->filter([$field, $request->$field]);
+                    $model = $model->filter([$modelField, $requestField]);
                 }
             }
         }
         if ($request->orderByColumn && $request->orderByDirection) {
-            if (method_exists($modelClone, Str::camel($request->orderByColumn))) {
-                $field = $request->orderByColumn;
-                $field = Str::camel($field);
-                $related = $modelClone->$field()->getRelated();
-                $relatedField = $related->slug();
-                if (Str::contains($relatedField, 'parent')) {
-                    $relatedField = explode('.', $relatedField)[1];
-                }
-                $shing = $related->getTable() . '.id';
+            if ($this->isModelMethod($modelClone, $request->orderByColumn)) {
+                $has = Str::camel($request->orderByColumn);
+                $related = $modelClone->$has()->getRelated();
+                $relatedField = $this->isRelationship($related->slug());
+                $hasId = $related->getTable() . '.id';
                 $parentTable = $this->getTable();
-                $foreignKey = $modelClone->$field()->getForeignKeyName();
-                $model = $model->orderBy($related::select($relatedField)->whereColumn($shing, "$parentTable.$foreignKey"), $request->orderByDirection);
+                $foreignKey = $modelClone->$has()->getForeignKeyName();
+                $model = $model->orderBy($related::select($relatedField)->whereColumn($hasId, "{$parentTable}.{$foreignKey}"), $request->orderByDirection);
             } else {
                 $model = $model->order([$request->orderByColumn, $request->orderByDirection]);
             }
@@ -56,6 +57,10 @@ trait FilterTrait
         $pageSize = SystemSetting::PAGE_SIZE;
         if ($request->page_size) {
             $pageSize = $request->page_size;
+        }
+        if (is_array($selectedFields) && count($selectedFields)) {
+            // logic goes here supposedly
+            return $model->paginate($pageSize);
         }
         return $model->paginate($pageSize);
     }
@@ -101,5 +106,21 @@ trait FilterTrait
             }
         }
         return $fields;
+    }
+
+    private function isRelationship($relatedField)
+    {
+        if (Str::contains($relatedField, 'parent')) {
+            $relatedField = explode('.', $relatedField)[1];
+        }
+        return $relatedField;
+    }
+
+    private function isModelMethod($model, $string)
+    {
+        if (method_exists($model, Str::camel($string))) {
+            return true;
+        }
+        return false;
     }
 }

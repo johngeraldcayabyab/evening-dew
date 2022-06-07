@@ -92,14 +92,14 @@ ssh "${HOST_NAME}" "cd /opt/bitnami/projects/${HOST_NAME}; /opt/bitnami/php/bin/
 ssh "${HOST_NAME}" "cd /opt/bitnami/projects/${HOST_NAME}; /opt/bitnami/php/bin/php artisan view:clear"
 ssh "${HOST_NAME}" "cd /opt/bitnami/projects/${HOST_NAME}; /opt/bitnami/php/bin/php artisan event:clear"
 
-ssh "${HOST_NAME}" "cd /opt/bitnami/projects/${HOST_NAME}; /opt/bitnami/php/bin/php /opt/bitnami/php/bin/composer dump-autoload -o"
 
-ssh "${HOST_NAME}" "cd /opt/bitnami/projects/${HOST_NAME}; /opt/bitnami/php/bin/php artisan optimize"
 ssh "${HOST_NAME}" "cd /opt/bitnami/projects/${HOST_NAME}; /opt/bitnami/php/bin/php artisan config:cache"
 ssh "${HOST_NAME}" "cd /opt/bitnami/projects/${HOST_NAME}; /opt/bitnami/php/bin/php artisan route:cache"
 ssh "${HOST_NAME}" "cd /opt/bitnami/projects/${HOST_NAME}; /opt/bitnami/php/bin/php artisan view:cache"
 ssh "${HOST_NAME}" "cd /opt/bitnami/projects/${HOST_NAME}; /opt/bitnami/php/bin/php artisan event:cache"
 ssh "${HOST_NAME}" "cd /opt/bitnami/projects/${HOST_NAME}; /opt/bitnami/php/bin/php artisan storage:link"
+ssh "${HOST_NAME}" "cd /opt/bitnami/projects/${HOST_NAME}; /opt/bitnami/php/bin/php artisan optimize"
+ssh "${HOST_NAME}" "cd /opt/bitnami/projects/${HOST_NAME}; /opt/bitnami/php/bin/php /opt/bitnami/php/bin/composer dump-autoload -o"
 ssh "${HOST_NAME}" "cd /opt/bitnami/projects/${HOST_NAME}; /opt/bitnami/php/bin/php artisan migrate --no-interaction --force"
 
 ssh "${HOST_NAME}" "sudo /opt/bitnami/ctlscript.sh restart php-fpm"

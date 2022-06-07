@@ -90,6 +90,7 @@ const ProductTable = () => {
                 },
             ],
             kanban: {
+                selected_fields: ['name', 'avatar', 'internal_reference', 'sales_price', 'quantity', 'measurement'],
                 title: 'name',
                 avatar: 'avatar',
                 description: [
