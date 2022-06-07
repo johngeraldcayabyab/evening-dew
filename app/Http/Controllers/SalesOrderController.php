@@ -48,7 +48,7 @@ class SalesOrderController
         if ($salesOrder->status === SalesOrder::DONE) {
             SalesOrderValidatedEvent::dispatch($salesOrder);
         }
-        return response()->json([], STATUS_CREATE, $this->locationHeader($salesOrder));
+        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader($salesOrder));
     }
 
     public function update(SalesOrderRequest $request, SalesOrder $salesOrder): JsonResponse
@@ -66,19 +66,19 @@ class SalesOrderController
         if ($salesOrder->status === SalesOrder::DONE) {
             SalesOrderValidatedEvent::dispatch($salesOrder);
         }
-        return response()->json([], STATUS_UPDATE);
+        return response()->json([], SystemSetting::STATUS_UPDATE);
     }
 
     public function destroy(SalesOrder $salesOrder): JsonResponse
     {
         $salesOrder->delete();
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new SalesOrder(), $request);
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function initial_values(Request $request)
@@ -106,7 +106,7 @@ class SalesOrderController
     public function sales_per_day(Request $request)
     {
         $from = Carbon::parse('2022-06-03 00:00:00');
-        $to = Carbon::parse('2022-06-06 23:59:59');
+        $to = Carbon::parse(now()->endOfDay()->format(SystemSetting::DATE_TIME_FORMAT));
         $salesPerDay = DB::table('sales_orders')
             ->selectRaw('DATE(quotation_date) as time, SUM(subtotal) as total')
             ->whereBetween('quotation_date', [$from, $to])

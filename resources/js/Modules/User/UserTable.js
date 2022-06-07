@@ -49,6 +49,7 @@ const UserTable = () => {
                 },
             ],
             kanban: {
+                selected_fields: ['name', 'avatar', 'email'],
                 title: 'name',
                 avatar: 'avatar',
                 description: [

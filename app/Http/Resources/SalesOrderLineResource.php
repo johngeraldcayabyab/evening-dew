@@ -19,8 +19,8 @@ class SalesOrderLineResource extends JsonResource
             'unit_price' => $this->unit_price,
             'subtotal' => $this->subtotal,
             'sales_order_id' => $this->sales_order_id,
-            'product' => new ProductResource($this->product),
-            'measurement' => new MeasurementResource($this->measurement),
+            'product' => $this->product,
+            'measurement' => $this->measurement,
         ]);
     }
 }

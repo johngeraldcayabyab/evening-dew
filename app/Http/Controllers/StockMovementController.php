@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\SystemSetting;
 use App\Http\Requests\StockMovementRequest;
 use App\Http\Resources\StockMovementResource;
 use App\Models\StockMovement;
@@ -28,24 +29,24 @@ class StockMovementController
 
     public function store(StockMovementRequest $request): JsonResponse
     {
-        return response()->json([], STATUS_CREATE, $this->locationHeader(StockMovement::create($request->validated())));
+        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(StockMovement::create($request->validated())));
     }
 
     public function update(StockMovementRequest $request, StockMovement $stockMovement): JsonResponse
     {
         $stockMovement->update($request->validated());
-        return response()->json([], STATUS_UPDATE);
+        return response()->json([], SystemSetting::STATUS_UPDATE);
     }
 
     public function destroy(StockMovement $stockMovement): JsonResponse
     {
         $stockMovement->delete();
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new StockMovement(), $request);
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 }
