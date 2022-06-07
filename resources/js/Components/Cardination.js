@@ -20,7 +20,7 @@ const Cardination = () => {
     }, []);
 
     useEffect(() => {
-        const selectedFields = [];
+        const selectedFields = listContext.kanban.selected_fields;
         const urlParams = getAllUrlParams();
         urlParams.selected_fields = selectedFields;
         listContext.tableActions.renderData(urlParams);
