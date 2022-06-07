@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\SystemSetting;
 use App\Http\Requests\SequenceRequest;
 use App\Http\Resources\SequenceResource;
 use App\Models\Sequence;
@@ -28,25 +29,25 @@ class SequenceController
 
     public function store(SequenceRequest $request): JsonResponse
     {
-        return response()->json([], STATUS_CREATE, $this->locationHeader(Sequence::create($request->validated())));
+        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(Sequence::create($request->validated())));
     }
 
     public function update(SequenceRequest $request, Sequence $sequence): JsonResponse
     {
         $sequence->update($request->validated());
-        return response()->json([], STATUS_UPDATE);
+        return response()->json([], SystemSetting::STATUS_UPDATE);
     }
 
     public function destroy(Sequence $sequence): JsonResponse
     {
         $sequence->delete();
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new Sequence(), $request);
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function initial_values()

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\SystemSetting;
 use App\Events\ContactCreatedEvent;
 use App\Events\ContactUpdatedEvent;
 use App\Http\Requests\ContactRequest;
@@ -36,7 +37,7 @@ class ContactController
         $contactData = Arr::only($data, (new Contact())->getFields());
         $contact = Contact::create($contactData);
         ContactCreatedEvent::dispatch($contact, $data);
-        return response()->json([], STATUS_CREATE, $this->locationHeader($contact));
+        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader($contact));
     }
 
     public function update(ContactRequest $request, Contact $contact): JsonResponse
@@ -45,19 +46,19 @@ class ContactController
         $contactData = Arr::only($data, (new Contact())->getFields());
         $contact->update($contactData);
         ContactUpdatedEvent::dispatch($contact, $data);
-        return response()->json([], STATUS_UPDATE);
+        return response()->json([], SystemSetting::STATUS_UPDATE);
     }
 
     public function destroy(Contact $contact): JsonResponse
     {
         $contact->delete();
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new Contact(), $request);
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function initial_values()

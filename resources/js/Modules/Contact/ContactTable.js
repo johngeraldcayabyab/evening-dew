@@ -56,6 +56,7 @@ const ContactTable = () => {
                 }
             ],
             kanban: {
+                selected_fields: ['name', 'avatar', 'phone', 'email'],
                 title: 'name',
                 avatar: 'avatar',
                 description: [

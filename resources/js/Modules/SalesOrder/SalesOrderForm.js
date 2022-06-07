@@ -29,6 +29,7 @@ import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
 
 const {TabPane} = Tabs;
 
@@ -298,7 +299,7 @@ const SalesOrderForm = () => {
                                 label={'Source document'}
                                 name={'source_document'}
                             />
-                            <FormItemText
+                            <FormItemTextArea
                                 label={'Notes'}
                                 name={'notes'}
                             />

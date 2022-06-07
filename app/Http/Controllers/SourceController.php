@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\SystemSetting;
 use App\Http\Requests\SourceRequest;
 use App\Http\Resources\SourceResource;
 use App\Models\Source;
@@ -28,24 +29,24 @@ class SourceController extends Controller
 
     public function store(SourceRequest $request): JsonResponse
     {
-        return response()->json([], STATUS_CREATE, $this->locationHeader(Source::create($request->validated())));
+        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(Source::create($request->validated())));
     }
 
     public function update(SourceRequest $request, Source $source): JsonResponse
     {
         $source->update($request->validated());
-        return response()->json([], STATUS_UPDATE);
+        return response()->json([], SystemSetting::STATUS_UPDATE);
     }
 
     public function destroy(Source $source): JsonResponse
     {
         $source->delete();
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new Source(), $request);
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 }
