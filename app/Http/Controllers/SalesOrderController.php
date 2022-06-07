@@ -57,7 +57,7 @@ class SalesOrderController
         if ($salesOrder->status === SalesOrder::DONE) {
             SalesOrderValidatedEvent::dispatch($salesOrder);
         }
-        return response()->json([], STATUS_CREATE, $this->locationHeader($salesOrder));
+        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader($salesOrder));
     }
 
     public function update(SalesOrderRequest $request, SalesOrder $salesOrder): JsonResponse
@@ -75,19 +75,19 @@ class SalesOrderController
         if ($salesOrder->status === SalesOrder::DONE) {
             SalesOrderValidatedEvent::dispatch($salesOrder);
         }
-        return response()->json([], STATUS_UPDATE);
+        return response()->json([], SystemSetting::STATUS_UPDATE);
     }
 
     public function destroy(SalesOrder $salesOrder): JsonResponse
     {
         $salesOrder->delete();
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new SalesOrder(), $request);
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function initial_values(Request $request)
