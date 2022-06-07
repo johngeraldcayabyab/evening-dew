@@ -43,7 +43,7 @@ class TransferController
         if ($transfer->status === Transfer::DONE) {
             TransferValidatedEvent::dispatch($transfer);
         }
-        return response()->json([], STATUS_CREATE, $this->locationHeader($transfer));
+        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader($transfer));
     }
 
     public function update(TransferRequest $request, Transfer $transfer): JsonResponse
@@ -62,19 +62,19 @@ class TransferController
             TransferValidatedEvent::dispatch($transfer);
         }
         MatchTransferToSalesOrderLineJob::dispatch($transfer);
-        return response()->json([], STATUS_UPDATE);
+        return response()->json([], SystemSetting::STATUS_UPDATE);
     }
 
     public function destroy(Transfer $transfer): JsonResponse
     {
         $transfer->delete();
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new Transfer(), $request);
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function initial_values()

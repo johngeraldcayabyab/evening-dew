@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\SystemSetting;
 use App\Http\Requests\PaymentTermRequest;
 use App\Http\Resources\PaymentTermResource;
 use App\Models\PaymentTerm;
@@ -28,24 +29,24 @@ class PaymentTermController
 
     public function store(PaymentTermRequest $request): JsonResponse
     {
-        return response()->json([], STATUS_CREATE, $this->locationHeader(PaymentTerm::create($request->validated())));
+        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(PaymentTerm::create($request->validated())));
     }
 
     public function update(PaymentTermRequest $request, PaymentTerm $paymentTerm): JsonResponse
     {
         $paymentTerm->update($request->validated());
-        return response()->json([], STATUS_UPDATE);
+        return response()->json([], SystemSetting::STATUS_UPDATE);
     }
 
     public function destroy(PaymentTerm $paymentTerm): JsonResponse
     {
         $paymentTerm->delete();
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new PaymentTerm(), $request);
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\SystemSetting;
 use App\Http\Requests\OperationTypeRequest;
 use App\Http\Resources\OperationTypeResource;
 use App\Models\OperationType;
@@ -28,25 +29,25 @@ class OperationTypeController
 
     public function store(OperationTypeRequest $request): JsonResponse
     {
-        return response()->json([], STATUS_CREATE, $this->locationHeader(OperationType::create($request->validated())));
+        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(OperationType::create($request->validated())));
     }
 
     public function update(OperationTypeRequest $request, OperationType $operationType): JsonResponse
     {
         $operationType->update($request->validated());
-        return response()->json([], STATUS_UPDATE);
+        return response()->json([], SystemSetting::STATUS_UPDATE);
     }
 
     public function destroy(OperationType $operationType): JsonResponse
     {
         $operationType->delete();
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new OperationType(), $request);
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function initial_values()
