@@ -40,7 +40,6 @@ class SalesOrderResource extends JsonResource
             'source' => new SourceResource($this->source),
             'payment_term' => new PaymentTermResource($this->paymentTerm),
             'sales_order_lines' => SalesOrderLineResource::collection($this->salesOrderLines),
-            'sales_order_transfer' => new SalesOrderTransferResource($this->salesOrderTransfer),
             'slug' => $this->$slug,
         ]);
     }
