@@ -24,10 +24,7 @@ trait FilterTrait
                 if (method_exists($modelClone, Str::camel($field))) {
                     $has = Str::camel($field);
                     $related = $modelClone->$has()->getRelated();
-                    $relatedField = $related->slug();
-                    if (Str::contains($relatedField, 'parent')) {
-                        $relatedField = explode('.', $relatedField)[1];
-                    }
+                    $relatedField = $this->isRelationship($related->slug());
                     $model = $model->filterHas([$has, $relatedField, $request->$field]);
                 } else {
                     $model = $model->filter([$field, $request->$field]);
@@ -39,10 +36,7 @@ trait FilterTrait
                 $field = $request->orderByColumn;
                 $field = Str::camel($field);
                 $related = $modelClone->$field()->getRelated();
-                $relatedField = $related->slug();
-                if (Str::contains($relatedField, 'parent')) {
-                    $relatedField = explode('.', $relatedField)[1];
-                }
+                $relatedField = $this->isRelationship($related->slug());
                 $shing = $related->getTable() . '.id';
                 $parentTable = $this->getTable();
                 $foreignKey = $modelClone->$field()->getForeignKeyName();
@@ -101,5 +95,13 @@ trait FilterTrait
             }
         }
         return $fields;
+    }
+
+    private function isRelationship($relatedField)
+    {
+        if (Str::contains($relatedField, 'parent')) {
+            $relatedField = explode('.', $relatedField)[1];
+        }
+        return $relatedField;
     }
 }
