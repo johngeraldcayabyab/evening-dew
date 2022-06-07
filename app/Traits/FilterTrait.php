@@ -16,18 +16,20 @@ trait FilterTrait
 {
     public function filterAndOrder($request)
     {
+        $selectedFields = explode(',', $request->selected_fields);
         $model = $this;
         $modelClone = $this;
-        $fields = $model->getFields();
-        foreach ($fields as $field) {
-            if ($request->$field) {
-                if ($this->isModelMethod($modelClone, $field)) {
-                    $has = Str::camel($field);
+        $modelFields = $model->getFields();
+        foreach ($modelFields as $modelField) {
+            $requestField = $request->$modelField;
+            if ($requestField) {
+                if ($this->isModelMethod($modelClone, $modelField)) {
+                    $has = Str::camel($modelField);
                     $related = $modelClone->$has()->getRelated();
                     $relatedField = $this->isRelationship($related->slug());
-                    $model = $model->filterHas([$has, $relatedField, $request->$field]);
+                    $model = $model->filterHas([$has, $relatedField, $requestField]);
                 } else {
-                    $model = $model->filter([$field, $request->$field]);
+                    $model = $model->filter([$modelField, $requestField]);
                 }
             }
         }
@@ -49,6 +51,10 @@ trait FilterTrait
         $pageSize = SystemSetting::PAGE_SIZE;
         if ($request->page_size) {
             $pageSize = $request->page_size;
+        }
+        if (is_array($selectedFields) && count($selectedFields)) {
+            // logic goes here supposedly
+            return $model->paginate($pageSize);
         }
         return $model->paginate($pageSize);
     }
