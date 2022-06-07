@@ -20,11 +20,17 @@ trait FilterTrait
         $model = $this;
         $modelClone = $this;
         $modelFields = $model->getFields();
+        foreach ($selectedFields as $selectedField) {
+            if ($this->isModelMethod($modelClone, $selectedField)) {
+                $selectedFields[] = $selectedField . "_id";
+            }
+        }
+        $selectedFields[] = 'id';
         foreach ($modelFields as $modelField) {
             $requestField = $request->$modelField;
             if ($requestField) {
-                if ($this->isModelMethod($modelClone, $modelField)) {
-                    $has = Str::camel($modelField);
+                if ($this->isModelMethod($modelClone, $requestField)) {
+                    $has = Str::camel($requestField);
                     $related = $modelClone->$has()->getRelated();
                     $relatedField = $this->isRelationship($related->slug());
                     $model = $model->filterHas([$has, $relatedField, $requestField]);
