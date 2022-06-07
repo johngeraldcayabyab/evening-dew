@@ -15,9 +15,7 @@ import {GET} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
 import FormItemDate from "../../Components/FormItem/FormItemDate";
-import StatusBar from "../../Components/StatusBar";
 import FormItemStatus from "../../Components/FormItem/FormItemStatus";
-import FormLinks from "../../Components/FormLinks";
 import FormLabel from "../../Components/Typography/FormLabel";
 import {objectHasValue} from "../../Helpers/object";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
@@ -29,6 +27,7 @@ import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
 
 const {TabPane} = Tabs;
 
@@ -281,7 +280,7 @@ const ShopifyForm = () => {
                                 label={'Source document'}
                                 name={'source_document'}
                             />
-                            <FormItemText
+                            <FormItemTextArea
                                 label={'Notes'}
                                 name={'notes'}
                             />

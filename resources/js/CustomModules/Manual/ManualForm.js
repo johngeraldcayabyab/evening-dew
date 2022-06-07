@@ -15,9 +15,7 @@ import {GET} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
 import FormItemDate from "../../Components/FormItem/FormItemDate";
-import StatusBar from "../../Components/StatusBar";
 import FormItemStatus from "../../Components/FormItem/FormItemStatus";
-import FormLinks from "../../Components/FormLinks";
 import FormLabel from "../../Components/Typography/FormLabel";
 import {objectHasValue} from "../../Helpers/object";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
@@ -29,6 +27,7 @@ import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
 
 const {TabPane} = Tabs;
 
@@ -262,7 +261,6 @@ const ManualForm = () => {
                                 label={'Quotation Date'}
                                 name={'quotation_date'}
                             />
-
                             <FormItemSelect
                                 label={'Select Time'}
                                 name={'select_time'}
@@ -276,12 +274,11 @@ const ManualForm = () => {
                                     {value: '06_00_PM_07_00_PM', label: '06:00 PM - 07:00 PM'},
                                 ]}
                             />
-
                             <FormItemText
                                 label={'Source document'}
                                 name={'source_document'}
                             />
-                            <FormItemText
+                            <FormItemTextArea
                                 label={'Notes'}
                                 name={'notes'}
                             />
@@ -293,7 +290,6 @@ const ManualForm = () => {
                             />
                         </ColForm>
                     </RowForm>
-
                     <RowForm>
                         <Divider orientation={'left'}>
                             Addresses
@@ -323,10 +319,7 @@ const ManualForm = () => {
                             />
                         </ColForm>
                     </RowForm>
-
-
                     <Divider/>
-
                     <Tabs defaultActiveKey="1">
                         <TabPane tab="Order Lines" key="1">
                             <RowForm>
@@ -377,9 +370,7 @@ const ManualForm = () => {
                                     </FormLineParent>
                                 </ColForm>
                             </RowForm>
-
                             <Divider/>
-
                             <RowForm>
                                 <ColForm lg={20}>
                                 </ColForm>
@@ -438,8 +429,6 @@ const ManualForm = () => {
                                     </Divider>
                                 </ColForm>
                             </RowForm>
-
-
                             <RowForm>
                                 <ColForm>
                                     <Divider orientation={'left'}>
@@ -465,14 +454,12 @@ const ManualForm = () => {
                                     </Divider>
                                 </ColForm>
                             </RowForm>
-
                             <RowForm>
                                 <ColForm>
                                     <FormItemDate
                                         label={'Expiration Date'}
                                         name={'expiration_date'}
                                     />
-
                                     <FormItemSelect
                                         label={'Payment Term'}
                                         name={'payment_term_id'}

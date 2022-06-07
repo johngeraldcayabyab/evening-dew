@@ -17,7 +17,6 @@ import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
 import FormItemDate from "../../Components/FormItem/FormItemDate";
 import StatusBar from "../../Components/StatusBar";
 import FormItemStatus from "../../Components/FormItem/FormItemStatus";
-import FormLinks from "../../Components/FormLinks";
 import FormLabel from "../../Components/Typography/FormLabel";
 import {objectHasValue} from "../../Helpers/object";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
@@ -29,6 +28,7 @@ import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
 
 const {TabPane} = Tabs;
 
@@ -242,7 +242,6 @@ const SameDayForm = () => {
                             />
                         </ColForm>
                     </RowForm>
-
                     <RowForm>
                         <ColForm>
                             <FormItemSelect
@@ -287,7 +286,6 @@ const SameDayForm = () => {
                                 label={'Quotation Date'}
                                 name={'quotation_date'}
                             />
-
                             <FormItemSelect
                                 label={'Select Time'}
                                 name={'select_time'}
@@ -301,12 +299,11 @@ const SameDayForm = () => {
                                     {value: '06_00_PM_07_00_PM', label: '06:00 PM - 07:00 PM'},
                                 ]}
                             />
-
                             <FormItemText
                                 label={'Source document'}
                                 name={'source_document'}
                             />
-                            <FormItemText
+                            <FormItemTextArea
                                 label={'Notes'}
                                 name={'notes'}
                             />
@@ -318,7 +315,6 @@ const SameDayForm = () => {
                             />
                         </ColForm>
                     </RowForm>
-
                     <RowForm>
                         <Divider orientation={'left'}>
                             Addresses
