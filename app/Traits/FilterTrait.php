@@ -33,14 +33,13 @@ trait FilterTrait
         }
         if ($request->orderByColumn && $request->orderByDirection) {
             if ($this->isModelMethod($modelClone, $request->orderByColumn)) {
-                $field = $request->orderByColumn;
-                $field = Str::camel($field);
-                $related = $modelClone->$field()->getRelated();
+                $has = Str::camel($request->orderByColumn);
+                $related = $modelClone->$has()->getRelated();
                 $relatedField = $this->isRelationship($related->slug());
-                $shing = $related->getTable() . '.id';
+                $hasId = $related->getTable() . '.id';
                 $parentTable = $this->getTable();
-                $foreignKey = $modelClone->$field()->getForeignKeyName();
-                $model = $model->orderBy($related::select($relatedField)->whereColumn($shing, "$parentTable.$foreignKey"), $request->orderByDirection);
+                $foreignKey = $modelClone->$has()->getForeignKeyName();
+                $model = $model->orderBy($related::select($relatedField)->whereColumn($hasId, "{$parentTable}.{$foreignKey}"), $request->orderByDirection);
             } else {
                 $model = $model->order([$request->orderByColumn, $request->orderByDirection]);
             }
