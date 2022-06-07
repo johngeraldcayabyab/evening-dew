@@ -21,7 +21,7 @@ trait FilterTrait
         $fields = $model->getFields();
         foreach ($fields as $field) {
             if ($request->$field) {
-                if (method_exists($modelClone, Str::camel($field))) {
+                if ($this->isModelMethod($modelClone, $field)) {
                     $has = Str::camel($field);
                     $related = $modelClone->$has()->getRelated();
                     $relatedField = $this->isRelationship($related->slug());
@@ -32,7 +32,7 @@ trait FilterTrait
             }
         }
         if ($request->orderByColumn && $request->orderByDirection) {
-            if (method_exists($modelClone, Str::camel($request->orderByColumn))) {
+            if ($this->isModelMethod($modelClone, $request->orderByColumn)) {
                 $field = $request->orderByColumn;
                 $field = Str::camel($field);
                 $related = $modelClone->$field()->getRelated();
@@ -103,5 +103,13 @@ trait FilterTrait
             $relatedField = explode('.', $relatedField)[1];
         }
         return $relatedField;
+    }
+
+    private function isModelMethod($model, $string)
+    {
+        if (method_exists($model, Str::camel($string))) {
+            return true;
+        }
+        return false;
     }
 }
