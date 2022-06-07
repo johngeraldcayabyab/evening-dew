@@ -16,7 +16,7 @@ class AppMenuResource extends JsonResource
             'label' => $this->label,
             'menu_id' => $this->menu_id,
             'parent_app_menu_id' => $this->parent_app_menu_id,
-            'menu' => new MenuResource($this->menu),
+            'menu' => $this->menu,
             'parent_app_menu' => $this->parentAppMenu,
             'children' => AppMenuResource::collection($this->children),
             'parents' => $slug,
