@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\SystemSetting;
 use App\Http\Requests\ProductCategoryRequest;
 use App\Http\Resources\ProductCategoryResource;
 use App\Models\GlobalSetting;
@@ -29,25 +30,25 @@ class ProductCategoryController
 
     public function store(ProductCategoryRequest $request): JsonResponse
     {
-        return response()->json([], STATUS_CREATE, $this->locationHeader(ProductCategory::create($request->validated())));
+        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(ProductCategory::create($request->validated())));
     }
 
     public function update(ProductCategoryRequest $request, ProductCategory $productCategory): JsonResponse
     {
         $productCategory->update($request->validated());
-        return response()->json([], STATUS_UPDATE);
+        return response()->json([], SystemSetting::STATUS_UPDATE);
     }
 
     public function destroy(ProductCategory $productCategory): JsonResponse
     {
         $productCategory->delete();
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new ProductCategory(), $request);
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function initial_values()

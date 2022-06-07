@@ -14,4 +14,7 @@ class SystemSetting
     const MASS_DESTROY = 'mass_destroy';
     const STORE = 'store';
     const INDEX = 'index';
+    const STATUS_CREATE = 201;
+    const STATUS_UPDATE = 204;
+    const STATUS_DELETE = 204;
 }

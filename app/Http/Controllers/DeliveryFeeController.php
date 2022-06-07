@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\SystemSetting;
 use App\Http\Requests\DeliveryFeeRequest;
 use App\Http\Resources\DeliveryFeeResource;
 use App\Models\DeliveryFee;
@@ -37,7 +38,7 @@ class DeliveryFeeController extends Controller
             $deliveryFeeLinesData = $data['delivery_fee_lines'];
             DeliveryFeeLine::massUpsert($deliveryFeeLinesData, $deliveryFee);
         }
-        return response()->json([], STATUS_CREATE, $this->locationHeader($deliveryFee));
+        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader($deliveryFee));
     }
 
     public function update(DeliveryFeeRequest $request, DeliveryFee $deliveryFee): JsonResponse
@@ -52,19 +53,19 @@ class DeliveryFeeController extends Controller
         if (isset($data['delivery_fee_lines_deleted'])) {
             DeliveryFeeLine::massDelete(collect($data['delivery_fee_lines_deleted'])->pluck('id'));
         }
-        return response()->json([], STATUS_UPDATE);
+        return response()->json([], SystemSetting::STATUS_UPDATE);
     }
 
     public function destroy(DeliveryFee $deliveryFee): JsonResponse
     {
         $deliveryFee->delete();
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new DeliveryFee(), $request);
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function initial_values()

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\SystemSetting;
 use App\Http\Requests\CountryRequest;
 use App\Http\Resources\CountryResource;
 use App\Models\Country;
@@ -28,24 +29,24 @@ class CountryController
 
     public function store(CountryRequest $request): JsonResponse
     {
-        return response()->json([], STATUS_CREATE, $this->locationHeader(Country::create($request->validated())));
+        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(Country::create($request->validated())));
     }
 
     public function update(CountryRequest $request, Country $country): JsonResponse
     {
         $country->update($request->validated());
-        return response()->json([], STATUS_UPDATE);
+        return response()->json([], SystemSetting::STATUS_UPDATE);
     }
 
     public function destroy(Country $country): JsonResponse
     {
         $country->delete();
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new Country(), $request);
-        return response()->json([], STATUS_DELETE);
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 }
