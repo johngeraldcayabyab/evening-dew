@@ -31,6 +31,7 @@ fi
 
 composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
 npm install --production
+npm install laravel-mix@latest
 npm run production
 rm -rf storage
 
