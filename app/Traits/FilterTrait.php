@@ -23,6 +23,9 @@ trait FilterTrait
         foreach ($selectedFields as $selectedField) {
             if ($this->isModelMethod($modelClone, $selectedField)) {
                 $selectedFields[] = $selectedField . "_id";
+                if (($key = array_search($selectedField, $selectedFields)) !== false) {
+                    unset($selectedFields[$key]);
+                }
             }
         }
         $selectedFields[] = 'id';
@@ -59,8 +62,7 @@ trait FilterTrait
             $pageSize = $request->page_size;
         }
         if (is_array($selectedFields) && count($selectedFields)) {
-            // logic goes here supposedly
-            return $model->paginate($pageSize);
+            return $model->paginate($pageSize, $selectedFields);
         }
         return $model->paginate($pageSize);
     }
