@@ -71,25 +71,6 @@ class Product extends Model implements Sluggable
         return $this->hasOne(Material::class);
     }
 
-    //    public function updateQuantity($operationType, $demand, $materialQuantity = null)
-    //    {
-    //        if ($operationType->type === OperationType::DELIVERY) {
-    //            if ($materialQuantity) {
-    //                $this->quantity = $this->quantity - ($materialQuantity * $demand);
-    //            } else {
-    //                $this->quantity = $this->quantity - $demand;
-    //            }
-    //        } else if ($operationType->type === OperationType::RECEIPT) {
-    //            if ($materialQuantity) {
-    //                $this->quantity = $this->quantity + ($materialQuantity * $demand);
-    //            } else {
-    //                $this->quantity = $this->quantity + $demand;
-    //            }
-    //        }
-    //        $this->save();
-    //        return $this;
-    //    }
-
     public static function isStorable($type)
     {
         if ($type === Product::STORABLE) {
