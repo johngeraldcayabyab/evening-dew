@@ -29,13 +29,13 @@ class RegionController
 
     public function store(RegionRequest $request): JsonResponse
     {
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(Region::create($request->validated())));
+        return $this->responseCreate(Region::create($request->validated()));
     }
 
     public function update(RegionRequest $request, Region $region): JsonResponse
     {
         $region->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(Region $region): JsonResponse

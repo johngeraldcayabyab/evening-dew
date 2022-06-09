@@ -29,13 +29,13 @@ class CountryController
 
     public function store(CountryRequest $request): JsonResponse
     {
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(Country::create($request->validated())));
+        return $this->responseCreate(Country::create($request->validated()));
     }
 
     public function update(CountryRequest $request, Country $country): JsonResponse
     {
         $country->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(Country $country): JsonResponse

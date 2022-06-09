@@ -44,7 +44,7 @@ class AdjustmentController
         if ($adjustment->status === Adjustment::DONE) {
             AdjustmentValidatedEvent::dispatch($adjustment);
         }
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader($adjustment));
+        return $this->responseCreate($adjustment);
     }
 
     public function update(AdjustmentRequest $request, Adjustment $adjustment): JsonResponse
@@ -62,7 +62,7 @@ class AdjustmentController
         if ($adjustment->status === Adjustment::DONE) {
             AdjustmentValidatedEvent::dispatch($adjustment);
         }
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(Adjustment $adjustment): JsonResponse

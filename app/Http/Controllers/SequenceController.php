@@ -29,7 +29,7 @@ class SequenceController
 
     public function store(SequenceRequest $request): JsonResponse
     {
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(Sequence::create($request->validated())));
+        return $this->responseCreate(Sequence::create($request->validated()));
     }
 
     public function update(SequenceRequest $request, Sequence $sequence): JsonResponse
@@ -41,7 +41,7 @@ class SequenceController
     public function destroy(Sequence $sequence): JsonResponse
     {
         $sequence->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseUpdate();
     }
 
     public function mass_destroy(Request $request): JsonResponse

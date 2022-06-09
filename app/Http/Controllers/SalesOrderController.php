@@ -48,7 +48,7 @@ class SalesOrderController
         if ($salesOrder->status === SalesOrder::DONE) {
             SalesOrderValidatedEvent::dispatch($salesOrder);
         }
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader($salesOrder));
+        return $this->responseCreate($salesOrder);
     }
 
     public function update(SalesOrderRequest $request, SalesOrder $salesOrder): JsonResponse
@@ -66,7 +66,7 @@ class SalesOrderController
         if ($salesOrder->status === SalesOrder::DONE) {
             SalesOrderValidatedEvent::dispatch($salesOrder);
         }
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(SalesOrder $salesOrder): JsonResponse

@@ -30,13 +30,13 @@ class AddressController
 
     public function store(AddressRequest $request): JsonResponse
     {
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(Address::create($request->validated())));
+        return $this->responseCreate(Address::create($request->validated()));
     }
 
     public function update(AddressRequest $request, Address $address): JsonResponse
     {
         $address->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(Address $address): JsonResponse

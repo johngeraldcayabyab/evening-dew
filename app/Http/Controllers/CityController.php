@@ -29,13 +29,13 @@ class CityController extends Controller
 
     public function store(CityRequest $request): JsonResponse
     {
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(City::create($request->validated())));
+        return $this->responseCreate(City::create($request->validated()));
     }
 
     public function update(CityRequest $request, City $city): JsonResponse
     {
         $city->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(City $city): JsonResponse

@@ -29,13 +29,13 @@ class AppMenuController
 
     public function store(AppMenuRequest $request): JsonResponse
     {
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(AppMenu::create($request->validated())));
+        return $this->responseCreate(AppMenu::create($request->validated()));
     }
 
     public function update(AppMenuRequest $request, AppMenu $appMenu): JsonResponse
     {
         $appMenu->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(AppMenu $appMenu): JsonResponse

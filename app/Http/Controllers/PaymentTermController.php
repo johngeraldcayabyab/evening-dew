@@ -29,13 +29,13 @@ class PaymentTermController
 
     public function store(PaymentTermRequest $request): JsonResponse
     {
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(PaymentTerm::create($request->validated())));
+        return $this->responseCreate(PaymentTerm::create($request->validated()));
     }
 
     public function update(PaymentTermRequest $request, PaymentTerm $paymentTerm): JsonResponse
     {
         $paymentTerm->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(PaymentTerm $paymentTerm): JsonResponse

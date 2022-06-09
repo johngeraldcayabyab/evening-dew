@@ -43,7 +43,7 @@ class TransferController
         if ($transfer->status === Transfer::DONE) {
             TransferValidatedEvent::dispatch($transfer);
         }
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader($transfer));
+        return $this->responseCreate($transfer);
     }
 
     public function update(TransferRequest $request, Transfer $transfer): JsonResponse
@@ -62,7 +62,7 @@ class TransferController
             TransferValidatedEvent::dispatch($transfer);
         }
         MatchTransferToSalesOrderLineJob::dispatch($transfer);
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(Transfer $transfer): JsonResponse

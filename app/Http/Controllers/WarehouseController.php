@@ -32,13 +32,13 @@ class WarehouseController
     {
         $warehouse = Warehouse::create($request->validated());
         WarehouseCreatedEvent::dispatch($warehouse);
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader($warehouse));
+        return $this->responseCreate($warehouse);
     }
 
     public function update(WarehouseRequest $request, Warehouse $warehouse): JsonResponse
     {
         $warehouse->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(Warehouse $warehouse): JsonResponse

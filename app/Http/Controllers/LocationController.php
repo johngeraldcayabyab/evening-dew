@@ -29,13 +29,13 @@ class LocationController
 
     public function store(LocationRequest $request): JsonResponse
     {
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(Location::create($request->validated())));
+        return $this->responseCreate(Location::create($request->validated()));
     }
 
     public function update(LocationRequest $request, Location $location): JsonResponse
     {
         $location->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(Location $location): JsonResponse

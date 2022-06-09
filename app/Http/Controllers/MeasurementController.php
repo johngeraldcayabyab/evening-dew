@@ -30,13 +30,13 @@ class MeasurementController
 
     public function store(MeasurementRequest $request): JsonResponse
     {
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(Measurement::create($request->validated())));
+        return $this->responseCreate(Measurement::create($request->validated()));
     }
 
     public function update(MeasurementRequest $request, Measurement $measurement): JsonResponse
     {
         $measurement->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(Measurement $measurement): JsonResponse

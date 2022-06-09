@@ -37,7 +37,7 @@ class ContactController
         $contactData = Arr::only($data, (new Contact())->getFields());
         $contact = Contact::create($contactData);
         ContactCreatedEvent::dispatch($contact, $data);
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader($contact));
+        return $this->responseCreate($contact);
     }
 
     public function update(ContactRequest $request, Contact $contact): JsonResponse
@@ -46,7 +46,7 @@ class ContactController
         $contactData = Arr::only($data, (new Contact())->getFields());
         $contact->update($contactData);
         ContactUpdatedEvent::dispatch($contact, $data);
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(Contact $contact): JsonResponse

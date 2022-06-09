@@ -29,13 +29,13 @@ class StockMovementController
 
     public function store(StockMovementRequest $request): JsonResponse
     {
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(StockMovement::create($request->validated())));
+        return $this->responseCreate(StockMovement::create($request->validated()));
     }
 
     public function update(StockMovementRequest $request, StockMovement $stockMovement): JsonResponse
     {
         $stockMovement->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(StockMovement $stockMovement): JsonResponse
