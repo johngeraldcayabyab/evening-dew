@@ -30,13 +30,13 @@ class ProductCategoryController
 
     public function store(ProductCategoryRequest $request): JsonResponse
     {
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(ProductCategory::create($request->validated())));
+        return $this->responseCreate(ProductCategory::create($request->validated()));
     }
 
     public function update(ProductCategoryRequest $request, ProductCategory $productCategory): JsonResponse
     {
         $productCategory->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(ProductCategory $productCategory): JsonResponse

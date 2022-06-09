@@ -29,13 +29,13 @@ class OperationTypeController
 
     public function store(OperationTypeRequest $request): JsonResponse
     {
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(OperationType::create($request->validated())));
+        return $this->responseCreate(OperationType::create($request->validated()));
     }
 
     public function update(OperationTypeRequest $request, OperationType $operationType): JsonResponse
     {
         $operationType->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(OperationType $operationType): JsonResponse

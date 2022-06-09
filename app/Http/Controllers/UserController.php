@@ -36,7 +36,7 @@ class UserController
         $data['password'] = Hash::make($data['password']);
         $user = User::create($data);
         UserCreatedEvent::dispatch($user, $data);
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader($user));
+        return $this->responseCreate($user);
     }
 
     public function update(UserRequest $request, User $user): JsonResponse
@@ -44,7 +44,7 @@ class UserController
         $data = $request->validated();
         $user->update($data);
         UserUpdatedEvent::dispatch($user, $data);
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(User $user): JsonResponse

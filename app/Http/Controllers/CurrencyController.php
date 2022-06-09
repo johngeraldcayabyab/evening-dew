@@ -29,13 +29,13 @@ class CurrencyController
 
     public function store(CurrencyRequest $request): JsonResponse
     {
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(Currency::create($request->validated())));
+        return $this->responseCreate(Currency::create($request->validated()));
     }
 
     public function update(CurrencyRequest $request, Currency $currency): JsonResponse
     {
         $currency->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(Currency $currency): JsonResponse

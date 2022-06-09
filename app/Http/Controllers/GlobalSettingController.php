@@ -24,7 +24,7 @@ class GlobalSettingController
         $previousGlobalSetting = Arr::except(GlobalSetting::latestFirst()->toArray(), ['id', 'deleted_at', 'created_at', 'updated_at']);
         $previousGlobalSettingWithNewData = array_replace($previousGlobalSetting, $request->validated());
         GlobalSetting::create($previousGlobalSettingWithNewData);
-        return response()->json([], SystemSetting::STATUS_CREATE);
+        return $this->responseCreate();
     }
 
     public function initial_values(): JsonResponse

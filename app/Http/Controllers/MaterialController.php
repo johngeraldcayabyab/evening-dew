@@ -39,7 +39,7 @@ class MaterialController
             $materialLinesData = $data['material_lines'];
             MaterialLine::massUpsert($materialLinesData, $material);
         }
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader($material));
+        return $this->responseCreate($material);
     }
 
     public function update(MaterialRequest $request, Material $material): JsonResponse
@@ -54,7 +54,7 @@ class MaterialController
         if (isset($data['material_lines_deleted'])) {
             MaterialLine::massDelete(collect($data['material_lines_deleted'])->pluck('id'));
         }
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(Material $material): JsonResponse

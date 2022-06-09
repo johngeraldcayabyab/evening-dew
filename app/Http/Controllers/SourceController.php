@@ -29,13 +29,13 @@ class SourceController extends Controller
 
     public function store(SourceRequest $request): JsonResponse
     {
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(Source::create($request->validated())));
+        return $this->responseCreate(Source::create($request->validated()));
     }
 
     public function update(SourceRequest $request, Source $source): JsonResponse
     {
         $source->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(Source $source): JsonResponse

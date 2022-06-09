@@ -38,7 +38,7 @@ class DeliveryFeeController extends Controller
             $deliveryFeeLinesData = $data['delivery_fee_lines'];
             DeliveryFeeLine::massUpsert($deliveryFeeLinesData, $deliveryFee);
         }
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader($deliveryFee));
+        return $this->responseCreate($deliveryFee);
     }
 
     public function update(DeliveryFeeRequest $request, DeliveryFee $deliveryFee): JsonResponse
@@ -53,7 +53,7 @@ class DeliveryFeeController extends Controller
         if (isset($data['delivery_fee_lines_deleted'])) {
             DeliveryFeeLine::massDelete(collect($data['delivery_fee_lines_deleted'])->pluck('id'));
         }
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(DeliveryFee $deliveryFee): JsonResponse

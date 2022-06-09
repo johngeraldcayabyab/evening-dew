@@ -29,13 +29,13 @@ class MeasurementCategoryController
 
     public function store(MeasurementCategoryRequest $request): JsonResponse
     {
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(MeasurementCategory::create($request->validated())));
+        return $this->responseCreate(MeasurementCategory::create($request->validated()));
     }
 
     public function update(MeasurementCategoryRequest $request, MeasurementCategory $measurementCategory): JsonResponse
     {
         $measurementCategory->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(MeasurementCategory $measurementCategory): JsonResponse
