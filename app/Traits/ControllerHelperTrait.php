@@ -4,10 +4,11 @@ namespace App\Traits;
 
 
 use App\Data\SystemSetting;
+use Illuminate\Http\JsonResponse;
 
 trait ControllerHelperTrait
 {
-    public function responseCreate($model = null)
+    public function responseCreate($model = null): JsonResponse
     {
         if ($model) {
             $newResourceLocation = $this->locationHeader($model);
@@ -16,18 +17,18 @@ trait ControllerHelperTrait
         return response()->json([], SystemSetting::STATUS_CREATE);
     }
 
-    public function locationHeader($model)
+    public function locationHeader($model): array
     {
         $route = route("{$model->getTable()}.show", $model);
         return ['Location' => $route];
     }
 
-    public function responseUpdate()
+    public function responseUpdate(): JsonResponse
     {
         return response()->json([], SystemSetting::STATUS_UPDATE);
     }
 
-    public function responseDelete()
+    public function responseDelete(): JsonResponse
     {
         return response()->json([], SystemSetting::STATUS_DELETE);
     }
