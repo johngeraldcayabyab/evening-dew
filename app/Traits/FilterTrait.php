@@ -6,7 +6,6 @@ use App\Data\SystemSetting;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
-use ReflectionClass;
 
 /**
  * There should be multiple type of filter for
@@ -16,19 +15,22 @@ trait FilterTrait
 {
     public function filterAndOrder($request)
     {
-        $selectedFields = explode(',', $request->selected_fields);
+//        $selectedFields = explode(',', $request->selected_fields);
         $model = $this;
         $modelClone = $this;
         $modelFields = $model->getFields();
-        foreach ($selectedFields as $selectedField) {
-            if ($this->isModelMethod($modelClone, $selectedField)) {
-                $selectedFields[] = $selectedField . "_id";
-                if (($key = array_search($selectedField, $selectedFields)) !== false) {
-                    unset($selectedFields[$key]);
-                }
-            }
-        }
-        $selectedFields[] = 'id';
+//        $with = [];
+//        foreach ($selectedFields as $selectedField) {
+//            if ($this->isModelMethod($modelClone, $selectedField)) {
+//                $selectedFields[] = $selectedField . "_id";
+//                if (($key = array_search($selectedField, $selectedFields)) !== false) {
+//                    $with[] = $selectedField;
+//                    unset($selectedFields[$key]);
+//                }
+//            }
+//        }
+//        $selectedFields[] = 'id';
+//        $model = $model->with($with);
         foreach ($modelFields as $modelField) {
             $requestField = $request->$modelField;
             if ($requestField) {
@@ -61,9 +63,10 @@ trait FilterTrait
         if ($request->page_size) {
             $pageSize = $request->page_size;
         }
-        if (is_array($selectedFields) && count($selectedFields)) {
-            return $model->paginate($pageSize, $selectedFields);
-        }
+//        if (is_array($selectedFields) && count($selectedFields)) {
+//            info($selectedFields);
+//            return $model->paginate($pageSize, $selectedFields);
+//        }
         return $model->paginate($pageSize);
     }
 
