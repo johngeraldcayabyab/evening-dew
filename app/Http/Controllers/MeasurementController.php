@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MeasurementRequest;
 use App\Http\Resources\MeasurementResource;
 use App\Models\GlobalSetting;
@@ -42,13 +41,13 @@ class MeasurementController
     public function destroy(Measurement $measurement): JsonResponse
     {
         $measurement->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new Measurement(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function initial_values()

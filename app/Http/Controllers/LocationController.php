@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\LocationRequest;
 use App\Http\Resources\LocationResource;
 use App\Models\Location;
@@ -41,13 +40,13 @@ class LocationController
     public function destroy(Location $location): JsonResponse
     {
         $location->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new Location(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function initial_values()

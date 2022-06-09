@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\CurrencyRequest;
 use App\Http\Resources\CurrencyResource;
 use App\Models\Currency;
@@ -41,13 +40,13 @@ class CurrencyController
     public function destroy(Currency $currency): JsonResponse
     {
         $currency->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new Currency(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function initial_values()

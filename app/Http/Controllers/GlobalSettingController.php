@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\GlobalSettingRequest;
 use App\Http\Resources\GlobalSettingResource;
 use App\Models\GlobalSetting;

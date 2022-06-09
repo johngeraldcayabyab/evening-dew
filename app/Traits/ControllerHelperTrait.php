@@ -29,7 +29,7 @@ trait ControllerHelperTrait
 
     public function responseDelete()
     {
-
+        return response()->json([], SystemSetting::STATUS_DELETE);
     }
 
     public function massDelete($model, $request): void

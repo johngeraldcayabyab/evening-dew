@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Events\ContactCreatedEvent;
 use App\Events\ContactUpdatedEvent;
 use App\Http\Requests\ContactRequest;
@@ -52,13 +51,13 @@ class ContactController
     public function destroy(Contact $contact): JsonResponse
     {
         $contact->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new Contact(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function initial_values()

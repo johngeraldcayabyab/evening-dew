@@ -41,13 +41,13 @@ class SequenceController
     public function destroy(Sequence $sequence): JsonResponse
     {
         $sequence->delete();
-        return $this->responseUpdate();
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new Sequence(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function initial_values()

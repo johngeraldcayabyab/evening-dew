@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\OperationTypeRequest;
 use App\Http\Resources\OperationTypeResource;
 use App\Models\OperationType;
@@ -41,13 +40,13 @@ class OperationTypeController
     public function destroy(OperationType $operationType): JsonResponse
     {
         $operationType->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new OperationType(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function initial_values()

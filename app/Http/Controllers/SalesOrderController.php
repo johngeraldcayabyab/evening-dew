@@ -72,13 +72,13 @@ class SalesOrderController
     public function destroy(SalesOrder $salesOrder): JsonResponse
     {
         $salesOrder->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new SalesOrder(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function initial_values(Request $request)

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\AppMenuRequest;
 use App\Http\Resources\AppMenuResource;
 use App\Models\AppMenu;
@@ -41,13 +40,13 @@ class AppMenuController
     public function destroy(AppMenu $appMenu): JsonResponse
     {
         $appMenu->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new AppMenu(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function initial_values(): array

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Events\UserCreatedEvent;
 use App\Events\UserUpdatedEvent;
 use App\Http\Requests\UserRequest;
@@ -50,12 +49,12 @@ class UserController
     public function destroy(User $user): JsonResponse
     {
         $user->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new User(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 }
