@@ -48,8 +48,6 @@ class WarehouseInitializeDefaultsListener implements ShouldQueue
         $productionSequence = $this->createProductionSequence($warehouse, $manufacturingOperationType);
         $adjustmentSequence = $this->createAdjustmentSequence($warehouse, $adjustmentOperationType);
 
-        info($adjustmentSequence);
-
         $receiptsOperationType->operation_type_for_returns_id = $deliveryOrderOperationType->id;
         $deliveryOrderOperationType->operation_type_for_returns_id = $returnsOperationType->id;
 

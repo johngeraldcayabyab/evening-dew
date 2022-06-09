@@ -86,6 +86,14 @@ class Transfer extends Model implements Sluggable
         return $this->hasOne(SalesOrderTransfer::class);
     }
 
+    public function isDone($status)
+    {
+        if ($status === Transfer::DONE) {
+            return true;
+        }
+        return false;
+    }
+
     public function slug()
     {
         return 'reference';

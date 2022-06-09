@@ -18,6 +18,7 @@ import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import FormLinks from "../../Components/FormLinks";
+import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
 
 const {TabPane} = Tabs;
 
@@ -173,12 +174,12 @@ const ProductForm = () => {
                         <TabPane tab="Other Information" key="2">
                             <RowForm>
                                 <ColForm>
-                                    <FormItemText
+                                    <FormItemTextArea
                                         label={'Sales Description'}
                                         name={'sales_description'}
                                     />
 
-                                    <FormItemText
+                                    <FormItemTextArea
                                         label={'Purchase Description'}
                                         name={'purchase_description'}
                                     />

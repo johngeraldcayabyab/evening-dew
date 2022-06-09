@@ -72,7 +72,6 @@ const CustomMenu = () => {
                 if (objectHasValue(currentAppMenu)) {
                     const appMenu = response.children;
                     const index = appMenu.findIndex(m => m.id === currentAppMenu.id);
-                    // console.log(index, appMenu);
                     setState((prevState) => ({
                         ...prevState,
                         appMenu: appMenu,

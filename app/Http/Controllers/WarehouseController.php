@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Events\WarehouseCreatedEvent;
 use App\Http\Requests\WarehouseRequest;
 use App\Http\Resources\WarehouseResource;
@@ -32,25 +31,25 @@ class WarehouseController
     {
         $warehouse = Warehouse::create($request->validated());
         WarehouseCreatedEvent::dispatch($warehouse);
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader($warehouse));
+        return $this->responseCreate($warehouse);
     }
 
     public function update(WarehouseRequest $request, Warehouse $warehouse): JsonResponse
     {
         $warehouse->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(Warehouse $warehouse): JsonResponse
     {
         $warehouse->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new Warehouse(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function initial_values()

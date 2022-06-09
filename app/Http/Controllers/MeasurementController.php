@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MeasurementRequest;
 use App\Http\Resources\MeasurementResource;
 use App\Models\GlobalSetting;
@@ -30,25 +29,25 @@ class MeasurementController
 
     public function store(MeasurementRequest $request): JsonResponse
     {
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(Measurement::create($request->validated())));
+        return $this->responseCreate(Measurement::create($request->validated()));
     }
 
     public function update(MeasurementRequest $request, Measurement $measurement): JsonResponse
     {
         $measurement->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(Measurement $measurement): JsonResponse
     {
         $measurement->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new Measurement(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function initial_values()

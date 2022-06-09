@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\RegionRequest;
 use App\Http\Resources\RegionResource;
 use App\Models\Region;
@@ -29,24 +28,24 @@ class RegionController
 
     public function store(RegionRequest $request): JsonResponse
     {
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(Region::create($request->validated())));
+        return $this->responseCreate(Region::create($request->validated()));
     }
 
     public function update(RegionRequest $request, Region $region): JsonResponse
     {
         $region->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(Region $region): JsonResponse
     {
         $region->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new Region(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 }
