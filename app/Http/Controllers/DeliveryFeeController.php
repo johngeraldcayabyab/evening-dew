@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\DeliveryFeeRequest;
 use App\Http\Resources\DeliveryFeeResource;
 use App\Models\DeliveryFee;
@@ -59,13 +58,13 @@ class DeliveryFeeController extends Controller
     public function destroy(DeliveryFee $deliveryFee): JsonResponse
     {
         $deliveryFee->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new DeliveryFee(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function initial_values()

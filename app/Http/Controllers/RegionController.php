@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\RegionRequest;
 use App\Http\Resources\RegionResource;
 use App\Models\Region;
@@ -41,12 +40,12 @@ class RegionController
     public function destroy(Region $region): JsonResponse
     {
         $region->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new Region(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 }

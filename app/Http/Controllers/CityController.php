@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\CityRequest;
 use App\Http\Resources\CityResource;
 use App\Models\City;
@@ -41,12 +40,12 @@ class CityController extends Controller
     public function destroy(City $city): JsonResponse
     {
         $city->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new City(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 }

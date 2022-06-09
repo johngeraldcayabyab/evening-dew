@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\SourceRequest;
 use App\Http\Resources\SourceResource;
 use App\Models\Source;
@@ -41,12 +40,12 @@ class SourceController extends Controller
     public function destroy(Source $source): JsonResponse
     {
         $source->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new Source(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 }
