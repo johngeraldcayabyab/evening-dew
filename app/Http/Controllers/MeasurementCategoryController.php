@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MeasurementCategoryRequest;
 use App\Http\Resources\MeasurementCategoryResource;
 use App\Models\MeasurementCategory;
@@ -29,24 +28,24 @@ class MeasurementCategoryController
 
     public function store(MeasurementCategoryRequest $request): JsonResponse
     {
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(MeasurementCategory::create($request->validated())));
+        return $this->responseCreate(MeasurementCategory::create($request->validated()));
     }
 
     public function update(MeasurementCategoryRequest $request, MeasurementCategory $measurementCategory): JsonResponse
     {
         $measurementCategory->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(MeasurementCategory $measurementCategory): JsonResponse
     {
         $measurementCategory->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new MeasurementCategory(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 }

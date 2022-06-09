@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\CurrencyRequest;
 use App\Http\Resources\CurrencyResource;
 use App\Models\Currency;
@@ -29,25 +28,25 @@ class CurrencyController
 
     public function store(CurrencyRequest $request): JsonResponse
     {
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(Currency::create($request->validated())));
+        return $this->responseCreate(Currency::create($request->validated()));
     }
 
     public function update(CurrencyRequest $request, Currency $currency): JsonResponse
     {
         $currency->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(Currency $currency): JsonResponse
     {
         $currency->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new Currency(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function initial_values()

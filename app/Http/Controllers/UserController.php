@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Events\UserCreatedEvent;
 use App\Events\UserUpdatedEvent;
 use App\Http\Requests\UserRequest;
@@ -36,7 +35,7 @@ class UserController
         $data['password'] = Hash::make($data['password']);
         $user = User::create($data);
         UserCreatedEvent::dispatch($user, $data);
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader($user));
+        return $this->responseCreate($user);
     }
 
     public function update(UserRequest $request, User $user): JsonResponse
@@ -44,18 +43,18 @@ class UserController
         $data = $request->validated();
         $user->update($data);
         UserUpdatedEvent::dispatch($user, $data);
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(User $user): JsonResponse
     {
         $user->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new User(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 }

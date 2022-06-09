@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\MaterialRequest;
 use App\Http\Resources\MaterialResource;
 use App\Models\GlobalSetting;
@@ -39,7 +38,7 @@ class MaterialController
             $materialLinesData = $data['material_lines'];
             MaterialLine::massUpsert($materialLinesData, $material);
         }
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader($material));
+        return $this->responseCreate($material);
     }
 
     public function update(MaterialRequest $request, Material $material): JsonResponse
@@ -54,19 +53,19 @@ class MaterialController
         if (isset($data['material_lines_deleted'])) {
             MaterialLine::massDelete(collect($data['material_lines_deleted'])->pluck('id'));
         }
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(Material $material): JsonResponse
     {
         $material->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new Material(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function initial_values()

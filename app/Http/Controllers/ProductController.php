@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\GlobalSetting;
@@ -18,7 +17,6 @@ class ProductController
 
     public function index(Request $request): ResourceCollection
     {
-        info($request->all());
         $model = new Product();
         $model = $model->filterAndOrder($request);
         return ProductResource::collection($model);
@@ -31,25 +29,25 @@ class ProductController
 
     public function store(ProductRequest $request): JsonResponse
     {
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader(Product::create($request->validated())));
+        return $this->responseCreate(Product::create($request->validated()));
     }
 
     public function update(ProductRequest $request, Product $product): JsonResponse
     {
         $product->update($request->validated());
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(Product $product): JsonResponse
     {
         $product->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new Product(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function initial_values()

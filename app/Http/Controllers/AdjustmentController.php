@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\SystemSetting;
 use App\Events\AdjustmentValidatedEvent;
 use App\Http\Requests\AdjustmentRequest;
 use App\Http\Resources\AdjustmentResource;
@@ -44,7 +43,7 @@ class AdjustmentController
         if ($adjustment->status === Adjustment::DONE) {
             AdjustmentValidatedEvent::dispatch($adjustment);
         }
-        return response()->json([], SystemSetting::STATUS_CREATE, $this->locationHeader($adjustment));
+        return $this->responseCreate($adjustment);
     }
 
     public function update(AdjustmentRequest $request, Adjustment $adjustment): JsonResponse
@@ -62,19 +61,19 @@ class AdjustmentController
         if ($adjustment->status === Adjustment::DONE) {
             AdjustmentValidatedEvent::dispatch($adjustment);
         }
-        return response()->json([], SystemSetting::STATUS_UPDATE);
+        return $this->responseUpdate();
     }
 
     public function destroy(Adjustment $adjustment): JsonResponse
     {
         $adjustment->delete();
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function mass_destroy(Request $request): JsonResponse
     {
         $this->massDelete(new Adjustment(), $request);
-        return response()->json([], SystemSetting::STATUS_DELETE);
+        return $this->responseDelete();
     }
 
     public function initial_values()
