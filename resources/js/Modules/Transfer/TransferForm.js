@@ -26,6 +26,7 @@ import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
 
 const {TabPane} = Tabs;
 
@@ -192,7 +193,7 @@ const TransferForm = () => {
                                 label={'Source Document'}
                                 name={'source_document'}
                             />
-                            <FormItemText
+                            <FormItemTextArea
                                 label={'Notes'}
                                 name={'notes'}
                             />
