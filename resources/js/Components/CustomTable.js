@@ -1,16 +1,20 @@
 import {Table} from "antd";
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
-import {SearchOutlined} from "@ant-design/icons";
+import {MoreOutlined, SearchOutlined} from "@ant-design/icons";
 import {TableContext} from "../Contexts/TableContext";
 import SearchFilter from "./TableFilters/SearchFilter";
 import {getAllUrlParams} from "../Helpers/url";
-import {DATE_RANGE, SEARCH} from "../consts";
+import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../consts";
 import DateRangeFilter from "./TableFilters/DateRangeFilter";
+import ColumnSelectionFilter from "./TableFilters/ColumnSelectionFilter";
 
 const CustomTable = () => {
     const listContext = useContext(TableContext);
     const history = useHistory();
+    const [state, setState] = useState({
+        columns: listContext.columns
+    });
 
     useEffect(() => {
         return (() => {
@@ -30,8 +34,8 @@ const CustomTable = () => {
     }, []);
 
     function getColumns() {
-        const columns = listContext.columns;
-        return columns.map((column) => {
+        let columns = state.columns;
+        columns = columns.map((column) => {
             if (column.hasOwnProperty('filter')) {
                 const filterType = generateColumnFilterByType(column.dataIndex, column.filter);
                 if (filterType) {
@@ -39,6 +43,11 @@ const CustomTable = () => {
                 }
             }
             return column;
+        });
+        return columns.filter(column => {
+            if (!column.hasOwnProperty('hidden')) {
+                return column;
+            }
         })
     }
 
@@ -73,6 +82,24 @@ const CustomTable = () => {
                     )
                 },
                 filterIcon: filtered => <SearchOutlined style={{color: filtered ? '#1890ff' : undefined}}/>,
+            }
+        }
+        if (filterType === COLUMN_SELECTION) {
+            return {
+                filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => {
+                    return (
+                        <ColumnSelectionFilter
+                            dataIndex={dataIndex}
+                            setSelectedKeys={setSelectedKeys}
+                            selectedKeys={selectedKeys}
+                            confirm={confirm}
+                            clearFilters={clearFilters}
+                            state={state}
+                            setState={setState}
+                        />
+                    )
+                },
+                filterIcon: <MoreOutlined style={{color: 'grey', fontSize: '15px'}}/>,
             }
         }
         return null;
