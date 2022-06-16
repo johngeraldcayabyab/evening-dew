@@ -8,7 +8,7 @@ import CustomTable from "../../Components/CustomTable";
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
-import {COLUMN_SELECTION, SEARCH} from "../../consts";
+import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
 
 const WarehouseTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -45,6 +45,7 @@ const WarehouseTable = () => {
                     dataIndex: 'created_at',
                     key: 'created_at',
                     sorter: true,
+                    filter: DATE_RANGE,
                 },
                 {
                     title: '',
