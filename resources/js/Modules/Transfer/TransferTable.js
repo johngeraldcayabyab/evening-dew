@@ -10,7 +10,7 @@ import {Tag} from "antd";
 import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
-import {SEARCH} from "../../consts";
+import {COLUMN_SELECTION, SEARCH} from "../../consts";
 
 const TransferTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -120,6 +120,12 @@ const TransferTable = () => {
                     key: 'created_at',
                     sorter: true,
                 },
+                {
+                    title: '',
+                    dataIndex: COLUMN_SELECTION,
+                    key: COLUMN_SELECTION,
+                    filter: COLUMN_SELECTION,
+                }
             ]
         }}>
             <ControlPanel

@@ -142,6 +142,7 @@ const CustomTable = () => {
 
     return (
         <Table
+            className={'custom-table'}
             rowSelection={listContext.tableActions.rowSelection}
             loading={listContext.tableState.loading}
             dataSource={listContext.tableState.dataSource}

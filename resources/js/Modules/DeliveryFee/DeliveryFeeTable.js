@@ -9,7 +9,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {Tag} from "antd";
-import {SEARCH} from "../../consts";
+import {COLUMN_SELECTION, SEARCH} from "../../consts";
 
 const DeliveryFeeTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -57,6 +57,12 @@ const DeliveryFeeTable = () => {
                         return <Tag color={'default'}>No</Tag>;
                     }
                 },
+                {
+                    title: '',
+                    dataIndex: COLUMN_SELECTION,
+                    key: COLUMN_SELECTION,
+                    filter: COLUMN_SELECTION,
+                }
             ]
         }}>
             <ControlPanel

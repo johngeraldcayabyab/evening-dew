@@ -10,7 +10,7 @@ import {Tag} from "antd";
 import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
-import {DATE_RANGE, SEARCH} from "../../consts";
+import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
 
 const SalesOrderTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -90,6 +90,12 @@ const SalesOrderTable = () => {
                     sorter: true,
                     filter: DATE_RANGE,
                 },
+                {
+                    title: '',
+                    dataIndex: COLUMN_SELECTION,
+                    key: COLUMN_SELECTION,
+                    filter: COLUMN_SELECTION,
+                }
             ]
         }}>
             <ControlPanel
