@@ -6,7 +6,6 @@ import ControlPanel from "../../Components/ControlPanel";
 import CustomTable from "../../Components/CustomTable";
 import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
 import CustomPagination from "../../Components/CustomPagination";
-import TableSearchInput from "../../Components/TableSearchInput";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {Tag} from "antd";
@@ -44,7 +43,7 @@ const DeliveryFeeTable = () => {
                     sorter: true,
                     filter: SEARCH,
                     render: (text, record) => {
-                        if(record.is_enabled){
+                        if (record.is_enabled) {
                             return <Tag color={'success'}>Yes</Tag>;
                         }
                         return <Tag color={'default'}>No</Tag>;
@@ -54,7 +53,7 @@ const DeliveryFeeTable = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={<TableSearchInput/>}
+                topColTwoRight={''}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}
