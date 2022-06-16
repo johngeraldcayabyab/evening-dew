@@ -3,9 +3,9 @@
 namespace App\Traits;
 
 use App\Data\SystemSetting;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use ReflectionClass;
 
 /**
  * There should be multiple type of filter for
@@ -15,44 +15,37 @@ trait FilterTrait
 {
     public function filterAndOrder($request)
     {
-//        $selectedFields = explode(',', $request->selected_fields);
         $model = $this;
         $modelClone = $this;
-        $modelFields = $model->getFields();
-//        $with = [];
-//        foreach ($selectedFields as $selectedField) {
-//            if ($this->isModelMethod($modelClone, $selectedField)) {
-//                $selectedFields[] = $selectedField . "_id";
-//                if (($key = array_search($selectedField, $selectedFields)) !== false) {
-//                    $with[] = $selectedField;
-//                    unset($selectedFields[$key]);
-//                }
-//            }
-//        }
-//        $selectedFields[] = 'id';
-//        $model = $model->with($with);
-        foreach ($modelFields as $modelField) {
-            $requestField = $request->$modelField;
-            if ($requestField) {
-                if ($this->isModelMethod($modelClone, $requestField)) {
-                    $has = Str::camel($requestField);
+        $fields = $model->getFields();
+        foreach ($fields as $field) {
+            if ($request->$field) {
+                if (method_exists($modelClone, Str::camel($field))) {
+                    $has = Str::camel($field);
                     $related = $modelClone->$has()->getRelated();
-                    $relatedField = $this->isRelationship($related->slug());
-                    $model = $model->filterHas([$has, $relatedField, $requestField]);
+                    $relatedField = $related->slug();
+                    if (Str::contains($relatedField, 'parent')) {
+                        $relatedField = explode('.', $relatedField)[1];
+                    }
+                    $model = $model->filterHas([$has, $relatedField, $request->$field]);
                 } else {
-                    $model = $model->filter([$modelField, $requestField]);
+                    $model = $model->filter([$field, $request->$field]);
                 }
             }
         }
         if ($request->orderByColumn && $request->orderByDirection) {
-            if ($this->isModelMethod($modelClone, $request->orderByColumn)) {
-                $has = Str::camel($request->orderByColumn);
-                $related = $modelClone->$has()->getRelated();
-                $relatedField = $this->isRelationship($related->slug());
-                $hasId = $related->getTable() . '.id';
+            if (method_exists($modelClone, Str::camel($request->orderByColumn))) {
+                $field = $request->orderByColumn;
+                $field = Str::camel($field);
+                $related = $modelClone->$field()->getRelated();
+                $relatedField = $related->slug();
+                if (Str::contains($relatedField, 'parent')) {
+                    $relatedField = explode('.', $relatedField)[1];
+                }
+                $shing = $related->getTable() . '.id';
                 $parentTable = $this->getTable();
-                $foreignKey = $modelClone->$has()->getForeignKeyName();
-                $model = $model->orderBy($related::select($relatedField)->whereColumn($hasId, "{$parentTable}.{$foreignKey}"), $request->orderByDirection);
+                $foreignKey = $modelClone->$field()->getForeignKeyName();
+                $model = $model->orderBy($related::select($relatedField)->whereColumn($shing, "$parentTable.$foreignKey"), $request->orderByDirection);
             } else {
                 $model = $model->order([$request->orderByColumn, $request->orderByDirection]);
             }
@@ -63,36 +56,18 @@ trait FilterTrait
         if ($request->page_size) {
             $pageSize = $request->page_size;
         }
-//        if (is_array($selectedFields) && count($selectedFields)) {
-//            info($selectedFields);
-//            return $model->paginate($pageSize, $selectedFields);
-//        }
         return $model->paginate($pageSize);
     }
 
     public function scopeFilter($query, $filter)
     {
-        $field = $filter[0];
-        $value = $filter[1];
-        if ($field === 'id') {
-            return $query->where($field, $value);
-        }
-        if ($field === 'created_at' || $field === 'updated_at' || $field === 'deleted_at' || Str::contains($field, '_date')) {
-            $dateRange = explode(',', $value);
-            $from = Carbon::parse($dateRange[0]);
-            $to = Carbon::parse($dateRange[1]);
-            return $query->whereBetween($field, [$from, $to]);
-        }
-        return $query->where($field, 'like', "%$value%");
+        return $query->where($filter[0], 'like', "%$filter[1]%");
     }
 
     public function scopeFilterHas($query, $filter)
     {
-        $relationship = $filter[0];
-        $field = $filter[1];
-        $value = $filter[2];
-        return $query->whereHas($relationship, function ($query) use ($field, $value) {
-            return $query->where($field, 'like', "%$value%");
+        return $query->whereHas($filter[0], function ($query) use ($filter) {
+            return $query->where($filter[1], 'like', "%$filter[2]%");
         });
     }
 
@@ -111,21 +86,5 @@ trait FilterTrait
             }
         }
         return $fields;
-    }
-
-    private function isRelationship($relatedField)
-    {
-        if (Str::contains($relatedField, 'parent')) {
-            $relatedField = explode('.', $relatedField)[1];
-        }
-        return $relatedField;
-    }
-
-    private function isModelMethod($model, $string)
-    {
-        if (method_exists($model, Str::camel($string))) {
-            return true;
-        }
-        return false;
     }
 }
