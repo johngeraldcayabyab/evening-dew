@@ -17,11 +17,11 @@ const ColumnSelectionFilter = (props) => {
                             <Checkbox key={uuidv4()} checked={!column.hidden} onClick={() => {
                                 const newColumns = columns.map((newColumn) => {
                                     if (column.dataIndex === newColumn.dataIndex) {
-                                        // if (newColumn.hasOwnProperty('hidden')) {
-                                        //     delete newColumn.hidden;
-                                        // } else {
-                                        //     newColumn.hidden = true;
-                                        // }
+                                        if (newColumn.hasOwnProperty('hidden')) {
+                                            delete newColumn.hidden;
+                                        } else {
+                                            newColumn.hidden = true;
+                                        }
                                     }
                                     return newColumn;
                                 });
