@@ -19,6 +19,14 @@ const ProductCategoryTable = () => {
             tableActions: tableActions,
             columns: [
                 {
+                    title: 'ID',
+                    dataIndex: 'id',
+                    key: 'id',
+                    sorter: true,
+                    filter: SEARCH,
+                    hidden: true,
+                },
+                {
                     title: 'Category',
                     dataIndex: 'parents',
                     key: 'category',

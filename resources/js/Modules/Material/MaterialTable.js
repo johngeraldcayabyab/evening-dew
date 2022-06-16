@@ -19,6 +19,14 @@ const MaterialTable = () => {
             tableActions: tableActions,
             columns: [
                 {
+                    title: 'ID',
+                    dataIndex: 'id',
+                    key: 'id',
+                    sorter: true,
+                    filter: SEARCH,
+                    hidden: true,
+                },
+                {
                     title: 'Product',
                     dataIndex: 'product',
                     key: 'product',
