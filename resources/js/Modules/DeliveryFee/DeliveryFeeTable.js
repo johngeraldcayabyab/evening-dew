@@ -9,7 +9,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {Tag} from "antd";
-import {COLUMN_SELECTION, SEARCH} from "../../consts";
+import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
 
 const DeliveryFeeTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -56,6 +56,14 @@ const DeliveryFeeTable = () => {
                         }
                         return <Tag color={'default'}>No</Tag>;
                     }
+                },
+                {
+                    title: 'Created At',
+                    dataIndex: 'created_at',
+                    key: 'created_at',
+                    sorter: true,
+                    filter: DATE_RANGE,
+                    hidden: true,
                 },
                 {
                     title: '',

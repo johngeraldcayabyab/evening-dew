@@ -10,7 +10,7 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {Col, Row} from "antd";
 import KanbanTablePicker from "../../Components/KanbanTablePicker";
-import {COLUMN_SELECTION, KANBAN, SEARCH, TABLE} from "../../consts";
+import {COLUMN_SELECTION, DATE_RANGE, KANBAN, SEARCH, TABLE} from "../../consts";
 import Cardination from "../../Components/Cardination";
 
 const ContactTable = () => {
@@ -60,6 +60,7 @@ const ContactTable = () => {
                     dataIndex: 'created_at',
                     key: 'created_at',
                     sorter: true,
+                    filter: DATE_RANGE,
                 },
                 {
                     title: '',
