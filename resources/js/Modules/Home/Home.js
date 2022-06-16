@@ -6,7 +6,12 @@ import {useEffect, useState} from "react";
 import useFetchHook from "../../Hooks/useFetchHook";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {GET} from "../../consts";
-import {Card, Col, Row} from "antd";
+import {Card, Col, DatePicker, Row, Spin} from "antd";
+import moment from "moment";
+
+const {RangePicker} = DatePicker;
+
+const dateFormat = 'YYYY-MM-DD';
 
 const Home = () => {
     const useFetch = useFetchHook();
@@ -15,24 +20,36 @@ const Home = () => {
     const [state, setState] = useState({
         salesPerDayLoading: true,
         salesPerDay: [],
+        from: moment().subtract(7, 'days'),
+        to: moment(),
     });
 
     useEffect(() => {
-        useFetch(`/api/sales_orders/sales_per_day`, GET).then((response) => {
+        const from = moment().subtract(7, 'days');
+        const to = moment();
+        fetchSalesPerDay(from, to);
+    }, []);
+
+    function fetchSalesPerDay(from, to) {
+        useFetch(`/api/sales_orders/sales_per_day`, GET, {
+            from: from.format(dateFormat),
+            to: to.format(dateFormat),
+        }).then((response) => {
             const salesPerDay = response.map((sales) => ({
                 time: sales.time,
                 total: parseInt(sales.total)
             }));
-            console.log(salesPerDay);
             setState((prevState) => ({
                 ...prevState,
                 salesPerDay: salesPerDay,
                 salesPerDayLoading: false,
+                from: from,
+                to: to
             }));
         }).catch((responseErr) => {
             fetchCatcher.get(responseErr);
         });
-    }, []);
+    }
 
     const config = {
         data: state.salesPerDay,
@@ -72,18 +89,30 @@ const Home = () => {
                     </Title>
                 }
             />
-
             <Row align={'middle'} style={{marginTop: '15px'}}>
-                <Col span={12}>
+                <Col
+                    xs={{span: 24}}
+                    sm={{span: 24}}
+                    md={{span: 24}}
+                    lg={{span: 12}}
+                >
                     <Card
-                        title="Sales Per Day"
+                        title={"Sales Per Day"}
+                        extra={<RangePicker
+                            onChange={e => {
+                                fetchSalesPerDay(moment(e[0]), moment(e[1]));
+                            }}
+                            allowClear={false}
+                            style={{marginBottom: 8, width: '100%'}}
+                            defaultValue={[state.from, state.to]}
+                            // format={dateFormat}
+                        />}
                         style={{margin: '5%', padding: '15px'}}
                     >
-                        <Column {...config} />
+                        <Spin spinning={state.salesPerDayLoading}>
+                            <Column {...config} />
+                        </Spin>
                     </Card>
-                </Col>
-                <Col span={12}>
-
                 </Col>
             </Row>
 
