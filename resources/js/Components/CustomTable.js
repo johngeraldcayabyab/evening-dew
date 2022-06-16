@@ -1,5 +1,5 @@
 import {Table} from "antd";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect} from "react";
 import {useHistory} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
 import {TableContext} from "../Contexts/TableContext";
@@ -11,9 +11,6 @@ import DateRangeFilter from "./TableFilters/DateRangeFilter";
 const CustomTable = () => {
     const listContext = useContext(TableContext);
     const history = useHistory();
-    const [state, setState] = useState({
-        columns: listContext.columns
-    });
 
     useEffect(() => {
         return (() => {
@@ -23,27 +20,27 @@ const CustomTable = () => {
 
     useEffect(() => {
         const selectedFields = [];
-        const columns = state.columns.map((column) => {
+        listContext.columns.forEach((column) => {
+            selectedFields.push(column.dataIndex);
+        });
+        let urlParams = getAllUrlParams();
+        urlParams.selected_fields = selectedFields;
+        urlParams = {...urlParams, ...listContext.manifest.queryDefaults};
+        listContext.tableActions.renderData(urlParams);
+    }, []);
+
+    function getColumns() {
+        const columns = listContext.columns;
+        return columns.map((column) => {
             if (column.hasOwnProperty('filter')) {
                 const filterType = generateColumnFilterByType(column.dataIndex, column.filter);
                 if (filterType) {
                     column = {...column, ...filterType};
                 }
             }
-            if (!column.hasOwnProperty('hidden')) {
-                selectedFields.push(column.dataIndex);
-            }
             return column;
-        });
-        setState((prevState) => ({
-            ...prevState,
-            columns: columns,
-        }));
-        let urlParams = getAllUrlParams();
-        urlParams.selected_fields = selectedFields;
-        urlParams = {...urlParams, ...listContext.manifest.queryDefaults};
-        listContext.tableActions.renderData(urlParams);
-    }, []);
+        })
+    }
 
     function generateColumnFilterByType(dataIndex, filterType) {
         if (filterType === SEARCH) {
@@ -121,7 +118,7 @@ const CustomTable = () => {
             rowSelection={listContext.tableActions.rowSelection}
             loading={listContext.tableState.loading}
             dataSource={listContext.tableState.dataSource}
-            columns={state.columns}
+            columns={getColumns()}
             rowKey={'id'}
             onRow={onRow}
             pagination={false}
