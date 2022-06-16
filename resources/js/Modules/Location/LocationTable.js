@@ -19,6 +19,14 @@ const LocationTable = () => {
             tableActions: tableActions,
             columns: [
                 {
+                    title: 'ID',
+                    dataIndex: 'id',
+                    key: 'id',
+                    sorter: true,
+                    filter: SEARCH,
+                    hidden: true,
+                },
+                {
                     title: 'Name',
                     dataIndex: 'parents',
                     key: 'name',

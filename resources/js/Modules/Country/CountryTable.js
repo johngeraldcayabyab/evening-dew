@@ -19,6 +19,14 @@ const CountryTable = () => {
             tableActions: tableActions,
             columns: [
                 {
+                    title: 'ID',
+                    dataIndex: 'id',
+                    key: 'id',
+                    sorter: true,
+                    filter: SEARCH,
+                    hidden: true,
+                },
+                {
                     title: 'Country Name',
                     dataIndex: 'country_name',
                     key: 'country_name',

@@ -19,6 +19,14 @@ const CurrencyTable = () => {
             tableActions: tableActions,
             columns: [
                 {
+                    title: 'ID',
+                    dataIndex: 'id',
+                    key: 'id',
+                    sorter: true,
+                    filter: SEARCH,
+                    hidden: true,
+                },
+                {
                     title: 'Currency',
                     dataIndex: 'currency',
                     key: 'currency',
