@@ -8,7 +8,7 @@ import CustomTable from "../../Components/CustomTable";
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
-import {SEARCH} from "../../consts";
+import {COLUMN_SELECTION, SEARCH} from "../../consts";
 
 const SequenceTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -88,6 +88,12 @@ const SequenceTable = () => {
                     key: 'created_at',
                     sorter: true,
                 },
+                {
+                    title: '',
+                    dataIndex: COLUMN_SELECTION,
+                    key: COLUMN_SELECTION,
+                    filter: COLUMN_SELECTION,
+                }
             ]
         }}>
             <ControlPanel
