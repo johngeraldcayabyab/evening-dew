@@ -304,10 +304,6 @@ const SameDayForm = () => {
                                 label={'Source document'}
                                 name={'source_document'}
                             />
-                            <FormItemTextArea
-                                label={'Notes'}
-                                name={'notes'}
-                            />
                             <FormItemSelect
                                 label={'Source'}
                                 name={'source_id'}

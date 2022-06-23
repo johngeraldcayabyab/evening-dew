@@ -3,6 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Jobs\ImportShopifyOrdersJob;
+use DateInterval;
+use DatePeriod;
+use DateTime;
 use Illuminate\Console\Command;
 
 class ImportShopifyOrdersCommand extends Command
@@ -18,6 +21,15 @@ class ImportShopifyOrdersCommand extends Command
 
     public function handle()
     {
+//        $begin = new DateTime('2020-09-02');
+//        $end = new DateTime('2022-06-24');
+//        $interval = DateInterval::createFromDateString('1 day');
+//        $period = new DatePeriod($begin, $interval, $end);
+//        $minutes = 1;
+//        foreach ($period as $dt) {
+//            ImportShopifyOrdersJob::dispatch($dt->format("Y-m-d"))->delay(now()->addMinutes($minutes));
+//            $minutes++;
+//        }
         ImportShopifyOrdersJob::dispatch($this->option('date'));
         return 0;
     }
