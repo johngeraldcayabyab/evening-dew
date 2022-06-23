@@ -29,7 +29,6 @@ class ImportShopifyOrdersJob implements ShouldQueue
 
     public function __construct($date = null)
     {
-        //jeep
         $this->date = $date;
     }
 
