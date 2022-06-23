@@ -217,6 +217,8 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 $product = Product::firstOrCreate([
                     'name' => $shopifyLineItem['name'],
                     'internal_reference' => $shopifyLineItem['sku'],
+                ], [
+                    'sales_price' => $shopifyLineItem['price'],
                 ]);
                 $salesOrderLineSubtotal = $shopifyLineItem['price'] * ($shopifyLineItem['fulfillable_quantity'] ? $shopifyLineItem['fulfillable_quantity'] : 1);
                 SalesOrderLine::create([
