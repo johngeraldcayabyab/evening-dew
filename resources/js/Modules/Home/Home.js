@@ -94,7 +94,7 @@ const Home = () => {
                     xs={{span: 24}}
                     sm={{span: 24}}
                     md={{span: 24}}
-                    lg={{span: 12}}
+                    lg={{span: 16, offset: 4}}
                 >
                     <Card
                         title={"Sales Per Day"}
@@ -115,8 +115,6 @@ const Home = () => {
                     </Card>
                 </Col>
             </Row>
-
-
         </>
     );
 };

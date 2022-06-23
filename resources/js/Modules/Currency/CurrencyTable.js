@@ -6,10 +6,9 @@ import ControlPanel from "../../Components/ControlPanel";
 import CustomTable from "../../Components/CustomTable";
 import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
 import CustomPagination from "../../Components/CustomPagination";
-import TableSearchInput from "../../Components/TableSearchInput";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
-import {SEARCH} from "../../consts";
+import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
 
 const CurrencyTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -19,6 +18,14 @@ const CurrencyTable = () => {
             tableState: tableState,
             tableActions: tableActions,
             columns: [
+                {
+                    title: 'ID',
+                    dataIndex: 'id',
+                    key: 'id',
+                    sorter: true,
+                    filter: SEARCH,
+                    hidden: true,
+                },
                 {
                     title: 'Currency',
                     dataIndex: 'currency',
@@ -45,12 +52,19 @@ const CurrencyTable = () => {
                     dataIndex: 'created_at',
                     key: 'created_at',
                     sorter: true,
+                    filter: DATE_RANGE,
+                },
+                {
+                    title: '',
+                    dataIndex: COLUMN_SELECTION,
+                    key: COLUMN_SELECTION,
+                    filter: COLUMN_SELECTION,
                 }
             ]
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={<TableSearchInput/>}
+                topColTwoRight={''}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}

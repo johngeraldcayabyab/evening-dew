@@ -5,13 +5,12 @@ import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
 import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
 import CustomTable from "../../Components/CustomTable";
-import TableSearchInput from "../../Components/TableSearchInput";
 import CustomPagination from "../../Components/CustomPagination";
 import {Tag} from "antd";
 import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
-import {SEARCH} from "../../consts";
+import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
 
 const TransferTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -21,6 +20,14 @@ const TransferTable = () => {
             tableState: tableState,
             tableActions: tableActions,
             columns: [
+                {
+                    title: 'ID',
+                    dataIndex: 'id',
+                    key: 'id',
+                    sorter: true,
+                    filter: SEARCH,
+                    hidden: true,
+                },
                 {
                     title: 'Reference',
                     dataIndex: 'reference',
@@ -112,12 +119,19 @@ const TransferTable = () => {
                     dataIndex: 'created_at',
                     key: 'created_at',
                     sorter: true,
+                    filter: DATE_RANGE,
                 },
+                {
+                    title: '',
+                    dataIndex: COLUMN_SELECTION,
+                    key: COLUMN_SELECTION,
+                    filter: COLUMN_SELECTION,
+                }
             ]
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={<TableSearchInput/>}
+                topColTwoRight={''}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}

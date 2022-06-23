@@ -6,12 +6,11 @@ import ControlPanel from "../../Components/ControlPanel";
 import CustomTable from "../../Components/CustomTable";
 import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
 import CustomPagination from "../../Components/CustomPagination";
-import TableSearchInput from "../../Components/TableSearchInput";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {Col, Row} from "antd";
 import KanbanTablePicker from "../../Components/KanbanTablePicker";
-import {KANBAN, SEARCH, TABLE} from "../../consts";
+import {COLUMN_SELECTION, DATE_RANGE, KANBAN, SEARCH, TABLE} from "../../consts";
 import Cardination from "../../Components/Cardination";
 
 const ContactTable = () => {
@@ -27,6 +26,14 @@ const ContactTable = () => {
             dataState: dataState,
             setDataState: setDataState,
             columns: [
+                {
+                    title: 'ID',
+                    dataIndex: 'id',
+                    key: 'id',
+                    sorter: true,
+                    filter: SEARCH,
+                    hidden: true,
+                },
                 {
                     title: 'Name',
                     dataIndex: 'name',
@@ -53,6 +60,13 @@ const ContactTable = () => {
                     dataIndex: 'created_at',
                     key: 'created_at',
                     sorter: true,
+                    filter: DATE_RANGE,
+                },
+                {
+                    title: '',
+                    dataIndex: COLUMN_SELECTION,
+                    key: COLUMN_SELECTION,
+                    filter: COLUMN_SELECTION,
                 }
             ],
             kanban: {
@@ -77,7 +91,7 @@ const ContactTable = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={<TableSearchInput/>}
+                topColTwoRight={''}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={
