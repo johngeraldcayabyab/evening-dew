@@ -79,7 +79,10 @@ const ProductTable = () => {
                     sorter: true,
                     filter: SEARCH,
                     render: (text, record) => {
-                        return record.product_category.category;
+                        if (record.product_category) {
+                            return record.product_category.category;
+                        }
+                        return '';
                     }
                 },
                 {

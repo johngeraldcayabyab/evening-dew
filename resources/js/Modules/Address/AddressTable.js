@@ -85,7 +85,7 @@ const AddressTable = () => {
                     dataIndex: COLUMN_SELECTION,
                     key: COLUMN_SELECTION,
                     filter: COLUMN_SELECTION,
-                }
+                },
             ]
         }}>
             <ControlPanel

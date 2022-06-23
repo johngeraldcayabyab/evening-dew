@@ -43,6 +43,7 @@ class DeliveryFeeLine extends Model
             $line = [
                 'id' => isset($datum['id']) ? $datum['id'] : null,
                 'city_id' => $datum['city_id'],
+                'fee' => $datum['fee'],
                 'delivery_fee_id' => $parent->id,
                 'updated_at' => $datum['updated_at'] ?? $date,
             ];
