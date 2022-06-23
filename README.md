@@ -96,7 +96,7 @@ php artisan storage:link php artisan event:cache
 </ul>
 
 
-<h5>Dependencies</h5>
+<h5>Dependencies before running</h5>
 <ul>
 <li>Php 7.4</li>
 <li>Redis</li>
