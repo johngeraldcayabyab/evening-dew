@@ -20,7 +20,7 @@ class Kernel extends ConsoleKernel
                 ValidateAllDraftTransfersJob::dispatch();
             }
             ComputeProductQuantityJob::dispatch();
-            ImportShopifyOrdersJob::dispatch();
+            ImportShopifyOrdersJob::dispatch(); //test
         })->everyMinute();
     }
 
