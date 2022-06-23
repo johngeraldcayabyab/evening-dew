@@ -5,6 +5,8 @@ namespace App\Jobs;
 use App\Models\Address;
 use App\Models\City;
 use App\Models\Contact;
+use App\Models\DeliveryFee;
+use App\Models\DeliveryFeeLine;
 use App\Models\Product;
 use App\Models\SalesOrder;
 use App\Models\SalesOrderLine;
@@ -59,16 +61,12 @@ class ImportShopifyOrdersJob implements ShouldQueue
 
 
         $responseJson = $response->json();
-        info($responseJson);
         $orders = $responseJson['orders'];
 
         foreach ($orders as $order) {
             $shopifyOrderNumber = 'SP/' . $order['order_number'];
             if (SalesOrder::where('number', $shopifyOrderNumber)->first()) {
                 continue;
-            }
-            if (isset($order['shipping_lines'])) {
-//                $this->log($order['shipping_lines']);
             }
             $shopifyCustomer = $order['customer'];
             $shopifyCreatedAt = Carbon::parse($order['created_at']);
@@ -198,19 +196,37 @@ class ImportShopifyOrdersJob implements ShouldQueue
 
             $subtotal = 0;
 
-            if ($salesOrderDeliveryCity->deliveryFeeLines()->exists()) {
-                $deliveryFeeProduct = $salesOrderDeliveryCity->deliveryFeeLines[0]->deliveryFee->product;
-                SalesOrderLine::create([
-                    'product_id' => $deliveryFeeProduct->id,
-                    'quantity' => 1,
-                    'measurement_id' => $deliveryFeeProduct->sales_measurement_id,
-                    'unit_price' => $deliveryFeeProduct->sales_price,
-                    'subtotal' => $deliveryFeeProduct->sales_price,
-                    'sales_order_id' => $salesOrder->id,
-                    'created_at' => $salesOrder->created_at,
-                    'updated_at' => $salesOrder->updated_at,
-                ]);
-                $subtotal = $deliveryFeeProduct->sales_price;
+            if (isset($order['shipping_lines'])) {
+                $shippingLines = $order['shipping_lines'][0];
+                $shippingPrice = (int)$shippingLines['discounted_price'];
+                $shippingCityName = $shippingLines['code'];
+                if ($shippingPrice) {
+                    $shippingCity = City::firstOrCreate([
+                        'name' => $shippingCityName,
+                    ]);
+                    if ($shippingCity->wasRecentlyCreated === true) {
+                        $deliveryFee = DeliveryFee::first();
+                        DeliveryFeeLine::create([
+                            'city_id' => $shippingCity->id,
+                            'fee' => $shippingPrice,
+                            'delivery_fee_id' => $deliveryFee->id,
+                        ]);
+                    }
+                    if ($shippingCity->deliveryFeeLines()->exists()) {
+                        $deliveryFeeProduct = $shippingCity->deliveryFeeLines[0]->deliveryFee->product;
+                        SalesOrderLine::create([
+                            'product_id' => $deliveryFeeProduct->id,
+                            'quantity' => 1,
+                            'measurement_id' => $deliveryFeeProduct->sales_measurement_id,
+                            'unit_price' => $shippingPrice,
+                            'subtotal' => $shippingPrice,
+                            'sales_order_id' => $salesOrder->id,
+                            'created_at' => $salesOrder->created_at,
+                            'updated_at' => $salesOrder->updated_at,
+                        ]);
+                        $subtotal = $shippingPrice;
+                    }
+                }
             }
 
             foreach ($shopifyLineItems as $shopifyLineItem) {
