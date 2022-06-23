@@ -39,7 +39,6 @@ const Home = () => {
                 time: sales.time,
                 total: parseInt(sales.total)
             }));
-            console.log(salesPerDay);
             setState((prevState) => ({
                 ...prevState,
                 salesPerDay: salesPerDay,

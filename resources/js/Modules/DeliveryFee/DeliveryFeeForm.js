@@ -19,6 +19,7 @@ import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import useOptionHook from "../../Hooks/useOptionHook";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 
 const {TabPane} = Tabs;
 
@@ -93,6 +94,10 @@ const DeliveryFeeForm = () => {
                                             required={true}
                                             optionAggregate={cityOptions}
                                             dropdownRender={cityOptions}
+                                        />
+                                        <FormItemNumber
+                                            placeholder={'Fee'}
+                                            name={'fee'}
                                         />
                                     </FormLineParent>
                                 </ColForm>
