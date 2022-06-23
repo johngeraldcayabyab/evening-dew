@@ -14,6 +14,7 @@ class DeliveryFeeLineResource extends JsonResource
         return $this->defaults($this, $request, [
             'city_id' => $this->city_id,
             'city' => $this->city,
+            'fee' => $this->fee,
             'delivery_fee' => $this->deliveryFee,
             'product' => $this->deliveryFee->product
         ]);
