@@ -23,6 +23,13 @@ class ImportShopifyOrdersJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    protected $date;
+
+    public function __construct($date = null)
+    {
+        $this->date = $date;
+    }
+
     public function handle()
     {
         $shopifyUrl = config('shopify.url');
@@ -33,12 +40,26 @@ class ImportShopifyOrdersJob implements ShouldQueue
             return false;
         }
 
-        $response = Http::withHeaders([
+        $http = Http::withHeaders([
             'Content-Type' => 'application/json',
             'X-Shopify-Access-Token' => $shopifyAccessToken
-        ])->get("{$shopifyUrl}/admin/api/2022-04/orders.json?status=any");
+        ]);
+
+        $jsonRequest = [
+            'status' => 'any',
+        ];
+
+        if ($this->date) {
+            $jsonRequest['created_at_max'] = $this->date;
+        }
+
+        $this->log($jsonRequest);
+
+        $response = $http->get("{$shopifyUrl}/admin/api/2022-04/orders.json", $jsonRequest);
+
 
         $responseJson = $response->json();
+        info($responseJson);
         $orders = $responseJson['orders'];
 
         foreach ($orders as $order) {
