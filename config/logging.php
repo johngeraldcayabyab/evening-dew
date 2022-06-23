@@ -55,7 +55,7 @@ return [
             'permission' => 0664,
         ],
 
-        'shopify' => [
+        'shopify' => [ //keep
             'driver' => 'daily',
             'path' => storage_path('logs/shopify.log'),
             'level' => env('LOG_LEVEL', 'debug'),
