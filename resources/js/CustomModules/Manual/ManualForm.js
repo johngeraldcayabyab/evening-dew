@@ -96,7 +96,8 @@ const ManualForm = () => {
                 invoiceCityOptions.getOptions({id: invoiceAddress.city.id});
                 deliveryCityOptions.getOptions({id: deliveryAddress.city.id});
                 form.setFieldsValue({
-                    phone: defaultAddress.contact.phone,
+                    invoice_phone: defaultAddress.contact.phone,
+                    delivery_phone: defaultAddress.contact.phone,
                     invoice_address: invoiceAddress.address,
                     delivery_address: deliveryAddress.address,
                     invoice_city_id: invoiceAddress.city.id,
@@ -227,10 +228,6 @@ const ManualForm = () => {
                                 {...customerOptions}
                                 dropdownRender={customerOptions}
                             />
-                            <FormItemText
-                                label={'Phone'}
-                                name={'phone'}
-                            />
                             <FormItemSelect
                                 label={'Shipping Method'}
                                 name={'shipping_method'}
@@ -250,6 +247,10 @@ const ManualForm = () => {
                                     {value: 'motorcycle', label: 'Motorcycle'},
                                     {value: 'car', label: 'Car'},
                                 ]}
+                            />
+                            <FormItemTextArea
+                                label={'Notes'}
+                                name={'notes'}
                             />
                         </ColForm>
                         <ColForm>
@@ -299,11 +300,14 @@ const ManualForm = () => {
                                 label={'Invoice address'}
                                 name={'invoice_address'}
                             />
-
                             <FormItemSelect
                                 label={'Invoice city'}
                                 name={'invoice_city_id'}
                                 {...invoiceCityOptions}
+                            />
+                            <FormItemText
+                                label={'Invoice Phone'}
+                                name={'invoice_phone'}
                             />
                         </ColForm>
                         <ColForm>
@@ -311,11 +315,14 @@ const ManualForm = () => {
                                 label={'Delivery address'}
                                 name={'delivery_address'}
                             />
-
                             <FormItemSelect
                                 label={'Delivery city'}
                                 name={'delivery_city_id'}
                                 {...deliveryCityOptions}
+                            />
+                            <FormItemText
+                                label={'Delivery Phone'}
+                                name={'delivery_phone'}
                             />
                         </ColForm>
                     </RowForm>
