@@ -16,7 +16,8 @@ class CreateSalesOrdersTable extends Migration
             $table->string('delivery_address')->nullable();
             $table->bigInteger('invoice_city_id')->nullable();
             $table->bigInteger('delivery_city_id')->nullable();
-            $table->string('phone')->nullable();
+            $table->string('invoice_phone')->nullable();
+            $table->string('delivery_phone')->nullable();
             $table->dateTime('expiration_date')->nullable();
             $table->dateTime('quotation_date')->nullable();
             $table->bigInteger('payment_term_id')->nullable();
