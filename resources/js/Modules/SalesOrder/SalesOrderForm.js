@@ -50,9 +50,7 @@ const SalesOrderForm = () => {
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
         breakdown: {
-            untaxedAmount: 0,
-            tax: 0,
-            total: 0,
+            untaxedAmount: 0, tax: 0, total: 0,
         }
     });
 
@@ -61,11 +59,8 @@ const SalesOrderForm = () => {
             if (formState.initialValues.hasOwnProperty('sales_order_lines') && formState.initialValues.sales_order_lines.length) {
                 const total = computeTotal(formState.initialValues.sales_order_lines);
                 setState((prevState) => ({
-                    ...prevState,
-                    breakdown: {
-                        untaxedAmount: total,
-                        tax: 0,
-                        total: total,
+                    ...prevState, breakdown: {
+                        untaxedAmount: total, tax: 0, total: total,
                     }
                 }));
             }
@@ -102,7 +97,8 @@ const SalesOrderForm = () => {
                 invoiceCityOptions.getOptions({id: invoiceAddress.city.id});
                 deliveryCityOptions.getOptions({id: deliveryAddress.city.id});
                 form.setFieldsValue({
-                    phone: defaultAddress.contact.phone,
+                    invoice_phone: defaultAddress.contact.phone,
+                    delivery_phone: defaultAddress.contact.phone,
                     invoice_address: invoiceAddress.address,
                     delivery_address: deliveryAddress.address,
                     invoice_city_id: invoiceAddress.city.id,
@@ -176,11 +172,8 @@ const SalesOrderForm = () => {
         });
         const total = computeTotal(salesOrderLines);
         setState((prevState) => ({
-            ...prevState,
-            breakdown: {
-                untaxedAmount: total,
-                tax: 0,
-                total: total,
+            ...prevState, breakdown: {
+                untaxedAmount: total, tax: 0, total: total,
             }
         }));
     }
@@ -189,330 +182,298 @@ const SalesOrderForm = () => {
         return salesOrderLines.map((salesOrderLine) => (salesOrderLine.subtotal)).reduce((total, subtotal) => (total + subtotal));
     }
 
-    return (
-        <FormContextProvider
-            value={{
-                id: id,
-                manifest: manifest,
-                form: form,
-                formState: formState,
-                formActions: formActions,
-                state: state,
-                setState: setState,
-                onFinish: formActions.onFinish,
-                onValuesChange: onValuesChange,
-            }}
-        >
-            <CustomForm>
-                <ControlPanel
-                    topColOneLeft={<CustomBreadcrumb/>}
-                    bottomColOneLeft={<FormButtons/>}
-                    bottomColTwoRight={<NextPreviousRecord/>}
+    return (<FormContextProvider
+        value={{
+            id: id,
+            manifest: manifest,
+            form: form,
+            formState: formState,
+            formActions: formActions,
+            state: state,
+            setState: setState,
+            onFinish: formActions.onFinish,
+            onValuesChange: onValuesChange,
+        }}
+    >
+        <CustomForm>
+            <ControlPanel
+                topColOneLeft={<CustomBreadcrumb/>}
+                bottomColOneLeft={<FormButtons/>}
+                bottomColTwoRight={<NextPreviousRecord/>}
+            />
+            <StatusBar
+                statuses={[{
+                    value: 'draft', title: 'Draft', status: {draft: 'process', done: 'finish', cancelled: 'wait'}
+                }, {
+                    value: 'done',
+                    title: 'Done',
+                    type: 'primary',
+                    label: 'Validate',
+                    status: {draft: 'wait', done: 'finish', cancelled: 'wait'},
+                    visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
+                }, {
+                    value: 'cancelled',
+                    title: 'Cancelled',
+                    type: 'ghost',
+                    label: 'Cancel',
+                    status: {draft: 'wait', done: 'wait', cancelled: 'finish'},
+                    visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
+                },]}
+            />
+            <FormCard>
+                <FormLinks
+                    links={[{
+                        module: 'transfers', param: 'source_document', value: 'number', label: 'Deliveries',
+                    },]}
                 />
-                <StatusBar
-                    statuses={[
-                        {
-                            value: 'draft',
-                            title: 'Draft',
-                            status: {draft: 'process', done: 'finish', cancelled: 'wait'}
-                        },
-                        {
-                            value: 'done',
-                            title: 'Done',
-                            type: 'primary',
-                            label: 'Validate',
-                            status: {draft: 'wait', done: 'finish', cancelled: 'wait'},
-                            visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
-                        },
-                        {
-                            value: 'cancelled',
-                            title: 'Cancelled',
-                            type: 'ghost',
-                            label: 'Cancel',
-                            status: {draft: 'wait', done: 'wait', cancelled: 'finish'},
-                            visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
-                        },
-                    ]}
-                />
-                <FormCard>
-                    <FormLinks
-                        links={[
-                            {
-                                module: 'transfers',
-                                param: 'source_document',
-                                value: 'number',
-                                label: 'Deliveries',
-                            },
-                        ]}
-                    />
-                    <RowForm>
-                        <ColForm>
-                            <FormItemStatus
-                                name={'status'}
-                            />
+                <RowForm>
+                    <ColForm>
+                        <FormItemStatus
+                            name={'status'}
+                        />
 
-                            <FormItemText
-                                label={'Number'}
-                                name={'number'}
-                                message={'Please input number'}
-                                required={true}
-                                size={'large'}
-                            />
-                        </ColForm>
-                    </RowForm>
+                        <FormItemText
+                            label={'Number'}
+                            name={'number'}
+                            message={'Please input number'}
+                            required={true}
+                            size={'large'}
+                        />
+                    </ColForm>
+                </RowForm>
 
-                    <RowForm>
-                        <ColForm>
-                            <FormItemSelect
-                                label={'Customer'}
-                                name={'customer_id'}
-                                message={'Please select a customer'}
-                                required={true}
-                                {...customerOptions}
-                                dropdownRender={customerOptions}
-                            />
-                            <FormItemText
-                                label={'Phone'}
-                                name={'phone'}
-                            />
-                            <FormItemSelect
-                                label={'Shipping Method'}
-                                name={'shipping_method'}
-                                message={'Please select an shipping method'}
-                                required={true}
-                                options={[
-                                    {value: 'delivery', label: 'Delivery'},
-                                    {value: 'pickup', label: 'Pickup'},
-                                ]}
-                            />
-                        </ColForm>
-                        <ColForm>
-                            <FormItemDate
-                                label={'Shipping date'}
-                                name={'shipping_date'}
-                            />
-                            <FormItemDate
-                                label={'Quotation Date'}
-                                name={'quotation_date'}
-                            />
-                            <FormItemText
-                                label={'Source document'}
-                                name={'source_document'}
-                            />
-                            <FormItemTextArea
-                                label={'Notes'}
-                                name={'notes'}
-                            />
-                        </ColForm>
-                    </RowForm>
+                <RowForm>
+                    <ColForm>
+                        <FormItemSelect
+                            label={'Customer'}
+                            name={'customer_id'}
+                            message={'Please select a customer'}
+                            required={true}
+                            {...customerOptions}
+                            dropdownRender={customerOptions}
+                        />
+                        <FormItemSelect
+                            label={'Shipping Method'}
+                            name={'shipping_method'}
+                            message={'Please select an shipping method'}
+                            required={true}
+                            options={[{value: 'delivery', label: 'Delivery'}, {value: 'pickup', label: 'Pickup'},]}
+                        />
+                        <FormItemTextArea
+                            label={'Notes'}
+                            name={'notes'}
+                        />
+                    </ColForm>
+                    <ColForm>
+                        <FormItemDate
+                            label={'Shipping date'}
+                            name={'shipping_date'}
+                        />
+                        <FormItemDate
+                            label={'Quotation Date'}
+                            name={'quotation_date'}
+                        />
+                        <FormItemText
+                            label={'Source document'}
+                            name={'source_document'}
+                        />
+                    </ColForm>
+                </RowForm>
 
-                    <RowForm>
-                        <Divider orientation={'left'}>
-                            Addresses
-                        </Divider>
-                        <ColForm>
-                            <FormItemText
-                                label={'Invoice address'}
-                                name={'invoice_address'}
-                            />
+                <RowForm>
+                    <Divider orientation={'left'}>
+                        Addresses
+                    </Divider>
+                    <ColForm>
+                        <FormItemText
+                            label={'Invoice address'}
+                            name={'invoice_address'}
+                        />
 
-                            <FormItemSelect
-                                label={'Invoice city'}
-                                name={'invoice_city_id'}
-                                {...invoiceCityOptions}
-                            />
-                        </ColForm>
-                        <ColForm>
-                            <FormItemText
-                                label={'Delivery address'}
-                                name={'delivery_address'}
-                            />
+                        <FormItemSelect
+                            label={'Invoice city'}
+                            name={'invoice_city_id'}
+                            {...invoiceCityOptions}
+                        />
+                        <FormItemText
+                            label={'Invoice Phone'}
+                            name={'invoice_phone'}
+                        />
+                    </ColForm>
+                    <ColForm>
+                        <FormItemText
+                            label={'Delivery address'}
+                            name={'delivery_address'}
+                        />
 
-                            <FormItemSelect
-                                label={'Delivery city'}
-                                name={'delivery_city_id'}
-                                {...deliveryCityOptions}
-                            />
-                        </ColForm>
-                    </RowForm>
+                        <FormItemSelect
+                            label={'Delivery city'}
+                            name={'delivery_city_id'}
+                            {...deliveryCityOptions}
+                        />
+                        <FormItemText
+                            label={'Delivery Phone'}
+                            name={'delivery_phone'}
+                        />
+                    </ColForm>
+                </RowForm>
 
 
-                    <Divider/>
+                <Divider/>
 
-                    <Tabs defaultActiveKey="1">
-                        <TabPane tab="Order Lines" key="1">
-                            <RowForm>
-                                <ColForm lg={24}>
-                                    <FormLineParent
-                                        columns={['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Subtotal']}
-                                        listName={'sales_order_lines'}
-                                    >
-                                        <FormItemLineId name={'id'}/>
-                                        <FormItemSelect
-                                            placeholder={'Product'}
-                                            name={'product_id'}
-                                            message={'Please select a product'}
-                                            required={true}
-                                            optionAggregate={productLineOptions}
-                                            dropdownRender={productLineOptions}
-                                        />
-                                        <FormItemText
-                                            placeholder={'Description'}
-                                            name={'description'}
-                                            listName={'sales_order_lines'}
-                                        />
-                                        <FormItemNumber
-                                            placeholder={'Quantity'}
-                                            name={'quantity'}
-                                            message={'Please input a quantity'}
-                                            required={true}
-                                        />
-                                        <FormItemSelect
-                                            placeholder={'Measurement'}
-                                            name={'measurement_id'}
-                                            message={'Please select a measurement'}
-                                            required={true}
-                                            optionAggregate={salesMeasurementOptions}
-                                            dropdownRender={salesMeasurementOptions}
-                                        />
-                                        <FormItemNumber
-                                            placeholder={'Unit Price'}
-                                            name={'unit_price'}
-                                            message={'Please input a unit price'}
-                                            required={true}
-                                        />
-                                        <FormItemNumber
-                                            overrideDisabled={true}
-                                            placeholder={'Subtotal'}
-                                            name={'subtotal'}
-                                        />
-                                    </FormLineParent>
-                                </ColForm>
-                            </RowForm>
-
-                            <Divider/>
-
-                            <RowForm>
-                                <ColForm lg={20}>
-                                </ColForm>
-                                <ColForm lg={4}>
-                                    <Table dataSource={[
-                                        {
-                                            key: '1',
-                                            label: 'Untaxed amount:',
-                                            value: state.breakdown.untaxedAmount,
-                                        },
-                                        {
-                                            key: '2',
-                                            label: 'Taxed:',
-                                            value: state.breakdown.tax,
-                                        },
-                                        {
-                                            key: '3',
-                                            label: 'Total:',
-                                            value: state.breakdown.total,
-                                        },
-                                    ]} columns={[
-                                        {
-                                            title: 'Label',
-                                            dataIndex: 'label',
-                                            key: 'label',
-                                            align: 'right',
-                                            render: (text, record) => {
-                                                return (<FormLabel>{text}</FormLabel>)
-                                            }
-                                        },
-                                        {
-                                            title: 'Value',
-                                            dataIndex: 'value',
-                                            key: 'value',
-                                            align: 'right',
-                                        },
-                                    ]}
-                                           showHeader={false}
-                                           pagination={false}
-                                           size={'small'}
-                                    />
-                                </ColForm>
-                            </RowForm>
-                        </TabPane>
-                        <TabPane tab="Other Information" key="2">
-                            <RowForm>
-                                <ColForm>
-                                    <Divider orientation={'left'}>
-                                        Sales
-                                    </Divider>
+                <Tabs defaultActiveKey="1">
+                    <TabPane tab="Order Lines" key="1">
+                        <RowForm>
+                            <ColForm lg={24}>
+                                <FormLineParent
+                                    columns={['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Subtotal']}
+                                    listName={'sales_order_lines'}
+                                >
+                                    <FormItemLineId name={'id'}/>
                                     <FormItemSelect
-                                        label={'Salesperson'}
-                                        name={'salesperson_id'}
-                                        message={'Please select a salesperson'}
+                                        placeholder={'Product'}
+                                        name={'product_id'}
+                                        message={'Please select a product'}
                                         required={true}
-                                        {...salespersonOptions}
+                                        optionAggregate={productLineOptions}
+                                        dropdownRender={productLineOptions}
                                     />
                                     <FormItemText
-                                        label={'Customer Reference'}
-                                        name={'customer_reference'}
+                                        placeholder={'Description'}
+                                        name={'description'}
+                                        listName={'sales_order_lines'}
                                     />
-                                </ColForm>
-                                <ColForm>
-                                    <Divider orientation={'left'}>
-                                        Invoicing
-                                    </Divider>
-                                </ColForm>
-                            </RowForm>
-
-
-                            <RowForm>
-                                <ColForm>
-                                    <Divider orientation={'left'}>
-                                        Delivery
-                                    </Divider>
-                                    <FormItemSelect
-                                        label={'Shipping Policy'}
-                                        name={'shipping_policy'}
-                                        message={'Please select an shipping policy'}
+                                    <FormItemNumber
+                                        placeholder={'Quantity'}
+                                        name={'quantity'}
+                                        message={'Please input a quantity'}
                                         required={true}
-                                        options={[
-                                            {value: 'as_soon_as_possible', label: 'As soon as possible'},
-                                            {
-                                                value: 'when_all_products_are_ready',
-                                                label: 'When all products are ready'
-                                            },
-                                        ]}
                                     />
-                                </ColForm>
-                                <ColForm>
-                                    <Divider orientation={'left'}>
-                                        Tracking
-                                    </Divider>
                                     <FormItemSelect
-                                        label={'Source'}
-                                        name={'source_id'}
-                                        {...sourceOptions}
+                                        placeholder={'Measurement'}
+                                        name={'measurement_id'}
+                                        message={'Please select a measurement'}
+                                        required={true}
+                                        optionAggregate={salesMeasurementOptions}
+                                        dropdownRender={salesMeasurementOptions}
                                     />
-                                </ColForm>
-                            </RowForm>
+                                    <FormItemNumber
+                                        placeholder={'Unit Price'}
+                                        name={'unit_price'}
+                                        message={'Please input a unit price'}
+                                        required={true}
+                                    />
+                                    <FormItemNumber
+                                        overrideDisabled={true}
+                                        placeholder={'Subtotal'}
+                                        name={'subtotal'}
+                                    />
+                                </FormLineParent>
+                            </ColForm>
+                        </RowForm>
 
-                            <RowForm>
-                                <ColForm>
-                                    <FormItemDate
-                                        label={'Expiration Date'}
-                                        name={'expiration_date'}
-                                    />
+                        <Divider/>
 
-                                    <FormItemSelect
-                                        label={'Payment Term'}
-                                        name={'payment_term_id'}
-                                        {...paymentTermOptions}
-                                    />
-                                </ColForm>
-                            </RowForm>
-                        </TabPane>
-                    </Tabs>
-                </FormCard>
-            </CustomForm>
-        </FormContextProvider>
-    );
+                        <RowForm>
+                            <ColForm lg={20}>
+                            </ColForm>
+                            <ColForm lg={4}>
+                                <Table dataSource={[{
+                                    key: '1', label: 'Untaxed amount:', value: state.breakdown.untaxedAmount,
+                                }, {
+                                    key: '2', label: 'Taxed:', value: state.breakdown.tax,
+                                }, {
+                                    key: '3', label: 'Total:', value: state.breakdown.total,
+                                },]} columns={[{
+                                    title: 'Label',
+                                    dataIndex: 'label',
+                                    key: 'label',
+                                    align: 'right',
+                                    render: (text, record) => {
+                                        return (<FormLabel>{text}</FormLabel>)
+                                    }
+                                }, {
+                                    title: 'Value', dataIndex: 'value', key: 'value', align: 'right',
+                                },]}
+                                       showHeader={false}
+                                       pagination={false}
+                                       size={'small'}
+                                />
+                            </ColForm>
+                        </RowForm>
+                    </TabPane>
+                    <TabPane tab="Other Information" key="2">
+                        <RowForm>
+                            <ColForm>
+                                <Divider orientation={'left'}>
+                                    Sales
+                                </Divider>
+                                <FormItemSelect
+                                    label={'Salesperson'}
+                                    name={'salesperson_id'}
+                                    message={'Please select a salesperson'}
+                                    required={true}
+                                    {...salespersonOptions}
+                                />
+                                <FormItemText
+                                    label={'Customer Reference'}
+                                    name={'customer_reference'}
+                                />
+                            </ColForm>
+                            <ColForm>
+                                <Divider orientation={'left'}>
+                                    Invoicing
+                                </Divider>
+                            </ColForm>
+                        </RowForm>
+
+
+                        <RowForm>
+                            <ColForm>
+                                <Divider orientation={'left'}>
+                                    Delivery
+                                </Divider>
+                                <FormItemSelect
+                                    label={'Shipping Policy'}
+                                    name={'shipping_policy'}
+                                    message={'Please select an shipping policy'}
+                                    required={true}
+                                    options={[{value: 'as_soon_as_possible', label: 'As soon as possible'}, {
+                                        value: 'when_all_products_are_ready', label: 'When all products are ready'
+                                    },]}
+                                />
+                            </ColForm>
+                            <ColForm>
+                                <Divider orientation={'left'}>
+                                    Tracking
+                                </Divider>
+                                <FormItemSelect
+                                    label={'Source'}
+                                    name={'source_id'}
+                                    {...sourceOptions}
+                                />
+                            </ColForm>
+                        </RowForm>
+
+                        <RowForm>
+                            <ColForm>
+                                <FormItemDate
+                                    label={'Expiration Date'}
+                                    name={'expiration_date'}
+                                />
+
+                                <FormItemSelect
+                                    label={'Payment Term'}
+                                    name={'payment_term_id'}
+                                    {...paymentTermOptions}
+                                />
+                            </ColForm>
+                        </RowForm>
+                    </TabPane>
+                </Tabs>
+            </FormCard>
+        </CustomForm>
+    </FormContextProvider>);
 };
 
 export default SalesOrderForm;
