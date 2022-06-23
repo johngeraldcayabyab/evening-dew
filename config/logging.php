@@ -55,14 +55,6 @@ return [
             'permission' => 0664,
         ],
 
-        'shopify' => [
-            'driver' => 'daily',
-            'path' => storage_path('logs/shopify.log'),
-            'level' => env('LOG_LEVEL', 'debug'),
-            'days' => 14,
-            'permission' => 0664,
-        ],
-
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),
