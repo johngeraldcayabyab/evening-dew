@@ -4,11 +4,10 @@ namespace App\Console\Commands;
 
 use App\Jobs\ImportShopifyOrdersJob;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
 
 class ImportShopifyOrdersCommand extends Command
 {
-    protected $signature = 'shopify:import:orders';
+    protected $signature = 'shopify:import:orders {--date=}';
 
     protected $description = 'Command description';
 
@@ -19,9 +18,7 @@ class ImportShopifyOrdersCommand extends Command
 
     public function handle()
     {
-        ImportShopifyOrdersJob::dispatch();
-
-
+        ImportShopifyOrdersJob::dispatch($this->option('date'));
         return 0;
     }
 }
