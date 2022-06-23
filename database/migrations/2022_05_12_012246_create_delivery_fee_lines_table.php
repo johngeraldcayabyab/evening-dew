@@ -12,6 +12,7 @@ class CreateDeliveryFeeLinesTable extends Migration
             $table->id();
             $table->bigInteger('city_id')->nullable();
             $table->bigInteger('delivery_fee_id')->nullable();
+            $table->double('fee')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
