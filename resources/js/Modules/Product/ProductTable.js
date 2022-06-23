@@ -4,7 +4,6 @@ import manifest from "./__manifest__.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
 import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
-import TableSearchInput from "../../Components/TableSearchInput";
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
@@ -12,7 +11,7 @@ import Cardination from "../../Components/Cardination";
 import KanbanTablePicker from "../../Components/KanbanTablePicker";
 import {Col, Row} from "antd";
 import CustomTable from "../../Components/CustomTable";
-import {KANBAN, SEARCH, TABLE} from "../../consts";
+import {COLUMN_SELECTION, DATE_RANGE, KANBAN, SEARCH, TABLE} from "../../consts";
 
 const ProductTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -27,6 +26,14 @@ const ProductTable = () => {
             dataState: dataState,
             setDataState: setDataState,
             columns: [
+                {
+                    title: 'ID',
+                    dataIndex: 'id',
+                    key: 'id',
+                    sorter: true,
+                    filter: SEARCH,
+                    hidden: true,
+                },
                 {
                     title: 'Name',
                     dataIndex: 'name',
@@ -72,7 +79,10 @@ const ProductTable = () => {
                     sorter: true,
                     filter: SEARCH,
                     render: (text, record) => {
-                        return record.product_category.category;
+                        if (record.product_category) {
+                            return record.product_category.category;
+                        }
+                        return '';
                     }
                 },
                 {
@@ -87,7 +97,14 @@ const ProductTable = () => {
                     dataIndex: 'created_at',
                     key: 'created_at',
                     sorter: true,
+                    filter: DATE_RANGE,
                 },
+                {
+                    title: '',
+                    dataIndex: COLUMN_SELECTION,
+                    key: COLUMN_SELECTION,
+                    filter: COLUMN_SELECTION,
+                }
             ],
             kanban: {
                 selected_fields: ['name', 'avatar', 'internal_reference', 'sales_price', 'quantity', 'measurement'],
@@ -117,7 +134,7 @@ const ProductTable = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={<TableSearchInput/>}
+                topColTwoRight={''}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={

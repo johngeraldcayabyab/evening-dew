@@ -5,13 +5,12 @@ import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
 import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
 import CustomTable from "../../Components/CustomTable";
-import TableSearchInput from "../../Components/TableSearchInput";
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {Col, Row} from "antd";
 import KanbanTablePicker from "../../Components/KanbanTablePicker";
-import {KANBAN, SEARCH, TABLE} from "../../consts";
+import {COLUMN_SELECTION, DATE_RANGE, KANBAN, SEARCH, TABLE} from "../../consts";
 import Cardination from "../../Components/Cardination";
 
 const UserTable = () => {
@@ -27,6 +26,14 @@ const UserTable = () => {
             dataState: dataState,
             setDataState: setDataState,
             columns: [
+                {
+                    title: 'ID',
+                    dataIndex: 'id',
+                    key: 'id',
+                    sorter: true,
+                    filter: SEARCH,
+                    hidden: true,
+                },
                 {
                     title: 'Name',
                     dataIndex: 'name',
@@ -46,7 +53,14 @@ const UserTable = () => {
                     dataIndex: 'created_at',
                     key: 'created_at',
                     sorter: true,
+                    filter: DATE_RANGE,
                 },
+                {
+                    title: '',
+                    dataIndex: COLUMN_SELECTION,
+                    key: COLUMN_SELECTION,
+                    filter: COLUMN_SELECTION,
+                }
             ],
             kanban: {
                 selected_fields: ['name', 'avatar', 'email'],
@@ -64,7 +78,7 @@ const UserTable = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={<TableSearchInput/>}
+                topColTwoRight={''}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={
