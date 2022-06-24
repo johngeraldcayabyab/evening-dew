@@ -1,5 +1,55 @@
 @import '~antd/dist/antd.min.css';
 
+.print-preview{
+    * {
+        font-size: 12px;
+        font-family: 'Times New Roman';
+    }
+
+    td,
+    th,
+    tr,
+    table {
+        border-top: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    td.quantity,
+    th.quantity {
+        width: 20px;
+        max-width: 20px;
+        word-break: break-all;
+    }
+
+    td.sku,
+    th.sku {
+        width: 15px;
+        max-width: 15px;
+    }
+
+    td.name,
+    th.name {
+        width: 100px;
+        max-width: 100px;
+        word-break: break-all;
+    }
+
+    .centered {
+        text-align: center;
+        align-content: center;
+    }
+
+    .ticket {
+        width: 155px;
+        max-width: 155px;
+    }
+
+    img {
+        max-width: inherit;
+        width: inherit;
+    }
+}
+
 .ant-skeleton-element-custom {
     display: block;
 }
