@@ -176,7 +176,7 @@ class AppMenuSeeder extends Seeder
                             ],
                             [
                                 'label' => 'Currencies',
-                                'menu_key' => 'currencies',
+                                'menu_key' => 'Currencies',
                             ],
                             [
                                 'label' => 'Sequences',
