@@ -10,7 +10,10 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
 
     const products = values.sales_order_lines ? values.sales_order_lines.map((salesOrderLine) => {
         return (
-            <p>{salesOrderLine.quantity} x {salesOrderLine.product.internal_reference} - {salesOrderLine.product.name}</p>);
+            <p style={{borderBottom: 'solid 1px dotted'}}>
+                {salesOrderLine.quantity} x {salesOrderLine.product.internal_reference} - {salesOrderLine.product.name}
+            </p>
+        );
     }) : [];
 
     return (
