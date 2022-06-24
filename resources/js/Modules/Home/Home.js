@@ -18,41 +18,97 @@ const Home = () => {
     const fetchCatcher = useFetchCatcherHook();
 
     const [state, setState] = useState({
-        salesPerDayLoading: true,
-        salesPerDay: [],
-        from: moment().subtract(7, 'days'),
-        to: moment(),
+        shopifySalesLoading: true,
+        shopifySales: [],
+        shopifySalesFrom: moment().subtract(7, 'days'),
+        shopifySalesTo: moment(),
+
+        manualSalesLoading: true,
+        manualSales: [],
+        manualSalesFrom: moment().subtract(7, 'days'),
+        manualSalesTo: moment(),
+
+        allSalesLoading: true,
+        allSales: [],
+        allSalesFrom: moment().subtract(7, 'days'),
+        allSalesTo: moment(),
     });
 
     useEffect(() => {
         const from = moment().subtract(7, 'days');
         const to = moment();
-        fetchSalesPerDay(from, to);
+        fetchShopifySales(from, to);
+        fetchManualSales(from, to);
+        fetchAllSales(from, to);
     }, []);
 
-    function fetchSalesPerDay(from, to) {
+    function fetchShopifySales(from, to) {
         useFetch(`/api/sales_orders/sales_per_day`, GET, {
             from: from.format(dateFormat),
             to: to.format(dateFormat),
+            source_id: 1,
         }).then((response) => {
-            const salesPerDay = response.map((sales) => ({
+            const sales = response.map((sales) => ({
                 time: sales.time,
                 total: parseInt(sales.total)
             }));
             setState((prevState) => ({
                 ...prevState,
-                salesPerDay: salesPerDay,
-                salesPerDayLoading: false,
-                from: from,
-                to: to
+                shopifySales: sales,
+                shopifySalesLoading: false,
+                shopifySalesFrom: from,
+                shopifySalesTo: to
             }));
         }).catch((responseErr) => {
             fetchCatcher.get(responseErr);
         });
     }
 
-    const config = {
-        data: state.salesPerDay,
+    function fetchManualSales(from, to) {
+        useFetch(`/api/sales_orders/sales_per_day`, GET, {
+            from: from.format(dateFormat),
+            to: to.format(dateFormat),
+            source_id: 2,
+        }).then((response) => {
+            const sales = response.map((sales) => ({
+                time: sales.time,
+                total: parseInt(sales.total)
+            }));
+            setState((prevState) => ({
+                ...prevState,
+                manualSales: sales,
+                manualSalesLoading: false,
+                manualSalesFrom: from,
+                manualSalesTo: to
+            }));
+        }).catch((responseErr) => {
+            fetchCatcher.get(responseErr);
+        });
+    }
+
+    function fetchAllSales(from, to) {
+        useFetch(`/api/sales_orders/sales_per_day`, GET, {
+            from: from.format(dateFormat),
+            to: to.format(dateFormat),
+        }).then((response) => {
+            const sales = response.map((sales) => ({
+                time: sales.time,
+                total: parseInt(sales.total)
+            }));
+            setState((prevState) => ({
+                ...prevState,
+                allSales: sales,
+                allSalesLoading: false,
+                allSalesFrom: from,
+                allSalesTo: to
+            }));
+        }).catch((responseErr) => {
+            fetchCatcher.get(responseErr);
+        });
+    }
+
+    const shopifySalesConfig = {
+        data: state.shopifySales,
         xField: 'time',
         yField: 'total',
         label: {
@@ -78,45 +134,152 @@ const Home = () => {
         },
     };
 
-    return (
-        <>
-            <ControlPanel
-                topColOneLeft={
-                    <Title level={5} style={{display: 'inline-block'}}>
-                        <Link to={'/home'}>
-                            Home
-                        </Link>
-                    </Title>
-                }
-            />
-            <Row align={'middle'} style={{marginTop: '15px'}}>
-                <Col
-                    xs={{span: 24}}
-                    sm={{span: 24}}
-                    md={{span: 24}}
-                    lg={{span: 16, offset: 4}}
-                >
-                    <Card
-                        title={"Sales Per Day"}
-                        extra={<RangePicker
+    const manualSalesConfig = {
+        data: state.manualSales,
+        xField: 'time',
+        yField: 'total',
+        label: {
+            position: 'middle',
+            style: {
+                fill: '#FFFFFF',
+                opacity: 0.6,
+            },
+        },
+        xAxis: {
+            label: {
+                autoHide: true,
+                autoRotate: false,
+            },
+        },
+        meta: {
+            time: {
+                alias: 'Time',
+            },
+            total: {
+                alias: 'Total',
+            },
+        },
+    };
+
+    const allSalesConfig = {
+        data: state.allSales,
+        xField: 'time',
+        yField: 'total',
+        label: {
+            position: 'middle',
+            style: {
+                fill: '#FFFFFF',
+                opacity: 0.6,
+            },
+        },
+        xAxis: {
+            label: {
+                autoHide: true,
+                autoRotate: false,
+            },
+        },
+        meta: {
+            time: {
+                alias: 'Time',
+            },
+            total: {
+                alias: 'Total',
+            },
+        },
+    };
+
+    return (<>
+        <ControlPanel
+            topColOneLeft={<Title level={5} style={{display: 'inline-block'}}>
+                <Link to={'/home'}>
+                    Home
+                </Link>
+            </Title>}
+        />
+        <Row align={'middle'} style={{marginTop: '15px'}}>
+            <Col
+                xs={{span: 24}}
+                sm={{span: 24}}
+                md={{span: 24}}
+                lg={{span: 12}}
+            >
+                <Card
+                    title={"Shopify Sales"}
+                    extra={
+                        <RangePicker
                             onChange={e => {
-                                fetchSalesPerDay(moment(e[0]), moment(e[1]));
+                                fetchShopifySales(moment(e[0]), moment(e[1]));
                             }}
                             allowClear={false}
                             style={{marginBottom: 8, width: '100%'}}
-                            defaultValue={[state.from, state.to]}
-                            // format={dateFormat}
-                        />}
-                        style={{margin: '5%', padding: '15px'}}
-                    >
-                        <Spin spinning={state.salesPerDayLoading}>
-                            <Column {...config} />
-                        </Spin>
-                    </Card>
-                </Col>
-            </Row>
-        </>
-    );
+                            defaultValue={[state.shopifySalesFrom, state.shopifySalesTo]}
+                        />
+                    }
+                    style={{margin: '5%', padding: '15px'}}
+                >
+                    <Spin spinning={state.shopifySalesLoading}>
+                        <Column {...shopifySalesConfig} />
+                    </Spin>
+                </Card>
+            </Col>
+
+            <Col
+                xs={{span: 24}}
+                sm={{span: 24}}
+                md={{span: 24}}
+                lg={{span: 12}}
+            >
+                <Card
+                    title={"Manual Sales"}
+                    extra={
+                        <RangePicker
+                            onChange={e => {
+                                fetchManualSales(moment(e[0]), moment(e[1]));
+                            }}
+                            allowClear={false}
+                            style={{marginBottom: 8, width: '100%'}}
+                            defaultValue={[state.manualSalesFrom, state.manualSalesTo]}
+                        />
+                    }
+                    style={{margin: '5%', padding: '15px'}}
+                >
+                    <Spin spinning={state.manualSalesLoading}>
+                        <Column {...manualSalesConfig} />
+                    </Spin>
+                </Card>
+            </Col>
+        </Row>
+
+
+        <Row align={'middle'} style={{marginTop: '15px'}}>
+            <Col
+                xs={{span: 24}}
+                sm={{span: 24}}
+                md={{span: 24}}
+                lg={{span: 16, offset: 4}}
+            >
+                <Card
+                    title={"All Sales"}
+                    extra={
+                        <
+                            RangePicker
+                            onChange={e => {
+                                fetchAllSales(moment(e[0]), moment(e[1]));
+                            }}
+                            allowClear={false}
+                            style={{marginBottom: 8, width: '100%'}}
+                            defaultValue={[state.allSalesFrom, state.allSalesTo]}
+                        />
+                    }
+                    style={{margin: '5%', padding: '15px'}}
+                >
+                    <Spin spinning={state.allSalesLoading}>
+                        <Column {...allSalesConfig} />
+                    </Spin>
+                </Card>
+            </Col>
+        </Row>
+    </>);
 };
 
 export default Home;
