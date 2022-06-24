@@ -30,6 +30,7 @@ import FormLineParent from "../../Components/FormLines/FormLineParent";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
 import PrintReceiptButton from "../../Components/FormButtons/PrintReceiptButton";
+import PrintPreviewButton from "../../Components/FormButtons/PrintPreviewButton";
 
 const {TabPane} = Tabs;
 
@@ -198,7 +199,7 @@ const SameDayForm = () => {
                     bottomColOneLeft={<FormButtons/>}
                     bottomColOneRight={
                         <Space size={'small'}>
-                            <PrintReceiptButton/>
+                            <PrintPreviewButton/>
                         </Space>
                     }
                     bottomColTwoRight={<NextPreviousRecord/>}
