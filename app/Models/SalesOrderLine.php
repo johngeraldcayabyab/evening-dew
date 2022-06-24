@@ -51,14 +51,21 @@ class SalesOrderLine extends Model
         $date = now();
         $subtotal = 0;
         foreach ($data as $datum) {
+            $unitPrice = (float)str_replace(',', '', $datum['unit_price']);
+            $measurementId = $datum['measurement_id'];
+            if (!$measurementId) {
+                $globalSetting = GlobalSetting::latestFirst();
+                $inventoryDefaultMeasurement = $globalSetting->inventoryDefaultMeasurement;
+                $measurementId = $inventoryDefaultMeasurement->id;
+            }
             $line = [
                 'id' => isset($datum['id']) ? $datum['id'] : null,
                 'product_id' => $datum['product_id'],
                 'description' => isset($datum['description']) ? $datum['description'] : null,
                 'quantity' => $datum['quantity'],
-                'measurement_id' => $datum['measurement_id'],
-                'unit_price' => $datum['unit_price'],
-                'subtotal' => $datum['unit_price'] * $datum['quantity'],
+                'measurement_id' => $measurementId,
+                'unit_price' => $unitPrice,
+                'subtotal' => $unitPrice * $datum['quantity'],
                 'sales_order_id' => $parent->id,
                 'updated_at' => $datum['updated_at'] ?? $date,
             ];

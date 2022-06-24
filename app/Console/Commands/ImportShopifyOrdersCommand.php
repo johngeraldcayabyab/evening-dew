@@ -21,7 +21,7 @@ class ImportShopifyOrdersCommand extends Command
 
     public function handle()
     {
-//        $begin = new DateTime('2020-09-02');
+//        $begin = new DateTime('2022-02-01');
 //        $end = new DateTime('2022-06-24');
 //        $interval = DateInterval::createFromDateString('1 day');
 //        $period = new DatePeriod($begin, $interval, $end);

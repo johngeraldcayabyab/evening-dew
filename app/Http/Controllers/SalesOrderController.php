@@ -122,8 +122,11 @@ class SalesOrderController
         $to = Carbon::parse("{$requestTo} 23:59:59");
         $salesPerDay = DB::table('sales_orders')
             ->selectRaw('DATE(quotation_date) as time, SUM(subtotal) as total')
-            ->whereBetween('quotation_date', [$from, $to])
-            ->groupBy('time')
+            ->whereBetween('quotation_date', [$from, $to]);
+        if ($request->source_id) {
+            $salesPerDay = $salesPerDay->where('source_id', $request->source_id);
+        }
+        $salesPerDay = $salesPerDay->groupBy('time')
             ->orderBy('time', 'asc')
             ->get();
         return $salesPerDay;
