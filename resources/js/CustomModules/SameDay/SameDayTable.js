@@ -10,6 +10,7 @@ import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
+import {Tag} from "antd";
 
 const SameDayTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -48,11 +49,52 @@ const SameDayTable = () => {
                     }
                 },
                 {
+                    title: 'Delivery Address',
+                    dataIndex: 'delivery_address',
+                    key: 'delivery_address',
+                    sorter: true,
+                    filter: SEARCH,
+                },
+                {
+                    title: 'Delivery Phone',
+                    dataIndex: 'delivery_phone',
+                    key: 'delivery_phone',
+                    sorter: true,
+                    filter: SEARCH,
+                },
+
+
+                {
+                    title: 'SKUS',
+                    dataIndex: 'sales_order_lines',
+                    key: 'sales_order_lines',
+                    // sorter: true,
+                    // filter: SEARCH,
+                    render: (text, record) => {
+                        // const  source = record.source ? record.source.name : '';
+                        // if (source === 'Shopify') {
+                        //     return <Tag color={'success'}>{source}</Tag>;
+                        // }
+
+                        return record.sales_order_lines.map((salesOrderLine) => {
+                            if(salesOrderLine.product.internal_reference){
+                                return <Tag color={'default'}>{salesOrderLine.product.internal_reference}</Tag>;
+                            }
+                            return <span></span>;
+                        });
+
+                        return <Tag color={'default'}>{source}</Tag>;
+                    }
+                },
+
+
+                {
                     title: 'Salesperson',
                     dataIndex: 'salesperson',
                     key: 'salesperson',
                     sorter: true,
                     filter: SEARCH,
+                    hidden: true,
                     render: (text, record) => {
                         return record.salesperson.name;
                     }
@@ -63,6 +105,7 @@ const SameDayTable = () => {
                     key: 'shipping_date',
                     sorter: true,
                     filter: DATE_RANGE,
+                    hidden: true,
                 },
                 {
                     title: 'Quotation Date',
@@ -70,6 +113,21 @@ const SameDayTable = () => {
                     key: 'quotation_date',
                     sorter: true,
                     filter: DATE_RANGE,
+                    hidden: true,
+                },
+                {
+                    title: 'Source',
+                    dataIndex: 'source',
+                    key: 'source',
+                    sorter: true,
+                    filter: SEARCH,
+                    render: (text, record) => {
+                        const source = record.source ? record.source.name : '';
+                        if (source === 'Shopify') {
+                            return <Tag color={'success'}>{source}</Tag>;
+                        }
+                        return <Tag color={'default'}>{source}</Tag>;
+                    }
                 },
                 {
                     title: '',

@@ -9,21 +9,35 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
     const values = formContext.formState.initialValues;
 
     const products = values.sales_order_lines ? values.sales_order_lines.map((salesOrderLine) => {
-        return (<h5>{salesOrderLine.quantity} {salesOrderLine.product.internal_reference} {salesOrderLine.product.name}</h5>);
+        return (
+            <tr>
+                <td className="quantity">{salesOrderLine.quantity}</td>
+                <td className="description">{salesOrderLine.product.internal_reference}</td>
+                <td className="price">{salesOrderLine.product.name}</td>
+            </tr>
+        )
     }) : [];
 
-    return (<div style={{position: 'fixed', marginTop: '-1000%'}}>
-        <div ref={ref}>
-            <hr style={{'borderTop': 'dotted 1px'}}/>
-            <h3>{values.number}</h3>
-            <h5>{values.customer ? values.customer.name : ''}</h5>
-            <br/>
-            {products}
-            <br/>
-            <h5>Ready By: {values.ready_by}</h5>
+    return (<div className={'print-preview'}>
+        <div className={'ticket'} ref={ref}>
 
-            <br/>
-            <hr style={{'borderTop': 'dotted 1px'}}/>
+            <p>
+                {values.number}
+                <br/>
+                {values.customer ? values.customer.name : ''}
+            </p>
+
+
+            <table>
+                <tbody>
+                {products}
+                </tbody>
+            </table>
+
+
+            <p className="centered">Ready By: {values.ready_by}</p>
+
+
         </div>
     </div>);
 });
