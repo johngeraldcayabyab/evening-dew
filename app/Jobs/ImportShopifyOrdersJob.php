@@ -65,7 +65,6 @@ class ImportShopifyOrdersJob implements ShouldQueue
             if (!isset($order['customer'])) {
                 continue;
             }
-
             $shopifyCustomer = $order['customer'];
             $shopifyCreatedAt = Carbon::parse($order['created_at']);
             $shopifyDefaultAddress = $shopifyCustomer['default_address'] ?? false;
@@ -114,7 +113,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
 
 
             $shippingProperties = end($shopifyLineItems)['properties'];
-            $shippingDate = now();
+            $shippingDate = null;
             $notes = null;
             $selectTime = null;
             foreach ($shippingProperties as $shippingProperty) {
@@ -142,6 +141,10 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 if ($shippingProperty['name'] === 'Additional Comments') {
                     $notes = $shippingProperty['value'];
                 }
+            }
+
+            if (!$shippingDate) {
+                $shippingDate = $shopifyCreatedAt;
             }
 
             $salesOrder = SalesOrder::create([
@@ -173,7 +176,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
             if (isset($order['shipping_lines']) && isset($order['shipping_lines'][0])) {
                 $shippingLines = $order['shipping_lines'][0];
                 $shippingPrice = (int)$shippingLines['discounted_price'];
-                $shippingCityName = $shippingLines['title'];
+                $shippingCityName = $shippingLines['code'];
                 if ($shippingPrice) {
                     $shippingCity = City::firstOrCreate([
                         'name' => $shippingCityName,
