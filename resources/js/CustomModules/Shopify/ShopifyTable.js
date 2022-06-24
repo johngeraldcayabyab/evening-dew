@@ -82,7 +82,7 @@ const ShopifyTable = () => {
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
                 topColTwoRight={''}
-                bottomColOneLeft={<TableCreateButton/>}
+                // bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}
             />

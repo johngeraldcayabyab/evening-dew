@@ -47,17 +47,15 @@ class SalesOrderLine extends Model
 
     public function scopeMassUpsert($query, $data, $parent)
     {
+        $globalSetting = GlobalSetting::latestFirst();
+        $inventoryDefaultMeasurement = $globalSetting->inventoryDefaultMeasurement;
+        $measurementId = $inventoryDefaultMeasurement->id;
         $lines = [];
         $date = now();
         $subtotal = 0;
         foreach ($data as $datum) {
             $unitPrice = (float)str_replace(',', '', $datum['unit_price']);
-            $measurementId = $datum['measurement_id'];
-            if (!$measurementId) {
-                $globalSetting = GlobalSetting::latestFirst();
-                $inventoryDefaultMeasurement = $globalSetting->inventoryDefaultMeasurement;
-                $measurementId = $inventoryDefaultMeasurement->id;
-            }
+            $measurementId = $datum['measurement_id'] ?? $measurementId;
             $line = [
                 'id' => isset($datum['id']) ? $datum['id'] : null,
                 'product_id' => $datum['product_id'],

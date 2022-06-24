@@ -41,7 +41,6 @@ const ManualForm = () => {
     const paymentTermOptions = useOptionHook('/api/payment_terms', 'payment_term.name');
     const salespersonOption = useOptionHook('/api/users', 'responsible.name');
     const productLineOptions = useOptionLineHook('/api/products', 'product.name');
-    const salesMeasurementOptions = useOptionLineHook('/api/measurements', 'measurement.name');
     const sourceOptions = useOptionHook('/api/sources', 'source.name');
 
     const useFetch = useFetchHook();
@@ -71,7 +70,6 @@ const ManualForm = () => {
         salespersonOption.getInitialOptions(formState);
         sourceOptions.getInitialOptions(formState);
         productLineOptions.getInitialOptions(formState, 'sales_order_lines');
-        salesMeasurementOptions.getInitialOptions(formState, 'sales_order_lines');
     }, [formState.initialValues]);
 
     function onValuesChange(changedValues, allValues) {
@@ -120,7 +118,6 @@ const ManualForm = () => {
                         product_id: product.id,
                         description: product.sales_description,
                         quantity: 1,
-                        measurement_id: product.sales_measurement_id,
                         unit_price: product.sales_price,
                     };
                     if (salesOrderLines) {
@@ -144,14 +141,11 @@ const ManualForm = () => {
             const salesOrderLines = allValues.sales_order_lines;
             salesOrderLines[line.key] = {
                 ...salesOrderLines[line.key],
-                measurement_id: response.sales_measurement_id,
                 unit_price: response.sales_price,
             };
             form.setFieldsValue({
                 sales_order_lines: salesOrderLines
             });
-            const persistedKey = getPersistedKey(line, salesMeasurementOptions.options)
-            salesMeasurementOptions.getOptions(response.sales_measurement.name, persistedKey);
         }).catch((responseErr) => {
             fetchCatcher.get(responseErr);
         });
@@ -252,6 +246,10 @@ const ManualForm = () => {
                                 label={'Notes'}
                                 name={'notes'}
                             />
+                            <FormItemText
+                                label={'Ready by'}
+                                name={'ready_by'}
+                            />
                         </ColForm>
                         <ColForm>
                             <FormItemDate
@@ -328,7 +326,7 @@ const ManualForm = () => {
                             <RowForm>
                                 <ColForm lg={24}>
                                     <FormLineParent
-                                        columns={['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Subtotal']}
+                                        columns={['Product', 'Description', 'Quantity', 'Unit Price', 'Subtotal']}
                                         listName={'sales_order_lines'}
                                     >
                                         <FormItemLineId name={'id'}/>
@@ -350,14 +348,6 @@ const ManualForm = () => {
                                             name={'quantity'}
                                             message={'Please input a quantity'}
                                             required={true}
-                                        />
-                                        <FormItemSelect
-                                            placeholder={'Measurement'}
-                                            name={'measurement_id'}
-                                            message={'Please select a measurement'}
-                                            required={true}
-                                            optionAggregate={salesMeasurementOptions}
-                                            dropdownRender={salesMeasurementOptions}
                                         />
                                         <FormItemNumber
                                             placeholder={'Unit Price'}
