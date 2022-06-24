@@ -45,7 +45,7 @@ class PrintReceipt extends Command
 
             $salesOrderLines = $salesOrder->salesOrderLines;
 
-            foreach ($salesOrderLines as $salesOrderLine){
+            foreach ($salesOrderLines as $salesOrderLine) {
                 $quantity = $salesOrderLine->quantity;
                 $internalReference = $salesOrderLine->product->internal_reference;
                 $productName = $salesOrderLine->product->name;
@@ -63,7 +63,7 @@ class PrintReceipt extends Command
             $printer->feed(2);
             $printer->setJustification(Printer::JUSTIFY_CENTER);
             $printer->feed(2);
-            $printer->text("Ready By: 02:30 PM" . "\n");
+            $printer->text("Ready By: {$salesOrder->ready_by}" . "\n");
             $printer->feed(2);
             $printer->text("--------------------------------" . "\n");
             $printer->feed(3);

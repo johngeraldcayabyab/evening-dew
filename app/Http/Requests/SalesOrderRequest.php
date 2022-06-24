@@ -36,11 +36,12 @@ class SalesOrderRequest extends FormRequest
             'shipping_method' => ['nullable', "in:$shippingMethods"],
             'select_time' => ['nullable'],
             'vehicle_type' => ['nullable'],
+            'ready_by' => ['nullable'],
             'sales_order_lines.*.id' => ['nullable', 'exists:sales_order_lines,id'],
             'sales_order_lines.*.product_id' => ['required', "exists:products,id"],
             'sales_order_lines.*.description' => ['nullable'],
             'sales_order_lines.*.quantity' => ['required'],
-            'sales_order_lines.*.measurement_id' => ["required", "exists:measurements,id"],
+            'sales_order_lines.*.measurement_id' => ["nullable", "exists:measurements,id"],
             'sales_order_lines.*.unit_price' => ['required'],
             'sales_order_lines_deleted.*.id' => ['nullable', 'exists:sales_order_lines,id'],
         ];
