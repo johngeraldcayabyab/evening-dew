@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Jobs\ComputeProductQuantityJob;
+use App\Jobs\ImportShopifyOrdersJob;
 use App\Jobs\ValidateAllDraftTransfersJob;
 use App\Models\GlobalSetting;
 use Illuminate\Console\Scheduling\Schedule;
