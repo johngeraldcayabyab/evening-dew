@@ -9,8 +9,8 @@ const FormCard = (props) => {
             borderBottom: '1px solid #cccccc'
         }}>
             <Card style={{
-                minWidth: '650px',
-                maxWidth: '1140px',
+                minWidth: '450px',
+                maxWidth: '1600px',
                 minHeight: '330px',
                 margin: '0 auto',
                 boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',

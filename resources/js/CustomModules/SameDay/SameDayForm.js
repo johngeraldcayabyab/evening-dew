@@ -304,12 +304,6 @@ const SameDayForm = () => {
                                 label={'Source document'}
                                 name={'source_document'}
                             />
-                            <FormItemSelect
-                                label={'Source'}
-                                name={'source_id'}
-                                disabled={true}
-                                {...sourceOptions}
-                            />
                         </ColForm>
                     </RowForm>
                     <RowForm>
@@ -487,6 +481,12 @@ const SameDayForm = () => {
                                     <Divider orientation={'left'}>
                                         Tracking
                                     </Divider>
+                                    <FormItemSelect
+                                        label={'Source'}
+                                        name={'source_id'}
+                                        disabled={true}
+                                        {...sourceOptions}
+                                    />
                                 </ColForm>
                             </RowForm>
 
