@@ -10,37 +10,26 @@ const ComponentToPrint = React.forwardRef((props, ref) => {
 
     const products = values.sales_order_lines ? values.sales_order_lines.map((salesOrderLine) => {
         return (
-            <tr>
-                <td className="quantity">{salesOrderLine.quantity}</td>
-                <td className="description">{salesOrderLine.product.internal_reference}</td>
-                <td className="price">{salesOrderLine.product.name}</td>
-            </tr>
-        )
+            <h5>{salesOrderLine.quantity} {salesOrderLine.product.internal_reference} {salesOrderLine.product.name}</h5>);
     }) : [];
 
-    return (
+    return (<div style={{position: 'fixed', marginTop: '-1000%'}}>
         <div ref={ref}>
-            <div className={'print-preview'}>
-                <div className={'ticket'}>
-                    <p>
-                        {values.number}
-                        <br/>
-                        {values.customer ? values.customer.name : ''}
-                    </p>
+            <div style={{color: 'black'}}>
+                <hr style={{'borderTop': 'dotted 1px black'}}/>
+                <h3>{values.number}</h3>
+                <h5>{values.customer ? values.customer.name : ''}</h5>
+                <br/>
+                {products}
+                <br/>
+                <h5>Ready By: {values.ready_by}</h5>
 
-
-                    <table>
-                        <tbody>
-                        {products}
-                        </tbody>
-                    </table>
-
-
-                    <p className="centered">Ready By: {values.ready_by}</p>
-                </div>
+                <br/>
+                <hr style={{'borderTop': 'dotted 1px black'}}/>
             </div>
+
         </div>
-    );
+    </div>);
 });
 
 
