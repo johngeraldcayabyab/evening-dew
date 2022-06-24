@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Divider, Form, Table, Tabs} from "antd";
+import {Divider, Form, Space, Table, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
 import manifest from "./__manifest__.json";
@@ -29,6 +29,7 @@ import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
+import PrintReceiptButton from "../../Components/FormButtons/PrintReceiptButton";
 
 const {TabPane} = Tabs;
 
@@ -195,6 +196,11 @@ const SameDayForm = () => {
                 <ControlPanel
                     topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={<FormButtons/>}
+                    bottomColOneRight={
+                        <Space size={'small'}>
+                            <PrintReceiptButton/>
+                        </Space>
+                    }
                     bottomColTwoRight={<NextPreviousRecord/>}
                 />
                 <StatusBar
@@ -498,6 +504,7 @@ const SameDayForm = () => {
                     </Tabs>
                 </FormCard>
             </CustomForm>
+            }
         </FormContextProvider>
     );
 };

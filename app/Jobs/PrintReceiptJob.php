@@ -1,17 +1,27 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Jobs;
 
 use App\Models\SalesOrder;
-use App\Services\PrintTest;
-use Illuminate\Console\Command;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
 
-class PrintReceipt extends Command
+class PrintReceiptJob implements ShouldQueue
 {
-    protected $signature = 'print:receipt {sales}';
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    protected $salesOrderId;
+
+    public function __construct($salesOrderId)
+    {
+        $this->salesOrderId = $salesOrderId;
+    }
 
     public function handle()
     {
@@ -22,7 +32,7 @@ class PrintReceipt extends Command
 
             $printer->text("--------------------------------" . "\n");
 
-            $salesOrder = SalesOrder::find($this->argument('sales'));
+            $salesOrder = SalesOrder::find($this->salesOrderId);
             $customerName = $salesOrder->customer->name;
 
             /* Name of shop */
@@ -76,7 +86,5 @@ class PrintReceipt extends Command
         } catch (\Exception $exception) {
             info($exception->getMessage());
         }
-
-        return 0;
     }
 }
