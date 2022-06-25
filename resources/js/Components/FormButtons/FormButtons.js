@@ -7,7 +7,7 @@ import SaveCreateButton from "./SaveCreateButton";
 import DiscardCreateButton from "./DiscardCreateButton";
 import {Space} from "antd";
 
-const FormButtons = () => {
+const FormButtons = (props) => {
     return (
         <Space size={'small'}>
             <EditButton/>

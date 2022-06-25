@@ -120,7 +120,7 @@ const ProductTable = () => {
                     {
                         key: 'sales_price',
                         render: (record) => {
-                            return `Price: $${record.sales_price}`;
+                            return `Price: ₱${record.sales_price}`;
                         }
                     },
                     {
