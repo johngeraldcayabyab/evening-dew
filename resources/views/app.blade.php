@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<div id="root" style="height: 100%;">
+<div id="root">
 </div>
 
 <script src="{{ mix('/js/manifest.js') }}"></script>
