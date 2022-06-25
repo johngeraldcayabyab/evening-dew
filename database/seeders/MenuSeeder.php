@@ -118,6 +118,7 @@ class MenuSeeder extends Seeder
                 'label' => 'Warehouses',
                 'url' => '/warehouses',
             ],
+
             [
                 'label' => 'Shopify',
                 'url' => '/shopify',
@@ -129,6 +130,10 @@ class MenuSeeder extends Seeder
             [
                 'label' => 'Same Day',
                 'url' => '/same_day',
+            ],
+            [
+                'label' => 'All Sales',
+                'url' => '/all_sale',
             ],
         ];
     }
