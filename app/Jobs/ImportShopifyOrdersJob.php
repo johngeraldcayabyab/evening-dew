@@ -181,28 +181,27 @@ class ImportShopifyOrdersJob implements ShouldQueue
                     $shippingCity = City::firstOrCreate([
                         'name' => $shippingCityName,
                     ]);
+                    $deliveryFee = DeliveryFee::first();
                     if ($shippingCity->wasRecentlyCreated === true) {
-                        $deliveryFee = DeliveryFee::first();
+
                         DeliveryFeeLine::create([
                             'city_id' => $shippingCity->id,
                             'fee' => $shippingPrice,
                             'delivery_fee_id' => $deliveryFee->id,
                         ]);
                     }
-                    if ($shippingCity->deliveryFeeLines()->exists()) {
-                        $deliveryFeeProduct = $shippingCity->deliveryFeeLines[0]->deliveryFee->product;
-                        SalesOrderLine::create([
-                            'product_id' => $deliveryFeeProduct->id,
-                            'quantity' => 1,
-                            'measurement_id' => $deliveryFeeProduct->sales_measurement_id,
-                            'unit_price' => $shippingPrice,
-                            'subtotal' => $shippingPrice,
-                            'sales_order_id' => $salesOrder->id,
-                            'created_at' => $salesOrder->created_at,
-                            'updated_at' => $salesOrder->updated_at,
-                        ]);
-                        $subtotal += $shippingPrice;
-                    }
+                    $deliveryFeeProduct = $deliveryFee->product;
+                    SalesOrderLine::create([
+                        'product_id' => $deliveryFeeProduct->id,
+                        'quantity' => 1,
+                        'measurement_id' => $deliveryFeeProduct->sales_measurement_id,
+                        'unit_price' => $shippingPrice,
+                        'subtotal' => $shippingPrice,
+                        'sales_order_id' => $salesOrder->id,
+                        'created_at' => $salesOrder->created_at,
+                        'updated_at' => $salesOrder->updated_at,
+                    ]);
+                    $subtotal += $shippingPrice;
                 }
             }
 
