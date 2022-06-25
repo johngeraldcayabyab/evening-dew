@@ -10,7 +10,8 @@ class ProductSeeder extends Seeder
     public function run()
     {
         Product::create([
-            'name' => 'Delivery Fee'
+            'name' => 'Delivery Fee',
+            'product_type' => Product::SERVICE
         ]);
     }
 }
