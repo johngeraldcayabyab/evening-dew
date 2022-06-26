@@ -11,6 +11,7 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
 import {Tag} from "antd";
+import {selectTimeOptions} from "../../Helpers/object";
 
 const SameDayTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -68,6 +69,18 @@ const SameDayTable = () => {
                     key: 'shipping_method',
                     sorter: true,
                     filter: SEARCH,
+                },
+                {
+                    title: 'Delivery Time',
+                    dataIndex: 'select_time',
+                    key: 'select_time',
+                    render: (text, record) => {
+                        const timeOptions = selectTimeOptions();
+                        timeOptions.forEach((timeOption) => {
+                            return timeOption.value === record.select_time ? timeOption.label : '';
+                        })
+                        return '';
+                    }
                 },
                 {
                     title: 'SKUS',
