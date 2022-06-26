@@ -62,8 +62,13 @@ const SameDayTable = () => {
                     sorter: true,
                     filter: SEARCH,
                 },
-
-
+                {
+                    title: 'Shipping Method',
+                    dataIndex: 'Shipping Method',
+                    key: 'shipping_method',
+                    sorter: true,
+                    filter: SEARCH,
+                },
                 {
                     title: 'SKUS',
                     dataIndex: 'sales_order_lines',
@@ -77,7 +82,7 @@ const SameDayTable = () => {
                         // }
 
                         return record.sales_order_lines.map((salesOrderLine) => {
-                            if(salesOrderLine.product.internal_reference){
+                            if (salesOrderLine.product.internal_reference) {
                                 return <Tag color={'default'}>{salesOrderLine.product.internal_reference}</Tag>;
                             }
                             return <span></span>;
