@@ -16,8 +16,6 @@ import {objectHasValue} from "../Helpers/object";
 import AvatarUser from "./AvatarUser";
 import {setUser} from "../Helpers/user_helpers";
 
-const {SubMenu} = Menu;
-
 function resetBreadcrumbs(url) {
     let splitPathName = url.split('/');
     setClickedBreadcrumb({});
@@ -26,33 +24,6 @@ function resetBreadcrumbs(url) {
         slug: titleCase(replaceUnderscoreWithSpace(splitPathName[1])),
         link: url
     }]);
-}
-
-function makeMenu(menus) {
-    return menus.map((menu) => {
-        if (menu.children.length) {
-            return (
-                <SubMenu key={`sub-menu-${menu.id}`} title={menu.label}>
-                    {menu.children.map((child) => {
-                        return (
-                            <Menu.Item key={`sub-menu-child-${child.id}`}>
-                                {child.menu_id ? <Link to={child.menu.url} onClick={() => {
-                                    resetBreadcrumbs(child.menu.url);
-                                }}>{child.label}</Link> : child.label}
-                            </Menu.Item>
-                        );
-                    })}
-                </SubMenu>
-            )
-        }
-        return (
-            <Menu.Item key={`menu-${menu.id}`}>
-                {menu.menu_id ? <Link to={menu.menu.url} onClick={() => {
-                    resetBreadcrumbs(menu.menu.url);
-                }}>{menu.label}</Link> : menu.label}
-            </Menu.Item>
-        );
-    })
 }
 
 const CustomMenu = () => {
