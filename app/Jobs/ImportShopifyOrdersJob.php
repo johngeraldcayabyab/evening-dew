@@ -151,6 +151,18 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 $shippingDate = $shopifyCreatedAt;
             }
 
+            $shippingMethod = Transfer::DELIVERY;
+            $vehicleType = SalesOrder::MOTORCYCLE;
+
+            if (isset($order['shipping_lines']) && isset($order['shipping_lines'][0])) {
+                $shippingLineCode = $order['shipping_lines'][0]['code'];
+                $shippingLineDiscountedPrice = $order['shipping_lines'][0]['discounted_price'];
+                if ($shippingLineCode == 'Taste&Tell Mnl' && !(int)$shippingLineDiscountedPrice) {
+                    $shippingMethod = Transfer::PICKUP;
+                    $vehicleType = null;
+                }
+            }
+
             $salesOrder = SalesOrder::create([
                 'number' => $shopifyOrderNumber,
                 'customer_id' => $invoiceContact->id,
@@ -166,9 +178,9 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 'salesperson_id' => 1,
                 'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
                 'customer_reference' => "Shopify {$shopifyOrderNumber}",
-                'vehicle_type' => SalesOrder::MOTORCYCLE,
+                'vehicle_type' => $vehicleType,
                 'status' => SalesOrder::DRAFT,
-                'shipping_method' => Transfer::DELIVERY,
+                'shipping_method' => $shippingMethod,
                 'source_id' => $source->id,
                 'select_time' => $selectTime,
                 'created_at' => $shopifyCreatedAt,
