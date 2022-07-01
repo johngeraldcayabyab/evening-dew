@@ -21,16 +21,16 @@ class ImportShopifyOrdersCommand extends Command
 
     public function handle()
     {
-//        $begin = new DateTime('2020-09-00');
-//        $end = new DateTime('2022-06-24');
-//        $interval = DateInterval::createFromDateString('1 day');
-//        $period = new DatePeriod($begin, $interval, $end);
-//        $minutes = 1;
-//        foreach ($period as $dt) {
-//            ImportShopifyOrdersJob::dispatch($dt->format("Y-m-d"));
-//            $minutes++;
-//        }
-        ImportShopifyOrdersJob::dispatch($this->option('date'));
+        $begin = new DateTime('2020-09-00');
+        $end = new DateTime(now()->format('Y-m-d'));
+        $interval = DateInterval::createFromDateString('1 day');
+        $period = new DatePeriod($begin, $interval, $end);
+        $minutes = 1;
+        foreach ($period as $dt) {
+            ImportShopifyOrdersJob::dispatch($dt->format("Y-m-d"));
+            $minutes++;
+        }
+//        ImportShopifyOrdersJob::dispatch($this->option('date'));
         return 0;
     }
 }
