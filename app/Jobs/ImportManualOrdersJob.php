@@ -737,22 +737,21 @@ class ImportManualOrdersJob implements ShouldQueue
 
             foreach ($order['items'] as $item) {
                 $product = Product::where('internal_reference', trim($item['sku']))->first();
-                if (!$product) {
-                    continue;
+                if ($product) {
+                    $quantity = $item['quantity'];
+                    $salesOrderLineSubtotal = $product->sales_price * $quantity;
+                    SalesOrderLine::create([
+                        'product_id' => $product->id,
+                        'quantity' => $quantity,
+                        'measurement_id' => $inventoryDefaultMeasurement->id,
+                        'unit_price' => $product->sales_price,
+                        'subtotal' => $salesOrderLineSubtotal,
+                        'sales_order_id' => $salesOrder->id,
+                        'created_at' => $salesOrder->created_at,
+                        'updated_at' => $salesOrder->updated_at,
+                    ]);
+                    $subtotal += $salesOrderLineSubtotal;
                 }
-                $quantity = $item['quantity'];
-                $salesOrderLineSubtotal = $product->sales_price * $quantity;
-                SalesOrderLine::create([
-                    'product_id' => $product->id,
-                    'quantity' => $quantity,
-                    'measurement_id' => $inventoryDefaultMeasurement->id,
-                    'unit_price' => $product->sales_price,
-                    'subtotal' => $salesOrderLineSubtotal,
-                    'sales_order_id' => $salesOrder->id,
-                    'created_at' => $salesOrder->created_at,
-                    'updated_at' => $salesOrder->updated_at,
-                ]);
-                $subtotal += $salesOrderLineSubtotal;
             }
             $salesOrder->subtotal = $subtotal;
             $salesOrder->save();
