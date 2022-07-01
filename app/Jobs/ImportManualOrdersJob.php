@@ -6,6 +6,7 @@ use App\Models\GlobalSetting;
 use App\Models\Product;
 use App\Models\SalesOrder;
 use App\Models\SalesOrderLine;
+use App\Models\Sequence;
 use App\Models\Transfer;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
@@ -718,6 +719,7 @@ class ImportManualOrdersJob implements ShouldQueue
             $shippingDate = $manualCreatedAt;
 
             $salesOrder = SalesOrder::create([
+                'number' => Sequence::generateSalesOrderSequence(),
                 'customer_id' => 1,
                 'quotation_date' => $manualCreatedAt,
                 'shipping_date' => $shippingDate,
@@ -734,9 +736,10 @@ class ImportManualOrdersJob implements ShouldQueue
             $subtotal = 0;
 
             foreach ($order['items'] as $item) {
-                $product = Product::firstOrCreate([
-                    'internal_reference' => trim($item['sku']),
-                ]);
+                $product = Product::where('internal_reference', trim($item['sku']))->first();
+                if (!$product) {
+                    continue;
+                }
                 $quantity = $item['quantity'];
                 $salesOrderLineSubtotal = $product->sales_price * $quantity;
                 SalesOrderLine::create([
