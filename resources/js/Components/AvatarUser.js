@@ -1,13 +1,15 @@
 import {useContext} from "react";
 import {AppContext} from "../App";
 import {UserOutlined} from "@ant-design/icons";
-import {Avatar} from "antd";
+import {Avatar, Space} from "antd";
 
 const AvatarUser = () => {
     const appContext = useContext(AppContext);
     if (appContext.appState.user.hasOwnProperty('avatar') && appContext.appState.user.avatar) {
         return (
-            <Avatar src={appContext.appState.user.avatar}/>
+            <Space size={'small'}>
+                <Avatar src={appContext.appState.user.avatar}/><span>{appContext.appState.user.name}</span>
+            </Space>
         );
     }
     return (
