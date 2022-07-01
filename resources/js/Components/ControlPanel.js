@@ -5,11 +5,8 @@ const ControlPanel = (props) => {
     return (
         <div style={{padding: '5px 16px', borderBottom: '1px solid #cccccc', background: '#fff'}}>
             <Row align={'middle'} style={{marginTop: '5px', marginBottom: '5px'}}>
-                <Col span={6}>
+                <Col span={12}>
                     {props.topColOneLeft}
-                </Col>
-                <Col span={6} style={{textAlign: 'right', paddingRight: '8px'}}>
-                    {props.topColOneRight}
                 </Col>
                 <Col span={6}>
                     {props.topColTwoLeft}
