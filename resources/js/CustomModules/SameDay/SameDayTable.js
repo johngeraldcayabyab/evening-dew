@@ -1,7 +1,6 @@
 import React from 'react';
 import useListHook from "../../Hooks/useListHook";
 import manifest from "./__manifest__.json";
-import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
 import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
 import CustomTable from "../../Components/CustomTable";
@@ -12,6 +11,7 @@ import {TableContextProvider} from "../../Contexts/TableContext";
 import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
 import {Tag} from "antd";
 import {selectTimeOptions} from "../../Helpers/object";
+import {uuidv4} from "../../Helpers/string";
 
 const SameDayTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -76,36 +76,32 @@ const SameDayTable = () => {
                     key: 'select_time',
                     render: (text, record) => {
                         const timeOptions = selectTimeOptions();
-                        timeOptions.forEach((timeOption) => {
-                            return timeOption.value === record.select_time ? timeOption.label : '';
-                        })
-                        return '';
+                        const timeOption = timeOptions.find((timeOption) => {
+                            return timeOption.value === record.select_time ? timeOption.value : '';
+                        });
+                        return timeOption.hasOwnProperty('label') ? timeOption.label : '';
                     }
                 },
                 {
                     title: 'SKUS',
                     dataIndex: 'sales_order_lines',
                     key: 'sales_order_lines',
-                    // sorter: true,
-                    // filter: SEARCH,
                     render: (text, record) => {
-                        // const  source = record.source ? record.source.name : '';
-                        // if (source === 'Shopify') {
-                        //     return <Tag color={'success'}>{source}</Tag>;
-                        // }
-
                         return record.sales_order_lines.map((salesOrderLine) => {
                             if (salesOrderLine.product.internal_reference) {
-                                return <Tag color={'default'}>{salesOrderLine.product.internal_reference}</Tag>;
+                                return (
+                                    <Tag
+                                        key={uuidv4()}
+                                        color={'default'}
+                                    >
+                                        {salesOrderLine.product.internal_reference}
+                                    </Tag>
+                                );
                             }
-                            return <span></span>;
+                            return null;
                         });
-
-                        return <Tag color={'default'}>{source}</Tag>;
                     }
                 },
-
-
                 {
                     title: 'Salesperson',
                     dataIndex: 'salesperson',
