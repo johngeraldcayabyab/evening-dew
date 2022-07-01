@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\ImportManualOrdersJob;
 use Illuminate\Console\Command;
 
 class ImportManualOrdersCommand extends Command
@@ -16,6 +17,7 @@ class ImportManualOrdersCommand extends Command
 
     public function handle()
     {
+        ImportManualOrdersJob::dispatch();
         return 0;
     }
 }

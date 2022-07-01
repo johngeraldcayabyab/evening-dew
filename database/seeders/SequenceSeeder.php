@@ -13,7 +13,7 @@ class SequenceSeeder extends Seeder
             'name' => "Sales Order Sequence",
             'sequence_code' => "sales.order.sequence",
             'implementation' => Sequence::STANDARD,
-            'prefix' => "S/O/",
+            'prefix' => "M/O/",
             'sequence_size' => Sequence::SEQUENCE_SIZE,
             'step' => Sequence::STEP,
             'next_number' => Sequence::NEXT_NUMBER,
