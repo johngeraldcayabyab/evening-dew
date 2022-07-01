@@ -7,6 +7,7 @@ use App\Models\City;
 use App\Models\Contact;
 use App\Models\DeliveryFee;
 use App\Models\DeliveryFeeLine;
+use App\Models\GlobalSetting;
 use App\Models\Product;
 use App\Models\SalesOrder;
 use App\Models\SalesOrderLine;
@@ -52,9 +53,11 @@ class ImportShopifyOrdersJob implements ShouldQueue
         }
         $response = $http->get("{$shopifyUrl}/admin/api/2022-04/orders.json", $jsonRequest);
 
-
         $responseJson = $response->json();
         $orders = array_reverse($responseJson['orders']);
+
+        $globalSetting = GlobalSetting::latestFirst();
+        $inventoryDefaultMeasurement = $globalSetting->inventoryDefaultMeasurement;
 
         foreach ($orders as $order) {
             $shopifyOrderNumber = 'SP/' . $order['order_number'];
@@ -217,7 +220,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 SalesOrderLine::create([
                     'product_id' => $product->id,
                     'quantity' => $quantity,
-                    'measurement_id' => 1,
+                    'measurement_id' => $inventoryDefaultMeasurement->id,
                     'unit_price' => $shopifyLineItem['price'],
                     'subtotal' => $salesOrderLineSubtotal,
                     'sales_order_id' => $salesOrder->id,
