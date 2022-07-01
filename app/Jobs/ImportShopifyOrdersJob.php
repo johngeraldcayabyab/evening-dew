@@ -22,6 +22,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class ImportShopifyOrdersJob implements ShouldQueue
 {
@@ -209,12 +210,19 @@ class ImportShopifyOrdersJob implements ShouldQueue
             }
 
             foreach ($shopifyLineItems as $shopifyLineItem) {
-                $product = Product::firstOrCreate([
-                    'internal_reference' => trim($shopifyLineItem['sku']),
-                ], [
+                $productData = [
                     'name' => $shopifyLineItem['name'],
                     'sales_price' => $shopifyLineItem['price'],
-                ]);
+                ];
+                if (Str::contains($shopifyLineItem['name'], 'Deliver')) {
+                    $productData['type'] = Product::SERVICE;
+                }
+                if ($shopifyLineItem['name'] == 'Tip') {
+                    $productData['type'] = Product::CONSUMABLE;
+                }
+                $product = Product::firstOrCreate([
+                    'internal_reference' => trim($shopifyLineItem['sku']),
+                ], $productData);
                 $quantity = $shopifyLineItem['fulfillable_quantity'] ? $shopifyLineItem['fulfillable_quantity'] : 1;
                 $salesOrderLineSubtotal = $shopifyLineItem['price'] * $quantity;
                 SalesOrderLine::create([
