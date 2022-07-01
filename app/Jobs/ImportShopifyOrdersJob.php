@@ -207,9 +207,9 @@ class ImportShopifyOrdersJob implements ShouldQueue
 
             foreach ($shopifyLineItems as $shopifyLineItem) {
                 $product = Product::firstOrCreate([
-                    'name' => $shopifyLineItem['name'],
-                    'internal_reference' => $shopifyLineItem['sku'],
+                    'internal_reference' => trim($shopifyLineItem['sku']),
                 ], [
+                    'name' => $shopifyLineItem['name'],
                     'sales_price' => $shopifyLineItem['price'],
                 ]);
                 $quantity = $shopifyLineItem['fulfillable_quantity'] ? $shopifyLineItem['fulfillable_quantity'] : 1;
