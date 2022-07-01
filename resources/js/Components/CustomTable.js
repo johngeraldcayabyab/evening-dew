@@ -9,7 +9,7 @@ import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../consts";
 import DateRangeFilter from "./TableFilters/DateRangeFilter";
 import ColumnSelectionFilter from "./TableFilters/ColumnSelectionFilter";
 
-const CustomTable = () => {
+const CustomTable = (props) => {
     const listContext = useContext(TableContext);
     const history = useHistory();
     const [state, setState] = useState({
@@ -153,6 +153,7 @@ const CustomTable = () => {
             childrenColumnName={'test'}
             onChange={onChange}
             size={'small'}
+            expandable={props.expandable}
         />
     )
 };
