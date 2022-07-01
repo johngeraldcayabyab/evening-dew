@@ -64,7 +64,7 @@ trait FilterTrait
     {
         $field = $filter[0];
         $value = $filter[1];
-        if ($field === 'id') {
+        if ($field === 'id' || Str::contains($field, '_id')) {
             return $query->where($field, $value);
         }
         if ($field === 'created_at' || $field === 'updated_at' || $field === 'deleted_at' || Str::contains($field, '_date')) {
