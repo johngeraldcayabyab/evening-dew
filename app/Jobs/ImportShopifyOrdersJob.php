@@ -227,10 +227,10 @@ class ImportShopifyOrdersJob implements ShouldQueue
                     'sales_price' => $shopifyLineItem['price'],
                 ];
                 if (Str::contains($shopifyLineItem['name'], 'Deliver')) {
-                    $productData['type'] = Product::SERVICE;
+                    $productData['product_type'] = Product::SERVICE;
                 }
                 if ($shopifyLineItem['name'] == 'Tip') {
-                    $productData['type'] = Product::CONSUMABLE;
+                    $productData['product_type'] = Product::CONSUMABLE;
                 }
                 $product = Product::firstOrCreate([
                     'internal_reference' => trim($shopifyLineItem['sku']),
