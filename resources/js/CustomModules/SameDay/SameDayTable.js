@@ -55,6 +55,12 @@ const SameDayTable = () => {
                     key: 'delivery_address',
                     sorter: true,
                     filter: SEARCH,
+                    render: (text, record) => {
+                        if (record.shipping_method === 'pickup') {
+                            return <Tag>Pickup</Tag>
+                        }
+                        return record.delivery_address;
+                    }
                 },
                 {
                     title: 'Delivery Phone',
@@ -65,7 +71,7 @@ const SameDayTable = () => {
                 },
                 {
                     title: 'Shipping Method',
-                    dataIndex: 'Shipping Method',
+                    dataIndex: 'shipping_method',
                     key: 'shipping_method',
                     sorter: true,
                     filter: SEARCH,
