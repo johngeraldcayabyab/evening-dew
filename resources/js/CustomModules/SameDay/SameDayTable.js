@@ -164,7 +164,26 @@ const SameDayTable = () => {
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}
             />
-            <CustomTable/>
+            <CustomTable
+                expandable={{
+                    expandedRowRender: (record) => {
+                        return record.sales_order_lines.map((salesOrderLine) => {
+                            if (salesOrderLine.product.internal_reference) {
+                                return (
+                                    <Tag
+                                        key={uuidv4()}
+                                        color={'default'}
+                                    >
+                                        {salesOrderLine.quantity} x {salesOrderLine.product.internal_reference} - {salesOrderLine.product.name}
+                                    </Tag>
+                                );
+                            }
+                            return null;
+                        });
+                    },
+                    showExpandColumn: true,
+                }}
+            />
         </TableContextProvider>
     )
 };
