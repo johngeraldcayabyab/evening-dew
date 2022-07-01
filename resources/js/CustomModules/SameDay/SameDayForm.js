@@ -257,8 +257,6 @@ const SameDayForm = () => {
                             <FormItemSelect
                                 label={'Shipping Method'}
                                 name={'shipping_method'}
-                                message={'Please select an shipping method'}
-                                required={true}
                                 options={[
                                     {value: 'delivery', label: 'Delivery'},
                                     {value: 'pickup', label: 'Pickup'},
@@ -267,8 +265,6 @@ const SameDayForm = () => {
                             <FormItemSelect
                                 label={'Vehicle Type'}
                                 name={'vehicle_type'}
-                                message={'Please select a vehicle type'}
-                                required={true}
                                 options={[
                                     {value: 'motorcycle', label: 'Motorcycle'},
                                     {value: 'car', label: 'Car'},

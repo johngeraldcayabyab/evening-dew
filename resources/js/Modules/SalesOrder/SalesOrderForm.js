@@ -255,9 +255,10 @@ const SalesOrderForm = () => {
                         <FormItemSelect
                             label={'Shipping Method'}
                             name={'shipping_method'}
-                            message={'Please select an shipping method'}
-                            required={true}
-                            options={[{value: 'delivery', label: 'Delivery'}, {value: 'pickup', label: 'Pickup'},]}
+                            options={[
+                                {value: 'delivery', label: 'Delivery'},
+                                {value: 'pickup', label: 'Pickup'},
+                            ]}
                         />
                         <FormItemTextArea
                             label={'Notes'}
