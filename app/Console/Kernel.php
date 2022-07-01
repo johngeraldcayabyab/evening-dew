@@ -17,9 +17,9 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function () {
             if (GlobalSetting::latestFirst()->inventory_auto_validate_draft) {
-                ValidateAllDraftTransfersJob::dispatch();
+//                ValidateAllDraftTransfersJob::dispatch();
             }
-            ComputeProductQuantityJob::dispatch();
+//            ComputeProductQuantityJob::dispatch();
 //            ImportShopifyOrdersJob::dispatch();
         })->everyMinute();
     }
