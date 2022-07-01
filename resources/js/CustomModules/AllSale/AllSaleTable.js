@@ -11,6 +11,7 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
 import {Tag} from "antd";
+import {titleCase} from "../../Helpers/string";
 
 const AllSaleTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -46,6 +47,17 @@ const AllSaleTable = () => {
                     filter: SEARCH,
                     render: (text, record) => {
                         return record.customer.name;
+                    }
+                },
+                {
+                    title: 'Shipping Method',
+                    dataIndex: 'shipping_method',
+                    key: 'shipping_method',
+                    sorter: true,
+                    filter: SEARCH,
+                    hidden: true,
+                    render: (text, record) => {
+                        return <Tag color={'default'}>{titleCase(record.shipping_method)}</Tag>;
                     }
                 },
                 {
