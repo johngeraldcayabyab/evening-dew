@@ -166,6 +166,8 @@ const SameDayTable = () => {
             />
             <CustomTable
                 expandable={{
+                    defaultExpandAllRows: true,
+                    expandedRowKeys: tableState.dataSource.map(o => o.id),
                     expandedRowRender: (record) => {
                         return record.sales_order_lines.map((salesOrderLine) => {
                             if (salesOrderLine.product.internal_reference) {
@@ -181,7 +183,6 @@ const SameDayTable = () => {
                             return null;
                         });
                     },
-                    showExpandColumn: true,
                 }}
             />
         </TableContextProvider>
