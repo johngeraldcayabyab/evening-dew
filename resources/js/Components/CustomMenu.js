@@ -16,8 +16,6 @@ import {objectHasValue} from "../Helpers/object";
 import AvatarUser from "./AvatarUser";
 import {setUser} from "../Helpers/user_helpers";
 
-const {SubMenu} = Menu;
-
 function resetBreadcrumbs(url) {
     let splitPathName = url.split('/');
     setClickedBreadcrumb({});
@@ -26,33 +24,6 @@ function resetBreadcrumbs(url) {
         slug: titleCase(replaceUnderscoreWithSpace(splitPathName[1])),
         link: url
     }]);
-}
-
-function makeMenu(menus) {
-    return menus.map((menu) => {
-        if (menu.children.length) {
-            return (
-                <SubMenu key={`sub-menu-${menu.id}`} title={menu.label}>
-                    {menu.children.map((child) => {
-                        return (
-                            <Menu.Item key={`sub-menu-child-${child.id}`}>
-                                {child.menu_id ? <Link to={child.menu.url} onClick={() => {
-                                    resetBreadcrumbs(child.menu.url);
-                                }}>{child.label}</Link> : child.label}
-                            </Menu.Item>
-                        );
-                    })}
-                </SubMenu>
-            )
-        }
-        return (
-            <Menu.Item key={`menu-${menu.id}`}>
-                {menu.menu_id ? <Link to={menu.menu.url} onClick={() => {
-                    resetBreadcrumbs(menu.menu.url);
-                }}>{menu.label}</Link> : menu.label}
-            </Menu.Item>
-        );
-    })
 }
 
 const CustomMenu = () => {
@@ -89,17 +60,6 @@ const CustomMenu = () => {
         }
     }, [appContext.appState.isLogin]);
 
-    function handleClick(click) {
-        if (click.key.includes('parent')) {
-            const id = parseInt(click.key.replace('parent-', ''));
-            const index = state.appMenu.findIndex(m => m.id === id);
-            setState((prevState) => ({
-                ...prevState,
-                appMenuChildren: state.appMenu[index].children
-            }));
-        }
-    }
-
     function onLogout() {
         useFetch('/api/logout', POST).then((response) => {
             eraseCookie('Authorization');
@@ -118,6 +78,76 @@ const CustomMenu = () => {
         });
     }
 
+    const sectionMenu = state.appMenuChildren.map((menu) => {
+        if (menu.children.length) {
+            return {
+                label: menu.label,
+                key: `section-menu-${menu.id}`,
+                children: menu.children.map((child) => ({
+                    label: child.menu_id ?
+                        <Link
+                            to={child.menu.url}
+                            onClick={() => {
+                                resetBreadcrumbs(child.menu.url);
+                            }}>
+                            {child.label}
+                        </Link>
+                        : child.label,
+                    key: `section-menu-child-${child.id}`
+                }))
+            }
+        }
+        return {
+            label: menu.menu_id ? <Link to={menu.menu.url}>{menu.label}</Link> : menu.label,
+            key: `section-menu-${menu.id}`,
+            onClick: () => {
+                resetBreadcrumbs(menu.menu.url);
+            }
+        }
+    });
+
+    const items = [
+        {
+            label: '',
+            key: 'app-menu',
+            icon: <AppstoreOutlined/>,
+            children: state.appMenu.map((appMenu) => ({
+                label: <Link to={appMenu.menu.url}>{appMenu.label}</Link>,
+                key: `app-menu-${appMenu.id}`,
+                onClick: () => {
+                    const index = state.appMenu.findIndex(m => m.id === appMenu.id);
+                    resetBreadcrumbs(appMenu.menu.url);
+                    setAppMenu(appMenu);
+                    setState((prevState) => ({
+                        ...prevState,
+                        appMenuChildren: state.appMenu[index].children
+                    }));
+                }
+            })),
+        },
+        ...sectionMenu,
+        {
+            label: '',
+            key: 'systray-menu',
+            icon: <AvatarUser/>,
+            className: 'top-nav-avatar',
+            children: [
+                {
+                    label: 'Profile'
+                },
+                {
+                    label: 'Activity Logs'
+                },
+                {
+                    label: 'Logout',
+                    onClick: () => {
+                        onLogout()
+                    }
+                },
+            ]
+        },
+    ];
+
     if (appContext.appState.isLogin) {
         return (
             <Header
@@ -130,41 +160,7 @@ const CustomMenu = () => {
                     lineHeight: '50px'
                 }}
             >
-                <Menu theme={'dark'} mode={'horizontal'} onClick={handleClick}>
-                    <SubMenu key="app-menu" icon={<AppstoreOutlined/>} title={''}>
-                        {state.appMenu.map((menu) =>
-                            <Menu.Item key={`parent-${menu.id}`} onClick={() => {
-                                if (menu.menu) {
-                                    resetBreadcrumbs(menu.menu.url);
-                                    setAppMenu(menu);
-                                }
-                            }}>
-                                {menu.menu ?
-                                    <Link to={menu.menu.url}>{menu.label}</Link>
-                                    : menu.label}
-                            </Menu.Item>
-                        )}
-                    </SubMenu>
-
-                    {makeMenu(state.appMenuChildren)}
-
-                    <Menu.SubMenu
-                        title={<AvatarUser/>}
-                        className={'top-nav-avatar'}
-                        key={'menu-profile-sub-menu'}
-                    >
-                        <Menu.Item key={`menu-profile`}>
-                            Profile
-                        </Menu.Item>
-                        <Menu.Item key={`menu-activity-logs`}>
-                            Activity Logs
-                        </Menu.Item>
-                        <Menu.Divider/>
-                        <Menu.Item key={`menu-logout`} onClick={() => onLogout()}>
-                            Logout
-                        </Menu.Item>
-                    </Menu.SubMenu>
-                </Menu>
+                <Menu theme={'dark'} mode={'horizontal'} items={items}/>
             </Header>
         );
     }
