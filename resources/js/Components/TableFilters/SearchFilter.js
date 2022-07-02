@@ -9,8 +9,9 @@ const SearchFilter = (props) => {
                 placeholder={`Search ${titleCase(replaceUnderscoreWithSpace(props.dataIndex))}`}
                 value={props.selectedKeys}
                 onChange={e => props.setSelectedKeys(e.target.value ? e.target.value : null)}
-                onPressEnter={() => {
+                onPressEnter={(e) => {
                     props.confirm();
+                    e.stopPropagation();
                 }}
                 // style={{marginBottom: 8, display: 'block'}}
             />
