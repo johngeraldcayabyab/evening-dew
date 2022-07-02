@@ -45,14 +45,6 @@ const DateRangeFilter = (props) => {
             </Space>
         </div>
     )
-
-
-    return (
-        <RangePicker
-            // defaultValue={[moment('2015/01/01', dateFormat), moment('2015/01/01', dateFormat)]}
-            format={dateFormat}
-        />
-    )
 }
 
 export default DateRangeFilter;
