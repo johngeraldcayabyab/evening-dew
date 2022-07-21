@@ -27,6 +27,8 @@ class SalesOrder extends Model implements Sluggable
     protected static $logAttributes = ['*'];
 
     const DRAFT = 'draft';
+    const STICKER = 'sticker';
+    const KITCHEN = 'kitchen';
     const DONE = 'done';
     const CANCELLED = 'cancelled';
 

@@ -202,23 +202,28 @@ const SalesOrderForm = () => {
                 bottomColTwoRight={<NextPreviousRecord/>}
             />
             <StatusBar
-                statuses={[{
-                    value: 'draft', title: 'Draft', status: {draft: 'process', done: 'finish', cancelled: 'wait'}
-                }, {
-                    value: 'done',
-                    title: 'Done',
-                    type: 'primary',
-                    label: 'Validate',
-                    status: {draft: 'wait', done: 'finish', cancelled: 'wait'},
-                    visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
-                }, {
-                    value: 'cancelled',
-                    title: 'Cancelled',
-                    type: 'ghost',
-                    label: 'Cancel',
-                    status: {draft: 'wait', done: 'wait', cancelled: 'finish'},
-                    visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
-                },]}
+                statuses={[
+                    {
+                        value: 'draft',
+                        title: 'Draft',
+                        status: {draft: 'process', done: 'finish', cancelled: 'wait'}
+                    },
+                    {
+                        value: 'done',
+                        title: 'Done',
+                        type: 'primary',
+                        label: 'Validate',
+                        status: {draft: 'wait', done: 'finish', cancelled: 'wait'},
+                        visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
+                    }, {
+                        value: 'cancelled',
+                        title: 'Cancelled',
+                        type: 'ghost',
+                        label: 'Cancel',
+                        status: {draft: 'wait', done: 'wait', cancelled: 'finish'},
+                        visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
+                    },
+                ]}
             />
             <FormCard>
                 <FormLinks
