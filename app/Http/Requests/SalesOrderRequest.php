@@ -24,6 +24,8 @@ class SalesOrderRequest extends FormRequest
             'delivery_phone' => ['nullable'],
             'expiration_date' => ['nullable'],
             'quotation_date' => ['required'],
+            'courier_id' => ['nullable', "exists:couriers,id"],
+            'pickup_time' => ['nullable'],
             'payment_term_id' => ['nullable', "exists:payment_terms,id"],
             'salesperson_id' => ['nullable', 'exists:users,id'],
             'source_id' => ['nullable', 'exists:sources,id'],

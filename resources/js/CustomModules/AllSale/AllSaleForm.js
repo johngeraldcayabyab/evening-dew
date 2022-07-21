@@ -15,6 +15,7 @@ import {GET} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
 import FormItemDate from "../../Components/FormItem/FormItemDate";
+import FormItemTime from "../../Components/FormItem/FormItemTime";
 import FormItemStatus from "../../Components/FormItem/FormItemStatus";
 import FormLabel from "../../Components/Typography/FormLabel";
 import {objectHasValue, selectTimeOptions} from "../../Helpers/object";
@@ -42,6 +43,7 @@ const AllSaleForm = () => {
     const salespersonOption = useOptionHook('/api/users', 'responsible.name');
     const productLineOptions = useOptionLineHook('/api/products', 'product.name');
     const sourceOptions = useOptionHook('/api/sources', 'source.name');
+    const courierOptions = useOptionHook('/api/couriers', 'courier.name');
 
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
@@ -69,6 +71,7 @@ const AllSaleForm = () => {
         paymentTermOptions.getInitialOptions(formState);
         salespersonOption.getInitialOptions(formState);
         sourceOptions.getInitialOptions(formState);
+        courierOptions.getInitialOptions(formState);
         productLineOptions.getInitialOptions(formState, 'sales_order_lines');
     }, [formState.initialValues]);
 
@@ -261,6 +264,18 @@ const AllSaleForm = () => {
                                 name={'select_time'}
                                 options={selectTimeOptions()}
                             />
+
+                            <FormItemSelect
+                                label={'Courier'}
+                                name={'courier_id'}
+                                {...courierOptions}
+                            />
+
+                            <FormItemTime
+                                label={'Pickup Time'}
+                                name={'pickup_time'}
+                            />
+
                             <FormItemText
                                 label={'Source document'}
                                 name={'source_document'}
@@ -440,6 +455,7 @@ const AllSaleForm = () => {
                                     <FormItemDate
                                         label={'Expiration Date'}
                                         name={'expiration_date'}
+                                        showTime={true}
                                     />
                                     <FormItemSelect
                                         label={'Payment Term'}

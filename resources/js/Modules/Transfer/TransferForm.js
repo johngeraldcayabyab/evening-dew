@@ -187,6 +187,7 @@ const TransferForm = () => {
                             <FormItemDate
                                 label={'Scheduled date'}
                                 name={'scheduled_date'}
+                                showTime={true}
                             />
 
                             <FormItemText

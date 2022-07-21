@@ -42,7 +42,10 @@ const CourierTable = () => {
                     sorter: true,
                     filter: SEARCH,
                     render: (text, record) => {
-                        return <Tag color={record.color ? record.color : 'default'}>{record.color}</Tag>;
+                        if(record.color){
+                            return <Tag color={record.color}>{record.color}</Tag>;
+                        }
+                        return null;
                     }
                 },
                 {

@@ -30,6 +30,8 @@ class CreateSalesOrdersTable extends Migration
             $table->string('notes')->nullable();
             $table->string('status')->nullable();
             $table->bigInteger('source_id')->nullable();
+            $table->bigInteger('courier_id')->nullable();
+            $table->dateTime('pickup_time')->nullable();
             $table->integer('subtotal')->nullable()->default(0);
             $table->softDeletes();
             $table->timestamps();

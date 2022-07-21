@@ -269,10 +269,12 @@ const SalesOrderForm = () => {
                         <FormItemDate
                             label={'Shipping date'}
                             name={'shipping_date'}
+                            showTime={true}
                         />
                         <FormItemDate
                             label={'Quotation Date'}
                             name={'quotation_date'}
+                            showTime={true}
                         />
                         <FormItemText
                             label={'Source document'}
@@ -461,6 +463,7 @@ const SalesOrderForm = () => {
                                 <FormItemDate
                                     label={'Expiration Date'}
                                     name={'expiration_date'}
+                                    showTime={true}
                                 />
 
                                 <FormItemSelect
