@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AppMenuSeeder::class,
             CountrySeeder::class,
+            CourierSeeder::class,
             CurrencySeeder::class,
             DeliveryFeeSeeder::class,
             GlobalSettingSeeder::class,
