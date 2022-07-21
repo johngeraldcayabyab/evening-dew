@@ -16,11 +16,11 @@ class CourierSeeder extends Seeder
             ],
             [
                 'name' => 'Angkas',
-                'color' => '#0fa9de00',
+                'color' => '#096dd9',
             ],
             [
                 'name' => 'Lalamove',
-                'color' => '#f1672200',
+                'color' => '#d46b08',
             ]
         ];
 
