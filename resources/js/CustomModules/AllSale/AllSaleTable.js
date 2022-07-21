@@ -12,6 +12,7 @@ import {TableContextProvider} from "../../Contexts/TableContext";
 import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
 import {Tag} from "antd";
 import {titleCase} from "../../Helpers/string";
+import ListExportButton from "../../Components/TableButtons/ListExportButton";
 
 const AllSaleTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -110,7 +111,7 @@ const AllSaleTable = () => {
                 topColOneLeft={<CustomBreadcrumb/>}
                 topColTwoRight={''}
                 bottomColOneLeft={<TableCreateButton/>}
-                bottomColOneRight={<ActionsDropdownButton/>}
+                bottomColOneRight={<><ActionsDropdownButton/><ListExportButton/></>}
                 bottomColTwoRight={<CustomPagination/>}
             />
             <CustomTable/>
