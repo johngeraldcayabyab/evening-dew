@@ -1,4 +1,4 @@
-import {DatePicker, Form} from "antd";
+import {TimePicker, Form} from "antd";
 import React, {useContext} from "react";
 import CustomInputSkeleton from "../CustomInputSkeleton";
 import {formItemFieldProps} from "../../Helpers/form";
@@ -6,7 +6,7 @@ import {FormContext} from "../../Contexts/FormContext";
 
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
-const FormItemDate = (props) => {
+const FormItemTime = (props) => {
     const formContext = useContext(FormContext);
 
     // console.log(props);
@@ -17,7 +17,6 @@ const FormItemDate = (props) => {
 
     const [formItemProps, fieldProps] = formItemFieldProps(props, {
         style: {width: "100%"},
-        showTime: props.showTime ? props.showTime : false,
         // format: {dateFormat},
         // defaultValue={moment('2015/01/01', dateFormat)}
         // defaultValue: moment('2022-03-31 09:04:06', dateFormat),
@@ -26,10 +25,10 @@ const FormItemDate = (props) => {
     return (
         <Form.Item {...formItemProps}>
             {formContext.formState.loading ? <CustomInputSkeleton {...props}/> :
-                <DatePicker {...fieldProps}/>
+                <TimePicker use12Hours format="h:mm a" {...fieldProps} />
             }
         </Form.Item>
     )
 };
 
-export default FormItemDate;
+export default FormItemTime;

@@ -15,6 +15,7 @@ import {GET} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
 import FormItemDate from "../../Components/FormItem/FormItemDate";
+import FormItemTime from "../../Components/FormItem/FormItemTime";
 import StatusBar from "../../Components/StatusBar";
 import FormItemStatus from "../../Components/FormItem/FormItemStatus";
 import FormLabel from "../../Components/Typography/FormLabel";
@@ -45,6 +46,7 @@ const SameDayForm = () => {
     const salespersonOption = useOptionHook('/api/users', 'responsible.name');
     const productLineOptions = useOptionLineHook('/api/products', 'product.name');
     const sourceOptions = useOptionHook('/api/sources', 'source.name');
+    const courierOptions = useOptionHook('/api/couriers', 'courier.name');
 
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
@@ -72,6 +74,7 @@ const SameDayForm = () => {
         paymentTermOptions.getInitialOptions(formState);
         salespersonOption.getInitialOptions(formState);
         sourceOptions.getInitialOptions(formState);
+        courierOptions.getInitialOptions(formState);
         productLineOptions.getInitialOptions(formState, 'sales_order_lines');
     }, [formState.initialValues]);
 
@@ -293,6 +296,18 @@ const SameDayForm = () => {
                                 name={'select_time'}
                                 options={selectTimeOptions()}
                             />
+
+                            <FormItemSelect
+                                label={'Courier'}
+                                name={'courier_id'}
+                                {...courierOptions}
+                            />
+
+                            <FormItemTime
+                                label={'Pickup Time'}
+                                name={'pickup_time'}
+                            />
+
                             <FormItemText
                                 label={'Source document'}
                                 name={'source_document'}
@@ -480,6 +495,7 @@ const SameDayForm = () => {
                                     <FormItemDate
                                         label={'Expiration Date'}
                                         name={'expiration_date'}
+                                        showTime={true}
                                     />
 
                                     <FormItemSelect

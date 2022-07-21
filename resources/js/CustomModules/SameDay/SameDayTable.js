@@ -11,7 +11,7 @@ import {TableContextProvider} from "../../Contexts/TableContext";
 import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
 import {Tag} from "antd";
 import {selectTimeOptions} from "../../Helpers/object";
-import {uuidv4} from "../../Helpers/string";
+import {titleCase, uuidv4} from "../../Helpers/string";
 
 const SameDayTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -92,6 +92,7 @@ const SameDayTable = () => {
                     title: 'SKUS',
                     dataIndex: 'sales_order_lines',
                     key: 'sales_order_lines',
+                    hidden: true,
                     render: (text, record) => {
                         return record.sales_order_lines.map((salesOrderLine) => {
                             if (salesOrderLine.product.internal_reference) {
@@ -108,6 +109,22 @@ const SameDayTable = () => {
                         });
                     }
                 },
+
+                {
+                    title: 'Courier',
+                    dataIndex: 'courier',
+                    key: 'courier',
+                    sorter: true,
+                    filter: SEARCH,
+                    render: (text, record) => {
+                        if (record.courier) {
+                            return <Tag color={record.courier.color ? record.courier.color : 'default'}>{record.courier.name}</Tag>;
+                        }
+                        return null;
+                    }
+                },
+
+
                 {
                     title: 'Salesperson',
                     dataIndex: 'salesperson',
