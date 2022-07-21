@@ -25,6 +25,10 @@ export const replaceUnderscoreWithSpace = (string) => {
     return string;
 };
 
+export const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 export const listKey = (name) => {
     return `${name}-${LIST}`;
 };

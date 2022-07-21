@@ -121,15 +121,50 @@ class SalesOrderController
         $requestTo = $request->to;
         $from = Carbon::parse("{$requestFrom} 00:00:00");
         $to = Carbon::parse("{$requestTo} 23:59:59");
-        $salesPerDay = DB::table('sales_orders')
-            ->selectRaw('DATE(quotation_date) as time, SUM(subtotal) as total')
-            ->whereBetween('quotation_date', [$from, $to]);
-        if ($request->source_id) {
-            $salesPerDay = $salesPerDay->where('source_id', $request->source_id);
+
+        $salesPerDay = [];
+
+        if($request->date_unit === 'date'){
+            $salesPerDay = DB::table('sales_orders')
+                ->selectRaw('DATE(quotation_date) as year, SUM(subtotal) as total')
+                ->whereBetween('quotation_date', [$from, $to]);
+            if ($request->source_id) {
+                $salesPerDay = $salesPerDay->where('source_id', $request->source_id);
+            }
+            $salesPerDay = $salesPerDay
+                ->groupBy('year')
+                ->orderBy('year', 'desc')
+                ->get();
         }
-        $salesPerDay = $salesPerDay->groupBy('time')
-            ->orderBy('time', 'asc')
-            ->get();
+
+        if($request->date_unit === 'month'){
+            $salesPerDay = DB::table('sales_orders')
+                ->selectRaw('YEAR(quotation_date) as year,MONTH(quotation_date) as month,  SUM(subtotal) as total')
+                ->whereBetween('quotation_date', [$from, $to]);
+            if ($request->source_id) {
+                $salesPerDay = $salesPerDay->where('source_id', $request->source_id);
+            }
+            $salesPerDay = $salesPerDay
+                ->groupBy('year')
+                ->groupBy('month')
+                ->orderBy('year', 'desc')
+                ->orderBy('month', 'desc')
+                ->get();
+        }
+
+        if($request->date_unit === 'year'){
+            $salesPerDay = DB::table('sales_orders')
+                ->selectRaw('YEAR(quotation_date) as year, SUM(subtotal) as total')
+                ->whereBetween('quotation_date', [$from, $to]);
+            if ($request->source_id) {
+                $salesPerDay = $salesPerDay->where('source_id', $request->source_id);
+            }
+            $salesPerDay = $salesPerDay
+                ->groupBy('year')
+                ->orderBy('year', 'desc')
+                ->get();
+        }
+
         return $salesPerDay;
     }
 
