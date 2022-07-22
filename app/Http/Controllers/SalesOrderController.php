@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Data\SystemSetting;
 use App\Events\SalesOrderValidatedEvent;
+use App\Exports\SalesOrderExport;
 use App\Http\Requests\SalesOrderRequest;
 use App\Http\Resources\SalesOrderResource;
 use App\Jobs\PrintReceiptJob;
@@ -20,6 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SalesOrderController
 {
@@ -124,7 +126,7 @@ class SalesOrderController
 
         $salesPerDay = [];
 
-        if($request->date_unit === 'date'){
+        if ($request->date_unit === 'date') {
             $salesPerDay = DB::table('sales_orders')
                 ->selectRaw('DATE(quotation_date) as year, SUM(subtotal) as total')
                 ->whereBetween('quotation_date', [$from, $to]);
@@ -137,7 +139,7 @@ class SalesOrderController
                 ->get();
         }
 
-        if($request->date_unit === 'month'){
+        if ($request->date_unit === 'month') {
             $salesPerDay = DB::table('sales_orders')
                 ->selectRaw('YEAR(quotation_date) as year,MONTH(quotation_date) as month,  SUM(subtotal) as total')
                 ->whereBetween('quotation_date', [$from, $to]);
@@ -152,7 +154,7 @@ class SalesOrderController
                 ->get();
         }
 
-        if($request->date_unit === 'year'){
+        if ($request->date_unit === 'year') {
             $salesPerDay = DB::table('sales_orders')
                 ->selectRaw('YEAR(quotation_date) as year, SUM(subtotal) as total')
                 ->whereBetween('quotation_date', [$from, $to]);
@@ -172,5 +174,10 @@ class SalesOrderController
     {
         PrintReceiptJob::dispatch($request->sales_order_id);
         return $this->responseCreate();
+    }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new SalesOrderExport, 'sales_orders.xlsx');
     }
 }

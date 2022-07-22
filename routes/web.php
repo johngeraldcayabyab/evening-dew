@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SalesOrderController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Redis;
 
@@ -27,4 +28,6 @@ use Illuminate\Support\Facades\Redis;
 /**
  * React
  */
+Route::get("/sales_orders/export", [SalesOrderController::class, 'export'])->name("sales_orders.export");
 Route::view('/{path?}', 'app')->where('path', '.*')->name('react');
+
