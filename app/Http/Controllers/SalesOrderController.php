@@ -180,4 +180,11 @@ class SalesOrderController
     {
         return Excel::download(new SalesOrderExport($request->all()), 'sales_orders.xlsx');
     }
+
+    public function update_status(Request $request, SalesOrder $salesOrder)
+    {
+        $salesOrder->status = $request->status;
+        $salesOrder->save();
+        return [];
+    }
 }

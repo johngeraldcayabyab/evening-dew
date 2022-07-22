@@ -8,13 +8,34 @@ import CustomPagination from "../../Components/CustomPagination";
 import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
-import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
-import {Tag} from "antd";
+import {COLUMN_SELECTION, DATE_RANGE, DELETE, SEARCH, PUT} from "../../consts";
+import {Tag, Space, Button} from "antd";
 import {selectTimeOptions} from "../../Helpers/object";
 import {titleCase, uuidv4} from "../../Helpers/string";
+import useFetchHook from "../../Hooks/useFetchHook";
+import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 
 const SameDayTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
+    const useFetch = useFetchHook();
+    const fetchCatcher = useFetchCatcherHook();
+
+    function handleStatusChange(e, record, value) {
+        e.stopPropagation();
+        useFetch(`api/${manifest.moduleName}/${record.id}/status`, PUT, {
+            status: value,
+        }).then(() => {
+
+            // console.log(tableState.params);
+            tableActions.renderData({
+                ...tableState.params,
+                ...{same_day: true}
+            });
+        }).catch((responseErr) => {
+            // handleFormErrors(responseErr);
+        });
+    }
+
     return (
         <TableContextProvider value={{
             manifest: manifest,
@@ -85,7 +106,7 @@ const SameDayTable = () => {
                         const timeOption = timeOptions.find((timeOption) => {
                             return timeOption.value === record.select_time ? timeOption.value : '';
                         });
-                        if(timeOption && timeOption.length > 1){
+                        if (timeOption && timeOption.length > 1) {
                             return timeOption.hasOwnProperty('label') ? timeOption.label : '';
                         }
                         return '';
@@ -169,6 +190,32 @@ const SameDayTable = () => {
                         return <Tag color={'default'}>{source}</Tag>;
                     }
                 },
+                {
+                    title: 'Status',
+                    dataIndex: 'status',
+                    key: 'status',
+                    sorter: true,
+                    render: (text, record) => {
+                        return (
+                            <Space size={1}>
+                                <Button type={record.status === 'Paid' ? 'primary' : 'default'} size={'small'} onClick={(e) => {
+                                    handleStatusChange(e, record, 'Paid')
+                                }}>Paid</Button>
+                                <Button type={record.status === 'Sticker' ? 'primary' : 'default'} size={'small'} onClick={(e) => {
+                                    handleStatusChange(e, record, 'Sticker')
+                                }}>Sticker</Button>
+                                <Button type={record.status === 'Kitchen' ? 'primary' : 'default'} size={'small'} onClick={(e) => {
+                                    handleStatusChange(e, record, 'Kitchen')
+                                }}>Kitchen</Button>
+                                <Button type={record.status === 'Delivered' ? 'primary' : 'default'} size={'small'} onClick={(e) => {
+                                    handleStatusChange(e, record, 'Delivered')
+                                }}>Delivered</Button>
+                            </Space>
+                        )
+                    }
+                },
+
+
                 {
                     title: '',
                     dataIndex: COLUMN_SELECTION,
