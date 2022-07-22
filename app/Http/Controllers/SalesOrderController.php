@@ -178,6 +178,6 @@ class SalesOrderController
 
     public function export(Request $request)
     {
-        return Excel::download(new SalesOrderExport, 'sales_orders.xlsx');
+        return Excel::download(new SalesOrderExport($request->all()), 'sales_orders.xlsx');
     }
 }
