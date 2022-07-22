@@ -21,9 +21,9 @@ mkdir "./builds/${BUILD_FOLDER}"
 cd "./builds/${BUILD_FOLDER}";
 
 if [ "$HOST_NAME" = "taste-and-tell" ]; then
-    git clone --depth 1 git@github.com:johngeraldcayabyab/evening-dew.git -b taste-and-tell ./
+    git clone --depth 1 https://github.com/johngeraldcayabyab/evening-dew.git -b taste-and-tell ./
 else
-    git clone --depth 1 git@github.com:johngeraldcayabyab/evening-dew.git ./
+    git clone --depth 1 https://github.com/johngeraldcayabyab/evening-dew.git ./
 fi
 
 
@@ -47,7 +47,7 @@ case "$(uname -s)" in
 
    Linux)
      echo 'Linux'
-     exit 0
+     zip -r "../${BUILD_FOLDER_ZIP}" ./*
      ;;
 
    CYGWIN*|MINGW32*|MSYS*|MINGW*)
@@ -57,7 +57,7 @@ case "$(uname -s)" in
 
    *)
      echo 'Other OS'
-     exit 0
+     zip -r "../${BUILD_FOLDER_ZIP}" ./*
      ;;
 esac
 # *** End of Operating system check ***
