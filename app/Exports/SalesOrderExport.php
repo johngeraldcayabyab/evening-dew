@@ -50,6 +50,7 @@ class SalesOrderExport implements FromQuery, ShouldAutoSize, WithMapping, WithHe
             'delivery_address' => $row->salesOrder->delivery_address,
             'delivery_city' => $row->salesOrder->deliveryCity ? $row->salesOrder->deliveryCity->name : '',
             'delivery_phone' => $row->salesOrder->delivery_phone,
+            'notes' => $row->salesOrder->notes,
         ];
     }
 
@@ -63,7 +64,8 @@ class SalesOrderExport implements FromQuery, ShouldAutoSize, WithMapping, WithHe
             'Name',
             'Address',
             'City',
-            'Contact'
+            'Contact',
+            'Notes'
         ];
     }
 }
