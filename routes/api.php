@@ -88,6 +88,7 @@ Route::group(['middleware' => ['api', 'cors']], function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::get("sales_orders/sales_per_day", [SalesOrderController::class, 'sales_per_day'])->name("sales_orders.sales_per_day");
         Route::post("sales_orders/print_receipt", [SalesOrderController::class, 'print_receipt'])->name("sales_orders.print_receipt");
+        Route::put("sales_orders/{sales_order}/status", [SalesOrderController::class, 'update_status'])->name("sales_orders.print_receipt");
     });
     (new RouteGenerator(SalesOrder::class))::generate(SalesOrderController::class);
     (new RouteGenerator(Product::class))::generate(ProductController::class);
