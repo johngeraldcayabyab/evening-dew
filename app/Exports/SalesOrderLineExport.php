@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class SalesOrderExport implements FromQuery, ShouldAutoSize, WithMapping, WithHeadings
+class SalesOrderLineExport implements FromQuery, ShouldAutoSize, WithMapping, WithHeadings
 {
     use Exportable;
 

@@ -21,6 +21,7 @@ const AllSaleTable = () => {
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
+            exportLink: '/sales_order_lines/export',
             columns: [
                 {
                     title: 'ID',
@@ -92,7 +93,7 @@ const AllSaleTable = () => {
                     sorter: true,
                     filter: SEARCH,
                     render: (text, record) => {
-                        const  source = record.source ? record.source.name : '';
+                        const source = record.source ? record.source.name : '';
                         if (source === 'Shopify') {
                             return <Tag color={'success'}>{source}</Tag>;
                         }
@@ -111,7 +112,7 @@ const AllSaleTable = () => {
                 topColOneLeft={<CustomBreadcrumb/>}
                 topColTwoRight={''}
                 bottomColOneLeft={<TableCreateButton/>}
-                bottomColOneRight={<><ActionsDropdownButton/><ListExportButton/></>}
+                bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}
             />
             <CustomTable/>

@@ -1,7 +1,8 @@
 import {Dropdown, Menu} from "antd";
 import ListDeleteButton from "./ListDeleteButton";
 import {TableContext} from "../../Contexts/TableContext";
-import {useContext} from "react";
+import React, {useContext} from "react";
+import ListExportButton from "./ListExportButton";
 
 const ActionsDropdownButton = () => {
     const listContext = useContext(TableContext);
@@ -13,6 +14,7 @@ const ActionsDropdownButton = () => {
     const menu = (
         <Menu onClick={handleMenuClick}>
             <ListDeleteButton/>
+            <ListExportButton/>
         </Menu>
     );
 
