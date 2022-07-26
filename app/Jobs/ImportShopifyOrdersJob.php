@@ -40,7 +40,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
         $shopifyUrl = config('shopify.url');
         $shopifyAccessToken = config('shopify.access_token');
         if (!$shopifyUrl || !$shopifyAccessToken) {
-            throw new Exception('Check your shopify credentials!!');
+            $this->log('Check your shopify credentials!!');
         }
         $http = Http::withHeaders([
             'Content-Type' => 'application/json',

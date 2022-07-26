@@ -137,6 +137,7 @@ const CustomTable = (props) => {
                 listContext.tableState.params[key] = filters[key];
             }
         }
+        console.log(pagination, filters, sorter);
         listContext.tableActions.renderData(listContext.tableState.params);
     }
 

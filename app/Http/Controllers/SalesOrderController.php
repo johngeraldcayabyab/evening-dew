@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Data\SystemSetting;
 use App\Events\SalesOrderValidatedEvent;
-use App\Exports\SalesOrderExport;
+use App\Exports\SalesOrderLineExport;
 use App\Http\Requests\SalesOrderRequest;
 use App\Http\Resources\SalesOrderResource;
 use App\Jobs\PrintReceiptJob;
@@ -174,11 +174,6 @@ class SalesOrderController
     {
         PrintReceiptJob::dispatch($request->sales_order_id);
         return $this->responseCreate();
-    }
-
-    public function export(Request $request)
-    {
-        return Excel::download(new SalesOrderExport($request->all()), 'sales_orders.xlsx');
     }
 
     public function update_status(Request $request, SalesOrder $salesOrder)
