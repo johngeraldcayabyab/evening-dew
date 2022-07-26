@@ -146,6 +146,10 @@ class AppMenuSeeder extends Seeder
                                         'label' => 'Delivery Fees',
                                         'menu_key' => 'Delivery Fees',
                                     ],
+                                    [
+                                        'label' => 'Couriers',
+                                        'menu_key' => 'Couriers',
+                                    ],
                                 ]
                             ],
                         ],
