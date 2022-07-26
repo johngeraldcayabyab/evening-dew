@@ -176,11 +176,6 @@ class SalesOrderController
         return $this->responseCreate();
     }
 
-    public function export(Request $request)
-    {
-        return Excel::download(new SalesOrderLineExport($request->all()), 'sales_orders.xlsx');
-    }
-
     public function update_status(Request $request, SalesOrder $salesOrder)
     {
         $salesOrder->status = $request->status;
