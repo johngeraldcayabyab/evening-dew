@@ -11,6 +11,8 @@ const useOptionLineHook = (url, tableField) => {
         values: {},
         options: {},
         optionsLoading: {},
+        meta: {},
+        search: {}
     });
 
     function getField() {
@@ -37,16 +39,22 @@ const useOptionLineHook = (url, tableField) => {
             useFetch(`${url}`, GET, params).then((response) => {
                 const data = response.data;
                 const options = state.options;
+                const optionsLoading = state.optionsLoading;
+                const meta = state.meta;
+                const searchState = state.search;
                 options[key] = data.map((option) => ({
                     value: option.id,
                     label: option.slug
                 }));
-                const optionsLoading = state.optionsLoading;
                 optionsLoading[key] = false;
+                meta[key] = response.meta;
+                searchState[key] = search;
                 setState((prevState) => ({
                     ...prevState,
                     options: options,
                     optionsLoading: optionsLoading,
+                    meta: meta,
+                    search: searchState
                 }));
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
@@ -80,6 +88,41 @@ const useOptionLineHook = (url, tableField) => {
         },
         onClear: (key) => {
             optionActions.getOptions(null, key);
+        },
+        onPopupScroll: (event, key) => {
+            let target = event.target;
+            if (!state.optionsLoading[key] && target.scrollTop + target.offsetHeight === target.scrollHeight) {
+                if (state.meta[key].current_page !== state.meta[key].last_page) {
+                    const field = getField();
+                    let params = {
+                        page_size: 10,
+                        selected_fields: ['id', 'slug'],
+                        orderByColumn: field,
+                        orderByDirection: 'asc',
+                        page: state.meta[key].current_page + 1
+                    };
+                    params[field] = state.search[key];
+                    useFetch(`${url}`, GET, params).then((response) => {
+                        const data = response.data;
+                        const meta = state.meta;
+                        const options = state.options;
+                        meta[key] = response.meta;
+                        data.forEach((option) => {
+                            options[key].push({
+                                value: option.id,
+                                label: option.slug
+                            });
+                        });
+                        setState((prevState) => ({
+                            ...prevState,
+                            meta: meta,
+                            options: options,
+                        }));
+                    }).catch((responseErr) => {
+                        fetchCatcher.get(responseErr);
+                    });
+                }
+            }
         },
         getFieldFromInitialValues: (initialValues) => {
             let field = initialValues;
@@ -135,6 +178,7 @@ const useOptionLineHook = (url, tableField) => {
                 onCreate: () => lineOptions.onCreate(fieldKey),
                 onSearch: (search) => lineOptions.onSearch(search, fieldKey),
                 onClear: () => lineOptions.onClear(fieldKey),
+                onPopupScroll: (event) => lineOptions.onPopupScroll(event, fieldKey),
                 addSelf: () => lineOptions.addSelf(fieldKey, formState, lineName),
                 removeSelf: () => lineOptions.removeSelf(fieldKey),
             }

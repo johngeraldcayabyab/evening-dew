@@ -14,6 +14,7 @@ const FormItemSelect = (props) => {
         optionFilterProp: "children",
         filterOption: [],
         onClear: props.onClear,
+        onPopupScroll: props.onPopupScroll
     };
 
     if (props.dropdownRender) {
