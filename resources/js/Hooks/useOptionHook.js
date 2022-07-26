@@ -11,6 +11,8 @@ const useOptionHook = (url, tableField) => {
         value: null,
         options: [],
         optionsLoading: true,
+        meta: {},
+        search: null,
     });
 
     function getField() {
@@ -36,6 +38,7 @@ const useOptionHook = (url, tableField) => {
             }
             useFetch(`${url}`, GET, params).then((response) => {
                 const data = response.data;
+                const meta = response.meta;
                 setState((prevState) => ({
                     ...prevState,
                     options: data.map((option) => ({
@@ -43,6 +46,8 @@ const useOptionHook = (url, tableField) => {
                         label: option.slug
                     })),
                     optionsLoading: false,
+                    meta: meta,
+                    search: search,
                 }));
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
@@ -73,6 +78,41 @@ const useOptionHook = (url, tableField) => {
         onClear: () => {
             optionActions.getOptions();
         },
+        onPopupScroll: (event) => {
+            let target = event.target;
+            if (!state.optionsLoading && target.scrollTop + target.offsetHeight === target.scrollHeight) {
+                if (state.meta.current_page !== state.meta.last_page) {
+                    const field = getField();
+                    let params = {
+                        page_size: 10,
+                        selected_fields: ['id', 'slug'],
+                        orderByColumn: field,
+                        orderByDirection: 'asc',
+                        page: state.meta.current_page + 1
+                    };
+                    params[field] = state.search;
+                    useFetch(`${url}`, GET, params).then((response) => {
+                        const data = response.data;
+                        const meta = response.meta;
+                        const options = state.options;
+                        data.forEach((option) => {
+                            options.push({
+                                value: option.id,
+                                label: option.slug
+                            });
+                        });
+                        setState((prevState) => ({
+                            ...prevState,
+                            meta: meta,
+                            options: options,
+                        }));
+                    }).catch((responseErr) => {
+                        fetchCatcher.get(responseErr);
+                    });
+                }
+            }
+        },
+
         getFieldFromInitialValues: (initialValues) => {
             let field = initialValues;
             const fields = tableField.split('.');

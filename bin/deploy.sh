@@ -47,7 +47,7 @@ case "$(uname -s)" in
 
    Linux)
      echo 'Linux'
-     exit 0
+     zip -r "../${BUILD_FOLDER_ZIP}" ./*
      ;;
 
    CYGWIN*|MINGW32*|MSYS*|MINGW*)
@@ -57,7 +57,7 @@ case "$(uname -s)" in
 
    *)
      echo 'Other OS'
-     exit 0
+     zip -r "../${BUILD_FOLDER_ZIP}" ./*
      ;;
 esac
 # *** End of Operating system check ***
