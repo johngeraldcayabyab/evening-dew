@@ -21,9 +21,9 @@ mkdir "./builds/${BUILD_FOLDER}"
 cd "./builds/${BUILD_FOLDER}";
 
 if [ "$HOST_NAME" = "taste-and-tell" ]; then
-    git clone --depth 1 git@github.com:johngeraldcayabyab/evening-dew.git -b taste-and-tell ./
+    git clone --depth 1 https://github.com/johngeraldcayabyab/evening-dew.git -b taste-and-tell ./
 else
-    git clone --depth 1 git@github.com:johngeraldcayabyab/evening-dew.git ./
+    git clone --depth 1 https://github.com/johngeraldcayabyab/evening-dew.git ./
 fi
 
 

@@ -65,6 +65,11 @@ class SalesOrder extends Model implements Sluggable
         return $this->belongsTo(Source::class, 'source_id', 'id');
     }
 
+    public function courier()
+    {
+        return $this->belongsTo(Courier::class, 'courier_id', 'id');
+    }
+
     public function salesOrderLines()
     {
         return $this->hasMany(SalesOrderLine::class);
