@@ -113,6 +113,9 @@ const useOptionLineHook = (url, tableField) => {
                                 label: option.slug
                             });
                         });
+
+                        options[key] = options[key].filter((v, i, a) => a.findIndex(v2 => (v2.value === v.value)) === i);
+
                         setState((prevState) => ({
                             ...prevState,
                             meta: meta,
