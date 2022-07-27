@@ -199,14 +199,26 @@ const GlobalSettingForm = () => {
                                         {...inventoryDefaultWarehouseOptions}
                                     />
                                 </ColForm>
+                            </RowForm>
 
+
+                            <RowForm>
+                                <Divider orientation={'left'}>
+                                    Background
+                                </Divider>
                                 <ColForm>
                                     <FormItemCheckbox
                                         label={'Auto validate drafts'}
                                         name={'inventory_auto_validate_draft'}
                                     />
+
+                                    <FormItemCheckbox
+                                        label={'Compute Product Quantity'}
+                                        name={'inventory_compute_product_quantity'}
+                                    />
                                 </ColForm>
                             </RowForm>
+
                         </TabPane>
 
                         <TabPane tab="Accounting" key="3">
