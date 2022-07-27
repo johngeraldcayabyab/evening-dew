@@ -40,9 +40,7 @@ const useListHook = (manifest) => {
             });
         },
         handleExport: () => {
-            useFetch(`/${manifest.moduleName}/export`, GET).then(() => {
-                // tableActions.renderData(tableState.params);
-            }).catch((responseErr) => {
+            useFetch(`/${manifest.moduleName}/export`, GET).catch((responseErr) => {
                 fetchCatcher.get(responseErr).then(() => {
                     setTableState(state => ({
                         ...state,
