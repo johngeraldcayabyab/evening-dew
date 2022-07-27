@@ -8,6 +8,7 @@ const useOptionLineHook = (url, tableField) => {
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
+        keys: [],
         values: {},
         options: {},
         optionsLoading: {},
@@ -49,12 +50,17 @@ const useOptionLineHook = (url, tableField) => {
                 optionsLoading[key] = false;
                 meta[key] = response.meta;
                 searchState[key] = search;
+                const keys = state.keys;
+                keys.push(key);
                 setState((prevState) => ({
                     ...prevState,
                     options: options,
                     optionsLoading: optionsLoading,
                     meta: meta,
-                    search: searchState
+                    search: searchState,
+                    keys: keys.filter((c, index) => {
+                        return keys.indexOf(c) === index;
+                    })
                 }));
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);

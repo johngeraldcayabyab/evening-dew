@@ -76,14 +76,14 @@ const SalesOrderForm = () => {
     }, [formState.initialValues]);
 
     function onValuesChange(changedValues, allValues) {
-        setDefaultValuesFromCustomer(changedValues);
+        setDefaultValuesFromCustomer(changedValues, allValues);
         setDeliveryFeeByCity(changedValues, allValues);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'product_id', getProductInfoAndSetValues);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'quantity', computeSubtotal);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'unit_price', computeSubtotal);
     }
 
-    function setDefaultValuesFromCustomer(changedValues) {
+    function setDefaultValuesFromCustomer(changedValues, allValues) {
         if (changedValues.customer_id) {
             useFetch(`/api/addresses`, GET, {
                 contact_id: changedValues.customer_id
@@ -104,6 +104,8 @@ const SalesOrderForm = () => {
                     invoice_city_id: invoiceAddress.city.id,
                     delivery_city_id: deliveryAddress.city.id,
                 });
+
+                setDeliveryFeeByCity({delivery_city_id: deliveryAddress.city.id}, allValues);
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
             });
@@ -133,6 +135,22 @@ const SalesOrderForm = () => {
                     form.setFieldsValue({
                         sales_order_lines: salesOrderLines
                     });
+
+                    const maxKeyIndex = Math.max(...productLineOptions.keys);
+                    console.log(productLineOptions.keys, maxKeyIndex);
+                    // console.log(productLineOptions.keys, persistedKey + 1);
+                    // productLineOptions.getOptions(product.name, persistedKey + 1);
+
+                    // const salesOrderLineKeys = Object.keys(productLineOptions.options);
+                    // console.log(productLineOptions.options, Object.keys(productLineOptions.options).pop());
+                    // console.log(Math.max(salesOrderLineKeys.map(str => {
+                    //     return Number(str);
+                    // })));
+                    // productLineOptions.options
+
+                    // const persistedKey = getPersistedKey(line, salesMeasurementOptions.options)
+                    // salesMeasurementOptions.getOptions(response.sales_measurement.name, persistedKey);
+
                 }
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
@@ -151,7 +169,7 @@ const SalesOrderForm = () => {
             form.setFieldsValue({
                 sales_order_lines: salesOrderLines
             });
-            const persistedKey = getPersistedKey(line, salesMeasurementOptions.options)
+            const persistedKey = getPersistedKey(line, salesMeasurementOptions.options);
             salesMeasurementOptions.getOptions(response.sales_measurement.name, persistedKey);
         }).catch((responseErr) => {
             fetchCatcher.get(responseErr);
@@ -202,28 +220,23 @@ const SalesOrderForm = () => {
                 bottomColTwoRight={<NextPreviousRecord/>}
             />
             <StatusBar
-                statuses={[
-                    {
-                        value: 'draft',
-                        title: 'Draft',
-                        status: {draft: 'process', done: 'finish', cancelled: 'wait'}
-                    },
-                    {
-                        value: 'done',
-                        title: 'Done',
-                        type: 'primary',
-                        label: 'Validate',
-                        status: {draft: 'wait', done: 'finish', cancelled: 'wait'},
-                        visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
-                    }, {
-                        value: 'cancelled',
-                        title: 'Cancelled',
-                        type: 'ghost',
-                        label: 'Cancel',
-                        status: {draft: 'wait', done: 'wait', cancelled: 'finish'},
-                        visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
-                    },
-                ]}
+                statuses={[{
+                    value: 'draft', title: 'Draft', status: {draft: 'process', done: 'finish', cancelled: 'wait'}
+                }, {
+                    value: 'done',
+                    title: 'Done',
+                    type: 'primary',
+                    label: 'Validate',
+                    status: {draft: 'wait', done: 'finish', cancelled: 'wait'},
+                    visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
+                }, {
+                    value: 'cancelled',
+                    title: 'Cancelled',
+                    type: 'ghost',
+                    label: 'Cancel',
+                    status: {draft: 'wait', done: 'wait', cancelled: 'finish'},
+                    visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
+                },]}
             />
             <FormCard>
                 <FormLinks
@@ -260,10 +273,7 @@ const SalesOrderForm = () => {
                         <FormItemSelect
                             label={'Shipping Method'}
                             name={'shipping_method'}
-                            options={[
-                                {value: 'delivery', label: 'Delivery'},
-                                {value: 'pickup', label: 'Pickup'},
-                            ]}
+                            options={[{value: 'delivery', label: 'Delivery'}, {value: 'pickup', label: 'Pickup'},]}
                         />
                         <FormItemTextArea
                             label={'Notes'}
