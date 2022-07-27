@@ -18,7 +18,9 @@ class Kernel extends ConsoleKernel
             if (GlobalSetting::latestFirst()->inventory_auto_validate_draft) {
                 ValidateAllDraftTransfersJob::dispatch();
             }
-            ComputeProductQuantityJob::dispatch();
+            if (GlobalSetting::latestFirst()->inventory_compute_product_quantity) {
+                ComputeProductQuantityJob::dispatch();
+            }
         })->everyMinute();
     }
 
