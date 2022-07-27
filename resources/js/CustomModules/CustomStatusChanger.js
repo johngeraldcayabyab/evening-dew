@@ -16,9 +16,7 @@ const CustomStatusChanger = (props) => {
         useFetch(`api/${manifest.moduleName}/${record.id}/status`, PUT, {
             status: value,
         }).then(() => {
-            const params = listContext.tableState.params;
-            params.same_day = true;
-            listContext.tableActions.renderData(params);
+            listContext.tableActions.renderData(listContext.tableState.params);
         }).catch((responseErr) => {
             fetchCatcher.get(responseErr);
         });
