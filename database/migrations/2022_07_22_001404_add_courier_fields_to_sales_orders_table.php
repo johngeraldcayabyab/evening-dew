@@ -25,13 +25,13 @@ class AddCourierFieldsToSalesOrdersTable extends Migration
     {
         if (Schema::hasColumn('sales_orders', 'courier_id')) {
             Schema::table('sales_orders', function (Blueprint $table) {
-                $table->bigInteger('courier_id')->nullable();
+                $table->dropColumn('courier_id');
             });
         }
 
         if (Schema::hasColumn('sales_orders', 'pickup_time')) {
             Schema::table('sales_orders', function (Blueprint $table) {
-                $table->bigInteger('pickup_time')->nullable();
+                $table->dropColumn('pickup_time');
             });
         }
     }
