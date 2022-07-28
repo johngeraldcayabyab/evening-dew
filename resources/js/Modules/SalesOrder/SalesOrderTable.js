@@ -65,7 +65,7 @@ const SalesOrderTable = () => {
                     sorter: true,
                     filter: SEARCH,
                     render: (text, record) => {
-                        if (!record) {
+                        if (!record.status) {
                             return null;
                         }
                         const color = {draft: 'processing', done: 'success', cancelled: 'default'};
