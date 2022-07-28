@@ -136,8 +136,10 @@ const SalesOrderForm = () => {
                         sales_order_lines: salesOrderLines
                     });
 
-                    const maxKeyIndex = Math.max(...productLineOptions.keys);
-                    console.log(productLineOptions.keys, maxKeyIndex);
+                    console.log(form.getFieldsValue('sales_order_lines'));
+
+                    // const maxKeyIndex = Math.max(...productLineOptions.keys);
+                    // console.log(productLineOptions.keys, maxKeyIndex);
                     // console.log(productLineOptions.keys, persistedKey + 1);
                     // productLineOptions.getOptions(product.name, persistedKey + 1);
 
