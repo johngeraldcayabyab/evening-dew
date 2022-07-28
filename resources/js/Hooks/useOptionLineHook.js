@@ -58,9 +58,7 @@ const useOptionLineHook = (url, tableField) => {
                     optionsLoading: optionsLoading,
                     meta: meta,
                     search: searchState,
-                    keys: keys.filter((c, index) => {
-                        return keys.indexOf(c) === index;
-                    })
+                    keys: keys,
                 }));
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);

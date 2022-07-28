@@ -135,24 +135,12 @@ const SalesOrderForm = () => {
                     form.setFieldsValue({
                         sales_order_lines: salesOrderLines
                     });
-
-                    console.log(form.getFieldsValue('sales_order_lines'));
-
-                    // const maxKeyIndex = Math.max(...productLineOptions.keys);
-                    // console.log(productLineOptions.keys, maxKeyIndex);
-                    // console.log(productLineOptions.keys, persistedKey + 1);
-                    // productLineOptions.getOptions(product.name, persistedKey + 1);
-
-                    // const salesOrderLineKeys = Object.keys(productLineOptions.options);
-                    // console.log(productLineOptions.options, Object.keys(productLineOptions.options).pop());
-                    // console.log(Math.max(salesOrderLineKeys.map(str => {
-                    //     return Number(str);
-                    // })));
-                    // productLineOptions.options
-
-                    // const persistedKey = getPersistedKey(line, salesMeasurementOptions.options)
-                    // salesMeasurementOptions.getOptions(response.sales_measurement.name, persistedKey);
-
+                    if (productLineOptions.keys.length === 0) {
+                        productLineOptions.getOptions(product.name, 0);
+                    } else if (productLineOptions.keys.length > 0) {
+                        const maxProductLineOptionKey = Math.max(...productLineOptions.keys);
+                        productLineOptions.getOptions(product.name, maxProductLineOptionKey + 1);
+                    }
                 }
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
