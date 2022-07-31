@@ -10,6 +10,7 @@ import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
+import CustomStatusChanger from "../CustomStatusChanger";
 
 const ManualTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -70,6 +71,13 @@ const ManualTable = () => {
                     key: 'quotation_date',
                     sorter: true,
                     filter: DATE_RANGE,
+                },
+                {
+                    title: 'Status',
+                    dataIndex: 'status',
+                    key: 'status',
+                    sorter: true,
+                    render: (text, record) => (<CustomStatusChanger text={text} record={record}/>),
                 },
                 {
                     title: '',

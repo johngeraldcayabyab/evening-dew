@@ -8,33 +8,14 @@ import CustomPagination from "../../Components/CustomPagination";
 import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
-import {COLUMN_SELECTION, DATE_RANGE, DELETE, SEARCH, PUT} from "../../consts";
-import {Tag, Space, Button} from "antd";
+import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
+import {Tag} from "antd";
 import {selectTimeOptions} from "../../Helpers/object";
-import {titleCase, uuidv4} from "../../Helpers/string";
-import useFetchHook from "../../Hooks/useFetchHook";
-import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
+import {uuidv4} from "../../Helpers/string";
+import CustomStatusChanger from "../CustomStatusChanger";
 
 const SameDayTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
-    const useFetch = useFetchHook();
-    const fetchCatcher = useFetchCatcherHook();
-
-    function handleStatusChange(e, record, value) {
-        e.stopPropagation();
-        useFetch(`api/${manifest.moduleName}/${record.id}/status`, PUT, {
-            status: value,
-        }).then(() => {
-
-            // console.log(tableState.params);
-            tableActions.renderData({
-                ...tableState.params,
-                ...{same_day: true}
-            });
-        }).catch((responseErr) => {
-            // handleFormErrors(responseErr);
-        });
-    }
 
     return (
         <TableContextProvider value={{
@@ -142,7 +123,8 @@ const SameDayTable = () => {
                     filter: SEARCH,
                     render: (text, record) => {
                         if (record.courier) {
-                            return <Tag color={record.courier.color ? record.courier.color : 'default'}>{record.courier.name}</Tag>;
+                            return <Tag
+                                color={record.courier.color ? record.courier.color : 'default'}>{record.courier.name}</Tag>;
                         }
                         return null;
                     }
@@ -195,27 +177,8 @@ const SameDayTable = () => {
                     dataIndex: 'status',
                     key: 'status',
                     sorter: true,
-                    render: (text, record) => {
-                        return (
-                            <Space size={1}>
-                                <Button type={record.status === 'Paid' ? 'primary' : 'default'} size={'small'} onClick={(e) => {
-                                    handleStatusChange(e, record, 'Paid')
-                                }}>Paid</Button>
-                                <Button type={record.status === 'Sticker' ? 'primary' : 'default'} size={'small'} onClick={(e) => {
-                                    handleStatusChange(e, record, 'Sticker')
-                                }}>Sticker</Button>
-                                <Button type={record.status === 'Kitchen' ? 'primary' : 'default'} size={'small'} onClick={(e) => {
-                                    handleStatusChange(e, record, 'Kitchen')
-                                }}>Kitchen</Button>
-                                <Button type={record.status === 'Delivered' ? 'primary' : 'default'} size={'small'} onClick={(e) => {
-                                    handleStatusChange(e, record, 'Delivered')
-                                }}>Delivered</Button>
-                            </Space>
-                        )
-                    }
+                    render: (text, record) => (<CustomStatusChanger text={text} record={record}/>),
                 },
-
-
                 {
                     title: '',
                     dataIndex: COLUMN_SELECTION,

@@ -178,7 +178,7 @@ class SalesOrderController
 
     public function update_status(Request $request, SalesOrder $salesOrder)
     {
-        $salesOrder->status = $request->status;
+        $salesOrder->status = $salesOrder->status === $request->status ? null : $request->status;
         $salesOrder->save();
         return [];
     }

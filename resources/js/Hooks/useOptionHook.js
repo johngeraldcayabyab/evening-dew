@@ -104,7 +104,7 @@ const useOptionHook = (url, tableField) => {
                         setState((prevState) => ({
                             ...prevState,
                             meta: meta,
-                            options: options,
+                            options: options.filter((v, i, a) => a.findIndex(v2 => (v2.value === v.value)) === i),
                         }));
                     }).catch((responseErr) => {
                         fetchCatcher.get(responseErr);
