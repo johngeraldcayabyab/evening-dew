@@ -8,7 +8,7 @@ import {GET, POST} from "../../consts";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {AppContext} from "../../App";
 import useFetchHook from "../../Hooks/useFetchHook";
-import {setUser} from "../../Helpers/user_helpers";
+import {setGlobalSetting, setUser} from "../../Helpers/user_helpers";
 
 const Login = () => {
     const [state, setState] = useState({
@@ -41,14 +41,27 @@ const Login = () => {
                 Authorization: authorization,
             }).then((userResponse) => {
                 const user = userResponse.data[0];
-                appContext.setAppState((prevState) => ({
-                    ...prevState,
-                    isLogin: true,
-                    userEmail: values.email,
-                    user: user,
-                }));
-                setUser(user);
-                history.push('/home');
+
+
+                useFetch(`/api/global_settings/initial_values`, GET, {}, false, {
+                    Authorization: authorization,
+                }).then((responseGlobalSetting) => {
+                    console.log(responseGlobalSetting, 'kelogs');
+                    appContext.setAppState(prevState => ({
+                        ...prevState,
+                        isLogin: true,
+                        userEmail: values.email,
+                        user: user,
+                        globalSetting: responseGlobalSetting,
+                    }));
+                    setGlobalSetting(responseGlobalSetting);
+                    setUser(user);
+                    history.push('/home');
+                }).catch((responseErr) => {
+                    fetchCatcher.get(responseErr);
+                });
+
+
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
             });
