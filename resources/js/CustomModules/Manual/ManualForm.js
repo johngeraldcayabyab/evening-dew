@@ -83,7 +83,7 @@ const ManualForm = () => {
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'unit_price', computeSubtotal);
     }
 
-    function setDefaultValuesFromCustomer(changedValues) {
+    function setDefaultValuesFromCustomer(changedValues, allValues) {
         if (changedValues.customer_id) {
             useFetch(`/api/addresses`, GET, {
                 contact_id: changedValues.customer_id
@@ -104,6 +104,8 @@ const ManualForm = () => {
                     invoice_city_id: invoiceAddress.city.id,
                     delivery_city_id: deliveryAddress.city.id,
                 });
+
+                setDeliveryFeeByCity({delivery_city_id: deliveryAddress.city.id}, allValues);
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
             });
@@ -132,6 +134,12 @@ const ManualForm = () => {
                     form.setFieldsValue({
                         sales_order_lines: salesOrderLines
                     });
+                    if (productLineOptions.keys.length === 0) {
+                        productLineOptions.getOptions(product.name, 0);
+                    } else if (productLineOptions.keys.length > 0) {
+                        const maxProductLineOptionKey = Math.max(...productLineOptions.keys);
+                        productLineOptions.getOptions(product.name, maxProductLineOptionKey + 1);
+                    }
                 }
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
