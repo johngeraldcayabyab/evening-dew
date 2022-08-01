@@ -249,7 +249,7 @@ const GlobalSettingForm = () => {
                                 <ColForm>
                                     <FormItemSelect
                                         label={'Sales Default Delivery Fee'}
-                                        name={'sales_order_default_delivery_fee'}
+                                        name={'sales_order_default_delivery_fee_id'}
                                         {...salesOrderDefaultDeliveryFeeOptions}
                                     />
                                 </ColForm>
