@@ -35,6 +35,7 @@ const GlobalSettingForm = () => {
     const inventoryDefaultWarehouseOptions = useOptionHook('/api/warehouses', 'inventory_default_warehouse.name');
     const accountingDefaultCurrencyOptions = useOptionHook('/api/currencies', 'accounting_default_currency.currency');
     const salesOrderDefaultSequenceOptions = useOptionHook('/api/sequences', 'sales_order_default_sequence.name');
+    const salesOrderDefaultDeliveryFeeOptions = useOptionHook('/api/delivery_fees', 'sales_order_default_delivery_fee.name');
 
     useEffect(() => {
         generalDefaultCountryOptions.getInitialOptions(formState);
@@ -51,6 +52,7 @@ const GlobalSettingForm = () => {
         inventoryDefaultWarehouseOptions.getInitialOptions(formState);
         accountingDefaultCurrencyOptions.getInitialOptions(formState);
         salesOrderDefaultSequenceOptions.getInitialOptions(formState);
+        salesOrderDefaultDeliveryFeeOptions.getInitialOptions(formState);
     }, [formState.initialLoad]);
 
     return (
@@ -199,14 +201,26 @@ const GlobalSettingForm = () => {
                                         {...inventoryDefaultWarehouseOptions}
                                     />
                                 </ColForm>
+                            </RowForm>
 
+
+                            <RowForm>
+                                <Divider orientation={'left'}>
+                                    Background
+                                </Divider>
                                 <ColForm>
                                     <FormItemCheckbox
                                         label={'Auto validate drafts'}
                                         name={'inventory_auto_validate_draft'}
                                     />
+
+                                    <FormItemCheckbox
+                                        label={'Compute Product Quantity'}
+                                        name={'inventory_compute_product_quantity'}
+                                    />
                                 </ColForm>
                             </RowForm>
+
                         </TabPane>
 
                         <TabPane tab="Accounting" key="3">
@@ -230,6 +244,13 @@ const GlobalSettingForm = () => {
                                         label={'Sales Default Sequence'}
                                         name={'sales_order_default_sequence_id'}
                                         {...salesOrderDefaultSequenceOptions}
+                                    />
+                                </ColForm>
+                                <ColForm>
+                                    <FormItemSelect
+                                        label={'Sales Default Delivery Fee'}
+                                        name={'sales_order_default_delivery_fee_id'}
+                                        {...salesOrderDefaultDeliveryFeeOptions}
                                     />
                                 </ColForm>
                             </RowForm>

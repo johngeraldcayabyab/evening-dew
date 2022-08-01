@@ -127,7 +127,7 @@ const useOptionHook = (url, tableField) => {
             });
             return field;
         },
-        getInitialOptions: (formState) => {
+        getInitialOptions: (formState, customParams = null) => {
             if (!formState.initialLoad) {
                 let initialValue = null;
                 if (objectHasValue(formState.initialValues)) {
@@ -135,6 +135,9 @@ const useOptionHook = (url, tableField) => {
                 }
                 if (initialValue) {
                     initialValue = {id: initialValue};
+                }
+                if (customParams) {
+                    initialValue = {...initialValue, ...customParams};
                 }
                 optionActions.getOptions(initialValue);
             }

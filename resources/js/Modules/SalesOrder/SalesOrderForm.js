@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Divider, Form, Table, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
@@ -30,6 +30,7 @@ import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
+import {AppContext} from "../../App";
 
 const {TabPane} = Tabs;
 
@@ -45,6 +46,7 @@ const SalesOrderForm = () => {
     const sourceOptions = useOptionHook('/api/sources', 'source.name');
     const productLineOptions = useOptionLineHook('/api/products', 'product.name');
     const salesMeasurementOptions = useOptionLineHook('/api/measurements', 'measurement.name');
+    const appContext = useContext(AppContext);
 
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
@@ -76,14 +78,14 @@ const SalesOrderForm = () => {
     }, [formState.initialValues]);
 
     function onValuesChange(changedValues, allValues) {
-        setDefaultValuesFromCustomer(changedValues);
+        setDefaultValuesFromCustomer(changedValues, allValues);
         setDeliveryFeeByCity(changedValues, allValues);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'product_id', getProductInfoAndSetValues);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'quantity', computeSubtotal);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'unit_price', computeSubtotal);
     }
 
-    function setDefaultValuesFromCustomer(changedValues) {
+    function setDefaultValuesFromCustomer(changedValues, allValues) {
         if (changedValues.customer_id) {
             useFetch(`/api/addresses`, GET, {
                 contact_id: changedValues.customer_id
@@ -104,6 +106,8 @@ const SalesOrderForm = () => {
                     invoice_city_id: invoiceAddress.city.id,
                     delivery_city_id: deliveryAddress.city.id,
                 });
+
+                setDeliveryFeeByCity({delivery_city_id: deliveryAddress.city.id}, allValues);
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
             });
@@ -133,6 +137,12 @@ const SalesOrderForm = () => {
                     form.setFieldsValue({
                         sales_order_lines: salesOrderLines
                     });
+                    if (productLineOptions.keys.length === 0) {
+                        productLineOptions.getOptions(product.name, 0);
+                    } else if (productLineOptions.keys.length > 0) {
+                        const maxProductLineOptionKey = Math.max(...productLineOptions.keys);
+                        productLineOptions.getOptions(product.name, maxProductLineOptionKey + 1);
+                    }
                 }
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
@@ -151,7 +161,7 @@ const SalesOrderForm = () => {
             form.setFieldsValue({
                 sales_order_lines: salesOrderLines
             });
-            const persistedKey = getPersistedKey(line, salesMeasurementOptions.options)
+            const persistedKey = getPersistedKey(line, salesMeasurementOptions.options);
             salesMeasurementOptions.getOptions(response.sales_measurement.name, persistedKey);
         }).catch((responseErr) => {
             fetchCatcher.get(responseErr);
@@ -202,28 +212,23 @@ const SalesOrderForm = () => {
                 bottomColTwoRight={<NextPreviousRecord/>}
             />
             <StatusBar
-                statuses={[
-                    {
-                        value: 'draft',
-                        title: 'Draft',
-                        status: {draft: 'process', done: 'finish', cancelled: 'wait'}
-                    },
-                    {
-                        value: 'done',
-                        title: 'Done',
-                        type: 'primary',
-                        label: 'Validate',
-                        status: {draft: 'wait', done: 'finish', cancelled: 'wait'},
-                        visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
-                    }, {
-                        value: 'cancelled',
-                        title: 'Cancelled',
-                        type: 'ghost',
-                        label: 'Cancel',
-                        status: {draft: 'wait', done: 'wait', cancelled: 'finish'},
-                        visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
-                    },
-                ]}
+                statuses={[{
+                    value: 'draft', title: 'Draft', status: {draft: 'process', done: 'finish', cancelled: 'wait'}
+                }, {
+                    value: 'done',
+                    title: 'Done',
+                    type: 'primary',
+                    label: 'Validate',
+                    status: {draft: 'wait', done: 'finish', cancelled: 'wait'},
+                    visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
+                }, {
+                    value: 'cancelled',
+                    title: 'Cancelled',
+                    type: 'ghost',
+                    label: 'Cancel',
+                    status: {draft: 'wait', done: 'wait', cancelled: 'finish'},
+                    visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
+                },]}
             />
             <FormCard>
                 <FormLinks
@@ -260,10 +265,7 @@ const SalesOrderForm = () => {
                         <FormItemSelect
                             label={'Shipping Method'}
                             name={'shipping_method'}
-                            options={[
-                                {value: 'delivery', label: 'Delivery'},
-                                {value: 'pickup', label: 'Pickup'},
-                            ]}
+                            options={[{value: 'delivery', label: 'Delivery'}, {value: 'pickup', label: 'Pickup'},]}
                         />
                         <FormItemTextArea
                             label={'Notes'}

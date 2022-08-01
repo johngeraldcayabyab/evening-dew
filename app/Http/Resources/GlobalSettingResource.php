@@ -21,9 +21,11 @@ class GlobalSettingResource extends JsonResource
             'inventory_default_scrap_id' => $this->inventory_default_scrap_id,
             'inventory_default_warehouse_id' => $this->inventory_default_warehouse_id,
             'inventory_auto_validate_draft' => $this->inventory_auto_validate_draft,
+            'inventory_compute_product_quantity' => $this->inventory_compute_product_quantity,
             'accounting_default_currency_id' => $this->accounting_default_currency_id,
             'general_default_country_id' => $this->general_default_country_id,
             'sales_order_default_sequence_id' => $this->sales_order_default_sequence_id,
+            'sales_order_default_delivery_fee_id' => $this->sales_order_default_delivery_fee_id,
             'inventory_default_measurement_category' => $this->inventoryDefaultMeasurementCategory,
             'inventory_default_measurement' => $this->inventoryDefaultMeasurement,
             'inventory_default_purchase_measurement' => $this->inventoryDefaultPurchaseMeasurement,
@@ -38,6 +40,7 @@ class GlobalSettingResource extends JsonResource
             'accounting_default_currency' => $this->accountingDefaultCurrency,
             'general_default_country' => $this->generalDefaultCountry,
             'sales_order_default_sequence' => $this->salesOrderDefaultSequence,
+            'sales_order_default_delivery_fee' => $this->salesOrderDefaultDeliveryFee,
         ];
     }
 }
