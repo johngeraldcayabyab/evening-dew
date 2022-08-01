@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Divider, Form, Table, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
@@ -30,6 +30,7 @@ import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
+import {AppContext} from "../../App";
 
 const {TabPane} = Tabs;
 
@@ -45,6 +46,7 @@ const SalesOrderForm = () => {
     const sourceOptions = useOptionHook('/api/sources', 'source.name');
     const productLineOptions = useOptionLineHook('/api/products', 'product.name');
     const salesMeasurementOptions = useOptionLineHook('/api/measurements', 'measurement.name');
+    const appContext = useContext(AppContext);
 
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
