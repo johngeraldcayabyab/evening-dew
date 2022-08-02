@@ -2,10 +2,11 @@ import {Menu, Popconfirm} from "antd";
 import React, {useContext} from "react";
 import {TableContext} from "../../Contexts/TableContext";
 import {Link} from "react-router-dom";
+import {toQueryString} from "../../Helpers/url";
 
 const ListExportButton = () => {
     const listContext = useContext(TableContext);
-    const params = Object.entries(listContext.tableState.params).map(e => e.join('=')).join('&');
+    const params = toQueryString(listContext.tableState.params);
     const exportLink = listContext.exportLink ? `${listContext.exportLink}/?${params}` : `${listContext.manifest.moduleName}/export?${params}`;
     return (
         <Menu.Item key={'exporter'}>
