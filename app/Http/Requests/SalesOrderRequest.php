@@ -33,7 +33,7 @@ class SalesOrderRequest extends FormRequest
             'shipping_policy' => ['nullable', "in:$shippingPolicies"],
             'shipping_date' => ['nullable'],
             'source_document' => ['nullable'],
-            'status' => ['nullable', "in:$statuses"],
+            'status' => ['nullable'],
             'notes' => ['nullable'],
             'shipping_method' => ['nullable', "in:$shippingMethods"],
             'select_time' => ['nullable'],
