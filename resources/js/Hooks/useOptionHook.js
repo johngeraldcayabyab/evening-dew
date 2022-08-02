@@ -24,7 +24,7 @@ const useOptionHook = (url, tableField) => {
             const field = getField();
             let params = {
                 page_size: 10,
-                selected_fields: ['id', 'slug'],
+                selected_fields: ['id', 'slug', 'tag'],
                 orderByColumn: field,
                 orderByDirection: 'asc',
             };
@@ -43,7 +43,8 @@ const useOptionHook = (url, tableField) => {
                     ...prevState,
                     options: data.map((option) => ({
                         value: option.id,
-                        label: option.slug
+                        label: option.slug,
+                        tag: option.tag,
                     })),
                     optionsLoading: false,
                     meta: meta,
@@ -85,7 +86,7 @@ const useOptionHook = (url, tableField) => {
                     const field = getField();
                     let params = {
                         page_size: 10,
-                        selected_fields: ['id', 'slug'],
+                        selected_fields: ['id', 'slug', 'tag'],
                         orderByColumn: field,
                         orderByDirection: 'asc',
                         page: state.meta.current_page + 1
@@ -98,7 +99,8 @@ const useOptionHook = (url, tableField) => {
                         data.forEach((option) => {
                             options.push({
                                 value: option.id,
-                                label: option.slug
+                                label: option.slug,
+                                tag: option.tag,
                             });
                         });
                         setState((prevState) => ({

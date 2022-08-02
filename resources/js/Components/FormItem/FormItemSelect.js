@@ -1,4 +1,4 @@
-import {Form, Select} from "antd";
+import {Form, Select, Tag} from "antd";
 import {useContext, useEffect} from "react";
 import CustomInputSkeleton from "../CustomInputSkeleton";
 import {formItemFieldProps} from "../../Helpers/form";
@@ -58,7 +58,7 @@ const FormItemSelect = (props) => {
                     {props.options && props.options.map((option) => {
                         return (
                             <Select.Option key={option.value} value={option.value}>
-                                {option.label}
+                                {option.label} {option.tag ? <Tag color="processing">{option.tag}</Tag> : null}
                             </Select.Option>
                         )
                     })}

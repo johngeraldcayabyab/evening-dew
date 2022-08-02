@@ -12,13 +12,20 @@ class CityResource extends JsonResource
     public function toArray($request)
     {
         $slug = $this->slug();
-        return $this->defaults($this, $request, [
+        $deliveryFeeLines = $this->deliveryFeeLines;
+        $resource = [
             'name' => $this->name,
             'province' => $this->province,
             'region_id' => $this->region_id,
             'region' => new RegionResource($this->region),
             'slug' => $this->$slug,
-            'delivery_fee_lines' => DeliveryFeeLineResource::collection($this->deliveryFeeLines),
-        ]);
+            'delivery_fee_lines' => DeliveryFeeLineResource::collection($deliveryFeeLines),
+        ];
+
+        if (count($deliveryFeeLines)) {
+            $resource['tag'] = 'Has Fee';
+        }
+
+        return $this->defaults($this, $request, $resource);
     }
 }
