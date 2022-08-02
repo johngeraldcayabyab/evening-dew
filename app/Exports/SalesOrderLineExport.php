@@ -51,6 +51,7 @@ class SalesOrderLineExport implements FromQuery, ShouldAutoSize, WithMapping, Wi
             'delivery_city' => $row->salesOrder->deliveryCity ? $row->salesOrder->deliveryCity->name : '',
             'delivery_phone' => $row->salesOrder->delivery_phone,
             'notes' => $row->salesOrder->notes,
+            'shipping_date' => $row->salesOrder->shipping_date,
             'select_time' => $row->salesOrder->select_time,
         ];
     }
@@ -67,7 +68,8 @@ class SalesOrderLineExport implements FromQuery, ShouldAutoSize, WithMapping, Wi
             'City',
             'Contact',
             'Notes',
-            'Time'
+            'Shipping Date',
+            'Select Time'
         ];
     }
 }
