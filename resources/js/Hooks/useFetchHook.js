@@ -1,6 +1,7 @@
 import {getCookie} from "../Helpers/cookie";
 import {GET} from "../consts";
 import {useEffect} from "react";
+import {toQueryString} from "../Helpers/url";
 
 const useFetchHook = () => {
     const controller = new AbortController();
@@ -29,7 +30,7 @@ const useFetchHook = () => {
             method: method,
         };
         if (method === GET) {
-            values = Object.entries(values).map(e => e.join('=')).join('&');
+            values = toQueryString(values);
             url = `${url}?${values}`;
         } else {
             fetchInit.body = JSON.stringify(values);
