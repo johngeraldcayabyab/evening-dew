@@ -6,8 +6,7 @@ import {Link} from "react-router-dom";
 const ListExportButton = () => {
     const listContext = useContext(TableContext);
     const params = Object.entries(listContext.tableState.params).map(e => e.join('=')).join('&');
-    const exportLink = listContext.exportLink ? listContext.exportLink : `/${listContext.manifest.moduleName}/export?${params}`;
-
+    const exportLink = listContext.exportLink ? `${listContext.exportLink}/?${params}` : `${listContext.manifest.moduleName}/export?${params}`;
     return (
         <Menu.Item key={'exporter'}>
             <Popconfirm

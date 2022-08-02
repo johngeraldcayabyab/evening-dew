@@ -19,6 +19,7 @@ import ProductCategoryRoute from './Modules/ProductCategory/ProductCategoryRoute
 import SequenceRoute from './Modules/Sequence/SequenceRoute';
 import UserRoute from './Modules/User/UserRoute';
 import ProductRoute from './Modules/Product/ProductRoute';
+import CourierRoute from './Modules/Courier/CourierRoute';
 import CurrencyRoute from './Modules/Currency/CurrencyRoute';
 import CountryRoute from './Modules/Country/CountryRoute';
 import ContactRoute from './Modules/Contact/ContactRoute';
@@ -59,6 +60,7 @@ const App = () => {
                         <CityRoute/>
                         <ContactRoute/>
                         <CountryRoute/>
+                        <CourierRoute/>
                         <CurrencyRoute/>
                         <DeliveryFeeRoute/>
                         <GlobalSettingRoute/>
