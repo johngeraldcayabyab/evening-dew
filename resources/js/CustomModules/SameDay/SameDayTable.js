@@ -114,7 +114,6 @@ const SameDayTable = () => {
                         });
                     }
                 },
-
                 {
                     title: 'Courier',
                     dataIndex: 'courier',
@@ -129,8 +128,6 @@ const SameDayTable = () => {
                         return null;
                     }
                 },
-
-
                 {
                     title: 'Salesperson',
                     dataIndex: 'salesperson',
@@ -171,6 +168,13 @@ const SameDayTable = () => {
                         }
                         return <Tag color={'default'}>{source}</Tag>;
                     }
+                },
+                {
+                    title: 'Notes',
+                    dataIndex: 'notes',
+                    key: 'notes',
+                    sorter: true,
+                    filter: SEARCH,
                 },
                 {
                     title: 'Status',
