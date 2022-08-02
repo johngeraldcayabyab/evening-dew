@@ -22,7 +22,7 @@ class Kernel extends ConsoleKernel
             if (GlobalSetting::latestFirst()->inventory_compute_product_quantity) {
                 ComputeProductQuantityJob::dispatch();
             }
-            ImportShopifyOrdersJob::dispatch();
+//            ImportShopifyOrdersJob::dispatch();
         })->everyMinute();
     }
 

@@ -2,9 +2,9 @@
 
 namespace App\Jobs;
 
+use App\Models\Product;
 use Exception;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -34,7 +34,17 @@ class FixShopifyProductDetailsJob implements ShouldQueue
         $products = $responseJson['products'];
 
         foreach ($products as $product) {
-            info($product['title'] . " " . $product['price']);
+            $variants = $product['variants'];
+            foreach ($variants as $variant) {
+                $savedProduct = Product::where('internal_reference', trim($variant['sku']))->first();
+                if ($savedProduct) {
+                    if ((int)$savedProduct->sales_price !== (int)$variant['price']) {
+                        $savedProduct->sales_price = (int)$variant['price'];
+                        $savedProduct->save();
+                        info($variant['sku'] . " {$savedProduct->sales_price} --- {$variant['price']}]");
+                    }
+                }
+            }
         }
     }
 }
