@@ -23,3 +23,7 @@ export const getAllUrlParams = () => {
     }
     return dict;
 }
+
+export const toQueryString = (values) => {
+    return Object.entries(values).map(e => e.join('=')).join('&');
+}
