@@ -25,7 +25,7 @@ const useOptionLineHook = (url, tableField) => {
             const field = getField();
             let params = {
                 page_size: 10,
-                selected_fields: ['id', 'slug'],
+                selected_fields: ['id', 'slug', 'tag'],
                 orderByColumn: field,
                 orderByDirection: 'asc',
             };
@@ -45,7 +45,8 @@ const useOptionLineHook = (url, tableField) => {
                 const searchState = state.search;
                 options[key] = data.map((option) => ({
                     value: option.id,
-                    label: option.slug
+                    label: option.slug,
+                    tag: option.tag,
                 }));
                 optionsLoading[key] = false;
                 meta[key] = response.meta;
@@ -100,7 +101,7 @@ const useOptionLineHook = (url, tableField) => {
                     const field = getField();
                     let params = {
                         page_size: 10,
-                        selected_fields: ['id', 'slug'],
+                        selected_fields: ['id', 'slug', 'tag'],
                         orderByColumn: field,
                         orderByDirection: 'asc',
                         page: state.meta[key].current_page + 1
@@ -114,7 +115,8 @@ const useOptionLineHook = (url, tableField) => {
                         data.forEach((option) => {
                             options[key].push({
                                 value: option.id,
-                                label: option.slug
+                                label: option.slug,
+                                tag: option.tag,
                             });
                         });
 
