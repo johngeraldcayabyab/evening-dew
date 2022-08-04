@@ -47,7 +47,7 @@ class SalesOrderLineExport implements FromQuery, ShouldAutoSize, WithMapping, Wi
             'quantity' => $row->quantity,
             'sku' => $row->product->internal_reference,
             'name' => $row->product->name,
-            'delivery_address' => $row->salesOrder->delivery_address,
+            'delivery_address' => $row->salesOrder->shipping_method === 'delivery' ? $row->salesOrder->delivery_address : null,
             'delivery_city' => $row->salesOrder->deliveryCity ? $row->salesOrder->deliveryCity->name : '',
             'delivery_phone' => $row->salesOrder->delivery_phone,
             'notes' => $row->salesOrder->notes,
