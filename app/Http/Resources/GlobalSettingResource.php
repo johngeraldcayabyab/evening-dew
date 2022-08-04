@@ -26,6 +26,7 @@ class GlobalSettingResource extends JsonResource
             'general_default_country_id' => $this->general_default_country_id,
             'sales_order_default_sequence_id' => $this->sales_order_default_sequence_id,
             'sales_order_default_delivery_fee_id' => $this->sales_order_default_delivery_fee_id,
+            'sales_order_run_shopify_import' => $this->sales_order_run_shopify_import,
             'inventory_default_measurement_category' => $this->inventoryDefaultMeasurementCategory,
             'inventory_default_measurement' => $this->inventoryDefaultMeasurement,
             'inventory_default_purchase_measurement' => $this->inventoryDefaultPurchaseMeasurement,

@@ -254,6 +254,15 @@ const GlobalSettingForm = () => {
                                     />
                                 </ColForm>
                             </RowForm>
+
+                            <RowForm>
+                                <ColForm>
+                                    <FormItemCheckbox
+                                        label={'Run Shopify Import'}
+                                        name={'sales_order_run_shopify_import'}
+                                    />
+                                </ColForm>
+                            </RowForm>
                         </TabPane>
                     </Tabs>
                 </FormCard>

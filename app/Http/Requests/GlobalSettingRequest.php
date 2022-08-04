@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class GlobalSettingRequest extends FormRequest
 {
-    public function rules()
+    pubuild_2022.08.02_16.25.48blic function rules()
     {
         return [
             'inventory_default_measurement_category_id' => ['nullable', "exists:measurement_categories,id"],
@@ -26,6 +26,7 @@ class GlobalSettingRequest extends FormRequest
             'general_default_country_id' => ['nullable', "exists:countries,id"],
             'sales_order_default_sequence_id' => ['nullable', "exists:sequences,id"],
             'sales_order_default_delivery_fee_id' => ['nullable', "exists:delivery_fees,id"],
+            'sales_order_run_shopify_import' => ['nullable', 'boolean'],
         ];
     }
 }
