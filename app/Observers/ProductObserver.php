@@ -51,7 +51,7 @@ class ProductObserver
             $model->product_category_id = $inventoryDefaultProductCategory->id;
         }
         if (isset($modelArray['sales_price'])) {
-            $model->sales_price = (float)$model->sales_price;
+            $model->sales_price = (float)str_replace( ',', '', $model->sales_price );
         }
     }
 }
