@@ -9,8 +9,10 @@ import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
+import Text from "antd/es/typography/Text";
+import {Space} from "antd";
 
-const ActivityTable = () => {
+const ActivityLogTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
         <TableContextProvider value={{
@@ -27,48 +29,60 @@ const ActivityTable = () => {
                     hidden: true,
                 },
                 {
-                    title: 'Address Name',
-                    dataIndex: 'address_name',
-                    key: 'address_name',
-                    sorter: true,
-                    filter: SEARCH,
-                },
-                {
-                    title: 'Address',
-                    dataIndex: 'address',
-                    key: 'address',
-                    sorter: true,
-                    filter: SEARCH,
-                },
-                {
-                    title: 'Type',
-                    dataIndex: 'type',
-                    key: 'type',
-                    sorter: true,
-                    filter: SEARCH,
-                },
-                {
-                    title: 'Country',
-                    dataIndex: 'country',
-                    key: 'country',
+                    title: 'User',
+                    dataIndex: 'user',
+                    key: 'user',
                     sorter: true,
                     filter: SEARCH,
                     render: (text, record) => {
-                        if (record.country) {
-                            return record.country.country_name;
+                        if (record.user) {
+                            return record.user.name;
                         }
                         return null;
                     }
                 },
                 {
-                    title: 'City',
-                    dataIndex: 'city',
-                    key: 'city',
+                    title: 'Description',
+                    dataIndex: 'description',
+                    key: 'description',
                     sorter: true,
                     filter: SEARCH,
+                },
+                {
+                    title: 'Subject ID',
+                    dataIndex: 'subject_id',
+                    key: 'subject_id',
+                    sorter: true,
+                    filter: SEARCH,
+                },
+                {
+                    title: 'Subject Type',
+                    dataIndex: 'subject_type',
+                    key: 'subject_type',
+                    sorter: true,
+                    filter: SEARCH,
+                },
+                {
+                    title: 'Changes',
+                    dataIndex: 'changes',
+                    key: 'changes',
+                    sorter: false,
                     render: (text, record) => {
-                        if (record.city) {
-                            return record.city.name;
+                        if (record.changes.hasOwnProperty('old')) {
+                            const oldObject = record.changes.old;
+                            const newObject = record.changes.attributes;
+                            const keys = Object.keys(oldObject);
+                            const changes = [];
+                            keys.forEach(key => {
+                                if (key !== 'created_at' && key !== 'updated_at' && oldObject[key] !== newObject[key]) {
+                                    changes.push(<Text code key={key}>{`${key}: ${oldObject[key]} ---> ${newObject[key]}`}</Text>)
+                                }
+                            });
+                            return (
+                                <Space direction={'vertical'}>
+                                    {changes}
+                                </Space>
+                            )
                         }
                         return null;
                     }
@@ -100,4 +114,4 @@ const ActivityTable = () => {
     )
 };
 
-export default ActivityTable;
+export default ActivityLogTable;

@@ -4,7 +4,7 @@ import {BrowserRouter} from 'react-router-dom';
 import {getCookie} from "./Helpers/cookie";
 
 import AppContainerWithContent from './Components/AppContainterWithContent';
-import ActivityRoute from './Modules/Activity/ActivityRoute';
+import ActivityLogRoute from './Modules/ActivityLog/ActivityLogRoute';
 import AddressRoute from './Modules/Address/AddressRoute';
 import AdjustmentRoute from './Modules/Adjustment/AdjustmentRoute';
 import AppMenuRoute from './Modules/AppMenu/AppMenuRoute';
@@ -52,7 +52,7 @@ const App = () => {
             <BrowserRouter>
                 <AppContextProvider value={{appState: appState, setAppState: setAppState}}>
                     <AppContainerWithContent>
-                        <ActivityRoute/>
+                        <ActivityLogRoute/>
                         <AddressRoute/>
                         <AdjustmentRoute/>
                         <AppMenuRoute/>
