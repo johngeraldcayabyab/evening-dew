@@ -183,6 +183,10 @@ class AppMenuSeeder extends Seeder
                                 'menu_key' => 'Sources',
                             ],
                             [
+                                'label' => 'Activity Logs',
+                                'menu_key' => 'Activity Logs',
+                            ],
+                            [
                                 'label' => 'Users',
                                 'menu_key' => 'Users',
                             ],

@@ -11,6 +11,10 @@ class MenuSeeder extends Seeder
     {
         return [
             [
+                'label' => 'Activity Logs',
+                'url' => '/activity_log',
+            ],
+            [
                 'label' => 'Addresses',
                 'url' => '/addresses',
             ],

@@ -2,16 +2,16 @@ import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
 
-import ActivityTable from './ActivityTable';
+import ActivityLogTable from './ActivityLogTable';
 
-const ActivityRoute = () => {
+const ActivityLogRoute = () => {
     const displayName = manifest.displayName;
     return (
         <Switch>
             <Route exact key={`${displayName}-list`} path={`/${displayName}`}
-                   render={props => <ActivityTable key={props.location.key}/>}/>
+                   render={props => <ActivityLogTable key={props.location.key}/>}/>
         </Switch>
     );
 };
 
-export default ActivityRoute;
+export default ActivityLogRoute;
