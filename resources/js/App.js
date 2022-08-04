@@ -1,12 +1,10 @@
-// import '../css/App.scss';
-
-import React, {useState, Suspense} from 'react';
+import React, {useState} from 'react';
 import {render} from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import {getCookie} from "./Helpers/cookie";
-import {Spin} from "antd";
 
 import AppContainerWithContent from './Components/AppContainterWithContent';
+import ActivityLogRoute from './Modules/ActivityLog/ActivityLogRoute';
 import AddressRoute from './Modules/Address/AddressRoute';
 import AdjustmentRoute from './Modules/Adjustment/AdjustmentRoute';
 import AppMenuRoute from './Modules/AppMenu/AppMenuRoute';
@@ -58,6 +56,7 @@ const App = () => {
             <BrowserRouter>
                 <AppContextProvider value={{appState: appState, setAppState: setAppState}}>
                     <AppContainerWithContent>
+                        <ActivityLogRoute/>
                         <AddressRoute/>
                         <AdjustmentRoute/>
                         <AppMenuRoute/>
