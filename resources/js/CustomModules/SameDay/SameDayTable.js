@@ -83,10 +83,16 @@ const SameDayTable = () => {
                     dataIndex: 'select_time',
                     key: 'select_time',
                     render: (text, record) => {
+                        if (!record.select_time) {
+                            return '';
+                        }
                         const timeOptions = selectTimeOptions();
                         const timeOption = timeOptions.find((timeOption) => {
                             return timeOption.value === record.select_time ? timeOption.value : '';
                         });
+                        if (typeof timeOption !== 'object') {
+                            return '';
+                        }
                         if (timeOptions && timeOptions.length > 1) {
                             return timeOption.hasOwnProperty('label') ? timeOption.label : '';
                         }
