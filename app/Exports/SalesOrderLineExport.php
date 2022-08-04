@@ -65,7 +65,7 @@ class SalesOrderLineExport implements FromQuery, ShouldAutoSize, WithMapping, Wi
             'Address',
             'City',
             'Contact',
-            'Notes'
+            'Notes',
         ];
     }
 }
