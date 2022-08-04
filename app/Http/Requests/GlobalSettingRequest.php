@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class GlobalSettingRequest extends FormRequest
 {
-    pubuild_2022.08.02_16.25.48blic function rules()
+    public function rules()
     {
         return [
             'inventory_default_measurement_category_id' => ['nullable', "exists:measurement_categories,id"],
