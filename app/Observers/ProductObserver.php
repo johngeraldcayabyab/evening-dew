@@ -50,5 +50,8 @@ class ProductObserver
         if (!isset($modelArray['product_category_id'])) {
             $model->product_category_id = $inventoryDefaultProductCategory->id;
         }
+        if (isset($modelArray['sales_price'])) {
+            $model->sales_price = (float)$model->sales_price;
+        }
     }
 }
