@@ -29,10 +29,12 @@ class ImportShopifyOrdersJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $date;
+    private $orderId;
 
-    public function __construct($date = null)
+    public function __construct($date = null, $orderId = null)
     {
         $this->date = $date;
+        $this->orderId = $orderId;
     }
 
     public function handle()
@@ -52,6 +54,13 @@ class ImportShopifyOrdersJob implements ShouldQueue
         if ($this->date) {
             $jsonRequest['created_at_max'] = $this->date;
         }
+        if ($this->orderId) {
+            $response = $http->get("{$shopifyUrl}/admin/api/2022-04/orders/{$this->orderId}.json", $jsonRequest);
+            $this->log($response->json());
+            return 0;
+        }
+
+
         $response = $http->get("{$shopifyUrl}/admin/api/2022-04/orders.json", $jsonRequest);
 
         $responseJson = $response->json();

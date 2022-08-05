@@ -10,7 +10,7 @@ use Illuminate\Console\Command;
 
 class ImportShopifyOrdersCommand extends Command
 {
-    protected $signature = 'shopify:import:orders {--date=}';
+    protected $signature = 'shopify:import:orders {--date=} {--orderId=}';
 
     protected $description = 'Command description';
 
@@ -30,7 +30,7 @@ class ImportShopifyOrdersCommand extends Command
 //            ImportShopifyOrdersJob::dispatch($dt->format("Y-m-d"));
 //            $minutes++;
 //        }
-        ImportShopifyOrdersJob::dispatch($this->option('date'));
+        ImportShopifyOrdersJob::dispatch($this->option('date'), $this->option('orderId'));
         return 0;
     }
 }
