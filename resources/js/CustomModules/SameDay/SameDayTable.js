@@ -182,13 +182,6 @@ const SameDayTable = () => {
                     sorter: true,
                     filter: SEARCH,
                 },
-                // {
-                //     title: 'Status',
-                //     dataIndex: 'status',
-                //     key: 'status',
-                //     sorter: true,
-                //     render: (text, record) => (<CustomStatusChanger text={text} record={record}/>),
-                // },
                 {
                     title: 'Steps',
                     dataIndex: 'steps',

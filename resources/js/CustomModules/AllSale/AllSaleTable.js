@@ -102,9 +102,9 @@ const AllSaleTable = () => {
                     }
                 },
                 {
-                    title: 'Status',
-                    dataIndex: 'status',
-                    key: 'status',
+                    title: 'Steps',
+                    dataIndex: 'steps',
+                    key: 'steps',
                     sorter: true,
                     render: (text, record) => (<CustomStepsChanger text={text} record={record}/>),
                 },
