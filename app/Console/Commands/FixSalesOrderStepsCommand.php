@@ -20,6 +20,7 @@ class FixSalesOrderStepsCommand extends Command
     public function handle()
     {
         DB::table('sales_orders')->orderBy('id')->chunk(300, function ($salesOrders) {
+//            info(gettype($salesOrders));
             FixSalesOrderStepsJob::dispatch($salesOrders);
         });
         return 0;

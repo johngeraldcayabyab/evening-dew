@@ -25,6 +25,7 @@ class FixSalesOrderStepsJob implements ShouldQueue
     {
         $salesOrders = $this->salesOrders;
         foreach ($salesOrders as $salesOrder) {
+            $salesOrder = SalesOrder::find($salesOrder->id);
             $salesOrder->steps = strtolower($salesOrder->status);
             $salesOrder->save();
         }
