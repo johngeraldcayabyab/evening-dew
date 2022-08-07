@@ -178,7 +178,21 @@ class SalesOrderController
 
     public function update_status(Request $request, SalesOrder $salesOrder)
     {
-        $salesOrder->status = $salesOrder->status === $request->status ? null : $request->status;
+        $steps = $request->steps;
+        $currentSteps = explode(",", $salesOrder->steps);
+
+        if (!in_array($steps, $currentSteps)) {
+            $currentSteps[] = $steps;
+        } else {
+            if (($key = array_search($steps, $currentSteps)) !== false) {
+                unset($currentSteps[$key]);
+            }
+        }
+
+        $newSteps = implode(",", $currentSteps);
+
+        $salesOrder->steps = $newSteps;
+
         $salesOrder->save();
         return [];
     }

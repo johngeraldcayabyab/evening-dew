@@ -12,7 +12,7 @@ import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
 import {Tag} from "antd";
 import {selectTimeOptions} from "../../Helpers/object";
 import {uuidv4} from "../../Helpers/string";
-import CustomStatusChanger from "../CustomStatusChanger";
+import CustomStepsChanger from "../CustomStepsChanger";
 
 const SameDayTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -182,12 +182,19 @@ const SameDayTable = () => {
                     sorter: true,
                     filter: SEARCH,
                 },
+                // {
+                //     title: 'Status',
+                //     dataIndex: 'status',
+                //     key: 'status',
+                //     sorter: true,
+                //     render: (text, record) => (<CustomStatusChanger text={text} record={record}/>),
+                // },
                 {
-                    title: 'Status',
-                    dataIndex: 'status',
-                    key: 'status',
+                    title: 'Steps',
+                    dataIndex: 'steps',
+                    key: 'steps',
                     sorter: true,
-                    render: (text, record) => (<CustomStatusChanger text={text} record={record}/>),
+                    render: (text, record) => (<CustomStepsChanger text={text} record={record}/>),
                 },
                 {
                     title: '',

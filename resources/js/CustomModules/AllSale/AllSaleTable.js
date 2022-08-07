@@ -13,7 +13,7 @@ import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
 import {Tag} from "antd";
 import {titleCase} from "../../Helpers/string";
 import ListExportButton from "../../Components/TableButtons/ListExportButton";
-import CustomStatusChanger from "../CustomStatusChanger";
+import CustomStepsChanger from "../CustomStepsChanger";
 
 const AllSaleTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -106,7 +106,7 @@ const AllSaleTable = () => {
                     dataIndex: 'status',
                     key: 'status',
                     sorter: true,
-                    render: (text, record) => (<CustomStatusChanger text={text} record={record}/>),
+                    render: (text, record) => (<CustomStepsChanger text={text} record={record}/>),
                 },
                 {
                     title: '',

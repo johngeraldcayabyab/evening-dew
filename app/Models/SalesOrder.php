@@ -27,13 +27,16 @@ class SalesOrder extends Model implements Sluggable
     protected static $logAttributes = ['*'];
 
     const DRAFT = 'draft';
-    const STICKER = 'sticker';
-    const KITCHEN = 'kitchen';
     const DONE = 'done';
     const CANCELLED = 'cancelled';
 
     const MOTORCYCLE = 'motorcycle';
     const CAR = 'car';
+
+    const PAID = 'paid';
+    const STICKER = 'sticker';
+    const KITCHEN = 'kitchen';
+    const DELIVERED = 'delivered';
 
     public static function getStatuses()
     {
@@ -43,6 +46,11 @@ class SalesOrder extends Model implements Sluggable
     public static function getVehicleTypes()
     {
         return [self::MOTORCYCLE, self::CAR];
+    }
+
+    public static function getSteps()
+    {
+        return [self::PAID, self::STICKER, self::KITCHEN, self::DELIVERED];
     }
 
     public function customer()

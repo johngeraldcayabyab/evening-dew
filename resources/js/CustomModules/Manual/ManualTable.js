@@ -10,7 +10,7 @@ import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
-import CustomStatusChanger from "../CustomStatusChanger";
+import CustomStepsChanger from "../CustomStepsChanger";
 
 const ManualTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -77,7 +77,7 @@ const ManualTable = () => {
                     dataIndex: 'status',
                     key: 'status',
                     sorter: true,
-                    render: (text, record) => (<CustomStatusChanger text={text} record={record}/>),
+                    render: (text, record) => (<CustomStepsChanger text={text} record={record}/>),
                 },
                 {
                     title: '',

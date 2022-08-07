@@ -39,6 +39,7 @@ class SalesOrderResource extends JsonResource
             'vehicle_type' => $this->vehicle_type,
             'subtotal' => $this->subtotal,
             'ready_by' => $this->ready_by,
+            'steps' => explode(',', $this->steps),
             'customer' => $this->customer,
             'courier' => $this->courier,
             'invoice_city' => $this->invoiceCity,

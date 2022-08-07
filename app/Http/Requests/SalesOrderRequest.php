@@ -13,6 +13,7 @@ class SalesOrderRequest extends FormRequest
         $shippingPolicies = implode_types(Transfer::getShippingPolicies());
         $statuses = implode_types(SalesOrder::getStatuses());
         $shippingMethods = implode_types(Transfer::getShippingMethods());
+        $steps = implode_types(SalesOrder::getSteps());
         return [
             'number' => 'required',
             'customer_id' => ['required', "exists:contacts,id"],
@@ -33,7 +34,8 @@ class SalesOrderRequest extends FormRequest
             'shipping_policy' => ['nullable', "in:$shippingPolicies"],
             'shipping_date' => ['nullable'],
             'source_document' => ['required'],
-            'status' => ['nullable'],
+            'status' => ['nullable', "in:$statuses"],
+            'steps' => ['nullable', "in:$steps"],
             'notes' => ['nullable'],
             'shipping_method' => ['nullable', "in:$shippingMethods"],
             'select_time' => ['nullable'],

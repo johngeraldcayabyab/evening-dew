@@ -6,7 +6,7 @@ import manifest from "./SameDay/__manifest__.json";
 import {TableContext} from "../Contexts/TableContext";
 import {useContext} from "react";
 
-const CustomStatusChanger = (props) => {
+const CustomStepsChanger = (props) => {
     const listContext = useContext(TableContext);
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
@@ -14,7 +14,7 @@ const CustomStatusChanger = (props) => {
     function handleStatusChange(e, record, value) {
         e.stopPropagation();
         useFetch(`api/${manifest.moduleName}/${record.id}/status`, PUT, {
-            status: value,
+            steps: value,
         }).then(() => {
             listContext.tableActions.renderData(listContext.tableState.params);
         }).catch((responseErr) => {
@@ -23,19 +23,19 @@ const CustomStatusChanger = (props) => {
     }
 
     return (<Space size={1}>
-        <Button type={props.record.status === 'Paid' ? 'primary' : 'default'} size={'small'} onClick={(e) => {
-            handleStatusChange(e, props.record, 'Paid')
+        <Button type={props.record.steps.includes("paid") ? 'primary' : 'default'} size={'small'} onClick={(e) => {
+            handleStatusChange(e, props.record, 'paid')
         }}>Paid</Button>
-        <Button type={props.record.status === 'Sticker' ? 'primary' : 'default'} size={'small'} onClick={(e) => {
-            handleStatusChange(e, props.record, 'Sticker')
+        <Button type={props.record.steps.includes("sticker") ? 'primary' : 'default'} size={'small'} onClick={(e) => {
+            handleStatusChange(e, props.record, 'sticker')
         }}>Sticker</Button>
-        <Button type={props.record.status === 'Kitchen' ? 'primary' : 'default'} size={'small'} onClick={(e) => {
-            handleStatusChange(e, props.record, 'Kitchen')
+        <Button type={props.record.steps.includes("kitchen") ? 'primary' : 'default'} size={'small'} onClick={(e) => {
+            handleStatusChange(e, props.record, 'kitchen')
         }}>Kitchen</Button>
-        <Button type={props.record.status === 'Delivered' ? 'primary' : 'default'} size={'small'} onClick={(e) => {
-            handleStatusChange(e, props.record, 'Delivered')
+        <Button type={props.record.steps.includes("delivered") ? 'primary' : 'default'} size={'small'} onClick={(e) => {
+            handleStatusChange(e, props.record, 'delivered')
         }}>Delivered</Button>
     </Space>)
 };
 
-export default CustomStatusChanger;
+export default CustomStepsChanger;
