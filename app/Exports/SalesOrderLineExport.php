@@ -42,34 +42,39 @@ class SalesOrderLineExport implements FromQuery, ShouldAutoSize, WithMapping, Wi
     public function map($row): array
     {
         return [
+            'status' => $row->salesOrder->status === 'draft' ? '' : $row->salesOrder->status,
             'number' => $row->salesOrder->number,
-            'customer' => $row->salesOrder->customer->name,
-            'quantity' => $row->quantity,
             'sku' => $row->product->internal_reference,
-            'name' => $row->product->name,
+            'quantity' => $row->quantity,
+            'customer' => $row->salesOrder->customer->name,
+            'delivery_phone' => $row->salesOrder->delivery_phone,
             'delivery_address' => $row->salesOrder->shipping_method === 'delivery' ? $row->salesOrder->delivery_address : null,
             'delivery_city' => $row->salesOrder->deliveryCity ? $row->salesOrder->deliveryCity->name : '',
-            'delivery_phone' => $row->salesOrder->delivery_phone,
             'notes' => $row->salesOrder->notes,
-            'shipping_date' => $row->salesOrder->shipping_date,
+            'source_document' => $row->salesOrder->source_document,
+            'box_description' => $row->product->sales_description,
+            'shipping_method' => $row->salesOrder->shipping_method,
             'select_time' => $row->salesOrder->select_time,
+
         ];
     }
 
     public function headings(): array
     {
         return [
-            'Number',
-            'Customer',
-            'Quantity',
+            'Status',
+            'Order Number',
             'SKU',
-            'Name',
+            'QTY',
+            'Customer',
+            'Contact',
             'Address',
             'City',
-            'Contact',
             'Notes',
-            'Shipping Date',
-            'Select Time'
+            'Source Document',
+            'Box Description',
+            'Shipping Method',
+            'Time',
         ];
     }
 }
