@@ -15,10 +15,12 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function () {
-            if (GlobalSetting::latestFirst()->inventory_auto_validate_draft) {
+            $globalSetting = GlobalSetting::latestFirst();
+
+            if ($globalSetting->inventory_auto_validate_draft) {
                 ValidateAllDraftTransfersJob::dispatch();
             }
-            if (GlobalSetting::latestFirst()->inventory_compute_product_quantity) {
+            if ($globalSetting->inventory_compute_product_quantity) {
                 ComputeProductQuantityJob::dispatch();
             }
         })->everyMinute();
