@@ -147,6 +147,7 @@ const SameDayForm = () => {
             const salesOrderLines = allValues.sales_order_lines;
             salesOrderLines[line.key] = {
                 ...salesOrderLines[line.key],
+                description: response.sales_description,
                 unit_price: response.sales_price,
             };
             form.setFieldsValue({
