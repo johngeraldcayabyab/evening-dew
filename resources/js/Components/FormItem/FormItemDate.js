@@ -8,8 +8,6 @@ const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
 const FormItemDate = (props) => {
     const formContext = useContext(FormContext);
-
-    // console.log(props);
     // if (objectHasValue(props.initialValues)) {
     //     // props.initialValues.
     //     // getOptions(getQueryFromInitialValue());
