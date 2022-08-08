@@ -1,10 +1,11 @@
-import {Button, Space} from "antd";
+import {Button, Popconfirm, Space} from "antd";
 import useFetchHook from "../Hooks/useFetchHook";
 import useFetchCatcherHook from "../Hooks/useFetchCatcherHook";
 import {PUT} from "../consts";
 import manifest from "./SameDay/__manifest__.json";
 import {TableContext} from "../Contexts/TableContext";
 import {useContext} from "react";
+import {Link} from "react-router-dom";
 
 const CustomStepsChanger = (props) => {
     const listContext = useContext(TableContext);
@@ -24,8 +25,22 @@ const CustomStepsChanger = (props) => {
 
     return (<Space size={1}>
         <Button type={props.record.steps.includes("paid") ? 'primary' : 'default'} size={'small'} onClick={(e) => {
-            handleStatusChange(e, props.record, 'paid')
-        }}>Paid</Button>
+            e.stopPropagation();
+            // handleStatusChange(e, props.record, 'paid')
+        }}>
+            <Popconfirm
+                title={`Are you sure you want to change the paid status?`}
+                okText={
+                    'Yes'
+                }
+                onConfirm={(e) => {
+                    handleStatusChange(e, props.record, 'paid');
+                }}
+                cancelText="No"
+            >
+                Paid
+            </Popconfirm>
+        </Button>
         <Button type={props.record.steps.includes("sticker") ? 'primary' : 'default'} size={'small'} onClick={(e) => {
             handleStatusChange(e, props.record, 'sticker')
         }}>Sticker</Button>
