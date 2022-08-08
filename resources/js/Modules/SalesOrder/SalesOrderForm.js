@@ -155,6 +155,7 @@ const SalesOrderForm = () => {
             const salesOrderLines = allValues.sales_order_lines;
             salesOrderLines[line.key] = {
                 ...salesOrderLines[line.key],
+                description: product.sales_description,
                 measurement_id: response.sales_measurement_id,
                 unit_price: response.sales_price,
             };
