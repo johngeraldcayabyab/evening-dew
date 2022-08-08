@@ -12,7 +12,7 @@ import {TableContextProvider} from "../../Contexts/TableContext";
 import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
 import {Tag} from "antd";
 import {titleCase} from "../../Helpers/string";
-import CustomStatusChanger from "../CustomStatusChanger";
+import CustomStepsChanger from "../CustomStepsChanger";
 
 const ShopifyTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -86,11 +86,11 @@ const ShopifyTable = () => {
                     filter: DATE_RANGE,
                 },
                 {
-                    title: 'Status',
-                    dataIndex: 'status',
-                    key: 'status',
+                    title: 'Steps',
+                    dataIndex: 'steps',
+                    key: 'steps',
                     sorter: true,
-                    render: (text, record) => (<CustomStatusChanger text={text} record={record}/>),
+                    render: (text, record) => (<CustomStepsChanger text={text} record={record}/>),
                 },
                 {
                     title: '',
