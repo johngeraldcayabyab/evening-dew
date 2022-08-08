@@ -127,35 +127,14 @@ class ImportShopifyOrdersJob implements ShouldQueue
 
             $shippingProperties = end($shopifyLineItems)['properties'];
             $shippingDate = null;
-            $notes = null;
             $selectTime = null;
+            $notes = null;
             foreach ($shippingProperties as $shippingProperty) {
                 $shippingPropertyName = trim($shippingProperty['name']);
                 $shippingPropertyValue = trim($shippingProperty['value']);
-                if ($shippingPropertyName === 'Delivery Date') {
-                    $shippingDate = explode('-', $shippingPropertyValue);
-                    $shippingDate = Carbon::parse($shippingDate[2] . '-' . $shippingDate[0] . '-' . $shippingDate[1]);
-                }
-                if ($shippingPropertyName === 'Delivery Time') {
-                    if ($shippingPropertyValue === '11:00 AM - 01:00 PM') {
-                        $selectTime = '11_00_AM_01_00_PM';
-                    } elseif ($shippingPropertyValue === '01:00 PM - 03:00 PM') {
-                        $selectTime = '01_00_PM_03_00_PM';
-                    } elseif ($shippingPropertyValue === '03:00 PM - 04:00 PM') {
-                        $selectTime = '03_00_PM_04_00_PM';
-                    } elseif ($shippingPropertyValue === '04:00 PM - 05:30 PM') {
-                        $selectTime = '04_00_PM_05_30_PM';
-                    } elseif ($shippingPropertyValue === '04:00 PM - 06:00 PM') {
-                        $selectTime = '04_00_PM_06_00_PM';
-                    } elseif ($shippingPropertyValue === '05:30 PM - 06:30 PM') {
-                        $selectTime = '05_30_PM_06_30_PM';
-                    } elseif ($shippingPropertyValue === '06:00 PM - 07:00 PM') {
-                        $selectTime = '06_00_PM_07_00_PM';
-                    }
-                }
-                if ($shippingPropertyName === 'Additional Comments') {
-                    $notes = $shippingPropertyValue;
-                }
+                $shippingDate = $this->getShippingDate($shippingPropertyName, $shippingPropertyValue);
+                $selectTime = $this->getSelectTime($shippingPropertyName, $shippingPropertyValue);
+                $notes = $this->getNotes($shippingPropertyName, $shippingPropertyValue);
             }
 
             if (!$shippingDate) {
@@ -271,6 +250,48 @@ class ImportShopifyOrdersJob implements ShouldQueue
             $salesOrder->save();
             $this->log("New shopify sales order created {$shopifyOrderNumber}");
         }
+    }
+
+    private function getShippingDate($shippingPropertyName, $shippingPropertyValue)
+    {
+        $shippingDate = null;
+        if ($shippingPropertyName === 'Delivery Date') {
+            $shippingDate = explode('-', $shippingPropertyValue);
+            $shippingDate = Carbon::parse($shippingDate[2] . '-' . $shippingDate[0] . '-' . $shippingDate[1]);
+        }
+        return $shippingDate;
+    }
+
+    private function getSelectTime($shippingPropertyName, $shippingPropertyValue)
+    {
+        $selectTime = null;
+        if ($shippingPropertyName === 'Delivery Time') {
+            if ($shippingPropertyValue === '11:00 AM - 01:00 PM') {
+                $selectTime = '11_00_AM_01_00_PM';
+            } elseif ($shippingPropertyValue === '01:00 PM - 03:00 PM') {
+                $selectTime = '01_00_PM_03_00_PM';
+            } elseif ($shippingPropertyValue === '03:00 PM - 04:00 PM') {
+                $selectTime = '03_00_PM_04_00_PM';
+            } elseif ($shippingPropertyValue === '04:00 PM - 05:30 PM') {
+                $selectTime = '04_00_PM_05_30_PM';
+            } elseif ($shippingPropertyValue === '04:00 PM - 06:00 PM') {
+                $selectTime = '04_00_PM_06_00_PM';
+            } elseif ($shippingPropertyValue === '05:30 PM - 06:30 PM') {
+                $selectTime = '05_30_PM_06_30_PM';
+            } elseif ($shippingPropertyValue === '06:00 PM - 07:00 PM') {
+                $selectTime = '06_00_PM_07_00_PM';
+            }
+        }
+        return $selectTime;
+    }
+
+    private function getNotes($shippingPropertyName, $shippingPropertyValue)
+    {
+        $notes = null;
+        if ($shippingPropertyName === 'Additional Comments') {
+            $notes = $shippingPropertyValue;
+        }
+        return $notes;
     }
 
     private function log($message)
