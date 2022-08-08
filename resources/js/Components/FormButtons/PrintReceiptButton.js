@@ -25,7 +25,7 @@ const PrintReceiptButton = () => {
                     useFetch(`/api/sales_orders/print_receipt`, POST, {
                         sales_order_id: formContext.formState.id
                     }).then((response) => {
-                        console.log(response);
+
                     }).catch((responseErr) => {
                         fetchCatcher.get(responseErr);
                     });

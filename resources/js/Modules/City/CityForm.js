@@ -26,7 +26,6 @@ const CityForm = () => {
         regionOptions.getInitialOptions(formState);
     }, [formState.initialLoad]);
 
-    console.log(formState);
 
     return (
         <FormContextProvider
