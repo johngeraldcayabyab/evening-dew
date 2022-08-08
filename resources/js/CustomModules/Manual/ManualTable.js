@@ -73,7 +73,7 @@ const ManualTable = () => {
                     filter: DATE_RANGE,
                 },
                 {
-                    title: 'Steps',
+                    title: 'Status',
                     dataIndex: 'steps',
                     key: 'steps',
                     sorter: true,

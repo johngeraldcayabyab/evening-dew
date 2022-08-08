@@ -42,7 +42,7 @@ class SalesOrderLineExport implements FromQuery, ShouldAutoSize, WithMapping, Wi
     public function map($row): array
     {
         return [
-            'status' => $row->salesOrder->status === 'draft' ? '' : $row->salesOrder->status,
+            'status' => in_array("paid", explode(",", $row->salesOrder->steps)) ? 'Paid' : '',
             'number' => $row->salesOrder->number,
             'sku' => $row->product->internal_reference,
             'quantity' => $row->quantity,

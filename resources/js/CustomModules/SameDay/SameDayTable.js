@@ -183,7 +183,7 @@ const SameDayTable = () => {
                     filter: SEARCH,
                 },
                 {
-                    title: 'Steps',
+                    title: 'Status',
                     dataIndex: 'steps',
                     key: 'steps',
                     sorter: true,

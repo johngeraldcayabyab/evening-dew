@@ -102,7 +102,7 @@ const AllSaleTable = () => {
                     }
                 },
                 {
-                    title: 'Steps',
+                    title: 'Status',
                     dataIndex: 'steps',
                     key: 'steps',
                     sorter: true,
