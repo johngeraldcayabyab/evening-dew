@@ -120,21 +120,17 @@ class ImportShopifyOrdersJob implements ShouldQueue
                     'type' => Address::DEFAULT,
                 ]);
             }
-
-
             $source = Source::where('name', 'Shopify')->first();
-
-
-            $shippingProperties = end($shopifyLineItems)['properties'];
             $shippingDate = null;
             $selectTime = null;
             $notes = null;
-            foreach ($shippingProperties as $shippingProperty) {
-                $shippingPropertyName = trim($shippingProperty['name']);
-                $shippingPropertyValue = trim($shippingProperty['value']);
-                $shippingDate = $this->getShippingDate($shippingPropertyName, $shippingPropertyValue);
-                $selectTime = $this->getSelectTime($shippingPropertyName, $shippingPropertyValue);
-                $notes = $this->getNotes($shippingPropertyName, $shippingPropertyValue);
+
+            foreach ($shopifyLineItems as $shopifyLineItem) {
+                if (isset($shopifyLineItem['properties']) && is_array($shopifyLineItem['properties']) && count($shopifyLineItem['properties']) > 0) {
+                    $shippingDate = $this->getShippingDate($shopifyLineItem['properties']);
+                    $selectTime = $this->getSelectTime($shopifyLineItem['properties']);
+                    $notes = $this->getNotes($shopifyLineItem['properties']);
+                }
             }
 
             if (!$shippingDate) {
@@ -189,7 +185,6 @@ class ImportShopifyOrdersJob implements ShouldQueue
                     ]);
                     $deliveryFee = DeliveryFee::first();
                     if ($shippingCity->wasRecentlyCreated === true) {
-
                         DeliveryFeeLine::create([
                             'city_id' => $shippingCity->id,
                             'fee' => $shippingPrice,
@@ -252,44 +247,52 @@ class ImportShopifyOrdersJob implements ShouldQueue
         }
     }
 
-    private function getShippingDate($shippingPropertyName, $shippingPropertyValue)
+    private function getShippingDate($shippingProperties)
     {
         $shippingDate = null;
-        if ($shippingPropertyName === 'Delivery Date') {
-            $shippingDate = explode('-', $shippingPropertyValue);
-            $shippingDate = Carbon::parse($shippingDate[2] . '-' . $shippingDate[0] . '-' . $shippingDate[1]);
+        foreach ($shippingProperties as $shippingProperty) {
+            if ($shippingProperty['name'] === 'Delivery Date') {
+                $shippingDate = explode('-', $shippingProperty['value']);
+                $shippingDate = Carbon::parse($shippingDate[2] . '-' . $shippingDate[0] . '-' . $shippingDate[1]);
+            }
         }
         return $shippingDate;
     }
 
-    private function getSelectTime($shippingPropertyName, $shippingPropertyValue)
+    private function getSelectTime($shippingProperties)
     {
         $selectTime = null;
-        if ($shippingPropertyName === 'Delivery Time') {
-            if ($shippingPropertyValue === '11:00 AM - 01:00 PM') {
-                $selectTime = '11_00_AM_01_00_PM';
-            } elseif ($shippingPropertyValue === '01:00 PM - 03:00 PM') {
-                $selectTime = '01_00_PM_03_00_PM';
-            } elseif ($shippingPropertyValue === '03:00 PM - 04:00 PM') {
-                $selectTime = '03_00_PM_04_00_PM';
-            } elseif ($shippingPropertyValue === '04:00 PM - 05:30 PM') {
-                $selectTime = '04_00_PM_05_30_PM';
-            } elseif ($shippingPropertyValue === '04:00 PM - 06:00 PM') {
-                $selectTime = '04_00_PM_06_00_PM';
-            } elseif ($shippingPropertyValue === '05:30 PM - 06:30 PM') {
-                $selectTime = '05_30_PM_06_30_PM';
-            } elseif ($shippingPropertyValue === '06:00 PM - 07:00 PM') {
-                $selectTime = '06_00_PM_07_00_PM';
+        foreach ($shippingProperties as $shippingProperty) {
+            $shippingPropertyName = trim($shippingProperty['name']);
+            $shippingPropertyValue = trim($shippingProperty['value']);
+            if ($shippingPropertyName === 'Delivery Time') {
+                if ($shippingPropertyValue === '11:00 AM - 01:00 PM') {
+                    $selectTime = '11_00_AM_01_00_PM';
+                } elseif ($shippingPropertyValue === '01:00 PM - 03:00 PM') {
+                    $selectTime = '01_00_PM_03_00_PM';
+                } elseif ($shippingPropertyValue === '03:00 PM - 04:00 PM') {
+                    $selectTime = '03_00_PM_04_00_PM';
+                } elseif ($shippingPropertyValue === '04:00 PM - 05:30 PM') {
+                    $selectTime = '04_00_PM_05_30_PM';
+                } elseif ($shippingPropertyValue === '04:00 PM - 06:00 PM') {
+                    $selectTime = '04_00_PM_06_00_PM';
+                } elseif ($shippingPropertyValue === '05:30 PM - 06:30 PM') {
+                    $selectTime = '05_30_PM_06_30_PM';
+                } elseif ($shippingPropertyValue === '06:00 PM - 07:00 PM') {
+                    $selectTime = '06_00_PM_07_00_PM';
+                }
             }
         }
         return $selectTime;
     }
 
-    private function getNotes($shippingPropertyName, $shippingPropertyValue)
+    private function getNotes($shippingProperties)
     {
         $notes = null;
-        if ($shippingPropertyName === 'Additional Comments') {
-            $notes = $shippingPropertyValue;
+        foreach ($shippingProperties as $shippingProperty) {
+            if ($shippingProperty['name'] === 'Additional Comments') {
+                $notes = $shippingProperty['value'];
+            }
         }
         return $notes;
     }
