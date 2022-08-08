@@ -39,16 +39,6 @@ const useListHook = (manifest) => {
                 });
             });
         },
-        handleExport: () => {
-            useFetch(`/${manifest.moduleName}/export`, GET).catch((responseErr) => {
-                fetchCatcher.get(responseErr).then(() => {
-                    setTableState(state => ({
-                        ...state,
-                        loading: false,
-                    }));
-                });
-            });
-        },
         rowSelection: {
             onChange: (selectedRowKeys, selectedRows) => {
                 setTableState(state => ({
