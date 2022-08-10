@@ -21,6 +21,7 @@ class SalesOrderLineResource extends JsonResource
             'sales_order_id' => $this->sales_order_id,
             'product' => $this->product,
             'measurement' => $this->measurement,
+            'sales_order' => $this->salesOrder,
         ]);
     }
 }
