@@ -155,7 +155,8 @@ const SalesOrderForm = () => {
             const salesOrderLines = allValues.sales_order_lines;
             salesOrderLines[line.key] = {
                 ...salesOrderLines[line.key],
-                description: product.sales_description,
+                description: response.sales_description,
+                quantity: 1,
                 measurement_id: response.sales_measurement_id,
                 unit_price: response.sales_price,
             };
@@ -335,7 +336,7 @@ const SalesOrderForm = () => {
                         <RowForm>
                             <ColForm lg={24}>
                                 <FormLineParent
-                                    columns={['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Subtotal']}
+                                    columns={['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Shipping Date', 'Subtotal']}
                                     listName={'sales_order_lines'}
                                 >
                                     <FormItemLineId name={'id'}/>
@@ -371,6 +372,10 @@ const SalesOrderForm = () => {
                                         name={'unit_price'}
                                         message={'Please input a unit price'}
                                         required={true}
+                                    />
+                                    <FormItemDate
+                                        placeholder={'Shipping Date'}
+                                        name={'shipping_date'}
                                     />
                                     <FormItemNumber
                                         overrideDisabled={true}

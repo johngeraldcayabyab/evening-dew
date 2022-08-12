@@ -41,6 +41,7 @@ class SalesOrderRequest extends FormRequest
             'sales_order_lines.*.quantity' => ['required'],
             'sales_order_lines.*.measurement_id' => ["nullable", "exists:measurements,id"],
             'sales_order_lines.*.unit_price' => ['required'],
+            'sales_order_lines.*.shipping_date' => ['nullable'],
             'sales_order_lines_deleted.*.id' => ['nullable', 'exists:sales_order_lines,id'],
         ];
     }
