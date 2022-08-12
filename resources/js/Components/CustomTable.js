@@ -137,7 +137,6 @@ const CustomTable = (props) => {
                 listContext.tableState.params[key] = filters[key];
             }
         }
-        console.log(pagination, filters, sorter);
         listContext.tableActions.renderData(listContext.tableState.params);
     }
 
@@ -148,7 +147,7 @@ const CustomTable = (props) => {
             loading={listContext.tableState.loading}
             dataSource={listContext.tableState.dataSource}
             columns={getColumns()}
-            rowKey={'id'}
+            rowKey={listContext.manifest.queryDefaults.hasOwnProperty('group_by') ? listContext.manifest.queryDefaults.group_by : 'id'}
             onRow={onRow}
             pagination={false}
             childrenColumnName={'test'}

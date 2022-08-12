@@ -46,7 +46,6 @@ const Login = () => {
                 useFetch(`/api/global_settings/initial_values`, GET, {}, false, {
                     Authorization: authorization,
                 }).then((responseGlobalSetting) => {
-                    console.log(responseGlobalSetting, 'kelogs');
                     appContext.setAppState(prevState => ({
                         ...prevState,
                         isLogin: true,

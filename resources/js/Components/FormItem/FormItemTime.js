@@ -9,7 +9,6 @@ const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 const FormItemTime = (props) => {
     const formContext = useContext(FormContext);
 
-    // console.log(props);
     // if (objectHasValue(props.initialValues)) {
     //     // props.initialValues.
     //     // getOptions(getQueryFromInitialValue());

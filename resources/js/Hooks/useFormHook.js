@@ -61,7 +61,6 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
                     if(values[key] instanceof moment){
                         values[key] = values[key].format('YYYY-MM-DD HH:mm:ss');
                     }
-                    // console.log(key + " -> " + values[key]);
                 }
             }
 
