@@ -20,15 +20,12 @@ const SalesOrderLineTable = () => {
             columns: [
                 {
                     title: 'Shipping date',
-                    dataIndex: 'sales_order',
-                    key: 'sales_order',
+                    dataIndex: 'shipping_date',
+                    key: 'shipping_date',
                     sorter: true,
                     filter: DATE_RANGE,
                     render: (text, record) => {
-                        if (!record.sales_order || typeof record.sales_order !== 'object') {
-                            return '';
-                        }
-                        return record.sales_order.shipping_date;
+                        return record.shipping_date;
                     }
                 },
                 {

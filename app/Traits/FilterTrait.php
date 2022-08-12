@@ -25,7 +25,8 @@ trait FilterTrait
         $aggregateBy = $request->aggregate_by;
         $aggregateType = $request->aggregate_type;
         if ($groupBy && $aggregateBy && $aggregateType) {
-            $originalFields = [$groupBy, DB::raw("{$aggregateType}({$aggregateBy}) as {$aggregateBy}")];
+            $originalFields = explode(",", $groupBy);
+            $originalFields[] = DB::raw("{$aggregateType}({$aggregateBy}) as {$aggregateBy}");
             $query = $query->select($originalFields);
         }
 
@@ -34,7 +35,8 @@ trait FilterTrait
         $pageSize = SystemSetting::PAGE_SIZE;
 
         if ($groupBy && $aggregateBy && $aggregateType) {
-            $query = $query->groupBy($groupBy);
+            $groupByExploded = explode(",", $groupBy);
+            $query = $query->groupBy($groupByExploded[0], $groupByExploded[1]);
         }
 
         if ($request->page_size) {

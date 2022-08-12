@@ -3,7 +3,7 @@
     "displayName": "sales_order_lines",
     "modelName": "SalesOrderLine",
     "queryDefaults": {
-        "group_by": "product_id",
+        "group_by": "product_id,shipping_date",
         "aggregate_by": "quantity",
         "aggregate_type": "SUM"
     }
