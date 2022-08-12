@@ -4,10 +4,9 @@ namespace App\Traits;
 
 use App\Data\SystemSetting;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use ReflectionClass;
 
 /**
  * There should be multiple type of filter for
@@ -17,55 +16,54 @@ trait FilterTrait
 {
     public function filterAndOrder(Request $request)
     {
-        $model = $this;
-        $modelClone = $this;
-        $fields = $model->getFields();
+        $query = $this;
+        $modelInstance = $this;
+        $fields = $query->getFields();
+        $query = $this->filterNow($fields, $request, $modelInstance, $query);
+        $query = $this->orderNow($request, $modelInstance, $query);
+        $pageSize = SystemSetting::PAGE_SIZE;
+        if ($request->page_size) {
+            $pageSize = $request->page_size;
+        }
+        return $query->paginate($pageSize);
+    }
 
-        /**
-         * Filter
-         */
+    private function filterNow($fields, $request, $modelInstance, $query)
+    {
         foreach ($fields as $field) {
             $requestField = $request->$field;
             if (!$requestField) {
                 continue;
             }
-            $has = $this->hasRelationGet($modelClone, $field);
+            $has = $this->hasRelationGet($modelInstance, $field);
             if ($has) {
-                $related = $modelClone->$has()->getRelated();
+                $related = $modelInstance->$has()->getRelated();
                 $relatedSlug = $related->slug();
                 $relatedField = $this->isParentGet($relatedSlug);
-                $model = $model->filterHas([$has, $relatedField, $requestField]);
-            } else {
-                $model = $model->filter([$field, $requestField]);
+                $query = $query->filterHas([$has, $relatedField, $requestField]);
+                continue;
             }
+            $query = $query->filter([$field, $requestField]);
         }
+        return $query;
+    }
 
-        /**
-         * Order
-         */
+    private function orderNow($request, $modelInstance, $query)
+    {
         if ($request->orderByColumn && $request->orderByDirection) {
-            $has = $this->hasRelationGet($modelClone, $request->orderByColumn);
+            $has = $this->hasRelationGet($modelInstance, $request->orderByColumn);
             if ($has) {
-                $related = $modelClone->$has()->getRelated();
+                $related = $modelInstance->$has()->getRelated();
                 $relatedSlug = $related->slug();
                 $relatedField = $this->isParentGet($relatedSlug);
                 $shing = $related->getTable() . '.id';
                 $parentTable = $this->getTable();
-                $foreignKey = $modelClone->$has()->getForeignKeyName();
-                $model = $model->orderBy($related::select($relatedField)->whereColumn($shing, "$parentTable.$foreignKey"), $request->orderByDirection);
-            } else {
-                $model = $model->order([$request->orderByColumn, $request->orderByDirection]);
+                $foreignKey = $modelInstance->$has()->getForeignKeyName();
+                return $query->orderBy($related::select($relatedField)->whereColumn($shing, "$parentTable.$foreignKey"), $request->orderByDirection);
             }
-        } else {
-            $model = $model->order(['created_at', 'desc']);
+            return $query->order([$request->orderByColumn, $request->orderByDirection]);
         }
-
-
-        $pageSize = SystemSetting::PAGE_SIZE;
-        if ($request->page_size) {
-            $pageSize = $request->page_size;
-        }
-        return $model->paginate($pageSize);
+        return $query;
     }
 
     public function scopeFilter($query, $filter)
