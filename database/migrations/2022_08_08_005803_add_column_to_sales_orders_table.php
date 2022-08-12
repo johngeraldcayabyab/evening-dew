@@ -8,15 +8,19 @@ class AddColumnToSalesOrdersTable extends Migration
 {
     public function up()
     {
-        Schema::table('sales_orders', function (Blueprint $table) {
-            $table->string('steps')->nullable();
-        });
+        if (!Schema::hasColumn('sales_orders', 'steps')) {
+            Schema::table('sales_orders', function (Blueprint $table) {
+                $table->string('steps')->nullable();
+            });
+        }
     }
 
     public function down()
     {
-        Schema::table('sales_orders', function (Blueprint $table) {
-            $table->dropColumn('steps');
-        });
+        if (Schema::hasColumn('sales_orders', 'steps')) {
+            Schema::table('sales_orders', function (Blueprint $table) {
+                $table->dropColumn('steps');
+            });
+        }
     }
 }
