@@ -29,7 +29,7 @@ trait FilterTrait
             if (!$requestField) {
                 continue;
             }
-            if ($this->hasRelation($modelClone, $field)) {
+            if ($this->isRelationGetRelated($modelClone, $field)) {
                 $has = Str::camel($field);
                 $related = $modelClone->$has()->getRelated();
                 $relatedSlug = $related->slug();
@@ -44,15 +44,15 @@ trait FilterTrait
          * Order
          */
         if ($request->orderByColumn && $request->orderByDirection) {
-            if ($this->hasRelation($modelClone, $request->orderByColumn)) {
+            if ($this->isRelationGetRelated($modelClone, $request->orderByColumn)) {
                 $field = $request->orderByColumn;
-                $field = Str::camel($field);
-                $related = $modelClone->$field()->getRelated();
+                $has = Str::camel($field);
+                $related = $modelClone->$has()->getRelated();
                 $relatedSlug = $related->slug();
                 $relatedField = $this->isParentGet($relatedSlug);
                 $shing = $related->getTable() . '.id';
                 $parentTable = $this->getTable();
-                $foreignKey = $modelClone->$field()->getForeignKeyName();
+                $foreignKey = $modelClone->$has()->getForeignKeyName();
                 $model = $model->orderBy($related::select($relatedField)->whereColumn($shing, "$parentTable.$foreignKey"), $request->orderByDirection);
             } else {
                 $model = $model->order([$request->orderByColumn, $request->orderByDirection]);
@@ -109,7 +109,7 @@ trait FilterTrait
         return $fields;
     }
 
-    private function hasRelation($model, $relation): bool
+    private function isRelationGetRelated($model, $relation): bool
     {
         if (method_exists($model, Str::camel($relation))) {
             return true;
