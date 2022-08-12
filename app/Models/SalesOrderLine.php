@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Data\SystemSetting;
 use App\Traits\FilterTrait;
 use App\Traits\ModelHelperTrait;
 use App\Traits\NextAndPreviousRecordTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -64,6 +66,7 @@ class SalesOrderLine extends Model
                 'measurement_id' => $measurementId,
                 'unit_price' => $unitPrice,
                 'subtotal' => $unitPrice * $datum['quantity'],
+                'shipping_date' => isset($datum['shipping_date']) ? Carbon::parse($datum['shipping_date'])->format(SystemSetting::DATE_TIME_FORMAT) : null,
                 'sales_order_id' => $parent->id,
                 'updated_at' => $datum['updated_at'] ?? $date,
             ];
