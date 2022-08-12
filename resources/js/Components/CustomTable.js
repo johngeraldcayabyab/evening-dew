@@ -147,7 +147,7 @@ const CustomTable = (props) => {
             loading={listContext.tableState.loading}
             dataSource={listContext.tableState.dataSource}
             columns={getColumns()}
-            rowKey={'id'}
+            rowKey={listContext.manifest.queryDefaults.hasOwnProperty('group_by') ? listContext.manifest.queryDefaults.hasOwnProperty('group_by') : 'id'}
             onRow={onRow}
             pagination={false}
             childrenColumnName={'test'}
