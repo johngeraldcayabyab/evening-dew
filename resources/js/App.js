@@ -35,6 +35,7 @@ import CityRoute from "./Modules/City/CityRoute";
 import {getGlobalSetting, getUser} from "./Helpers/user_helpers";
 import SourceRoute from "./Modules/Source/SourceRoute";
 import HomeRoute from "./Modules/Home/HomeRoute";
+import SalesOrderLineRoute from "./Modules/SalesOrderLine/SalesOrderLineRoute";
 
 
 export const AppContext = React.createContext({});
@@ -76,6 +77,7 @@ const App = () => {
                         <ProductCategoryRoute/>
                         <RegionRoute/>
                         <SalesOrderRoute/>
+                        <SalesOrderLineRoute/>
                         <SequenceRoute/>
                         <SourceRoute/>
                         <StockMovementRoute/>
