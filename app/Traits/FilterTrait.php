@@ -70,9 +70,6 @@ trait FilterTrait
             return $query->whereBetween($field, [$from, $to]);
         }
         return $query->where($field, 'like', "%$value%");
-
-
-//        return $query->where($filter[0], 'like', "%$filter[1]%");
     }
 
     public function scopeFilterHas($query, $filter)
