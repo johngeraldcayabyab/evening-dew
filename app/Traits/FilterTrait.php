@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Data\SystemSetting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
@@ -19,9 +20,23 @@ trait FilterTrait
         $query = $this;
         $modelInstance = $this;
         $fields = $query->getFields();
+
+        $groupBy = $request->group_by;
+        $aggregateBy = $request->aggregate_by;
+        $aggregateType = $request->aggregate_type;
+        if ($groupBy && $aggregateBy && $aggregateType) {
+            $originalFields = [$groupBy, DB::raw("{$aggregateType}({$aggregateBy}) as {$aggregateBy}")];
+            $query = $query->select($originalFields);
+        }
+
         $query = $this->filterNow($fields, $request, $modelInstance, $query);
         $query = $this->orderNow($request, $modelInstance, $query);
         $pageSize = SystemSetting::PAGE_SIZE;
+
+        if ($groupBy && $aggregateBy && $aggregateType) {
+            $query = $query->groupBy($groupBy);
+        }
+
         if ($request->page_size) {
             $pageSize = $request->page_size;
         }
@@ -94,13 +109,15 @@ trait FilterTrait
         return $query->orderBy($filter[0], "$filter[1]");
     }
 
-    public function getFields()
+    public function getFields($hasRelation = true)
     {
         $fields = Schema::getColumnListing($this->getTable());
-        foreach ($fields as $field) {
-            $id = substr($field, -3);
-            if ($id === '_id') {
-                $fields[] = str_replace($id, '', $field);
+        if ($hasRelation) {
+            foreach ($fields as $field) {
+                $id = substr($field, -3);
+                if ($id === '_id') {
+                    $fields[] = str_replace($id, '', $field);
+                }
             }
         }
         return $fields;

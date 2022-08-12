@@ -2,7 +2,11 @@
     "moduleName": "sales_order_lines",
     "displayName": "sales_order_lines",
     "modelName": "SalesOrderLine",
-    "queryDefaults": {}
+    "queryDefaults": {
+        "group_by": "product_id",
+        "aggregate_by": "quantity",
+        "aggregate_type": "SUM"
+    }
 }
 
 
