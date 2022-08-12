@@ -6,6 +6,7 @@ use App\Data\SystemSetting;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use ReflectionClass;
 
 /**
@@ -14,22 +15,24 @@ use ReflectionClass;
  */
 trait FilterTrait
 {
-    public function filterAndOrder($request)
+    public function filterAndOrder(Request $request)
     {
         $model = $this;
         $modelClone = $this;
         $fields = $model->getFields();
         foreach ($fields as $field) {
-            if ($request->$field) {
-                if (method_exists($modelClone, Str::camel($field))) {
-                    $has = Str::camel($field);
-                    $related = $modelClone->$has()->getRelated();
-                    $relatedSlug = $related->slug();
-                    $relatedField = $this->isParentGet($relatedSlug);
-                    $model = $model->filterHas([$has, $relatedField, $request->$field]);
-                } else {
-                    $model = $model->filter([$field, $request->$field]);
-                }
+            $requestField = $request->$field;
+            if (!$requestField) {
+                continue;
+            }
+            if (method_exists($modelClone, Str::camel($field))) {
+                $has = Str::camel($field);
+                $related = $modelClone->$has()->getRelated();
+                $relatedSlug = $related->slug();
+                $relatedField = $this->isParentGet($relatedSlug);
+                $model = $model->filterHas([$has, $relatedField, $requestField]);
+            } else {
+                $model = $model->filter([$field, $requestField]);
             }
         }
         if ($request->orderByColumn && $request->orderByDirection) {
