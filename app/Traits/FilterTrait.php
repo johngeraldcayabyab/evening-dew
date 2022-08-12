@@ -20,12 +20,16 @@ trait FilterTrait
         $model = $this;
         $modelClone = $this;
         $fields = $model->getFields();
+
+        /**
+         * Filter
+         */
         foreach ($fields as $field) {
             $requestField = $request->$field;
             if (!$requestField) {
                 continue;
             }
-            if (method_exists($modelClone, Str::camel($field))) {
+            if ($this->hasRelation($modelClone, $field)) {
                 $has = Str::camel($field);
                 $related = $modelClone->$has()->getRelated();
                 $relatedSlug = $related->slug();
@@ -35,8 +39,12 @@ trait FilterTrait
                 $model = $model->filter([$field, $requestField]);
             }
         }
+
+        /**
+         * Order
+         */
         if ($request->orderByColumn && $request->orderByDirection) {
-            if (method_exists($modelClone, Str::camel($request->orderByColumn))) {
+            if ($this->hasRelation($modelClone, $request->orderByColumn)) {
                 $field = $request->orderByColumn;
                 $field = Str::camel($field);
                 $related = $modelClone->$field()->getRelated();
@@ -52,6 +60,8 @@ trait FilterTrait
         } else {
             $model = $model->order(['created_at', 'desc']);
         }
+
+
         $pageSize = SystemSetting::PAGE_SIZE;
         if ($request->page_size) {
             $pageSize = $request->page_size;
@@ -97,6 +107,14 @@ trait FilterTrait
             }
         }
         return $fields;
+    }
+
+    private function hasRelation($model, $relation): bool
+    {
+        if (method_exists($model, Str::camel($relation))) {
+            return true;
+        }
+        return false;
     }
 
     private function isParentGet($relatedField)
