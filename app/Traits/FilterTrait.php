@@ -25,19 +25,27 @@ trait FilterTrait
         $aggregateBy = $request->aggregate_by;
         $aggregateType = $request->aggregate_type;
         if ($groupBy && $aggregateBy && $aggregateType) {
-            $originalFields = explode(",", $groupBy);
-            $originalFields[] = DB::raw("{$aggregateType}({$aggregateBy}) as {$aggregateBy}");
+            $originalFields = [];
+            $originalFieldsExploded = explode(",", $groupBy);
+            $originalFields[] = $originalFieldsExploded[0];
+            $originalFields[] = DB::raw("DATE($originalFieldsExploded[1]) as shipping_date");
+            $originalFields[] = DB::raw("$aggregateType($aggregateBy) as $aggregateBy");
+            $originalFields[] = DB::raw("RAND(5) * 5000 as id");
             $query = $query->select($originalFields);
         }
 
         $query = $this->filterNow($fields, $request, $modelInstance, $query);
-        $query = $this->orderNow($request, $modelInstance, $query);
-        $pageSize = SystemSetting::PAGE_SIZE;
 
         if ($groupBy && $aggregateBy && $aggregateType) {
             $groupByExploded = explode(",", $groupBy);
+            info($groupByExploded[1]);
             $query = $query->groupBy($groupByExploded[0], $groupByExploded[1]);
         }
+
+
+        $query = $this->orderNow($request, $modelInstance, $query);
+        $pageSize = SystemSetting::PAGE_SIZE;
+
 
         if ($request->page_size) {
             $pageSize = $request->page_size;

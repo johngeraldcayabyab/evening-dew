@@ -33,7 +33,10 @@ const SalesOrderLineTable = () => {
                     sorter: true,
                     filter: SEARCH,
                     render: (text, record) => {
-                        return record.product.name;
+                        if (record.product) {
+                            return record.product.name;
+                        }
+                        return '';
                     }
                 },
                 {
