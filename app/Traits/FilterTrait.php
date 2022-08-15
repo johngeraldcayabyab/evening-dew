@@ -88,7 +88,7 @@ trait FilterTrait
             }
             return $query->order([$request->orderByColumn, $request->orderByDirection]);
         }
-        return $query;
+        return $query->order(['created_at', 'desc']);
     }
 
     public function scopeFilter($query, $filter)
