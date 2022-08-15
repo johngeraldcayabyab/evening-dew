@@ -24,25 +24,25 @@ trait FilterTrait
         $groupBy = $request->group_by;
         $aggregateBy = $request->aggregate_by;
         $aggregateType = $request->aggregate_type;
-        if ($groupBy && $aggregateBy && $aggregateType) {
-            $originalFields = [];
+        if ($this->hasGroup($request)) {
+            $originalFields = [DB::raw("RAND(5) * 5000 as id")];
             $originalFieldsExploded = explode(",", $groupBy);
-            $originalFields[] = $originalFieldsExploded[0];
-            $originalFields[] = DB::raw("DATE($originalFieldsExploded[1]) as shipping_date");
+            foreach ($originalFieldsExploded as $originalFieldExploded) {
+                if (Str::contains($originalFieldExploded, 'date')) {
+                    $originalFields[] = DB::raw("DATE($originalFieldExploded) as $originalFieldExploded");
+                } else {
+                    $originalFields[] = $originalFieldExploded;
+                }
+            }
             $originalFields[] = DB::raw("$aggregateType($aggregateBy) as $aggregateBy");
-            $originalFields[] = DB::raw("RAND(5) * 5000 as id");
             $query = $query->select($originalFields);
+        }
+        if ($this->hasGroup($request)) {
+            $groupByExploded = explode(",", $groupBy);
+            $query = $query->groupBy($groupByExploded);
         }
 
         $query = $this->filterNow($fields, $request, $modelInstance, $query);
-
-        if ($groupBy && $aggregateBy && $aggregateType) {
-            $groupByExploded = explode(",", $groupBy);
-            info($groupByExploded[1]);
-            $query = $query->groupBy($groupByExploded[0], $groupByExploded[1]);
-        }
-
-
         $query = $this->orderNow($request, $modelInstance, $query);
         $pageSize = SystemSetting::PAGE_SIZE;
 
@@ -50,6 +50,7 @@ trait FilterTrait
         if ($request->page_size) {
             $pageSize = $request->page_size;
         }
+
         return $query->paginate($pageSize);
     }
 
@@ -88,6 +89,11 @@ trait FilterTrait
             }
             return $query->order([$request->orderByColumn, $request->orderByDirection]);
         }
+
+        if ($this->hasGroup($request)) {
+            return $query;
+        }
+
         return $query->order(['created_at', 'desc']);
     }
 
@@ -148,5 +154,16 @@ trait FilterTrait
             $relatedField = explode('.', $relatedField)[1];
         }
         return $relatedField;
+    }
+
+    private function hasGroup($request)
+    {
+        $groupBy = $request->group_by;
+        $aggregateBy = $request->aggregate_by;
+        $aggregateType = $request->aggregate_type;
+        if ($groupBy && $aggregateBy && $aggregateType) {
+            return true;
+        }
+        return false;
     }
 }
