@@ -8,7 +8,7 @@ import CustomTable from "../../Components/CustomTable";
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
-import {DATE_RANGE, SEARCH} from "../../consts";
+import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
 
 
 const SalesOrderLineTable = () => {
@@ -45,6 +45,12 @@ const SalesOrderLineTable = () => {
                     key: 'quantity',
                     sorter: true,
                     filter: SEARCH,
+                },
+                {
+                    title: '',
+                    dataIndex: COLUMN_SELECTION,
+                    key: COLUMN_SELECTION,
+                    filter: COLUMN_SELECTION,
                 },
             ]
         }}>

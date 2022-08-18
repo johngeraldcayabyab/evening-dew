@@ -38,8 +38,18 @@ trait FilterTrait
             $query = $query->select($originalFields);
         }
         if ($this->hasGroup($request)) {
-            $groupByExploded = explode(",", $groupBy);
-            $query = $query->groupBy($groupByExploded);
+            $groupByExplodes = explode(",", $groupBy);
+//            $groupBy = [];
+//            foreach ($groupByExplodes as $groupByExplode){
+//                if (Str::contains($groupByExplode, 'date')) {
+//                    $groupBy[] = DB::raw("DATE($groupByExplode) as $groupByExplode");
+//                } else {
+//                    $groupBy[] = $groupByExplode;
+//                }
+//            }
+
+
+            $query = $query->groupBy($groupByExplodes);
         }
 
         $query = $this->filterNow($fields, $request, $modelInstance, $query);
@@ -50,6 +60,8 @@ trait FilterTrait
         if ($request->page_size) {
             $pageSize = $request->page_size;
         }
+
+        info($query->toSql());
 
         return $query->paginate($pageSize);
     }
