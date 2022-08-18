@@ -7,7 +7,10 @@
         "aggregate_by": "quantity",
         "aggregate_type": "SUM",
         "orderByColumn": "shipping_date",
-        "orderByDirection": "desc"
+        "orderByDirection": "desc",
+        "has": "product",
+        "has_field": "product_type",
+        "has_value": "storable"
     }
 }
 

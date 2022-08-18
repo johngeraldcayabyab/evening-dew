@@ -23,6 +23,7 @@ trait FilterTrait
 
         $query = $this->groupNow($request, $query);
         $query = $this->filterNow($fields, $request, $modelInstance, $query);
+        $query = $this->hasNow($request, $query);
         $query = $this->orderNow($request, $modelInstance, $query);
         $pageSize = SystemSetting::PAGE_SIZE;
 
@@ -65,6 +66,19 @@ trait FilterTrait
                 }
             }
             $query = $query->groupBy($groupBy);
+        }
+        return $query;
+    }
+
+    private function hasNow($request, $query)
+    {
+        $has = $request->has;
+        $hasField = $request->has_field;
+        $hasValue = $request->has_value;
+        if ($has && $hasField && $hasValue) {
+            return $query->whereHas($has, function ($query) use ($hasField, $hasValue) {
+                return $query->where($hasField, $hasValue);
+            });
         }
         return $query;
     }
