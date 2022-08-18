@@ -5,7 +5,9 @@
     "queryDefaults": {
         "group_by": "product_id,shipping_date",
         "aggregate_by": "quantity",
-        "aggregate_type": "SUM"
+        "aggregate_type": "SUM",
+        "orderByColumn": "shipping_date",
+        "orderByDirection": "desc"
     }
 }
 

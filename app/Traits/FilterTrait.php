@@ -21,6 +21,23 @@ trait FilterTrait
         $modelInstance = $this;
         $fields = $query->getFields();
 
+        $query = $this->groupNow($request, $query);
+        $query = $this->filterNow($fields, $request, $modelInstance, $query);
+        $query = $this->orderNow($request, $modelInstance, $query);
+        $pageSize = SystemSetting::PAGE_SIZE;
+
+
+        if ($request->page_size) {
+            $pageSize = $request->page_size;
+        }
+
+        info($query->toSql());
+
+        return $query->paginate($pageSize);
+    }
+
+    private function groupNow($request, $query)
+    {
         $groupBy = $request->group_by;
         $aggregateBy = $request->aggregate_by;
         $aggregateType = $request->aggregate_type;
@@ -49,19 +66,7 @@ trait FilterTrait
             }
             $query = $query->groupBy($groupBy);
         }
-
-        $query = $this->filterNow($fields, $request, $modelInstance, $query);
-        $query = $this->orderNow($request, $modelInstance, $query);
-        $pageSize = SystemSetting::PAGE_SIZE;
-
-
-        if ($request->page_size) {
-            $pageSize = $request->page_size;
-        }
-
-        info($query->toSql());
-
-        return $query->paginate($pageSize);
+        return $query;
     }
 
     private function filterNow($fields, $request, $modelInstance, $query)
