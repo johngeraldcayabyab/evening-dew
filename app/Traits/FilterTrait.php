@@ -20,20 +20,14 @@ trait FilterTrait
         $query = $this;
         $modelInstance = $this;
         $fields = $query->getFields();
-
         $query = $this->groupNow($request, $query);
         $query = $this->filterNow($fields, $request, $modelInstance, $query);
         $query = $this->hasNow($request, $query);
         $query = $this->orderNow($request, $modelInstance, $query);
         $pageSize = SystemSetting::PAGE_SIZE;
-
-
         if ($request->page_size) {
             $pageSize = $request->page_size;
         }
-
-        info($query->toSql());
-
         return $query->paginate($pageSize);
     }
 
