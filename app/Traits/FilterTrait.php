@@ -39,17 +39,15 @@ trait FilterTrait
         }
         if ($this->hasGroup($request)) {
             $groupByExplodes = explode(",", $groupBy);
-//            $groupBy = [];
-//            foreach ($groupByExplodes as $groupByExplode){
-//                if (Str::contains($groupByExplode, 'date')) {
-//                    $groupBy[] = DB::raw("DATE($groupByExplode) as $groupByExplode");
-//                } else {
-//                    $groupBy[] = $groupByExplode;
-//                }
-//            }
-
-
-            $query = $query->groupBy($groupByExplodes);
+            $groupBy = [];
+            foreach ($groupByExplodes as $groupByExplode) {
+                if (Str::contains($groupByExplode, 'date')) {
+                    $groupBy[] = DB::raw("DATE($groupByExplode)");
+                } else {
+                    $groupBy[] = $groupByExplode;
+                }
+            }
+            $query = $query->groupBy($groupBy);
         }
 
         $query = $this->filterNow($fields, $request, $modelInstance, $query);
