@@ -32,6 +32,7 @@ import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
 import PrintReceiptButton from "../../Components/FormButtons/PrintReceiptButton";
 import PrintPreviewButton from "../../Components/FormButtons/PrintPreviewButton";
+import ViewInvoice from "../ViewInvoice";
 
 const {TabPane} = Tabs;
 
@@ -382,6 +383,7 @@ const SameDayForm = () => {
 
                             <RowForm>
                                 <ColForm lg={20}>
+                                    <ViewInvoice/>
                                 </ColForm>
                                 <ColForm lg={4}>
                                     <Table dataSource={[

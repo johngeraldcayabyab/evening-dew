@@ -29,6 +29,7 @@ import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
+import ViewInvoice from "../ViewInvoice";
 
 const {TabPane} = Tabs;
 
@@ -370,6 +371,7 @@ const AllSaleForm = () => {
                             <Divider/>
                             <RowForm>
                                 <ColForm lg={20}>
+                                    <ViewInvoice/>
                                 </ColForm>
                                 <ColForm lg={4}>
                                     <Table dataSource={[
