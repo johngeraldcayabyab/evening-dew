@@ -4,6 +4,7 @@ import {FormContext} from "../Contexts/FormContext";
 import FormLabel from "../Components/Typography/FormLabel";
 import moment from "moment";
 import {insertDecimal} from "../Helpers/string";
+import {selectTimeOptions} from "../Helpers/object";
 
 const ViewInvoice = () => {
     const formContext = useContext(FormContext);
@@ -18,6 +19,23 @@ const ViewInvoice = () => {
             subtotal: '₱ ' + insertDecimal(salesOrderLines.subtotal)
         }
     }) : [];
+
+    const makeTime = () => {
+        if (!initialValues.select_time) {
+            return '';
+        }
+        const timeOptions = selectTimeOptions();
+        const timeOption = timeOptions.find((timeOption) => {
+            return timeOption.value === initialValues.select_time ? timeOption.value : '';
+        });
+        if (typeof timeOption !== 'object') {
+            return '';
+        }
+        if (timeOptions && timeOptions.length > 1) {
+            return timeOption.hasOwnProperty('label') ? timeOption.label : '';
+        }
+        return '';
+    }
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -46,7 +64,7 @@ const ViewInvoice = () => {
         </Button>
 
         <Modal
-            title={<b>initialValues.number</b>}
+            title={<b>{initialValues.number}</b>}
             visible={isModalVisible}
             onOk={handleOk}
             onCancel={handleCancel}
@@ -75,6 +93,7 @@ const ViewInvoice = () => {
                 <Col span={12} style={{textAlign: 'right'}}>
                     <p key={'invoice-date'} style={{marginBottom: '0px'}}><b>INVOICE DATE:</b> {momentFormat(initialValues.quotation_date)}</p>
                     <p key={'shipping-date'} style={{marginBottom: '0px'}}><b>SHIPPING DATE:</b> {momentFormat(initialValues.shipping_date)}</p>
+                    <p key={'select-time'} style={{marginBottom: '0px'}}><b>Time:</b> {makeTime()}</p>
                 </Col>
             </Row>
 
