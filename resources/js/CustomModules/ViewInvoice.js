@@ -64,7 +64,7 @@ const ViewInvoice = () => {
         </Button>
 
         <Modal
-            title={<b>{initialValues.number}</b>}
+            title={<b>ORDER # {initialValues.number}</b>}
             visible={isModalVisible}
             onOk={handleOk}
             onCancel={handleCancel}
