@@ -21,10 +21,14 @@ export const formatInitialValuesDatetimeToMoment = (obj) => {
             formatInitialValuesDatetimeToMoment(obj[k]);
         else {
             if (moment(obj[k], dateFormat, true).isValid()) {
-                obj[k] = moment(obj[k], dateFormat)
+                obj[k] = formatToMoment(obj[k]);
             }
         }
     }
+}
+
+export const formatToMoment = (obj) => {
+    return moment(obj, dateFormat);
 }
 
 export const selectTimeOptions = () => {
