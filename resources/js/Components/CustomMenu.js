@@ -131,12 +131,6 @@ const CustomMenu = () => {
             className: 'top-nav-avatar',
             children: [
                 {
-                    label: 'Profile'
-                },
-                {
-                    label: 'Activity Logs'
-                },
-                {
                     label: 'Logout',
                     onClick: () => {
                         onLogout()
