@@ -1,11 +1,41 @@
-import {Button, Col, Descriptions, Divider, Image, Modal, Row, Space, Table} from 'antd';
+import {Button, Col, Divider, Image, Modal, Row, Space, Table} from 'antd';
 import React, {useContext, useState} from 'react';
 import {FormContext} from "../Contexts/FormContext";
-import Title from "antd/lib/typography/Title";
 import FormLabel from "../Components/Typography/FormLabel";
+import moment from "moment";
+import {insertDecimal} from "../Helpers/string";
+import {selectTimeOptions} from "../Helpers/object";
 
 const ViewInvoice = () => {
     const formContext = useContext(FormContext);
+
+    const initialValues = formContext.formState.initialValues;
+    const dataSource = initialValues.sales_order_lines ? initialValues.sales_order_lines.map((salesOrderLines) => {
+        return {
+            key: salesOrderLines.id,
+            product: salesOrderLines.product.name,
+            quantity: salesOrderLines.quantity,
+            unit_price: '₱ ' + insertDecimal(salesOrderLines.unit_price),
+            subtotal: '₱ ' + insertDecimal(salesOrderLines.subtotal)
+        }
+    }) : [];
+
+    const makeTime = () => {
+        if (!initialValues.select_time) {
+            return '';
+        }
+        const timeOptions = selectTimeOptions();
+        const timeOption = timeOptions.find((timeOption) => {
+            return timeOption.value === initialValues.select_time ? timeOption.value : '';
+        });
+        if (typeof timeOption !== 'object') {
+            return '';
+        }
+        if (timeOptions && timeOptions.length > 1) {
+            return timeOption.hasOwnProperty('label') ? timeOption.label : '';
+        }
+        return '';
+    }
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -21,14 +51,20 @@ const ViewInvoice = () => {
         setIsModalVisible(false);
     };
 
+    function momentFormat(object) {
+        if (moment(object, 'YYYY-MM-DD').isValid()) {
+            return moment(object).format('YYYY-MM-DD');
+        }
+        return null;
+    }
 
     return (<>
         <Button type="primary" onClick={showModal}>
-            Open Modal
+            View Invoice
         </Button>
 
         <Modal
-            title="Invoice INV0153"
+            title={<b>ORDER # {initialValues.number}</b>}
             visible={isModalVisible}
             onOk={handleOk}
             onCancel={handleCancel}
@@ -40,8 +76,6 @@ const ViewInvoice = () => {
                 </Button>,
             ]}
         >
-            {/*<Title level={4} style={{textAlign: "right", marginBottom: '30px'}}>Invoice INV0153</Title>*/}
-
             <Row gutter={2}>
                 <Col span={12}>
                     <div className={'image-float-left'}>
@@ -57,7 +91,9 @@ const ViewInvoice = () => {
                     </Space>
                 </Col>
                 <Col span={12} style={{textAlign: 'right'}}>
-                    <p style={{marginBottom: '0px'}}><b>INVOICE DATE</b> Jul 9, 2020</p>
+                    <p key={'invoice-date'} style={{marginBottom: '0px'}}><b>INVOICE DATE:</b> {momentFormat(initialValues.quotation_date)}</p>
+                    <p key={'shipping-date'} style={{marginBottom: '0px'}}><b>SHIPPING DATE:</b> {momentFormat(initialValues.shipping_date)}</p>
+                    <p key={'select-time'} style={{marginBottom: '0px'}}><b>Time:</b> {makeTime()}</p>
                 </Col>
             </Row>
 
@@ -66,10 +102,10 @@ const ViewInvoice = () => {
             <Row gutter={2}>
                 <Col span={24}>
                     <Space direction="vertical" size={1}>
-                        <p style={{marginBottom: '0px'}}>TO:</p>
-                        <p style={{marginBottom: '0px'}}><b>Mariell Chuateco</b></p>
-                        <p style={{marginBottom: '0px'}}>1272 Acacia St Dasmarinas Village Makati City</p>
-                        <p style={{marginBottom: '0px'}}>+639178625525</p>
+                        <p style={{marginBottom: '0px'}}><b>TO:</b></p>
+                        <p style={{marginBottom: '0px'}}><b>{initialValues.customer ? initialValues.customer.name : ''}</b></p>
+                        <p style={{marginBottom: '0px'}}>{initialValues.delivery_address} {initialValues.delivery_city ? initialValues.delivery_city.name : ''}</p>
+                        <p style={{marginBottom: '0px'}}>{initialValues.customer ? initialValues.customer.phone : ''}</p>
                     </Space>
                 </Col>
             </Row>
@@ -78,57 +114,36 @@ const ViewInvoice = () => {
 
             <Row gutter={2}>
                 <Col span={24}>
-                    <Table dataSource={[
-                        {
-                            key: '1',
-                            product: 'Delivery Fee',
-                            quantity: '1',
-                            unit_price: '₱ 120.00',
-                            subtotal: '₱ 120.00'
-                        },
-                        {
-                            key: '1',
-                            product: 'ScollopxSalmon Medium Spicy',
-                            quantity: '1',
-                            unit_price: '₱ 2050.00',
-                            subtotal: '₱ 2050.00'
-                        },
-                        {
-                            key: '1',
-                            product: 'ScollopxSalmon Small Spicy',
-                            quantity: '1',
-                            unit_price: '₱ 1600.00',
-                            subtotal: '₱ 1600.00'
-                        },
-                    ]} columns={[
-                        {
-                            title: 'Product',
-                            dataIndex: 'product',
-                            key: 'product',
-                            align: 'left',
-                        },
-                        {
-                            title: 'Quantity',
-                            dataIndex: 'quantity',
-                            key: 'quantity',
-                            align: 'right',
-                        },
-                        {
-                            title: 'Unit Price',
-                            dataIndex: 'unit_price',
-                            key: 'unit_price',
-                            align: 'right',
-                        },
-                        {
-                            title: 'Subtotal',
-                            dataIndex: 'subtotal',
-                            key: 'subtotal',
-                            align: 'right',
-                        },
-                    ]}
-                        // showHeader={false}
-                           pagination={false}
-                           size={'small'}
+                    <Table
+                        dataSource={dataSource}
+                        columns={[
+                            {
+                                title: 'Product',
+                                dataIndex: 'product',
+                                key: 'product',
+                                align: 'left',
+                            },
+                            {
+                                title: 'Quantity',
+                                dataIndex: 'quantity',
+                                key: 'quantity',
+                                align: 'right',
+                            },
+                            {
+                                title: 'Unit Price',
+                                dataIndex: 'unit_price',
+                                key: 'unit_price',
+                                align: 'right',
+                            },
+                            {
+                                title: 'Subtotal',
+                                dataIndex: 'subtotal',
+                                key: 'subtotal',
+                                align: 'right',
+                            },
+                        ]}
+                        pagination={false}
+                        size={'small'}
                     />
 
                     <Divider/>
@@ -137,7 +152,7 @@ const ViewInvoice = () => {
                         {
                             key: '1',
                             label: 'Total:',
-                            value: '₱ 3770.00',
+                            value: `₱ ${insertDecimal(initialValues.subtotal)}`,
                         },
                     ]} columns={[
                         {

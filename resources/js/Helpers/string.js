@@ -41,4 +41,8 @@ export const updateKey = (name) => {
     return `${name}-${UPDATE}`;
 };
 
+export const insertDecimal = (num) => {
+    return (Math.round(num * 100) / 100).toFixed(2);
+}
+
 export const snakeToCamel = s => s.replace(/(_\w)/g, k => k[1].toUpperCase());
