@@ -20,29 +20,61 @@ trait FilterTrait
         $query = $this;
         $modelInstance = $this;
         $fields = $query->getFields();
-
-        $groupBy = $request->group_by;
-        $aggregateBy = $request->aggregate_by;
-        $aggregateType = $request->aggregate_type;
-        if ($groupBy && $aggregateBy && $aggregateType) {
-            $originalFields = explode(",", $groupBy);
-            $originalFields[] = DB::raw("{$aggregateType}({$aggregateBy}) as {$aggregateBy}");
-            $query = $query->select($originalFields);
-        }
-
+        $query = $this->groupNow($request, $query);
         $query = $this->filterNow($fields, $request, $modelInstance, $query);
+        $query = $this->hasNow($request, $query);
         $query = $this->orderNow($request, $modelInstance, $query);
         $pageSize = SystemSetting::PAGE_SIZE;
-
-        if ($groupBy && $aggregateBy && $aggregateType) {
-            $groupByExploded = explode(",", $groupBy);
-            $query = $query->groupBy($groupByExploded[0], $groupByExploded[1]);
-        }
-
         if ($request->page_size) {
             $pageSize = $request->page_size;
         }
         return $query->paginate($pageSize);
+    }
+
+    private function groupNow($request, $query)
+    {
+        $groupBy = $request->group_by;
+        $aggregateBy = $request->aggregate_by;
+        $aggregateType = $request->aggregate_type;
+        if ($this->hasGroup($request)) {
+            $originalFields = [DB::raw("RAND(5) * 5000 as id")];
+            $originalFieldsExploded = explode(",", $groupBy);
+            foreach ($originalFieldsExploded as $originalFieldExploded) {
+                if (Str::contains($originalFieldExploded, 'date')) {
+                    $originalFields[] = DB::raw("DATE($originalFieldExploded) as $originalFieldExploded");
+                } else {
+                    $originalFields[] = $originalFieldExploded;
+                }
+            }
+            $originalFields[] = DB::raw("$aggregateType($aggregateBy) as $aggregateBy");
+            $query = $query->select($originalFields);
+        }
+        if ($this->hasGroup($request)) {
+            $groupByExplodes = explode(",", $groupBy);
+            $groupBy = [];
+            foreach ($groupByExplodes as $groupByExplode) {
+                if (Str::contains($groupByExplode, 'date')) {
+                    $groupBy[] = DB::raw("DATE($groupByExplode)");
+                } else {
+                    $groupBy[] = $groupByExplode;
+                }
+            }
+            $query = $query->groupBy($groupBy);
+        }
+        return $query;
+    }
+
+    private function hasNow($request, $query)
+    {
+        $has = $request->has;
+        $hasField = $request->has_field;
+        $hasValue = $request->has_value;
+        if ($has && $hasField && $hasValue) {
+            return $query->whereHas($has, function ($query) use ($hasField, $hasValue) {
+                return $query->where($hasField, $hasValue);
+            });
+        }
+        return $query;
     }
 
     private function filterNow($fields, $request, $modelInstance, $query)
@@ -80,7 +112,12 @@ trait FilterTrait
             }
             return $query->order([$request->orderByColumn, $request->orderByDirection]);
         }
-        return $query;
+
+        if ($this->hasGroup($request)) {
+            return $query;
+        }
+
+        return $query->order(['created_at', 'desc']);
     }
 
     public function scopeFilter($query, $filter)
@@ -140,5 +177,16 @@ trait FilterTrait
             $relatedField = explode('.', $relatedField)[1];
         }
         return $relatedField;
+    }
+
+    private function hasGroup($request)
+    {
+        $groupBy = $request->group_by;
+        $aggregateBy = $request->aggregate_by;
+        $aggregateType = $request->aggregate_type;
+        if ($groupBy && $aggregateBy && $aggregateType) {
+            return true;
+        }
+        return false;
     }
 }

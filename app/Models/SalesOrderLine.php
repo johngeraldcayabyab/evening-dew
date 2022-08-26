@@ -66,7 +66,7 @@ class SalesOrderLine extends Model
                 'measurement_id' => $measurementId,
                 'unit_price' => $unitPrice,
                 'subtotal' => $unitPrice * $datum['quantity'],
-                'shipping_date' => isset($datum['shipping_date']) ? Carbon::parse($datum['shipping_date'])->format(SystemSetting::DATE_TIME_FORMAT) : null,
+                'shipping_date' => isset($datum['shipping_date']) ? Carbon::parse($datum['shipping_date'])->format(SystemSetting::DATE_TIME_FORMAT) : $parent->shipping_date,
                 'sales_order_id' => $parent->id,
                 'updated_at' => $datum['updated_at'] ?? $date,
             ];
