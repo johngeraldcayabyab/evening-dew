@@ -77,11 +77,26 @@ const AllSaleForm = () => {
     }, [formState.initialValues]);
 
     function onValuesChange(changedValues, allValues) {
+        setLinesShippingDate(changedValues, allValues);
         setDefaultValuesFromCustomer(changedValues);
         setDeliveryFeeByCity(changedValues, allValues);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'product_id', getProductInfoAndSetValues);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'quantity', computeSubtotal);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'unit_price', computeSubtotal);
+    }
+
+    function setLinesShippingDate(changedValues, allValues) {
+        if (changedValues.shipping_date) {
+            let salesOrderLines = allValues.sales_order_lines;
+            if (salesOrderLines && salesOrderLines.length) {
+                form.setFieldsValue({
+                    sales_order_lines: salesOrderLines.map((salesOrderLine) => ({
+                        ...salesOrderLine,
+                        shipping_date: changedValues.shipping_date.format('YYYY-MM-DD HH:mm:ss')
+                    }))
+                });
+            }
+        }
     }
 
     function setDefaultValuesFromCustomer(changedValues) {

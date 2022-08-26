@@ -18,7 +18,7 @@ import FormItemDate from "../../Components/FormItem/FormItemDate";
 import FormItemTime from "../../Components/FormItem/FormItemTime";
 import FormItemStatus from "../../Components/FormItem/FormItemStatus";
 import FormLabel from "../../Components/Typography/FormLabel";
-import {objectHasValue, selectTimeOptions} from "../../Helpers/object";
+import {formatToMoment, objectHasValue, selectTimeOptions} from "../../Helpers/object";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import useFetchHook from "../../Hooks/useFetchHook";
 import {FormContextProvider} from "../../Contexts/FormContext";
@@ -77,11 +77,26 @@ const ShopifyForm = () => {
     }, [formState.initialValues]);
 
     function onValuesChange(changedValues, allValues) {
+        setLinesShippingDate(changedValues, allValues);
         setDefaultValuesFromCustomer(changedValues);
         setDeliveryFeeByCity(changedValues, allValues);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'product_id', getProductInfoAndSetValues);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'quantity', computeSubtotal);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'unit_price', computeSubtotal);
+    }
+
+    function setLinesShippingDate(changedValues, allValues) {
+        if (changedValues.shipping_date) {
+            let salesOrderLines = allValues.sales_order_lines;
+            if (salesOrderLines && salesOrderLines.length) {
+                form.setFieldsValue({
+                    sales_order_lines: salesOrderLines.map((salesOrderLine) => ({
+                        ...salesOrderLine,
+                        shipping_date: changedValues.shipping_date.format('YYYY-MM-DD HH:mm:ss')
+                    }))
+                });
+            }
+        }
     }
 
     function setDefaultValuesFromCustomer(changedValues) {
