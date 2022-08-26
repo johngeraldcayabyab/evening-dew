@@ -10,6 +10,7 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
 
+
 const SalesOrderLineTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
@@ -24,9 +25,6 @@ const SalesOrderLineTable = () => {
                     key: 'shipping_date',
                     sorter: true,
                     filter: DATE_RANGE,
-                    render: (text, record) => {
-                        return record.shipping_date;
-                    }
                 },
                 {
                     title: 'Product',
@@ -35,7 +33,10 @@ const SalesOrderLineTable = () => {
                     sorter: true,
                     filter: SEARCH,
                     render: (text, record) => {
-                        return record.product.name;
+                        if (record.product) {
+                            return record.product.name;
+                        }
+                        return '';
                     }
                 },
                 {
@@ -50,7 +51,7 @@ const SalesOrderLineTable = () => {
                     dataIndex: COLUMN_SELECTION,
                     key: COLUMN_SELECTION,
                     filter: COLUMN_SELECTION,
-                }
+                },
             ]
         }}>
             <ControlPanel

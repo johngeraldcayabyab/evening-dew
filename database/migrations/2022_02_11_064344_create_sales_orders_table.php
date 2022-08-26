@@ -27,7 +27,7 @@ class CreateSalesOrdersTable extends Migration
             $table->string('shipping_policy')->nullable();
             $table->dateTime('shipping_date')->nullable();
             $table->string('source_document')->nullable();
-            $table->string('notes')->nullable();
+            $table->longText('notes')->nullable();
             $table->string('status')->nullable();
             $table->bigInteger('source_id')->nullable();
             $table->bigInteger('courier_id')->nullable();
