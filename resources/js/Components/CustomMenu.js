@@ -40,20 +40,18 @@ const CustomMenu = () => {
         if (appContext.appState.isLogin) {
             useFetch('/api/app_menus/1', GET).then((response) => {
                 const currentAppMenu = getAppMenu();
+                const appMenu = response.children;
+                const newAppMenuState = {
+                    appMenu: appMenu
+                };
                 if (objectHasValue(currentAppMenu)) {
-                    const appMenu = response.children;
                     const index = appMenu.findIndex(m => m.id === currentAppMenu.id);
-                    setState((prevState) => ({
-                        ...prevState,
-                        appMenu: appMenu,
-                        appMenuChildren: appMenu[index].children
-                    }));
-                } else {
-                    setState((prevState) => ({
-                        ...prevState,
-                        appMenu: response.children
-                    }));
+                    newAppMenuState.appMenuChildren = appMenu[index].children;
                 }
+                setState((prevState) => ({
+                    ...prevState,
+                    ...newAppMenuState
+                }));
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
             });
