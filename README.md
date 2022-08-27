@@ -104,3 +104,10 @@ php artisan storage:link php artisan event:cache
 <li>Node 14.9</li>
 <li>Mysql</li>
 </ul>
+
+
+<h5>Limitations</h5>
+<ul>
+<li>MENU: App section menu can only have level 2 nested children</li>
+<li>MENU: Urls should be unique, because the generator might get confused</li>
+</ul>
