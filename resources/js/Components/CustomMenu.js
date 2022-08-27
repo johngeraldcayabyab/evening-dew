@@ -12,7 +12,7 @@ import {AppContext} from "../App";
 import {setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import {getAppMenu, setAppMenu} from "../Helpers/app_menu";
-import {getRootIndex, objectHasValue} from "../Helpers/object";
+import {objectHasValue} from "../Helpers/object";
 import AvatarUser from "./AvatarUser";
 import {setGlobalSetting, setUser} from "../Helpers/user_helpers";
 
@@ -34,58 +34,53 @@ const CustomMenu = () => {
     });
     const history = useHistory();
 
-    function recursion(appMenu = [], value, keys = {}) {
-        appMenu.forEach((item, key) => {
-            if (item.hasOwnProperty('menu') && item.menu) {
-                if (item.menu.url === value) {
-                    console.log(keys);
-                    return true;
+    function getRootIndex(appMenu = [], value) {
+        const appMenuLength = appMenu.length;
+        for (let i = 0; i < appMenuLength; i++) {
+            if (appMenu[i].hasOwnProperty('children')) {
+                const isFound = recursion(appMenu[i].children, value);
+                if (isFound) {
+                    return i;
                 }
             }
-            if (item.hasOwnProperty('children')) {
-                // keys[key] = keys;
-                // keys{}
-                // keys.push({});
-                recursion(item.children, value, keys);
+        }
+        return false;
+    }
+
+    function recursion(appMenu = [], value, isFound = false) {
+        const appMenuLength = appMenu.length;
+        for (let i = 0; i < appMenuLength; i++) {
+            if (appMenu[i].hasOwnProperty('menu') && appMenu[i].menu) {
+                if (appMenu[i].menu.url === value) {
+                    isFound = true;
+                    return isFound;
+                }
             }
-        });
+            if (appMenu[i].hasOwnProperty('children')) {
+                isFound = recursion(appMenu[i].children, value);
+            }
+        }
+        return isFound;
     }
 
     useEffect(() => {
         if (appContext.appState.isLogin) {
             useFetch('/api/app_menus/1', GET).then((response) => {
-
-
-                const currentAppMenu = getAppMenu();
                 const appMenu = response.children;
-
-
                 const pathname = location.pathname;
-
-                recursion(appMenu, pathname);
-
-
-                const newAppMenuState = {
-                    appMenu: appMenu
-                };
-                if (objectHasValue(currentAppMenu)) {
-                    const index = appMenu.findIndex(m => m.id === currentAppMenu.id);
-                    newAppMenuState.appMenuChildren = appMenu[index].children;
-                }
-                setState((prevState) => ({
-                    ...prevState, ...newAppMenuState
+                const index = getRootIndex(appMenu, pathname);
+                const appMenuChildren = appMenu[index].children;
+                setAppMenu(appMenuChildren);
+                setState((prevState)=>({
+                    ...prevState,
+                    appMenu: appMenu,
+                    appMenuChildren: appMenuChildren,
                 }));
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
             });
         }
     }, [appContext.appState.isLogin]);
-
-    // function getRootPath(path) {
-    //     let rootPath = path.split('/');
-    //     rootPath.shift();
-    //     return '/' + rootPath[0];
-    // }
 
     function onLogout() {
         useFetch('/api/logout', POST).then((response) => {
