@@ -16,8 +16,8 @@ class SalesOrderRequest extends FormRequest
         return [
             'number' => 'required',
             'customer_id' => ['required', "exists:contacts,id"],
-            'invoice_address' => ['required'],
-            'delivery_address' => ['required'],
+            'invoice_address' => ['nullable'],
+            'delivery_address' => ['nullable'],
             'invoice_city_id' => ['nullable', "exists:cities,id"],
             'delivery_city_id' => ['nullable', "exists:cities,id"],
             'invoice_phone' => ['nullable'],
