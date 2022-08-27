@@ -14,6 +14,7 @@ const CustomForm = (props) => {
             labelWrap={true}
             wrapperCol={{span: 16}}
             onValuesChange={formContext.onValuesChange}
+            className={'custom-form'}
         >
             {props.children}
         </Form>
