@@ -11,8 +11,7 @@ import {useHistory, useLocation} from "react-router";
 import {AppContext} from "../App";
 import {setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
-import {getAppMenu, setAppMenu} from "../Helpers/app_menu";
-import {objectHasValue} from "../Helpers/object";
+import {setAppMenu} from "../Helpers/app_menu";
 import AvatarUser from "./AvatarUser";
 import {setGlobalSetting, setUser} from "../Helpers/user_helpers";
 
