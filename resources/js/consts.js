@@ -11,6 +11,8 @@ export const SEARCH = 'search';
 export const DATE_RANGE = 'date_range';
 export const COLUMN_SELECTION = 'column_selection';
 
+export const SELECT_PAGE_SIZE = 4;
+
 
 export const EDIT_BUTTON = 'edit_button';
 export const SAVE_EDIT_BUTTON = 'save_edit_button';

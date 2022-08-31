@@ -21,7 +21,7 @@ const CustomPagination = () => {
             current={listContext.tableState.meta ? listContext.tableState.meta.current_page : 1}
             total={listContext.tableState.meta ? listContext.tableState.meta.total : 1}
             simple={true}
-            pageSize={20} // not respecting meta condition if null
+            pageSize={listContext.tableState.meta ? listContext.tableState.meta.per_page : 20} // not respecting meta condition if null
             showSizeChanger={false}
             showQuickJumper
 
