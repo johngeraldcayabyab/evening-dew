@@ -86,20 +86,14 @@ const CustomTable = (props) => {
         }
         if (filterType === COLUMN_SELECTION) {
             return {
-                filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => {
-                    return (
-                        <ColumnSelectionFilter
-                            dataIndex={dataIndex}
-                            setSelectedKeys={setSelectedKeys}
-                            selectedKeys={selectedKeys}
-                            confirm={confirm}
-                            clearFilters={clearFilters}
-                            state={state}
-                            setState={setState}
-                        />
-                    )
-                },
-                filterIcon: <MoreOutlined style={{color: 'grey', fontSize: '15px'}}/>,
+                className: 'column-selection',
+                title: (
+                    <ColumnSelectionFilter
+                        dataIndex={dataIndex}
+                        state={state}
+                        setState={setState}
+                    />
+                ),
             }
         }
         return null;
