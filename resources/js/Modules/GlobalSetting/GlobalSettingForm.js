@@ -85,6 +85,18 @@ const GlobalSettingForm = () => {
                                     />
                                 </ColForm>
                             </RowForm>
+
+                            <RowForm>
+                                <ColForm>
+                                    <Divider orientation={'left'}>
+                                        Table
+                                    </Divider>
+                                    <FormItemCheckbox
+                                        label={'Clickable Row'}
+                                        name={'general_clickable_row'}
+                                    />
+                                </ColForm>
+                            </RowForm>
                         </TabPane>
                         <TabPane tab="Inventory" key="2">
                             <RowForm>
