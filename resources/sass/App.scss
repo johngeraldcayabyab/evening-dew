@@ -86,3 +86,16 @@ Login
     float: left;
     margin-right: 15px;
 }
+
+.column-selection {
+    padding: 0 !important;
+    text-align: center !important;
+    width: 40px;
+
+    .ant-btn {
+        margin-right: 0 !important;
+        width: 100% !important;
+        padding: 0 !important;
+        height: 100% !important;
+    }
+}
