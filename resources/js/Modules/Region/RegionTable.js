@@ -8,7 +8,7 @@ import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdown
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
-import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
+import {DATE_RANGE, SEARCH} from "../../consts";
 
 const RegionTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -17,6 +17,7 @@ const RegionTable = () => {
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
+            columnSelection: true,
             columns: [
                 {
                     title: 'ID',
@@ -60,12 +61,6 @@ const RegionTable = () => {
                     sorter: true,
                     filter: DATE_RANGE,
                 },
-                {
-                    title: '',
-                    dataIndex: COLUMN_SELECTION,
-                    key: COLUMN_SELECTION,
-                    filter: COLUMN_SELECTION,
-                }
             ]
         }}>
             <ControlPanel

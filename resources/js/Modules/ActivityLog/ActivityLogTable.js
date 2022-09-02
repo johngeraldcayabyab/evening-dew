@@ -8,7 +8,7 @@ import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdown
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
-import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
+import {DATE_RANGE, SEARCH} from "../../consts";
 import Text from "antd/es/typography/Text";
 import {Space} from "antd";
 
@@ -19,6 +19,7 @@ const ActivityLogTable = () => {
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
+            columnSelection: true,
             columns: [
                 {
                     title: 'ID',
@@ -75,7 +76,8 @@ const ActivityLogTable = () => {
                             const changes = [];
                             keys.forEach(key => {
                                 if (key !== 'created_at' && key !== 'updated_at' && oldObject[key] !== newObject[key]) {
-                                    changes.push(<Text code key={key}>{`${key}: ${oldObject[key]} ---> ${newObject[key]}`}</Text>)
+                                    changes.push(<Text code
+                                                       key={key}>{`${key}: ${oldObject[key]} ---> ${newObject[key]}`}</Text>)
                                 }
                             });
                             return (
@@ -93,12 +95,6 @@ const ActivityLogTable = () => {
                     key: 'created_at',
                     sorter: true,
                     filter: DATE_RANGE,
-                },
-                {
-                    title: '',
-                    dataIndex: COLUMN_SELECTION,
-                    key: COLUMN_SELECTION,
-                    filter: COLUMN_SELECTION,
                 },
             ]
         }}>

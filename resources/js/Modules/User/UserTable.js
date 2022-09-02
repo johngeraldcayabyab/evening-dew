@@ -10,7 +10,7 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {Col, Row} from "antd";
 import KanbanTablePicker from "../../Components/KanbanTablePicker";
-import {COLUMN_SELECTION, DATE_RANGE, KANBAN, SEARCH, TABLE} from "../../consts";
+import {DATE_RANGE, KANBAN, SEARCH, TABLE} from "../../consts";
 import Cardination from "../../Components/Cardination";
 
 const UserTable = () => {
@@ -25,6 +25,7 @@ const UserTable = () => {
             tableActions: tableActions,
             dataState: dataState,
             setDataState: setDataState,
+            columnSelection: true,
             columns: [
                 {
                     title: 'ID',
@@ -55,12 +56,6 @@ const UserTable = () => {
                     sorter: true,
                     filter: DATE_RANGE,
                 },
-                {
-                    title: '',
-                    dataIndex: COLUMN_SELECTION,
-                    key: COLUMN_SELECTION,
-                    filter: COLUMN_SELECTION,
-                }
             ],
             kanban: {
                 selected_fields: ['name', 'avatar', 'email'],

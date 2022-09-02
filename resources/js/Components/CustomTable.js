@@ -1,7 +1,7 @@
 import {Table} from "antd";
 import React, {useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
-import {MoreOutlined, SearchOutlined} from "@ant-design/icons";
+import {SearchOutlined} from "@ant-design/icons";
 import {TableContext} from "../Contexts/TableContext";
 import SearchFilter from "./TableFilters/SearchFilter";
 import {getAllUrlParams} from "../Helpers/url";
@@ -35,6 +35,7 @@ const CustomTable = (props) => {
 
     function getColumns() {
         let columns = state.columns;
+
         columns = columns.map((column) => {
             if (column.hasOwnProperty('filter')) {
                 const filterType = generateColumnFilterByType(column.dataIndex, column.filter);
@@ -44,6 +45,21 @@ const CustomTable = (props) => {
             }
             return column;
         });
+
+        if (listContext.columnSelection) {
+            columns.push({
+                className: 'column-selection',
+                dataIndex: COLUMN_SELECTION,
+                key: COLUMN_SELECTION,
+                title: (
+                    <ColumnSelectionFilter
+                        state={state}
+                        setState={setState}
+                    />
+                ),
+            });
+        }
+
         return columns.filter(column => {
             if (!column.hasOwnProperty('hidden')) {
                 return column;
@@ -82,18 +98,6 @@ const CustomTable = (props) => {
                     )
                 },
                 filterIcon: filtered => <SearchOutlined style={{color: filtered ? '#1890ff' : undefined}}/>,
-            }
-        }
-        if (filterType === COLUMN_SELECTION) {
-            return {
-                className: 'column-selection',
-                title: (
-                    <ColumnSelectionFilter
-                        dataIndex={dataIndex}
-                        state={state}
-                        setState={setState}
-                    />
-                ),
             }
         }
         return null;
