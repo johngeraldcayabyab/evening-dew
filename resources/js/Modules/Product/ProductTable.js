@@ -11,7 +11,7 @@ import Cardination from "../../Components/Cardination";
 import KanbanTablePicker from "../../Components/KanbanTablePicker";
 import {Col, Row} from "antd";
 import CustomTable from "../../Components/CustomTable";
-import {COLUMN_SELECTION, DATE_RANGE, KANBAN, SEARCH, TABLE} from "../../consts";
+import {DATE_RANGE, KANBAN, SEARCH, TABLE} from "../../consts";
 
 const ProductTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -25,6 +25,7 @@ const ProductTable = () => {
             tableActions: tableActions,
             dataState: dataState,
             setDataState: setDataState,
+            columnSelection: true,
             columns: [
                 {
                     title: 'ID',
@@ -99,12 +100,6 @@ const ProductTable = () => {
                     sorter: true,
                     filter: DATE_RANGE,
                 },
-                {
-                    title: '',
-                    dataIndex: COLUMN_SELECTION,
-                    key: COLUMN_SELECTION,
-                    filter: COLUMN_SELECTION,
-                }
             ],
             kanban: {
                 selected_fields: ['name', 'avatar', 'internal_reference', 'sales_price', 'quantity', 'measurement'],
