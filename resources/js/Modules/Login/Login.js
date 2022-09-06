@@ -8,7 +8,6 @@ import {GET, POST} from "../../consts";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {AppContext} from "../../App";
 import useFetchHook from "../../Hooks/useFetchHook";
-import {setGlobalSetting, setUser} from "../../Helpers/user_helpers";
 
 const Login = () => {
     const [state, setState] = useState({
@@ -34,24 +33,23 @@ const Login = () => {
             message.success('Welcome back!');
             const authorization = `Bearer ${responseText}`
             setCookie('Authorization', authorization, 365);
+            setCookie('userEmail', values.email);
             useFetch(`/api/users`, GET, {
-                email: appContext.appState.userEmail,
+                email: values.email,
             }, false, {
                 Authorization: authorization,
             }).then((userResponse) => {
                 const user = userResponse.data[0];
                 useFetch(`/api/global_settings/initial_values`, GET, {}, false, {
                     Authorization: authorization,
-                }).then((responseGlobalSetting) => {
+                }).then((globalSettingResponse) => {
                     appContext.setAppState(prevState => ({
                         ...prevState,
                         isLogin: true,
                         userEmail: values.email,
                         user: user,
-                        globalSetting: responseGlobalSetting,
+                        globalSetting: globalSettingResponse,
                     }));
-                    setGlobalSetting(responseGlobalSetting);
-                    setUser(user);
                     history.push('/home');
                 }).catch((responseErr) => {
                     fetchCatcher.get(responseErr);
