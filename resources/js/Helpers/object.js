@@ -13,9 +13,8 @@ export const objectHasValue = (obj) => {
     return obj && Object.keys(obj).length;
 }
 
-const dateFormat = 'YYYY-MM-DD HH:mm:ss';
-
 export const formatInitialValuesDatetimeToMoment = (obj) => {
+    const dateFormat = 'YYYY-MM-DD HH:mm:ss';
     for (let k in obj) {
         if (typeof obj[k] == "object" && obj[k] !== null)
             formatInitialValuesDatetimeToMoment(obj[k]);

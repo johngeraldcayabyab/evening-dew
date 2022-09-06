@@ -63,7 +63,10 @@ const GlobalSettingForm = () => {
                 form: form,
                 formState: formState,
                 formActions: formActions,
-                onFinish: formActions.onFinish
+                onFinish: (values) => {
+                    formActions.onFinish(values);
+                    window.location.reload();
+                }
             }}
         >
             <CustomForm>
@@ -82,6 +85,18 @@ const GlobalSettingForm = () => {
                                         message={'Please select a default country'}
                                         required={true}
                                         {...generalDefaultCountryOptions}
+                                    />
+                                </ColForm>
+                            </RowForm>
+
+                            <RowForm>
+                                <ColForm>
+                                    <Divider orientation={'left'}>
+                                        Table
+                                    </Divider>
+                                    <FormItemCheckbox
+                                        label={'Clickable Row'}
+                                        name={'general_clickable_row'}
                                     />
                                 </ColForm>
                             </RowForm>

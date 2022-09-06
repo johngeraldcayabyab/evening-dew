@@ -1,12 +1,9 @@
-import {Button, message} from "antd";
+import {Button} from "antd";
 import React, {useContext} from "react";
 import {FormContext} from "../../Contexts/FormContext";
 import useFetchHook from "../../Hooks/useFetchHook";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
-import {GET, POST} from "../../consts";
-import {getDevice} from "../../Helpers/device";
-import {setCookie} from "../../Helpers/cookie";
-import {setUser} from "../../Helpers/user_helpers";
+import {POST} from "../../consts";
 
 const PrintReceiptButton = () => {
     const formContext = useContext(FormContext);

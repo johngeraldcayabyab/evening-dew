@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {GET, POST} from "../consts";
+import {GET, POST, SELECT_PAGE_SIZE} from "../consts";
 import useFetchHook from "./useFetchHook";
 import useFetchCatcherHook from "./useFetchCatcherHook";
 import {objectHasValue} from "../Helpers/object";
@@ -24,7 +24,7 @@ const useOptionLineHook = (url, tableField) => {
         getOptions: (search = null, key) => {
             const field = getField();
             let params = {
-                page_size: 10,
+                page_size: SELECT_PAGE_SIZE,
                 selected_fields: ['id', 'slug', 'tag'],
                 orderByColumn: field,
                 orderByDirection: 'asc',
@@ -100,7 +100,7 @@ const useOptionLineHook = (url, tableField) => {
                 if (state.meta[key].current_page !== state.meta[key].last_page) {
                     const field = getField();
                     let params = {
-                        page_size: 10,
+                        page_size: SELECT_PAGE_SIZE,
                         selected_fields: ['id', 'slug', 'tag'],
                         orderByColumn: field,
                         orderByDirection: 'asc',

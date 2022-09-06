@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {render} from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import {getCookie} from "./Helpers/cookie";
@@ -32,7 +32,6 @@ import MaterialRoute from './Modules/Material/MaterialRoute';
 import RegionRoute from "./Modules/Region/RegionRoute";
 import DeliveryFeeRoute from "./Modules/DeliveryFee/DeliveryFeeRoute";
 import CityRoute from "./Modules/City/CityRoute";
-import {getGlobalSetting, getUser} from "./Helpers/user_helpers";
 import SourceRoute from "./Modules/Source/SourceRoute";
 import ManualRoute from "./CustomModules/Manual/ManualRoute";
 import ShopifyRoute from "./CustomModules/Shopify/ShopifyRoute";
@@ -40,6 +39,10 @@ import SameDayRoute from "./CustomModules/SameDay/SameDayRoute";
 import HomeRoute from "./Modules/Home/HomeRoute";
 import AllSaleRoute from "./CustomModules/AllSale/AllSaleRoute";
 import SalesOrderLineRoute from "./Modules/SalesOrderLine/SalesOrderLineRoute";
+import {objectHasValue} from "./Helpers/object";
+import {GET} from "./consts";
+import useFetchHook from "./Hooks/useFetchHook";
+import useFetchCatcherHook from "./Hooks/useFetchCatcherHook";
 
 
 export const AppContext = React.createContext({});
@@ -48,10 +51,33 @@ export const AppContextProvider = AppContext.Provider;
 const App = () => {
         const [appState, setAppState] = useState({
             isLogin: getCookie('Authorization'),
-            userEmail: getCookie('userEmail'),
-            user: getUser(),
-            globalSetting: getGlobalSetting(),
+            user: {},
+            globalSetting: {},
         });
+        const useFetch = useFetchHook();
+        const fetchCatcher = useFetchCatcherHook();
+
+        useEffect(() => {
+            if (appState.isLogin && !objectHasValue(appState.globalSetting)) {
+                useFetch(`/api/users`, GET, {
+                    email: getCookie('userEmail'),
+                }).then((userResponse) => {
+                    const user = userResponse.data[0];
+                    useFetch(`/api/global_settings/initial_values`, GET).then((globalSettingResponse) => {
+                        setAppState(prevState => ({
+                            ...prevState,
+                            isLogin: true,
+                            user: user,
+                            globalSetting: globalSettingResponse,
+                        }));
+                    }).catch((responseErr) => {
+                        fetchCatcher.get(responseErr);
+                    });
+                }).catch((responseErr) => {
+                    fetchCatcher.get(responseErr);
+                });
+            }
+        }, []);
 
         return (
             <BrowserRouter>

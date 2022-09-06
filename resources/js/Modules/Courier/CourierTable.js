@@ -8,9 +8,8 @@ import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdown
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
-import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
+import {DATE_RANGE, SEARCH} from "../../consts";
 import {Tag} from "antd";
-import {titleCase} from "../../Helpers/string";
 
 const CourierTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -19,6 +18,7 @@ const CourierTable = () => {
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
+            columnSelection: true,
             columns: [
                 {
                     title: 'ID',
@@ -42,7 +42,7 @@ const CourierTable = () => {
                     sorter: true,
                     filter: SEARCH,
                     render: (text, record) => {
-                        if(record.color){
+                        if (record.color) {
                             return <Tag color={record.color}>{record.color}</Tag>;
                         }
                         return null;
@@ -55,12 +55,6 @@ const CourierTable = () => {
                     sorter: true,
                     filter: DATE_RANGE,
                 },
-                {
-                    title: '',
-                    dataIndex: COLUMN_SELECTION,
-                    key: COLUMN_SELECTION,
-                    filter: COLUMN_SELECTION,
-                }
             ]
         }}>
             <ControlPanel

@@ -9,7 +9,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
-import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
+import {DATE_RANGE, SEARCH} from "../../consts";
 import CustomStepsChanger from "../CustomStepsChanger";
 
 const ManualTable = () => {
@@ -19,6 +19,7 @@ const ManualTable = () => {
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
+            columnSelection: true,
             columns: [
                 {
                     title: 'ID',
@@ -78,12 +79,6 @@ const ManualTable = () => {
                     key: 'steps',
                     sorter: true,
                     render: (text, record) => (<CustomStepsChanger text={text} record={record}/>),
-                },
-                {
-                    title: '',
-                    dataIndex: COLUMN_SELECTION,
-                    key: COLUMN_SELECTION,
-                    filter: COLUMN_SELECTION,
                 },
             ]
         }}>

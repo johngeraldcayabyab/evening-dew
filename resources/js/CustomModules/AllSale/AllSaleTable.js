@@ -23,6 +23,7 @@ const AllSaleTable = () => {
             tableState: tableState,
             tableActions: tableActions,
             exportLink: '/sales_order_lines/export',
+            columnSelection: true,
             columns: [
                 {
                     title: 'ID',
@@ -108,18 +109,11 @@ const AllSaleTable = () => {
                     sorter: true,
                     render: (text, record) => (<CustomStepsChanger text={text} record={record}/>),
                 },
-                {
-                    title: '',
-                    dataIndex: COLUMN_SELECTION,
-                    key: COLUMN_SELECTION,
-                    filter: COLUMN_SELECTION,
-                },
             ]
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
                 topColTwoRight={''}
-                // bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}
             />

@@ -9,7 +9,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {Tag} from "antd";
-import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../../consts";
+import {DATE_RANGE, SEARCH} from "../../consts";
 
 const DeliveryFeeTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -18,6 +18,7 @@ const DeliveryFeeTable = () => {
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
+            columnSelection: true,
             columns: [
                 {
                     title: 'ID',
@@ -65,12 +66,6 @@ const DeliveryFeeTable = () => {
                     filter: DATE_RANGE,
                     hidden: true,
                 },
-                {
-                    title: '',
-                    dataIndex: COLUMN_SELECTION,
-                    key: COLUMN_SELECTION,
-                    filter: COLUMN_SELECTION,
-                }
             ]
         }}>
             <ControlPanel
