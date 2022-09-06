@@ -5,7 +5,6 @@ import {uuidv4} from "../../Helpers/string";
 
 import SalesOrderTable from './SalesOrderTable';
 import SalesOrderForm from './SalesOrderForm';
-import {Redirect} from "react-router";
 
 const SalesOrderRoute = () => {
     const displayName = manifest.displayName;
@@ -17,7 +16,6 @@ const SalesOrderRoute = () => {
             <Route exact key={uuidv4()} path={`/${displayName}/create`}
                    render={props => <SalesOrderForm key={props.location.key}/>}
             />
-            <Route exact key={uuidv4()} path={`/${displayName}/export`}/>
             <Route exact key={uuidv4()} path={`/${displayName}/:id`}
                    render={props => <SalesOrderForm key={props.location.key}/>}
             />

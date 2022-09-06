@@ -17,13 +17,5 @@ class UserSeeder extends Seeder
             'password' => Hash::make('admin')
         ]);
         UserCreatedEvent::dispatch($admin);
-
-
-        $ttMnl = User::create([
-            'name' => 'Ttmnl',
-            'email' => 'ttmnl@gmail.com',
-            'password' => Hash::make('adminadmin')
-        ]);
-        UserCreatedEvent::dispatch($ttMnl);
     }
 }

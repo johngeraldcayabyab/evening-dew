@@ -33,7 +33,7 @@ class SalesOrderObserver
             $model->expiration_date = Carbon::parse($model->expiration_date)->format(SystemSetting::DATE_TIME_FORMAT);
         }
 
-        if ($model->quotation_date) {
+        if($model->quotation_date){
             $model->quotation_date = Carbon::parse($model->quotation_date)->format(SystemSetting::DATE_TIME_FORMAT);
         }
 

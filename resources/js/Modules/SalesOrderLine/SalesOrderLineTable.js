@@ -11,7 +11,6 @@ import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
 
 
-
 const SalesOrderLineTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
