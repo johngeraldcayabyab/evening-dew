@@ -1,9 +1,11 @@
 import {getCookie} from "../Helpers/cookie";
 import {GET} from "../consts";
-import {useEffect} from "react";
+import {useContext, useEffect} from "react";
 import {toQueryString} from "../Helpers/url";
+import {AppContext} from "../App";
 
 const useFetchHook = () => {
+    const appContext = useContext(AppContext);
     const controller = new AbortController();
     const {signal} = controller;
 

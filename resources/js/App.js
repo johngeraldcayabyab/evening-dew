@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {render} from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import {getCookie} from "./Helpers/cookie";
@@ -44,10 +44,13 @@ export const AppContextProvider = AppContext.Provider;
 const App = () => {
         const [appState, setAppState] = useState({
             isLogin: getCookie('Authorization'),
-            userEmail: getCookie('userEmail'),
             user: getUser(),
             globalSetting: getGlobalSetting(),
         });
+
+    useEffect(() => {
+
+    }, []);
 
         return (
             <BrowserRouter>
