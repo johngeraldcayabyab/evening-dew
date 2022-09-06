@@ -63,7 +63,9 @@ const GlobalSettingForm = () => {
                 form: form,
                 formState: formState,
                 formActions: formActions,
-                onFinish: formActions.onFinish
+                onFinish: (values) => {
+                    formActions.onFinish(values);
+                }
             }}
         >
             <CustomForm>
