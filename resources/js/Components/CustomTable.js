@@ -1,15 +1,17 @@
-import {Table} from "antd";
+import {Button, Table} from "antd";
 import React, {useContext, useEffect, useState} from "react";
-import {useHistory} from "react-router-dom";
-import {SearchOutlined} from "@ant-design/icons";
+import {Link, useHistory} from "react-router-dom";
+import {EyeOutlined, SearchOutlined} from "@ant-design/icons";
 import {TableContext} from "../Contexts/TableContext";
 import SearchFilter from "./TableFilters/SearchFilter";
 import {getAllUrlParams} from "../Helpers/url";
 import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../consts";
 import DateRangeFilter from "./TableFilters/DateRangeFilter";
 import ColumnSelectionFilter from "./TableFilters/ColumnSelectionFilter";
+import {AppContext} from "../App";
 
 const CustomTable = (props) => {
+    const appContext = useContext(AppContext);
     const listContext = useContext(TableContext);
     const history = useHistory();
     const [state, setState] = useState({
@@ -18,7 +20,9 @@ const CustomTable = (props) => {
 
     useEffect(() => {
         return (() => {
-            document.body.style.cursor = "default";
+            if (isClickableRow()) {
+                document.body.style.cursor = "default";
+            }
         })
     }, []);
 
@@ -46,6 +50,24 @@ const CustomTable = (props) => {
             return column;
         });
 
+        if (!isClickableRow()) {
+            columns.push({
+                className: 'column-actions',
+                dataIndex: 'column_actions',
+                key: 'column_actions',
+                title: 'Actions',
+                render: (text, record) => {
+                    return (
+                        <Button type="primary" size={'small'}>
+                            <Link to={`/${listContext.manifest.displayName}/${record.id}`}>
+                                <EyeOutlined/>
+                            </Link>
+                        </Button>
+                    )
+                }
+            });
+        }
+
         if (listContext.columnSelection) {
             columns.push({
                 className: 'column-selection',
@@ -59,6 +81,7 @@ const CustomTable = (props) => {
                 ),
             });
         }
+
 
         return columns.filter(column => {
             if (!column.hasOwnProperty('hidden')) {
@@ -106,17 +129,23 @@ const CustomTable = (props) => {
     function onRow(record, rowIndex) {
         return {
             onClick: event => {
-                history.push(`/${listContext.manifest.displayName}/${record.id}`);
+                if (isClickableRow()) {
+                    history.push(`/${listContext.manifest.displayName}/${record.id}`);
+                }
             },
             onDoubleClick: event => {
             },
             onContextMenu: event => {
             },
             onMouseEnter: event => {
-                document.body.style.cursor = "pointer";
+                if (isClickableRow()) {
+                    document.body.style.cursor = "pointer";
+                }
             },
             onMouseLeave: event => {
-                document.body.style.cursor = "default";
+                if (isClickableRow()) {
+                    document.body.style.cursor = "default";
+                }
             },
         };
     }
@@ -136,6 +165,13 @@ const CustomTable = (props) => {
             }
         }
         listContext.tableActions.renderData(listContext.tableState.params);
+    }
+
+    function isClickableRow() {
+        if (appContext.appState.globalSetting.general_clickable_row) {
+            return true;
+        }
+        return false;
     }
 
     return (
