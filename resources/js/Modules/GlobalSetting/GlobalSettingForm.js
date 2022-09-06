@@ -65,6 +65,7 @@ const GlobalSettingForm = () => {
                 formActions: formActions,
                 onFinish: (values) => {
                     formActions.onFinish(values);
+                    window.location.reload();
                 }
             }}
         >

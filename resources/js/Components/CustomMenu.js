@@ -11,9 +11,7 @@ import {useHistory, useLocation} from "react-router";
 import {AppContext} from "../App";
 import {setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
-import {setAppMenu} from "../Helpers/app_menu";
 import AvatarUser from "./AvatarUser";
-import {setGlobalSetting, setUser} from "../Helpers/user_helpers";
 
 function resetBreadcrumbs(url) {
     let splitPathName = url.split('/');
@@ -69,8 +67,7 @@ const CustomMenu = () => {
                 const pathname = location.pathname;
                 const index = getRootIndex(appMenu, pathname);
                 const appMenuChildren = appMenu[index].children;
-                setAppMenu(appMenuChildren);
-                setState((prevState)=>({
+                setState((prevState) => ({
                     ...prevState,
                     appMenu: appMenu,
                     appMenuChildren: appMenuChildren,
@@ -88,10 +85,7 @@ const CustomMenu = () => {
                 ...prevState, isLogin: false,
             }));
             setBreadcrumbs([]);
-            setAppMenu({});
-            setUser({});
             setClickedBreadcrumb({});
-            setGlobalSetting({});
             history.push('/login');
             message.success('Logged Out!');
         }).catch((responseErr) => {
@@ -127,7 +121,6 @@ const CustomMenu = () => {
             label: <Link to={appMenu.menu.url}>{appMenu.label}</Link>, key: `app-menu-${appMenu.id}`, onClick: () => {
                 const index = state.appMenu.findIndex(m => m.id === appMenu.id);
                 resetBreadcrumbs(appMenu.menu.url);
-                setAppMenu(appMenu);
                 setState((prevState) => ({
                     ...prevState, appMenuChildren: state.appMenu[index].children
                 }));
