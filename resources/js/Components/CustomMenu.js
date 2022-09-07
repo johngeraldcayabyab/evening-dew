@@ -54,7 +54,7 @@ const CustomMenu = () => {
                 }
             }
             if (appMenu[i].hasOwnProperty('children')) {
-                isFound = recursion(appMenu[i].children, value);
+                isFound = recursion(appMenu[i].children, value, isFound);
             }
         }
         return isFound;
