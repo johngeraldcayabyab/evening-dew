@@ -1,4 +1,5 @@
 import moment from 'moment';
+import {DATE_FORMAT} from "../consts";
 
 export const cleanObject = (obj) => {
     for (let propName in obj) {
@@ -14,15 +15,17 @@ export const objectHasValue = (obj) => {
 }
 
 export const formatInitialValuesDatetimeToMoment = (obj) => {
-    const dateFormat = 'YYYY-MM-DD HH:mm:ss';
     for (let k in obj) {
         if (typeof obj[k] == "object" && obj[k] !== null)
             formatInitialValuesDatetimeToMoment(obj[k]);
         else {
-            if (moment(obj[k], dateFormat, true).isValid()) {
-                obj[k] = moment(obj[k], dateFormat)
+            if (moment(obj[k], DATE_FORMAT, true).isValid()) {
+                obj[k] = formatToMoment(obj[k]);
             }
         }
     }
 }
 
+export const formatToMoment = (obj) => {
+    return moment(obj, DATE_FORMAT);
+}
