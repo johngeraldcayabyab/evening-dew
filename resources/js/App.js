@@ -46,6 +46,7 @@ export const AppContextProvider = AppContext.Provider;
 
 const App = () => {
         const [appState, setAppState] = useState({
+            appInitialLoad: true,
             isLogin: getCookie('Authorization'),
             user: {},
             globalSetting: {},
@@ -62,9 +63,10 @@ const App = () => {
                     useFetch(`/api/global_settings/initial_values`, GET).then((globalSettingResponse) => {
                         setAppState(prevState => ({
                             ...prevState,
-                            isLogin: true,
+                            isLogin: getCookie('Authorization'),
                             user: user,
                             globalSetting: globalSettingResponse,
+                            appInitialLoad: false,
                         }));
                     }).catch((responseErr) => {
                         fetchCatcher.get(responseErr);

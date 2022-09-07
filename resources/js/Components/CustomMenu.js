@@ -32,6 +32,7 @@ const CustomMenu = () => {
     const history = useHistory();
 
     function getRootIndex(appMenu = [], value) {
+        value = '/' + value.split('/')[1];
         const appMenuLength = appMenu.length;
         for (let i = 0; i < appMenuLength; i++) {
             if (appMenu[i].hasOwnProperty('children')) {
