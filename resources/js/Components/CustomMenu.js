@@ -62,7 +62,7 @@ const CustomMenu = () => {
     }
 
     useEffect(() => {
-        if (appContext.appState.isLogin) {
+        if (appContext.appState.isLogin && !appContext.appState.appInitialLoad) {
             useFetch('/api/app_menus/1', GET).then((response) => {
                 const appMenu = response.children;
                 const pathname = location.pathname;
@@ -77,7 +77,7 @@ const CustomMenu = () => {
                 fetchCatcher.get(responseErr);
             });
         }
-    }, [appContext.appState.isLogin]);
+    }, [appContext.appState.isLogin, appContext.appState.appInitialLoad]);
 
     function onLogout() {
         useFetch('/api/logout', POST).then((response) => {
