@@ -11,7 +11,7 @@ export const SEARCH = 'search';
 export const DATE_RANGE = 'date_range';
 export const COLUMN_SELECTION = 'column_selection';
 
-export const SELECT_PAGE_SIZE = 4;
+export const SELECT_PAGE_SIZE = 5;
 export const DATE_FORMAT = 'YYYY-MM-DD HH:mm:ss';
 
 
