@@ -15,16 +15,16 @@ import Cardination from "../../Components/Cardination";
 
 const ContactTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
-    const [dataState, setDataState] = useState({
-        mode: KANBAN
-    });
+    // const [dataState, setDataState] = useState({
+    //     mode: KANBAN
+    // });
     return (
         <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
-            dataState: dataState,
-            setDataState: setDataState,
+            // dataState: dataState,
+            // setDataState: setDataState,
             columnSelection: true,
             columns: [
                 {
@@ -89,15 +89,17 @@ const ContactTable = () => {
                 topColTwoRight={''}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
-                bottomColTwoRight={
-                    <Row align={'right'}>
-                        <Col span={20}><CustomPagination/></Col>
-                        <Col span={4}><KanbanTablePicker/></Col>
-                    </Row>
-                }
+                bottomColTwoRight={<CustomPagination/>}
+                // bottomColTwoRight={
+                //     <Row align={'right'}>
+                //         <Col span={20}><CustomPagination/></Col>
+                //         <Col span={4}><KanbanTablePicker/></Col>
+                //     </Row>
+                // }
             />
-            {dataState.mode === TABLE ? <CustomTable/> : null}
-            {dataState.mode === KANBAN ? <Cardination/> : null}
+            <CustomTable/>
+            {/*{dataState.mode === TABLE ? <CustomTable/> : null}*/}
+            {/*{dataState.mode === KANBAN ? <Cardination/> : null}*/}
         </TableContextProvider>
     )
 };

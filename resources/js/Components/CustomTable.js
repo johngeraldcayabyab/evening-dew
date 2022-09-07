@@ -27,15 +27,17 @@ const CustomTable = (props) => {
     }, []);
 
     useEffect(() => {
-        const selectedFields = [];
-        listContext.columns.forEach((column) => {
-            selectedFields.push(column.dataIndex);
-        });
-        let urlParams = getAllUrlParams();
-        urlParams.selected_fields = selectedFields;
-        urlParams = {...urlParams, ...listContext.manifest.queryDefaults};
-        listContext.tableActions.renderData(urlParams);
-    }, []);
+        if (!appContext.appState.appInitialLoad) {
+            const selectedFields = [];
+            listContext.columns.forEach((column) => {
+                selectedFields.push(column.dataIndex);
+            });
+            let urlParams = getAllUrlParams();
+            urlParams.selected_fields = selectedFields;
+            urlParams = {...urlParams, ...listContext.manifest.queryDefaults};
+            listContext.tableActions.renderData(urlParams);
+        }
+    }, [appContext.appState.appInitialLoad]);
 
     function getColumns() {
         let columns = state.columns;
