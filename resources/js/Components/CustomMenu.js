@@ -32,6 +32,7 @@ const CustomMenu = () => {
     const history = useHistory();
 
     function getRootIndex(appMenu = [], value) {
+        value = '/' + value.split('/')[1];
         const appMenuLength = appMenu.length;
         for (let i = 0; i < appMenuLength; i++) {
             if (appMenu[i].hasOwnProperty('children')) {
@@ -54,14 +55,14 @@ const CustomMenu = () => {
                 }
             }
             if (appMenu[i].hasOwnProperty('children')) {
-                isFound = recursion(appMenu[i].children, value);
+                isFound = recursion(appMenu[i].children, value, isFound);
             }
         }
         return isFound;
     }
 
     useEffect(() => {
-        if (appContext.appState.isLogin) {
+        if (appContext.appState.isLogin && !appContext.appState.appInitialLoad) {
             useFetch('/api/app_menus/1', GET).then((response) => {
                 const appMenu = response.children;
                 const pathname = location.pathname;
@@ -76,7 +77,7 @@ const CustomMenu = () => {
                 fetchCatcher.get(responseErr);
             });
         }
-    }, [appContext.appState.isLogin]);
+    }, [appContext.appState.isLogin, appContext.appState.appInitialLoad]);
 
     function onLogout() {
         useFetch('/api/logout', POST).then((response) => {

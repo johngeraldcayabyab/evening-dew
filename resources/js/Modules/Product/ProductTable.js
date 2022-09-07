@@ -15,16 +15,16 @@ import {DATE_RANGE, KANBAN, SEARCH, TABLE} from "../../consts";
 
 const ProductTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
-    const [dataState, setDataState] = useState({
-        mode: KANBAN
-    });
+    // const [dataState, setDataState] = useState({
+    //     mode: KANBAN
+    // });
     return (
         <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
             tableActions: tableActions,
-            dataState: dataState,
-            setDataState: setDataState,
+            // dataState: dataState,
+            // setDataState: setDataState,
             columnSelection: true,
             columns: [
                 {
@@ -101,46 +101,48 @@ const ProductTable = () => {
                     filter: DATE_RANGE,
                 },
             ],
-            kanban: {
-                selected_fields: ['name', 'avatar', 'internal_reference', 'sales_price', 'quantity', 'measurement'],
-                title: 'name',
-                avatar: 'avatar',
-                description: [
-                    {
-                        key: 'internal_reference',
-                        render: (record) => {
-                            return record.internal_reference ? `[${record.internal_reference}]` : null;
-                        }
-                    },
-                    {
-                        key: 'sales_price',
-                        render: (record) => {
-                            return `Price: ₱${record.sales_price}`;
-                        }
-                    },
-                    {
-                        key: 'quantity',
-                        render: (record) => {
-                            return `On hand: ${record.quantity} ${record.measurement.name}`;
-                        }
-                    }
-                ]
-            }
+            // kanban: {
+            //     selected_fields: ['name', 'avatar', 'internal_reference', 'sales_price', 'quantity', 'measurement'],
+            //     title: 'name',
+            //     avatar: 'avatar',
+            //     description: [
+            //         {
+            //             key: 'internal_reference',
+            //             render: (record) => {
+            //                 return record.internal_reference ? `[${record.internal_reference}]` : null;
+            //             }
+            //         },
+            //         {
+            //             key: 'sales_price',
+            //             render: (record) => {
+            //                 return `Price: ₱${record.sales_price}`;
+            //             }
+            //         },
+            //         {
+            //             key: 'quantity',
+            //             render: (record) => {
+            //                 return `On hand: ${record.quantity} ${record.measurement.name}`;
+            //             }
+            //         }
+            //     ]
+            // }
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
                 topColTwoRight={''}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
-                bottomColTwoRight={
-                    <Row align={'right'}>
-                        <Col span={20}><CustomPagination/></Col>
-                        <Col span={4}><KanbanTablePicker/></Col>
-                    </Row>
-                }
+                bottomColTwoRight={<CustomPagination/>}
+                // bottomColTwoRight={
+                //     <Row align={'right'}>
+                //         <Col span={20}><CustomPagination/></Col>
+                //         <Col span={4}><KanbanTablePicker/></Col>
+                //     </Row>
+                // }
             />
-            {dataState.mode === TABLE ? <CustomTable/> : null}
-            {dataState.mode === KANBAN ? <Cardination/> : null}
+            <CustomTable/>
+            {/*{dataState.mode === TABLE ? <CustomTable/> : null}*/}
+            {/*{dataState.mode === KANBAN ? <Cardination/> : null}*/}
         </TableContextProvider>
     )
 };

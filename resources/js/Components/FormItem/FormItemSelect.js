@@ -40,6 +40,16 @@ const FormItemSelect = (props) => {
 
     const [formItemProps, fieldProps] = formItemFieldProps(props, specialFieldProps);
 
+    function isLoading() {
+        if (formContext.formState.loading) {
+            return true;
+        }
+        if (props.hasOwnProperty('optionsLoading') && (props.optionsLoading || props.optionsLoading === undefined)) {
+            return true;
+        }
+        return false;
+    }
+
     useEffect(() => {
         if (props.listName) {
             props.addSelf(props.fieldKey);
@@ -53,7 +63,8 @@ const FormItemSelect = (props) => {
 
     return (
         <Form.Item {...formItemProps}>
-            {formContext.formState.loading || props.optionsLoading ? <CustomInputSkeleton {...props}/> :
+            {isLoading() ?
+                <CustomInputSkeleton {...props}/> :
                 <Select {...fieldProps}>
                     {props.options && props.options.map((option) => {
                         return (

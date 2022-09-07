@@ -1,12 +1,14 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import useFetchCatcherHook from "./useFetchCatcherHook";
 import useFetchHook from "./useFetchHook";
 import {GET, POST, PUT} from "../consts";
 import {formatInitialValuesDatetimeToMoment} from "../Helpers/object";
 import moment from "moment";
+import {AppContext} from "../App";
 
 const useFormHook = (id, form, manifest, getInitialValues = false) => {
+    const appContext = useContext(AppContext);
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const history = useHistory();
@@ -58,7 +60,7 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
 
             for (let key in values) {
                 if (values.hasOwnProperty(key)) {
-                    if(values[key] instanceof moment){
+                    if (values[key] instanceof moment) {
                         values[key] = values[key].format('YYYY-MM-DD HH:mm:ss');
                     }
                 }
@@ -139,8 +141,10 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
      * Fetch data once on initial load
      */
     useEffect(() => {
-        formActions.fetchData();
-    }, []);
+        if (!appContext.appState.appInitialLoad) {
+            formActions.fetchData();
+        }
+    }, [appContext.appState.appInitialLoad]);
 
     return [formState, formActions];
 };

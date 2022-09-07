@@ -41,4 +41,3 @@ export const selectTimeOptions = () => {
         {value: '06_00_PM_07_00_PM', label: '06:00 PM - 07:00 PM'},
     ];
 }
-
