@@ -27,7 +27,7 @@ class GlobalSetting extends Model
 
     public function scopeLatestFirst($query)
     {
-        return $query->latest()->first();
+        return $query->orderBy('id', 'desc')->first();
     }
 
     public function inventoryDefaultMeasurementCategory()
