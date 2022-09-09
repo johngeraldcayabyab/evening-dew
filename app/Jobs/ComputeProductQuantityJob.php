@@ -10,12 +10,13 @@ use App\Services\LocationCompute\InternalCompute;
 use App\Services\LocationCompute\InventoryLossCompute;
 use App\Services\LocationCompute\VendorCompute;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class ComputeProductQuantityJob implements ShouldQueue
+class ComputeProductQuantityJob implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
