@@ -6,7 +6,6 @@ use App\Data\SystemSetting;
 use App\Events\SalesOrderValidatedEvent;
 use App\Http\Requests\SalesOrderRequest;
 use App\Http\Resources\SalesOrderResource;
-use App\Jobs\PrintReceiptJob;
 use App\Models\GlobalSetting;
 use App\Models\SalesOrder;
 use App\Models\SalesOrderLine;
@@ -117,11 +116,5 @@ class SalesOrderController
             ->orderBy('time', 'asc')
             ->get();
         return $salesPerDay;
-    }
-
-    public function print_receipt(Request $request)
-    {
-        PrintReceiptJob::dispatch($request->sales_order_id);
-        return $this->responseCreate();
     }
 }
