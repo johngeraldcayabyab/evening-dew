@@ -46,8 +46,9 @@ export const AppContextProvider = AppContext.Provider;
 
 const App = () => {
         const [appState, setAppState] = useState({
-            appInitialLoad: true,
             isLogin: getCookie('Authorization'),
+            userEmail: getCookie('userEmail'),
+            appInitialLoad: true,
             user: {},
             globalSetting: {},
         });
@@ -75,7 +76,7 @@ const App = () => {
                     fetchCatcher.get(responseErr);
                 });
             }
-        }, []);
+        }, [appState.isLogin, appState.userEmail]);
 
         return (
             <BrowserRouter>
