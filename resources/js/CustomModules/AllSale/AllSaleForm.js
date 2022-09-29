@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Divider, Form, Table, Tabs} from "antd";
+import {Divider, Form, Space, Table, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
 import manifest from "./__manifest__.json";
@@ -13,7 +13,7 @@ import FormItemText from "../../Components/FormItem/FormItemText";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {GET} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
-import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
+import {isLineFieldExecute} from "../../Helpers/form";
 import FormItemDate from "../../Components/FormItem/FormItemDate";
 import FormItemTime from "../../Components/FormItem/FormItemTime";
 import FormItemStatus from "../../Components/FormItem/FormItemStatus";
@@ -29,6 +29,7 @@ import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
+import PrintPreviewButton from "../../Components/FormButtons/PrintPreviewButton";
 import ViewInvoice from "../ViewInvoice";
 
 const {TabPane} = Tabs;
@@ -78,7 +79,7 @@ const AllSaleForm = () => {
 
     function onValuesChange(changedValues, allValues) {
         setLinesShippingDate(changedValues, allValues);
-        setDefaultValuesFromCustomer(changedValues);
+        setDefaultValuesFromCustomer(changedValues, allValues);
         setDeliveryFeeByCity(changedValues, allValues);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'product_id', getProductInfoAndSetValues);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'quantity', computeSubtotal);
@@ -99,7 +100,7 @@ const AllSaleForm = () => {
         }
     }
 
-    function setDefaultValuesFromCustomer(changedValues) {
+    function setDefaultValuesFromCustomer(changedValues, allValues) {
         if (changedValues.customer_id) {
             useFetch(`/api/addresses`, GET, {
                 contact_id: changedValues.customer_id
@@ -120,6 +121,8 @@ const AllSaleForm = () => {
                     invoice_city_id: invoiceAddress.city.id,
                     delivery_city_id: deliveryAddress.city.id,
                 });
+
+                setDeliveryFeeByCity({delivery_city_id: deliveryAddress.city.id}, allValues);
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
             });
@@ -148,6 +151,12 @@ const AllSaleForm = () => {
                     form.setFieldsValue({
                         sales_order_lines: salesOrderLines
                     });
+                    if (productLineOptions.keys.length === 0) {
+                        productLineOptions.getOptions(product.name, 0);
+                    } else if (productLineOptions.keys.length > 0) {
+                        const maxProductLineOptionKey = Math.max(...productLineOptions.keys);
+                        productLineOptions.getOptions(product.name, maxProductLineOptionKey + 1);
+                    }
                 }
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
@@ -214,6 +223,11 @@ const AllSaleForm = () => {
                 <ControlPanel
                     topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={<FormButtons/>}
+                    bottomColOneRight={
+                        <Space size={'small'} key={'print-preview-button'}>
+                            <PrintPreviewButton/>
+                        </Space>
+                    }
                     bottomColTwoRight={<NextPreviousRecord/>}
                 />
                 <FormCard>

@@ -13,10 +13,9 @@ import FormItemText from "../../Components/FormItem/FormItemText";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {GET} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
-import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
+import {isLineFieldExecute} from "../../Helpers/form";
 import FormItemDate from "../../Components/FormItem/FormItemDate";
 import FormItemTime from "../../Components/FormItem/FormItemTime";
-import StatusBar from "../../Components/StatusBar";
 import FormItemStatus from "../../Components/FormItem/FormItemStatus";
 import FormLabel from "../../Components/Typography/FormLabel";
 import {objectHasValue, selectTimeOptions} from "../../Helpers/object";
@@ -30,7 +29,6 @@ import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
-import PrintReceiptButton from "../../Components/FormButtons/PrintReceiptButton";
 import PrintPreviewButton from "../../Components/FormButtons/PrintPreviewButton";
 import ViewInvoice from "../ViewInvoice";
 
@@ -81,7 +79,7 @@ const SameDayForm = () => {
 
     function onValuesChange(changedValues, allValues) {
         setLinesShippingDate(changedValues, allValues);
-        setDefaultValuesFromCustomer(changedValues);
+        setDefaultValuesFromCustomer(changedValues, allValues);
         setDeliveryFeeByCity(changedValues, allValues);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'product_id', getProductInfoAndSetValues);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'quantity', computeSubtotal);
@@ -102,7 +100,7 @@ const SameDayForm = () => {
         }
     }
 
-    function setDefaultValuesFromCustomer(changedValues) {
+    function setDefaultValuesFromCustomer(changedValues, allValues) {
         if (changedValues.customer_id) {
             useFetch(`/api/addresses`, GET, {
                 contact_id: changedValues.customer_id
@@ -123,6 +121,8 @@ const SameDayForm = () => {
                     invoice_city_id: invoiceAddress.city.id,
                     delivery_city_id: deliveryAddress.city.id,
                 });
+
+                setDeliveryFeeByCity({delivery_city_id: deliveryAddress.city.id}, allValues);
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
             });
@@ -151,6 +151,12 @@ const SameDayForm = () => {
                     form.setFieldsValue({
                         sales_order_lines: salesOrderLines
                     });
+                    if (productLineOptions.keys.length === 0) {
+                        productLineOptions.getOptions(product.name, 0);
+                    } else if (productLineOptions.keys.length > 0) {
+                        const maxProductLineOptionKey = Math.max(...productLineOptions.keys);
+                        productLineOptions.getOptions(product.name, maxProductLineOptionKey + 1);
+                    }
                 }
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
@@ -239,9 +245,11 @@ const SameDayForm = () => {
                             />
                         </ColForm>
                     </RowForm>
+
                     <RowForm>
                         <ColForm>
                             <FormItemSelect
+                                placeholder={'Search or Create a Customer'}
                                 label={'Customer'}
                                 name={'customer_id'}
                                 message={'Please select a customer'}
@@ -249,45 +257,61 @@ const SameDayForm = () => {
                                 {...customerOptions}
                                 dropdownRender={customerOptions}
                             />
+
+                            <FormItemDate
+                                placeholder={'Please Select Date'}
+                                label={'Shipping date'}
+                                name={'shipping_date'}
+                                required={true}
+                            />
+
+                            <FormItemSelect
+                                placeholder={'Please Select Time'}
+                                label={'Select Time'}
+                                name={'select_time'}
+                                required={true}
+                                options={selectTimeOptions()}
+                            />
+
                             <FormItemSelect
                                 label={'Shipping Method'}
                                 name={'shipping_method'}
+                                required={true}
                                 options={[
                                     {value: 'delivery', label: 'Delivery'},
                                     {value: 'pickup', label: 'Pickup'},
                                 ]}
                             />
-                            <FormItemSelect
-                                label={'Vehicle Type'}
-                                name={'vehicle_type'}
-                                options={[
-                                    {value: 'motorcycle', label: 'Motorcycle'},
-                                    {value: 'car', label: 'Car'},
-                                ]}
-                            />
+
                             <FormItemTextArea
+                                placeholder={'Notes and Requests here...'}
                                 label={'Notes'}
                                 name={'notes'}
                             />
+
                             <FormItemText
-                                label={'Ready by'}
-                                name={'ready_by'}
+                                label={'Source document'}
+                                name={'source_document'}
+                                required={true}
                             />
+
+
                         </ColForm>
                         <ColForm>
-                            <FormItemDate
-                                label={'Shipping date'}
-                                name={'shipping_date'}
-                            />
+
                             <FormItemDate
                                 label={'Quotation Date'}
                                 name={'quotation_date'}
                             />
+
                             <FormItemSelect
-                                label={'Select Time'}
-                                name={'select_time'}
-                                options={selectTimeOptions()}
+                                label={'Source'}
+                                name={'source_id'}
+                                disabled={true}
+                                overrideDisabled={true}
+                                {...sourceOptions}
                             />
+
 
                             <FormItemSelect
                                 label={'Courier'}
@@ -301,22 +325,46 @@ const SameDayForm = () => {
                             />
 
                             <FormItemText
-                                label={'Source document'}
-                                name={'source_document'}
+                                label={'Ready by'}
+                                name={'ready_by'}
                             />
+
                             <FormItemSelect
-                                label={'Source'}
-                                name={'source_id'}
-                                disabled={true}
-                                {...sourceOptions}
+                                label={'Vehicle Type'}
+                                name={'vehicle_type'}
+                                options={[
+                                    {value: 'motorcycle', label: 'Motorcycle'},
+                                    {value: 'car', label: 'Car'},
+                                ]}
                             />
+
+
                         </ColForm>
                     </RowForm>
                     <RowForm>
-                        <Divider orientation={'left'}>
-                            Addresses
-                        </Divider>
                         <ColForm>
+                            <Divider orientation={'left'}>
+                                Shipping Details
+                            </Divider>
+                            <FormItemText
+                                placeholder={'Type "X" if Pick up'}
+                                label={'Delivery address'}
+                                name={'delivery_address'}
+                            />
+                            <FormItemSelect
+                                label={'Delivery city'}
+                                name={'delivery_city_id'}
+                                {...deliveryCityOptions}
+                            />
+                            <FormItemText
+                                label={'Delivery Phone'}
+                                name={'delivery_phone'}
+                            />
+                        </ColForm>
+                        <ColForm>
+                            <Divider orientation={'left'}>
+                                Invoice Details
+                            </Divider>
                             <FormItemText
                                 label={'Invoice address'}
                                 name={'invoice_address'}
@@ -331,32 +379,14 @@ const SameDayForm = () => {
                                 name={'invoice_phone'}
                             />
                         </ColForm>
-                        <ColForm>
-                            <FormItemText
-                                label={'Delivery address'}
-                                name={'delivery_address'}
-                            />
-                            <FormItemSelect
-                                label={'Delivery city'}
-                                name={'delivery_city_id'}
-                                {...deliveryCityOptions}
-                            />
-                            <FormItemText
-                                label={'Delivery Phone'}
-                                name={'delivery_phone'}
-                            />
-                        </ColForm>
                     </RowForm>
-
-
                     <Divider/>
-
                     <Tabs defaultActiveKey="1">
                         <TabPane tab="Order Lines" key="1">
                             <RowForm>
                                 <ColForm lg={24}>
                                     <FormLineParent
-                                        columns={['Product', 'Description', 'Quantity', 'Unit Price', 'Subtotal']}
+                                        columns={['Product', 'Quantity', 'Description', 'Unit Price', 'Subtotal']}
                                         listName={'sales_order_lines'}
                                     >
                                         <FormItemLineId name={'id'}/>
@@ -368,16 +398,16 @@ const SameDayForm = () => {
                                             optionAggregate={productLineOptions}
                                             dropdownRender={productLineOptions}
                                         />
-                                        <FormItemText
-                                            placeholder={'Description'}
-                                            name={'description'}
-                                            listName={'sales_order_lines'}
-                                        />
                                         <FormItemNumber
                                             placeholder={'Quantity'}
                                             name={'quantity'}
                                             message={'Please input a quantity'}
                                             required={true}
+                                        />
+                                        <FormItemText
+                                            placeholder={'Description'}
+                                            name={'description'}
+                                            listName={'sales_order_lines'}
                                         />
                                         <FormItemNumber
                                             placeholder={'Unit Price'}
@@ -393,9 +423,7 @@ const SameDayForm = () => {
                                     </FormLineParent>
                                 </ColForm>
                             </RowForm>
-
                             <Divider/>
-
                             <RowForm>
                                 <ColForm lg={20}>
                                     <ViewInvoice/>
@@ -455,8 +483,6 @@ const SameDayForm = () => {
                                     </Divider>
                                 </ColForm>
                             </RowForm>
-
-
                             <RowForm>
                                 <ColForm>
                                     <Divider orientation={'left'}>
@@ -482,7 +508,6 @@ const SameDayForm = () => {
                                     </Divider>
                                 </ColForm>
                             </RowForm>
-
                             <RowForm>
                                 <ColForm>
                                     <FormItemDate
@@ -490,7 +515,6 @@ const SameDayForm = () => {
                                         name={'expiration_date'}
                                         showTime={true}
                                     />
-
                                     <FormItemSelect
                                         label={'Payment Term'}
                                         name={'payment_term_id'}
@@ -502,7 +526,6 @@ const SameDayForm = () => {
                     </Tabs>
                 </FormCard>
             </CustomForm>
-            }
         </FormContextProvider>
     );
 };

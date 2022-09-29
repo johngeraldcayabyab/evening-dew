@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Divider, Form, Table, Tabs} from "antd";
+import {Divider, Form, Space, Table, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
 import manifest from "./__manifest__.json";
@@ -13,7 +13,7 @@ import FormItemText from "../../Components/FormItem/FormItemText";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {GET} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
-import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
+import {isLineFieldExecute} from "../../Helpers/form";
 import FormItemDate from "../../Components/FormItem/FormItemDate";
 import FormItemTime from "../../Components/FormItem/FormItemTime";
 import FormItemStatus from "../../Components/FormItem/FormItemStatus";
@@ -29,6 +29,7 @@ import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
+import PrintPreviewButton from "../../Components/FormButtons/PrintPreviewButton";
 import ViewInvoice from "../ViewInvoice";
 
 const {TabPane} = Tabs;
@@ -78,7 +79,7 @@ const ManualForm = () => {
 
     function onValuesChange(changedValues, allValues) {
         setLinesShippingDate(changedValues, allValues);
-        setDefaultValuesFromCustomer(changedValues);
+        setDefaultValuesFromCustomer(changedValues, allValues);
         setDeliveryFeeByCity(changedValues, allValues);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'product_id', getProductInfoAndSetValues);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'quantity', computeSubtotal);
@@ -222,6 +223,11 @@ const ManualForm = () => {
                 <ControlPanel
                     topColOneLeft={<CustomBreadcrumb/>}
                     bottomColOneLeft={<FormButtons/>}
+                    bottomColOneRight={
+                        <Space size={'small'} key={'print-preview-button'}>
+                            <PrintPreviewButton/>
+                        </Space>
+                    }
                     bottomColTwoRight={<NextPreviousRecord/>}
                 />
                 <FormCard>
@@ -243,6 +249,7 @@ const ManualForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemSelect
+                                placeholder={'Search or Create a Customer'}
                                 label={'Customer'}
                                 name={'customer_id'}
                                 message={'Please select a customer'}
@@ -250,45 +257,62 @@ const ManualForm = () => {
                                 {...customerOptions}
                                 dropdownRender={customerOptions}
                             />
+
+                            <FormItemDate
+                                placeholder={'Please Select Date'}
+                                label={'Shipping date'}
+                                name={'shipping_date'}
+                                required={true}
+                            />
+
+                            <FormItemSelect
+                                placeholder={'Please Select Time'}
+                                label={'Select Time'}
+                                name={'select_time'}
+                                required={true}
+                                options={selectTimeOptions()}
+                            />
+
                             <FormItemSelect
                                 label={'Shipping Method'}
                                 name={'shipping_method'}
+                                required={true}
                                 options={[
                                     {value: 'delivery', label: 'Delivery'},
                                     {value: 'pickup', label: 'Pickup'},
                                 ]}
                             />
-                            <FormItemSelect
-                                label={'Vehicle Type'}
-                                name={'vehicle_type'}
-                                options={[
-                                    {value: 'motorcycle', label: 'Motorcycle'},
-                                    {value: 'car', label: 'Car'},
-                                ]}
-                            />
+
                             <FormItemTextArea
+                                placeholder={'Notes and Requests here...'}
                                 label={'Notes'}
                                 name={'notes'}
                             />
+
                             <FormItemText
-                                label={'Ready by'}
-                                name={'ready_by'}
+                                label={'Source document'}
+                                name={'source_document'}
+                                required={true}
                             />
+
+
                         </ColForm>
                         <ColForm>
-                            <FormItemDate
-                                label={'Shipping date'}
-                                name={'shipping_date'}
-                            />
+
                             <FormItemDate
                                 label={'Quotation Date'}
                                 name={'quotation_date'}
                             />
+
                             <FormItemSelect
-                                label={'Select Time'}
-                                name={'select_time'}
-                                options={selectTimeOptions()}
+                                label={'Source'}
+                                name={'source_id'}
+                                disabled={true}
+                                overrideDisabled={true}
+                                {...sourceOptions}
                             />
+
+
                             <FormItemSelect
                                 label={'Courier'}
                                 name={'courier_id'}
@@ -299,23 +323,48 @@ const ManualForm = () => {
                                 label={'Pickup Time'}
                                 name={'pickup_time'}
                             />
+
                             <FormItemText
-                                label={'Source document'}
-                                name={'source_document'}
+                                label={'Ready by'}
+                                name={'ready_by'}
                             />
+
                             <FormItemSelect
-                                label={'Source'}
-                                name={'source_id'}
-                                disabled={true}
-                                {...sourceOptions}
+                                label={'Vehicle Type'}
+                                name={'vehicle_type'}
+                                options={[
+                                    {value: 'motorcycle', label: 'Motorcycle'},
+                                    {value: 'car', label: 'Car'},
+                                ]}
                             />
+
+
                         </ColForm>
                     </RowForm>
                     <RowForm>
-                        <Divider orientation={'left'}>
-                            Addresses
-                        </Divider>
                         <ColForm>
+                            <Divider orientation={'left'}>
+                                Shipping Details
+                            </Divider>
+                            <FormItemText
+                                placeholder={'Type "X" if Pick up'}
+                                label={'Delivery address'}
+                                name={'delivery_address'}
+                            />
+                            <FormItemSelect
+                                label={'Delivery city'}
+                                name={'delivery_city_id'}
+                                {...deliveryCityOptions}
+                            />
+                            <FormItemText
+                                label={'Delivery Phone'}
+                                name={'delivery_phone'}
+                            />
+                        </ColForm>
+                        <ColForm>
+                            <Divider orientation={'left'}>
+                                Invoice Details
+                            </Divider>
                             <FormItemText
                                 label={'Invoice address'}
                                 name={'invoice_address'}
@@ -330,21 +379,6 @@ const ManualForm = () => {
                                 name={'invoice_phone'}
                             />
                         </ColForm>
-                        <ColForm>
-                            <FormItemText
-                                label={'Delivery address'}
-                                name={'delivery_address'}
-                            />
-                            <FormItemSelect
-                                label={'Delivery city'}
-                                name={'delivery_city_id'}
-                                {...deliveryCityOptions}
-                            />
-                            <FormItemText
-                                label={'Delivery Phone'}
-                                name={'delivery_phone'}
-                            />
-                        </ColForm>
                     </RowForm>
                     <Divider/>
                     <Tabs defaultActiveKey="1">
@@ -352,7 +386,7 @@ const ManualForm = () => {
                             <RowForm>
                                 <ColForm lg={24}>
                                     <FormLineParent
-                                        columns={['Product', 'Description', 'Quantity', 'Unit Price', 'Subtotal']}
+                                        columns={['Product', 'Quantity', 'Description', 'Unit Price', 'Subtotal']}
                                         listName={'sales_order_lines'}
                                     >
                                         <FormItemLineId name={'id'}/>
@@ -364,16 +398,16 @@ const ManualForm = () => {
                                             optionAggregate={productLineOptions}
                                             dropdownRender={productLineOptions}
                                         />
-                                        <FormItemText
-                                            placeholder={'Description'}
-                                            name={'description'}
-                                            listName={'sales_order_lines'}
-                                        />
                                         <FormItemNumber
                                             placeholder={'Quantity'}
                                             name={'quantity'}
                                             message={'Please input a quantity'}
                                             required={true}
+                                        />
+                                        <FormItemText
+                                            placeholder={'Description'}
+                                            name={'description'}
+                                            listName={'sales_order_lines'}
                                         />
                                         <FormItemNumber
                                             placeholder={'Unit Price'}
