@@ -93,16 +93,16 @@ class SalesOrderController
     public function initial_values(Request $request)
     {
         $initialValues = [
-            'shipping_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
+//            'shipping_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
             'quotation_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
             'measurement' => GlobalSetting::latestFirst()->inventoryDefaultSalesMeasurement,
             'number' => Sequence::generateSalesOrderSequence(),
             'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
-            'shipping_method' => Transfer::DELIVERY,
+//            'shipping_method' => Transfer::DELIVERY,
             'salesperson_id' => auth()->user()->id,
             'salesperson' => auth()->user(),
             'status' => SalesOrder::DRAFT,
-            'select_time' => '11_00_AM_01_00_PM',
+//            'select_time' => '11_00_AM_01_00_PM',
             'vehicle_type' => SalesOrder::MOTORCYCLE,
         ];
         $sourceId = (int)$request->source_id;
