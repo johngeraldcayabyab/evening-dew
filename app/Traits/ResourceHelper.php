@@ -32,11 +32,19 @@ trait ResourceHelper
     {
         $selectedResourceFields = $resource;
         if ($request->selected_fields) {
-            if (Str::contains($request->url(), $this->getTable())) {
+            if ($this->isRequestForTable($request)) {
                 $selectedFields = explode(',', $request->selected_fields);
                 $selectedResourceFields = Arr::only($selectedResourceFields, $selectedFields);
             }
         }
         return $selectedResourceFields;
+    }
+
+    private function isRequestForTable($request)
+    {
+        if (Str::contains($request->url(), $this->getTable())) {
+            return true;
+        }
+        return false;
     }
 }
