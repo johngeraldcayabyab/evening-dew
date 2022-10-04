@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Header} from "antd/lib/layout/layout";
-import {Menu, message} from "antd";
+import {Menu, message, Spin} from "antd";
 import {AppstoreOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 import useFetchCatcherHook from "../Hooks/useFetchCatcherHook";
@@ -27,7 +27,9 @@ const CustomMenu = () => {
     const appContext = useContext(AppContext);
     const useFetch = useFetchHook();
     const [state, setState] = useState({
-        appMenu: [], appMenuChildren: [],
+        loading: true,
+        appMenu: [],
+        appMenuChildren: [],
     });
     const history = useHistory();
 
@@ -70,6 +72,7 @@ const CustomMenu = () => {
                 const appMenuChildren = appMenu[index].children;
                 setState((prevState) => ({
                     ...prevState,
+                    loading: false,
                     appMenu: appMenu,
                     appMenuChildren: appMenuChildren,
                 }));
@@ -83,7 +86,8 @@ const CustomMenu = () => {
         useFetch('/api/logout', POST).then((response) => {
             eraseCookie('Authorization');
             appContext.setAppState((prevState) => ({
-                ...prevState, isLogin: false,
+                ...prevState,
+                isLogin: false,
             }));
             setBreadcrumbs([]);
             setClickedBreadcrumb({});
@@ -97,7 +101,9 @@ const CustomMenu = () => {
     const sectionMenu = state.appMenuChildren.map((menu) => {
         if (menu.children.length) {
             return {
-                label: menu.label, key: `section-menu-${menu.id}`, children: menu.children.map((child) => ({
+                label: menu.label,
+                key: `section-menu-${menu.id}`,
+                children: menu.children.map((child) => ({
                     label: child.menu_id ? <Link
                         to={child.menu.url}
                         onClick={() => {
@@ -117,32 +123,58 @@ const CustomMenu = () => {
         }
     });
 
-    const items = [{
-        label: '', key: 'app-menu', icon: <AppstoreOutlined/>, children: state.appMenu.map((appMenu) => ({
-            label: <Link to={appMenu.menu.url}>{appMenu.label}</Link>, key: `app-menu-${appMenu.id}`, onClick: () => {
-                const index = state.appMenu.findIndex(m => m.id === appMenu.id);
-                resetBreadcrumbs(appMenu.menu.url);
-                setState((prevState) => ({
-                    ...prevState, appMenuChildren: state.appMenu[index].children
-                }));
-            }
-        })),
-    }, ...sectionMenu, {
-        label: '', key: 'systray-menu', icon: <AvatarUser/>, className: 'top-nav-avatar', children: [{
-            label: 'Logout', onClick: () => {
-                onLogout()
-            }
-        },]
-    },];
+    const items = [
+        {
+            label: '',
+            key: 'app-menu',
+            icon: <AppstoreOutlined/>,
+            children: state.appMenu.map((appMenu) => ({
+                label: <Link to={appMenu.menu.url}>{appMenu.label}</Link>,
+                key: `app-menu-${appMenu.id}`,
+                onClick: () => {
+                    const index = state.appMenu.findIndex(m => m.id === appMenu.id);
+                    resetBreadcrumbs(appMenu.menu.url);
+                    setState((prevState) => ({
+                        ...prevState, appMenuChildren: state.appMenu[index].children
+                    }));
+                }
+            })),
+        },
+        ...sectionMenu,
+        {
+            label: '',
+            key: 'systray-menu',
+            icon: <AvatarUser/>,
+            className: 'top-nav-avatar',
+            children: [{
+                label: 'Logout', onClick: () => {
+                    onLogout()
+                }
+            },]
+        },
+    ];
 
     if (appContext.appState.isLogin) {
-        return (<Header
-            style={{
-                position: 'fixed', zIndex: 1, width: '100%', padding: 0, height: '50px', lineHeight: '50px'
-            }}
-        >
-            <Menu theme={'dark'} mode={'horizontal'} items={items}/>
-        </Header>);
+        return (
+            <Spin spinning={state.loading}>
+                <Header
+                    style={{
+                        position: 'fixed',
+                        zIndex: 1,
+                        width: '100%',
+                        padding: 0,
+                        height: '50px',
+                        lineHeight: '50px',
+                    }}
+                >
+                    <Menu
+                        theme={'dark'}
+                        mode={'horizontal'}
+                        items={items}
+                    />
+                </Header>
+            </Spin>
+        );
     }
     return null;
 }
