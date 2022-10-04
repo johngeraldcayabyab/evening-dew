@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
@@ -13,7 +13,7 @@ import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
-import {GET, POST} from "../../consts";
+import {GET} from "../../consts";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import useFetchHook from "../../Hooks/useFetchHook";
 import {FormContextProvider} from "../../Contexts/FormContext";
