@@ -42,19 +42,6 @@ const RegionTable = () => {
                     filter: SEARCH,
                 },
                 {
-                    title: 'Country',
-                    dataIndex: 'country',
-                    key: 'country',
-                    sorter: true,
-                    filter: SEARCH,
-                    render: (text, record) => {
-                        if (record.country) {
-                            return record.country.country_name;
-                        }
-                        return null;
-                    }
-                },
-                {
                     title: 'Created At',
                     dataIndex: 'created_at',
                     key: 'created_at',
