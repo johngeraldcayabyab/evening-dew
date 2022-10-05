@@ -53,6 +53,11 @@ class Material extends Model implements Sluggable
         return $this->hasMany(MaterialLine::class);
     }
 
+    public function measurement()
+    {
+        return $this->belongsTo(Measurement::class);
+    }
+
     public function slug()
     {
         return 'reference';

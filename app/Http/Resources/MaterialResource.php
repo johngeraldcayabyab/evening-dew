@@ -20,6 +20,7 @@ class MaterialResource extends JsonResource
             'flexible_consumption' => $this->flexible_consumption,
             'product' => $this->product,
             'material_lines' => MaterialLineResource::collection($this->materialLines),
+            'measurement' => new MeasurementResource($this->measurement),
             'slug' => $this->$slug,
         ]);
     }
