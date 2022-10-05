@@ -2,6 +2,8 @@ import {useState} from "react";
 import useFetchHook from "./useFetchHook";
 import {DELETE, GET, POST} from "../consts";
 import useFetchCatcherHook from "./useFetchCatcherHook";
+import {getPayload, getPayloadModule, setPayload, setPayloadModule} from "../Helpers/localstorage";
+import {objectHasValue} from "../Helpers/object";
 
 const useListHook = (manifest) => {
     const useFetch = useFetchHook();
@@ -48,6 +50,11 @@ const useListHook = (manifest) => {
             }
         },
         renderData: (params = {}) => {
+            if (manifest.moduleName === getPayloadModule()) {
+                params = {...getPayload(), ...params};
+            }
+            setPayload(params);
+            setPayloadModule(manifest.moduleName);
             useFetch(`/api/${manifest.moduleName}`, GET, params).then((response) => {
                 setTableState(state => ({
                     ...state,

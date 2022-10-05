@@ -12,6 +12,7 @@ import {AppContext} from "../App";
 import {setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import AvatarUser from "./AvatarUser";
+import {setPayload, setPayloadModule} from "../Helpers/localstorage";
 
 function resetBreadcrumbs(url) {
     let splitPathName = url.split('/');
@@ -91,6 +92,8 @@ const CustomMenu = () => {
             }));
             setBreadcrumbs([]);
             setClickedBreadcrumb({});
+            setPayload({});
+            setPayloadModule('');
             history.push('/login');
             message.success('Logged Out!');
         }).catch((responseErr) => {
