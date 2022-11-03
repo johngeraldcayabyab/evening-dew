@@ -16,15 +16,18 @@ const FormItemSelect = (props) => {
         onSearch: props.onSearch,
         optionFilterProp: "children",
         filterOption: [],
-        onClear: () => {
+        onPopupScroll: props.onPopupScroll,
+        listHeight: 150,
+    };
+
+    if (props.onClear) {
+        specialFieldProps.onClear = () => {
             props.onClear();
             setState(() => ({
                 isClear: true,
             }));
-        },
-        onPopupScroll: props.onPopupScroll,
-        listHeight: 150,
-    };
+        }
+    }
 
     useEffect(() => {
         if (state.isClear) {
