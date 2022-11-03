@@ -33,13 +33,13 @@ const MaterialForm = () => {
     const [formState, formActions] = useFormHook(id, form, manifest, true);
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
-    const productOptions = useOptionHook('/api/products', 'product.name');
+    const productOptions = useOptionHook('/api/products', 'product.name', {product_type: 'consumable'});
     const measurementOptions = useOptionHook('/api/measurements', 'measurement.name');
-    const productLineOptions = useOptionLineHook('/api/products', 'product.name');
+    const productLineOptions = useOptionLineHook('/api/products', 'product.name', {product_type: 'storable'});
     const measurementLineOptions = useOptionLineHook('/api/measurements', 'measurement.name');
 
     useEffect(() => {
-        productOptions.getInitialOptions(formState, {product_type: 'consumable'});
+        productOptions.getInitialOptions(formState);
         measurementOptions.getInitialOptions(formState);
         productLineOptions.getInitialOptions(formState, 'material_lines');
         measurementLineOptions.getInitialOptions(formState, 'material_lines');

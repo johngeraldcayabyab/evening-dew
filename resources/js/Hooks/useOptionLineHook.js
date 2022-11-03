@@ -38,6 +38,7 @@ const useOptionLineHook = (url, tableField) => {
                     ...params
                 };
             }
+            console.log(payload);
             useFetch(`${url}`, GET, payload).then((response) => {
                 const data = response.data;
                 const meta = state.meta;
@@ -134,16 +135,12 @@ const useOptionLineHook = (url, tableField) => {
                 }
             }
         },
-        getInitialOptions: (formState, lineName, customParams = null) => {
-            //Option Line Hook doesnt have a custom param
+        getInitialOptions: (formState, lineName) => {
             if (!formState.initialLoad) {
                 if (objectHasValue(formState.initialValues) && formState.initialValues.hasOwnProperty(lineName)) {
                     formState.initialValues[lineName].forEach((line, key) => {
                         let initialParams = getFieldFromInitialValues(line, tableField);
                         initialParams = {id: initialParams};
-                        if (customParams) {
-                            initialParams = {...initialParams, ...customParams};
-                        }
                         optionActions.getOptions(initialParams, key);
                     });
                 }

@@ -118,7 +118,7 @@ const useOptionHook = (url, tableField) => {
         onDropdownVisibleChange: (open) => {
             console.log(open);
         },
-        getInitialOptions: (formState, customParams = null) => {
+        getInitialOptions: (formState) => {
             if (!formState.initialLoad) {
                 let initialParams = null;
                 if (objectHasValue(formState.initialValues)) {
@@ -126,9 +126,6 @@ const useOptionHook = (url, tableField) => {
                 }
                 if (initialParams) {
                     initialParams = {id: initialParams};
-                }
-                if (customParams) {
-                    initialParams = {...initialParams, ...customParams};
                 }
                 optionActions.getOptions(initialParams);
             }
