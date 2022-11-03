@@ -14,9 +14,9 @@ class GenerateStockMovementFromValidatedTransferListener implements ShouldQueue
     public function handle(TransferValidatedEvent $event)
     {
         $transfer = $event->transfer;
+        $stockMovementData = [];
         if (!$transfer->isDone($transfer->status)) {
             $transferLines = $transfer->transferLines;
-            $stockMovementData = [];
             foreach ($transferLines as $transferLine) {
                 $product = $transferLine->product;
                 $sourceLocationId = $transfer->source_location_id;
@@ -51,23 +51,23 @@ class GenerateStockMovementFromValidatedTransferListener implements ShouldQueue
                     );
                 }
             }
-            if (count($stockMovementData)) {
-                StockMovement::massUpsert($stockMovementData);
-                $transferLineStockMovementLines = [];
-                $transferLines = $transfer->transferLines;
-                foreach ($transferLines as $transferLine) {
-                    $stockMovement = StockMovement::where('product_id', $transferLine->product_id)
-                        ->where('created_at', $transferLine->created_at)
-                        ->first();
-                    $transferLineStockMovementLines[] = [
-                        'transfer_id' => $transfer->id,
-                        'transfer_line_id' => $transferLine->id,
-                        'stock_movement_id' => $stockMovement->id,
-                    ];
-                }
-                if (count($transferLineStockMovementLines)) {
-                    TransferLineStockMovement::massUpsert($transferLineStockMovementLines);
-                }
+        }
+        if (count($stockMovementData)) {
+            StockMovement::massUpsert($stockMovementData);
+            $transferLineStockMovementLines = [];
+            $transferLines = $transfer->transferLines;
+            foreach ($transferLines as $transferLine) {
+                $stockMovement = StockMovement::where('product_id', $transferLine->product_id)
+                    ->where('created_at', $transferLine->created_at)
+                    ->first();
+                $transferLineStockMovementLines[] = [
+                    'transfer_id' => $transfer->id,
+                    'transfer_line_id' => $transferLine->id,
+                    'stock_movement_id' => $stockMovement->id,
+                ];
+            }
+            if (count($transferLineStockMovementLines)) {
+                TransferLineStockMovement::massUpsert($transferLineStockMovementLines);
             }
         }
     }
