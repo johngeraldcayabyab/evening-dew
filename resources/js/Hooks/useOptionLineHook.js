@@ -40,9 +40,9 @@ const useOptionLineHook = (url, tableField) => {
             }
             useFetch(`${url}`, GET, payload).then((response) => {
                 const data = response.data;
+                const meta = state.meta;
                 const options = state.options;
                 const optionsLoading = state.optionsLoading;
-                const meta = state.meta;
                 const searchState = state.search;
                 options[key] = data.map((option) => ({
                     value: option.id,
