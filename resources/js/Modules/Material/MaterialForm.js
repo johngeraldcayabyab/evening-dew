@@ -129,7 +129,8 @@ const MaterialForm = () => {
                             <RowForm>
                                 <ColForm lg={24}>
                                     <FormLineParent
-                                        columns={['Product', 'Quantity', 'Measurement']}
+                                        columns={[<>Product <Tooltip
+                                            title="Product type should be storable"><InfoCircleOutlined/></Tooltip></>, 'Quantity', 'Measurement']}
                                         listName={'material_lines'}
                                     >
                                         <FormItemLineId

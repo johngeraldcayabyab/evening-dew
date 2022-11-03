@@ -5,7 +5,7 @@ import useFetchCatcherHook from "./useFetchCatcherHook";
 import {objectHasValue} from "../Helpers/object";
 import {getFieldFromInitialValues} from "../Helpers/form";
 
-const useOptionHook = (url, tableField) => {
+const useOptionHook = (url, tableField, customParams = null) => {
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
@@ -36,6 +36,12 @@ const useOptionHook = (url, tableField) => {
                     ...payload,
                     ...params
                 };
+                if (customParams) {
+                    payload = {
+                        ...payload,
+                        ...customParams
+                    }
+                }
             }
             useFetch(`${url}`, GET, payload).then((response) => {
                 const data = response.data;
