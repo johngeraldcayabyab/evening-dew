@@ -125,8 +125,8 @@ class SalesOrderController
 
         if ($request->date_unit === 'date') {
             $salesPerDay = DB::table('sales_orders')
-                ->selectRaw('DATE(quotation_date) as year, SUM(subtotal) as total')
-                ->whereBetween('quotation_date', [$from, $to]);
+                ->selectRaw('DATE(shipping_date) as year, SUM(subtotal) as total')
+                ->whereBetween('shipping_date', [$from, $to]);
             if ($request->source_id) {
                 $salesPerDay = $salesPerDay->where('source_id', $request->source_id);
             }
@@ -138,8 +138,8 @@ class SalesOrderController
 
         if ($request->date_unit === 'month') {
             $salesPerDay = DB::table('sales_orders')
-                ->selectRaw('YEAR(quotation_date) as year,MONTH(quotation_date) as month,  SUM(subtotal) as total')
-                ->whereBetween('quotation_date', [$from, $to]);
+                ->selectRaw('YEAR(shipping_date) as year,MONTH(shipping_date) as month,  SUM(subtotal) as total')
+                ->whereBetween('shipping_date', [$from, $to]);
             if ($request->source_id) {
                 $salesPerDay = $salesPerDay->where('source_id', $request->source_id);
             }
@@ -153,7 +153,7 @@ class SalesOrderController
 
         if ($request->date_unit === 'year') {
             $salesPerDay = DB::table('sales_orders')
-                ->selectRaw('YEAR(quotation_date) as year, SUM(subtotal) as total')
+                ->selectRaw('YEAR(shipping_date) as year, SUM(subtotal) as total')
                 ->whereBetween('quotation_date', [$from, $to]);
             if ($request->source_id) {
                 $salesPerDay = $salesPerDay->where('source_id', $request->source_id);
