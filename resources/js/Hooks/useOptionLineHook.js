@@ -22,23 +22,23 @@ const useOptionLineHook = (url, tableField) => {
     }
 
     const optionActions = {
-        getOptions: (search = null, key) => {
+        getOptions: (params = null, key) => {
             const field = getField();
-            let params = {
+            let payload = {
                 page_size: SELECT_PAGE_SIZE,
                 selected_fields: ['id', 'slug', 'tag'],
                 orderByColumn: field,
                 orderByDirection: 'asc',
             };
-            if (typeof search === 'string') {
-                params[field] = search;
-            } else if (typeof search === 'object') {
-                params = {
-                    ...params,
-                    ...search
+            if (typeof params === 'string') {
+                payload[field] = params;
+            } else if (typeof params === 'object') {
+                payload = {
+                    ...payload,
+                    ...params
                 };
             }
-            useFetch(`${url}`, GET, params).then((response) => {
+            useFetch(`${url}`, GET, payload).then((response) => {
                 const data = response.data;
                 const options = state.options;
                 const optionsLoading = state.optionsLoading;
@@ -51,7 +51,7 @@ const useOptionLineHook = (url, tableField) => {
                 }));
                 optionsLoading[key] = false;
                 meta[key] = response.meta;
-                searchState[key] = search;
+                searchState[key] = params;
                 const keys = state.keys;
                 keys.push(key);
                 setState((prevState) => ({
@@ -76,10 +76,10 @@ const useOptionLineHook = (url, tableField) => {
         },
         onCreate: (key) => {
             const values = state.values;
-            const params = {};
-            params[getField()] = values[key];
+            const payload = {};
+            payload[getField()] = values[key];
             values[key] = null;
-            useFetch(`${url}`, POST, params).then((response) => {
+            useFetch(`${url}`, POST, payload).then((response) => {
                 setState(prevState => ({
                     ...prevState,
                     values: values
@@ -100,15 +100,15 @@ const useOptionLineHook = (url, tableField) => {
             if (!state.optionsLoading[key] && target.scrollTop + target.offsetHeight === target.scrollHeight) {
                 if (state.meta[key].current_page !== state.meta[key].last_page) {
                     const field = getField();
-                    let params = {
+                    let payload = {
                         page_size: SELECT_PAGE_SIZE,
                         selected_fields: ['id', 'slug', 'tag'],
                         orderByColumn: field,
                         orderByDirection: 'asc',
                         page: state.meta[key].current_page + 1
                     };
-                    params[field] = state.search[key];
-                    useFetch(`${url}`, GET, params).then((response) => {
+                    payload[field] = state.search[key];
+                    useFetch(`${url}`, GET, payload).then((response) => {
                         const data = response.data;
                         const meta = state.meta;
                         const options = state.options;
