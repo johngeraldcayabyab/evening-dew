@@ -119,7 +119,7 @@ const useOptionHook = (url, tableField) => {
             if (!formState.initialLoad) {
                 let initialValue = null;
                 if (objectHasValue(formState.initialValues)) {
-                    initialValue = getFieldFromInitialValues(formState.initialValues);
+                    initialValue = getFieldFromInitialValues(formState.initialValues, tableField);
                 }
                 if (initialValue) {
                     initialValue = {id: initialValue};

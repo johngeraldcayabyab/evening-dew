@@ -139,7 +139,7 @@ const useOptionLineHook = (url, tableField) => {
             if (!formState.initialLoad) {
                 if (objectHasValue(formState.initialValues) && formState.initialValues.hasOwnProperty(lineName)) {
                     formState.initialValues[lineName].forEach((line, key) => {
-                        const field = getFieldFromInitialValues(line);
+                        const field = getFieldFromInitialValues(line, tableField);
                         optionActions.getOptions({id: field}, key);
                     });
                 }
