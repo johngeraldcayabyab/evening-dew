@@ -21,23 +21,23 @@ const useOptionHook = (url, tableField) => {
     }
 
     const optionActions = {
-        getOptions: (search = null) => {
+        getOptions: (params = null) => {
             const field = getField();
-            let params = {
+            let payload = {
                 page_size: SELECT_PAGE_SIZE,
                 selected_fields: ['id', 'slug', 'tag'],
                 orderByColumn: field,
                 orderByDirection: 'asc',
             };
-            if (typeof search === 'string') {
-                params[field] = search;
-            } else if (typeof search === 'object') {
-                params = {
-                    ...params,
-                    ...search
+            if (typeof params === 'string') {
+                payload[field] = params;
+            } else if (typeof params === 'object') {
+                payload = {
+                    ...payload,
+                    ...params
                 };
             }
-            useFetch(`${url}`, GET, params).then((response) => {
+            useFetch(`${url}`, GET, payload).then((response) => {
                 const data = response.data;
                 const meta = response.meta;
                 setState((prevState) => ({
@@ -49,7 +49,7 @@ const useOptionHook = (url, tableField) => {
                     })),
                     optionsLoading: false,
                     meta: meta,
-                    search: search,
+                    search: params,
                 }));
             }).catch((responseErr) => {
                 fetchCatcher.get(responseErr);
@@ -62,9 +62,9 @@ const useOptionHook = (url, tableField) => {
             }));
         },
         onCreate: () => {
-            const params = {};
-            params[getField()] = state.value;
-            useFetch(`${url}`, POST, params).then((response) => {
+            const payload = {};
+            payload[getField()] = state.value;
+            useFetch(`${url}`, POST, payload).then((response) => {
                 setState(prevState => ({
                     ...prevState,
                     value: null
@@ -85,15 +85,15 @@ const useOptionHook = (url, tableField) => {
             if (!state.optionsLoading && target.scrollTop + target.offsetHeight === target.scrollHeight) {
                 if (state.meta.current_page !== state.meta.last_page) {
                     const field = getField();
-                    let params = {
+                    let payload = {
                         page_size: SELECT_PAGE_SIZE,
                         selected_fields: ['id', 'slug', 'tag'],
                         orderByColumn: field,
                         orderByDirection: 'asc',
                         page: state.meta.current_page + 1
                     };
-                    params[field] = state.search;
-                    useFetch(`${url}`, GET, params).then((response) => {
+                    payload[field] = state.search;
+                    useFetch(`${url}`, GET, payload).then((response) => {
                         const data = response.data;
                         const meta = response.meta;
                         const options = state.options;
@@ -120,17 +120,17 @@ const useOptionHook = (url, tableField) => {
         },
         getInitialOptions: (formState, customParams = null) => {
             if (!formState.initialLoad) {
-                let initialValue = null;
+                let initialParams = null;
                 if (objectHasValue(formState.initialValues)) {
-                    initialValue = getFieldFromInitialValues(formState.initialValues, tableField);
+                    initialParams = getFieldFromInitialValues(formState.initialValues, tableField);
                 }
-                if (initialValue) {
-                    initialValue = {id: initialValue};
+                if (initialParams) {
+                    initialParams = {id: initialParams};
                 }
                 if (customParams) {
-                    initialValue = {...initialValue, ...customParams};
+                    initialParams = {...initialParams, ...customParams};
                 }
-                optionActions.getOptions(initialValue);
+                optionActions.getOptions(initialParams);
             }
         }
     }
