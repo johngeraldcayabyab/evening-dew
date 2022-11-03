@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Form, Tabs} from "antd";
+import {Form, Tabs, Tooltip} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
 import manifest from "./__manifest__.json";
@@ -23,6 +23,7 @@ import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import {InfoCircleOutlined} from "@ant-design/icons";
 
 const {TabPane} = Tabs;
 
@@ -38,7 +39,7 @@ const MaterialForm = () => {
     const measurementLineOptions = useOptionLineHook('/api/measurements', 'measurement.name');
 
     useEffect(() => {
-        productOptions.getInitialOptions(formState);
+        productOptions.getInitialOptions(formState, {product_type: 'consumable'});
         measurementOptions.getInitialOptions(formState);
         productLineOptions.getInitialOptions(formState, 'material_lines');
         measurementLineOptions.getInitialOptions(formState, 'material_lines');
@@ -87,7 +88,8 @@ const MaterialForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemSelect
-                                label={'Product'}
+                                label={<>Product <Tooltip
+                                    title="Product type should be consumable or service"><InfoCircleOutlined/></Tooltip></>}
                                 name={'product_id'}
                                 message={'Please select a product'}
                                 required={true}
