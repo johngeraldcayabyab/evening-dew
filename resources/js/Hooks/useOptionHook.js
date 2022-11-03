@@ -3,6 +3,7 @@ import {GET, POST, SELECT_PAGE_SIZE} from "../consts";
 import useFetchHook from "./useFetchHook";
 import useFetchCatcherHook from "./useFetchCatcherHook";
 import {objectHasValue} from "../Helpers/object";
+import {getFieldFromInitialValues} from "../Helpers/form";
 
 const useOptionHook = (url, tableField) => {
     const useFetch = useFetchHook();
@@ -114,26 +115,11 @@ const useOptionHook = (url, tableField) => {
                 }
             }
         },
-
-        getFieldFromInitialValues: (initialValues) => {
-            let field = initialValues;
-            const fields = tableField.split('.');
-            fields.pop();
-            fields.push('id');
-            fields.forEach((query) => {
-                if (field && query in field) {
-                    field = field[query];
-                } else {
-                    field = null;
-                }
-            });
-            return field;
-        },
         getInitialOptions: (formState, customParams = null) => {
             if (!formState.initialLoad) {
                 let initialValue = null;
                 if (objectHasValue(formState.initialValues)) {
-                    initialValue = optionActions.getFieldFromInitialValues(formState.initialValues);
+                    initialValue = getFieldFromInitialValues(formState.initialValues);
                 }
                 if (initialValue) {
                     initialValue = {id: initialValue};

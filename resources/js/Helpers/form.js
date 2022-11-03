@@ -107,3 +107,19 @@ export const isOnlyTwoProperty = (line) => {
     }
     return false;
 }
+
+
+export const getFieldFromInitialValues = (initialValues, tableField) => {
+    let field = initialValues;
+    const fields = tableField.split('.');
+    fields.pop();
+    fields.push('id');
+    fields.forEach((query) => {
+        if (field && query in field) {
+            field = field[query];
+        } else {
+            field = null;
+        }
+    });
+    return field;
+}
