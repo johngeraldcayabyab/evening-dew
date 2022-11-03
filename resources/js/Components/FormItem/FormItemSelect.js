@@ -29,6 +29,12 @@ const FormItemSelect = (props) => {
         }
     }
 
+    if (props.onDropdownVisibleChange) {
+        specialFieldProps.onDropdownVisibleChange = (open) => {
+            props.onDropdownVisibleChange(open);
+        }
+    }
+
     useEffect(() => {
         if (state.isClear) {
             if (props.isListField) {

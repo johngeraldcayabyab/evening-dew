@@ -115,6 +115,9 @@ const useOptionHook = (url, tableField) => {
                 }
             }
         },
+        onDropdownVisibleChange: (open) => {
+            console.log(open);
+        },
         getInitialOptions: (formState, customParams = null) => {
             if (!formState.initialLoad) {
                 let initialValue = null;
