@@ -134,13 +134,16 @@ const useOptionLineHook = (url, tableField) => {
                 }
             }
         },
-        getInitialOptions: (formState, lineName) => {
+        getInitialOptions: (formState, lineName, customParams = null) => {
             //Option Line Hook doesnt have a custom param
             if (!formState.initialLoad) {
                 if (objectHasValue(formState.initialValues) && formState.initialValues.hasOwnProperty(lineName)) {
                     formState.initialValues[lineName].forEach((line, key) => {
                         let initialParams = getFieldFromInitialValues(line, tableField);
                         initialParams = {id: initialParams};
+                        if (customParams) {
+                            initialParams = {...initialParams, ...customParams};
+                        }
                         optionActions.getOptions(initialParams, key);
                     });
                 }
