@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Form, Tabs, Tooltip} from "antd";
+import {Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
 import manifest from "./__manifest__.json";
@@ -23,7 +23,6 @@ import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
-import {InfoCircleOutlined} from "@ant-design/icons";
 
 const {TabPane} = Tabs;
 
@@ -33,9 +32,9 @@ const MaterialForm = () => {
     const [formState, formActions] = useFormHook(id, form, manifest, true);
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
-    const productOptions = useOptionHook('/api/products', 'product.name', {product_type: 'consumable'});
+    const productOptions = useOptionHook('/api/products', 'product.name');
     const measurementOptions = useOptionHook('/api/measurements', 'measurement.name');
-    const productLineOptions = useOptionLineHook('/api/products', 'product.name', {product_type: 'storable'});
+    const productLineOptions = useOptionLineHook('/api/products', 'product.name');
     const measurementLineOptions = useOptionLineHook('/api/measurements', 'measurement.name');
 
     useEffect(() => {
@@ -88,8 +87,7 @@ const MaterialForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemSelect
-                                label={<>Product <Tooltip
-                                    title="Product type should be consumable or service"><InfoCircleOutlined/></Tooltip></>}
+                                label={'Product'}
                                 name={'product_id'}
                                 message={'Please select a product'}
                                 required={true}
@@ -129,8 +127,7 @@ const MaterialForm = () => {
                             <RowForm>
                                 <ColForm lg={24}>
                                     <FormLineParent
-                                        columns={[<>Product <Tooltip
-                                            title="Product type should be storable"><InfoCircleOutlined/></Tooltip></>, 'Quantity', 'Measurement']}
+                                        columns={['Product', 'Quantity', 'Measurement']}
                                         listName={'material_lines'}
                                     >
                                         <FormItemLineId
