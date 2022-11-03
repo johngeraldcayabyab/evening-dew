@@ -148,6 +148,7 @@ const useOptionLineHook = (url, tableField) => {
             return field;
         },
         getInitialOptions: (formState, lineName) => {
+            //Option Line Hook doesnt have a custom param
             if (!formState.initialLoad) {
                 if (objectHasValue(formState.initialValues) && formState.initialValues.hasOwnProperty(lineName)) {
                     formState.initialValues[lineName].forEach((line, key) => {
