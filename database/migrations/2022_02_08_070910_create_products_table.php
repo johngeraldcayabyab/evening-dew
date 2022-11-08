@@ -12,6 +12,8 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('product_type');
+            $table->boolean('can_be_sold')->default(true);
+            $table->boolean('can_be_purchased')->default(true);
             $table->string('invoicing_policy');
             $table->double('sales_price');
             $table->double('cost');
