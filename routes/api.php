@@ -30,6 +30,7 @@ use App\Http\Controllers\StockMovementController;
 use App\Http\Controllers\TransferController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserGroupController;
 use App\Http\Controllers\WarehouseController;
 use App\Models\Address;
 use App\Models\Adjustment;
@@ -58,6 +59,7 @@ use App\Models\Source;
 use App\Models\StockMovement;
 use App\Models\Transfer;
 use App\Models\User;
+use App\Models\UserGroup;
 use App\Models\Warehouse;
 use App\Services\RouteGenerator;
 use Illuminate\Support\Facades\Route;
@@ -104,6 +106,7 @@ Route::group(['middleware' => ['api', 'cors']], function () {
         Route::post('uploads/images', [UploadController::class, 'image']);
     });
     (new RouteGenerator(User::class))::generate(UserController::class);
+    (new RouteGenerator(UserGroup::class))::generate(UserGroupController::class);
     (new RouteGenerator(Warehouse::class))::generate(WarehouseController::class);
 });
 

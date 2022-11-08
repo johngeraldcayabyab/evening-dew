@@ -51,6 +51,10 @@ class MenuSeeder extends Seeder
                 'url' => '/delivery_fees',
             ],
             [
+                'label' => 'Global Settings',
+                'url' => '/global_settings',
+            ],
+            [
                 'label' => 'Home',
                 'url' => '/home',
             ],
@@ -123,8 +127,8 @@ class MenuSeeder extends Seeder
                 'url' => '/users',
             ],
             [
-                'label' => 'Global Settings',
-                'url' => '/global_settings',
+                'label' => 'Groups',
+                'url' => '/user_groups',
             ],
             [
                 'label' => 'Warehouses',

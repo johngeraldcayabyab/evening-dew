@@ -39,6 +39,7 @@ import {objectHasValue} from "./Helpers/object";
 import {GET} from "./consts";
 import useFetchHook from "./Hooks/useFetchHook";
 import useFetchCatcherHook from "./Hooks/useFetchCatcherHook";
+import UserGroupRoute from "./Modules/UserGroup/UserGroupRoute"
 
 
 export const AppContext = React.createContext({});
@@ -112,6 +113,7 @@ const App = () => {
                         <StockMovementRoute/>
                         <TransferRoute/>
                         <UserRoute/>
+                        <UserGroupRoute/>
                         <WarehouseRoute/>
                     </AppContainerWithContent>
                 </AppContextProvider>

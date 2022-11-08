@@ -1,0 +1,8 @@
+{
+    "moduleName": "user_groups",
+    "displayName": "user_groups",
+    "modelName": "UserGroup",
+    "queryDefaults": {}
+}
+
+
