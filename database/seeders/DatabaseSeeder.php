@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             SequenceSeeder::class,
             SourceSeeder::class,
             UserSeeder::class,
+            UserGroupSeeder::class,
             WarehouseSeeder::class
         ]);
     }
