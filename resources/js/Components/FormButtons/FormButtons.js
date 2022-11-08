@@ -10,26 +10,37 @@ import {Space} from "antd";
 const FormButtons = (props) => {
     return (
         <Space size={'small'}>
-            {
-                props.rights.edit ?
-                    <>
-                        <EditButton/>
-                        <SaveEditButton/>
-                        <DiscardEditButton/>
-                    </>
-                    : <></>
-            }
-            {
-                props.rights.create ?
-                    <>
-                        <FormCreateButton/>
-                        <SaveCreateButton/>
-                        <DiscardCreateButton/>
-                    </>
-                    : ''
-            }
+            <EditButton/>
+            <SaveEditButton/>
+            <DiscardEditButton/>
+            <FormCreateButton/>
+            <SaveCreateButton/>
+            <DiscardCreateButton/>
         </Space>
     )
+
+    // return (
+    //     <Space size={'small'}>
+    //         {
+    //             props.rights.edit ?
+    //                 <>
+    //                     <EditButton/>
+    //                     <SaveEditButton/>
+    //                     <DiscardEditButton/>
+    //                 </>
+    //                 : <></>
+    //         }
+    //         {
+    //             props.rights.create ?
+    //                 <>
+    //                     <FormCreateButton/>
+    //                     <SaveCreateButton/>
+    //                     <DiscardCreateButton/>
+    //                 </>
+    //                 : ''
+    //         }
+    //     </Space>
+    // )
 
     // if (props.rights) {
     //     return (

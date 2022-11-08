@@ -21,9 +21,9 @@ class UserGroupController  extends Controller
         return UserGroupResource::collection($model);
     }
 
-    public function show(UserGroup $source): JsonResponse
+    public function show(UserGroup $userGroup): JsonResponse
     {
-        return response()->json(new UserGroupResource($source));
+        return response()->json(new UserGroupResource($userGroup));
     }
 
     public function store(UserGroupRequest $request): JsonResponse
@@ -31,15 +31,15 @@ class UserGroupController  extends Controller
         return $this->responseCreate(UserGroup::create($request->validated()));
     }
 
-    public function update(UserGroupRequest $request, UserGroup $source): JsonResponse
+    public function update(UserGroupRequest $request, UserGroup $userGroup): JsonResponse
     {
-        $source->update($request->validated());
+        $userGroup->update($request->validated());
         return $this->responseUpdate();
     }
 
-    public function destroy(UserGroup $source): JsonResponse
+    public function destroy(UserGroup $userGroup): JsonResponse
     {
-        $source->delete();
+        $userGroup->delete();
         return $this->responseDelete();
     }
 
