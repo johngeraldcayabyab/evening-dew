@@ -34,14 +34,6 @@ const UserGroupTable = () => {
                     sorter: true,
                     filter: SEARCH,
                 },
-                {
-                    title: 'Created At',
-                    dataIndex: 'created_at',
-                    key: 'created_at',
-                    sorter: true,
-                    filter: DATE_RANGE,
-                    hidden: true,
-                },
             ]
         }}>
             <ControlPanel

@@ -26,7 +26,10 @@ class DatabaseSeeder extends Seeder
             SourceSeeder::class,
             UserSeeder::class,
             UserGroupSeeder::class,
-            WarehouseSeeder::class
+            WarehouseSeeder::class,
+
+
+            AccessRightSeeder::class // Need UserGroupSeeder as a pre-requisite
         ]);
     }
 }
