@@ -9,11 +9,8 @@ class UserGroupSeeder extends Seeder
 {
     public function run()
     {
-        $menus = (new MenuSeeder())->getData();
-        foreach ($menus as $menu) {
-            UserGroup::create([
-                'name' => $menu['name'] . '.administrator'
-            ]);
-        }
+        UserGroup::create([
+            'name' => 'Administrator'
+        ]);
     }
 }
