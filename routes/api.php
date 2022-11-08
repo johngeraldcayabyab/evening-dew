@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccessRightController;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdjustmentController;
@@ -32,6 +33,7 @@ use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserGroupController;
 use App\Http\Controllers\WarehouseController;
+use App\Models\AccessRight;
 use App\Models\Address;
 use App\Models\Adjustment;
 use App\Models\AppMenu;
@@ -67,6 +69,7 @@ use Spatie\Activitylog\Models\Activity;
 
 
 Route::group(['middleware' => ['api', 'cors']], function () {
+    (new RouteGenerator(AccessRight::class))::generate(AccessRightController::class);
     (new RouteGenerator(Activity::class))::generate(ActivityLogController::class);
     (new RouteGenerator(Address::class))::generate(AddressController::class);
     (new RouteGenerator(Adjustment::class))::generate(AdjustmentController::class);

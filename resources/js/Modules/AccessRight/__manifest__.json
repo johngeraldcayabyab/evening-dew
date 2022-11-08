@@ -1,0 +1,8 @@
+{
+    "moduleName": "access_rights",
+    "displayName": "access_rights",
+    "modelName": "AccessRight",
+    "queryDefaults": {}
+}
+
+

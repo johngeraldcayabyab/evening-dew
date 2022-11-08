@@ -40,6 +40,7 @@ import {GET} from "./consts";
 import useFetchHook from "./Hooks/useFetchHook";
 import useFetchCatcherHook from "./Hooks/useFetchCatcherHook";
 import UserGroupRoute from "./Modules/UserGroup/UserGroupRoute"
+import AccessRightRoute from "./Modules/AccessRight/AccessRightRoute"
 
 
 export const AppContext = React.createContext({});
@@ -83,6 +84,7 @@ const App = () => {
             <BrowserRouter>
                 <AppContextProvider value={{appState: appState, setAppState: setAppState}}>
                     <AppContainerWithContent>
+                        <AccessRightRoute/>
                         <ActivityLogRoute/>
                         <AddressRoute/>
                         <AdjustmentRoute/>
