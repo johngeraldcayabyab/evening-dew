@@ -10,7 +10,7 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
 
-const UserGroupTable = () => {
+const GroupTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
     return (
         <TableContextProvider value={{
@@ -48,5 +48,5 @@ const UserGroupTable = () => {
     )
 };
 
-export default UserGroupTable;
+export default GroupTable;
 

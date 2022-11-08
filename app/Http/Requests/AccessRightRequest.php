@@ -10,7 +10,7 @@ class AccessRightRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'user_group_id' => ['nullable', "exists:user_groups,id"],
+            'group_id' => ['nullable', "exists:groups,id"],
             'read_access' => ['nullable'],
             'write_access' => ['nullable'],
             'create_access' => ['nullable'],

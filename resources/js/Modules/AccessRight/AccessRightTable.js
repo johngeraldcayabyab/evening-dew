@@ -37,13 +37,13 @@ const AccessRightTable = () => {
                 },
                 {
                     title: 'Group',
-                    dataIndex: 'user_group',
-                    key: 'user_group',
+                    dataIndex: 'group',
+                    key: 'group',
                     sorter: true,
                     filter: SEARCH,
                     render: (text, record) => {
-                        if (record.user_group) {
-                            return record.user_group.name;
+                        if (record.group) {
+                            return record.group.name;
                         }
                         return null;
                     }

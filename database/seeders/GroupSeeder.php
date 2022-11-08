@@ -2,14 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\UserGroup;
+use App\Models\Group;
 use Illuminate\Database\Seeder;
 
-class UserGroupSeeder extends Seeder
+class GroupSeeder extends Seeder
 {
     public function run()
     {
-        UserGroup::create([
+        Group::create([
             'name' => 'Administrator'
         ]);
     }

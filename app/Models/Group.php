@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class UserGroup extends Model implements Sluggable
+class Group extends Model implements Sluggable
 {
     use HasFactory;
     use SoftDeletes;
@@ -22,7 +22,7 @@ class UserGroup extends Model implements Sluggable
     use ModelHelperTrait;
     use NextAndPreviousRecordTrait;
 
-    protected $table = 'user_groups';
+    protected $table = 'groups';
     protected $guarded = [];
     protected static $logAttributes = ['*'];
 

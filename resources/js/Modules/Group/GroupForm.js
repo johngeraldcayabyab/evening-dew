@@ -14,7 +14,7 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
 
-const UserGroupForm = () => {
+const GroupForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest);
@@ -53,4 +53,4 @@ const UserGroupForm = () => {
     );
 };
 
-export default UserGroupForm;
+export default GroupForm;

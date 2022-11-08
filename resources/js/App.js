@@ -39,7 +39,7 @@ import {objectHasValue} from "./Helpers/object";
 import {GET} from "./consts";
 import useFetchHook from "./Hooks/useFetchHook";
 import useFetchCatcherHook from "./Hooks/useFetchCatcherHook";
-import UserGroupRoute from "./Modules/UserGroup/UserGroupRoute"
+import GroupRoute from "./Modules/Group/GroupRoute"
 import AccessRightRoute from "./Modules/AccessRight/AccessRightRoute"
 
 
@@ -115,7 +115,7 @@ const App = () => {
                         <StockMovementRoute/>
                         <TransferRoute/>
                         <UserRoute/>
-                        <UserGroupRoute/>
+                        <GroupRoute/>
                         <WarehouseRoute/>
                     </AppContainerWithContent>
                 </AppContextProvider>

@@ -17,7 +17,7 @@ class AccessRightSeeder extends Seeder
         foreach ($menus as $menu) {
             AccessRight::create([
                 'name' => str_replace('/', '', $menu['url']) . '.administrator',
-                'user_group_id' => 1,
+                'group_id' => 1,
             ]);
         }
     }

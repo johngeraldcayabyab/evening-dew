@@ -48,4 +48,14 @@ class AccessRightController extends Controller
         $this->massDelete(new AccessRight(), $request);
         return $this->responseDelete();
     }
+
+    public function initial_values()
+    {
+        return [
+            'read_access' => true,
+            'write_access' => true,
+            'create_access' => true,
+            'delete_access' => true,
+        ];
+    }
 }

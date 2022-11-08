@@ -25,9 +25,9 @@ class AccessRight extends Model
     protected $guarded = [];
     protected static $logAttributes = ['*'];
 
-    public function userGroup()
+    public function group()
     {
-        return $this->belongsTo(UserGroup::class);
+        return $this->belongsTo(Group::class);
     }
 
     public function slug()

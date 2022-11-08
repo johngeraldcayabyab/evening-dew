@@ -11,7 +11,7 @@ class CreateAccessRightsTable extends Migration
         Schema::create('access_rights', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->bigInteger('user_group_id')->nullable();
+            $table->bigInteger('group_id')->nullable();
             $table->boolean('read_access')->default(true);
             $table->boolean('write_access')->default(true);
             $table->boolean('create_access')->default(true);

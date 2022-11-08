@@ -21,10 +21,10 @@ const AccessRightForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
-    const userGroupOptions = useOptionHook('/api/user_groups', 'user_group.name');
+    const groupOptions = useOptionHook('/api/groups', 'group.name');
 
     useEffect(() => {
-        userGroupOptions.getInitialOptions(formState);
+        groupOptions.getInitialOptions(formState);
     }, [formState.initialLoad]);
 
     return (
@@ -48,16 +48,16 @@ const AccessRightForm = () => {
                     <RowForm>
                         <ColForm>
                             <FormItemText
-                                label={'Address Name'}
-                                name={'address_name'}
-                                message={'Please input address name'}
+                                label={'Name'}
+                                name={'name'}
+                                message={'Please input name'}
                                 required={true}
                             />
 
                             <FormItemSelect
                                 label={'Group'}
-                                name={'user_group_id'}
-                                {...userGroupOptions}
+                                name={'group_id'}
+                                {...groupOptions}
                             />
 
                             <FormItemCheckbox

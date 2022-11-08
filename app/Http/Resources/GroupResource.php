@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use App\Traits\ResourceHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserGroupResource extends JsonResource
+class GroupResource extends JsonResource
 {
     use ResourceHelper;
 

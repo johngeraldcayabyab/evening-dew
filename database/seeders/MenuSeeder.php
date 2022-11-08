@@ -11,6 +11,10 @@ class MenuSeeder extends Seeder
     {
         return [
             [
+                'label' => 'Access Rights',
+                'url' => '/access_rights',
+            ],
+            [
                 'label' => 'Activity Logs',
                 'url' => '/activity_log',
             ],
@@ -53,6 +57,10 @@ class MenuSeeder extends Seeder
             [
                 'label' => 'Global Settings',
                 'url' => '/global_settings',
+            ],
+            [
+                'label' => 'Groups',
+                'url' => '/groups',
             ],
             [
                 'label' => 'Home',
@@ -125,10 +133,6 @@ class MenuSeeder extends Seeder
             [
                 'label' => 'Users',
                 'url' => '/users',
-            ],
-            [
-                'label' => 'Groups',
-                'url' => '/user_groups',
             ],
             [
                 'label' => 'Warehouses',

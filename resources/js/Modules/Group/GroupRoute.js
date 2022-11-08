@@ -3,24 +3,24 @@ import React from "react";
 import manifest from "./__manifest__.json";
 import {uuidv4} from "../../Helpers/string";
 
-import UserGroupTable from './UserGroupTable';
-import UserGroupForm from './UserGroupForm';
+import GroupTable from './GroupTable';
+import GroupForm from './GroupForm';
 
-const UserGroupRoute = () => {
+const GroupRoute = () => {
     const displayName = manifest.displayName;
     return (
         <Switch>
             <Route exact key={uuidv4()} path={`/${displayName}`}
-                   render={props => <UserGroupTable key={props.location.key}/>}
+                   render={props => <GroupTable key={props.location.key}/>}
             />
             <Route exact key={uuidv4()} path={`/${displayName}/create`}
-                   render={props => <UserGroupForm key={props.location.key}/>}
+                   render={props => <GroupForm key={props.location.key}/>}
             />
             <Route exact key={uuidv4()} path={`/${displayName}/:id`}
-                   render={props => <UserGroupForm key={props.location.key}/>}
+                   render={props => <GroupForm key={props.location.key}/>}
             />
         </Switch>
     );
 };
 
-export default UserGroupRoute;
+export default GroupRoute;

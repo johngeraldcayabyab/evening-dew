@@ -198,6 +198,10 @@ class AppMenuSeeder extends Seeder
                                 'label' => 'Groups',
                                 'menu_key' => 'Groups',
                             ],
+                            [
+                                'label' => 'Access Rights',
+                                'menu_key' => 'Access Rights',
+                            ],
                         ],
                     ],
                 ],
