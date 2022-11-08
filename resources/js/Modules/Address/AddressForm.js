@@ -44,7 +44,7 @@ const AddressForm = () => {
             <CustomForm>
                 <ControlPanel
                     topColOneLeft={<CustomBreadcrumb/>}
-                    bottomColOneLeft={<FormButtons/>}
+                    bottomColOneLeft={<FormButtons edit={true} create={true} />}
                     bottomColTwoRight={<NextPreviousRecord/>}
                 />
                 <FormCard>

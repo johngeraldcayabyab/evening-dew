@@ -10,4 +10,6 @@ class ActivityLog extends Activity
 {
     use FilterTrait;
     use NextAndPreviousRecordTrait;
+
+    protected $table = 'activity_log';
 }
