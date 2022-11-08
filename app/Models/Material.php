@@ -22,6 +22,11 @@ class Material extends Model implements Sluggable
     use ModelHelperTrait;
     use NextAndPreviousRecordTrait;
 
+    /**
+     * Manufacture this Product: When a need comes for the product, it will manufacture that particular product. Thus it will generate a manufacturing order for a corresponding sale order.
+     * Kit: This will help you to sell components as a kit. Kit means a set of components that are delivered to customers without assembling. One can set a BoM as a kit so that the corresponding item stock in the inventory will be adjusted accordingly when you create a Sale Order for that product.
+     * Subcontracting: Subcontracting the production of some finished products through subcontractors is a popular scene in business. To enable this feature in manufacturing, one should enable subcontracting in the configuration settings.
+     */
     const MANUFACTURE_THIS_PRODUCT = 'manufacture_this_product';
     const KIT = 'kit';
 
