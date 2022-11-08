@@ -18,6 +18,7 @@ class UserResource extends JsonResource
             'avatar' => $this->avatar ? asset("storage/images/" . $this->avatar) : null,
             'contact_id' => $this->contact_id,
             'contact' => new ContactResource($this->contact),
+            'user_group_lines' => UserGroupLineResource::collection($this->userGroupLines),
             'slug' => $this->$slug,
         ]);
     }

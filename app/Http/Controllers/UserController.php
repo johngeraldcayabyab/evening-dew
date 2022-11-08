@@ -7,10 +7,12 @@ use App\Events\UserUpdatedEvent;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Models\UserGroupLine;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 
 class UserController
@@ -32,17 +34,30 @@ class UserController
     public function store(UserRequest $request): JsonResponse
     {
         $data = $request->validated();
-        $data['password'] = Hash::make($data['password']);
-        $user = User::create($data);
-        UserCreatedEvent::dispatch($user, $data);
+        $userData = Arr::except($data, ['user_group_lines']);
+        $userData['password'] = Hash::make($userData['password']);
+        $user = User::create($userData);
+        if (isset($data['user_group_lines'])) {
+            $userGroupLinesData = $data['user_group_lines'];
+            UserGroupLine::massUpsert($userGroupLinesData, $user);
+        }
+        UserCreatedEvent::dispatch($user, $userData);
         return $this->responseCreate($user);
     }
 
     public function update(UserRequest $request, User $user): JsonResponse
     {
         $data = $request->validated();
-        $user->update($data);
-        UserUpdatedEvent::dispatch($user, $data);
+        $userData = Arr::except($data, ['user_group_lines']);
+        $user->update($userData);
+        if (isset($data['user_group_lines'])) {
+            $userGroupLinesData = $data['user_group_lines'];
+            UserGroupLine::massUpsert($userGroupLinesData, $user);
+        }
+        if (isset($data['user_group_lines_deleted'])) {
+            UserGroupLine::massDelete(collect($data['user_group_lines_deleted'])->pluck('id'));
+        }
+        UserUpdatedEvent::dispatch($user, $userData);
         return $this->responseUpdate();
     }
 

@@ -47,6 +47,7 @@ class UserGroupLine extends Model
         foreach ($data as $datum) {
             $line = [
                 'id' => isset($datum['id']) ? $datum['id'] : null,
+                'group_id' => $datum['group_id'],
                 'user_id' => $parent->id,
                 'updated_at' => $datum['updated_at'] ?? $date,
             ];

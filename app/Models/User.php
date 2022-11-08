@@ -45,6 +45,11 @@ class User extends Authenticatable implements Sluggable
         return $this->belongsTo(Contact::class);
     }
 
+    public function userGroupLines()
+    {
+        return $this->hasMany(UserGroupLine::class);
+    }
+
     public function slug()
     {
         return 'name';

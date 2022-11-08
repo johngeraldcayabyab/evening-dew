@@ -13,7 +13,12 @@ class UserRequest extends FormRequest
             'name' => "required|unique:users,name,{$id}",
             'email' => "required|unique:users,email,{$id}",
             'password' => 'nullable|confirmed|min:6',
-            'avatar' => 'nullable'
+            'avatar' => 'nullable',
+
+            'user_group_lines.*.id' => ['nullable', 'exists:user_group_lines,id'],
+            'user_group_lines.*.user_id' => ['required', "exists:users,id"],
+            'user_group_lines.*.group_id' => ["required", "exists:groups,id"],
+            'user_group_lines_deleted.*.id' => ['nullable', 'exists:user_group_lines,id'],
         ];
     }
 }

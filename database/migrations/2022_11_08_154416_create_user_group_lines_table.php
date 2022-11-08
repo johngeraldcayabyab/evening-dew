@@ -14,8 +14,6 @@ class CreateUserGroupLinesTable extends Migration
             $table->bigInteger('group_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
-            $table->softDeletes();
-            $table->timestamps();
         });
     }
 
