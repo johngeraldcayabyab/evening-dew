@@ -59,6 +59,8 @@ class ProductController
         $inventoryDefaultProductCategory = $globalSetting->inventoryDefaultProductCategory;
         return [
             'product_type' => Product::STORABLE,
+            'can_be_sold' => Product::DEFAULT_CAN_BE_SOLD,
+            'can_be_purchased' => Product::DEFAULT_CAN_BE_PURCHASED,
             'invoicing_policy' => Product::ORDERED_QUANTITIES,
             'sales_price' => Product::DEFAULT_SALES_PRICE,
             'cost' => Product::DEFAULT_COST,

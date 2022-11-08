@@ -32,6 +32,9 @@ class Product extends Model implements Sluggable
     const DEFAULT_SALES_PRICE = 1.00;
     const DEFAULT_COST = 1.00;
 
+    const DEFAULT_CAN_BE_SOLD = true;
+    const DEFAULT_CAN_BE_PURCHASED = true;
+
     protected $table = 'products';
     protected $guarded = [];
     protected static $logAttributes = ['*'];

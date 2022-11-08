@@ -15,6 +15,8 @@ class ProductResource extends JsonResource
         return $this->defaults($this, $request, [
             'name' => $this->name,
             'product_type' => $this->product_type,
+            'can_be_sold' => $this->can_be_sold,
+            'can_be_purchased' => $this->can_be_purchased,
             'invoicing_policy' => $this->invoicing_policy,
             'sales_price' => number_format($this->sales_price, 2),
             'cost' => $this->cost,

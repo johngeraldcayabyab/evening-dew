@@ -19,6 +19,7 @@ import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import FormLinks from "../../Components/FormLinks";
 import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
+import FormItemCheckbox from "../../Components/FormItem/FormItemCheckbox"
 
 const {TabPane} = Tabs;
 
@@ -82,6 +83,19 @@ const ProductForm = () => {
                                 form={form}
                                 name={'avatar'}
                                 {...formState}
+                            />
+                        </ColForm>
+                    </RowForm>
+
+                    <RowForm>
+                        <ColForm>
+                            <FormItemCheckbox
+                                label={'Can be sold'}
+                                name={'can_be_sold'}
+                            />
+                            <FormItemCheckbox
+                                label={'Can be purchased'}
+                                name={'can_be_purchased'}
                             />
                         </ColForm>
                     </RowForm>
