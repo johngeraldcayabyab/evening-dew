@@ -44,7 +44,7 @@ const SalesOrderForm = () => {
     const paymentTermOptions = useOptionHook('/api/payment_terms', 'payment_term.name');
     const salespersonOptions = useOptionHook('/api/users', 'responsible.name');
     const sourceOptions = useOptionHook('/api/sources', 'source.name');
-    const productLineOptions = useOptionLineHook('/api/products', 'product.name');
+    const productLineOptions = useOptionLineHook('/api/products', 'product.name', {can_be_sold: 1});
     const salesMeasurementOptions = useOptionLineHook('/api/measurements', 'measurement.name');
     const appContext = useContext(AppContext);
 
