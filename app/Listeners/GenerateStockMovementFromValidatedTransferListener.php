@@ -15,7 +15,7 @@ class GenerateStockMovementFromValidatedTransferListener implements ShouldQueue
     {
         $transfer = $event->transfer;
         $stockMovementData = [];
-        if (!$transfer->isDone($transfer->status)) {
+        if ($transfer->isDone($transfer->status)) {
             $transferLines = $transfer->transferLines;
             foreach ($transferLines as $transferLine) {
                 $product = $transferLine->product;

@@ -94,6 +94,14 @@ const ProductTable = () => {
                     filter: SEARCH,
                 },
                 {
+                    title: 'Type',
+                    dataIndex: 'product_type',
+                    key: 'product_type',
+                    sorter: true,
+                    filter: SEARCH,
+                    hidden: true,
+                },
+                {
                     title: 'Created At',
                     dataIndex: 'created_at',
                     key: 'created_at',
