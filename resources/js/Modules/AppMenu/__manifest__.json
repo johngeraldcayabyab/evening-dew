@@ -1,7 +1,6 @@
 {
     "moduleName": "app_menus",
     "displayName": "app_menus",
-    "modelName": "AppMenu",
     "queryDefaults": {}
 }
 

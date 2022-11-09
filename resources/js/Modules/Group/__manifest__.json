@@ -1,7 +1,6 @@
 {
     "moduleName": "groups",
     "displayName": "groups",
-    "modelName": "Group",
     "queryDefaults": {}
 }
 

@@ -1,7 +1,6 @@
 {
     "moduleName": "global_settings",
     "displayName": "global_settings",
-    "modelName": "GlobalSetting",
     "queryDefaults": {}
 }
 

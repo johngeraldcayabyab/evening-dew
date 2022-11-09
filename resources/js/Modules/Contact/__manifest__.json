@@ -1,7 +1,6 @@
 {
     "moduleName": "contacts",
     "displayName": "contacts",
-    "modelName": "Contact",
     "queryDefaults": {}
 }
 

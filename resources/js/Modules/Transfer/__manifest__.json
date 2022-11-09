@@ -1,7 +1,6 @@
 {
     "moduleName": "transfers",
     "displayName": "transfers",
-    "modelName": "Transfer",
     "queryDefaults": {}
 }
 

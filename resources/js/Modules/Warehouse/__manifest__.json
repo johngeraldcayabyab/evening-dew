@@ -1,7 +1,6 @@
 {
     "moduleName": "warehouses",
     "displayName": "warehouses",
-    "modelName": "Warehouse",
     "queryDefaults": {}
 }
 

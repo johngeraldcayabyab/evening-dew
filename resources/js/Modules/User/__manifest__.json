@@ -1,7 +1,6 @@
 {
     "moduleName": "users",
     "displayName": "users",
-    "modelName": "User",
     "queryDefaults": {}
 }
 

@@ -1,7 +1,6 @@
 {
     "moduleName": "adjustments",
     "displayName": "adjustments",
-    "modelName": "Adjustment",
     "queryDefaults": {}
 }
 

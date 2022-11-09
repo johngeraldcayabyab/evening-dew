@@ -1,7 +1,6 @@
 {
     "moduleName": "countries",
     "displayName": "countries",
-    "modelName": "Country",
     "queryDefaults": {}
 }
 
