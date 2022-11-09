@@ -31,6 +31,7 @@ import FormLineParent from "../../Components/FormLines/FormLineParent";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
 import {AppContext} from "../../App";
+import SalesOrderPDF from "./SalesOrderPDF"
 
 const {TabPane} = Tabs;
 
@@ -390,6 +391,7 @@ const SalesOrderForm = () => {
 
                         <RowForm>
                             <ColForm lg={20}>
+                                <SalesOrderPDF/>
                             </ColForm>
                             <ColForm lg={4}>
                                 <Table dataSource={[{
