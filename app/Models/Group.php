@@ -26,6 +26,11 @@ class Group extends Model implements Sluggable
     protected $guarded = [];
     protected static $logAttributes = ['*'];
 
+    public function accessRights()
+    {
+        return $this->hasMany(AccessRight::class);
+    }
+
     public function slug()
     {
         return 'name';

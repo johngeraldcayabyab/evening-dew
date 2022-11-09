@@ -14,6 +14,7 @@ class GroupResource extends JsonResource
         $slug = $this->slug();
         return $this->defaults($this, $request, [
             'name' => $this->name,
+            'access_rights' => $this->accessRights,
             'slug' => $this->$slug,
         ]);
     }
