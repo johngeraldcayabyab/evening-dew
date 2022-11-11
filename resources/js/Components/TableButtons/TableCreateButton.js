@@ -9,7 +9,7 @@ import {CREATE_ACCESS} from "../../consts"
 const TableCreateButton = () => {
     const appContext = useContext(AppContext);
     const listContext = useContext(TableContext);
-    if (!isShowButton(appContext, listContext, CREATE_ACCESS)) {
+    if (!isShowButton(appContext, listContext.manifest.moduleName, CREATE_ACCESS)) {
         return null;
     }
 

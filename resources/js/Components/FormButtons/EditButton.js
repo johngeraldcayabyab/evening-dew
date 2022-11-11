@@ -9,7 +9,7 @@ const EditButton = () => {
     const appContext = useContext(AppContext);
     const formContext = useContext(FormContext);
 
-    if (!isShowButton(appContext, formContext, WRITE_ACCESS)) {
+    if (!isShowButton(appContext, formContext.manifest.moduleName, WRITE_ACCESS)) {
         return null;
     }
 

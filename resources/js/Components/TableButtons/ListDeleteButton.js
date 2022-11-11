@@ -8,7 +8,7 @@ import {DELETE_ACCESS} from "../../consts"
 const ListDeleteButton = () => {
     const appContext = useContext(AppContext);
     const listContext = useContext(TableContext);
-    if (!isShowButton(appContext, listContext, DELETE_ACCESS)) {
+    if (!isShowButton(appContext, listContext.manifest.moduleName, DELETE_ACCESS)) {
         return null;
     }
 

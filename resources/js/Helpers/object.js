@@ -28,8 +28,7 @@ export const formatToMoment = (obj) => {
     return moment(obj, DATE_FORMAT);
 }
 
-export const isShowButton = (appContext, manifestContext, access) => {
-    const moduleName = manifestContext.manifest.moduleName;
+export const isShowButton = (appContext, moduleName, access) => {
     const accessRights = appContext.appState.accessRights;
     if (accessRights) {
         return accessRights.find(accessRight => {

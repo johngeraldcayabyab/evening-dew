@@ -10,7 +10,7 @@ const DiscardCreateButton = () => {
     const appContext = useContext(AppContext);
     const formContext = useContext(FormContext);
 
-    if (!isShowButton(appContext, formContext, CREATE_ACCESS)) {
+    if (!isShowButton(appContext, formContext.manifest.moduleName, CREATE_ACCESS)) {
         return null;
     }
 
