@@ -7,15 +7,11 @@ import {isShowButton} from "../Helpers/object"
 import {CREATE_ACCESS} from "../consts"
 
 const CustomDropdownMenu = (props) => {
-
-    console.log(props);
-
     const appContext = useContext(AppContext);
-    const formContext = useContext(FormContext);
     return (
         <>
             {props.menu}
-            {isShowButton(appContext, formContext, CREATE_ACCESS) &&
+            {isShowButton(appContext, props.meta.path.split('/').pop(), CREATE_ACCESS) &&
                 <>
                     <Divider style={{margin: '8px 0'}}/>
                     <Space align="center" style={{padding: '0 8px 4px'}}>
