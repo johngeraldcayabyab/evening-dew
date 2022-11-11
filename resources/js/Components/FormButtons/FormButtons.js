@@ -18,55 +18,6 @@ const FormButtons = (props) => {
             <DiscardCreateButton/>
         </Space>
     )
-
-    // return (
-    //     <Space size={'small'}>
-    //         {
-    //             props.rights.edit ?
-    //                 <>
-    //                     <EditButton/>
-    //                     <SaveEditButton/>
-    //                     <DiscardEditButton/>
-    //                 </>
-    //                 : <></>
-    //         }
-    //         {
-    //             props.rights.create ?
-    //                 <>
-    //                     <FormCreateButton/>
-    //                     <SaveCreateButton/>
-    //                     <DiscardCreateButton/>
-    //                 </>
-    //                 : ''
-    //         }
-    //     </Space>
-    // )
-
-    // if (props.rights) {
-    //     return (
-    //         <Space size={'small'}>
-    //             {
-    //                 props.rights.edit ?
-    //                     <>
-    //                         <EditButton/>
-    //                         <SaveEditButton/>
-    //                         <DiscardEditButton/>
-    //                     </>
-    //                     : <></>
-    //             }
-    //             {
-    //                 props.rights.create ?
-    //                     <>
-    //                         <FormCreateButton/>
-    //                         <SaveCreateButton/>
-    //                         <DiscardCreateButton/>
-    //                     </>
-    //                     : ''
-    //             }
-    //         </Space>
-    //     )
-    // }
-    // return <></>
 };
 
 export default FormButtons;

@@ -1,9 +1,16 @@
 import {Menu, Popconfirm} from "antd";
 import React, {useContext} from "react";
 import {TableContext} from "../../Contexts/TableContext";
+import {AppContext} from "../../App"
+import {isShowButton} from "../../Helpers/object"
+import {DELETE_ACCESS} from "../../consts"
 
 const ListDeleteButton = () => {
+    const appContext = useContext(AppContext);
     const listContext = useContext(TableContext);
+    if (!isShowButton(appContext, listContext, DELETE_ACCESS)) {
+        return null;
+    }
 
     return (
         <Menu.Item key={'deleter'}>

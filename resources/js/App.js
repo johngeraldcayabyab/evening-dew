@@ -63,11 +63,24 @@ const App = () => {
                     email: getCookie('userEmail'),
                 }).then((userResponse) => {
                     const user = userResponse.data[0];
+                    let accessRights = [];
+                    const userGroupLines = user.user_group_lines;
+                    if (userGroupLines && userGroupLines.length) {
+                        userGroupLines.forEach(userGroupLine => {
+                            const group = userGroupLine.group;
+                            if (group && group.access_rights && group.access_rights.length) {
+                                accessRights = [...accessRights, ...group.access_rights];
+                            }
+                        });
+                        accessRights = accessRights.filter((v, i, a) => a.findIndex(v2 => (v2.name === v.name)) === i);
+                    }
+
                     useFetch(`/api/global_settings/initial_values`, GET).then((globalSettingResponse) => {
                         setAppState(prevState => ({
                             ...prevState,
                             isLogin: getCookie('Authorization'),
                             user: user,
+                            accessRights: accessRights,
                             globalSetting: globalSettingResponse,
                             appInitialLoad: false,
                         }));

@@ -16,9 +16,7 @@ export const objectHasValue = (obj) => {
 
 export const formatInitialValuesDatetimeToMoment = (obj) => {
     for (let k in obj) {
-        if (typeof obj[k] == "object" && obj[k] !== null)
-            formatInitialValuesDatetimeToMoment(obj[k]);
-        else {
+        if (typeof obj[k] == "object" && obj[k] !== null) formatInitialValuesDatetimeToMoment(obj[k]); else {
             if (moment(obj[k], DATE_FORMAT, true).isValid()) {
                 obj[k] = formatToMoment(obj[k]);
             }
@@ -28,4 +26,17 @@ export const formatInitialValuesDatetimeToMoment = (obj) => {
 
 export const formatToMoment = (obj) => {
     return moment(obj, DATE_FORMAT);
+}
+
+export const isShowButton = (appContext, manifestContext, access) => {
+    const moduleName = manifestContext.manifest.moduleName;
+    const accessRights = appContext.appState.accessRights;
+    if (accessRights) {
+        return accessRights.find(accessRight => {
+            if (accessRight.name.includes(moduleName)) {
+                return accessRight[access];
+            }
+        });
+    }
+    return false;
 }

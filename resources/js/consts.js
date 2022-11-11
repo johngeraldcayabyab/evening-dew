@@ -14,6 +14,11 @@ export const COLUMN_SELECTION = 'column_selection';
 export const SELECT_PAGE_SIZE = 5;
 export const DATE_FORMAT = 'YYYY-MM-DD HH:mm:ss';
 
+export const CREATE_ACCESS = 'create_access';
+export const READ_ACCESS = 'read_access';
+export const WRITE_ACCESS = 'write_access';
+export const DELETE_ACCESS = 'delete_access';
+
 
 export const EDIT_BUTTON = 'edit_button';
 export const SAVE_EDIT_BUTTON = 'save_edit_button';
