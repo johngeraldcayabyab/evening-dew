@@ -175,6 +175,7 @@ const useOptionLineHook = (url, tableField, customParams = null) => {
             fieldKey = parseInt(fieldKey);
             return {
                 value: lineOptions.values[fieldKey],
+                meta: lineOptions.meta[fieldKey],
                 options: lineOptions.options[fieldKey],
                 optionsLoading: lineOptions.optionsLoading[fieldKey],
                 onChange: (event) => lineOptions.onChange(event, fieldKey),
