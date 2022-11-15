@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Data\SystemSetting;
 use App\Events\SalesOrderValidatedEvent;
 use App\Models\OperationType;
+use App\Models\Product;
 use App\Models\SalesOrderTransfer;
 use App\Models\SalesOrderTransferLine;
 use App\Models\Transfer;
@@ -110,7 +111,7 @@ class GenerateTransferFromValidatedSalesOrderListener implements ShouldQueue
                 'product_id' => $salesOrderLine->product_id,
                 'description' => $salesOrderLine->description,
                 'demand' => $transferDemand,
-                'measurement_id' => $salesOrderLine->measurement_id,
+                'measurement_id' => Product::find($salesOrderLine->product_id)->measurement_id,
                 'created_at' => $salesOrderLine->created_at,
             ];
         }
