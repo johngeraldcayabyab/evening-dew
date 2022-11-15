@@ -9,6 +9,7 @@ use App\Models\SalesOrderTransfer;
 use App\Models\SalesOrderTransferLine;
 use App\Models\Transfer;
 use App\Models\TransferLine;
+use App\Services\MeasurementConversion;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class GenerateTransferFromValidatedSalesOrderListener implements ShouldQueue
@@ -104,10 +105,11 @@ class GenerateTransferFromValidatedSalesOrderListener implements ShouldQueue
         $transferLinesDataCreate = [];
         $salesOrderLines = $salesOrder->salesOrderLines;
         foreach ($salesOrderLines as $salesOrderLine) {
+            $transferDemand = MeasurementConversion::convertSalesMeasurement($salesOrderLine->product_id, $salesOrderLine->measurement_id, $salesOrderLine->quantity);
             $transferLinesDataCreate[] = [
                 'product_id' => $salesOrderLine->product_id,
                 'description' => $salesOrderLine->description,
-                'demand' => $salesOrderLine->quantity,
+                'demand' => $transferDemand,
                 'measurement_id' => $salesOrderLine->measurement_id,
                 'created_at' => $salesOrderLine->created_at,
             ];
