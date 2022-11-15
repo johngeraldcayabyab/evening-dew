@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Product;
+use App\Rules\SameMeasurementCategory;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProductRequest extends FormRequest
@@ -20,8 +21,8 @@ class ProductRequest extends FormRequest
             'sales_price' => 'nullable', //required in front end
             'cost' => 'nullable', //required in front end
             'measurement_id' => ['nullable', "exists:measurements,id"], //required in front end
-            'purchase_measurement_id' => ['nullable', "exists:measurements,id"], //required in front end
-            'sales_measurement_id' => ['nullable', "exists:measurements,id"], //required in front end
+            'purchase_measurement_id' => ['nullable', "exists:measurements,id", new SameMeasurementCategory], //required in front end
+            'sales_measurement_id' => ['nullable', "exists:measurements,id", new SameMeasurementCategory], //required in front end
             'product_category_id' => ['nullable', "exists:product_categories,id"], //required in front end
             'internal_reference' => 'nullable',
             'avatar' => 'nullable',
