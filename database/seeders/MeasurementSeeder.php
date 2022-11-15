@@ -20,7 +20,7 @@ class MeasurementSeeder extends Seeder
             [
                 'name' => 'Dozens',
                 'type' => 'bigger',
-                'ratio' => 0.08,
+                'ratio' => 12,
                 'rounding_precision' => 0.01,
                 'measurement_category_id' => 1,
             ],
