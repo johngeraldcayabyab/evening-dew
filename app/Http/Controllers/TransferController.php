@@ -15,6 +15,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Arr;
 
+/**
+ * Transfer line generation should always have the default unit of measurement as the measurement value
+ * ALWAYS
+ *
+ * thats the current logic for now since the conversion unit might get confused if the transfer line measurement
+ * was changed
+ */
 class TransferController
 {
     use ControllerHelperTrait;
