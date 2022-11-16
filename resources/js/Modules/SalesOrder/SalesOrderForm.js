@@ -185,8 +185,11 @@ const SalesOrderForm = () => {
         });
         const total = computeTotal(salesOrderLines);
         setState((prevState) => ({
-            ...prevState, breakdown: {
-                untaxedAmount: total, tax: 0, total: total,
+            ...prevState,
+            breakdown: {
+                untaxedAmount: total,
+                tax: 0,
+                total: total,
             }
         }));
     }
@@ -404,26 +407,44 @@ const SalesOrderForm = () => {
                                 <SalesOrderPDF/>
                             </ColForm>
                             <ColForm lg={4}>
-                                <Table dataSource={[{
-                                    key: '1', label: 'Untaxed amount:', value: state.breakdown.untaxedAmount,
-                                }, {
-                                    key: '2', label: 'Taxed:', value: state.breakdown.tax,
-                                }, {
-                                    key: '3', label: 'Total:', value: state.breakdown.total,
-                                },]} columns={[{
-                                    title: 'Label',
-                                    dataIndex: 'label',
-                                    key: 'label',
-                                    align: 'right',
-                                    render: (text, record) => {
-                                        return (<FormLabel>{text}</FormLabel>)
-                                    }
-                                }, {
-                                    title: 'Value', dataIndex: 'value', key: 'value', align: 'right',
-                                },]}
-                                       showHeader={false}
-                                       pagination={false}
-                                       size={'small'}
+                                <Table
+                                    dataSource={[
+                                        {
+                                            key: '1',
+                                            label: 'Untaxed amount:',
+                                            value: state.breakdown.untaxedAmount,
+                                        },
+                                        {
+                                            key: '2',
+                                            label: 'Taxed:',
+                                            value: state.breakdown.tax,
+                                        },
+                                        {
+                                            key: '3',
+                                            label: 'Total:',
+                                            value: state.breakdown.total,
+                                        },
+                                    ]}
+                                    columns={[
+                                        {
+                                            title: 'Label',
+                                            dataIndex: 'label',
+                                            key: 'label',
+                                            align: 'right',
+                                            render: (text, record) => {
+                                                return (<FormLabel>{text}</FormLabel>)
+                                            }
+                                        },
+                                        {
+                                            title: 'Value',
+                                            dataIndex: 'value',
+                                            key: 'value',
+                                            align: 'right',
+                                        },
+                                    ]}
+                                    showHeader={false}
+                                    pagination={false}
+                                    size={'small'}
                                 />
                             </ColForm>
                         </RowForm>
@@ -464,9 +485,16 @@ const SalesOrderForm = () => {
                                     name={'shipping_policy'}
                                     message={'Please select an shipping policy'}
                                     required={true}
-                                    options={[{value: 'as_soon_as_possible', label: 'As soon as possible'}, {
-                                        value: 'when_all_products_are_ready', label: 'When all products are ready'
-                                    },]}
+                                    options={[
+                                        {
+                                            value: 'as_soon_as_possible',
+                                            label: 'As soon as possible'
+                                        },
+                                        {
+                                            value: 'when_all_products_are_ready',
+                                            label: 'When all products are ready'
+                                        },
+                                    ]}
                                 />
                             </ColForm>
                             <ColForm>
