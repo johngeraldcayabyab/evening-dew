@@ -9,6 +9,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
+import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
 
 const CityTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -24,7 +25,6 @@ const CityTable = () => {
                     dataIndex: 'id',
                     key: 'id',
                     sorter: true,
-                    filter: SEARCH,
                     hidden: true,
                 },
                 {
@@ -33,6 +33,7 @@ const CityTable = () => {
                     key: 'name',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Province',
@@ -40,6 +41,7 @@ const CityTable = () => {
                     key: 'province',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Region',
@@ -52,7 +54,8 @@ const CityTable = () => {
                             return record.region.region;
                         }
                         return null;
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Created At',
@@ -65,7 +68,7 @@ const CityTable = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={''}
+                topColTwoRight={<GlobalSearchFilter/>}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}

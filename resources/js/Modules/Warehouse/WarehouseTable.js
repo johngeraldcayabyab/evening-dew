@@ -9,6 +9,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
+import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
 
 const WarehouseTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -24,7 +25,6 @@ const WarehouseTable = () => {
                     dataIndex: 'id',
                     key: 'id',
                     sorter: true,
-                    filter: SEARCH,
                     hidden: true,
                 },
                 {
@@ -33,6 +33,7 @@ const WarehouseTable = () => {
                     key: 'name',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Short Name',
@@ -40,6 +41,7 @@ const WarehouseTable = () => {
                     key: 'short_name',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Created At',
@@ -52,7 +54,7 @@ const WarehouseTable = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={''}
+                topColTwoRight={<GlobalSearchFilter/>}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}

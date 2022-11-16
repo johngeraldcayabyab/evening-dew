@@ -10,6 +10,7 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
 import {Tag} from "antd";
+import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
 
 const CourierTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -25,7 +26,6 @@ const CourierTable = () => {
                     dataIndex: 'id',
                     key: 'id',
                     sorter: true,
-                    filter: SEARCH,
                     hidden: true,
                 },
                 {
@@ -34,6 +34,7 @@ const CourierTable = () => {
                     key: 'name',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Color',
@@ -46,7 +47,8 @@ const CourierTable = () => {
                             return <Tag color={record.color}>{record.color}</Tag>;
                         }
                         return null;
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Created At',
@@ -59,7 +61,7 @@ const CourierTable = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={''}
+                topColTwoRight={<GlobalSearchFilter/>}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}

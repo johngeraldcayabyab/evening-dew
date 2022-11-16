@@ -9,6 +9,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
+import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
 
 const OperationTypeTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -24,7 +25,6 @@ const OperationTypeTable = () => {
                     dataIndex: 'id',
                     key: 'id',
                     sorter: true,
-                    filter: SEARCH,
                     hidden: true,
                 },
                 {
@@ -33,6 +33,7 @@ const OperationTypeTable = () => {
                     key: 'name',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Warehouse',
@@ -45,7 +46,8 @@ const OperationTypeTable = () => {
                             return record.warehouse.name;
                         }
                         return null;
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Reference Sequence',
@@ -58,7 +60,8 @@ const OperationTypeTable = () => {
                             return record.reference_sequence.name;
                         }
                         return null;
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Created At',
@@ -71,7 +74,7 @@ const OperationTypeTable = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={''}
+                topColTwoRight={<GlobalSearchFilter/>}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}

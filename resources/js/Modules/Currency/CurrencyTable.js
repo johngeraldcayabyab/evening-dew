@@ -9,6 +9,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
+import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
 
 const CurrencyTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -24,7 +25,6 @@ const CurrencyTable = () => {
                     dataIndex: 'id',
                     key: 'id',
                     sorter: true,
-                    filter: SEARCH,
                     hidden: true,
                 },
                 {
@@ -33,6 +33,7 @@ const CurrencyTable = () => {
                     key: 'currency',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Symbol',
@@ -40,6 +41,7 @@ const CurrencyTable = () => {
                     key: 'symbol',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Name',
@@ -47,6 +49,7 @@ const CurrencyTable = () => {
                     key: 'name',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Created At',
@@ -59,7 +62,7 @@ const CurrencyTable = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={''}
+                topColTwoRight={<GlobalSearchFilter/>}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}

@@ -10,6 +10,7 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
 import {Input, Tag} from "antd"
+import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
 
 const AccessRightTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -33,6 +34,7 @@ const AccessRightTable = () => {
                     key: 'name',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Group',
@@ -40,6 +42,7 @@ const AccessRightTable = () => {
                     key: 'group',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                     render: (text, record) => {
                         if (record.group) {
                             return record.group.name;
@@ -103,17 +106,7 @@ const AccessRightTable = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={
-                    <Input
-                        placeholder={`Search..`}
-                        onChange={(e) => {
-                            tableActions.renderData({
-                                global_name: e.target.value,
-                                global_group: e.target.value
-                            });
-                        }}
-                    />
-                }
+                topColTwoRight={<GlobalSearchFilter/>}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}

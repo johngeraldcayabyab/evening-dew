@@ -11,6 +11,7 @@ import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
 import Text from "antd/es/typography/Text";
 import {Space} from "antd";
+import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
 
 const ActivityLogTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -26,7 +27,6 @@ const ActivityLogTable = () => {
                     dataIndex: 'id',
                     key: 'id',
                     sorter: true,
-                    filter: SEARCH,
                     hidden: true,
                 },
                 {
@@ -40,7 +40,8 @@ const ActivityLogTable = () => {
                             return record.user.name;
                         }
                         return null;
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Description',
@@ -48,6 +49,7 @@ const ActivityLogTable = () => {
                     key: 'description',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Subject ID',
@@ -62,6 +64,7 @@ const ActivityLogTable = () => {
                     key: 'subject_type',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Changes',
@@ -100,7 +103,7 @@ const ActivityLogTable = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={''}
+                topColTwoRight={<GlobalSearchFilter/>}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}

@@ -9,6 +9,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
+import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
 
 const AdjustmentTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -24,7 +25,6 @@ const AdjustmentTable = () => {
                     dataIndex: 'id',
                     key: 'id',
                     sorter: true,
-                    filter: SEARCH,
                     hidden: true,
                 },
                 {
@@ -33,6 +33,7 @@ const AdjustmentTable = () => {
                     key: 'number',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Product Category',
@@ -42,7 +43,8 @@ const AdjustmentTable = () => {
                     filter: SEARCH,
                     render: (text, record) => {
                         return record.product_category.category;
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Created At',
@@ -55,7 +57,7 @@ const AdjustmentTable = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={''}
+                topColTwoRight={<GlobalSearchFilter/>}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}

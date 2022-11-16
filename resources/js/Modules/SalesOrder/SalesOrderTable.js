@@ -11,6 +11,7 @@ import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
+import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
 
 const SalesOrderTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -26,7 +27,6 @@ const SalesOrderTable = () => {
                     dataIndex: 'id',
                     key: 'id',
                     sorter: true,
-                    filter: SEARCH,
                     hidden: true,
                 },
                 {
@@ -37,7 +37,8 @@ const SalesOrderTable = () => {
                     filter: SEARCH,
                     render: (text, record) => {
                         return <Text strong><span style={{fontSize: '12px'}}>{record.number}</span></Text>
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Customer',
@@ -47,7 +48,8 @@ const SalesOrderTable = () => {
                     filter: SEARCH,
                     render: (text, record) => {
                         return record.customer.name;
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Salesperson',
@@ -57,7 +59,8 @@ const SalesOrderTable = () => {
                     filter: SEARCH,
                     render: (text, record) => {
                         return record.salesperson.name;
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Status',
@@ -71,7 +74,8 @@ const SalesOrderTable = () => {
                         }
                         const color = {draft: 'processing', done: 'success', cancelled: 'default'};
                         return <Tag color={color[record.status]}>{record.status.toUpperCase()}</Tag>
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Source Document',
@@ -79,6 +83,7 @@ const SalesOrderTable = () => {
                     key: 'source_document',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Shipping date',
@@ -98,7 +103,7 @@ const SalesOrderTable = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={''}
+                topColTwoRight={<GlobalSearchFilter/>}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}

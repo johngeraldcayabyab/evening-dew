@@ -9,6 +9,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
+import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
 
 
 const SalesOrderLineTable = () => {
@@ -38,7 +39,8 @@ const SalesOrderLineTable = () => {
                             return record.product.name;
                         }
                         return '';
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Quantity',
@@ -46,12 +48,13 @@ const SalesOrderLineTable = () => {
                     key: 'quantity',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
             ]
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={''}
+                topColTwoRight={<GlobalSearchFilter/>}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}

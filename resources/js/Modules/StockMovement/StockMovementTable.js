@@ -9,6 +9,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
+import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
 
 const StockMovementTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -24,7 +25,6 @@ const StockMovementTable = () => {
                     dataIndex: 'id',
                     key: 'id',
                     sorter: true,
-                    filter: SEARCH,
                     hidden: true,
                 },
                 {
@@ -33,6 +33,7 @@ const StockMovementTable = () => {
                     key: 'reference',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Source',
@@ -40,6 +41,7 @@ const StockMovementTable = () => {
                     key: 'source',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Product',
@@ -52,7 +54,8 @@ const StockMovementTable = () => {
                             return record.product.name;
                         }
                         return null;
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'From',
@@ -65,7 +68,8 @@ const StockMovementTable = () => {
                             return record.source_location.parents;
                         }
                         return null;
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'To',
@@ -78,7 +82,8 @@ const StockMovementTable = () => {
                             return record.destination_location.parents;
                         }
                         return null;
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Quantity Done',
@@ -86,6 +91,7 @@ const StockMovementTable = () => {
                     key: 'quantity_done',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Created At',
@@ -98,7 +104,7 @@ const StockMovementTable = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={''}
+                topColTwoRight={<GlobalSearchFilter/>}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}

@@ -11,6 +11,7 @@ import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
+import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
 
 const TransferTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -26,7 +27,6 @@ const TransferTable = () => {
                     dataIndex: 'id',
                     key: 'id',
                     sorter: true,
-                    filter: SEARCH,
                     hidden: true,
                 },
                 {
@@ -37,7 +37,8 @@ const TransferTable = () => {
                     filter: SEARCH,
                     render: (text, record) => {
                         return <Text strong><span style={{fontSize: '12px'}}>{record.reference}</span></Text>
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'From',
@@ -50,7 +51,8 @@ const TransferTable = () => {
                             return record.source_location.parents;
                         }
                         return null;
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'To',
@@ -63,7 +65,8 @@ const TransferTable = () => {
                             return record.destination_location.parents;
                         }
                         return null;
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Contact',
@@ -76,7 +79,8 @@ const TransferTable = () => {
                             return record.contact.name;
                         }
                         return null;
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Scheduled Date',
@@ -95,7 +99,8 @@ const TransferTable = () => {
                             }
                         }
                         return '';
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Source Document',
@@ -103,6 +108,7 @@ const TransferTable = () => {
                     key: 'source_document',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Status',
@@ -113,7 +119,8 @@ const TransferTable = () => {
                     render: (text, record) => {
                         const color = {draft: 'processing', done: 'success', cancelled: 'default'};
                         return <Tag color={color[record.status]}>{record.status.toUpperCase()}</Tag>
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Created At',
@@ -126,7 +133,7 @@ const TransferTable = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={''}
+                topColTwoRight={<GlobalSearchFilter/>}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}

@@ -12,6 +12,7 @@ import KanbanTablePicker from "../../Components/KanbanTablePicker";
 import {Col, Row} from "antd";
 import CustomTable from "../../Components/CustomTable";
 import {DATE_RANGE, KANBAN, SEARCH, TABLE} from "../../consts";
+import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
 
 const ProductTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -32,7 +33,6 @@ const ProductTable = () => {
                     dataIndex: 'id',
                     key: 'id',
                     sorter: true,
-                    filter: SEARCH,
                     hidden: true,
                 },
                 {
@@ -41,6 +41,7 @@ const ProductTable = () => {
                     key: 'name',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Internal Reference',
@@ -48,6 +49,7 @@ const ProductTable = () => {
                     key: 'internal_reference',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Sales Price',
@@ -71,7 +73,8 @@ const ProductTable = () => {
                     filter: SEARCH,
                     render: (text, record) => {
                         return record.measurement.name;
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Product Category',
@@ -84,7 +87,8 @@ const ProductTable = () => {
                             return record.product_category.category;
                         }
                         return '';
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Quantity',
@@ -92,6 +96,7 @@ const ProductTable = () => {
                     key: 'quantity',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Type',
@@ -100,6 +105,7 @@ const ProductTable = () => {
                     sorter: true,
                     filter: SEARCH,
                     hidden: true,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Created At',
@@ -137,7 +143,7 @@ const ProductTable = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={''}
+                topColTwoRight={<GlobalSearchFilter/>}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}

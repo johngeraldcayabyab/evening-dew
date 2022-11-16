@@ -12,6 +12,7 @@ import {Col, Row} from "antd";
 import KanbanTablePicker from "../../Components/KanbanTablePicker";
 import {DATE_RANGE, KANBAN, SEARCH, TABLE} from "../../consts";
 import Cardination from "../../Components/Cardination";
+import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
 
 const ContactTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -32,7 +33,6 @@ const ContactTable = () => {
                     dataIndex: 'id',
                     key: 'id',
                     sorter: true,
-                    filter: SEARCH,
                     hidden: true,
                 },
                 {
@@ -41,6 +41,7 @@ const ContactTable = () => {
                     key: 'name',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Phone',
@@ -48,6 +49,7 @@ const ContactTable = () => {
                     key: 'phone',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Email',
@@ -55,6 +57,7 @@ const ContactTable = () => {
                     key: 'email',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Created At',
@@ -86,7 +89,7 @@ const ContactTable = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={''}
+                topColTwoRight={<GlobalSearchFilter/>}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}

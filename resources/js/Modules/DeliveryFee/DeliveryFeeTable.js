@@ -10,6 +10,7 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {Tag} from "antd";
 import {DATE_RANGE, SEARCH} from "../../consts";
+import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
 
 const DeliveryFeeTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -25,7 +26,6 @@ const DeliveryFeeTable = () => {
                     dataIndex: 'id',
                     key: 'id',
                     sorter: true,
-                    filter: SEARCH,
                     hidden: true,
                 },
                 {
@@ -34,6 +34,7 @@ const DeliveryFeeTable = () => {
                     key: 'name',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Fee',
@@ -43,7 +44,8 @@ const DeliveryFeeTable = () => {
                     filter: SEARCH,
                     render: (text, record) => {
                         return record.product.sales_price;
-                    }
+                    },
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Enabled',
@@ -70,7 +72,7 @@ const DeliveryFeeTable = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={''}
+                topColTwoRight={<GlobalSearchFilter/>}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}

@@ -12,6 +12,7 @@ import {Col, Row} from "antd";
 import KanbanTablePicker from "../../Components/KanbanTablePicker";
 import {DATE_RANGE, KANBAN, SEARCH, TABLE} from "../../consts";
 import Cardination from "../../Components/Cardination";
+import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
 
 const UserTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -32,7 +33,6 @@ const UserTable = () => {
                     dataIndex: 'id',
                     key: 'id',
                     sorter: true,
-                    filter: SEARCH,
                     hidden: true,
                 },
                 {
@@ -41,6 +41,7 @@ const UserTable = () => {
                     key: 'name',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Email',
@@ -48,6 +49,7 @@ const UserTable = () => {
                     key: 'email',
                     sorter: true,
                     filter: SEARCH,
+                    isGlobalSearch: true,
                 },
                 {
                     title: 'Created At',
@@ -73,7 +75,7 @@ const UserTable = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={''}
+                topColTwoRight={<GlobalSearchFilter/>}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={
