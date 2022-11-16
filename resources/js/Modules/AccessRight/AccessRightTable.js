@@ -9,7 +9,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
-import {Tag} from "antd"
+import {Input, Tag} from "antd"
 
 const AccessRightTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -25,7 +25,6 @@ const AccessRightTable = () => {
                     dataIndex: 'id',
                     key: 'id',
                     sorter: true,
-                    filter: SEARCH,
                     hidden: true,
                 },
                 {
@@ -104,7 +103,17 @@ const AccessRightTable = () => {
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
-                topColTwoRight={''}
+                topColTwoRight={
+                    <Input
+                        placeholder={`Search..`}
+                        onChange={(e) => {
+                            tableActions.renderData({
+                                global_name: e.target.value,
+                                global_group: e.target.value
+                            });
+                        }}
+                    />
+                }
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}

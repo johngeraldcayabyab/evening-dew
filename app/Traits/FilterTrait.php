@@ -21,6 +21,7 @@ trait FilterTrait
         $modelInstance = $this;
         $fields = $query->getFields();
         $query = $this->groupNow($request, $query);
+        $query = $this->filterNowGlobal($fields, $request, $modelInstance, $query);
         $query = $this->filterNow($fields, $request, $modelInstance, $query);
         $query = $this->hasNow($request, $query);
         $query = $this->orderNow($request, $modelInstance, $query);
@@ -188,5 +189,52 @@ trait FilterTrait
             return true;
         }
         return false;
+    }
+
+    private function filterNowGlobal($fields, $request, $modelInstance, $query)
+    {
+        foreach ($fields as $field) {
+            $fields[] = "global_" . $field;
+        }
+        foreach ($fields as $field) {
+            $requestField = $request->$field;
+            if (!$requestField) {
+                continue;
+            }
+            if (!Str::contains($field, 'global_')) {
+                continue;
+            }
+            $field = Str::remove('global_', $field);
+            $has = $this->hasRelationGet($modelInstance, $field);
+            if ($has) {
+                $related = $modelInstance->$has()->getRelated();
+                $relatedSlug = $related->slug();
+                $relatedField = $this->isParentGet($relatedSlug);
+                $query = $query->filterHasGlobal([$has, $relatedField, $requestField]);
+                continue;
+            }
+            $query = $query->filterGlobal([$field, $requestField]);
+        }
+        return $query;
+    }
+
+    public function scopeFilterGlobal($query, $filter)
+    {
+        $field = $filter[0];
+        $value = $filter[1];
+        if ($field === 'created_at' || $field === 'updated_at' || $field === 'deleted_at' || Str::contains($field, '_date')) {
+            $dateRange = explode(',', $value);
+            $from = Carbon::parse($dateRange[0]);
+            $to = Carbon::parse($dateRange[1]);
+            return $query->orWhereBetween($field, [$from, $to]);
+        }
+        return $query->orWhere($field, 'like', "%$value%");
+    }
+
+    public function scopeFilterHasGlobal($query, $filter)
+    {
+        return $query->orWhereHas($filter[0], function ($query) use ($filter) {
+            return $query->where($filter[1], 'like', "%$filter[2]%");
+        });
     }
 }

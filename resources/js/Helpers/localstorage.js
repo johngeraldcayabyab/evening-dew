@@ -1,3 +1,13 @@
+/**
+ *
+ * The payload module is the one that
+ * saves your param state(on tables, and forms) when reloading a page
+ *
+ * that way, the table or list can requery your data because the payload
+ * is saved in the local storage.
+ *
+ */
+
 export const getPayloadModule = () => {
     let payloadModule = [];
     if (localStorage.getItem("payload_module")) {
