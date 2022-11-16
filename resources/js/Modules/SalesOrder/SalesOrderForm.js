@@ -19,7 +19,7 @@ import StatusBar from "../../Components/StatusBar";
 import FormItemStatus from "../../Components/FormItem/FormItemStatus";
 import FormLinks from "../../Components/FormLinks";
 import FormLabel from "../../Components/Typography/FormLabel";
-import {objectHasValue} from "../../Helpers/object";
+import {disableIfStatus, objectHasValue} from "../../Helpers/object";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import useFetchHook from "../../Hooks/useFetchHook";
 import {FormContextProvider} from "../../Contexts/FormContext";
@@ -215,23 +215,29 @@ const SalesOrderForm = () => {
                 bottomColTwoRight={<NextPreviousRecord/>}
             />
             <StatusBar
-                statuses={[{
-                    value: 'draft', title: 'Draft', status: {draft: 'process', done: 'finish', cancelled: 'wait'}
-                }, {
-                    value: 'done',
-                    title: 'Done',
-                    type: 'primary',
-                    label: 'Validate',
-                    status: {draft: 'wait', done: 'finish', cancelled: 'wait'},
-                    visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
-                }, {
-                    value: 'cancelled',
-                    title: 'Cancelled',
-                    type: 'ghost',
-                    label: 'Cancel',
-                    status: {draft: 'wait', done: 'wait', cancelled: 'finish'},
-                    visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
-                },]}
+                statuses={[
+                    {
+                        value: 'draft',
+                        title: 'Draft',
+                        status: {draft: 'process', done: 'finish', cancelled: 'wait'}
+                    },
+                    {
+                        value: 'done',
+                        title: 'Done',
+                        type: 'primary',
+                        label: 'Validate',
+                        status: {draft: 'wait', done: 'finish', cancelled: 'wait'},
+                        visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
+                    },
+                    {
+                        value: 'cancelled',
+                        title: 'Cancelled',
+                        type: 'ghost',
+                        label: 'Cancel',
+                        status: {draft: 'wait', done: 'wait', cancelled: 'finish'},
+                        visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
+                    },
+                ]}
             />
             <FormCard>
                 <FormLinks
@@ -348,6 +354,7 @@ const SalesOrderForm = () => {
                                         required={true}
                                         optionAggregate={productLineOptions}
                                         dropdownRender={productLineOptions}
+                                        overrideDisabled={disableIfStatus(formState, 'done')}
                                     />
                                     <FormItemText
                                         placeholder={'Description'}
@@ -359,6 +366,7 @@ const SalesOrderForm = () => {
                                         name={'quantity'}
                                         message={'Please input a quantity'}
                                         required={true}
+                                        overrideDisabled={disableIfStatus(formState, 'done')}
                                     />
                                     <FormItemSelect
                                         placeholder={'Measurement'}
@@ -367,6 +375,7 @@ const SalesOrderForm = () => {
                                         required={true}
                                         optionAggregate={salesMeasurementOptions}
                                         dropdownRender={salesMeasurementOptions}
+                                        overrideDisabled={disableIfStatus(formState, 'done')}
                                     />
                                     <FormItemNumber
                                         placeholder={'Unit Price'}
@@ -377,6 +386,7 @@ const SalesOrderForm = () => {
                                     <FormItemDate
                                         placeholder={'Shipping Date'}
                                         name={'shipping_date'}
+                                        overrideDisabled={disableIfStatus(formState, 'done')}
                                     />
                                     <FormItemNumber
                                         overrideDisabled={true}

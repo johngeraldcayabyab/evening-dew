@@ -39,3 +39,10 @@ export const isShowButton = (appContext, moduleName, access) => {
     }
     return false;
 }
+
+export const disableIfStatus = (formState, status) => {
+    if (formState.initialValues.status === status) {
+        return true;
+    }
+    return false;
+}

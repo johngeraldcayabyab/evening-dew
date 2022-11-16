@@ -27,6 +27,7 @@ import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
+import {disableIfStatus} from "../../Helpers/object"
 
 const {TabPane} = Tabs;
 
@@ -225,6 +226,7 @@ const TransferForm = () => {
                                             message={'Please select a product'}
                                             required={true}
                                             optionAggregate={productLineOptions}
+                                            overrideDisabled={disableIfStatus(formState, 'done')}
                                         />
                                         <FormItemText
                                             placeholder={'Description'}
@@ -235,6 +237,7 @@ const TransferForm = () => {
                                             name={'demand'}
                                             message={'Please input a demand'}
                                             required={true}
+                                            overrideDisabled={disableIfStatus(formState, 'done')}
                                         />
                                         <FormItemSelect
                                             placeholder={'Measurement'}
@@ -242,9 +245,9 @@ const TransferForm = () => {
                                             message={'Please select a measurement'}
                                             required={true}
                                             optionAggregate={measurementLineOptions}
+                                            overrideDisabled={disableIfStatus(formState, 'done')}
                                         />
                                     </FormLineParent>
-
                                 </ColForm>
                             </RowForm>
                         </TabPane>

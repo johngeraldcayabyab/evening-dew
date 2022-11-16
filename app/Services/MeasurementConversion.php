@@ -14,29 +14,28 @@ class MeasurementConversion
      *
      * Real conversion happens when something is validated and the source of truth is still the measurement_id
      *
+     * Meaning when you sell something with a different sales_measurement_id, it will use the base measurement("measurement_id")
+     * to do the conversion, same with selling the products and etc
+     *
+     *
      */
-    public static function convertSalesMeasurement($productId, $saleLineMeasurementId, $quantity)
+    public static function convertSalesMeasurement($productId, $toConvertMeasurementId, $quantity)
     {
         $product = Product::find($productId);
         $baseMeasurement = $product->measurement;
-        $saleLineMeasurement = Measurement::find($saleLineMeasurementId);
-
-        if ($baseMeasurement->id === $saleLineMeasurementId) {
-            return $quantity;
-        }
-
-        $convertedQuantity = null;
+        $toConvertMeasurement = Measurement::find($toConvertMeasurementId);
 
         // Bigger to reference
-        if ($saleLineMeasurement->type === Measurement::BIGGER && $baseMeasurement->type === Measurement::REFERENCE) {
-            $convertedQuantity = $saleLineMeasurement->ratio * $quantity;
+        if ($toConvertMeasurement->ratio > $baseMeasurement->ratio) {
+            return $toConvertMeasurement->ratio * $quantity;
         }
 
         // Smaller to reference
-        if ($saleLineMeasurement->type === Measurement::SMALLER && $baseMeasurement->type === Measurement::REFERENCE) {
-
+        if ($toConvertMeasurement->ratio < $baseMeasurement->ratio) {
+            return $quantity / $toConvertMeasurement->ratio;
         }
 
-        return $convertedQuantity;
+        // Do nothing if same measurement
+        return $quantity;
     }
 }

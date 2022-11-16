@@ -4,7 +4,6 @@ namespace App\Listeners;
 
 use App\Data\SystemSetting;
 use App\Events\SalesOrderValidatedEvent;
-use App\Jobs\MatchSalesOrderToTransferLineJob;
 use App\Models\OperationType;
 use App\Models\Product;
 use App\Models\SalesOrderTransfer;
@@ -40,7 +39,6 @@ class GenerateTransferFromValidatedSalesOrderListener implements ShouldQueue
             new TransferLine(),
             'transfer_id'
         );
-        MatchSalesOrderToTransferLineJob::dispatch($salesOrder);
     }
 
     private function createSalesOrderTransfer($salesOrder, $transfer)
