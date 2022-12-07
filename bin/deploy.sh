@@ -29,7 +29,7 @@ fi
 
 
 
-composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev --no-progress
 npm install --production
 npm install laravel-mix@latest
 npm run production
