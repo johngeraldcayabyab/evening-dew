@@ -129,7 +129,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
                         $selectTime = $this->getSelectTime($shopifyLineItem['properties']);
                         $lineItemNote = $this->getNotes($shopifyLineItem['properties']);
                         if ($lineItemNote) {
-                            $notes .= $lineItemNote . "\n";
+                            $notes .= $lineItemNote . "\n\n";
                         }
                     }
                 }
