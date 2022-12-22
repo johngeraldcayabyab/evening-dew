@@ -124,10 +124,13 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 $notes = null;
 
                 foreach ($shopifyLineItems as $shopifyLineItem) {
-                    if (isset($shopifyLineItem['properties']) && is_array($shopifyLineItem['properties']) && count($shopifyLineItem['properties']) > 0) {
+                    if ($this->isLineItemHasProperty($shopifyLineItem)) {
                         $shippingDate = $this->getShippingDate($shopifyLineItem['properties']);
                         $selectTime = $this->getSelectTime($shopifyLineItem['properties']);
-                        $notes = $this->getNotes($shopifyLineItem['properties']);
+                        $lineItemNote = $this->getNotes($shopifyLineItem['properties']);
+                        if ($lineItemNote) {
+                            $notes .= $lineItemNote . "\n";
+                        }
                     }
                 }
 
@@ -225,6 +228,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
                     $salesOrderLineSubtotal = $shopifyLineItem['price'] * $quantity;
                     SalesOrderLine::create([
                         'product_id' => $product->id,
+                        'description' => $this->getNoteInLineProperty($shopifyLineItem),
                         'quantity' => $quantity,
                         'measurement_id' => $inventoryDefaultMeasurement->id,
                         'unit_price' => $shopifyLineItem['price'],
@@ -293,6 +297,14 @@ class ImportShopifyOrdersJob implements ShouldQueue
         return $selectTime;
     }
 
+    private function getNoteInLineProperty($shopifyLineItem)
+    {
+        if ($this->isLineItemHasProperty($shopifyLineItem)) {
+            return $this->getNotes($shopifyLineItem['properties']);
+        }
+        return null;
+    }
+
     private function getNotes($shippingProperties)
     {
         $notes = null;
@@ -302,6 +314,14 @@ class ImportShopifyOrdersJob implements ShouldQueue
             }
         }
         return $notes;
+    }
+
+    private function isLineItemHasProperty($shopifyLineItem)
+    {
+        if (isset($shopifyLineItem['properties']) && is_array($shopifyLineItem['properties']) && count($shopifyLineItem['properties']) > 0) {
+            return true;
+        }
+        return false;
     }
 
     private function log($message)
