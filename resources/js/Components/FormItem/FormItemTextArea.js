@@ -13,7 +13,7 @@ const FormItemTextArea = (props) => {
     return (
         <Form.Item {...formItemProps}>
             {formContext.formState.loading ? <CustomInputSkeleton {...props}/> :
-                <TextArea {...fieldProps}/>
+                <TextArea {...fieldProps} rows={4}/>
             }
         </Form.Item>
     )
