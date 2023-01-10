@@ -64,8 +64,6 @@ php artisan storage:link php artisan event:cache
 
 -Fix deployment permissions
 
--breadcrumbs slug not changing on update
-
 -export backend api to be used by front-end
 
 -theres a problem in form item date
