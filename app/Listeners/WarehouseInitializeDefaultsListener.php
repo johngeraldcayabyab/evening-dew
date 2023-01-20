@@ -11,29 +11,30 @@ use Illuminate\Support\Str;
 
 class WarehouseInitializeDefaultsListener implements ShouldQueue
 {
+    private $viewLocation;
+    private $stockLocation;
+    private $inputLocation;
+    private $qualityControlLocation;
+    private $packingZoneLocation;
+    private $outputLocation;
+    private $postProductionLocation;
+    private $preProductionLocation;
+    private $adjustmentLocation;
+
     public function handle(WarehouseCreatedEvent $event)
     {
         $warehouse = $event->warehouse;
-        $viewLocation = $this->createViewLocation($warehouse);
-        $stockLocation = $this->createStockLocation($viewLocation);
-        $inputLocation = $this->createInputLocation($viewLocation);
-        $qualityControlLocation = $this->createQualityControlLocation($viewLocation);
-        $packingZoneLocation = $this->createPackingZoneLocation($viewLocation);
-        $outputLocation = $this->createOutputLocation($viewLocation);
-        $postProductionLocation = $this->createPostProductionLocation($viewLocation);
-        $preProductionLocation = $this->createPreProductionLocation($viewLocation);
-        $adjustmentLocation = $this->createAdjustmentLocation($viewLocation);
+        $this->initializeWarehouseLocations($warehouse);
 
-
-        $receiptsOperationType = $this->createReceiptsOperationType($warehouse, $stockLocation);
-        $internalTransferOperationType = $this->createInternalTransferOperationType($warehouse, $stockLocation);
-        $pickOperationType = $this->createPickOperationType($warehouse, $stockLocation, $packingZoneLocation);
-        $packOperationType = $this->createPackOperationType($warehouse, $packingZoneLocation, $stockLocation);
-        $deliveryOrderOperationType = $this->createDeliveryOrderOperationType($warehouse, $stockLocation);
-        $returnsOperationType = $this->createReturnsOrderOperationType($warehouse, $stockLocation);
-        $storeFinishedProductionOperationType = $this->createStoreFinishedProductOperationType($warehouse, $postProductionLocation, $stockLocation);
-        $pickComponentsOperationType = $this->createPickComponentsOperationType($warehouse, $stockLocation, $preProductionLocation);
-        $manufacturingOperationType = $this->createManufacturingOperationType($warehouse, $stockLocation);
+        $receiptsOperationType = $this->createReceiptsOperationType($warehouse, $this->stockLocation);
+        $internalTransferOperationType = $this->createInternalTransferOperationType($warehouse, $this->stockLocation);
+        $pickOperationType = $this->createPickOperationType($warehouse, $this->stockLocation, $this->packingZoneLocation);
+        $packOperationType = $this->createPackOperationType($warehouse, $this->packingZoneLocation, $this->stockLocation);
+        $deliveryOrderOperationType = $this->createDeliveryOrderOperationType($warehouse, $this->stockLocation);
+        $returnsOperationType = $this->createReturnsOrderOperationType($warehouse, $this->stockLocation);
+        $storeFinishedProductionOperationType = $this->createStoreFinishedProductOperationType($warehouse, $this->postProductionLocation, $this->stockLocation);
+        $pickComponentsOperationType = $this->createPickComponentsOperationType($warehouse, $this->stockLocation, $this->preProductionLocation);
+        $manufacturingOperationType = $this->createManufacturingOperationType($warehouse, $this->stockLocation);
         $adjustmentOperationType = $this->createAdjustmentOperationType($warehouse);
 
 
@@ -73,15 +74,15 @@ class WarehouseInitializeDefaultsListener implements ShouldQueue
         $manufacturingOperationType->save();
         $adjustmentOperationType->save();
 
-        $warehouse->view_location_id = $viewLocation->id;
-        $warehouse->stock_location_id = $stockLocation->id;
-        $warehouse->input_location_id = $inputLocation->id;
-        $warehouse->quality_control_location_id = $qualityControlLocation->id;
-        $warehouse->packing_location_id = $packingZoneLocation->id;
-        $warehouse->output_location_id = $outputLocation->id;
-        $warehouse->stock_after_manufacturing_location_id = $postProductionLocation->id;
-        $warehouse->picking_before_manufacturing_location_id = $preProductionLocation->id;
-        $warehouse->adjustment_location_id = $adjustmentLocation->id;
+        $warehouse->view_location_id = $this->viewLocation->id;
+        $warehouse->stock_location_id = $this->stockLocation->id;
+        $warehouse->input_location_id = $this->inputLocation->id;
+        $warehouse->quality_control_location_id = $this->qualityControlLocation->id;
+        $warehouse->packing_location_id = $this->packingZoneLocation->id;
+        $warehouse->output_location_id = $this->outputLocation->id;
+        $warehouse->stock_after_manufacturing_location_id = $this->postProductionLocation->id;
+        $warehouse->picking_before_manufacturing_location_id = $this->preProductionLocation->id;
+        $warehouse->adjustment_location_id = $this->adjustmentLocation->id;
 
         $warehouse->in_type_id = $receiptsOperationType->id;
         $warehouse->internal_type_id = $internalTransferOperationType->id;
@@ -94,6 +95,19 @@ class WarehouseInitializeDefaultsListener implements ShouldQueue
         $warehouse->adjustment_operation_type_id = $adjustmentOperationType->id;
 
         $warehouse->save();
+    }
+
+    private function initializeWarehouseLocations($warehouse)
+    {
+        $this->viewLocation = $this->createViewLocation($warehouse);
+        $this->stockLocation = $this->createStockLocation($this->viewLocation);
+        $this->inputLocation = $this->createInputLocation($this->viewLocation);
+        $this->qualityControlLocation = $this->createQualityControlLocation($this->viewLocation);
+        $this->packingZoneLocation = $this->createPackingZoneLocation($this->viewLocation);
+        $this->outputLocation = $this->createOutputLocation($this->viewLocation);
+        $this->postProductionLocation = $this->createPostProductionLocation($this->viewLocation);
+        $this->preProductionLocation = $this->createPreProductionLocation($this->viewLocation);
+        $this->adjustmentLocation = $this->createAdjustmentLocation($this->viewLocation);
     }
 
     private function createViewLocation($warehouse)
