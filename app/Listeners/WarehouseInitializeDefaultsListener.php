@@ -34,37 +34,38 @@ class WarehouseInitializeDefaultsListener implements ShouldQueue
     private $manufacturingOperationType;
     private $adjustmentOperationType;
 
+    private $inSequence;
+    private $internalSequence;
+    private $pickingSequence;
+    private $packingSequence;
+    private $outSequence;
+    private $returnSequence;
+    private $stockAfterManufacturingSequence;
+    private $pickingBeforeManufacturingSequence;
+    private $productionSequence;
+    private $adjustmentSequence;
+
 
     public function handle(WarehouseCreatedEvent $event)
     {
         $this->warehouse = $event->warehouse;
         $this->initializeWarehouseLocations();
         $this->initializeOperationTypes();
-
-        $inSequence = $this->createInSequence();
-        $internalSequence = $this->createInternalSequence();
-        $pickingSequence = $this->createPickingSequence();
-        $packingSequence = $this->createPackingSequence();
-        $outSequence = $this->createOutSequence();
-        $returnSequence = $this->createReturnSequence();
-        $stockAfterManufacturingSequence = $this->createStockAfterManufacturingSequence();
-        $pickingBeforeManufacturingSequence = $this->createPickingBeforeManufacturingSequence();
-        $productionSequence = $this->createProductionSequence();
-        $adjustmentSequence = $this->createAdjustmentSequence();
+        $this->initializeSequences();
 
         $this->receiptsOperationType->operation_type_for_returns_id = $this->deliveryOrderOperationType->id;
         $this->deliveryOrderOperationType->operation_type_for_returns_id = $this->returnsOperationType->id;
 
-        $this->receiptsOperationType->reference_sequence_id = $inSequence->id;
-        $this->internalTransferOperationType->reference_sequence_id = $internalSequence->id;
-        $this->pickOperationType->reference_sequence_id = $pickingSequence->id;
-        $this->packOperationType->reference_sequence_id = $packingSequence->id;
-        $this->deliveryOrderOperationType->reference_sequence_id = $outSequence->id;
-        $this->returnsOperationType->reference_sequence_id = $returnSequence->id;
-        $this->storeFinishedProductionOperationType->reference_sequence_id = $stockAfterManufacturingSequence->id;
-        $this->pickComponentsOperationType->reference_sequence_id = $pickingBeforeManufacturingSequence->id;
-        $this->manufacturingOperationType->reference_sequence_id = $productionSequence->id;
-        $this->adjustmentOperationType->reference_sequence_id = $adjustmentSequence->id;
+        $this->receiptsOperationType->reference_sequence_id = $this->inSequence->id;
+        $this->internalTransferOperationType->reference_sequence_id = $this->internalSequence->id;
+        $this->pickOperationType->reference_sequence_id = $this->pickingSequence->id;
+        $this->packOperationType->reference_sequence_id = $this->packingSequence->id;
+        $this->deliveryOrderOperationType->reference_sequence_id = $this->outSequence->id;
+        $this->returnsOperationType->reference_sequence_id = $this->returnSequence->id;
+        $this->storeFinishedProductionOperationType->reference_sequence_id = $this->stockAfterManufacturingSequence->id;
+        $this->pickComponentsOperationType->reference_sequence_id = $this->pickingBeforeManufacturingSequence->id;
+        $this->manufacturingOperationType->reference_sequence_id = $this->productionSequence->id;
+        $this->adjustmentOperationType->reference_sequence_id = $this->adjustmentSequence->id;
 
         $this->receiptsOperationType->save();
         $this->internalTransferOperationType->save();
@@ -125,6 +126,20 @@ class WarehouseInitializeDefaultsListener implements ShouldQueue
         $this->pickComponentsOperationType = $this->createPickComponentsOperationType($this->stockLocation, $this->preProductionLocation);
         $this->manufacturingOperationType = $this->createManufacturingOperationType($this->stockLocation);
         $this->adjustmentOperationType = $this->createAdjustmentOperationType();
+    }
+
+    private function initializeSequences()
+    {
+        $this->inSequence = $this->createInSequence();
+        $this->internalSequence = $this->createInternalSequence();
+        $this->pickingSequence = $this->createPickingSequence();
+        $this->packingSequence = $this->createPackingSequence();
+        $this->outSequence = $this->createOutSequence();
+        $this->returnSequence = $this->createReturnSequence();
+        $this->stockAfterManufacturingSequence = $this->createStockAfterManufacturingSequence();
+        $this->pickingBeforeManufacturingSequence = $this->createPickingBeforeManufacturingSequence();
+        $this->productionSequence = $this->createProductionSequence();
+        $this->adjustmentSequence = $this->createAdjustmentSequence();
     }
 
     private function createViewLocation()
