@@ -23,58 +23,59 @@ class WarehouseInitializeDefaultsListener implements ShouldQueue
     private $preProductionLocation;
     private $adjustmentLocation;
 
+    private $receiptsOperationType;
+    private $internalTransferOperationType;
+    private $pickOperationType;
+    private $packOperationType;
+    private $deliveryOrderOperationType;
+    private $returnsOperationType;
+    private $storeFinishedProductionOperationType;
+    private $pickComponentsOperationType;
+    private $manufacturingOperationType;
+    private $adjustmentOperationType;
+
+
     public function handle(WarehouseCreatedEvent $event)
     {
         $this->warehouse = $event->warehouse;
         $this->initializeWarehouseLocations();
+        $this->initializeOperationTypes();
 
-        $receiptsOperationType = $this->createReceiptsOperationType($this->stockLocation);
-        $internalTransferOperationType = $this->createInternalTransferOperationType($this->stockLocation);
-        $pickOperationType = $this->createPickOperationType($this->stockLocation, $this->packingZoneLocation);
-        $packOperationType = $this->createPackOperationType($this->packingZoneLocation, $this->stockLocation);
-        $deliveryOrderOperationType = $this->createDeliveryOrderOperationType($this->stockLocation);
-        $returnsOperationType = $this->createReturnsOrderOperationType($this->stockLocation);
-        $storeFinishedProductionOperationType = $this->createStoreFinishedProductOperationType($this->postProductionLocation, $this->stockLocation);
-        $pickComponentsOperationType = $this->createPickComponentsOperationType($this->stockLocation, $this->preProductionLocation);
-        $manufacturingOperationType = $this->createManufacturingOperationType($this->stockLocation);
-        $adjustmentOperationType = $this->createAdjustmentOperationType();
+        $inSequence = $this->createInSequence($this->receiptsOperationType);
+        $internalSequence = $this->createInternalSequence($this->internalTransferOperationType);
+        $pickingSequence = $this->createPickingSequence($this->pickOperationType);
+        $packingSequence = $this->createPackingSequence($this->packOperationType);
+        $outSequence = $this->createOutSequence($this->deliveryOrderOperationType);
+        $returnSequence = $this->createReturnSequence($this->returnsOperationType);
+        $stockAfterManufacturingSequence = $this->createStockAfterManufacturingSequence($this->storeFinishedProductionOperationType);
+        $pickingBeforeManufacturingSequence = $this->createPickingBeforeManufacturingSequence($this->pickComponentsOperationType);
+        $productionSequence = $this->createProductionSequence($this->manufacturingOperationType);
+        $adjustmentSequence = $this->createAdjustmentSequence($this->adjustmentOperationType);
 
+        $this->receiptsOperationType->operation_type_for_returns_id = $this->deliveryOrderOperationType->id;
+        $this->deliveryOrderOperationType->operation_type_for_returns_id = $this->returnsOperationType->id;
 
-        $inSequence = $this->createInSequence($receiptsOperationType);
-        $internalSequence = $this->createInternalSequence($internalTransferOperationType);
-        $pickingSequence = $this->createPickingSequence($pickOperationType);
-        $packingSequence = $this->createPackingSequence($packOperationType);
-        $outSequence = $this->createOutSequence($deliveryOrderOperationType);
-        $returnSequence = $this->createReturnSequence($returnsOperationType);
-        $stockAfterManufacturingSequence = $this->createStockAfterManufacturingSequence($storeFinishedProductionOperationType);
-        $pickingBeforeManufacturingSequence = $this->createPickingBeforeManufacturingSequence($pickComponentsOperationType);
-        $productionSequence = $this->createProductionSequence($manufacturingOperationType);
-        $adjustmentSequence = $this->createAdjustmentSequence($adjustmentOperationType);
+        $this->receiptsOperationType->reference_sequence_id = $inSequence->id;
+        $this->internalTransferOperationType->reference_sequence_id = $internalSequence->id;
+        $this->pickOperationType->reference_sequence_id = $pickingSequence->id;
+        $this->packOperationType->reference_sequence_id = $packingSequence->id;
+        $this->deliveryOrderOperationType->reference_sequence_id = $outSequence->id;
+        $this->returnsOperationType->reference_sequence_id = $returnSequence->id;
+        $this->storeFinishedProductionOperationType->reference_sequence_id = $stockAfterManufacturingSequence->id;
+        $this->pickComponentsOperationType->reference_sequence_id = $pickingBeforeManufacturingSequence->id;
+        $this->manufacturingOperationType->reference_sequence_id = $productionSequence->id;
+        $this->adjustmentOperationType->reference_sequence_id = $adjustmentSequence->id;
 
-        $receiptsOperationType->operation_type_for_returns_id = $deliveryOrderOperationType->id;
-        $deliveryOrderOperationType->operation_type_for_returns_id = $returnsOperationType->id;
-
-        $receiptsOperationType->reference_sequence_id = $inSequence->id;
-        $internalTransferOperationType->reference_sequence_id = $internalSequence->id;
-        $pickOperationType->reference_sequence_id = $pickingSequence->id;
-        $packOperationType->reference_sequence_id = $packingSequence->id;
-        $deliveryOrderOperationType->reference_sequence_id = $outSequence->id;
-        $returnsOperationType->reference_sequence_id = $returnSequence->id;
-        $storeFinishedProductionOperationType->reference_sequence_id = $stockAfterManufacturingSequence->id;
-        $pickComponentsOperationType->reference_sequence_id = $pickingBeforeManufacturingSequence->id;
-        $manufacturingOperationType->reference_sequence_id = $productionSequence->id;
-        $adjustmentOperationType->reference_sequence_id = $adjustmentSequence->id;
-
-        $receiptsOperationType->save();
-        $internalTransferOperationType->save();
-        $pickOperationType->save();
-        $packOperationType->save();
-        $deliveryOrderOperationType->save();
-        $returnsOperationType->save();
-        $storeFinishedProductionOperationType->save();
-        $pickComponentsOperationType->save();
-        $manufacturingOperationType->save();
-        $adjustmentOperationType->save();
+        $this->receiptsOperationType->save();
+        $this->internalTransferOperationType->save();
+        $this->pickOperationType->save();
+        $this->packOperationType->save();
+        $this->deliveryOrderOperationType->save();
+        $this->returnsOperationType->save();
+        $this->storeFinishedProductionOperationType->save();
+        $this->pickComponentsOperationType->save();
+        $this->manufacturingOperationType->save();
+        $this->adjustmentOperationType->save();
 
         $this->warehouse->view_location_id = $this->viewLocation->id;
         $this->warehouse->stock_location_id = $this->stockLocation->id;
@@ -86,15 +87,15 @@ class WarehouseInitializeDefaultsListener implements ShouldQueue
         $this->warehouse->picking_before_manufacturing_location_id = $this->preProductionLocation->id;
         $this->warehouse->adjustment_location_id = $this->adjustmentLocation->id;
 
-        $this->warehouse->in_type_id = $receiptsOperationType->id;
-        $this->warehouse->internal_type_id = $internalTransferOperationType->id;
-        $this->warehouse->pick_type_id = $pickOperationType->id;
-        $this->warehouse->pack_type_id = $packOperationType->id;
-        $this->warehouse->out_type_id = $deliveryOrderOperationType->id;
-        $this->warehouse->stock_after_manufacturing_operation_type_id = $storeFinishedProductionOperationType->id;
-        $this->warehouse->picking_before_manufacturing_operation_type_id = $pickComponentsOperationType->id;
-        $this->warehouse->manufacturing_operation_type_id = $manufacturingOperationType->id;
-        $this->warehouse->adjustment_operation_type_id = $adjustmentOperationType->id;
+        $this->warehouse->in_type_id = $this->receiptsOperationType->id;
+        $this->warehouse->internal_type_id = $this->internalTransferOperationType->id;
+        $this->warehouse->pick_type_id = $this->pickOperationType->id;
+        $this->warehouse->pack_type_id = $this->packOperationType->id;
+        $this->warehouse->out_type_id = $this->deliveryOrderOperationType->id;
+        $this->warehouse->stock_after_manufacturing_operation_type_id = $this->storeFinishedProductionOperationType->id;
+        $this->warehouse->picking_before_manufacturing_operation_type_id = $this->pickComponentsOperationType->id;
+        $this->warehouse->manufacturing_operation_type_id = $this->manufacturingOperationType->id;
+        $this->warehouse->adjustment_operation_type_id = $this->adjustmentOperationType->id;
 
         $this->warehouse->save();
     }
@@ -110,6 +111,20 @@ class WarehouseInitializeDefaultsListener implements ShouldQueue
         $this->postProductionLocation = $this->createPostProductionLocation($this->viewLocation);
         $this->preProductionLocation = $this->createPreProductionLocation($this->viewLocation);
         $this->adjustmentLocation = $this->createAdjustmentLocation($this->viewLocation);
+    }
+
+    private function initializeOperationTypes()
+    {
+        $this->receiptsOperationType = $this->createReceiptsOperationType($this->stockLocation);
+        $this->internalTransferOperationType = $this->createInternalTransferOperationType($this->stockLocation);
+        $this->pickOperationType = $this->createPickOperationType($this->stockLocation, $this->packingZoneLocation);
+        $this->packOperationType = $this->createPackOperationType($this->packingZoneLocation, $this->stockLocation);
+        $this->deliveryOrderOperationType = $this->createDeliveryOrderOperationType($this->stockLocation);
+        $this->returnsOperationType = $this->createReturnsOrderOperationType($this->stockLocation);
+        $this->storeFinishedProductionOperationType = $this->createStoreFinishedProductOperationType($this->postProductionLocation, $this->stockLocation);
+        $this->pickComponentsOperationType = $this->createPickComponentsOperationType($this->stockLocation, $this->preProductionLocation);
+        $this->manufacturingOperationType = $this->createManufacturingOperationType($this->stockLocation);
+        $this->adjustmentOperationType = $this->createAdjustmentOperationType();
     }
 
     private function createViewLocation()
