@@ -144,6 +144,10 @@ class AppMenuSeeder extends Seeder
                                 'menu_key' => 'Same Day',
                             ],
                             [
+                                'label' => 'SM North',
+                                'menu_key' => 'SM North',
+                            ],
+                            [
                                 'label' => 'All Sales',
                                 'menu_key' => 'All Sales',
                             ],

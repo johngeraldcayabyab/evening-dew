@@ -147,6 +147,10 @@ class MenuSeeder extends Seeder
                 'label' => 'All Sales',
                 'url' => '/all_sale',
             ],
+            [
+                'label' => 'SM North',
+                'url' => '/sm_north',
+            ],
         ];
     }
 

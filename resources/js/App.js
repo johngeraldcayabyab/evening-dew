@@ -43,6 +43,7 @@ import {objectHasValue} from "./Helpers/object";
 import {GET} from "./consts";
 import useFetchHook from "./Hooks/useFetchHook";
 import useFetchCatcherHook from "./Hooks/useFetchCatcherHook";
+import SmNorthRoute from "./CustomModules/SmNorth/SmNorthRoute"
 
 
 export const AppContext = React.createContext({});
@@ -122,6 +123,7 @@ const App = () => {
                         <ManualRoute/>
                         <SameDayRoute/>
                         <ShopifyRoute/>
+                        <SmNorthRoute/>
                     </AppContainerWithContent>
                 </AppContextProvider>
             </BrowserRouter>
