@@ -6,10 +6,8 @@ use App\Events\WarehouseCreatedEvent;
 use App\Models\Location;
 use App\Models\OperationType;
 use App\Models\Sequence;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Str;
 
-class WarehouseInitializeDefaultsListener implements ShouldQueue
+class WarehouseInitializeDefaultsListener
 {
     private $warehouse;
 
