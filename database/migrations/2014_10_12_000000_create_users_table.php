@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('avatar')->nullable();
             $table->bigInteger('contact_id')->nullable();
+            $table->bigInteger('app_menu_id')->nullable();
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
