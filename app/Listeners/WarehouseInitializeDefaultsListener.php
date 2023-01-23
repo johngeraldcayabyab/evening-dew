@@ -58,29 +58,29 @@ class WarehouseInitializeDefaultsListener implements ShouldQueue
 
     private function initializeWarehouseLocations()
     {
-        $this->viewLocation = $this->createViewLocation();
-        $this->stockLocation = $this->createStockLocation($this->viewLocation);
-        $this->inputLocation = $this->createInputLocation($this->viewLocation);
-        $this->qualityControlLocation = $this->createQualityControlLocation($this->viewLocation);
-        $this->packingZoneLocation = $this->createPackingZoneLocation($this->viewLocation);
-        $this->outputLocation = $this->createOutputLocation($this->viewLocation);
-        $this->postProductionLocation = $this->createPostProductionLocation($this->viewLocation);
-        $this->preProductionLocation = $this->createPreProductionLocation($this->viewLocation);
-        $this->adjustmentLocation = $this->createAdjustmentLocation($this->viewLocation);
+        $this->createViewLocation();
+        $this->createStockLocation();
+        $this->createInputLocation();
+        $this->createQualityControlLocation();
+        $this->createPackingZoneLocation();
+        $this->createOutputLocation();
+        $this->createPostProductionLocation();
+        $this->createPreProductionLocation();
+        $this->createAdjustmentLocation();
     }
 
     private function initializeOperationTypes()
     {
-        $this->receiptsOperationType = $this->createReceiptsOperationType($this->stockLocation);
-        $this->internalTransferOperationType = $this->createInternalTransferOperationType($this->stockLocation);
-        $this->pickOperationType = $this->createPickOperationType($this->stockLocation, $this->packingZoneLocation);
-        $this->packOperationType = $this->createPackOperationType($this->packingZoneLocation, $this->stockLocation);
-        $this->deliveryOrderOperationType = $this->createDeliveryOrderOperationType($this->stockLocation);
-        $this->returnsOperationType = $this->createReturnsOrderOperationType($this->stockLocation);
-        $this->storeFinishedProductionOperationType = $this->createStoreFinishedProductOperationType($this->postProductionLocation, $this->stockLocation);
-        $this->pickComponentsOperationType = $this->createPickComponentsOperationType($this->stockLocation, $this->preProductionLocation);
-        $this->manufacturingOperationType = $this->createManufacturingOperationType($this->stockLocation);
-        $this->adjustmentOperationType = $this->createAdjustmentOperationType();
+        $this->createReceiptsOperationType($this->stockLocation);
+        $this->createInternalTransferOperationType($this->stockLocation);
+        $this->createPickOperationType($this->stockLocation, $this->packingZoneLocation);
+        $this->createPackOperationType($this->packingZoneLocation, $this->stockLocation);
+        $this->createDeliveryOrderOperationType($this->stockLocation);
+        $this->createReturnsOrderOperationType($this->stockLocation);
+        $this->createStoreFinishedProductOperationType($this->postProductionLocation, $this->stockLocation);
+        $this->createPickComponentsOperationType($this->stockLocation, $this->preProductionLocation);
+        $this->createManufacturingOperationType($this->stockLocation);
+        $this->createAdjustmentOperationType();
     }
 
     private function initializeSequences()
@@ -152,91 +152,83 @@ class WarehouseInitializeDefaultsListener implements ShouldQueue
 
     private function createViewLocation()
     {
-        $location = new Location();
-        $location->type = Location::VIEW;
-        $location->name = $this->warehouse->short_name;
-        $location->save();
-        return $location;
+        $this->viewLocation = Location::create([
+            'type' => Location::VIEW,
+            'name' => $this->warehouse->short_name,
+        ]);
     }
 
-    private function createStockLocation($parentLocation)
+    private function createStockLocation()
     {
-        $location = new Location();
-        $location->type = Location::INTERNAL;
-        $location->name = 'Stock';
-        $location->parent_location_id = $parentLocation->id;
-        $location->save();
-        return $location;
+        $this->stockLocation = Location::create([
+            'type' => Location::INTERNAL,
+            'name' => 'Stock',
+            'parent_location_id' => $this->viewLocation->id,
+        ]);
     }
 
-    private function createInputLocation($parentLocation)
+    private function createInputLocation()
     {
-        $location = new Location();
-        $location->type = Location::INTERNAL;
-        $location->name = 'Input';
-        $location->parent_location_id = $parentLocation->id;
-        $location->save();
-        return $location;
+        $this->inputLocation = Location::create([
+            'type' => Location::INTERNAL,
+            'name' => 'Input',
+            'parent_location_id' => $this->viewLocation->id,
+        ]);
     }
 
-    private function createQualityControlLocation($parentLocation)
+    private function createQualityControlLocation()
     {
-        $location = new Location();
-        $location->type = Location::INTERNAL;
-        $location->name = 'Quality Control';
-        $location->parent_location_id = $parentLocation->id;
-        $location->save();
-        return $location;
+        $this->qualityControlLocation = Location::create([
+            'type' => Location::INTERNAL,
+            'name' => 'Quality Control',
+            'parent_location_id' => $this->viewLocation->id,
+        ]);
     }
 
-    private function createPackingZoneLocation($parentLocation)
+    private function createPackingZoneLocation()
     {
-        $location = new Location();
-        $location->type = Location::INTERNAL;
-        $location->name = 'Packing Zone';
-        $location->parent_location_id = $parentLocation->id;
-        $location->save();
-        return $location;
+        $this->packingZoneLocation = Location::create([
+            'type' => Location::INTERNAL,
+            'name' => 'Packing Zone',
+            'parent_location_id' => $this->viewLocation->id,
+        ]);
+
     }
 
-    private function createOutputLocation($parentLocation)
+    private function createOutputLocation()
     {
-        $location = new Location();
-        $location->type = Location::INTERNAL;
-        $location->name = 'Output';
-        $location->parent_location_id = $parentLocation->id;
-        $location->save();
-        return $location;
+        $this->outputLocation = Location::create([
+            'type' => Location::INTERNAL,
+            'name' => 'Output',
+            'parent_location_id' => $this->viewLocation->id,
+        ]);
     }
 
-    private function createPostProductionLocation($parentLocation)
+    private function createPostProductionLocation()
     {
-        $location = new Location();
-        $location->type = Location::INTERNAL;
-        $location->name = 'Post-Production';
-        $location->parent_location_id = $parentLocation->id;
-        $location->save();
-        return $location;
+        $this->postProductionLocation = Location::create([
+            'type' => Location::INTERNAL,
+            'name' => 'Post-Production',
+            'parent_location_id' => $this->viewLocation->id,
+        ]);
     }
 
-    private function createPreProductionLocation($parentLocation)
+    private function createPreProductionLocation()
     {
-        $location = new Location();
-        $location->type = Location::INTERNAL;
-        $location->name = 'Pre-Production';
-        $location->parent_location_id = $parentLocation->id;
-        $location->save();
-        return $location;
+        $this->preProductionLocation = Location::create([
+            'type' => Location::INTERNAL,
+            'name' => 'Pre-Production',
+            'parent_location_id' => $this->viewLocation->id,
+        ]);
     }
 
-    private function createAdjustmentLocation($parentLocation)
+    private function createAdjustmentLocation()
     {
-        $location = new Location();
-        $location->type = Location::INVENTORY_LOSS;
-        $location->name = 'Adjustment';
-        $location->parent_location_id = $parentLocation->id;
-        $location->save();
-        return $location;
+        $this->adjustmentLocation = Location::create([
+            'type' => Location::INVENTORY_LOSS,
+            'name' => 'Adjustment',
+            'parent_location_id' => $this->viewLocation->id,
+        ]);
     }
 
     /**
@@ -244,156 +236,146 @@ class WarehouseInitializeDefaultsListener implements ShouldQueue
      */
     private function createReceiptsOperationType($destinationLocation)
     {
-        $operationType = new OperationType();
-        $operationType->name = "{$this->warehouse->name}: Receipts";
-        $operationType->code = 'IN';
-        $operationType->warehouse_id = $this->warehouse->id;
-        $operationType->type = OperationType::RECEIPT;
-        $operationType->create_new_lots_serial_numbers = true;
-        $operationType->default_destination_location_id = $destinationLocation->id;
-        $operationType->save();
-        return $operationType;
+        $this->receiptsOperationType = OperationType::create([
+            'name' => "{$this->warehouse->name}: Receipts",
+            'code' => 'IN',
+            'warehouse_id' => $this->warehouse->id,
+            'type' => OperationType::RECEIPT,
+            'create_new_lots_serial_numbers' => true,
+            'default_destination_location_id' => $destinationLocation->id,
+        ]);
     }
 
     private function createInternalTransferOperationType($sourceAndDestinationLocation)
     {
-        $operationType = new OperationType();
-        $operationType->name = "{$this->warehouse->name}: Internal Transfers";
-        $operationType->code = 'INT';
-        $operationType->warehouse_id = $this->warehouse->id;
-        $operationType->reservation_method = OperationType::AT_CONFIRMATION;
-        $operationType->type = OperationType::INTERNAL;
-        $operationType->show_detailed_operation = true;
-        $operationType->use_existing_lots_serial_numbers = true;
-        $operationType->default_source_location_id = $sourceAndDestinationLocation->id;
-        $operationType->default_destination_location_id = $sourceAndDestinationLocation->id;
-        $operationType->save();
-        return $operationType;
+        $this->internalTransferOperationType = OperationType::create([
+            'name' => "{$this->warehouse->name}: Internal Transfers",
+            'code' => 'INT',
+            'warehouse_id' => $this->warehouse->id,
+            'reservation_method' => OperationType::AT_CONFIRMATION,
+            'type' => OperationType::INTERNAL,
+            'show_detailed_operation' => true,
+            'use_existing_lots_serial_numbers' => true,
+            'default_source_location_id' => $sourceAndDestinationLocation->id,
+            'default_destination_location_id' => $sourceAndDestinationLocation->id,
+        ]);
     }
 
     private function createPickOperationType($sourceLocation, $destinationLocation)
     {
-        $operationType = new OperationType();
-        $operationType->name = "{$this->warehouse->name}: Pick";
-        $operationType->code = 'PICK';
-        $operationType->warehouse_id = $this->warehouse->id;
-        $operationType->reservation_method = OperationType::AT_CONFIRMATION;
-        $operationType->type = OperationType::INTERNAL;
-        $operationType->show_detailed_operation = true;
-        $operationType->use_existing_lots_serial_numbers = true;
-        $operationType->default_source_location_id = $sourceLocation->id;
-        $operationType->default_destination_location_id = $destinationLocation->id;
-        $operationType->save();
-        return $operationType;
+        $this->pickOperationType = OperationType::create([
+            'name' => "{$this->warehouse->name}: Pick",
+            'code' => 'PICK',
+            'warehouse_id' => $this->warehouse->id,
+            'reservation_method' => OperationType::AT_CONFIRMATION,
+            'type' => OperationType::INTERNAL,
+            'show_detailed_operation' => true,
+            'use_existing_lots_serial_numbers' => true,
+            'default_source_location_id' => $sourceLocation->id,
+            'default_destination_location_id' => $destinationLocation->id,
+        ]);
     }
 
     private function createPackOperationType($sourceLocation, $destinationLocation)
     {
-        $operationType = new OperationType();
-        $operationType->name = "{$this->warehouse->name}: Pack";
-        $operationType->code = 'PACK';
-        $operationType->warehouse_id = $this->warehouse->id;
-        $operationType->reservation_method = OperationType::AT_CONFIRMATION;
-        $operationType->type = OperationType::INTERNAL;
-        $operationType->show_detailed_operation = true;
-        $operationType->use_existing_lots_serial_numbers = true;
-        $operationType->default_source_location_id = $sourceLocation->id;
-        $operationType->default_destination_location_id = $destinationLocation->id;
-        $operationType->save();
-        return $operationType;
+        $this->packOperationType = OperationType::create([
+            'name' => "{$this->warehouse->name}: Pack",
+            'code' => 'PACK',
+            'warehouse_id' => $this->warehouse->id,
+            'reservation_method' => OperationType::AT_CONFIRMATION,
+            'type' => OperationType::INTERNAL,
+            'show_detailed_operation' => true,
+            'use_existing_lots_serial_numbers' => true,
+            'default_source_location_id' => $sourceLocation->id,
+            'default_destination_location_id' => $destinationLocation->id,
+        ]);
     }
 
     private function createDeliveryOrderOperationType($sourceLocation)
     {
-        $operationType = new OperationType();
-        $operationType->name = "{$this->warehouse->name}: Delivery Orders";
-        $operationType->code = 'OUT';
-        $operationType->warehouse_id = $this->warehouse->id;
-        $operationType->reservation_method = OperationType::AT_CONFIRMATION;
-        $operationType->type = OperationType::DELIVERY;
-        $operationType->show_detailed_operation = true;
-        $operationType->use_existing_lots_serial_numbers = true;
-        $operationType->default_source_location_id = $sourceLocation->id;
-        $operationType->save();
-        return $operationType;
+        $this->deliveryOrderOperationType = OperationType::create([
+            'name' => "{$this->warehouse->name}: Delivery Orders",
+            'code' => 'OUT',
+            'warehouse_id' => $this->warehouse->id,
+            'reservation_method' => OperationType::AT_CONFIRMATION,
+            'type' => OperationType::DELIVERY,
+            'show_detailed_operation' => true,
+            'use_existing_lots_serial_numbers' => true,
+            'default_source_location_id' => $sourceLocation->id,
+        ]);
     }
 
     private function createReturnsOrderOperationType($sourceLocation)
     {
-        $operationType = new OperationType();
-        $operationType->name = "{$this->warehouse->name}: Returns";
-        $operationType->code = 'IN';
-        $operationType->warehouse_id = $this->warehouse->id;
-        $operationType->reservation_method = OperationType::AT_CONFIRMATION;
-        $operationType->type = OperationType::RECEIPT;
-        $operationType->show_detailed_operation = true;
-        $operationType->pre_fill_detailed_operation = true;
-        $operationType->use_existing_lots_serial_numbers = true;
-        $operationType->default_destination_location_id = $sourceLocation->id;
-        $operationType->save();
-        return $operationType;
+        $this->returnsOperationType = OperationType::create([
+            'name' => "{$this->warehouse->name}: Returns",
+            'code' => 'IN',
+            'warehouse_id' => $this->warehouse->id,
+            'reservation_method' => OperationType::AT_CONFIRMATION,
+            'type' => OperationType::RECEIPT,
+            'show_detailed_operation' => true,
+            'pre_fill_detailed_operation' => true,
+            'use_existing_lots_serial_numbers' => true,
+            'default_destination_location_id' => $sourceLocation->id,
+        ]);
     }
 
     private function createStoreFinishedProductOperationType($sourceLocation, $destinationLocation)
     {
-        $operationType = new OperationType();
-        $operationType->name = "{$this->warehouse->name}: Store Finished Product";
-        $operationType->code = 'SFP';
-        $operationType->warehouse_id = $this->warehouse->id;
-        $operationType->reservation_method = OperationType::AT_CONFIRMATION;
-        $operationType->type = OperationType::INTERNAL;
-        $operationType->show_detailed_operation = true;
-        $operationType->create_new_lots_serial_numbers = true;
-        $operationType->use_existing_lots_serial_numbers = true;
-        $operationType->default_source_location_id = $sourceLocation->id;
-        $operationType->default_destination_location_id = $destinationLocation->id;
-        $operationType->save();
-        return $operationType;
+        $this->storeFinishedProductionOperationType = OperationType::create([
+            'name' => "{$this->warehouse->name}: Store Finished Product",
+            'code' => 'SFP',
+            'warehouse_id' => $this->warehouse->id,
+            'reservation_method' => OperationType::AT_CONFIRMATION,
+            'type' => OperationType::INTERNAL,
+            'show_detailed_operation' => true,
+            'create_new_lots_serial_numbers' => true,
+            'use_existing_lots_serial_numbers' => true,
+            'default_source_location_id' => $sourceLocation->id,
+            'default_destination_location_id' => $destinationLocation->id,
+        ]);
     }
 
     private function createPickComponentsOperationType($sourceLocation, $destinationLocation)
     {
-        $operationType = new OperationType();
-        $operationType->name = "{$this->warehouse->name}: Pick Components";
-        $operationType->code = 'PC';
-        $operationType->warehouse_id = $this->warehouse->id;
-        $operationType->reservation_method = OperationType::AT_CONFIRMATION;
-        $operationType->type = OperationType::INTERNAL;
-        $operationType->show_detailed_operation = true;
-        $operationType->create_new_lots_serial_numbers = true;
-        $operationType->use_existing_lots_serial_numbers = true;
-        $operationType->default_source_location_id = $sourceLocation->id;
-        $operationType->default_destination_location_id = $destinationLocation->id;
-        $operationType->save();
-        return $operationType;
+        $this->pickComponentsOperationType = OperationType::create([
+            'name' => "{$this->warehouse->name}: Pick Components",
+            'code' => 'PC',
+            'warehouse_id' => $this->warehouse->id,
+            'reservation_method' => OperationType::AT_CONFIRMATION,
+            'type' => OperationType::INTERNAL,
+            'show_detailed_operation' => true,
+            'create_new_lots_serial_numbers' => true,
+            'use_existing_lots_serial_numbers' => true,
+            'default_source_location_id' => $sourceLocation->id,
+            'default_destination_location_id' => $destinationLocation->id,
+        ]);
     }
 
     private function createManufacturingOperationType($sourceAndDestinationLocation)
     {
-        $operationType = new OperationType();
-        $operationType->name = "{$this->warehouse->name}: Manufacturing";
-        $operationType->code = 'MO';
-        $operationType->warehouse_id = $this->warehouse->id;
-        $operationType->reservation_method = OperationType::AT_CONFIRMATION;
-        $operationType->type = OperationType::MANUFACTURING;
-        $operationType->default_source_location_id = $sourceAndDestinationLocation->id;
-        $operationType->default_destination_location_id = $sourceAndDestinationLocation->id;
-        $operationType->save();
-        return $operationType;
+        $this->manufacturingOperationType = OperationType::create([
+            'name' => "{$this->warehouse->name}: Manufacturing",
+            'code' => 'MO',
+            'warehouse_id' => $this->warehouse->id,
+            'reservation_method' => OperationType::AT_CONFIRMATION,
+            'type' => OperationType::MANUFACTURING,
+            'default_source_location_id' => $sourceAndDestinationLocation->id,
+            'default_destination_location_id' => $sourceAndDestinationLocation->id,
+        ]);
     }
 
     private function createAdjustmentOperationType()
     {
-        $operationType = new OperationType();
-        $operationType->name = "{$this->warehouse->name}: Adjustment";
-        $operationType->code = 'ADJ';
-        $operationType->warehouse_id = $this->warehouse->id;
-        $operationType->reservation_method = OperationType::AT_CONFIRMATION;
-        $operationType->type = OperationType::ADJUSTMENT;
-        $operationType->show_detailed_operation = true;
-        $operationType->use_existing_lots_serial_numbers = true;
-        $operationType->save();
-        return $operationType;
+        $this->adjustmentOperationType = OperationType::create([
+            'name' => "{$this->warehouse->name}: Adjustment",
+            'code' => 'ADJ',
+            'warehouse_id' => $this->warehouse->id,
+            'reservation_method' => OperationType::AT_CONFIRMATION,
+            'type' => OperationType::ADJUSTMENT,
+            'show_detailed_operation' => true,
+            'use_existing_lots_serial_numbers' => true,
+        ]);
     }
 
     private function createInSequence()
