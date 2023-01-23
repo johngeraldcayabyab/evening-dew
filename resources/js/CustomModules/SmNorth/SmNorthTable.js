@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import useListHook from "../../Hooks/useListHook";
 import manifest from "./__manifest__.json";
 import ControlPanel from "../../Components/ControlPanel";
@@ -10,12 +10,20 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
 import {Tag} from "antd";
-import {selectTimeOptions} from "../../Helpers/object";
 import {uuidv4} from "../../Helpers/string";
 import CustomStepsChanger from "../CustomStepsChanger";
+import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
+
 
 const SmNorthTable = () => {
     const [tableState, tableActions] = useListHook(manifest);
+    useEffect(() => {
+        window.Echo.channel('sm-north').listen('SmNorthPaidEvent', function (data) {
+            let audio = new Audio("/audio/message.mp3");
+            audio.play();
+            tableActions.renderData(tableState.params);
+        });
+    }, []);
 
     return (
         <TableContextProvider value={{
@@ -53,52 +61,10 @@ const SmNorthTable = () => {
                     }
                 },
                 {
-                    title: 'Delivery Address',
-                    dataIndex: 'delivery_address',
-                    key: 'delivery_address',
+                    title: 'Pickup Time',
+                    dataIndex: 'pickup_time',
+                    key: 'pickup_time',
                     sorter: true,
-                    filter: SEARCH,
-                    render: (text, record) => {
-                        if (record.shipping_method === 'pickup') {
-                            return <Tag>Pickup</Tag>
-                        }
-                        return record.delivery_address;
-                    }
-                },
-                {
-                    title: 'Delivery Phone',
-                    dataIndex: 'delivery_phone',
-                    key: 'delivery_phone',
-                    sorter: true,
-                    filter: SEARCH,
-                },
-                {
-                    title: 'Shipping Method',
-                    dataIndex: 'shipping_method',
-                    key: 'shipping_method',
-                    sorter: true,
-                    filter: SEARCH,
-                },
-                {
-                    title: 'Delivery Time',
-                    dataIndex: 'select_time',
-                    key: 'select_time',
-                    render: (text, record) => {
-                        if (!record.select_time) {
-                            return '';
-                        }
-                        const timeOptions = selectTimeOptions();
-                        const timeOption = timeOptions.find((timeOption) => {
-                            return timeOption.value === record.select_time ? timeOption.value : '';
-                        });
-                        if (typeof timeOption !== 'object') {
-                            return '';
-                        }
-                        if (timeOptions && timeOptions.length > 1) {
-                            return timeOption.hasOwnProperty('label') ? timeOption.label : '';
-                        }
-                        return '';
-                    }
                 },
                 {
                     title: 'SKUS',
@@ -122,20 +88,6 @@ const SmNorthTable = () => {
                     }
                 },
                 {
-                    title: 'Courier',
-                    dataIndex: 'courier',
-                    key: 'courier',
-                    sorter: true,
-                    filter: SEARCH,
-                    render: (text, record) => {
-                        if (record.courier) {
-                            return <Tag
-                                color={record.courier.color ? record.courier.color : 'default'}>{record.courier.name}</Tag>;
-                        }
-                        return null;
-                    }
-                },
-                {
                     title: 'Salesperson',
                     dataIndex: 'salesperson',
                     key: 'salesperson',
@@ -147,34 +99,12 @@ const SmNorthTable = () => {
                     }
                 },
                 {
-                    title: 'Shipping Date',
-                    dataIndex: 'shipping_date',
-                    key: 'shipping_date',
-                    sorter: true,
-                    filter: DATE_RANGE,
-                    hidden: true,
-                },
-                {
                     title: 'Quotation Date',
                     dataIndex: 'quotation_date',
                     key: 'quotation_date',
                     sorter: true,
                     filter: DATE_RANGE,
                     hidden: true,
-                },
-                {
-                    title: 'Source',
-                    dataIndex: 'source',
-                    key: 'source',
-                    sorter: true,
-                    filter: SEARCH,
-                    render: (text, record) => {
-                        const source = record.source ? record.source.name : '';
-                        if (source === 'Shopify') {
-                            return <Tag color={'success'}>{source}</Tag>;
-                        }
-                        return <Tag color={'default'}>{source}</Tag>;
-                    }
                 },
                 {
                     title: 'Notes',
@@ -195,7 +125,7 @@ const SmNorthTable = () => {
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}
                 topColTwoRight={''}
-                // bottomColOneLeft={<TableCreateButton/>}
+                bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
                 bottomColTwoRight={<CustomPagination/>}
             />

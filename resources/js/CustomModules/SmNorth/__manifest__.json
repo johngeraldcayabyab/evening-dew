@@ -1,7 +1,11 @@
 {
     "moduleName": "sales_orders",
     "displayName": "sm_north",
-    "modelName": "SalesOrder"
+    "modelName": "SalesOrder",
+    "queryDefaults": {
+        "source_id": 6,
+        "same_day": true
+    }
 }
 
 

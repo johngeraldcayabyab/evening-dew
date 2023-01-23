@@ -1,3 +1,4 @@
+import './bootstrap.js';
 import React, {useEffect, useState} from 'react';
 import {render} from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
@@ -44,7 +45,6 @@ import {GET} from "./consts";
 import useFetchHook from "./Hooks/useFetchHook";
 import useFetchCatcherHook from "./Hooks/useFetchCatcherHook";
 import SmNorthRoute from "./CustomModules/SmNorth/SmNorthRoute"
-
 
 export const AppContext = React.createContext({});
 export const AppContextProvider = AppContext.Provider;

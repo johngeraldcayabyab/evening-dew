@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Data\SystemSetting;
 use App\Events\SalesOrderValidatedEvent;
+use App\Events\SmNorthPaidEvent;
 use App\Http\Requests\SalesOrderRequest;
 use App\Http\Resources\SalesOrderResource;
 use App\Models\GlobalSetting;
@@ -92,6 +93,7 @@ class SalesOrderController
 
     public function initial_values(Request $request)
     {
+        info($request->all());
         $initialValues = [
 //            'shipping_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
             'quotation_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
@@ -109,7 +111,12 @@ class SalesOrderController
         if ($sourceId) {
             $initialValues['source_id'] = $sourceId;
             $initialValues['source'] = Source::find($sourceId);
+
+            if ($sourceId === 6) {
+                $initialValues['shipping_date'] = now()->format(SystemSetting::DATE_TIME_FORMAT);
+            }
         }
+
 
         return $initialValues;
     }
@@ -170,6 +177,10 @@ class SalesOrderController
     public function update_status(Request $request, SalesOrder $salesOrder)
     {
         $steps = $request->steps;
+        if ($steps === 'paid' && $salesOrder->source_id === 6) {
+            SmNorthPaidEvent::dispatch($salesOrder);
+        }
+
         $currentSteps = explode(",", $salesOrder->steps);
 
         if (!in_array($steps, $currentSteps)) {

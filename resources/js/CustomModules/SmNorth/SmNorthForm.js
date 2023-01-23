@@ -265,24 +265,6 @@ const SmNorthForm = () => {
                                 required={true}
                             />
 
-                            <FormItemSelect
-                                placeholder={'Please Select Time'}
-                                label={'Select Time'}
-                                name={'select_time'}
-                                required={true}
-                                options={selectTimeOptions()}
-                            />
-
-                            <FormItemSelect
-                                label={'Shipping Method'}
-                                name={'shipping_method'}
-                                required={true}
-                                options={[
-                                    {value: 'delivery', label: 'Delivery'},
-                                    {value: 'pickup', label: 'Pickup'},
-                                ]}
-                            />
-
                             <FormItemTextArea
                                 placeholder={'Notes and Requests here...'}
                                 label={'Notes'}
@@ -328,16 +310,6 @@ const SmNorthForm = () => {
                                 label={'Ready by'}
                                 name={'ready_by'}
                             />
-
-                            <FormItemSelect
-                                label={'Vehicle Type'}
-                                name={'vehicle_type'}
-                                options={[
-                                    {value: 'motorcycle', label: 'Motorcycle'},
-                                    {value: 'car', label: 'Car'},
-                                ]}
-                            />
-
 
                         </ColForm>
                     </RowForm>
