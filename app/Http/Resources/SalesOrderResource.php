@@ -24,7 +24,7 @@ class SalesOrderResource extends JsonResource
             'delivery_phone' => $this->delivery_phone,
             'expiration_date' => $this->expiration_date,
             'quotation_date' => $this->quotation_date,
-            'pickup_time' => $this->pickup_time ? Carbon::parse($this->pickup_time)->isoFormat('LLLL') : null,
+            'pickup_time' => $this->pickup_time,
             'payment_term_id' => $this->payment_term_id,
             'salesperson_id' => $this->salesperson_id,
             'source_id' => $this->source_id,

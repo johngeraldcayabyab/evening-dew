@@ -8,7 +8,7 @@ use App\Models\Source;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class AddAppMenuToAllUserSeeder extends Seeder
+class DeploymentSeeder1 extends Seeder
 {
     public function run()
     {

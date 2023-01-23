@@ -93,7 +93,6 @@ class SalesOrderController
 
     public function initial_values(Request $request)
     {
-        info($request->all());
         $initialValues = [
 //            'shipping_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
             'quotation_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
@@ -111,12 +110,10 @@ class SalesOrderController
         if ($sourceId) {
             $initialValues['source_id'] = $sourceId;
             $initialValues['source'] = Source::find($sourceId);
-
             if ($sourceId === 6) {
                 $initialValues['shipping_date'] = now()->format(SystemSetting::DATE_TIME_FORMAT);
             }
         }
-
 
         return $initialValues;
     }
