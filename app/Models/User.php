@@ -31,6 +31,7 @@ class User extends Authenticatable implements Sluggable
         'name',
         'email',
         'password',
+        'app_menu_id',
         'avatar'
     ];
     protected static $logAttributes = ['*'];

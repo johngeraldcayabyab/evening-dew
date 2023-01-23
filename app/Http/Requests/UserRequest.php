@@ -13,6 +13,7 @@ class UserRequest extends FormRequest
             'name' => "required|unique:users,name,{$id}",
             'email' => "required|unique:users,email,{$id}",
             'password' => 'nullable|confirmed|min:6',
+            'app_menu_id' => ['nullable', 'exists:app_menus,id'],
             'avatar' => 'nullable',
 
             'user_group_lines.*.id' => ['nullable', 'exists:user_group_lines,id'],

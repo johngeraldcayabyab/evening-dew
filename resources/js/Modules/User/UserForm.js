@@ -18,6 +18,7 @@ import FormLineParent from "../../Components/FormLines/FormLineParent"
 import FormItemLineId from "../../Components/FormItem/FormItemLineId"
 import FormItemSelect from "../../Components/FormItem/FormItemSelect"
 import useOptionLineHook from "../../Hooks/useOptionLineHook"
+import useOptionHook from "../../Hooks/useOptionHook"
 
 const {TabPane} = Tabs;
 
@@ -28,10 +29,12 @@ const UserForm = () => {
 
     const userLineOptions = useOptionLineHook('/api/users', 'users.name');
     const groupLineOptions = useOptionLineHook('/api/groups', 'groups.name');
+    const appMenuOptions = useOptionHook('/api/app_menus', 'label');
 
     useEffect(() => {
         userLineOptions.getInitialOptions(formState, 'user_group_lines');
         groupLineOptions.getInitialOptions(formState, 'user_group_lines');
+        appMenuOptions.getInitialOptions(formState);
     }, [formState.initialLoad]);
 
     return (
@@ -68,6 +71,12 @@ const UserForm = () => {
                                 message={'Please input email'}
                                 required={true}
                                 size={'medium'}
+                            />
+
+                            <FormItemSelect
+                                label={'App Menu'}
+                                name={'app_menu_id'}
+                                {...appMenuOptions}
                             />
                         </ColForm>
 
