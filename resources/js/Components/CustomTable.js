@@ -5,10 +5,11 @@ import {EyeOutlined, SearchOutlined} from "@ant-design/icons";
 import {TableContext} from "../Contexts/TableContext";
 import SearchFilter from "./TableFilters/SearchFilter";
 import {getAllUrlParams} from "../Helpers/url";
-import {COLUMN_SELECTION, DATE_RANGE, SEARCH} from "../consts";
+import {COLUMN_SELECTION, DATE_RANGE, SEARCH, SELECT} from "../consts";
 import DateRangeFilter from "./TableFilters/DateRangeFilter";
 import ColumnSelectionFilter from "./TableFilters/ColumnSelectionFilter";
 import {AppContext} from "../App";
+import SelectFilter from "./TableFilters/SelectFilter"
 
 const CustomTable = (props) => {
     const appContext = useContext(AppContext);
@@ -44,7 +45,7 @@ const CustomTable = (props) => {
 
         columns = columns.map((column) => {
             if (column.hasOwnProperty('filter')) {
-                const filterType = generateColumnFilterByType(column.dataIndex, column.filter);
+                const filterType = generateColumnFilterByType(column);
                 if (filterType) {
                     column = {...column, ...filterType};
                 }
@@ -92,7 +93,9 @@ const CustomTable = (props) => {
         })
     }
 
-    function generateColumnFilterByType(dataIndex, filterType) {
+    function generateColumnFilterByType(column) {
+        const dataIndex = column.dataIndex;
+        const filterType = column.filter;
         if (filterType === SEARCH) {
             return {
                 filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => {
@@ -119,6 +122,24 @@ const CustomTable = (props) => {
                             selectedKeys={selectedKeys}
                             confirm={confirm}
                             clearFilters={clearFilters}
+                        />
+                    )
+                },
+                filterIcon: filtered => <SearchOutlined style={{color: filtered ? '#1890ff' : undefined}}/>,
+            }
+        }
+        if (filterType === SELECT) {
+            console.log(column);
+            return {
+                filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => {
+                    return (
+                        <SelectFilter
+                            dataIndex={dataIndex}
+                            setSelectedKeys={setSelectedKeys}
+                            selectedKeys={selectedKeys}
+                            confirm={confirm}
+                            clearFilters={clearFilters}
+                            options={column.options}
                         />
                     )
                 },

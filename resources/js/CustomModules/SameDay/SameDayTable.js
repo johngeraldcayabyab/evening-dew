@@ -8,7 +8,7 @@ import CustomPagination from "../../Components/CustomPagination";
 import Text from "antd/es/typography/Text";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
-import {DATE_RANGE, SEARCH} from "../../consts";
+import {DATE_RANGE, SEARCH, SELECT} from "../../consts";
 import {Tag} from "antd";
 import {selectTimeOptions} from "../../Helpers/object";
 import {uuidv4} from "../../Helpers/string";
@@ -83,7 +83,8 @@ const SameDayTable = () => {
                     title: 'Delivery Time',
                     dataIndex: 'select_time',
                     key: 'select_time',
-                    // filter: SELECT,
+                    filter: SELECT,
+                    options: selectTimeOptions(),
                     render: (text, record) => {
                         if (!record.select_time) {
                             return '';
