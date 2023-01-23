@@ -64,7 +64,7 @@ const ViewInvoice = () => {
         </Button>
 
         <Modal
-            title={<b>ORDER # {initialValues.number}</b>}
+            title={<h1>ORDER # {initialValues.number}</h1>}
             visible={isModalVisible}
             onOk={handleOk}
             onCancel={handleCancel}
@@ -91,8 +91,10 @@ const ViewInvoice = () => {
                     </Space>
                 </Col>
                 <Col span={12} style={{textAlign: 'right'}}>
-                    <p key={'invoice-date'} style={{marginBottom: '0px'}}><b>INVOICE DATE:</b> {momentFormat(initialValues.quotation_date)}</p>
-                    <p key={'shipping-date'} style={{marginBottom: '0px'}}><b>SHIPPING DATE:</b> {momentFormat(initialValues.shipping_date)}</p>
+                    <p key={'invoice-date'} style={{marginBottom: '0px'}}><b>INVOICE
+                        DATE:</b> {momentFormat(initialValues.quotation_date)}</p>
+                    <p key={'shipping-date'} style={{marginBottom: '0px'}}><b>SHIPPING
+                        DATE:</b> {momentFormat(initialValues.shipping_date)}</p>
                     <p key={'select-time'} style={{marginBottom: '0px'}}><b>Time:</b> {makeTime()}</p>
                 </Col>
             </Row>
@@ -103,7 +105,8 @@ const ViewInvoice = () => {
                 <Col span={24}>
                     <Space direction="vertical" size={1}>
                         <p style={{marginBottom: '0px'}}><b>TO:</b></p>
-                        <p style={{marginBottom: '0px'}}><b>{initialValues.customer ? initialValues.customer.name : ''}</b></p>
+                        <p style={{marginBottom: '0px'}}>
+                            <b>{initialValues.customer ? initialValues.customer.name : ''}</b></p>
                         <p style={{marginBottom: '0px'}}>{initialValues.delivery_address} {initialValues.delivery_city ? initialValues.delivery_city.name : ''}</p>
                         <p style={{marginBottom: '0px'}}>{initialValues.customer ? initialValues.customer.phone : ''}</p>
                     </Space>
