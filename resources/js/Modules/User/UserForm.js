@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Divider, Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
@@ -14,11 +14,18 @@ import FormItemUpload from "../../Components/FormItem/FormItemUpload";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import useOptionHook from "../../Hooks/useOptionHook"
 
 const UserForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest);
+
+    const appMenuOptions = useOptionHook('/api/app_menus', 'label');
+
+    useEffect(() => {
+        appMenuOptions.getInitialOptions(formState);
+    }, [formState.initialLoad]);
 
     return (
         <FormContextProvider
@@ -54,6 +61,12 @@ const UserForm = () => {
                                 message={'Please input email'}
                                 required={true}
                                 size={'medium'}
+                            />
+
+                            <FormItemSelect
+                                label={'App Menu'}
+                                name={'app_menu_id'}
+                                {...appMenuOptions}
                             />
                         </ColForm>
 

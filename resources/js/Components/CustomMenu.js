@@ -63,19 +63,16 @@ const CustomMenu = () => {
 
     useEffect(() => {
         if (appContext.appState.isLogin && !appContext.appState.appInitialLoad) {
-            useFetch('/api/app_menus/1', GET).then((response) => {
-                const appMenu = response.children;
-                const pathname = location.pathname;
-                const index = getRootIndex(appMenu, pathname);
-                const appMenuChildren = appMenu[index].children;
-                setState((prevState) => ({
-                    ...prevState,
-                    appMenu: appMenu,
-                    appMenuChildren: appMenuChildren,
-                }));
-            }).catch((responseErr) => {
-                fetchCatcher.get(responseErr);
-            });
+            const appMenu = appContext.appState.user.app_menu.children;
+            const pathname = location.pathname;
+            const index = getRootIndex(appMenu, pathname);
+            const appMenuChildren = appMenu[index].children;
+            setState((prevState) => ({
+                ...prevState,
+                loading: false,
+                appMenu: appMenu,
+                appMenuChildren: appMenuChildren,
+            }));
         }
     }, [appContext.appState.isLogin, appContext.appState.appInitialLoad]);
 

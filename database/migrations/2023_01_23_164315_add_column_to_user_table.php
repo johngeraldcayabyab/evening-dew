@@ -8,7 +8,7 @@ class AddColumnToUserTable extends Migration
 {
     public function up()
     {
-        if (Schema::hasColumn('users', 'app_menu_id')) {
+        if (!Schema::hasColumn('users', 'app_menu_id')) {
             Schema::table('users', function (Blueprint $table) {
                 $table->bigInteger('app_menu_id')->nullable();
             });
