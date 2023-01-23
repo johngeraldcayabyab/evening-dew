@@ -31,6 +31,7 @@ class User extends Authenticatable implements Sluggable
         'name',
         'email',
         'password',
+        'app_menu_id',
         'avatar'
     ];
     protected static $logAttributes = ['*'];
@@ -43,6 +44,11 @@ class User extends Authenticatable implements Sluggable
     public function contact()
     {
         return $this->belongsTo(Contact::class);
+    }
+
+    public function appMenu()
+    {
+        return $this->belongsTo(AppMenu::class);
     }
 
     public function slug()

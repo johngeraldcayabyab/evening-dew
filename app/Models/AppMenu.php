@@ -28,6 +28,11 @@ class AppMenu extends Model implements Sluggable
     protected $guarded = [];
     protected static $logAttributes = ['*'];
 
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
+
     public function menu()
     {
         return $this->belongsTo(Menu::class, 'menu_id');

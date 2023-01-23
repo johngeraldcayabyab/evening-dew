@@ -13,7 +13,8 @@ class UserRequest extends FormRequest
             'name' => "required|unique:users,name,{$id}",
             'email' => "required|unique:users,email,{$id}",
             'password' => 'nullable|confirmed|min:6',
-            'avatar' => 'nullable'
+            'app_menu_id' => ['nullable', 'exists:app_menus,id'],
+            'avatar' => 'nullable',
         ];
     }
 }

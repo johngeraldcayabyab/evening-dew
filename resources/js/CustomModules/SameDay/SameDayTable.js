@@ -83,6 +83,7 @@ const SameDayTable = () => {
                     title: 'Delivery Time',
                     dataIndex: 'select_time',
                     key: 'select_time',
+                    // filter: SELECT,
                     render: (text, record) => {
                         if (!record.select_time) {
                             return '';
