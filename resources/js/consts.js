@@ -8,6 +8,7 @@ export const LIST = '';
 export const TABLE = 'table';
 export const KANBAN = 'kanban';
 export const SEARCH = 'search';
+export const SELECT = 'select';
 export const DATE_RANGE = 'date_range';
 export const COLUMN_SELECTION = 'column_selection';
 
