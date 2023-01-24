@@ -1,6 +1,6 @@
 import {Redirect, Route, Switch} from "react-router-dom";
 import React from "react";
-import manifest from "./__manifest__.json";
+import manifest from "./home_manifest.json";
 import {uuidv4} from "../../Helpers/string";
 import Home from "./Home";
 

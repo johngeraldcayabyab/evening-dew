@@ -1,6 +1,6 @@
 import React from 'react';
 import useListHook from "../../Hooks/useListHook";
-import manifest from "./__manifest__.json";
+import manifest from "./payment_term_manifest.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
 import CustomTable from "../../Components/CustomTable";

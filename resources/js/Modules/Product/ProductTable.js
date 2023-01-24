@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import useListHook from "../../Hooks/useListHook";
-import manifest from "./__manifest__.json";
+import manifest from "./product_manifest.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
 import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
