@@ -16,7 +16,9 @@ export const objectHasValue = (obj) => {
 
 export const formatInitialValuesDatetimeToMoment = (obj) => {
     for (let k in obj) {
-        if (typeof obj[k] == "object" && obj[k] !== null) formatInitialValuesDatetimeToMoment(obj[k]); else {
+        if (typeof obj[k] == "object" && obj[k] !== null)
+            formatInitialValuesDatetimeToMoment(obj[k]);
+        else {
             if (moment(obj[k], DATE_FORMAT, true).isValid()) {
                 obj[k] = formatToMoment(obj[k]);
             }

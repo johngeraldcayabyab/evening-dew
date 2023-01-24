@@ -1,3 +1,4 @@
+import './bootstrap.js';
 import React, {useEffect, useState} from 'react';
 import {render} from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
@@ -58,6 +59,10 @@ const App = () => {
         const fetchCatcher = useFetchCatcherHook();
 
         useEffect(() => {
+            window.Echo.channel('refresh-browser').listen('RefreshBrowserEvent', () => {
+                window.location.reload();
+            });
+
             if (appState.isLogin && !objectHasValue(appState.globalSetting)) {
                 useFetch(`/api/users`, GET, {
                     email: getCookie('userEmail'),
