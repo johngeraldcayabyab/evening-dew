@@ -13,7 +13,6 @@ const FormButtons = (props) => {
             <EditButton/>
             <SaveEditButton/>
             <DiscardEditButton/>
-
             <FormCreateButton/>
             <SaveCreateButton/>
             <DiscardCreateButton/>

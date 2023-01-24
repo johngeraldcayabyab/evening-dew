@@ -1,7 +1,6 @@
 {
     "moduleName": "products",
     "displayName": "products",
-    "modelName": "Product",
     "queryDefaults": {}
 }
 

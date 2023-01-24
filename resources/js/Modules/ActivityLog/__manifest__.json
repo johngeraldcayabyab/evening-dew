@@ -1,7 +1,6 @@
 {
     "moduleName": "activity_log",
     "displayName": "activity_log",
-    "modelName": "Activity",
     "queryDefaults": {}
 }
 

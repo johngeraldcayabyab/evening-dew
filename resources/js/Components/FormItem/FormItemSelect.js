@@ -1,11 +1,14 @@
 import {Form, Select, Tag} from "antd";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import CustomInputSkeleton from "../CustomInputSkeleton";
 import {formItemFieldProps} from "../../Helpers/form";
 import {FormContext} from "../../Contexts/FormContext";
 import CustomDropdownMenu from "../CustomDropdownMenu";
 
 const FormItemSelect = (props) => {
+    const [state, setState] = useState({
+        isClear: false
+    });
     const formContext = useContext(FormContext);
     const specialFieldProps = {
         allowClear: true,
@@ -13,10 +16,41 @@ const FormItemSelect = (props) => {
         onSearch: props.onSearch,
         optionFilterProp: "children",
         filterOption: [],
-        onClear: props.onClear,
         onPopupScroll: props.onPopupScroll,
         listHeight: 150,
     };
+
+    if (props.onClear) {
+        specialFieldProps.onClear = () => {
+            props.onClear();
+            setState(() => ({
+                isClear: true,
+            }));
+        }
+    }
+
+    if (props.onDropdownVisibleChange) {
+        specialFieldProps.onDropdownVisibleChange = (open) => {
+            props.onDropdownVisibleChange(open);
+        }
+    }
+
+    useEffect(() => {
+        if (state.isClear) {
+            if (props.isListField) {
+                let fields = {};
+                const options = formContext.form.getFieldsValue(true)[props.listName];
+                options[props.fieldKey][props.name] = null;
+                fields[props.listName] = options;
+                formContext.form.setFieldsValue(fields);
+                props.onClear(props.fieldKey);
+            } else {
+                let fields = {};
+                fields[props.name] = null;
+                formContext.form.setFieldsValue(fields);
+            }
+        }
+    }, [state.isClear]);
 
     if (props.dropdownRender) {
         specialFieldProps.dropdownRender = (menu) => {

@@ -55,7 +55,6 @@ class SalesOrderLineExport implements FromQuery, ShouldAutoSize, WithMapping, Wi
             'box_description' => $row->product->sales_description,
             'shipping_method' => $row->salesOrder->shipping_method,
             'select_time' => $row->salesOrder->select_time,
-
         ];
     }
 

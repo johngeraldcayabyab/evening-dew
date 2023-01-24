@@ -1,7 +1,6 @@
 {
     "moduleName": "addresses",
     "displayName": "addresses",
-    "modelName": "Address",
     "queryDefaults": {}
 }
 

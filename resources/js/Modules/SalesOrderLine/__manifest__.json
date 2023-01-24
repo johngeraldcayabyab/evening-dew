@@ -1,7 +1,6 @@
 {
     "moduleName": "sales_order_lines",
     "displayName": "sales_order_lines",
-    "modelName": "SalesOrderLine",
     "queryDefaults": {
         "group_by": "product_id,shipping_date",
         "aggregate_by": "quantity",

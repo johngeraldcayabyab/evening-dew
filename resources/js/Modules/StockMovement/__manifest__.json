@@ -1,7 +1,6 @@
 {
     "moduleName": "stock_movements",
     "displayName": "stock_movements",
-    "modelName": "StockMovement",
     "queryDefaults": {}
 }
 

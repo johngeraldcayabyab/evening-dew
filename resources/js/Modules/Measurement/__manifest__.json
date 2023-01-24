@@ -1,7 +1,6 @@
 {
     "moduleName": "measurements",
     "displayName": "measurements",
-    "modelName": "Measurement",
     "queryDefaults": {}
 }
 

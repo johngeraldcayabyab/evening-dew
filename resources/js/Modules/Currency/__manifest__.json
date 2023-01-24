@@ -1,7 +1,6 @@
 {
     "moduleName": "currencies",
     "displayName": "currencies",
-    "modelName": "Currency",
     "queryDefaults": {}
 }
 

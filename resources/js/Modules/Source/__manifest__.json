@@ -1,7 +1,6 @@
 {
     "moduleName": "sources",
     "displayName": "sources",
-    "modelName": "Source",
     "queryDefaults": {}
 }
 

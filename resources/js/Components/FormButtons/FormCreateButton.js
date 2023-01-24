@@ -2,8 +2,10 @@ import React, {useContext} from 'react';
 import {FormContext} from "../../Contexts/FormContext";
 import {Link} from "react-router-dom";
 import {Button} from "antd";
+import {AppContext} from "../../App"
 
 const FormCreateButton = () => {
+    const appContext = useContext(AppContext);
     const formContext = useContext(FormContext);
 
     if (formContext.id && formContext.formState.formDisabled) {

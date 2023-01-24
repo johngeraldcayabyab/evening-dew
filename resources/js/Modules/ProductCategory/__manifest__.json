@@ -1,7 +1,6 @@
 {
     "moduleName": "product_categories",
     "displayName": "product_categories",
-    "modelName": "ProductCategory",
     "queryDefaults": {}
 }
 

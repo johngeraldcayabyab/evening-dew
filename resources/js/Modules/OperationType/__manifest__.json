@@ -1,7 +1,6 @@
 {
     "moduleName": "operations_types",
     "displayName": "operations_types",
-    "modelName": "OperationType",
     "queryDefaults": {}
 }
 

@@ -1,7 +1,10 @@
 import {Divider, Input, Space, Typography} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
+import {useContext} from "react"
+import {AppContext} from "../App"
 
 const CustomDropdownMenu = (props) => {
+    const appContext = useContext(AppContext);
     return (
         <>
             {props.menu}
@@ -21,3 +24,4 @@ const CustomDropdownMenu = (props) => {
 };
 
 export default CustomDropdownMenu;
+z

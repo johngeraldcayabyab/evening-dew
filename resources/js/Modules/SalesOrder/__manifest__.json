@@ -1,7 +1,6 @@
 {
     "moduleName": "sales_orders",
     "displayName": "sales_orders",
-    "modelName": "SalesOrder",
     "queryDefaults": {}
 }
 
