@@ -1,21 +1,19 @@
-import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
-
 import SourceTable from './SourceTable';
 import SourceForm from './SourceForm';
+import Switcher from "../../Components/Switcher"
 
 const SourceRoute = () => {
-    const moduleName = manifest.moduleName;
+    const displayName = manifest.displayName;
     return (
-        <Switch>
-            <Route exact key={`${moduleName}-list`} path={`/${moduleName}`}
-                   render={props => <SourceTable key={props.location.key}/>}/>
-            <Route exact key={`${moduleName}-create`} path={`/${moduleName}/create`}
-                   render={props => <SourceForm key={props.location.key}/>}/>
-            <Route exact key={`${moduleName}-update`} path={`/${moduleName}/:id`}
-                   render={props => <SourceForm key={props.location.key}/>}/>
-        </Switch>
+        <Switcher
+            routes={[
+                {path: `/${displayName}/create`, component: SourceForm},
+                {path: `/${displayName}/:id`, component: SourceForm},
+                {path: `/${displayName}`, component: SourceTable},
+            ]}
+        />
     );
 };
 

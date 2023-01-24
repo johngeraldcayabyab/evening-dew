@@ -1,25 +1,19 @@
-import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
-import {uuidv4} from "../../Helpers/string";
-
 import WarehouseTable from './WarehouseTable';
 import WarehouseForm from './WarehouseForm';
+import Switcher from "../../Components/Switcher"
 
 const WarehouseRoute = () => {
     const displayName = manifest.displayName;
     return (
-        <Switch>
-            <Route exact key={uuidv4()} path={`/${displayName}`}
-                   render={props => <WarehouseTable key={props.location.key}/>}
-            />
-            <Route exact key={uuidv4()} path={`/${displayName}/create`}
-                   render={props => <WarehouseForm key={props.location.key}/>}
-            />
-            <Route exact key={uuidv4()} path={`/${displayName}/:id`}
-                   render={props => <WarehouseForm key={props.location.key}/>}
-            />
-        </Switch>
+        <Switcher
+            routes={[
+                {path: `/${displayName}/create`, component: WarehouseForm},
+                {path: `/${displayName}/:id`, component: WarehouseForm},
+                {path: `/${displayName}`, component: WarehouseTable},
+            ]}
+        />
     );
 };
 

@@ -1,25 +1,19 @@
-import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
-import {uuidv4} from "../../Helpers/string";
-
 import UserTable from './UserTable';
 import UserForm from './UserForm';
+import Switcher from "../../Components/Switcher"
 
 const UserRoute = () => {
     const displayName = manifest.displayName;
     return (
-        <Switch>
-            <Route exact key={uuidv4()} path={`/${displayName}`}
-                   render={props => <UserTable key={props.location.key}/>}
-            />
-            <Route exact key={uuidv4()} path={`/${displayName}/create`}
-                   render={props => <UserForm key={props.location.key}/>}
-            />
-            <Route exact key={uuidv4()} path={`/${displayName}/:id`}
-                   render={props => <UserForm key={props.location.key}/>}
-            />
-        </Switch>
+        <Switcher
+            routes={[
+                {path: `/${displayName}/create`, component: UserForm},
+                {path: `/${displayName}/:id`, component: UserForm},
+                {path: `/${displayName}`, component: UserTable},
+            ]}
+        />
     );
 };
 

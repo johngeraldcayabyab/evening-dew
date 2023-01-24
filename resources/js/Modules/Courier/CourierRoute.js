@@ -1,21 +1,19 @@
-import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
-
 import CourierTable from './CourierTable';
 import CourierForm from './CourierForm';
+import Switcher from "../../Components/Switcher"
 
 const CourierRoute = () => {
-    const moduleName = manifest.moduleName;
+    const displayName = manifest.displayName;
     return (
-        <Switch>
-            <Route exact key={`${moduleName}-list`} path={`/${moduleName}`}
-                   render={props => <CourierTable key={props.location.key}/>}/>
-            <Route exact key={`${moduleName}-create`} path={`/${moduleName}/create`}
-                   render={props => <CourierForm key={props.location.key}/>}/>
-            <Route exact key={`${moduleName}-update`} path={`/${moduleName}/:id`}
-                   render={props => <CourierForm key={props.location.key}/>}/>
-        </Switch>
+        <Switcher
+            routes={[
+                {path: `/${displayName}/create`, component: CourierForm},
+                {path: `/${displayName}/:id`, component: CourierForm},
+                {path: `/${displayName}`, component: CourierTable},
+            ]}
+        />
     );
 };
 

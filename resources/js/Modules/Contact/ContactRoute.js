@@ -1,25 +1,19 @@
-import {Route, Switch} from "react-router-dom";
 import React from "react";
 import manifest from "./__manifest__.json";
-import {uuidv4} from "../../Helpers/string";
-
 import ContactTable from './ContactTable';
 import ContactForm from './ContactForm';
+import Switcher from "../../Components/Switcher"
 
 const ContactRoute = () => {
     const displayName = manifest.displayName;
     return (
-        <Switch>
-            <Route exact key={uuidv4()} path={`/${displayName}`}
-                   render={props => <ContactTable key={props.location.key}/>}
-            />
-            <Route exact key={uuidv4()} path={`/${displayName}/create`}
-                   render={props => <ContactForm key={props.location.key}/>}
-            />
-            <Route exact key={uuidv4()} path={`/${displayName}/:id`}
-                   render={props => <ContactForm key={props.location.key}/>}
-            />
-        </Switch>
+        <Switcher
+            routes={[
+                {path: `/${displayName}/create`, component: ContactForm},
+                {path: `/${displayName}/:id`, component: ContactForm},
+                {path: `/${displayName}`, component: ContactTable},
+            ]}
+        />
     );
 };
 
