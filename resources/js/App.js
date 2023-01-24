@@ -61,6 +61,10 @@ const App = () => {
         const fetchCatcher = useFetchCatcherHook();
 
         useEffect(() => {
+            window.Echo.channel('refresh-browser').listen('RefreshBrowserEvent', () => {
+                window.location.reload();
+            });
+
             if (appState.isLogin && !objectHasValue(appState.globalSetting)) {
                 useFetch(`/api/users`, GET, {
                     email: getCookie('userEmail'),

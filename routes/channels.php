@@ -18,6 +18,10 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 });
 
 
+Broadcast::channel('refresh-browser', function () {
+    return true;
+});
+
 Broadcast::channel('sm-north', function () {
     return true;
 });
