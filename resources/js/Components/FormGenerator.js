@@ -19,7 +19,7 @@ import {useEffect, useState} from "react"
 const FormGenerator = (manifest) => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, manifest, manifest.getInitialValue);
 
     const [fields, setFields] = useState([]);
 

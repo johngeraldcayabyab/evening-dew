@@ -12,6 +12,7 @@ export default {
         {path: `/${displayName}/:id`, component: CurrencyForm},
         {path: `/${displayName}`, component: CurrencyTable},
     ],
+    getInitialValue: true,
     formFields: [
         [
             [
