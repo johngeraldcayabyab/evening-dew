@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import useListHook from "../../Hooks/useListHook";
-import manifest from "./contact_manifest.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
 import CustomTable from "../../Components/CustomTable";
@@ -8,20 +7,18 @@ import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdown
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
-import {Col, Row} from "antd";
-import KanbanTablePicker from "../../Components/KanbanTablePicker";
-import {DATE_RANGE, KANBAN, SEARCH, TABLE} from "../../consts";
-import Cardination from "../../Components/Cardination";
+import {DATE_RANGE, SEARCH} from "../../consts";
 import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
+import ContactManifest from "./ContactManifest"
 
 const ContactTable = () => {
-    const [tableState, tableActions] = useListHook(manifest);
+    const [tableState, tableActions] = useListHook(ContactManifest);
     // const [dataState, setDataState] = useState({
     //     mode: KANBAN
     // });
     return (
         <TableContextProvider value={{
-            manifest: manifest,
+            manifest: ContactManifest,
             tableState: tableState,
             tableActions: tableActions,
             // dataState: dataState,

@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
-import manifest from "./operation_type_manifest.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
 import ColForm from "../../Components/Grid/ColForm";
@@ -17,11 +16,12 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import OperationTypeManifest from "./OperationTypeManifest"
 
 const OperationTypeForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, OperationTypeManifest, true);
     const referenceSequenceOptions = useOptionHook('/api/sequences', 'reference_sequence.name');
     const warehouseOptions = useOptionHook('/api/warehouses', 'warehouse.name');
     const operationTypeForReturnOptions = useOptionHook('/api/operations_types', 'operation_type_for_returns.name');
@@ -41,7 +41,7 @@ const OperationTypeForm = () => {
         <FormContextProvider
             value={{
                 id: id,
-                manifest: manifest,
+                manifest: OperationTypeManifest,
                 form: form,
                 formState: formState,
                 formActions: formActions,

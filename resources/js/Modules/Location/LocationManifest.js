@@ -1,14 +1,15 @@
-import location_manifest from "./location_manifest.json"
-import LocationForm from "./LocationForm"
-import LocationTable from "./LocationTable"
+import LocationForm from "./LocationForm";
+import LocationTable from "./LocationTable";
+
+const displayName = "locations";
 
 export default {
     "moduleName": "locations",
-    "displayName": "locations",
+    "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${location_manifest.displayName}/create`, component: LocationForm},
-        {path: `/${location_manifest.displayName}/:id`, component: LocationForm},
-        {path: `/${location_manifest.displayName}`, component: LocationTable},
+        {path: `/${displayName}/create`, component: LocationForm},
+        {path: `/${displayName}/:id`, component: LocationForm},
+        {path: `/${displayName}`, component: LocationTable},
     ]
 };

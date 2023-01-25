@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
-import manifest from "./address_manifest.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
 import ColForm from "../../Components/Grid/ColForm";
@@ -15,11 +14,12 @@ import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import AddressManifest from "./AddressManifest"
 
 const AddressForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, AddressManifest, true);
     const countryOptions = useOptionHook('/api/countries', 'country.country_name');
     const cityOptions = useOptionHook('/api/cities', 'city.name');
     const contactOptions = useOptionHook('/api/contacts', 'contact.name');
@@ -34,7 +34,7 @@ const AddressForm = () => {
         <FormContextProvider
             value={{
                 id: id,
-                manifest: manifest,
+                manifest: AddressManifest,
                 form: form,
                 formState: formState,
                 formActions: formActions,
@@ -44,7 +44,7 @@ const AddressForm = () => {
             <CustomForm>
                 <ControlPanel
                     topColOneLeft={<CustomBreadcrumb/>}
-                    bottomColOneLeft={<FormButtons edit={true} create={true} />}
+                    bottomColOneLeft={<FormButtons edit={true} create={true}/>}
                     bottomColTwoRight={<NextPreviousRecord/>}
                 />
                 <FormCard>

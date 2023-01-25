@@ -1,6 +1,5 @@
 import React from 'react';
 import useListHook from "../../Hooks/useListHook";
-import manifest from "./measurement_category_manifest.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
 import CustomTable from "../../Components/CustomTable";
@@ -10,12 +9,13 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
 import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
+import MeasurementCategoryManifest from "./MeasurementCategoryManifest"
 
 const MeasurementCategoryTable = () => {
-    const [tableState, tableActions] = useListHook(manifest);
+    const [tableState, tableActions] = useListHook(MeasurementCategoryManifest);
     return (
         <TableContextProvider value={{
-            manifest: manifest,
+            manifest: MeasurementCategoryManifest,
             tableState: tableState,
             tableActions: tableActions,
             columnSelection: true,

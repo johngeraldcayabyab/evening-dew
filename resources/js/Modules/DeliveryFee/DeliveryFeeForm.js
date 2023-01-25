@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
-import manifest from "./delivery_fee_manifest.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
 import ColForm from "../../Components/Grid/ColForm";
@@ -20,13 +19,14 @@ import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import useOptionHook from "../../Hooks/useOptionHook";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
+import DeliveryFeeManifest from "./DeliveryFeeManifest"
 
 const {TabPane} = Tabs;
 
 const DeliveryFeeForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, DeliveryFeeManifest, true);
     const productOptions = useOptionHook('/api/products', 'product.name');
     const cityOptions = useOptionLineHook('/api/cities', 'city.name');
 
@@ -40,7 +40,7 @@ const DeliveryFeeForm = () => {
         <FormContextProvider
             value={{
                 id: id,
-                manifest: manifest,
+                manifest: DeliveryFeeManifest,
                 form: form,
                 formState: formState,
                 formActions: formActions,

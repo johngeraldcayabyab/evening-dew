@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
-import manifest from "./measurement_manifest.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
 import ColForm from "../../Components/Grid/ColForm";
@@ -16,11 +15,12 @@ import {FormContextProvider} from "../../Contexts/FormContext";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import useOptionHook from "../../Hooks/useOptionHook";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import MeasurementManifest from "./MeasurementManifest"
 
 const MeasurementForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, MeasurementManifest, true);
     const measurementCategoryOptions = useOptionHook('/api/measurement_categories', 'measurement_category.name');
     useEffect(() => {
         measurementCategoryOptions.getInitialOptions(formState);
@@ -29,7 +29,7 @@ const MeasurementForm = () => {
         <FormContextProvider
             value={{
                 id: id,
-                manifest: manifest,
+                manifest: MeasurementManifest,
                 form: form,
                 formState: formState,
                 formActions: formActions,

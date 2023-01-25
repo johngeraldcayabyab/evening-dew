@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
-import manifest from "./product_manifest.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
 import ColForm from "../../Components/Grid/ColForm";
@@ -20,13 +19,14 @@ import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import FormLinks from "../../Components/FormLinks";
 import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
 import FormItemCheckbox from "../../Components/FormItem/FormItemCheckbox"
+import ProductManifest from "./ProductManifest"
 
 const {TabPane} = Tabs;
 
 const ProductForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, ProductManifest, true);
     const measurementOptions = useOptionHook('/api/measurements', 'measurement.name');
     const purchaseMeasurementOptions = useOptionHook('/api/measurements', 'purchase_measurement.name');
     const salesMeasurementOptions = useOptionHook('/api/measurements', 'sales_measurement.name');
@@ -43,7 +43,7 @@ const ProductForm = () => {
         <FormContextProvider
             value={{
                 id: id,
-                manifest: manifest,
+                manifest: ProductManifest,
                 form: form,
                 formState: formState,
                 formActions: formActions,

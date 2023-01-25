@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
-import manifest from "./country_manifest.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
 import ColForm from "../../Components/Grid/ColForm";
@@ -15,11 +14,12 @@ import {FormContextProvider} from "../../Contexts/FormContext";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import useOptionHook from "../../Hooks/useOptionHook";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import CountryManifest from "./CountryManifest"
 
 const CountryForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest);
+    const [formState, formActions] = useFormHook(id, form, CountryManifest);
     const currencyOptions = useOptionHook('/api/currencies', 'currency.currency');
 
     useEffect(() => {
@@ -30,7 +30,7 @@ const CountryForm = () => {
         <FormContextProvider
             value={{
                 id: id,
-                manifest: manifest,
+                manifest: CountryManifest,
                 form: form,
                 formState: formState,
                 formActions: formActions,

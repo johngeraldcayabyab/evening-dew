@@ -2,7 +2,6 @@ import React from 'react';
 import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
-import manifest from "./currency_manifest.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
 import ColForm from "../../Components/Grid/ColForm";
@@ -15,16 +14,17 @@ import FormCard from "../../Components/FormCard";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import CurrencyManifest from "./CurrencyManifest"
 
 const CurrencyForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, CurrencyManifest, true);
     return (
         <FormContextProvider
             value={{
                 id: id,
-                manifest: manifest,
+                manifest: CurrencyManifest,
                 form: form,
                 formState: formState,
                 formActions: formActions,

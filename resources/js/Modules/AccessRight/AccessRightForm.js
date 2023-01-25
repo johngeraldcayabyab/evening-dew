@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
-import manifest from "./access_right_manifest.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
 import ColForm from "../../Components/Grid/ColForm";
@@ -16,11 +15,12 @@ import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import FormItemCheckbox from "../../Components/FormItem/FormItemCheckbox"
+import AccessRight from "./AccessRightManifest"
 
 const AccessRightForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, AccessRight, true);
     const groupOptions = useOptionHook('/api/groups', 'group.name');
 
     useEffect(() => {
@@ -31,7 +31,7 @@ const AccessRightForm = () => {
         <FormContextProvider
             value={{
                 id: id,
-                manifest: manifest,
+                manifest: AccessRight,
                 form: form,
                 formState: formState,
                 formActions: formActions,

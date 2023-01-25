@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useState} from 'react';
 import {Divider, Form, Table, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
-import manifest from "./sales_order_manifest.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
 import ColForm from "../../Components/Grid/ColForm";
@@ -32,13 +31,14 @@ import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
 import {AppContext} from "../../App";
 import SalesOrderPDF from "./SalesOrderPDF"
+import SalesOrderManifest from "./SalesOrderManifest"
 
 const {TabPane} = Tabs;
 
 const SalesOrderForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, SalesOrderManifest, true);
     const customerOptions = useOptionHook('/api/contacts', 'customer.name');
     const invoiceCityOptions = useOptionHook('/api/cities', 'invoice_city.name');
     const deliveryCityOptions = useOptionHook('/api/cities', 'delivery_city.name');
@@ -201,7 +201,7 @@ const SalesOrderForm = () => {
     return (<FormContextProvider
         value={{
             id: id,
-            manifest: manifest,
+            manifest: SalesOrderManifest,
             form: form,
             formState: formState,
             formActions: formActions,

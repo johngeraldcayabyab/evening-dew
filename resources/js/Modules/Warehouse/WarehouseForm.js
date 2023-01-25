@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {Divider, Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
-import manifest from "./warehouse_manifest.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
 import ColForm from "../../Components/Grid/ColForm";
@@ -17,13 +16,14 @@ import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import {snakeToCamel} from "../../Helpers/string";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import Warehouse from "./WarehouseManifest"
 
 const {TabPane} = Tabs;
 
 const WarehouseForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, Warehouse, true);
     let urlQueries = [
         {url: '/api/locations', query: 'view_location.name'},
         {url: '/api/locations', query: 'stock_location.name'},
@@ -58,7 +58,7 @@ const WarehouseForm = () => {
         <FormContextProvider
             value={{
                 id: id,
-                manifest: manifest,
+                manifest: Warehouse,
                 form: form,
                 formState: formState,
                 formActions: formActions,

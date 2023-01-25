@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {Divider, Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
-import manifest from "./user_manifest.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
 import ColForm from "../../Components/Grid/ColForm";
@@ -19,13 +18,14 @@ import FormItemLineId from "../../Components/FormItem/FormItemLineId"
 import FormItemSelect from "../../Components/FormItem/FormItemSelect"
 import useOptionLineHook from "../../Hooks/useOptionLineHook"
 import useOptionHook from "../../Hooks/useOptionHook"
+import User from "./UserManifest"
 
 const {TabPane} = Tabs;
 
 const UserForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest);
+    const [formState, formActions] = useFormHook(id, form, User);
 
     const userLineOptions = useOptionLineHook('/api/users', 'users.name');
     const groupLineOptions = useOptionLineHook('/api/groups', 'groups.name');
@@ -41,7 +41,7 @@ const UserForm = () => {
         <FormContextProvider
             value={{
                 id: id,
-                manifest: manifest,
+                manifest: User,
                 form: form,
                 formState: formState,
                 formActions: formActions,

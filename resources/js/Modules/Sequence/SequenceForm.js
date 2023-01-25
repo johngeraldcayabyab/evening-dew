@@ -2,7 +2,6 @@ import React from 'react';
 import {Divider, Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
-import manifest from "./sequence_manifest.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
 import ColForm from "../../Components/Grid/ColForm";
@@ -15,17 +14,18 @@ import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import SequenceManifest from "./SequenceManifest"
 
 const SequenceForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, SequenceManifest, true);
 
     return (
         <FormContextProvider
             value={{
                 id: id,
-                manifest: manifest,
+                manifest: SequenceManifest,
                 form: form,
                 formState: formState,
                 formActions: formActions,

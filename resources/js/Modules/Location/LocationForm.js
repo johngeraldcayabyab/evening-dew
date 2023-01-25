@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {Divider, Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
-import manifest from "./location_manifest.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
 import ColForm from "../../Components/Grid/ColForm";
@@ -16,11 +15,12 @@ import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import LocationManifest from "./LocationManifest";
 
 const LocationForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, LocationManifest, true);
     const parentLocationOptions = useOptionHook('/api/locations', 'parent_location.name');
     useEffect(() => {
         parentLocationOptions.getInitialOptions(formState);
@@ -29,7 +29,7 @@ const LocationForm = () => {
         <FormContextProvider
             value={{
                 id: id,
-                manifest: manifest,
+                manifest: LocationManifest,
                 form: form,
                 formState: formState,
                 formActions: formActions,

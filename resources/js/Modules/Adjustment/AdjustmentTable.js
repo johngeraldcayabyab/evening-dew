@@ -1,6 +1,5 @@
 import React from 'react';
 import useListHook from "../../Hooks/useListHook";
-import manifest from "./adjustment_manifest.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
 import CustomTable from "../../Components/CustomTable";
@@ -10,12 +9,13 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
 import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
+import AdjustmentManifest from "./AdjustmentManifest"
 
 const AdjustmentTable = () => {
-    const [tableState, tableActions] = useListHook(manifest);
+    const [tableState, tableActions] = useListHook(AdjustmentManifest);
     return (
         <TableContextProvider value={{
-            manifest: manifest,
+            manifest: AdjustmentManifest,
             tableState: tableState,
             tableActions: tableActions,
             columnSelection: true,

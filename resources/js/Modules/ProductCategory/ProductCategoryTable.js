@@ -1,6 +1,5 @@
 import React from 'react';
 import useListHook from "../../Hooks/useListHook";
-import manifest from "./product_category_manifest.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
 import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
@@ -10,12 +9,13 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
 import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
+import ProductManifest from "../Product/ProductManifest"
 
 const ProductCategoryTable = () => {
-    const [tableState, tableActions] = useListHook(manifest);
+    const [tableState, tableActions] = useListHook(ProductManifest);
     return (
         <TableContextProvider value={{
-            manifest: manifest,
+            manifest: ProductManifest,
             tableState: tableState,
             tableActions: tableActions,
             columnSelection: true,

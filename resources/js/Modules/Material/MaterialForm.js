@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
-import manifest from "./material_manifest.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
 import ColForm from "../../Components/Grid/ColForm";
@@ -23,13 +22,14 @@ import useOptionLineHook from "../../Hooks/useOptionLineHook";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import MaterialManifest from "./MaterialManifest"
 
 const {TabPane} = Tabs;
 
 const MaterialForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, MaterialManifest, true);
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const productOptions = useOptionHook('/api/products', 'product.name');
@@ -69,7 +69,7 @@ const MaterialForm = () => {
         <FormContextProvider
             value={{
                 id: id,
-                manifest: manifest,
+                manifest: MaterialManifest,
                 form: form,
                 formState: formState,
                 formActions: formActions,

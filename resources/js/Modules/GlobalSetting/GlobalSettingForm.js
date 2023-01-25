@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {Divider, Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
-import manifest from "./global_setting_manifest.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
 import ColForm from "../../Components/Grid/ColForm";
@@ -14,13 +13,14 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
+import GlobalSettingManifest from "./GlobalSettingManifest"
 
 const {TabPane} = Tabs;
 
 const GlobalSettingForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, GlobalSettingManifest, true);
     const generalDefaultCountryOptions = useOptionHook('/api/countries', 'general_default_country.country_name');
     const inventoryDefaultMeasurementCategoryOptions = useOptionHook('/api/measurement_categories', 'inventory_default_measurement_category.name');
     const inventoryDefaultMeasurementOptions = useOptionHook('/api/measurements', 'inventory_default_measurement.name');
@@ -59,7 +59,7 @@ const GlobalSettingForm = () => {
         <FormContextProvider
             value={{
                 id: id,
-                manifest: manifest,
+                manifest: GlobalSettingManifest,
                 form: form,
                 formState: formState,
                 formActions: formActions,

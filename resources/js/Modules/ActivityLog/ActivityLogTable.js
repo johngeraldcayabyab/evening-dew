@@ -1,6 +1,5 @@
 import React from 'react';
 import useListHook from "../../Hooks/useListHook";
-import manifest from "./activity_log_manifest.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
 import CustomTable from "../../Components/CustomTable";
@@ -12,12 +11,13 @@ import {DATE_RANGE, SEARCH} from "../../consts";
 import Text from "antd/es/typography/Text";
 import {Space} from "antd";
 import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
+import ActivityLog from "./ActivityLogManifest"
 
 const ActivityLogTable = () => {
-    const [tableState, tableActions] = useListHook(manifest);
+    const [tableState, tableActions] = useListHook(ActivityLog);
     return (
         <TableContextProvider value={{
-            manifest: manifest,
+            manifest: ActivityLog,
             tableState: tableState,
             tableActions: tableActions,
             columnSelection: true,

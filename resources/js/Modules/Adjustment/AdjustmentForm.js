@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
-import manifest from "./adjustment_manifest.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
 import ColForm from "../../Components/Grid/ColForm";
@@ -13,7 +12,7 @@ import ControlPanel from "../../Components/ControlPanel";
 import FormCard from "../../Components/FormCard";
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
-import {GET, POST} from "../../consts";
+import {GET} from "../../consts";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import useFetchHook from "../../Hooks/useFetchHook";
 import {FormContextProvider} from "../../Contexts/FormContext";
@@ -25,11 +24,12 @@ import StatusBar from "../../Components/StatusBar";
 import FormLineParent from "../../Components/FormLines/FormLineParent";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import AdjustmentManifest from "./AdjustmentManifest"
 
 const AdjustmentForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, AdjustmentManifest, true);
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const productCategoryOptions = useOptionHook('/api/product_categories', 'product_category.category');
@@ -70,7 +70,7 @@ const AdjustmentForm = () => {
         <FormContextProvider
             value={{
                 id: id,
-                manifest: manifest,
+                manifest: AdjustmentManifest,
                 form: form,
                 formState: formState,
                 formActions: formActions,

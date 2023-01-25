@@ -1,6 +1,5 @@
 import React from 'react';
 import useListHook from "../../Hooks/useListHook";
-import manifest from "./access_right_manifest.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
 import CustomTable from "../../Components/CustomTable";
@@ -8,15 +7,16 @@ import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdown
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
-import {DATE_RANGE, SEARCH} from "../../consts";
-import {Input, Tag} from "antd"
+import {SEARCH} from "../../consts";
+import {Tag} from "antd"
 import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
+import AccessRight from "./AccessRightManifest"
 
 const AccessRightTable = () => {
-    const [tableState, tableActions] = useListHook(manifest);
+    const [tableState, tableActions] = useListHook(AccessRight);
     return (
         <TableContextProvider value={{
-            manifest: manifest,
+            manifest: AccessRight,
             tableState: tableState,
             tableActions: tableActions,
             columnSelection: true,

@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
-import manifest from "./app_menu_manifest.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
 import ColForm from "../../Components/Grid/ColForm";
@@ -15,11 +14,12 @@ import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import AppMenuManifest from "./AppMenuManifest"
 
 const AppMenuForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, AppMenuManifest, true);
     const menuOptions = useOptionHook('/api/menus', 'menu.label');
     const appMenuOptions = useOptionHook('/api/app_menus', 'parent_app_menu.label');
 
@@ -32,7 +32,7 @@ const AppMenuForm = () => {
         <FormContextProvider
             value={{
                 id: id,
-                manifest: manifest,
+                manifest: AppMenuManifest,
                 form: form,
                 formState: formState,
                 formActions: formActions,

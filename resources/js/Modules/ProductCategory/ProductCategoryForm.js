@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {Form} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
-import manifest from "./product_category_manifest.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
 import ColForm from "../../Components/Grid/ColForm";
@@ -15,11 +14,12 @@ import {FormContextProvider} from "../../Contexts/FormContext";
 import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
+import ProductManifest from "../Product/ProductManifest"
 
 const ProductCategoryForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, ProductManifest, true);
     const parentCategoryOptions = useOptionHook('/api/product_categories', 'parent_category.category');
 
     useEffect(() => {
@@ -30,7 +30,7 @@ const ProductCategoryForm = () => {
         <FormContextProvider
             value={{
                 id: id,
-                manifest: manifest,
+                manifest: ProductManifest,
                 form: form,
                 formState: formState,
                 formActions: formActions,

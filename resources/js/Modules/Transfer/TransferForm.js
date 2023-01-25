@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Form, Tabs} from "antd";
 import {useParams} from "react-router-dom";
 import useFormHook from "../../Hooks/useFormHook";
-import manifest from "./transfer_manifest.json";
 import FormButtons from "../../Components/FormButtons/FormButtons";
 import RowForm from "../../Components/Grid/RowForm";
 import ColForm from "../../Components/Grid/ColForm";
@@ -12,7 +11,7 @@ import FormCard from "../../Components/FormCard";
 import FormItemText from "../../Components/FormItem/FormItemText";
 import FormItemDate from "../../Components/FormItem/FormItemDate";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
-import {GET, POST} from "../../consts";
+import {GET} from "../../consts";
 import FormItemNumber from "../../Components/FormItem/FormItemNumber";
 import StatusBar from "../../Components/StatusBar";
 import FormItemStatus from "../../Components/FormItem/FormItemStatus";
@@ -28,13 +27,14 @@ import FormLineParent from "../../Components/FormLines/FormLineParent";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
 import {disableIfStatus} from "../../Helpers/object"
+import TransferManifest from "./TransferManifest"
 
 const {TabPane} = Tabs;
 
 const TransferForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, true);
+    const [formState, formActions] = useFormHook(id, form, TransferManifest, true);
     const contactOptions = useOptionHook('/api/contacts', 'contact.name');
     const operationTypeOptions = useOptionHook('/api/operations_types', 'operation_type.name');
     const sourceLocationOptions = useOptionHook('/api/locations', 'source_location.name');
@@ -102,7 +102,7 @@ const TransferForm = () => {
         <FormContextProvider
             value={{
                 id: id,
-                manifest: manifest,
+                manifest: TransferManifest,
                 form: form,
                 formState: formState,
                 formActions: formActions,

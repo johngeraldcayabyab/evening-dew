@@ -1,6 +1,5 @@
 import React from 'react';
 import useListHook from "../../Hooks/useListHook";
-import manifest from "./delivery_fee_manifest.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
 import CustomTable from "../../Components/CustomTable";
@@ -11,12 +10,13 @@ import {TableContextProvider} from "../../Contexts/TableContext";
 import {Tag} from "antd";
 import {DATE_RANGE, SEARCH} from "../../consts";
 import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
+import DeliveryFeeManifest from "./DeliveryFeeManifest"
 
 const DeliveryFeeTable = () => {
-    const [tableState, tableActions] = useListHook(manifest);
+    const [tableState, tableActions] = useListHook(DeliveryFeeManifest);
     return (
         <TableContextProvider value={{
-            manifest: manifest,
+            manifest: DeliveryFeeManifest,
             tableState: tableState,
             tableActions: tableActions,
             columnSelection: true,

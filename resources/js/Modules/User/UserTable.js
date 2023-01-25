@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import useListHook from "../../Hooks/useListHook";
-import manifest from "./user_manifest.json";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
 import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdownButton";
@@ -13,15 +12,16 @@ import KanbanTablePicker from "../../Components/KanbanTablePicker";
 import {DATE_RANGE, KANBAN, SEARCH, TABLE} from "../../consts";
 import Cardination from "../../Components/Cardination";
 import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
+import User from "./UserManifest"
 
 const UserTable = () => {
-    const [tableState, tableActions] = useListHook(manifest);
+    const [tableState, tableActions] = useListHook(User);
     const [dataState, setDataState] = useState({
         mode: KANBAN
     });
     return (
         <TableContextProvider value={{
-            manifest: manifest,
+            manifest: User,
             tableState: tableState,
             tableActions: tableActions,
             dataState: dataState,
