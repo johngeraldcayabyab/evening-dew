@@ -19,12 +19,12 @@ import React from "react"
 const FormGenerator = (manifest) => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, manifest, manifest.getInitialValue);
+    const [formState, formActions] = useFormHook(id, form, manifest, manifest.form.initialValue);
 
-    const fields = manifest.formFields.map((row) => {
+    const fields = manifest.form.fields.map((row) => {
 
         if (row === 'divider') {
-            return <Divider/>;
+            return <Divider key={uuidv4()} />;
         }
 
         return (
@@ -71,27 +71,29 @@ const FormGenerator = (manifest) => {
         return '';
     }
 
-    return (<FormContextProvider
-        value={{
-            id: id,
-            manifest: manifest,
-            form: form,
-            formState: formState,
-            formActions: formActions,
-            onFinish: formActions.onFinish
-        }}
-    >
-        <CustomForm>
-            <ControlPanel
-                topColOneLeft={<CustomBreadcrumb/>}
-                bottomColOneLeft={<FormButtons/>}
-                bottomColTwoRight={<NextPreviousRecord/>}
-            />
-            <FormCard>
-                {fields}
-            </FormCard>
-        </CustomForm>
-    </FormContextProvider>);
+    return (
+        <FormContextProvider
+            value={{
+                id: id,
+                manifest: manifest,
+                form: form,
+                formState: formState,
+                formActions: formActions,
+                onFinish: formActions.onFinish
+            }}
+        >
+            <CustomForm>
+                <ControlPanel
+                    topColOneLeft={<CustomBreadcrumb/>}
+                    bottomColOneLeft={<FormButtons/>}
+                    bottomColTwoRight={<NextPreviousRecord/>}
+                />
+                <FormCard>
+                    {fields}
+                </FormCard>
+            </CustomForm>
+        </FormContextProvider>
+    );
 };
 
 export default FormGenerator;
