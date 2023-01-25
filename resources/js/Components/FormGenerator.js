@@ -1,5 +1,5 @@
 import {useParams} from "react-router-dom"
-import {Form} from "antd"
+import {Divider, Form} from "antd"
 import useFormHook from "../Hooks/useFormHook"
 import {FormContextProvider} from "../Contexts/FormContext";
 import CustomBreadcrumb from "./CustomBreadcrumb"
@@ -14,33 +14,34 @@ import FormItemSelect from "./FormItem/FormItemSelect"
 import FormCard from "./FormCard"
 import {uuidv4} from "../Helpers/string"
 import CustomForm from "./CustomForm"
-import {useEffect, useState} from "react"
+import React from "react"
 
 const FormGenerator = (manifest) => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, manifest.getInitialValue);
 
-    const [fields, setFields] = useState([]);
+    const fields = manifest.formFields.map((row) => {
 
-    useEffect(() => {
-        const generatedFields = manifest.formFields.map((row) => {
-            return (
-                <RowForm key={uuidv4()}>
-                    {row.map((columns) => {
-                        return (
-                            <ColForm key={uuidv4()}>
-                                {columns.map((field) => {
-                                    return fielder(field);
-                                })}
-                            </ColForm>
-                        )
-                    })}
-                </RowForm>
-            );
-        });
-        setFields(generatedFields);
-    }, []);
+        if (row === 'divider') {
+            return <Divider/>;
+        }
+
+        return (
+            <RowForm key={uuidv4()}>
+                {row.map((columns) => {
+                    return (
+                        <ColForm key={uuidv4()}>
+                            {columns.map((field) => {
+                                return fielder(field);
+                            })}
+                        </ColForm>
+                    )
+                })}
+            </RowForm>
+        );
+    });
+
 
     function fielder(field) {
         if (field.type === 'text') {
