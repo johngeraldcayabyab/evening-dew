@@ -16,14 +16,14 @@ import useOptionHook from "../../Hooks/useOptionHook";
 import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 import {snakeToCamel} from "../../Helpers/string";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
-import Warehouse from "./WarehouseManifest"
+import WarehouseManifest from "./WarehouseManifest"
 
 const {TabPane} = Tabs;
 
 const WarehouseForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, Warehouse, true);
+    const [formState, formActions] = useFormHook(id, form, WarehouseManifest, true);
     let urlQueries = [
         {url: '/api/locations', query: 'view_location.name'},
         {url: '/api/locations', query: 'stock_location.name'},
@@ -58,7 +58,7 @@ const WarehouseForm = () => {
         <FormContextProvider
             value={{
                 id: id,
-                manifest: Warehouse,
+                manifest: WarehouseManifest,
                 form: form,
                 formState: formState,
                 formActions: formActions,

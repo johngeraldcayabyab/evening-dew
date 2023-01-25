@@ -20,7 +20,7 @@ import StockMovement from "./StockMovementManifest"
 const StockMovementForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, StockMovement);
+    const [formState, formActions] = useFormHook(id, form);
 
     const productOptions = useOptionHook('/api/products', 'product.name');
     const sourceLocationOptions = useOptionHook('/api/locations', 'source_location.name');

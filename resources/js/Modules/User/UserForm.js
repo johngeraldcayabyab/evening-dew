@@ -18,14 +18,14 @@ import FormItemLineId from "../../Components/FormItem/FormItemLineId"
 import FormItemSelect from "../../Components/FormItem/FormItemSelect"
 import useOptionLineHook from "../../Hooks/useOptionLineHook"
 import useOptionHook from "../../Hooks/useOptionHook"
-import User from "./UserManifest"
+import UserManifest from "./UserManifest"
 
 const {TabPane} = Tabs;
 
 const UserForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
-    const [formState, formActions] = useFormHook(id, form, User);
+    const [formState, formActions] = useFormHook(id, form, UserManifest);
 
     const userLineOptions = useOptionLineHook('/api/users', 'users.name');
     const groupLineOptions = useOptionLineHook('/api/groups', 'groups.name');
@@ -41,7 +41,7 @@ const UserForm = () => {
         <FormContextProvider
             value={{
                 id: id,
-                manifest: User,
+                manifest: UserManifest,
                 form: form,
                 formState: formState,
                 formActions: formActions,
