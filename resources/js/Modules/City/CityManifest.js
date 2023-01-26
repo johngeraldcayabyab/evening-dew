@@ -13,9 +13,9 @@ export default {
         {path: `/${displayName}`, component: CityTable},
     ],
     form: {
-        // urlQueries: [
-        //     {url: '/api/regions', query: 'region.region', optionName: 'regionOptions'},
-        // ],
+        urlQueries: [
+            {url: '/api/regions', query: 'region.region', optionName: 'regionOptions'},
+        ],
         fields: [
             [
                 [
@@ -31,12 +31,12 @@ export default {
                         name: 'province',
                         label: 'Province',
                     },
-                    // {
-                    //     type: 'select',
-                    //     name: 'region_id',
-                    //     label: 'Region',
-                    //     optionName: 'regionOptions'
-                    // },
+                    {
+                        type: 'select',
+                        name: 'region_id',
+                        label: 'Region',
+                        optionName: 'regionOptions'
+                    },
                 ],
             ],
         ],

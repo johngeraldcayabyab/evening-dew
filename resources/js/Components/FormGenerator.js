@@ -10,12 +10,12 @@ import RowForm from "./Grid/RowForm"
 import ColForm from "./Grid/ColForm"
 import FormItemText from "./FormItem/FormItemText"
 import FormItemNumber from "./FormItem/FormItemNumber"
-import FormItemSelect from "./FormItem/FormItemSelect"
+import FormItemSelectChad from "./FormItem/FormItemSelectChad"
 import FormCard from "./FormCard"
 import {snakeToCamel, uuidv4} from "../Helpers/string"
 import CustomForm from "./CustomForm"
 import React, {useEffect} from "react"
-import useOptionHook from "../Hooks/useOptionHook"
+import useOptionChad from "../Hooks/useOptionChad"
 
 const FormGenerator = (manifest) => {
     let {id} = useParams();
@@ -23,13 +23,13 @@ const FormGenerator = (manifest) => {
     const [formState, formActions] = useFormHook(id, form, manifest, manifest.form.initialValue);
 
     const urlQueries = manifest.form.urlQueries;
-
     const options = {};
-    urlQueries.forEach((urlQuery) => {
-        const module = snakeToCamel(urlQuery.query.split('.')[0]);
-        options[module] = useOptionHook(urlQuery.url, urlQuery.query);
-    });
-
+    if (urlQueries) {
+        urlQueries.forEach((urlQuery) => {
+            const optionName = urlQuery.optionName;
+            options[optionName] = useOptionChad(urlQuery.url, urlQuery.query);
+        });
+    }
 
 
     useEffect(() => {
@@ -79,18 +79,17 @@ const FormGenerator = (manifest) => {
             if (field.query) {
                 const properties = {
                     ...field,
-                    ...options[field.query]
+                    ...options[field.optionName]
                 }
                 return (
-                    <FormItemSelect
+                    <FormItemSelectChad
                         key={uuidv4()}
                         {...properties}
                     />
                 )
             }
-            console.log('may');
             return (
-                <FormItemSelect
+                <FormItemSelectChad
                     key={uuidv4()}
                     {...field}
                 />
