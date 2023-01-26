@@ -13,7 +13,7 @@ export default {
         {path: `/${displayName}`, component: MeasurementCategoryTable},
     ],
     form: {
-        formFields: [
+        fields: [
             [
                 [
                     {
