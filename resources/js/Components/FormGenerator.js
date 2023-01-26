@@ -12,21 +12,36 @@ import FormItemText from "./FormItem/FormItemText"
 import FormItemNumber from "./FormItem/FormItemNumber"
 import FormItemSelect from "./FormItem/FormItemSelect"
 import FormCard from "./FormCard"
-import {uuidv4} from "../Helpers/string"
+import {snakeToCamel, uuidv4} from "../Helpers/string"
 import CustomForm from "./CustomForm"
-import React from "react"
+import React, {useEffect} from "react"
+import useOptionHook from "../Hooks/useOptionHook"
 
 const FormGenerator = (manifest) => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, manifest.form.initialValue);
 
-    const fields = manifest.form.fields.map((row) => {
+    const urlQueries = manifest.form.urlQueries;
 
-        if (row === 'divider') {
-            return <Divider key={uuidv4()} />;
+    const options = {};
+    urlQueries.forEach((urlQuery) => {
+        const module = snakeToCamel(urlQuery.query.split('.')[0]);
+        options[module] = useOptionHook(urlQuery.url, urlQuery.query);
+    });
+
+
+
+    useEffect(() => {
+        for (const option in options) {
+            options[option].getInitialOptions(formState);
         }
+    }, [formState.initialLoad]);
 
+    const fields = manifest.form.fields.map((row) => {
+        if (row === 'divider') {
+            return <Divider key={uuidv4()}/>;
+        }
         return (
             <RowForm key={uuidv4()}>
                 {row.map((columns) => {
@@ -61,6 +76,19 @@ const FormGenerator = (manifest) => {
             )
         }
         if (field.type === 'select') {
+            if (field.query) {
+                const properties = {
+                    ...field,
+                    ...options[field.query]
+                }
+                return (
+                    <FormItemSelect
+                        key={uuidv4()}
+                        {...properties}
+                    />
+                )
+            }
+            console.log('may');
             return (
                 <FormItemSelect
                     key={uuidv4()}
