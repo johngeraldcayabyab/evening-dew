@@ -37,6 +37,7 @@ const FormItemSelect = (props) => {
 
     useEffect(() => {
         if (state.isClear) {
+            console.log('cheemz');
             if (props.isListField) {
                 let fields = {};
                 const options = formContext.form.getFieldsValue(true)[props.listName];

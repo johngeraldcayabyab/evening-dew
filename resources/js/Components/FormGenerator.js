@@ -14,89 +14,88 @@ import FormItemSelectChad from "./FormItem/FormItemSelectChad"
 import FormCard from "./FormCard"
 import {snakeToCamel, uuidv4} from "../Helpers/string"
 import CustomForm from "./CustomForm"
-import React, {useEffect} from "react"
+import React, {useEffect, useState} from "react"
+import useOptionHook from "../Hooks/useOptionHook"
 import useOptionChad from "../Hooks/useOptionChad"
 
 const FormGenerator = (manifest) => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, manifest.form.initialValue);
+    const regionOptions = useOptionHook('/api/regions', 'region.region');
+    // const [formGeneratorState, setFormGeneratorState] = useState({
+    //     fields: [],
+    //     options: []
+    // });
 
-    const urlQueries = manifest.form.urlQueries;
-    const options = {};
-    if (urlQueries) {
-        urlQueries.forEach((urlQuery) => {
-            const optionName = urlQuery.optionName;
-            options[optionName] = useOptionChad(urlQuery.url, urlQuery.query);
+    // const options = {};
+    // manifest.form.fields.forEach(row => {
+    //     row.forEach((columns) => {
+    //         columns.forEach((field) => {
+    //             if (field.type === 'select' && field.query) {
+    //                 options[field.query.name] = useOptionChad(field.query.url, field.query.field);
+    //             }
+    //         });
+    //     });
+    // });
+
+    useEffect(() => {
+        regionOptions.getInitialOptions(formState);
+        // manifest.form.fields.forEach(row => {
+        //     row.forEach((columns) => {
+        //         columns.forEach((field) => {
+        //             if (field.type === 'select' && field.query) {
+        //                 options[field.query.name].getInitialOptions(formState);
+        //             }
+        //         });
+        //     });
+        // });
+    }, [formState.initialLoad]);
+
+    const Items = (props) => {
+        const fields = props.fields;
+        return fields.map((row) => {
+            if (row === 'divider') {
+                return <Divider key={uuidv4()}/>;
+            }
+            return (
+                <RowForm key={uuidv4()}>
+                    {row.map((columns) => (
+                        <ColForm key={uuidv4()}>
+                            {columns.map((field) => {
+                                if (field.type === 'text') {
+                                    return (
+                                        <FormItemText
+                                            key={uuidv4()}
+                                            {...field}
+                                        />
+                                    )
+                                }
+                                if (field.type === 'number') {
+                                    return (
+                                        <FormItemNumber
+                                            key={uuidv4()}
+                                            {...field}
+                                        />
+                                    )
+                                }
+                                if (field.type === 'select') {
+                                    return (
+                                        <FormItemSelectChad
+                                            key={uuidv4()}
+                                            {...field}
+                                            {...props.shimay}
+                                        />
+                                    )
+                                }
+                            })}
+                        </ColForm>
+                    ))}
+                </RowForm>
+            );
         });
     }
 
-
-    useEffect(() => {
-        for (const option in options) {
-            options[option].getInitialOptions(formState);
-        }
-    }, [formState.initialLoad]);
-
-    const fields = manifest.form.fields.map((row) => {
-        if (row === 'divider') {
-            return <Divider key={uuidv4()}/>;
-        }
-        return (
-            <RowForm key={uuidv4()}>
-                {row.map((columns) => {
-                    return (
-                        <ColForm key={uuidv4()}>
-                            {columns.map((field) => {
-                                return fielder(field);
-                            })}
-                        </ColForm>
-                    )
-                })}
-            </RowForm>
-        );
-    });
-
-
-    function fielder(field) {
-        if (field.type === 'text') {
-            return (
-                <FormItemText
-                    key={uuidv4()}
-                    {...field}
-                />
-            )
-        }
-        if (field.type === 'number') {
-            return (
-                <FormItemNumber
-                    key={uuidv4()}
-                    {...field}
-                />
-            )
-        }
-        if (field.type === 'select') {
-            if (field.query) {
-                const properties = {
-                    ...field,
-                    ...options[field.optionName]
-                }
-                return (
-                    <FormItemSelectChad
-                        key={uuidv4()}
-                        {...properties}
-                    />
-                )
-            }
-            return (
-                <FormItemSelectChad
-                    key={uuidv4()}
-                    {...field}
-                />
-            )
-        }
-        return '';
-    }
 
     return (
         <FormContextProvider
@@ -116,11 +115,16 @@ const FormGenerator = (manifest) => {
                     bottomColTwoRight={<NextPreviousRecord/>}
                 />
                 <FormCard>
-                    {fields}
+                    <Items fields={manifest.form.fields} shimay={regionOptions}/>
                 </FormCard>
             </CustomForm>
         </FormContextProvider>
     );
+};
+
+const FieldsGenerated = () => {
+
+
 };
 
 export default FormGenerator;

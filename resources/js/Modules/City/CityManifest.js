@@ -1,5 +1,6 @@
 import CityForm from "./CityForm";
 import CityTable from "./CityTable";
+import useOptionChad from "../../Hooks/useOptionChad"
 
 const displayName = "cities";
 
@@ -13,9 +14,6 @@ export default {
         {path: `/${displayName}`, component: CityTable},
     ],
     form: {
-        urlQueries: [
-            {url: '/api/regions', query: 'region.region', optionName: 'regionOptions'},
-        ],
         fields: [
             [
                 [
@@ -35,7 +33,7 @@ export default {
                         type: 'select',
                         name: 'region_id',
                         label: 'Region',
-                        optionName: 'regionOptions'
+                        query: {url: '/api/regions', field: 'region.region', name: 'regionOptions'},
                     },
                 ],
             ],

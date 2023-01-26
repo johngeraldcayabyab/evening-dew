@@ -16,6 +16,8 @@ const useOptionHook = (url, tableField, customParams = null) => {
         search: null,
     });
 
+    console.log(state);
+
     function getField() {
         return tableField.split('.').slice(-1)[0];
     }
