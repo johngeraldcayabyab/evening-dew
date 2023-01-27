@@ -34,7 +34,9 @@ class SalesOrderController
             $to = $today . " 23:59:59";
             $date = "{$from},{$to}";
             $request->shipping_date = $date;
-            $request->quotation_date = $date;
+            if ($request->source_id !== 6) {
+                $request->quotation_date = $date;
+            }
         }
         $model = $model->filterAndOrder($request);
 
