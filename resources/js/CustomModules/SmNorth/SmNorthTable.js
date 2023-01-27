@@ -13,6 +13,7 @@ import {Tag} from "antd";
 import {uuidv4} from "../../Helpers/string";
 import CustomStepsChanger from "../CustomStepsChanger";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
+import CustomSmNorthSteps from "../CustomSmNorthSteps"
 
 
 const SmNorthTable = () => {
@@ -118,7 +119,7 @@ const SmNorthTable = () => {
                     dataIndex: 'steps',
                     key: 'steps',
                     sorter: true,
-                    render: (text, record) => (<CustomStepsChanger text={text} record={record}/>),
+                    render: (text, record) => (<CustomSmNorthSteps text={text} record={record}/>),
                 },
             ]
         }}>
