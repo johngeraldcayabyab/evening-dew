@@ -1,7 +1,4 @@
 import Echo from 'laravel-echo';
-import process from 'process';
-
-window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
