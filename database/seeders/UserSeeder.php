@@ -14,7 +14,8 @@ class UserSeeder extends Seeder
         $admin = User::create([
             'name' => 'Admin',
             'email' => 'admin@example.com',
-            'password' => Hash::make('admin')
+            'password' => Hash::make('admin'),
+            'app_menu_id' => 1,
         ]);
         UserCreatedEvent::dispatch($admin);
     }

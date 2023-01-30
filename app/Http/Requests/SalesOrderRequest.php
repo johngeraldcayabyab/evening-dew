@@ -16,7 +16,8 @@ class SalesOrderRequest extends FormRequest
         $steps = implode_types(SalesOrder::getSteps());
         return [
             'number' => 'required',
-            'customer_id' => ['required', "exists:contacts,id"],
+//            'customer_id' => ['required', "exists:contacts,id"],
+            'customer_name' => ['required'],
             'invoice_address' => ['nullable'],
             'delivery_address' => ['nullable'],
             'invoice_city_id' => ['nullable', "exists:cities,id"],

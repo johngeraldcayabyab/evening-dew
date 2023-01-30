@@ -45,12 +45,12 @@ const AllSaleTable = () => {
                 },
                 {
                     title: 'Customer',
-                    dataIndex: 'customer',
-                    key: 'customer',
+                    dataIndex: 'customer_name',
+                    key: 'customer_name',
                     sorter: true,
                     filter: SEARCH,
                     render: (text, record) => {
-                        return record.customer.name;
+                        return record.customer_name;
                     }
                 },
                 {

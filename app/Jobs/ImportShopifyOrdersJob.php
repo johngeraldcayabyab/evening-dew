@@ -152,6 +152,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
 
                 $salesOrder = SalesOrder::create([
                     'number' => $shopifyOrderNumber,
+                    'customer_name' => $invoiceContact->name,
                     'customer_id' => $invoiceContact->id,
                     'invoice_address' => $invoiceAddress->address,
                     'delivery_address' => $deliveryAddress->address,

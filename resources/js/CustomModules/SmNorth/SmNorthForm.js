@@ -38,7 +38,7 @@ const SmNorthForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
-    const customerOptions = useOptionHook('/api/contacts', 'customer.name');
+    // const customerOptions = useOptionHook('/api/contacts', 'customer.name');
     const invoiceCityOptions = useOptionHook('/api/cities', 'invoice_city.name');
     const deliveryCityOptions = useOptionHook('/api/cities', 'delivery_city.name');
     const paymentTermOptions = useOptionHook('/api/payment_terms', 'payment_term.name');
@@ -67,7 +67,7 @@ const SmNorthForm = () => {
                 }));
             }
         }
-        customerOptions.getInitialOptions(formState);
+        // customerOptions.getInitialOptions(formState);
         invoiceCityOptions.getInitialOptions(formState);
         deliveryCityOptions.getInitialOptions(formState);
         paymentTermOptions.getInitialOptions(formState);
@@ -79,7 +79,7 @@ const SmNorthForm = () => {
 
     function onValuesChange(changedValues, allValues) {
         setLinesShippingDate(changedValues, allValues);
-        setDefaultValuesFromCustomer(changedValues, allValues);
+        // setDefaultValuesFromCustomer(changedValues, allValues);
         setDeliveryFeeByCity(changedValues, allValues);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'product_id', getProductInfoAndSetValues);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'quantity', computeSubtotal);
@@ -248,14 +248,20 @@ const SmNorthForm = () => {
 
                     <RowForm>
                         <ColForm>
-                            <FormItemSelect
-                                placeholder={'Search or Create a Customer'}
+                            {/*<FormItemSelect*/}
+                            {/*    placeholder={'Search or Create a Customer'}*/}
+                            {/*    label={'Customer'}*/}
+                            {/*    name={'customer_id'}*/}
+                            {/*    message={'Please select a customer'}*/}
+                            {/*    required={true}*/}
+                            {/*    {...customerOptions}*/}
+                            {/*    dropdownRender={customerOptions}*/}
+                            {/*/>*/}
+
+                            <FormItemText
                                 label={'Customer'}
-                                name={'customer_id'}
-                                message={'Please select a customer'}
+                                name={'customer_name'}
                                 required={true}
-                                {...customerOptions}
-                                dropdownRender={customerOptions}
                             />
 
                             <FormItemDate

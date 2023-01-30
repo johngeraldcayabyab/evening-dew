@@ -38,7 +38,6 @@ const ShopifyForm = () => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, true);
-    const customerOptions = useOptionHook('/api/contacts', 'customer.name');
     const invoiceCityOptions = useOptionHook('/api/cities', 'invoice_city.name');
     const deliveryCityOptions = useOptionHook('/api/cities', 'delivery_city.name');
     const paymentTermOptions = useOptionHook('/api/payment_terms', 'payment_term.name');
@@ -67,7 +66,6 @@ const ShopifyForm = () => {
                 }));
             }
         }
-        customerOptions.getInitialOptions(formState);
         invoiceCityOptions.getInitialOptions(formState);
         deliveryCityOptions.getInitialOptions(formState);
         paymentTermOptions.getInitialOptions(formState);
@@ -79,7 +77,6 @@ const ShopifyForm = () => {
 
     function onValuesChange(changedValues, allValues) {
         setLinesShippingDate(changedValues, allValues);
-        setDefaultValuesFromCustomer(changedValues, allValues);
         setDeliveryFeeByCity(changedValues, allValues);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'product_id', getProductInfoAndSetValues);
         isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'quantity', computeSubtotal);
@@ -97,35 +94,6 @@ const ShopifyForm = () => {
                     }))
                 });
             }
-        }
-    }
-
-    function setDefaultValuesFromCustomer(changedValues, allValues) {
-        if (changedValues.customer_id) {
-            useFetch(`/api/addresses`, GET, {
-                contact_id: changedValues.customer_id
-            }).then((response) => {
-                const data = response.data;
-                let defaultAddress = data.find((address) => (address.type === 'default'));
-                let invoiceAddress = data.find((address) => (address.type === 'invoice'));
-                let deliveryAddress = data.find((address) => (address.type === 'delivery'));
-                invoiceAddress = invoiceAddress ? invoiceAddress : defaultAddress;
-                deliveryAddress = deliveryAddress ? deliveryAddress : defaultAddress;
-                invoiceCityOptions.getOptions({id: invoiceAddress.city.id});
-                deliveryCityOptions.getOptions({id: deliveryAddress.city.id});
-                form.setFieldsValue({
-                    invoice_phone: defaultAddress.contact.phone,
-                    delivery_phone: defaultAddress.contact.phone,
-                    invoice_address: invoiceAddress.address,
-                    delivery_address: deliveryAddress.address,
-                    invoice_city_id: invoiceAddress.city.id,
-                    delivery_city_id: deliveryAddress.city.id,
-                });
-
-                setDeliveryFeeByCity({delivery_city_id: deliveryAddress.city.id}, allValues);
-            }).catch((responseErr) => {
-                fetchCatcher.get(responseErr);
-            });
         }
     }
 
@@ -248,14 +216,10 @@ const ShopifyForm = () => {
 
                     <RowForm>
                         <ColForm>
-                            <FormItemSelect
-                                placeholder={'Search or Create a Customer'}
+                            <FormItemText
                                 label={'Customer'}
-                                name={'customer_id'}
-                                message={'Please select a customer'}
+                                name={'customer_name'}
                                 required={true}
-                                {...customerOptions}
-                                dropdownRender={customerOptions}
                             />
 
                             <FormItemDate

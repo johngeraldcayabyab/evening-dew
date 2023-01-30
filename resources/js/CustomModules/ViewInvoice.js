@@ -106,9 +106,9 @@ const ViewInvoice = () => {
                     <Space direction="vertical" size={1}>
                         <p style={{marginBottom: '0px'}}><b>TO:</b></p>
                         <p style={{marginBottom: '0px'}}>
-                            <b>{initialValues.customer ? initialValues.customer.name : ''}</b></p>
+                            <b>{initialValues.customer_name}</b></p>
                         <p style={{marginBottom: '0px'}}>{initialValues.delivery_address} {initialValues.delivery_city ? initialValues.delivery_city.name : ''}</p>
-                        <p style={{marginBottom: '0px'}}>{initialValues.customer ? initialValues.customer.phone : ''}</p>
+                        <p style={{marginBottom: '0px'}}>{initialValues.invoice_phone ? initialValues.invoice_phone : initialValues.delivery_phone}</p>
                     </Space>
                 </Col>
             </Row>
