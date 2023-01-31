@@ -15,7 +15,7 @@ class SalesOrderResource extends JsonResource
         $slug = $this->slug();
         return $this->defaults($this, $request, [
             'number' => $this->number,
-//            'customer_id' => $this->customer_id,
+            'customer_id' => $this->customer_id,
             'customer_name' => $this->customer_name,
             'invoice_address' => $this->invoice_address,
             'delivery_address' => $this->delivery_address,
@@ -42,7 +42,7 @@ class SalesOrderResource extends JsonResource
             'subtotal' => $this->subtotal,
             'ready_by' => $this->ready_by,
             'steps' => explode(',', $this->steps),
-//            'customer' => $this->customer,
+            'customer' => $this->customer,
             'courier' => $this->courier,
             'invoice_city' => $this->invoiceCity,
             'delivery_city' => $this->deliveryCity,

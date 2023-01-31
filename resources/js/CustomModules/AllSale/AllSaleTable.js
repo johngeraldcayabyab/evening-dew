@@ -50,7 +50,24 @@ const AllSaleTable = () => {
                     sorter: true,
                     filter: SEARCH,
                     render: (text, record) => {
-                        return record.customer_name;
+                        if (record.customer_name) {
+                            return record.customer_name;
+                        }
+                        if (record.customer) {
+                            return record.customer.name;
+                        }
+                        return '';
+                    }
+                },
+                {
+                    title: 'Customer',
+                    dataIndex: 'customer',
+                    key: 'customer',
+                    sorter: true,
+                    filter: SEARCH,
+                    hidden: true,
+                    render: (text, record) => {
+                        return '';
                     }
                 },
                 {
