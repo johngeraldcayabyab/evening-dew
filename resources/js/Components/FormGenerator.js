@@ -54,9 +54,9 @@ const FormGenerator = (manifest) => {
 
     const Items = (props) => {
         const fields = props.fields;
-        return fields.map((row) => {
+        return fields.map((row, key) => {
             if (row === 'divider') {
-                return <Divider key={uuidv4()}/>;
+                return <Divider key={`divider`}/>;
             }
             return (
                 <RowForm key={uuidv4()}>
@@ -66,7 +66,7 @@ const FormGenerator = (manifest) => {
                                 if (field.type === 'text') {
                                     return (
                                         <FormItemText
-                                            key={uuidv4()}
+                                            key={field.name}
                                             {...field}
                                         />
                                     )
@@ -74,7 +74,7 @@ const FormGenerator = (manifest) => {
                                 if (field.type === 'number') {
                                     return (
                                         <FormItemNumber
-                                            key={uuidv4()}
+                                            key={field.name}
                                             {...field}
                                         />
                                     )
@@ -82,7 +82,7 @@ const FormGenerator = (manifest) => {
                                 if (field.type === 'select') {
                                     return (
                                         <FormItemSelectChad
-                                            key={uuidv4()}
+                                            key={field.name}
                                             {...field}
                                             {...props.shimay}
                                         />
