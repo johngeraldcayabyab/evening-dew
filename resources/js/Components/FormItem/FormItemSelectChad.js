@@ -96,20 +96,18 @@ const FormItemSelectChad = (props) => {
         };
     }, []);
 
+
     return (
         <Form.Item {...formItemProps}>
             {isLoading() ?
                 <CustomInputSkeleton {...props}/> :
-                <Select {...fieldProps}>
-                    {props.options && props.options.map((option) => {
-                        return (
-                            <Select.Option key={option.value} value={option.value}>
-                                {option.label} {option.tag ? <Tag color="processing">{option.tag}</Tag> : null}
-                            </Select.Option>
-                        )
-                    })}
-                </Select>
-            }
+                <Select
+                    {...fieldProps}
+                    options={props.options && props.options.map((option) => ({
+                        option: option.value,
+                        label: `${option.label} ${option.tag ? <Tag color="processing">{option.tag}</Tag> : ''}`
+                    }))}
+                />}
         </Form.Item>
     )
 }
