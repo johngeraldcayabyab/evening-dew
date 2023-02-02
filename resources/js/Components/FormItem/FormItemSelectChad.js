@@ -4,11 +4,22 @@ import CustomInputSkeleton from "../CustomInputSkeleton";
 import {formItemFieldProps} from "../../Helpers/form";
 import {FormContext} from "../../Contexts/FormContext";
 import CustomDropdownMenu from "../CustomDropdownMenu";
+import useOptionHook from "../../Hooks/useOptionHook";
 
 const FormItemSelectChad = (props) => {
     const [state, setState] = useState({
         isClear: false
     });
+
+
+    const regionOptions = useOptionHook('/api/regions', 'region.region');
+    //
+    // useEffect(() => {
+    //     regionOptions.getInitialOptions(formState);
+    // }, [formState.initialLoad]);
+
+
+
     const formContext = useContext(FormContext);
     const specialFieldProps = {
         allowClear: true,
@@ -50,7 +61,8 @@ const FormItemSelectChad = (props) => {
                 formContext.form.setFieldsValue(fields);
             }
         }
-    }, [state.isClear]);
+        regionOptions.getInitialOptions(formContext.formState);
+    }, [state.isClear, formContext.formState.initialLoad]);
 
     if (props.dropdownRender) {
         specialFieldProps.dropdownRender = (menu) => {

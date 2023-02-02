@@ -14,29 +14,27 @@ export default {
         {path: `/${displayName}`, component: CityTable},
     ],
     form: {
-        fields: [
-            [
-                [
-                    {
-                        type: 'text',
-                        name: 'name',
-                        label: 'Name',
-                        message: 'Please input name',
-                        required: true
-                    },
-                    {
-                        type: 'text',
-                        name: 'province',
-                        label: 'Province',
-                    },
-                    {
-                        type: 'select',
-                        name: 'region_id',
-                        label: 'Region',
-                        query: {url: '/api/regions', field: 'region.region', name: 'regionOptions'},
-                    },
-                ],
-            ],
-        ],
+        row_1: {
+            col_1: [
+                {
+                    type: 'text',
+                    name: 'name',
+                    label: 'Name',
+                    message: 'Please input name',
+                    required: true
+                },
+                {
+                    type: 'text',
+                    name: 'province',
+                    label: 'Province',
+                },
+                {
+                    type: 'select',
+                    name: 'region_id',
+                    label: 'Region',
+                    query: {url: '/api/regions', field: 'region.region', name: 'regionOptions'},
+                },
+            ]
+        }
     }
 };

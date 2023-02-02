@@ -12,7 +12,6 @@ import FormItemText from "./FormItem/FormItemText"
 import FormItemNumber from "./FormItem/FormItemNumber"
 import FormItemSelectChad from "./FormItem/FormItemSelectChad"
 import FormCard from "./FormCard"
-import {snakeToCamel, uuidv4} from "../Helpers/string"
 import CustomForm from "./CustomForm"
 import React, {useEffect, useState} from "react"
 import useOptionHook from "../Hooks/useOptionHook"
@@ -22,78 +21,57 @@ const FormGenerator = (manifest) => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, manifest.form.initialValue);
-    const regionOptions = useOptionHook('/api/regions', 'region.region');
-    // const [formGeneratorState, setFormGeneratorState] = useState({
-    //     fields: [],
-    //     options: []
-    // });
-
-    // const options = {};
-    // manifest.form.fields.forEach(row => {
-    //     row.forEach((columns) => {
-    //         columns.forEach((field) => {
-    //             if (field.type === 'select' && field.query) {
-    //                 options[field.query.name] = useOptionChad(field.query.url, field.query.field);
-    //             }
-    //         });
-    //     });
-    // });
-
-    useEffect(() => {
-        regionOptions.getInitialOptions(formState);
-        // manifest.form.fields.forEach(row => {
-        //     row.forEach((columns) => {
-        //         columns.forEach((field) => {
-        //             if (field.type === 'select' && field.query) {
-        //                 options[field.query.name].getInitialOptions(formState);
-        //             }
-        //         });
-        //     });
-        // });
-    }, [formState.initialLoad]);
 
     const Items = (props) => {
-        const fields = props.fields;
-        return fields.map((row, key) => {
-            if (row === 'divider') {
-                return <Divider key={`divider`}/>;
-            }
-            return (
-                <RowForm key={uuidv4()}>
-                    {row.map((columns) => (
-                        <ColForm key={uuidv4()}>
-                            {columns.map((field) => {
-                                if (field.type === 'text') {
-                                    return (
-                                        <FormItemText
-                                            key={field.name}
-                                            {...field}
-                                        />
-                                    )
-                                }
-                                if (field.type === 'number') {
-                                    return (
-                                        <FormItemNumber
-                                            key={field.name}
-                                            {...field}
-                                        />
-                                    )
-                                }
-                                if (field.type === 'select') {
-                                    return (
-                                        <FormItemSelectChad
-                                            key={field.name}
-                                            {...field}
-                                            {...props.shimay}
-                                        />
-                                    )
-                                }
-                            })}
-                        </ColForm>
-                    ))}
+        const formItems = props.formItems;
+        const rows = [];
+        for (let rowKey of Object.keys(formItems)) {
+
+            const row = formItems[rowKey];
+
+            const cols = [];
+
+            rows.push(
+                <RowForm key={rowKey}>
+                    {cols}
                 </RowForm>
             );
-        });
+
+            for (let colKey of Object.keys(row)) {
+                const col = row[colKey];
+                cols.push(
+                    <ColForm key={`${rowKey}-${colKey}`}>
+                        {col.map((field) => {
+                            if (field.type === 'text') {
+                                return (
+                                    <FormItemText
+                                        key={field.name}
+                                        {...field}
+                                    />
+                                )
+                            }
+                            if (field.type === 'number') {
+                                return (
+                                    <FormItemNumber
+                                        key={field.name}
+                                        {...field}
+                                    />
+                                )
+                            }
+                            if (field.type === 'select') {
+                                return (
+                                    <FormItemSelectChad
+                                        key={field.name}
+                                        {...field}
+                                    />
+                                )
+                            }
+                        })}
+                    </ColForm>
+                );
+            }
+        }
+        return rows;
     }
 
 
@@ -115,16 +93,11 @@ const FormGenerator = (manifest) => {
                     bottomColTwoRight={<NextPreviousRecord/>}
                 />
                 <FormCard>
-                    {/*<Items fields={manifest.form.fields} shimay={regionOptions}/>*/}
+                    <Items formItems={manifest.form}/>
                 </FormCard>
             </CustomForm>
         </FormContextProvider>
     );
-};
-
-const FieldsGenerated = () => {
-
-
 };
 
 export default FormGenerator;
