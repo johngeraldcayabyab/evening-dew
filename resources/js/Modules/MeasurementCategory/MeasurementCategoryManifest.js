@@ -13,18 +13,16 @@ export default {
         {path: `/${displayName}`, component: MeasurementCategoryTable},
     ],
     form: {
-        fields: [
-            [
-                [
-                    {
-                        type: 'text',
-                        name: 'name',
-                        label: 'Name',
-                        message: 'Please input measurement category name',
-                        required: true
-                    },
-                ],
-            ],
-        ],
+        row_1: {
+            col_1: [
+                {
+                    type: 'text',
+                    name: 'name',
+                    label: 'Name',
+                    message: 'Please input measurement category name',
+                    required: true
+                },
+            ]
+        }
     }
 };

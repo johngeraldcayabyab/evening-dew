@@ -115,7 +115,7 @@ const FormGenerator = (manifest) => {
                     bottomColTwoRight={<NextPreviousRecord/>}
                 />
                 <FormCard>
-                    <Items fields={manifest.form.fields} shimay={regionOptions}/>
+                    {/*<Items fields={manifest.form.fields} shimay={regionOptions}/>*/}
                 </FormCard>
             </CustomForm>
         </FormContextProvider>

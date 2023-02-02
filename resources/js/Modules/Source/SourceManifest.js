@@ -13,23 +13,21 @@ export default {
         {path: `/${displayName}`, component: SourceTable},
     ],
     form: {
-        fields: [
-            [
-                [
-                    {
-                        type: 'text',
-                        name: 'name',
-                        label: 'Name',
-                        message: 'Please input name',
-                        required: true
-                    },
-                    {
-                        type: 'text',
-                        name: 'color',
-                        label: 'Color',
-                    },
-                ],
-            ],
-        ],
+        row_1: {
+            col_1: [
+                {
+                    type: 'text',
+                    name: 'name',
+                    label: 'Name',
+                    message: 'Please input name',
+                    required: true
+                },
+                {
+                    type: 'text',
+                    name: 'color',
+                    label: 'Color',
+                },
+            ]
+        }
     }
 };
