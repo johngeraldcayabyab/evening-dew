@@ -10,13 +10,13 @@ import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
 import {Tag} from "antd";
 import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
-import CountryManifest from "../Country/CountryManifest"
+import CourierManifest from "./CourierManifest"
 
 const CourierTable = () => {
-    const [tableState, tableActions] = useListHook(CountryManifest);
+    const [tableState, tableActions] = useListHook(CourierManifest);
     return (
         <TableContextProvider value={{
-            manifest: CountryManifest,
+            manifest: CourierManifest,
             tableState: tableState,
             tableActions: tableActions,
             columnSelection: true,
