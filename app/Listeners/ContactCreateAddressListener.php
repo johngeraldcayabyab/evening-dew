@@ -4,10 +4,9 @@ namespace App\Listeners;
 
 use App\Events\ContactCreatedEvent;
 use App\Models\Address;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Arr;
 
-class ContactCreateAddressListener implements ShouldQueue
+class ContactCreateAddressListener
 {
     public function handle(ContactCreatedEvent $event)
     {
