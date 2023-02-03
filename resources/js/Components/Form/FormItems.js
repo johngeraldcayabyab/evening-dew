@@ -4,6 +4,7 @@ import FormItemText from "../FormItem/FormItemText"
 import FormItemNumber from "../FormItem/FormItemNumber"
 import FormItemSelect from "../FormItem/FormItemSelect"
 import React from "react"
+import {Divider} from "antd"
 
 const FormItems = (props) => {
     const formItems = props.formItems;
@@ -11,6 +12,9 @@ const FormItems = (props) => {
     for (let rowKey of Object.keys(formItems)) {
         const row = formItems[rowKey];
         const cols = [];
+        if (rowKey.includes('divider')) {
+            rows.push(<Divider key={rowKey}/>)
+        }
         rows.push(
             <RowForm key={rowKey}>
                 {cols}
