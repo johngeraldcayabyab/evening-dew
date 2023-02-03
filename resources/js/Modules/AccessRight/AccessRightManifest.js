@@ -11,5 +11,44 @@ export default {
         {path: `/${displayName}/create`, component: AccessRightForm},
         {path: `/${displayName}/:id`, component: AccessRightForm},
         {path: `/${displayName}`, component: AccessRightTable},
-    ]
+    ],
+    form: {
+        row_1: {
+            col_1: [
+                {
+                    type: 'text',
+                    name: 'name',
+                    label: 'Name',
+                    message: 'Please input name',
+                    required: true,
+                },
+                {
+                    type: 'select',
+                    name: 'group_id',
+                    label: 'Group',
+                    query: {url: '/api/groups', field: 'group.name', name: 'groupOptions'},
+                },
+                {
+                    type: 'checkbox',
+                    name: 'read_access',
+                    label: 'Read Access',
+                },
+                {
+                    type: 'checkbox',
+                    name: 'write_access',
+                    label: 'Write Access',
+                },
+                {
+                    type: 'checkbox',
+                    name: 'create_access',
+                    label: 'Create Access',
+                },
+                {
+                    type: 'checkbox',
+                    name: 'delete_access',
+                    label: 'Delete Access',
+                },
+            ]
+        }
+    }
 };

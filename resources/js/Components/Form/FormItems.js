@@ -5,6 +5,7 @@ import FormItemNumber from "../FormItem/FormItemNumber"
 import FormItemSelect from "../FormItem/FormItemSelect"
 import React from "react"
 import {Divider} from "antd"
+import FormItemCheckbox from "../FormItem/FormItemCheckbox"
 
 const FormItems = (props) => {
     const formItems = props.formItems;
@@ -36,6 +37,14 @@ const FormItems = (props) => {
                         if (field.type === 'number') {
                             return (
                                 <FormItemNumber
+                                    key={field.name}
+                                    {...field}
+                                />
+                            )
+                        }
+                        if (field.type === 'checkbox') {
+                            return (
+                                <FormItemCheckbox
                                     key={field.name}
                                     {...field}
                                 />

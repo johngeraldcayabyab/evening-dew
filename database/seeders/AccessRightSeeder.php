@@ -18,6 +18,10 @@ class AccessRightSeeder extends Seeder
             AccessRight::create([
                 'name' => str_replace('/', '', $menu['url']) . '.administrator',
                 'group_id' => 1,
+                'read_access' => true,
+                'write_access' => true,
+                'create_access' => true,
+                'delete_access' => true,
             ]);
         }
     }

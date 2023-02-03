@@ -12,10 +12,10 @@ class CreateAccessRightsTable extends Migration
             $table->id();
             $table->string('name');
             $table->bigInteger('group_id')->nullable();
-            $table->boolean('read_access')->default(true);
-            $table->boolean('write_access')->default(true);
-            $table->boolean('create_access')->default(true);
-            $table->boolean('delete_access')->default(true);
+            $table->boolean('read_access')->default(false);
+            $table->boolean('write_access')->default(false);
+            $table->boolean('create_access')->default(false);
+            $table->boolean('delete_access')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });
