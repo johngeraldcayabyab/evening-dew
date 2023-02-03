@@ -15,7 +15,7 @@ import React, {useEffect} from 'react';
 // import FormItemSelect from "../../Components/FormItem/FormItemSelect";
 // import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import CityManifest from "./CityManifest"
-import FormGenerator from "../../Components/FormGenerator"
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const CityForm = () => {
     return <FormGenerator {...CityManifest} />
