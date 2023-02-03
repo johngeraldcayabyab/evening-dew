@@ -11,75 +11,85 @@ import FormItemUpload from "../FormItem/FormItemUpload"
 const FormItems = (props) => {
     const formItems = props.formItems;
     const rows = [];
+
+    function generateFields(fields) {
+        return fields.map((field) => {
+            if (field.type === 'text') {
+                return (
+                    <FormItemText
+                        key={field.name}
+                        {...field}
+                    />
+                )
+            }
+            if (field.type === 'number') {
+                return (
+                    <FormItemNumber
+                        key={field.name}
+                        {...field}
+                    />
+                )
+            }
+            if (field.type === 'checkbox') {
+                return (
+                    <FormItemCheckbox
+                        key={field.name}
+                        {...field}
+                    />
+                )
+            }
+            if (field.type === 'select') {
+                if (field.hasOwnProperty('query')) {
+                    return (
+                        <FormItemSelect
+                            key={field.name}
+                            {...field}
+                            {...props.options[field.query.name]}
+                        />
+                    )
+                }
+                return (
+                    <FormItemSelect
+                        key={field.name}
+                        {...field}
+                    />
+                )
+            }
+            if (field.type === 'upload') {
+                return (
+                    <FormItemUpload
+                        key={field.name}
+                        {...field}
+                    />
+                )
+            }
+        });
+    }
+
+    function generateColumns(row, rowKey) {
+        const cols = [];
+        for (let colKey of Object.keys(row)) {
+            const col = row[colKey];
+            cols.push(
+                <ColForm key={`${rowKey}-${colKey}`}>
+                    {generateFields(col)}
+                </ColForm>
+            );
+        }
+        return cols;
+    }
+
     for (let rowKey of Object.keys(formItems)) {
         const row = formItems[rowKey];
-        const cols = [];
         if (rowKey.includes('divider')) {
             rows.push(<Divider key={rowKey}/>)
         }
+        const cols = generateColumns(row, rowKey);
         rows.push(
             <RowForm key={rowKey}>
                 {cols}
             </RowForm>
         );
-        for (let colKey of Object.keys(row)) {
-            const col = row[colKey];
-            cols.push(
-                <ColForm key={`${rowKey}-${colKey}`}>
-                    {col.map((field) => {
-                        if (field.type === 'text') {
-                            return (
-                                <FormItemText
-                                    key={field.name}
-                                    {...field}
-                                />
-                            )
-                        }
-                        if (field.type === 'number') {
-                            return (
-                                <FormItemNumber
-                                    key={field.name}
-                                    {...field}
-                                />
-                            )
-                        }
-                        if (field.type === 'checkbox') {
-                            return (
-                                <FormItemCheckbox
-                                    key={field.name}
-                                    {...field}
-                                />
-                            )
-                        }
-                        if (field.type === 'select') {
-                            if (field.hasOwnProperty('query')) {
-                                return (
-                                    <FormItemSelect
-                                        key={field.name}
-                                        {...field}
-                                        {...props.options[field.query.name]}
-                                    />
-                                )
-                            }
-                            return (
-                                <FormItemSelect
-                                    key={field.name}
-                                    {...field}
-                                />
-                            )
-                        }
-                        if (field.type === 'upload') {
-                            return (
-                                <FormItemUpload
-                                    key={field.name}
-                                    {...field}
-                                />
-                            )
-                        }
-                    })}
-                </ColForm>
-            );
-        }
     }
     return rows;
 };
