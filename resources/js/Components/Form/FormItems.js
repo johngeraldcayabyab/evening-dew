@@ -42,11 +42,19 @@ const FormItems = (props) => {
                             )
                         }
                         if (field.type === 'select') {
+                            if (field.hasOwnProperty('query')) {
+                                return (
+                                    <FormItemSelect
+                                        key={field.name}
+                                        {...field}
+                                        {...props.options[field.query.name]}
+                                    />
+                                )
+                            }
                             return (
                                 <FormItemSelect
                                     key={field.name}
                                     {...field}
-                                    {...props.regionOptions}
                                 />
                             )
                         }

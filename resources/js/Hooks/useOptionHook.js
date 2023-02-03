@@ -16,7 +16,7 @@ const useOptionHook = (url, tableField, customParams = null) => {
         search: null,
     });
 
-    console.log(state);
+    // console.log(state);
 
     function getField() {
         return tableField.split('.').slice(-1)[0];
@@ -124,7 +124,7 @@ const useOptionHook = (url, tableField, customParams = null) => {
             }
         },
         onDropdownVisibleChange: (open) => {
-            console.log(open);
+            // console.log(open);
         },
         getInitialOptions: (formState) => {
             if (!formState.initialLoad) {

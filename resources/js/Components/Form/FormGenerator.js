@@ -17,35 +17,53 @@ const FormGenerator = (manifest) => {
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, manifest.form.initialValue);
 
-    const regionOptions = useOptionHook('/api/regions', 'region.region');
+    const urlQueries = [];
+
+    for (let rowKey of Object.keys(manifest.form)) {
+        const row = manifest.form[rowKey];
+        for (let colKey of Object.keys(row)) {
+            for (let colKey of Object.keys(row)) {
+                const col = row[colKey];
+                col.forEach((field) => {
+                    if (field.hasOwnProperty('query')) {
+                        urlQueries.push(field.query);
+                    }
+                });
+            }
+        }
+    }
+    const options = {};
+    urlQueries.forEach((urlQuery) => {
+        options[urlQuery.name] = useOptionHook(urlQuery.url, urlQuery.field);
+    });
 
     useEffect(() => {
-        regionOptions.getInitialOptions(formState);
+        for (const option in options) {
+            options[option].getInitialOptions(formState);
+        }
     }, [formState.initialLoad]);
 
-    return (
-        <FormContextProvider
-            value={{
-                id: id,
-                manifest: manifest,
-                form: form,
-                formState: formState,
-                formActions: formActions,
-                onFinish: formActions.onFinish
-            }}
-        >
-            <CustomForm>
-                <ControlPanel
-                    topColOneLeft={<CustomBreadcrumb/>}
-                    bottomColOneLeft={<FormButtons/>}
-                    bottomColTwoRight={<NextPreviousRecord/>}
-                />
-                <FormCard>
-                    <FormItems formItems={manifest.form} regionOptions={regionOptions}/>
-                </FormCard>
-            </CustomForm>
-        </FormContextProvider>
-    );
+    return (<FormContextProvider
+        value={{
+            id: id,
+            manifest: manifest,
+            form: form,
+            formState: formState,
+            formActions: formActions,
+            onFinish: formActions.onFinish
+        }}
+    >
+        <CustomForm>
+            <ControlPanel
+                topColOneLeft={<CustomBreadcrumb/>}
+                bottomColOneLeft={<FormButtons/>}
+                bottomColTwoRight={<NextPreviousRecord/>}
+            />
+            <FormCard>
+                <FormItems formItems={manifest.form} options={options}/>
+            </FormCard>
+        </CustomForm>
+    </FormContextProvider>);
 };
 
 export default FormGenerator;

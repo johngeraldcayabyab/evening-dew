@@ -129,7 +129,6 @@ const CustomTable = (props) => {
             }
         }
         if (filterType === SELECT) {
-            console.log(column);
             return {
                 filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => {
                     return (
