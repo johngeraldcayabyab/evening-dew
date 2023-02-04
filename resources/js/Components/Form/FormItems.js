@@ -4,19 +4,30 @@ import FormItemText from "../FormItem/FormItemText"
 import FormItemNumber from "../FormItem/FormItemNumber"
 import FormItemSelect from "../FormItem/FormItemSelect"
 import React from "react"
-import {Divider} from "antd"
+import {Divider, Tabs} from "antd"
 import FormItemCheckbox from "../FormItem/FormItemCheckbox"
 import FormItemUpload from "../FormItem/FormItemUpload"
+import FormItemTextArea from "../FormItem/FormItemTextArea";
+
+const {TabPane} = Tabs;
 
 const FormItems = (props) => {
     const formItems = props.formItems;
-    const rows = [];
+    const items = [];
 
     function generateFields(fields) {
         return fields.map((field) => {
             if (field.type === 'text') {
                 return (
                     <FormItemText
+                        key={field.name}
+                        {...field}
+                    />
+                )
+            }
+            if (field.type === 'textarea') {
+                return (
+                    <FormItemTextArea
                         key={field.name}
                         {...field}
                     />
@@ -67,31 +78,78 @@ const FormItems = (props) => {
     }
 
     function generateColumns(row, rowKey) {
-        const cols = [];
-        for (let colKey of Object.keys(row)) {
-            const col = row[colKey];
-            cols.push(
-                <ColForm key={`${rowKey}-${colKey}`}>
-                    {generateFields(col)}
+        const columns = [];
+        for (let columnKey of Object.keys(row)) {
+            const fields = row[columnKey];
+            columns.push(
+                <ColForm key={`${rowKey}-${columnKey}`}>
+                    {generateFields(fields)}
                 </ColForm>
             );
         }
-        return cols;
+        return columns;
     }
 
-    for (let rowKey of Object.keys(formItems)) {
-        const row = formItems[rowKey];
-        if (rowKey.includes('divider')) {
-            rows.push(<Divider key={rowKey}/>)
+    function generateTabPanes(tab, tabKey) {
+        const tabPanes = [];
+        for (let tabPaneKey of Object.keys(tab)) {
+            if (tabPaneKey.includes('tab_pane')) {
+                const tabPaneItems = generateTabPaneItems(tab, tabKey, tabPaneKey);
+                tabPanes.push(
+                    <TabPane key={`${tabKey}-${tabPaneKey}`} tab={tab[tabPaneKey].name}>
+                        {tabPaneItems}
+                    </TabPane>
+                )
+            }
         }
-        const cols = generateColumns(row, rowKey);
-        rows.push(
+        return tabPanes;
+    }
+
+    function generateTabPaneItems(tab, tabKey, tabPaneKey) {
+        const tabPaneItems = [];
+        for (let tabPaneItem of Object.keys(tab[tabPaneKey])) {
+            if (tabPaneItem.includes('row')) {
+                tabPaneItems.push(generateRow(tab[tabPaneKey][tabPaneItem], `${tabKey}-${tabPaneKey}`));
+            }
+        }
+        return tabPaneItems;
+    }
+
+    function generateRow(row, rowKey) {
+        const columns = generateColumns(row, rowKey);
+        return (
             <RowForm key={rowKey}>
-                {cols}
+                {columns}
             </RowForm>
         );
     }
-    return rows;
+
+    function generateTab(tab, tabKey) {
+        const tabPanes = generateTabPanes(tab, tabKey);
+        const defaultActiveKey = tabPanes.hasOwnProperty('defaultActiveKey') ? tabPanes.defaultActiveKey : 'tab_pane_1';
+        return (
+            <Tabs
+                defaultActiveKey={defaultActiveKey}
+                key={tabKey}
+            >
+                {tabPanes}
+            </Tabs>
+        )
+    }
+
+    for (let itemKey of Object.keys(formItems)) {
+        const item = formItems[itemKey];
+        if (itemKey.includes('divider')) {
+            items.push(<Divider key={itemKey}/>)
+        }
+        if (itemKey.includes('row')) {
+            items.push(generateRow(item, itemKey));
+        }
+        if (itemKey.includes('tab')) {
+            items.push(generateTab(item, itemKey))
+        }
+    }
+    return items;
 };
 
 export default React.memo(FormItems);

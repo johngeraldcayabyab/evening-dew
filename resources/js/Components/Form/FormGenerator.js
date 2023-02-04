@@ -1,5 +1,5 @@
 import {useParams} from "react-router-dom"
-import {Form} from "antd"
+import {Form, Tabs} from "antd"
 import useFormHook from "../../Hooks/useFormHook"
 import {FormContextProvider} from "../../Contexts/FormContext";
 import CustomBreadcrumb from "../CustomBreadcrumb"
