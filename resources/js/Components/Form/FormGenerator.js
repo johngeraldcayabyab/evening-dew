@@ -19,16 +19,18 @@ const FormGenerator = (manifest) => {
 
     const urlQueries = [];
 
-    for (let rowKey of Object.keys(manifest.form)) {
-        const row = manifest.form[rowKey];
-        for (let colKey of Object.keys(row)) {
+    for (let itemKey of Object.keys(manifest.form)) {
+        const row = manifest.form[itemKey];
+        if (itemKey.includes('row')) {
             for (let colKey of Object.keys(row)) {
-                const col = row[colKey];
-                col.forEach((field) => {
-                    if (field.hasOwnProperty('query')) {
-                        urlQueries.push(field.query);
-                    }
-                });
+                for (let colKey of Object.keys(row)) {
+                    const col = row[colKey];
+                    col.forEach((field) => {
+                        if (field.hasOwnProperty('query')) {
+                            urlQueries.push(field.query);
+                        }
+                    });
+                }
             }
         }
     }
