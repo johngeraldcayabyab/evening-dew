@@ -137,10 +137,21 @@ const FormItems = (props) => {
         )
     }
 
+    function generateDivider(divider, dividerKey) {
+        if (divider.hasOwnProperty('label')) {
+            return (
+                <Divider key={dividerKey} orientation={divider.orientation}>
+                    {divider.label}
+                </Divider>
+            )
+        }
+        return <Divider key={dividerKey}/>
+    }
+
     for (let itemKey of Object.keys(formItems)) {
         const item = formItems[itemKey];
         if (itemKey.includes('divider')) {
-            items.push(<Divider key={itemKey}/>)
+            items.push(generateDivider(item, itemKey))
         }
         if (itemKey.includes('row')) {
             items.push(generateRow(item, itemKey));
