@@ -9,13 +9,13 @@ import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import {DATE_RANGE, SEARCH} from "../../consts";
 import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
-import ProductManifest from "../Product/ProductManifest"
+import ProductCategoryManifest from "../ProductCategory/ProductCategoryManifest"
 
 const ProductCategoryTable = () => {
-    const [tableState, tableActions] = useListHook(ProductManifest);
+    const [tableState, tableActions] = useListHook(ProductCategoryManifest);
     return (
         <TableContextProvider value={{
-            manifest: ProductManifest,
+            manifest: ProductCategoryManifest,
             tableState: tableState,
             tableActions: tableActions,
             columnSelection: true,
