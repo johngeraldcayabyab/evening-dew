@@ -33,6 +33,7 @@ composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev -
 npm install --production --omit=dev --prefer-offline --no-audit --progress=false
 npm install laravel-mix@latest
 npm run production
+# node modules is not needed in production
 rm -rf storage
 
 BUILD_FOLDER_ZIP="${BUILD_FOLDER}.zip"
