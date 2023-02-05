@@ -11,6 +11,14 @@ import CustomForm from "../CustomForm"
 import React, {useEffect} from "react"
 import useOptionHook from "../../Hooks/useOptionHook"
 import FormItems from "./FormItems"
+import RowForm from "../Grid/RowForm";
+import ColForm from "../Grid/ColForm";
+import FormItemText from "../FormItem/FormItemText";
+import FormItemTextArea from "../FormItem/FormItemTextArea";
+import FormItemNumber from "../FormItem/FormItemNumber";
+import FormItemCheckbox from "../FormItem/FormItemCheckbox";
+import FormItemSelect from "../FormItem/FormItemSelect";
+import FormItemUpload from "../FormItem/FormItemUpload";
 
 const FormGenerator = (manifest) => {
     let {id} = useParams();
@@ -19,19 +27,52 @@ const FormGenerator = (manifest) => {
 
     const urlQueries = [];
 
-    for (let itemKey of Object.keys(manifest.form)) {
-        const row = manifest.form[itemKey];
-        if (itemKey.includes('row')) {
-            for (let colKey of Object.keys(row)) {
-                for (let colKey of Object.keys(row)) {
-                    const col = row[colKey];
-                    col.forEach((field) => {
-                        if (field.hasOwnProperty('query')) {
-                            urlQueries.push(field.query);
-                        }
-                    });
-                }
+    function getTabPaneItemQuery(tab, tabKey, tabPaneKey) {
+        for (let tabPaneItem of Object.keys(tab[tabPaneKey])) {
+            if (tabPaneItem.includes('row')) {
+                getRowQuery(tab[tabPaneKey][tabPaneItem]);
             }
+        }
+    }
+
+    function getTabPaneQuery(tab, tabKey) {
+        for (let tabPaneKey of Object.keys(tab)) {
+            if (tabPaneKey.includes('tab_pane')) {
+                getTabPaneItemQuery(tab, tabKey, tabPaneKey);
+            }
+        }
+    }
+
+    function getTabQuery(tab, tabKey) {
+        getTabPaneQuery(tab, tabKey);
+    }
+
+    function getFieldQuery(fields) {
+        fields.map((field) => {
+            if (field.hasOwnProperty('query')) {
+                urlQueries.push(field.query);
+            }
+        });
+    }
+
+    function getColumnQuery(row) {
+        for (let columnKey of Object.keys(row)) {
+            const fields = row[columnKey];
+            getFieldQuery(fields);
+        }
+    }
+
+    function getRowQuery(row) {
+        getColumnQuery(row);
+    }
+
+    for (let itemKey of Object.keys(manifest.form)) {
+        const item = manifest.form[itemKey];
+        if (itemKey.includes('row')) {
+            getRowQuery(item);
+        }
+        if (itemKey.includes('tab')) {
+            getTabQuery(item, itemKey);
         }
     }
     const options = {};
