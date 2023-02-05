@@ -1,5 +1,5 @@
 import {useParams} from "react-router-dom"
-import {Form, Tabs} from "antd"
+import {Form} from "antd"
 import useFormHook from "../../Hooks/useFormHook"
 import {FormContextProvider} from "../../Contexts/FormContext";
 import CustomBreadcrumb from "../CustomBreadcrumb"
@@ -11,14 +11,7 @@ import CustomForm from "../CustomForm"
 import React, {useEffect} from "react"
 import useOptionHook from "../../Hooks/useOptionHook"
 import FormItems from "./FormItems"
-import RowForm from "../Grid/RowForm";
-import ColForm from "../Grid/ColForm";
-import FormItemText from "../FormItem/FormItemText";
-import FormItemTextArea from "../FormItem/FormItemTextArea";
-import FormItemNumber from "../FormItem/FormItemNumber";
-import FormItemCheckbox from "../FormItem/FormItemCheckbox";
-import FormItemSelect from "../FormItem/FormItemSelect";
-import FormItemUpload from "../FormItem/FormItemUpload";
+import FormLinks from "../FormLinks";
 
 const FormGenerator = (manifest) => {
     let {id} = useParams();
@@ -103,6 +96,7 @@ const FormGenerator = (manifest) => {
                 bottomColTwoRight={<NextPreviousRecord/>}
             />
             <FormCard>
+                {manifest.formLinks && <FormLinks links={manifest.formLinks}/>}
                 <FormItems formItems={manifest.form} options={options}/>
             </FormCard>
         </CustomForm>

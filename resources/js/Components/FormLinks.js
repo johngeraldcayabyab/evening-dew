@@ -40,7 +40,7 @@ const FormLinks = (props) => {
                                                 type={"ghost"}
                                                 size={'default'}
                                             >
-                                                {link.label}
+                                                {link.label(formContext.formState.initialValues)}
                                             </Button>
                                         </Link>
                                     )
@@ -52,7 +52,7 @@ const FormLinks = (props) => {
                                         type={"ghost"}
                                         size={'default'}
                                     >
-                                        {link.label}
+                                        {link.label(formContext.formState.initialValues)}
                                     </Button>
                                 )
                             })}
