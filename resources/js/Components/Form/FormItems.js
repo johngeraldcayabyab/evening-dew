@@ -17,8 +17,6 @@ const FormItems = (props) => {
     const formItems = props.formItems;
     const items = [];
 
-    console.log(formContext);
-
     function generateFields(fields) {
         return fields.map((field) => {
             if (field.type === 'text') {
@@ -78,16 +76,19 @@ const FormItems = (props) => {
                     />
                 )
             }
+            if (field.type === 'divider') {
+                return generateDivider(field, field.name);
+            }
         });
     }
 
     function generateColumns(row, rowKey) {
         const columns = [];
         for (let columnKey of Object.keys(row)) {
-            const fields = row[columnKey];
+            const column = row[columnKey];
             columns.push(
                 <ColForm key={`${rowKey}-${columnKey}`}>
-                    {generateFields(fields)}
+                    {generateFields(column)}
                 </ColForm>
             );
         }
