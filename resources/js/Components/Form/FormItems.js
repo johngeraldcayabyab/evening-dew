@@ -108,6 +108,9 @@ const FormItems = (props) => {
     function generateTabPaneItems(tab, tabKey, tabPaneKey) {
         const tabPaneItems = [];
         for (let tabPaneItem of Object.keys(tab[tabPaneKey])) {
+            if (tabPaneItem.includes('divider')) {
+                tabPaneItems.push(generateDivider(tab[tabPaneKey][tabPaneItem], `${tabKey}-${tabPaneKey}`))
+            }
             if (tabPaneItem.includes('row')) {
                 tabPaneItems.push(generateRow(tab[tabPaneKey][tabPaneItem], `${tabKey}-${tabPaneKey}`));
             }
