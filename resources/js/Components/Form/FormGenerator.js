@@ -73,9 +73,15 @@ const FormGenerator = (manifest) => {
         options[`${field.name}-options`] = useOptionHook(field.query.url, field.query.field);
     });
 
+    const lineOptions = {};
+
     useEffect(() => {
         for (const option in options) {
             options[option].getInitialOptions(formState);
+        }
+        for (const lineOption in lineOptions) {
+            lineOption.getInitialOptions(formState, lineOption.listName);
+            // options[option].getInitialOptions(formState);
         }
     }, [formState.initialLoad]);
 

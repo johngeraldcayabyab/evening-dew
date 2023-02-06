@@ -26,14 +26,40 @@ export default {
                     name: 'is_enabled',
                     label: 'Enabled',
                 },
+            ],
+            col_2: [
+                {
+                    type: 'select',
+                    name: 'product_id',
+                    label: 'Product',
+                    query: {url: '/api/products', field: 'product.name'},
+                },
             ]
         },
-        tabs_1: {
-            tab_pane_1: {
-                row_1: {
-                    col_1: {}
+        form_line_1: {
+            columns: ['City', 'Fee'],
+            listName: 'delivery_fee_lines',
+            fields: [
+                {
+                    type: 'select',
+                    name: 'city_id',
+                    placeholder: 'City',
+                    query: {url: '/api/cities', field: 'city.name'},
+                    required: true,
                 },
-            }
-        }
+                {
+                    type: 'number',
+                    name: 'fee',
+                    label: 'Fee',
+                },
+            ]
+        },
     }
+    // tabs_1: {
+    //     tab_pane_1: {
+    //         row_1: {
+    //             col_1: {}
+    //         },
+    //     }
+    // }
 };
