@@ -3,17 +3,21 @@ import ColForm from "../Grid/ColForm"
 import FormItemText from "../FormItem/FormItemText"
 import FormItemNumber from "../FormItem/FormItemNumber"
 import FormItemSelect from "../FormItem/FormItemSelect"
-import React from "react"
+import React, {useContext} from "react"
 import {Divider, Tabs} from "antd"
 import FormItemCheckbox from "../FormItem/FormItemCheckbox"
 import FormItemUpload from "../FormItem/FormItemUpload"
 import FormItemTextArea from "../FormItem/FormItemTextArea";
+import {FormContext} from "../../Contexts/FormContext"
 
 const {TabPane} = Tabs;
 
 const FormItems = (props) => {
+    const formContext = useContext(FormContext);
     const formItems = props.formItems;
     const items = [];
+
+    console.log(formContext);
 
     function generateFields(fields) {
         return fields.map((field) => {
@@ -94,9 +98,13 @@ const FormItems = (props) => {
         const tabPanes = [];
         for (let tabPaneKey of Object.keys(tab)) {
             if (tabPaneKey.includes('tab_pane')) {
+                const tabPane = tab[tabPaneKey];
+                if (tabPane.visibility === 'created' && !formContext.id) {
+                    continue;
+                }
                 const tabPaneItems = generateTabPaneItems(tab, tabKey, tabPaneKey);
                 tabPanes.push(
-                    <TabPane key={`${tabKey}-${tabPaneKey}`} tab={tab[tabPaneKey].name}>
+                    <TabPane key={`${tabKey}-${tabPaneKey}`} tab={tabPane.name}>
                         {tabPaneItems}
                     </TabPane>
                 )
