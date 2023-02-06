@@ -19,7 +19,6 @@ export default {
                     type: 'text',
                     name: 'region',
                     label: 'Region',
-                    message: 'Please input region',
                     required: true,
                     size:'large'
                 },
@@ -27,7 +26,6 @@ export default {
                     type: 'text',
                     name: 'region_center',
                     label: 'Region Center',
-                    message: 'Please input region center',
                     required: true,
                     size:'large'
                 },

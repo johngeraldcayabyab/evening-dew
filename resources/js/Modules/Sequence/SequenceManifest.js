@@ -20,14 +20,12 @@ export default {
                     type: 'text',
                     name: 'name',
                     label: 'Name',
-                    message: 'Please input name',
                     required: true
                 },
                 {
                     type: 'select',
                     name: 'implementation',
                     label: 'Implementation',
-                    message: 'Please select an implementation',
                     required: true,
                     options: [
                         {value: 'no_gap', label: 'No Gap'},
@@ -40,7 +38,6 @@ export default {
                     type: 'text',
                     name: 'sequence_code',
                     label: 'Sequence Code',
-                    message: 'Please input sequence code',
                     required: true
                 },
             ]
@@ -65,21 +62,18 @@ export default {
                     type: 'number',
                     name: 'sequence_size',
                     label: 'Sequence Size',
-                    message: 'Please input sequence size',
                     required: true
                 },
                 {
                     type: 'number',
                     name: 'step',
                     label: 'Step',
-                    message: 'Please input step',
                     required: true
                 },
                 {
                     type: 'number',
                     name: 'next_number',
                     label: 'Next number',
-                    message: 'Please input next number',
                     required: true
                 },
             ]

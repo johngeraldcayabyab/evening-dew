@@ -7,7 +7,9 @@ export const formItemFieldProps = (props, specialFieldProps = {}) => {
     const formItemProps = {
         label: props.label ? <FormLabel>{props.label}</FormLabel> : null,
         name: props.name,
-        rules: [{required: props.required, message: props.message}],
+        rules: [
+            {required: props.required, message: props.message ? props.message : 'This field is required'}
+        ],
         colon: false,
         labelCol: props.size === 'large' || props.size === 'medium' ? {span: 24} : {span: 8},
         wrapperCol: props.size === 'large' || props.size === 'medium' ? {

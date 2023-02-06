@@ -20,7 +20,6 @@ export default {
                     type: 'text',
                     name: 'label',
                     label: 'Label',
-                    message: 'Please input label',
                     required: true,
                 },
                 {

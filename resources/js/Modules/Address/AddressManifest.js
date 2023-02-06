@@ -20,7 +20,6 @@ export default {
                     type: 'text',
                     name: 'address_name',
                     label: 'Address Name',
-                    message: 'Please input address name',
                     required: true,
                     size: 'large'
                 },
@@ -57,7 +56,6 @@ export default {
                     name: 'contact_id',
                     label: 'Contact',
                     query: {url: '/api/contacts', field: 'contact.name'},
-                    message: 'Please select a contact',
                     required: true,
                 },
             ],

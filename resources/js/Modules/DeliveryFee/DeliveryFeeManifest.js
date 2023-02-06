@@ -19,7 +19,6 @@ export default {
                     type: 'text',
                     name: 'name',
                     label: 'Name',
-                    message: 'Please Input Name',
                     required: true
                 },
                 {

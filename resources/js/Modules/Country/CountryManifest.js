@@ -19,7 +19,6 @@ export default {
                     type: 'text',
                     name: 'country_name',
                     label: 'Country Name',
-                    message: 'Please input country name',
                     required: true,
                 },
                 {

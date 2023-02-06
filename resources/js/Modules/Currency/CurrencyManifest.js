@@ -20,7 +20,6 @@ export default {
                     type: 'text',
                     name: 'currency',
                     label: 'Currency',
-                    message: 'Please Input Currency',
                     required: true
                 },
                 {
@@ -60,14 +59,12 @@ export default {
                     type: 'text',
                     name: 'symbol',
                     label: 'Symbol',
-                    message: 'Please input symbol',
                     required: true
                 },
                 {
                     type: 'select',
                     name: 'symbol_position',
                     label: 'Symbol Position',
-                    message: 'Please select symbol position',
                     required: true,
                     options: [
                         {value: 'after_amount', label: 'After Amount'},

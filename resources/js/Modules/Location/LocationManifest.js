@@ -20,7 +20,6 @@ export default {
                     type: 'text',
                     name: 'name',
                     label: 'Name',
-                    message: 'Please input name',
                     required: true,
                     size: 'large'
                 },
@@ -53,7 +52,6 @@ export default {
                         {value: 'transit_location', label: 'Transit Location'},
                     ],
                     required: true,
-                    message: 'Please select a location type'
                 },
                 {
                     type: 'checkbox',

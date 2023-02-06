@@ -28,7 +28,6 @@ export default {
                     type: 'text',
                     name: 'name',
                     label: 'Name',
-                    message: 'Please input name',
                     required: true,
                     size: 'large',
                 },
@@ -78,7 +77,6 @@ export default {
                                 {value: 'ordered_quantities', label: 'Ordered Quantities'},
                                 {value: 'delivered_quantities', label: 'Delivered Quantities'},
                             ],
-                            message: 'Please select an invoicing policy',
                             required: true
                         },
                         {
@@ -86,7 +84,6 @@ export default {
                             name: 'measurement_id',
                             label: 'Measurement',
                             query: {url: '/api/measurements', field: 'measurement.name'},
-                            message: 'Please select a measurement',
                             required: true,
                         },
                         {
@@ -94,7 +91,6 @@ export default {
                             name: 'purchase_measurement_id',
                             label: 'Purchase Measurement',
                             query: {url: '/api/measurements', field: 'purchase_measurement.name'},
-                            message: 'Please select a measurement',
                             required: true,
                         },
                         {
@@ -102,7 +98,6 @@ export default {
                             name: 'sales_measurement_id',
                             label: 'Sales Measurement',
                             query: {url: '/api/measurements', field: 'sales_measurement.name'},
-                            message: 'Please select a measurement',
                             required: true,
                         },
                     ],
@@ -111,14 +106,12 @@ export default {
                             type: 'number',
                             name: 'sales_price',
                             label: 'Sales Price',
-                            message: 'Please input sales price',
                             required: true,
                         },
                         {
                             type: 'number',
                             name: 'cost',
                             label: 'Cost',
-                            message: 'Please input cost',
                             required: true,
                         },
                         {
@@ -126,7 +119,6 @@ export default {
                             name: 'product_category_id',
                             label: 'Product Category',
                             query: {url: '/api/product_categories', field: 'product_category.category'},
-                            message: 'Please select a product category',
                             required: true,
                         },
                         {

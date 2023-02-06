@@ -20,7 +20,6 @@ export default {
                     type: 'text',
                     name: 'category',
                     label: 'Category',
-                    message: 'Please input category',
                     required: true,
                     size: 'large',
                 },
