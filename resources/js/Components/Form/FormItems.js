@@ -57,7 +57,7 @@ const FormItems = (props) => {
                         <FormItemSelect
                             key={field.name}
                             {...field}
-                            {...props.options[field.query.name]}
+                            {...props.options[`${field.name}-options`]}
                         />
                     )
                 }

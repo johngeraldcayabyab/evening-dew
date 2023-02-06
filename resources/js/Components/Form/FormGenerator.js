@@ -43,7 +43,7 @@ const FormGenerator = (manifest) => {
     function getFieldQuery(fields) {
         fields.map((field) => {
             if (field.hasOwnProperty('query')) {
-                urlQueries.push(field.query);
+                urlQueries.push(field);
             }
         });
     }
@@ -69,8 +69,8 @@ const FormGenerator = (manifest) => {
         }
     }
     const options = {};
-    urlQueries.forEach((urlQuery) => {
-        options[urlQuery.name] = useOptionHook(urlQuery.url, urlQuery.field);
+    urlQueries.forEach((field) => {
+        options[`${field.name}-options`] = useOptionHook(field.query.url, field.query.field);
     });
 
     useEffect(() => {
