@@ -11,5 +11,17 @@ export default {
         {path: `/${displayName}/create`, component: GroupForm},
         {path: `/${displayName}/:id`, component: GroupForm},
         {path: `/${displayName}`, component: GroupTable},
-    ]
+    ],
+    form: {
+        row_1: {
+            col_1: [
+                {
+                    type: 'text',
+                    name: 'name',
+                    label: 'Name',
+                    required: true,
+                },
+            ]
+        }
+    }
 };
