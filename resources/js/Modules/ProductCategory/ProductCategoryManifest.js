@@ -12,10 +12,10 @@ export default {
         {path: `/${displayName}/:id`, component: ProductCategoryForm},
         {path: `/${displayName}`, component: ProductCategoryTable},
     ],
-    form:{
+    form: {
         initialValue: true,
-        row_1:{
-            col_1:[
+        row_1: {
+            col_1: [
                 {
                     type: 'text',
                     name: 'category',
@@ -28,7 +28,7 @@ export default {
                     type: 'select',
                     name: 'parent_product_category_id',
                     label: 'Parent Category',
-                    query: {url: '/api/product_categories', field: 'parent_category.category', name: 'parentCategoryOptions'},
+                    query: {url: '/api/product_categories', field: 'parent_category.category'},
                 },
             ]
         },

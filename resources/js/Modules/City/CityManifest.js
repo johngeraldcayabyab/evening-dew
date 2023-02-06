@@ -31,7 +31,7 @@ export default {
                     type: 'select',
                     name: 'region_id',
                     label: 'Region',
-                    query: {url: '/api/regions', field: 'region.region', name: 'regionOptions'},
+                    query: {url: '/api/regions', field: 'region.region'},
                 },
             ]
         }

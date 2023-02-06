@@ -85,7 +85,7 @@ export default {
                             type: 'select',
                             name: 'measurement_id',
                             label: 'Measurement',
-                            query: {url: '/api/measurements', field: 'measurement.name', name: 'measurementOptions'},
+                            query: {url: '/api/measurements', field: 'measurement.name'},
                             message: 'Please select a measurement',
                             required: true,
                         },
@@ -93,11 +93,7 @@ export default {
                             type: 'select',
                             name: 'purchase_measurement_id',
                             label: 'Purchase Measurement',
-                            query: {
-                                url: '/api/measurements',
-                                field: 'purchase_measurement.name',
-                                name: 'purchaseMeasurementOptions'
-                            },
+                            query: {url: '/api/measurements', field: 'purchase_measurement.name'},
                             message: 'Please select a measurement',
                             required: true,
                         },
@@ -105,11 +101,7 @@ export default {
                             type: 'select',
                             name: 'sales_measurement_id',
                             label: 'Sales Measurement',
-                            query: {
-                                url: '/api/measurements',
-                                field: 'sales_measurement.name',
-                                name: 'salesMeasurementOptions'
-                            },
+                            query: {url: '/api/measurements', field: 'sales_measurement.name'},
                             message: 'Please select a measurement',
                             required: true,
                         },
@@ -133,11 +125,7 @@ export default {
                             type: 'select',
                             name: 'product_category_id',
                             label: 'Product Category',
-                            query: {
-                                url: '/api/product_categories',
-                                field: 'product_category.category',
-                                name: 'productCategoryOptions'
-                            },
+                            query: {url: '/api/product_categories', field: 'product_category.category'},
                             message: 'Please select a product category',
                             required: true,
                         },

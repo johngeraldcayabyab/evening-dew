@@ -28,7 +28,7 @@ export default {
                     type: 'select',
                     name: 'parent_location_id',
                     label: 'Parent Location',
-                    query: {url: '/api/locations', field: 'parent_location.name', name: 'parentLocationOptions'},
+                    query: {url: '/api/locations', field: 'parent_location.name'},
                     size: 'medium'
                 },
             ]

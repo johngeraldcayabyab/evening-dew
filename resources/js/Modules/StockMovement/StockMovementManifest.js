@@ -31,7 +31,7 @@ export default {
                     type: 'select',
                     name: 'product_id',
                     label: 'Product',
-                    query: {url: '/api/products', field: 'product.name', name: 'productOptions'},
+                    query: {url: '/api/products', field: 'product.name'},
                     message: 'Please select a product',
                     required: true
                 },
@@ -39,7 +39,7 @@ export default {
                     type: 'select',
                     name: 'source_location_id',
                     label: 'Please select source location',
-                    query: {url: '/api/locations', field: 'source_location.name', name: 'sourceLocationOptions'},
+                    query: {url: '/api/locations', field: 'source_location.name'},
                     message: 'Please select a source location',
                     required: true
                 },
@@ -47,11 +47,7 @@ export default {
                     type: 'select',
                     name: 'destination_location_id',
                     label: 'Please select destination location',
-                    query: {
-                        url: '/api/locations',
-                        field: 'destination_location.name',
-                        name: 'destinationLocationOptions'
-                    },
+                    query: {url: '/api/locations', field: 'destination_location.name'},
                     message: 'Please select a destination location',
                     required: true
                 },

@@ -27,13 +27,13 @@ export default {
                     type: 'select',
                     name: 'menu_id',
                     label: 'Menu',
-                    query: {url: '/api/menus', field: 'menu.label', name: 'menuOptions'},
+                    query: {url: '/api/menus', field: 'menu.label'},
                 },
                 {
                     type: 'select',
                     name: 'parent_app_menu_id',
                     label: 'Parent App Menu',
-                    query: {url: '/api/app_menus', field: 'parent_app_menu.label', name: 'appMenuOptions'},
+                    query: {url: '/api/app_menus', field: 'parent_app_menu.label'},
                 },
             ]
         }

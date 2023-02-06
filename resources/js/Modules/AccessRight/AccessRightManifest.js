@@ -27,7 +27,7 @@ export default {
                     type: 'select',
                     name: 'group_id',
                     label: 'Group',
-                    query: {url: '/api/groups', field: 'group.name', name: 'groupOptions'},
+                    query: {url: '/api/groups', field: 'group.name'},
                 },
                 {
                     type: 'checkbox',

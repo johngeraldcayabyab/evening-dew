@@ -26,7 +26,7 @@ export default {
                     type: 'select',
                     name: 'currency_id',
                     label: 'Currency',
-                    query: {url: '/api/currencies', field: 'currency.currency', name: 'currencyOptions'},
+                    query: {url: '/api/currencies', field: 'currency.currency'},
                 },
                 {
                     type: 'text',

@@ -48,13 +48,13 @@ export default {
                     type: 'select',
                     name: 'country_id',
                     label: 'Country',
-                    query: {url: '/api/countries', field: 'country.country_name', name: 'countryOptions'},
+                    query: {url: '/api/countries', field: 'country.country_name'},
                 },
                 {
                     type: 'select',
                     name: 'city_id',
                     label: 'City',
-                    query: {url: '/api/cities', field: 'city.name', name: 'cityOptions'},
+                    query: {url: '/api/cities', field: 'city.name'},
                 },
                 {
                     type: 'text',
