@@ -1,9 +1,9 @@
 import React from 'react';
-import ProductManifest from "../Product/ProductManifest"
 import FormGenerator from "../../Components/Form/FormGenerator";
+import ProductCategoryManifest from "./ProductCategoryManifest"
 
 const ProductCategoryForm = () => {
-    return <FormGenerator {...ProductManifest} />
+    return <FormGenerator {...ProductCategoryManifest}/>
 };
 
 export default ProductCategoryForm;
