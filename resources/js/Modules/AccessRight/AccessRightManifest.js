@@ -13,6 +13,7 @@ export default {
         {path: `/${displayName}`, component: AccessRightTable},
     ],
     form: {
+        initialValue: true,
         row_1: {
             col_1: [
                 {

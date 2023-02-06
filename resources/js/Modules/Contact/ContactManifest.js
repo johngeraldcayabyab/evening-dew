@@ -13,6 +13,7 @@ export default {
         {path: `/${displayName}`, component: ContactTable},
     ],
     form: {
+        initialValue: true,
         row_1: {
             col_1: [
                 {
