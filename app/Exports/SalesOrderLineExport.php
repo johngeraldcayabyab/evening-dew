@@ -30,7 +30,7 @@ class SalesOrderLineExport implements FromQuery, ShouldAutoSize, WithMapping, Wi
             $shippingFrom = Carbon::parse($shippingDateRange[0]);
             $shippingTo = Carbon::parse($shippingDateRange[1]);
         }
-        $salesOrderQuery = SalesOrderLine::query();
+        $salesOrderQuery = SalesOrderLine::query()->with(['salesOrder', 'product']);
         if ($isShippingDate) {
             $salesOrderQuery = $salesOrderQuery->whereHas('salesOrder', function ($query) use ($shippingFrom, $shippingTo) {
                 return $query->whereBetween('shipping_date', [$shippingFrom, $shippingTo]);
