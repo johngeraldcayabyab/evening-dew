@@ -19,6 +19,10 @@ const FormGenerator = (manifest) => {
     const [formState, formActions] = useFormHook(id, form, manifest, manifest.form.initialValue);
 
     const urlQueries = [];
+    const lineUrlQueries = [];
+
+    const options = {};
+    const lineOptions = {};
 
     function getTabPaneItemQuery(tab, tabKey, tabPaneKey) {
         for (let tabPaneItem of Object.keys(tab[tabPaneKey])) {
@@ -59,6 +63,14 @@ const FormGenerator = (manifest) => {
         getColumnQuery(row);
     }
 
+    function getLineQuery(fields) {
+        fields.map((field) => {
+            if (field.hasOwnProperty('query')) {
+                lineUrlQueries.push(field);
+            }
+        });
+    }
+
     for (let itemKey of Object.keys(manifest.form)) {
         const item = manifest.form[itemKey];
         if (itemKey.includes('row')) {
@@ -67,13 +79,22 @@ const FormGenerator = (manifest) => {
         if (itemKey.includes('tab')) {
             getTabQuery(item, itemKey);
         }
+        if (itemKey.includes('line')) {
+            getLineQuery(item.fields);
+            // console.log(item, itemKey);
+        }
     }
-    const options = {};
+
     urlQueries.forEach((field) => {
         options[`${field.name}-options`] = useOptionHook(field.query.url, field.query.field);
     });
 
-    const lineOptions = {};
+    lineUrlQueries.forEach((field) => {
+
+    });
+
+    // lineUrlQueries.forEach
+
 
     useEffect(() => {
         for (const option in options) {
