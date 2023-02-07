@@ -35,6 +35,7 @@ export const selectTimeOptions = () => {
         {value: '11_00_AM_01_00_PM', label: '11:00 AM - 01:00 PM'},
         {value: '01_00_PM_03_00_PM', label: '01:00 PM - 03:00 PM'},
         {value: '03_00_PM_04_00_PM', label: '03:00 PM - 04:00 PM'},
+        {value: '03_00_PM_05_00_PM', label: '03:00 PM - 05:00 PM'},
         {value: '04_00_PM_05_30_PM', label: '04:00 PM - 05:30 PM'},
         {value: '04_00_PM_06_00_PM', label: '04:00 PM - 06:00 PM'},
         {value: '05_30_PM_06_30_PM', label: '05:30 PM - 06:30 PM'},
