@@ -11,6 +11,7 @@ import FormItemTextArea from "../FormItem/FormItemTextArea";
 import {FormContext} from "../../Contexts/FormContext"
 import FormLineParent from "../FormLines/FormLineParent"
 import FormItemLineId from "../FormItem/FormItemLineId"
+import {VISIBILITY_CREATED, VISIBILITY_CREATING} from "../../consts"
 
 const {TabPane} = Tabs;
 
@@ -93,6 +94,9 @@ const FormItems = (props) => {
     }
 
     function generateFields(fields) {
+        if (!Array.isArray(fields)) {
+            return null;
+        }
         return fields.map((field) => {
             if (field.type === 'text') {
                 return generateItemText(field);
@@ -137,7 +141,7 @@ const FormItems = (props) => {
         for (let tabPaneKey of Object.keys(tab)) {
             if (tabPaneKey.includes('tab_pane')) {
                 const tabPane = tab[tabPaneKey];
-                if (tabPane.visibility === 'created' && !formContext.id) {
+                if (onlyVisibleOnCreated(tabPane)) {
                     continue;
                 }
                 const tabPaneItems = generateTabPaneItems(tab, tabKey, tabPaneKey);
@@ -149,6 +153,18 @@ const FormItems = (props) => {
             }
         }
         return tabPanes;
+    }
+
+    function checkVisibility(item) {
+
+    }
+
+    function onlyVisibleOnCreated(item) {
+        return item.hasOwnProperty('visibility') && item.visibility === VISIBILITY_CREATED && !formContext.id;
+    }
+
+    function onlyVisibleOnCreating(item) {
+        return item.hasOwnProperty('visibility') && item.visibility === VISIBILITY_CREATING && formContext.id;
     }
 
     function generateTabPaneItems(tab, tabKey, tabPaneKey) {
@@ -225,6 +241,9 @@ const FormItems = (props) => {
             items.push(generateDivider(item, itemKey))
         }
         if (itemKey.includes('row')) {
+            if (onlyVisibleOnCreating(item)) {
+                continue;
+            }
             items.push(generateRow(item, itemKey));
         }
         if (itemKey.includes('tab')) {

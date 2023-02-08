@@ -27,3 +27,7 @@ export const DISCARD_EDIT_BUTTON = 'discard_edit_button';
 export const FORM_CREATE_BUTTON = 'form_create_button';
 export const SAVE_CREATE_BUTTON = 'save_create_button';
 export const DISCARD_CREATE_BUTTON = 'discard_create_button';
+
+
+export const VISIBILITY_CREATED = 'visibility_created';
+export const VISIBILITY_CREATING = 'visibility_creating';

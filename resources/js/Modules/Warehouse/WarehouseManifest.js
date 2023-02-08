@@ -1,5 +1,6 @@
 import WarehouseForm from "./WarehouseForm";
 import WarehouseTable from "./WarehouseTable";
+import {VISIBILITY_CREATED} from "../../consts"
 
 const displayName = "warehouses";
 
@@ -51,7 +52,7 @@ export default {
                 }
             },
             tab_pane_2: {
-                visibility: 'created',
+                visibility: VISIBILITY_CREATED,
                 name: "Technical Information",
                 row_1: {
                     col_1: [
@@ -171,14 +172,20 @@ export default {
                             type: 'select',
                             name: 'stock_after_manufacturing_operation_type_id',
                             label: 'Stock After Manufacturing Operation Type',
-                            query: {url: '/api/operations_types', field: 'stock_after_manufacturing_operation_type.name'},
+                            query: {
+                                url: '/api/operations_types',
+                                field: 'stock_after_manufacturing_operation_type.name'
+                            },
                             required: true
                         },
                         {
                             type: 'select',
                             name: 'picking_before_manufacturing_operation_type_id',
                             label: 'Picking Before Manufacturing Operation Type',
-                            query: {url: '/api/operations_types', field: 'picking_before_manufacturing_operation_type.name'},
+                            query: {
+                                url: '/api/operations_types',
+                                field: 'picking_before_manufacturing_operation_type.name'
+                            },
                             required: true
                         },
                         {

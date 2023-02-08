@@ -46,6 +46,9 @@ const FormGenerator = (manifest) => {
     }
 
     function getFieldQuery(fields) {
+        if (!Array.isArray(fields)) {
+            return;
+        }
         fields.map((field) => {
             if (field.hasOwnProperty('query')) {
                 urlQueries.push(field);
