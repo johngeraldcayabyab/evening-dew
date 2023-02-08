@@ -36,32 +36,32 @@ export default {
                 },
             ]
         },
-        form_line_1: {
-            columns: ['City', 'Fee'],
-            listName: 'delivery_fee_lines',
-            fields: [
-                {
-                    type: 'select',
-                    name: 'city_id',
-                    placeholder: 'City',
-                    query: {url: '/api/cities', field: 'city.name'},
-                    required: true,
+        tab_1: {
+            defaultActiveKey: 'tab_pane_1',
+            tab_pane_1: {
+                name: "Fee Lines",
+                form_line_1: {
+                    columns: ['City', 'Fee'],
                     listName: 'delivery_fee_lines',
+                    fields: [
+                        {
+                            type: 'select',
+                            name: 'city_id',
+                            placeholder: 'City',
+                            query: {url: '/api/cities', field: 'city.name'},
+                            required: true,
+                            listName: 'delivery_fee_lines',
+                        },
+                        {
+                            type: 'number',
+                            name: 'fee',
+                            label: 'Fee',
+                            required: true,
+                            listName: 'delivery_fee_lines',
+                        },
+                    ]
                 },
-                {
-                    type: 'number',
-                    name: 'fee',
-                    label: 'Fee',
-                    listName: 'delivery_fee_lines',
-                },
-            ]
-        },
-    }
-    // tabs_1: {
-    //     tab_pane_1: {
-    //         row_1: {
-    //             col_1: {}
-    //         },
-    //     }
-    // }
+            }
+        }
+    },
 };

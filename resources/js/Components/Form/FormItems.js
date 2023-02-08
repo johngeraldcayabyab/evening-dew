@@ -135,6 +135,9 @@ const FormItems = (props) => {
             if (tabPaneItem.includes('row')) {
                 tabPaneItems.push(generateRow(tab[tabPaneKey][tabPaneItem], `${tabKey}-${tabPaneKey}`));
             }
+            if (tabPaneItem.includes('form_line')) {
+                tabPaneItems.push(generateLine(tab[tabPaneKey][tabPaneItem], `${tabKey}-${tabPaneKey}`));
+            }
         }
         return tabPaneItems;
     }
@@ -176,14 +179,17 @@ const FormItems = (props) => {
         const lines = [];
         const fields = generateFields(line.fields);
         lines.push(
-            <FormLineParent
-                key={lineKey}
-                columns={line.columns}
-                listName={line.listName}
-            >
-                <FormItemLineId name={'id'}/>
-                {fields}
-            </FormLineParent>
+            <RowForm key={lineKey}>
+                <ColForm lg={24}>
+                    <FormLineParent
+                        columns={line.columns}
+                        listName={line.listName}
+                    >
+                        <FormItemLineId name={'id'}/>
+                        {fields}
+                    </FormLineParent>
+                </ColForm>
+            </RowForm>
         );
         return lines;
     }

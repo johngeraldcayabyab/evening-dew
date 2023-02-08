@@ -27,6 +27,9 @@ const FormGenerator = (manifest) => {
             if (tabPaneItem.includes('row')) {
                 getRowQuery(tab[tabPaneKey][tabPaneItem]);
             }
+            if (tabPaneItem.includes('form_line')) {
+                getLineQuery(tab[tabPaneKey][tabPaneItem].fields);
+            }
         }
     }
 
