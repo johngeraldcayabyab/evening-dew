@@ -91,45 +91,42 @@ const FormGenerator = (manifest) => {
     });
 
     lineUrlQueries.forEach((field) => {
-        lineOptions[`${field.name}-lineOptions`] = useOptionLineHook(field.query.url, field.query.field);
+        lineOptions[`${field.name}-lineOptions`] = useOptionLineHook(field.query.url, field.query.field, field.listName);
     });
-
-    // lineUrlQueries.forEach
-
 
     useEffect(() => {
         for (const option in options) {
             options[option].getInitialOptions(formState);
         }
         for (const lineOption in lineOptions) {
-            console.log(lineOptions[lineOption]);
-            // lineOption.getInitialOptions(formState, lineOption.listName);
-            // options[option].getInitialOptions(formState);
+            lineOptions[lineOption].getInitialOptions(formState);
         }
     }, [formState.initialLoad]);
 
-    return (<FormContextProvider
-        value={{
-            id: id,
-            manifest: manifest,
-            form: form,
-            formState: formState,
-            formActions: formActions,
-            onFinish: formActions.onFinish
-        }}
-    >
-        <CustomForm>
-            <ControlPanel
-                topColOneLeft={<CustomBreadcrumb/>}
-                bottomColOneLeft={<FormButtons/>}
-                bottomColTwoRight={<NextPreviousRecord/>}
-            />
-            <FormCard>
-                {manifest.formLinks && <FormLinks links={manifest.formLinks}/>}
-                <FormItems formItems={manifest.form} options={options}/>
-            </FormCard>
-        </CustomForm>
-    </FormContextProvider>);
+    return (
+        <FormContextProvider
+            value={{
+                id: id,
+                manifest: manifest,
+                form: form,
+                formState: formState,
+                formActions: formActions,
+                onFinish: formActions.onFinish
+            }}
+        >
+            <CustomForm>
+                <ControlPanel
+                    topColOneLeft={<CustomBreadcrumb/>}
+                    bottomColOneLeft={<FormButtons/>}
+                    bottomColTwoRight={<NextPreviousRecord/>}
+                />
+                <FormCard>
+                    {manifest.formLinks && <FormLinks links={manifest.formLinks}/>}
+                    <FormItems formItems={manifest.form} options={options}/>
+                </FormCard>
+            </CustomForm>
+        </FormContextProvider>
+    );
 };
 
 export default FormGenerator;
