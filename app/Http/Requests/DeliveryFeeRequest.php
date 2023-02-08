@@ -10,7 +10,7 @@ class DeliveryFeeRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'is_enabled' => ['required', "boolean"],
+            'is_enabled' => ['nullable'],
             'product_id' => ['required', "exists:products,id"],
             'delivery_fee_lines.*.id' => ['nullable', 'exists:delivery_fee_lines,id'],
             'delivery_fee_lines.*.city_id' => ['required', "exists:cities,id"],

@@ -11,7 +11,7 @@ class CreateDeliveryFeesTable extends Migration
         Schema::create('delivery_fees', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->boolean('is_enabled')->default(true);
+            $table->boolean('is_enabled')->default(false);
             $table->bigInteger('product_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
