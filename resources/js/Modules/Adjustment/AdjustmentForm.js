@@ -25,8 +25,10 @@ import FormLineParent from "../../Components/FormLines/FormLineParent";
 import FormItemLineId from "../../Components/FormItem/FormItemLineId";
 import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import AdjustmentManifest from "./AdjustmentManifest"
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const AdjustmentForm = () => {
+    return <FormGenerator {...AdjustmentManifest}/>
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, AdjustmentManifest, true);

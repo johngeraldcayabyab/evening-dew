@@ -15,6 +15,7 @@ export default {
         {path: `/${displayName}`, component: MaterialTable},
     ],
     form: {
+        initialValue: true,
         onValuesChange: (changedValues, allValues, formContext) => {
             isLineFieldExecute(changedValues, allValues, 'material_lines', 'product_id', (line, allValues) => {
                 formContext.useFetch(`/api/products/${line.product_id}`, GET).then((response) => {
@@ -33,7 +34,6 @@ export default {
                 });
             });
         },
-        initialValue: true,
         row_1: {
             col_1: [
                 {
