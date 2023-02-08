@@ -290,6 +290,8 @@ class ImportShopifyOrdersJob implements ShouldQueue
                     $selectTime = '04_00_PM_05_30_PM';
                 } elseif ($shippingPropertyValue === '04:00 PM - 06:00 PM') {
                     $selectTime = '04_00_PM_06_00_PM';
+                }elseif ($shippingPropertyValue === '05:00 PM - 07:00 PM') {
+                    $selectTime = '05_00_PM_07_00_PM';
                 } elseif ($shippingPropertyValue === '05:30 PM - 06:30 PM') {
                     $selectTime = '05_30_PM_06_30_PM';
                 } elseif ($shippingPropertyValue === '06:00 PM - 07:00 PM') {
