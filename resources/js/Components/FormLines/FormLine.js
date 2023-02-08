@@ -6,7 +6,8 @@ const FormLine = (props) => {
     const formContext = useContext(FormContext);
     const listName = props.listName;
     const restGroup = {...props.restField, groupName: props.groupName};
-    const width = 100 / (props.children.length - 1);
+    const width = 100 / (React.Children.count(props.children) - 1);
+
     return (
         <ColForm lg={23}>
             {React.Children.map(props.children, child => {

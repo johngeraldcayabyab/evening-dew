@@ -55,7 +55,7 @@ export default {
                         {
                             type: 'number',
                             name: 'fee',
-                            label: 'Fee',
+                            placeholder: 'Fee',
                             required: true,
                             listName: 'delivery_fee_lines',
                         },
