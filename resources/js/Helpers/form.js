@@ -30,8 +30,12 @@ export const formItemFieldProps = (props, specialFieldProps = {}) => {
         ...specialFieldProps
     };
 
-    if (props.overrideDisabled) {
-        fieldProps.disabled = true;
+    if (props.hasOwnProperty('overrideDisabled') && props.overrideDisabled && !formContext.formState.formDisabled) {
+        if (typeof props.overrideDisabled === 'function') {
+            fieldProps.disabled = props.overrideDisabled(formContext);
+        } else {
+            fieldProps.disabled = true;
+        }
     }
 
     if (props.isListField) {

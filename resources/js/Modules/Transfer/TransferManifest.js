@@ -2,6 +2,7 @@ import TransferForm from "./TransferForm";
 import TransferTable from "./TransferTable";
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form"
 import {GET} from "../../consts"
+import {disableIfStatus} from "../../Helpers/object"
 
 const displayName = "transfers";
 
@@ -159,6 +160,9 @@ export default {
                             query: {url: '/api/products', field: 'product.name'},
                             required: true,
                             listName: 'transfer_lines',
+                            overrideDisabled: (formContext) => {
+                                return disableIfStatus(formContext.formState, 'done')
+                            }
                         },
                         {
                             type: 'text',
@@ -171,6 +175,9 @@ export default {
                             placeholder: 'Demand',
                             required: true,
                             listName: 'transfer_lines',
+                            overrideDisabled: (formContext) => {
+                                return disableIfStatus(formContext.formState, 'done')
+                            }
                         },
                         {
                             type: 'select',
@@ -179,6 +186,9 @@ export default {
                             query: {url: '/api/measurements', field: 'measurement.name'},
                             required: true,
                             listName: 'transfer_lines',
+                            overrideDisabled: (formContext) => {
+                                return disableIfStatus(formContext.formState, 'done')
+                            }
                         },
                     ]
                 },
