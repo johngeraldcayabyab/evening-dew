@@ -22,7 +22,7 @@ const FormLine = (props) => {
                     if (child.props.optionAggregate) {
                         childProps = {
                             ...childProps,
-                            ...child.props.optionAggregate.aggregate(child.props.optionAggregate, restGroup.fieldKey, formContext.formState, listName),
+                            ...child.props.optionAggregate.aggregate(child.props.optionAggregate, restGroup.fieldKey, formContext.formState),
                         };
                     }
                     const cloneChild = React.cloneElement(child, childProps);

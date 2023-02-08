@@ -66,7 +66,7 @@ const FormItemSelect = (props) => {
                 return (
                     <CustomDropdownMenu
                         menu={menu}
-                        {...props.optionAggregate.aggregate(props.optionAggregate, props.fieldKey, formContext.formState, props.listName)}
+                        {...props.optionAggregate.aggregate(props.optionAggregate, props.fieldKey, formContext.formState)}
                     />
                 )
             }

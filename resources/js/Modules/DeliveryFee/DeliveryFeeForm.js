@@ -25,91 +25,91 @@ import FormGenerator from "../../Components/Form/FormGenerator";
 const {TabPane} = Tabs;
 
 const DeliveryFeeForm = () => {
-    return <FormGenerator {...DeliveryFeeManifest}/>;
-    // let {id} = useParams();
-    // const [form] = Form.useForm();
-    // const [formState, formActions] = useFormHook(id, form, DeliveryFeeManifest, true);
-    // const productOptions = useOptionHook('/api/products', 'product.name');
-    // const cityOptions = useOptionLineHook('/api/cities', 'city.name');
-    //
-    //
-    // useEffect(() => {
-    //     productOptions.getInitialOptions(formState);
-    //     cityOptions.getInitialOptions(formState, 'delivery_fee_lines');
-    // }, [formState.initialValues]);
-    //
-    // return (
-    //     <FormContextProvider
-    //         value={{
-    //             id: id,
-    //             manifest: DeliveryFeeManifest,
-    //             form: form,
-    //             formState: formState,
-    //             formActions: formActions,
-    //             onFinish: formActions.onFinish,
-    //         }}
-    //     >
-    //         <CustomForm>
-    //             <ControlPanel
-    //                 topColOneLeft={<CustomBreadcrumb/>}
-    //                 bottomColOneLeft={<FormButtons/>}
-    //                 bottomColTwoRight={<NextPreviousRecord/>}
-    //             />
-    //             <FormCard>
-    //                 <RowForm>
-    //                     <ColForm>
-    //                         <FormItemText
-    //                             label={'Name'}
-    //                             name={'name'}
-    //                             message={'Please input name'}
-    //                             required={true}
-    //                         />
-    //
-    //                         <FormItemCheckbox
-    //                             label={'Enabled'}
-    //                             name={'is_enabled'}
-    //                         />
-    //                     </ColForm>
-    //                     <ColForm>
-    //                         <FormItemSelect
-    //                             label={'Product'}
-    //                             name={'product_id'}
-    //                             {...productOptions}
-    //                             message={'Please select product'}
-    //                             required={true}
-    //                         />
-    //                     </ColForm>
-    //                 </RowForm>
-    //                 <Tabs defaultActiveKey="1">
-    //                     <TabPane tab="Fee Lines" key="1">
-    //                         <RowForm>
-    //                             <ColForm lg={24}>
-    //                                 <FormLineParent
-    //                                     columns={['City']}
-    //                                     listName={'delivery_fee_lines'}
-    //                                 >
-    //                                     <FormItemLineId name={'id'}/>
-    //                                     <FormItemSelect
-    //                                         placeholder={'City'}
-    //                                         name={'city_id'}
-    //                                         message={'Please select a city'}
-    //                                         required={true}
-    //                                         optionAggregate={cityOptions}
-    //                                         dropdownRender={cityOptions}
-    //                                     />
-    //                                     <FormItemNumber
-    //                                         placeholder={'Fee'}
-    //                                         name={'fee'}
-    //                                     />
-    //                                 </FormLineParent>
-    //                             </ColForm>
-    //                         </RowForm>
-    //                     </TabPane>
-    //                 </Tabs>
-    //             </FormCard>
-    //         </CustomForm>
-    //     </FormContextProvider>
-    // );
+    // return <FormGenerator {...DeliveryFeeManifest}/>;
+    let {id} = useParams();
+    const [form] = Form.useForm();
+    const [formState, formActions] = useFormHook(id, form, DeliveryFeeManifest, true);
+    const productOptions = useOptionHook('/api/products', 'product.name');
+    const cityOptions = useOptionLineHook('/api/cities', 'city.name', 'delivery_fee_lines');
+
+
+    useEffect(() => {
+        productOptions.getInitialOptions(formState);
+        cityOptions.getInitialOptions(formState);
+    }, [formState.initialValues]);
+
+    return (
+        <FormContextProvider
+            value={{
+                id: id,
+                manifest: DeliveryFeeManifest,
+                form: form,
+                formState: formState,
+                formActions: formActions,
+                onFinish: formActions.onFinish,
+            }}
+        >
+            <CustomForm>
+                <ControlPanel
+                    topColOneLeft={<CustomBreadcrumb/>}
+                    bottomColOneLeft={<FormButtons/>}
+                    bottomColTwoRight={<NextPreviousRecord/>}
+                />
+                <FormCard>
+                    <RowForm>
+                        <ColForm>
+                            <FormItemText
+                                label={'Name'}
+                                name={'name'}
+                                message={'Please input name'}
+                                required={true}
+                            />
+
+                            <FormItemCheckbox
+                                label={'Enabled'}
+                                name={'is_enabled'}
+                            />
+                        </ColForm>
+                        <ColForm>
+                            <FormItemSelect
+                                label={'Product'}
+                                name={'product_id'}
+                                {...productOptions}
+                                message={'Please select product'}
+                                required={true}
+                            />
+                        </ColForm>
+                    </RowForm>
+                    <Tabs defaultActiveKey="1">
+                        <TabPane tab="Fee Lines" key="1">
+                            <RowForm>
+                                <ColForm lg={24}>
+                                    <FormLineParent
+                                        columns={['City']}
+                                        listName={'delivery_fee_lines'}
+                                    >
+                                        <FormItemLineId name={'id'}/>
+                                        <FormItemSelect
+                                            placeholder={'City'}
+                                            name={'city_id'}
+                                            message={'Please select a city'}
+                                            required={true}
+                                            optionAggregate={cityOptions}
+                                            dropdownRender={cityOptions}
+                                        />
+                                        <FormItemNumber
+                                            placeholder={'Fee'}
+                                            name={'fee'}
+                                        />
+                                    </FormLineParent>
+                                </ColForm>
+                            </RowForm>
+                        </TabPane>
+                    </Tabs>
+                </FormCard>
+            </CustomForm>
+        </FormContextProvider>
+    );
 };
 
 

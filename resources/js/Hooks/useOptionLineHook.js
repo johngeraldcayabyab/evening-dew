@@ -5,7 +5,7 @@ import useFetchCatcherHook from "./useFetchCatcherHook";
 import {objectHasValue} from "../Helpers/object";
 import {getFieldFromInitialValues} from "../Helpers/form";
 
-const useOptionLineHook = (url, tableField, customParams = null) => {
+const useOptionLineHook = (url, tableField, lineName,  customParams = null) => {
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
@@ -140,7 +140,7 @@ const useOptionLineHook = (url, tableField, customParams = null) => {
                 }
             }
         },
-        getInitialOptions: (formState, lineName) => {
+        getInitialOptions: (formState) => {
             if (!formState.initialLoad) {
                 if (objectHasValue(formState.initialValues) && formState.initialValues.hasOwnProperty(lineName)) {
                     formState.initialValues[lineName].forEach((line, key) => {
@@ -151,7 +151,7 @@ const useOptionLineHook = (url, tableField, customParams = null) => {
                 }
             }
         },
-        addSelf: (key, formState, lineName) => {
+        addSelf: (key, formState) => {
             if (formState.id) {
                 if (!formState.initialLoad && !formState.initialValues[lineName][key]) {
                     optionActions.getOptions(null, key);
@@ -171,7 +171,7 @@ const useOptionLineHook = (url, tableField, customParams = null) => {
                 optionsLoading: optionsLoading,
             }));
         },
-        aggregate: (lineOptions, fieldKey, formState, lineName) => {
+        aggregate: (lineOptions, fieldKey, formState) => {
             fieldKey = parseInt(fieldKey);
             return {
                 value: lineOptions.values[fieldKey],
@@ -183,7 +183,7 @@ const useOptionLineHook = (url, tableField, customParams = null) => {
                 onSearch: (search) => lineOptions.onSearch(search, fieldKey),
                 onClear: () => lineOptions.onClear(fieldKey),
                 onPopupScroll: (event) => lineOptions.onPopupScroll(event, fieldKey),
-                addSelf: () => lineOptions.addSelf(fieldKey, formState, lineName),
+                addSelf: () => lineOptions.addSelf(fieldKey, formState),
                 removeSelf: () => lineOptions.removeSelf(fieldKey),
             }
         },
