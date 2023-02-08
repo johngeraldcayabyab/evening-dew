@@ -28,10 +28,12 @@ import NextPreviousRecord from "../../Components/NextPreviousRecord";
 import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
 import {disableIfStatus} from "../../Helpers/object"
 import TransferManifest from "./TransferManifest"
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const {TabPane} = Tabs;
 
 const TransferForm = () => {
+    return <FormGenerator {...TransferManifest} />
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, TransferManifest, true);

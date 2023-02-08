@@ -13,6 +13,7 @@ import FormLineParent from "../FormLines/FormLineParent"
 import FormItemLineId from "../FormItem/FormItemLineId"
 import {VISIBILITY_CREATED, VISIBILITY_CREATING} from "../../consts"
 import FormItemStatus from "../FormItem/FormItemStatus"
+import FormItemDate from "../FormItem/FormItemDate"
 
 const {TabPane} = Tabs;
 
@@ -104,6 +105,15 @@ const FormItems = () => {
         )
     }
 
+    function generateDate(field) {
+        return (
+            <FormItemDate
+                key={field.name}
+                {...field}
+            />
+        )
+    }
+
     function generateFields(fields) {
         if (!Array.isArray(fields)) {
             return null;
@@ -129,6 +139,9 @@ const FormItems = () => {
             }
             if (field.type === 'status') {
                 return generateStatus(field);
+            }
+            if (field.type === 'date') {
+                return generateDate(field);
             }
             if (field.type === 'divider') {
                 return generateDivider(field, field.name);
