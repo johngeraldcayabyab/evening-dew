@@ -12,6 +12,7 @@ import {FormContext} from "../../Contexts/FormContext"
 import FormLineParent from "../FormLines/FormLineParent"
 import FormItemLineId from "../FormItem/FormItemLineId"
 import {VISIBILITY_CREATED, VISIBILITY_CREATING} from "../../consts"
+import FormItemStatus from "../FormItem/FormItemStatus"
 
 const {TabPane} = Tabs;
 
@@ -94,6 +95,15 @@ const FormItems = () => {
         )
     }
 
+    function generateStatus(field) {
+        return (
+            <FormItemStatus
+                key={field.name}
+                {...field}
+            />
+        )
+    }
+
     function generateFields(fields) {
         if (!Array.isArray(fields)) {
             return null;
@@ -116,6 +126,9 @@ const FormItems = () => {
             }
             if (field.type === 'upload') {
                 return generateUpload(field);
+            }
+            if (field.type === 'status') {
+                return generateStatus(field);
             }
             if (field.type === 'divider') {
                 return generateDivider(field, field.name);

@@ -14,6 +14,29 @@ export default {
         {path: `/${displayName}/:id`, component: AdjustmentForm},
         {path: `/${displayName}`, component: AdjustmentTable},
     ],
+    statuses: [
+        {
+            value: 'draft',
+            title: 'Draft',
+            status: {draft: 'process', done: 'finish', cancelled: 'wait'}
+        },
+        {
+            value: 'done',
+            title: 'Done',
+            type: 'primary',
+            label: 'Validate',
+            status: {draft: 'wait', done: 'finish', cancelled: 'wait'},
+            visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
+        },
+        {
+            value: 'cancelled',
+            title: 'Cancelled',
+            type: 'ghost',
+            label: 'Cancel',
+            status: {draft: 'wait', done: 'wait', cancelled: 'finish'},
+            visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
+        },
+    ],
     form: {
         initialValue: true,
         onValuesChange: (changedValues, allValues, formContext) => {
@@ -37,6 +60,10 @@ export default {
         },
         row_1: {
             col_1: [
+                {
+                    type: 'status',
+                    name: 'status',
+                },
                 {
                     type: 'number',
                     name: 'number',

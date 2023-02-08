@@ -15,6 +15,7 @@ import FormItems from "./FormItems"
 import FormLinks from "../FormLinks";
 import useFetchHook from "../../Hooks/useFetchHook"
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook"
+import StatusBar from "../StatusBar"
 
 const FormGenerator = (manifest) => {
     let {id} = useParams();
@@ -132,6 +133,7 @@ const FormGenerator = (manifest) => {
                     bottomColOneLeft={<FormButtons/>}
                     bottomColTwoRight={<NextPreviousRecord/>}
                 />
+                {manifest.statuses && <StatusBar statuses={manifest.statuses}/>}
                 <FormCard>
                     {manifest.formLinks && <FormLinks links={manifest.formLinks}/>}
                     <FormItems/>
