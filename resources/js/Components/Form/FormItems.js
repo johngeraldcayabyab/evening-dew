@@ -17,6 +17,7 @@ const {TabPane} = Tabs;
 
 const FormItems = (props) => {
     const formContext = useContext(FormContext);
+    const options = formContext.options;
     const formItems = props.formItems;
     const items = [];
 
@@ -62,8 +63,8 @@ const FormItems = (props) => {
                 <FormItemSelect
                     key={field.name}
                     {...field}
-                    optionAggregate={props.options[`${field.name}-lineOptions`]}
-                    dropdownRender={props.options[`${field.name}-lineOptions`]}
+                    optionAggregate={options[`${field.name}-lineOptions`]}
+                    dropdownRender={options[`${field.name}-lineOptions`]}
                 />
             )
         } else if (field.hasOwnProperty('query')) {
@@ -71,8 +72,8 @@ const FormItems = (props) => {
                 <FormItemSelect
                     key={field.name}
                     {...field}
-                    {...props.options[`${field.name}-options`]}
-                    dropdownRender={props.options[`${field.name}-options`]}
+                    {...options[`${field.name}-options`]}
+                    dropdownRender={options[`${field.name}-options`]}
                 />
             )
         }

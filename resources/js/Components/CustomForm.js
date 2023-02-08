@@ -13,7 +13,13 @@ const CustomForm = (props) => {
             labelCol={{span: 8}}
             labelWrap={true}
             wrapperCol={{span: 16}}
-            onValuesChange={formContext.onValuesChange}
+            onValuesChange={(changedValues, allValues) => {
+                return formContext.onValuesChange(
+                    changedValues,
+                    allValues,
+                    formContext
+                );
+            }}
             className={'custom-form'}
         >
             {props.children}

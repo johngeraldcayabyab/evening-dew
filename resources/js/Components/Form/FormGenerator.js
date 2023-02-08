@@ -13,11 +13,15 @@ import useOptionHook from "../../Hooks/useOptionHook"
 import useOptionLineHook from "../../Hooks/useOptionLineHook"
 import FormItems from "./FormItems"
 import FormLinks from "../FormLinks";
+import useFetchHook from "../../Hooks/useFetchHook"
+import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook"
 
 const FormGenerator = (manifest) => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, manifest.form.initialValue);
+    const useFetch = useFetchHook();
+    const fetchCatcher = useFetchCatcherHook();
 
     const urlQueries = [];
     const options = {};
@@ -102,16 +106,25 @@ const FormGenerator = (manifest) => {
         }
     }, [formState.initialLoad]);
 
+    const formContextProviderValues = {
+        id: id,
+        manifest: manifest,
+        form: form,
+        formState: formState,
+        formActions: formActions,
+        onFinish: formActions.onFinish,
+        useFetch: useFetch,
+        fetchCatcher: fetchCatcher,
+        options: options
+    };
+
+    if (manifest.form.hasOwnProperty('onValuesChange')) {
+        formContextProviderValues['onValuesChange'] = manifest.form.onValuesChange;
+    }
+
     return (
         <FormContextProvider
-            value={{
-                id: id,
-                manifest: manifest,
-                form: form,
-                formState: formState,
-                formActions: formActions,
-                onFinish: formActions.onFinish
-            }}
+            value={formContextProviderValues}
         >
             <CustomForm>
                 <ControlPanel
@@ -121,7 +134,7 @@ const FormGenerator = (manifest) => {
                 />
                 <FormCard>
                     {manifest.formLinks && <FormLinks links={manifest.formLinks}/>}
-                    <FormItems formItems={manifest.form} options={options}/>
+                    <FormItems formItems={manifest.form}/>
                 </FormCard>
             </CustomForm>
         </FormContextProvider>
