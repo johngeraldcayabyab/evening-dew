@@ -20,10 +20,7 @@ const FormGenerator = (manifest) => {
     const [formState, formActions] = useFormHook(id, form, manifest, manifest.form.initialValue);
 
     const urlQueries = [];
-    const lineUrlQueries = [];
-
     const options = {};
-    const lineOptions = {};
 
     function getTabPaneItemQuery(tab, tabKey, tabPaneKey) {
         for (let tabPaneItem of Object.keys(tab[tabPaneKey])) {
@@ -67,7 +64,7 @@ const FormGenerator = (manifest) => {
     function getLineQuery(fields) {
         fields.map((field) => {
             if (field.hasOwnProperty('query')) {
-                lineUrlQueries.push(field);
+                urlQueries.push(field);
             }
         });
     }
@@ -82,24 +79,20 @@ const FormGenerator = (manifest) => {
         }
         if (itemKey.includes('line')) {
             getLineQuery(item.fields);
-            // console.log(item, itemKey);
         }
     }
 
     urlQueries.forEach((field) => {
-        options[`${field.name}-options`] = useOptionHook(field.query.url, field.query.field);
-    });
-
-    lineUrlQueries.forEach((field) => {
-        lineOptions[`${field.name}-lineOptions`] = useOptionLineHook(field.query.url, field.query.field, field.listName);
+        if (field.hasOwnProperty('listName')) {
+            options[`${field.name}-lineOptions`] = useOptionLineHook(field.query.url, field.query.field, field.listName);
+        } else {
+            options[`${field.name}-options`] = useOptionHook(field.query.url, field.query.field);
+        }
     });
 
     useEffect(() => {
         for (const option in options) {
             options[option].getInitialOptions(formState);
-        }
-        for (const lineOption in lineOptions) {
-            lineOptions[lineOption].getInitialOptions(formState);
         }
     }, [formState.initialLoad]);
 

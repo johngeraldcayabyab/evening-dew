@@ -9,6 +9,8 @@ import FormItemCheckbox from "../FormItem/FormItemCheckbox"
 import FormItemUpload from "../FormItem/FormItemUpload"
 import FormItemTextArea from "../FormItem/FormItemTextArea";
 import {FormContext} from "../../Contexts/FormContext"
+import FormLineParent from "../FormLines/FormLineParent"
+import FormItemLineId from "../FormItem/FormItemLineId"
 
 const {TabPane} = Tabs;
 
@@ -52,7 +54,16 @@ const FormItems = (props) => {
                 )
             }
             if (field.type === 'select') {
-                if (field.hasOwnProperty('query')) {
+                if (field.hasOwnProperty('query') && field.hasOwnProperty('listName')) {
+                    return (
+                        <FormItemSelect
+                            key={field.name}
+                            {...field}
+                            optionAggregate={props.options[`${field.name}-lineOptions`]}
+                            dropdownRender={props.options[`${field.name}-lineOptions`]}
+                        />
+                    )
+                } else if (field.hasOwnProperty('query')) {
                     return (
                         <FormItemSelect
                             key={field.name}
@@ -79,6 +90,7 @@ const FormItems = (props) => {
             if (field.type === 'divider') {
                 return generateDivider(field, field.name);
             }
+            return null;
         });
     }
 
@@ -160,6 +172,22 @@ const FormItems = (props) => {
         return <Divider key={dividerKey}/>
     }
 
+    function generateLine(line, lineKey) {
+        const lines = [];
+        const fields = generateFields(line.fields);
+        lines.push(
+            <FormLineParent
+                key={lineKey}
+                columns={line.columns}
+                listName={line.listName}
+            >
+                <FormItemLineId name={'id'}/>
+                {fields}
+            </FormLineParent>
+        );
+        return lines;
+    }
+
     for (let itemKey of Object.keys(formItems)) {
         const item = formItems[itemKey];
         if (itemKey.includes('divider')) {
@@ -170,6 +198,9 @@ const FormItems = (props) => {
         }
         if (itemKey.includes('tab')) {
             items.push(generateTab(item, itemKey))
+        }
+        if (itemKey.includes('form_line')) {
+            items.push(generateLine(item, itemKey));
         }
     }
     return items;
