@@ -19,73 +19,97 @@ const FormItems = (props) => {
     const formItems = props.formItems;
     const items = [];
 
+    function generateItemText(field) {
+        return (
+            <FormItemText
+                key={field.name}
+                {...field}
+            />
+        )
+    }
+
+    function generateTextArea(field) {
+        return (
+            <FormItemTextArea
+                key={field.name}
+                {...field}
+            />
+        )
+    }
+
+    function generateItemNumber(field) {
+        return (
+            <FormItemNumber
+                key={field.name}
+                {...field}
+            />
+        )
+    }
+
+    function generateCheckbox(field) {
+        return (
+            <FormItemCheckbox
+                key={field.name}
+                {...field}
+            />
+        )
+    }
+
+    function generateSelect(field) {
+        if (field.hasOwnProperty('query') && field.hasOwnProperty('listName')) {
+            return (
+                <FormItemSelect
+                    key={field.name}
+                    {...field}
+                    optionAggregate={props.options[`${field.name}-lineOptions`]}
+                    dropdownRender={props.options[`${field.name}-lineOptions`]}
+                />
+            )
+        } else if (field.hasOwnProperty('query')) {
+            return (
+                <FormItemSelect
+                    key={field.name}
+                    {...field}
+                    {...props.options[`${field.name}-options`]}
+                />
+            )
+        }
+        return (
+            <FormItemSelect
+                key={field.name}
+                {...field}
+            />
+        )
+    }
+
+    function generateUpload(field) {
+        return (
+            <FormItemUpload
+                key={field.name}
+                {...field}
+            />
+        )
+    }
+
     function generateFields(fields) {
         return fields.map((field) => {
             if (field.type === 'text') {
-                return (
-                    <FormItemText
-                        key={field.name}
-                        {...field}
-                    />
-                )
+                return generateItemText(field);
             }
             if (field.type === 'textarea') {
-                return (
-                    <FormItemTextArea
-                        key={field.name}
-                        {...field}
-                    />
-                )
+                return generateTextArea(field);
             }
             if (field.type === 'number') {
-                return (
-                    <FormItemNumber
-                        key={field.name}
-                        {...field}
-                    />
-                )
+                return generateItemNumber(field);
             }
             if (field.type === 'checkbox') {
-                return (
-                    <FormItemCheckbox
-                        key={field.name}
-                        {...field}
-                    />
-                )
+                return generateCheckbox(field);
             }
             if (field.type === 'select') {
-                if (field.hasOwnProperty('query') && field.hasOwnProperty('listName')) {
-                    return (
-                        <FormItemSelect
-                            key={field.name}
-                            {...field}
-                            optionAggregate={props.options[`${field.name}-lineOptions`]}
-                            dropdownRender={props.options[`${field.name}-lineOptions`]}
-                        />
-                    )
-                } else if (field.hasOwnProperty('query')) {
-                    return (
-                        <FormItemSelect
-                            key={field.name}
-                            {...field}
-                            {...props.options[`${field.name}-options`]}
-                        />
-                    )
-                }
-                return (
-                    <FormItemSelect
-                        key={field.name}
-                        {...field}
-                    />
-                )
+                return generateSelect(field);
             }
             if (field.type === 'upload') {
-                return (
-                    <FormItemUpload
-                        key={field.name}
-                        {...field}
-                    />
-                )
+                return generateUpload(field);
             }
             if (field.type === 'divider') {
                 return generateDivider(field, field.name);
