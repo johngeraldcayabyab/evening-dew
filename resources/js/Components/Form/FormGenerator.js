@@ -10,6 +10,7 @@ import FormCard from "../FormCard"
 import CustomForm from "../CustomForm"
 import React, {useEffect} from "react"
 import useOptionHook from "../../Hooks/useOptionHook"
+import useOptionLineHook from "../../Hooks/useOptionLineHook"
 import FormItems from "./FormItems"
 import FormLinks from "../FormLinks";
 
@@ -90,7 +91,7 @@ const FormGenerator = (manifest) => {
     });
 
     lineUrlQueries.forEach((field) => {
-
+        lineOptions[`${field.name}-lineOptions`] = useOptionLineHook(field.query.url, field.query.field);
     });
 
     // lineUrlQueries.forEach
@@ -101,7 +102,8 @@ const FormGenerator = (manifest) => {
             options[option].getInitialOptions(formState);
         }
         for (const lineOption in lineOptions) {
-            lineOption.getInitialOptions(formState, lineOption.listName);
+            console.log(lineOptions[lineOption]);
+            // lineOption.getInitialOptions(formState, lineOption.listName);
             // options[option].getInitialOptions(formState);
         }
     }, [formState.initialLoad]);

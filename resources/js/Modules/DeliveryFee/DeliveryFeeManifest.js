@@ -46,11 +46,13 @@ export default {
                     placeholder: 'City',
                     query: {url: '/api/cities', field: 'city.name'},
                     required: true,
+                    listName: 'delivery_fee_lines',
                 },
                 {
                     type: 'number',
                     name: 'fee',
                     label: 'Fee',
+                    listName: 'delivery_fee_lines',
                 },
             ]
         },
