@@ -48,103 +48,102 @@ export const AppContext = React.createContext({});
 export const AppContextProvider = AppContext.Provider;
 
 const App = () => {
-        const [appState, setAppState] = useState({
-            isLogin: getCookie('Authorization'),
-            userEmail: getCookie('userEmail'),
-            appInitialLoad: true,
-            user: {},
-            globalSetting: {},
+    const [appState, setAppState] = useState({
+        isLogin: getCookie('Authorization'),
+        userEmail: getCookie('userEmail'),
+        appInitialLoad: true,
+        user: {},
+        globalSetting: {},
+    });
+    const useFetch = useFetchHook();
+    const fetchCatcher = useFetchCatcherHook();
+
+    useEffect(() => {
+        window.Echo.channel('refresh-browser').listen('RefreshBrowserEvent', () => {
+            window.location.reload();
         });
-        const useFetch = useFetchHook();
-        const fetchCatcher = useFetchCatcherHook();
 
-        useEffect(() => {
-            window.Echo.channel('refresh-browser').listen('RefreshBrowserEvent', () => {
-                window.location.reload();
-            });
-
-            if (appState.isLogin && !objectHasValue(appState.globalSetting)) {
-                useFetch(`/api/users`, GET, {
-                    email: getCookie('userEmail'),
-                }).then((userResponse) => {
-                    const user = userResponse.data[0];
-                    let accessRights = [];
-                    const userGroupLines = user.user_group_lines;
-                    if (userGroupLines && userGroupLines.length) {
-                        userGroupLines.forEach(userGroupLine => {
-                            const group = userGroupLine.group;
-                            if (group && group.access_rights && group.access_rights.length) {
-                                accessRights = [...accessRights, ...group.access_rights];
-                            }
-                        });
-                        accessRights = accessRights.filter((v, i, a) => a.findIndex(v2 => (v2.name === v.name)) === i);
-                    }
-
-                    useFetch(`/api/global_settings/initial_values`, GET).then((globalSettingResponse) => {
-                        setAppState(prevState => ({
-                            ...prevState,
-                            isLogin: getCookie('Authorization'),
-                            user: user,
-                            accessRights: accessRights,
-                            globalSetting: globalSettingResponse,
-                            appInitialLoad: false,
-                        }));
-                    }).catch((responseErr) => {
-                        fetchCatcher.get(responseErr);
+        if (appState.isLogin && !objectHasValue(appState.globalSetting)) {
+            useFetch(`/api/users`, GET, {
+                email: getCookie('userEmail'),
+            }).then((userResponse) => {
+                const user = userResponse.data[0];
+                let accessRights = [];
+                const userGroupLines = user.user_group_lines;
+                if (userGroupLines && userGroupLines.length) {
+                    userGroupLines.forEach(userGroupLine => {
+                        const group = userGroupLine.group;
+                        if (group && group.access_rights && group.access_rights.length) {
+                            accessRights = [...accessRights, ...group.access_rights];
+                        }
                     });
+                    accessRights = accessRights.filter((v, i, a) => a.findIndex(v2 => (v2.name === v.name)) === i);
+                }
+
+                useFetch(`/api/global_settings/initial_values`, GET).then((globalSettingResponse) => {
+                    setAppState(prevState => ({
+                        ...prevState,
+                        isLogin: getCookie('Authorization'),
+                        user: user,
+                        accessRights: accessRights,
+                        globalSetting: globalSettingResponse,
+                        appInitialLoad: false,
+                    }));
                 }).catch((responseErr) => {
                     fetchCatcher.get(responseErr);
                 });
-            }
-        }, [appState.isLogin, appState.userEmail]);
+            }).catch((responseErr) => {
+                fetchCatcher.get(responseErr);
+            });
+        }
+    }, [appState.isLogin, appState.userEmail]);
 
-        return (
-            <BrowserRouter>
-                <AppContextProvider value={{appState: appState, setAppState: setAppState}}>
-                    <AppContainerWithContent>
-                        <SwitchMaster
-                            switches={[
-                                AccessRight.routes,
-                                ActivityLog.routes,
-                                Address.routes,
-                                Adjustment.routes,
-                                AppMenu.routes,
-                                City.routes,
-                                Contact.routes,
-                                Country.routes,
-                                Courier.routes,
-                                Currency.routes,
-                                DeliveryFee.routes,
-                                GlobalSetting.routes,
-                                Group.routes,
-                                LocationManifest.routes,
-                                Material.routes,
-                                Measurement.routes,
-                                MeasurementCategory.routes,
-                                Menu.routes,
-                                OperationType.routes,
-                                PaymentTerm.routes,
-                                Product.routes,
-                                ProductCategory.routes,
-                                Region.routes,
-                                SalesOrder.routes,
-                                SalesOrderLine.routes,
-                                Sequence.routes,
-                                Source.routes,
-                                StockMovement.routes,
-                                Transfer.routes,
-                                User.routes,
-                                Warehouse.routes
-                            ]}
-                        />
-                        <HomeRoute/>
-                        <LoginRoute/>
-                    </AppContainerWithContent>
-                </AppContextProvider>
-            </BrowserRouter>
-        )
-    }
-;
+    return (
+        <BrowserRouter>
+            <AppContextProvider value={{appState: appState, setAppState: setAppState}}>
+                <AppContainerWithContent>
+                    <SwitchMaster
+                        switches={[
+                            AccessRight.routes,
+                            ActivityLog.routes,
+                            Address.routes,
+                            Adjustment.routes,
+                            AppMenu.routes,
+                            City.routes,
+                            Contact.routes,
+                            Country.routes,
+                            Courier.routes,
+                            Currency.routes,
+                            DeliveryFee.routes,
+                            GlobalSetting.routes,
+                            Group.routes,
+                            LocationManifest.routes,
+                            Material.routes,
+                            Measurement.routes,
+                            MeasurementCategory.routes,
+                            Menu.routes,
+                            OperationType.routes,
+                            PaymentTerm.routes,
+                            Product.routes,
+                            ProductCategory.routes,
+                            Region.routes,
+                            SalesOrder.routes,
+                            SalesOrderLine.routes,
+                            Sequence.routes,
+                            Source.routes,
+                            StockMovement.routes,
+                            Transfer.routes,
+                            User.routes,
+                            Warehouse.routes
+                        ]}
+                    />
+                    <HomeRoute/>
+                    <LoginRoute/>
+                </AppContainerWithContent>
+            </AppContextProvider>
+        </BrowserRouter>
+    )
+};
 
 render(<App/>, document.getElementById('root'));
 
