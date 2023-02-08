@@ -15,10 +15,10 @@ import {VISIBILITY_CREATED, VISIBILITY_CREATING} from "../../consts"
 
 const {TabPane} = Tabs;
 
-const FormItems = (props) => {
+const FormItems = () => {
     const formContext = useContext(FormContext);
     const options = formContext.options;
-    const formItems = props.formItems;
+    const formItems = formContext.manifest.form;
     const items = [];
 
     function generateItemText(field) {

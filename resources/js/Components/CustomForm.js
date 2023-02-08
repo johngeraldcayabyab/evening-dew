@@ -14,11 +14,14 @@ const CustomForm = (props) => {
             labelWrap={true}
             wrapperCol={{span: 16}}
             onValuesChange={(changedValues, allValues) => {
-                return formContext.onValuesChange(
-                    changedValues,
-                    allValues,
-                    formContext
-                );
+                if(formContext.onValuesChange){
+                    return formContext.onValuesChange(
+                        changedValues,
+                        allValues,
+                        formContext
+                    );
+                }
+                // should return something, might break other stuff
             }}
             className={'custom-form'}
         >

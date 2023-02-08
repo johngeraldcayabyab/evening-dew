@@ -134,7 +134,7 @@ const FormGenerator = (manifest) => {
                 />
                 <FormCard>
                     {manifest.formLinks && <FormLinks links={manifest.formLinks}/>}
-                    <FormItems formItems={manifest.form}/>
+                    <FormItems/>
                 </FormCard>
             </CustomForm>
         </FormContextProvider>
