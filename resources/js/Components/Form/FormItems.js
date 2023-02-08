@@ -71,6 +71,7 @@ const FormItems = (props) => {
                     key={field.name}
                     {...field}
                     {...props.options[`${field.name}-options`]}
+                    dropdownRender={props.options[`${field.name}-options`]}
                 />
             )
         }
