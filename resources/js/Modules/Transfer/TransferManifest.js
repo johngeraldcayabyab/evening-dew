@@ -167,6 +167,7 @@ export default {
                         {
                             type: 'text',
                             name: 'description',
+                            listName: 'transfer_lines',
                             placeholder: 'Description',
                         },
                         {
