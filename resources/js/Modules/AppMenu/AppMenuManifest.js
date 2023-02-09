@@ -1,15 +1,15 @@
-import AppMenuForm from "./AppMenuForm";
 import AppMenuTable from "./AppMenuTable";
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "app_menus";
 
-export default {
+const manifest = {
     "moduleName": "app_menus",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: AppMenuForm},
-        {path: `/${displayName}/:id`, component: AppMenuForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: AppMenuTable},
     ],
     form: {
@@ -38,3 +38,5 @@ export default {
         }
     }
 };
+
+export default manifest;

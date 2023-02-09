@@ -1,12 +1,14 @@
-import ActivityLogTable from "./ActivityLogTable"
+import ActivityLogTable from "./ActivityLogTable";
 
 const displayName = "activity_log";
 
-export default {
+const manifest = {
     "moduleName": "activity_log",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
         {path: `/${displayName}`, component: ActivityLogTable},
     ]
-}
+};
+
+export default manifest;

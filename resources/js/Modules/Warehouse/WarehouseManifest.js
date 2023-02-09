@@ -1,16 +1,16 @@
-import WarehouseForm from "./WarehouseForm";
 import WarehouseTable from "./WarehouseTable";
 import {VISIBILITY_CREATED} from "../../consts"
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "warehouses";
 
-export default {
+const manifest = {
     "moduleName": "warehouses",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: WarehouseForm},
-        {path: `/${displayName}/:id`, component: WarehouseForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: WarehouseTable},
     ],
     form: {
@@ -207,4 +207,6 @@ export default {
             }
         }
     }
-}
+};
+
+export default manifest;

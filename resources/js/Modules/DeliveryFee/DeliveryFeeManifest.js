@@ -1,15 +1,15 @@
-import DeliveryFeeForm from "./DeliveryFeeForm";
 import DeliveryFeeTable from "./DeliveryFeeTable";
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "delivery_fees";
 
-export default {
+const manifest = {
     "moduleName": "delivery_fees",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: DeliveryFeeForm},
-        {path: `/${displayName}/:id`, component: DeliveryFeeForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: DeliveryFeeTable},
     ],
     form: {
@@ -65,3 +65,5 @@ export default {
         }
     },
 };
+
+export default manifest;

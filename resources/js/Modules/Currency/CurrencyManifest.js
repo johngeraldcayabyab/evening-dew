@@ -1,15 +1,15 @@
-import CurrencyForm from "./CurrencyForm";
 import CurrencyTable from "./CurrencyTable";
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "currencies";
 
-export default {
+const manifest = {
     "moduleName": "currencies",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: CurrencyForm},
-        {path: `/${displayName}/:id`, component: CurrencyForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: CurrencyTable},
     ],
     form: {
@@ -75,3 +75,5 @@ export default {
         }
     }
 };
+
+export default manifest;

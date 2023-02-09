@@ -1,16 +1,16 @@
-import UserForm from "./UserForm"
 import UserTable from "./UserTable"
 import {VISIBILITY_CREATING} from "../../consts"
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "users";
 
-export default {
+const manifest = {
     "moduleName": "users",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: UserForm},
-        {path: `/${displayName}/:id`, component: UserForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: UserTable},
     ],
     form: {
@@ -93,4 +93,6 @@ export default {
             }
         }
     },
-}
+};
+
+export default manifest;

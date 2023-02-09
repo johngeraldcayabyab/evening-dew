@@ -1,15 +1,15 @@
-import CountryForm from "./CountryForm";
 import CountryTable from "./CountryTable";
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "countries";
 
-export default {
+const manifest = {
     "moduleName": "countries",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: CountryForm},
-        {path: `/${displayName}/:id`, component: CountryForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: CountryTable},
     ],
     form: {
@@ -43,3 +43,5 @@ export default {
         }
     }
 };
+
+export default manifest;

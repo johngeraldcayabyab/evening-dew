@@ -1,17 +1,15 @@
-import PaymentTermForm from "./PaymentTermForm";
 import PaymentTermTable from "./PaymentTermTable";
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "payment_terms";
 
-
-
-export default {
+const manifest = {
     "moduleName": "payment_terms",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: PaymentTermForm},
-        {path: `/${displayName}/:id`, component: PaymentTermForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: PaymentTermTable},
     ],
     form: {
@@ -27,3 +25,5 @@ export default {
         }
     }
 };
+
+export default manifest;

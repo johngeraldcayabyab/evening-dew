@@ -1,15 +1,15 @@
-import AddressForm from "./AddressForm";
 import AddressTable from "./AddressTable";
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "addresses";
 
-export default {
+const manifest = {
     "moduleName": "addresses",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: AddressForm},
-        {path: `/${displayName}/:id`, component: AddressForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: AddressTable},
     ],
     form: {
@@ -62,3 +62,5 @@ export default {
         }
     }
 };
+
+export default manifest;

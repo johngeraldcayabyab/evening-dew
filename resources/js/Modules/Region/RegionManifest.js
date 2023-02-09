@@ -1,15 +1,15 @@
-import RegionForm from "./RegionForm";
 import RegionTable from "./RegionTable";
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "regions";
 
-export default {
+const manifest = {
     "moduleName": "regions",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: RegionForm},
-        {path: `/${displayName}/:id`, component: RegionForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: RegionTable},
     ],
     form: {
@@ -20,16 +20,18 @@ export default {
                     name: 'region',
                     label: 'Region',
                     required: true,
-                    size:'large'
+                    size: 'large'
                 },
                 {
                     type: 'text',
                     name: 'region_center',
                     label: 'Region Center',
                     required: true,
-                    size:'large'
+                    size: 'large'
                 },
             ]
         }
     }
 };
+
+export default manifest;

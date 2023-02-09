@@ -1,15 +1,15 @@
-import OperationTypeForm from "./OperationTypeForm";
 import OperationTypeTable from "./OperationTypeTable";
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "operations_types";
 
-export default {
+const manifest = {
     "moduleName": "operations_types",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: OperationTypeForm},
-        {path: `/${displayName}/:id`, component: OperationTypeForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: OperationTypeTable},
     ],
     form: {
@@ -131,3 +131,5 @@ export default {
         }
     }
 };
+
+export default manifest;

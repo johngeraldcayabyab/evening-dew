@@ -1,15 +1,15 @@
-import StockMovementForm from "./StockMovementForm";
 import StockMovementTable from "./StockMovementTable";
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "stock_movements";
 
-export default {
+const manifest = {
     "moduleName": "stock_movements",
     "displayName": displayName,
     "queryDefaults": {},
     routes: [
-        {path: `/${displayName}/create`, component: StockMovementForm},
-        {path: `/${displayName}/:id`, component: StockMovementForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: StockMovementTable},
     ],
     form: {
@@ -57,3 +57,5 @@ export default {
         }
     }
 };
+
+export default manifest;

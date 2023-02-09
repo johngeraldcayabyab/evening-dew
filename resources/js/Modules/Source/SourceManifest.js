@@ -1,15 +1,15 @@
-import SourceForm from "./SourceForm";
 import SourceTable from "./SourceTable";
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "sources";
 
-export default {
+const manifest = {
     "moduleName": "sources",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: SourceForm},
-        {path: `/${displayName}/:id`, component: SourceForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: SourceTable},
     ],
     form: {
@@ -30,3 +30,5 @@ export default {
         }
     }
 };
+
+export default manifest;

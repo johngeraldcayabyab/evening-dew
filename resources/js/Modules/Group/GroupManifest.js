@@ -1,15 +1,15 @@
-import GroupForm from "./GroupForm";
 import GroupTable from "./GroupTable";
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "groups";
 
-export default {
+const manifest = {
     "moduleName": "groups",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: GroupForm},
-        {path: `/${displayName}/:id`, component: GroupForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: GroupTable},
     ],
     form: {
@@ -25,3 +25,5 @@ export default {
         }
     }
 };
+
+export default manifest;

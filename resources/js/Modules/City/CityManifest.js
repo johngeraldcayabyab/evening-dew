@@ -1,15 +1,15 @@
-import CityForm from "./CityForm";
 import CityTable from "./CityTable";
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "cities";
 
-export default {
+const manifest = {
     "moduleName": "cities",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: CityForm},
-        {path: `/${displayName}/:id`, component: CityForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: CityTable},
     ],
     form: {
@@ -36,3 +36,5 @@ export default {
         }
     }
 };
+
+export default manifest;

@@ -1,17 +1,17 @@
-import AdjustmentForm from "./AdjustmentForm";
 import AdjustmentTable from "./AdjustmentTable";
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form"
 import {GET} from "../../consts"
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "adjustments";
 
-export default {
+const manifest = {
     "moduleName": "adjustments",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: AdjustmentForm},
-        {path: `/${displayName}/:id`, component: AdjustmentForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: AdjustmentTable},
     ],
     statuses: [
@@ -131,3 +131,5 @@ export default {
         }
     },
 };
+
+export default manifest;

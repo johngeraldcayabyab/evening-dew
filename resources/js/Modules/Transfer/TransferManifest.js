@@ -1,18 +1,18 @@
-import TransferForm from "./TransferForm";
 import TransferTable from "./TransferTable";
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form"
 import {GET} from "../../consts"
 import {disableIfStatus} from "../../Helpers/object"
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "transfers";
 
-export default {
+const manifest = {
     "moduleName": "transfers",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: TransferForm},
-        {path: `/${displayName}/:id`, component: TransferForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: TransferTable},
     ],
     statuses: [
@@ -239,3 +239,5 @@ export default {
         }
     },
 };
+
+export default manifest;

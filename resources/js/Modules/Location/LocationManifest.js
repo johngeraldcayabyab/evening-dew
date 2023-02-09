@@ -1,15 +1,15 @@
-import LocationForm from "./LocationForm";
 import LocationTable from "./LocationTable";
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "locations";
 
-export default {
+const manifest = {
     "moduleName": "locations",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: LocationForm},
-        {path: `/${displayName}/:id`, component: LocationForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: LocationTable},
     ],
     form: {
@@ -67,3 +67,5 @@ export default {
         }
     }
 };
+
+export default manifest;

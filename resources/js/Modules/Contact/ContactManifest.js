@@ -1,15 +1,15 @@
-import ContactForm from "./ContactForm";
 import ContactTable from "./ContactTable";
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "contacts";
 
-export default {
+const manifest = {
     "moduleName": "contacts",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: ContactForm},
-        {path: `/${displayName}/:id`, component: ContactForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: ContactTable},
     ],
     form: {
@@ -86,3 +86,5 @@ export default {
         }
     }
 };
+
+export default manifest;

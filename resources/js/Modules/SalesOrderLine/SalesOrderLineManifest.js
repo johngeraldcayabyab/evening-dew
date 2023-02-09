@@ -2,7 +2,7 @@ import SalesOrderLineTable from "./SalesOrderLineTable"
 
 const displayName = "sales_order_lines";
 
-export default {
+const manifest = {
     "moduleName": "sales_order_lines",
     "displayName": displayName,
     "queryDefaults": {
@@ -19,3 +19,5 @@ export default {
         {path: `/${displayName}`, component: SalesOrderLineTable},
     ]
 };
+
+export default manifest;

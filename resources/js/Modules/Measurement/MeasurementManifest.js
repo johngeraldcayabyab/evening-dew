@@ -1,15 +1,15 @@
-import MeasurementForm from "./MeasurementForm";
 import MeasurementTable from "./MeasurementTable";
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "measurements";
 
-export default {
+const manifest = {
     "moduleName": "measurements",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: MeasurementForm},
-        {path: `/${displayName}/:id`, component: MeasurementForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: MeasurementTable},
     ],
     form: {
@@ -56,3 +56,5 @@ export default {
         }
     }
 };
+
+export default manifest;

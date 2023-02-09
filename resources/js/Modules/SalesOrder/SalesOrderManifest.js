@@ -1,20 +1,20 @@
-import SalesOrderForm from "./SalesOrderForm";
 import SalesOrderTable from "./SalesOrderTable";
 import {disableIfStatus} from "../../Helpers/object"
 import {GET} from "../../consts"
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form"
 import SalesOrderPDF from "./SalesOrderPDF"
 import SalesOrderBreakDown from "./SalesOrderBreakDown"
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "sales_orders";
 
-export default {
+const manifest = {
     "moduleName": "sales_orders",
     "displayName": "sales_orders",
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: SalesOrderForm},
-        {path: `/${displayName}/:id`, component: SalesOrderForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: SalesOrderTable},
     ],
     initialState: {
@@ -424,3 +424,5 @@ export default {
         }
     }
 };
+
+export default manifest;

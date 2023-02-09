@@ -1,15 +1,15 @@
-import SequenceForm from "./SequenceForm";
 import SequenceTable from "./SequenceTable";
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "sequences";
 
-export default {
+const manifest = {
     "moduleName": "sequences",
-    "displayName": "sequences",
+    "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: SequenceForm},
-        {path: `/${displayName}/:id`, component: SequenceForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: SequenceTable},
     ],
     form: {
@@ -80,3 +80,5 @@ export default {
         }
     }
 };
+
+export default manifest;

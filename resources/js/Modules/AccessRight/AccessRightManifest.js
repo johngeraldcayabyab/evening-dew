@@ -1,15 +1,15 @@
-import AccessRightForm from "./AccessRightForm";
 import AccessRightTable from "./AccessRightTable";
+import FormGenerator from "../../Components/Form/FormGenerator";
 
 const displayName = "access_rights";
 
-export default {
+const manifest = {
     "moduleName": "access_rights",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: AccessRightForm},
-        {path: `/${displayName}/:id`, component: AccessRightForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: AccessRightTable},
     ],
     form: {
@@ -52,3 +52,5 @@ export default {
         }
     }
 };
+
+export default manifest;

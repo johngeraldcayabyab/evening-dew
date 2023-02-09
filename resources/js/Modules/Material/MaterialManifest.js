@@ -1,17 +1,17 @@
-import MaterialForm from "./MaterialForm";
 import MaterialTable from "./MaterialTable";
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form"
 import {GET} from "../../consts"
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "materials";
 
-export default {
+const manifest = {
     "moduleName": "materials",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: MaterialForm},
-        {path: `/${displayName}/:id`, component: MaterialForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: MaterialTable},
     ],
     form: {
@@ -124,3 +124,5 @@ export default {
         }
     },
 };
+
+export default manifest;

@@ -1,15 +1,15 @@
-import CourierForm from "./CourierForm";
 import CourierTable from "./CourierTable";
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "couriers";
 
-export default {
+const manifest = {
     "moduleName": "couriers",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: CourierForm},
-        {path: `/${displayName}/:id`, component: CourierForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: CourierTable},
     ],
     form: {
@@ -30,3 +30,5 @@ export default {
         }
     }
 };
+
+export default manifest;

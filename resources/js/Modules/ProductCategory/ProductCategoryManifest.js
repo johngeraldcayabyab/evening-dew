@@ -1,15 +1,15 @@
-import ProductCategoryForm from "./ProductCategoryForm";
 import ProductCategoryTable from "./ProductCategoryTable";
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const displayName = "product_categories";
 
-export default {
+const manifest = {
     "moduleName": "product_categories",
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: ProductCategoryForm},
-        {path: `/${displayName}/:id`, component: ProductCategoryForm},
+        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
+        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}`, component: ProductCategoryTable},
     ],
     form: {
@@ -33,3 +33,5 @@ export default {
         },
     }
 };
+
+export default manifest;
