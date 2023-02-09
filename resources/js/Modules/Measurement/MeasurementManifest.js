@@ -1,5 +1,6 @@
-import MeasurementTable from "./MeasurementTable";
 import FormGenerator from "../../Components/Form/FormGenerator"
+import TableGenerator from "../../Components/TableGenerator"
+import {DATE_RANGE, SEARCH} from "../../consts"
 
 const displayName = "measurements";
 
@@ -10,8 +11,69 @@ const manifest = {
     "routes": [
         {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
-        {path: `/${displayName}`, component: MeasurementTable},
+        {path: `/${displayName}`, component: () => (<TableGenerator {...manifest} />)},
     ],
+    table: {
+        columnSelection: true,
+        columns: [
+            {
+                title: 'ID',
+                dataIndex: 'id',
+                key: 'id',
+                sorter: true,
+                hidden: true,
+            },
+            {
+                title: 'Name',
+                dataIndex: 'name',
+                key: 'name',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Type',
+                dataIndex: 'type',
+                key: 'type',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Ratio',
+                dataIndex: 'ratio',
+                key: 'ratio',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Rounding Precision',
+                dataIndex: 'rounding_precision',
+                key: 'rounding_precision',
+                sorter: true,
+                filter: SEARCH,
+            },
+            {
+                title: 'Category',
+                dataIndex: 'measurement_category',
+                key: 'measurement_category',
+                sorter: true,
+                filter: SEARCH,
+                render: (text, record) => {
+                    return record.measurement_category.name;
+                },
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Created At',
+                dataIndex: 'created_at',
+                key: 'created_at',
+                sorter: true,
+                filter: DATE_RANGE,
+            },
+        ]
+    },
     form: {
         initialValue: true,
         row_1: {

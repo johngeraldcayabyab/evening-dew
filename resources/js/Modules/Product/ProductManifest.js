@@ -1,5 +1,6 @@
-import ProductTable from "./ProductTable";
 import FormGenerator from "../../Components/Form/FormGenerator"
+import TableGenerator from "../../Components/TableGenerator"
+import {DATE_RANGE, SEARCH} from "../../consts"
 
 const displayName = "products";
 
@@ -10,8 +11,124 @@ const manifest = {
     "routes": [
         {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
-        {path: `/${displayName}`, component: ProductTable},
+        {path: `/${displayName}`, component: () => (<TableGenerator {...manifest} />)},
     ],
+    table: {
+        columnSelection: true,
+        columns: [
+            {
+                title: 'ID',
+                dataIndex: 'id',
+                key: 'id',
+                sorter: true,
+                hidden: true,
+            },
+            {
+                title: 'Name',
+                dataIndex: 'name',
+                key: 'name',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Internal Reference',
+                dataIndex: 'internal_reference',
+                key: 'internal_reference',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Sales Price',
+                dataIndex: 'sales_price',
+                key: 'sales_price',
+                sorter: true,
+                filter: SEARCH,
+            },
+            {
+                title: 'Cost',
+                dataIndex: 'cost',
+                key: 'cost',
+                sorter: true,
+                filter: SEARCH,
+            },
+            {
+                title: 'Measurement',
+                dataIndex: 'measurement',
+                key: 'measurement',
+                sorter: true,
+                filter: SEARCH,
+                render: (text, record) => {
+                    return record.measurement.name;
+                },
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Product Category',
+                dataIndex: 'product_category',
+                key: 'product_category',
+                sorter: true,
+                filter: SEARCH,
+                render: (text, record) => {
+                    if (record.product_category) {
+                        return record.product_category.category;
+                    }
+                    return '';
+                },
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Quantity',
+                dataIndex: 'quantity',
+                key: 'quantity',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Type',
+                dataIndex: 'product_type',
+                key: 'product_type',
+                sorter: true,
+                filter: SEARCH,
+                hidden: true,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Created At',
+                dataIndex: 'created_at',
+                key: 'created_at',
+                sorter: true,
+                filter: DATE_RANGE,
+            },
+        ],
+        kanban: {
+            selected_fields: ['name', 'avatar', 'internal_reference', 'sales_price', 'quantity', 'measurement'],
+            title: 'name',
+            avatar: 'avatar',
+            description: [
+                {
+                    key: 'internal_reference',
+                    render: (record) => {
+                        return record.internal_reference ? `[${record.internal_reference}]` : null;
+                    }
+                },
+                {
+                    key: 'sales_price',
+                    render: (record) => {
+                        return `Price: ₱${record.sales_price}`;
+                    }
+                },
+                {
+                    key: 'quantity',
+                    render: (record) => {
+                        return `On hand: ${record.quantity} ${record.measurement.name}`;
+                    }
+                }
+            ]
+        }
+    },
     formLinks: [
         {
             value: 'name',

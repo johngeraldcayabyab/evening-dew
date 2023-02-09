@@ -1,6 +1,6 @@
-import UserTable from "./UserTable"
-import {VISIBILITY_CREATING} from "../../consts"
+import {DATE_RANGE, SEARCH, VISIBILITY_CREATING} from "../../consts"
 import FormGenerator from "../../Components/Form/FormGenerator"
+import TableGenerator from "../../Components/TableGenerator"
 
 const displayName = "users";
 
@@ -11,8 +11,56 @@ const manifest = {
     "routes": [
         {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
-        {path: `/${displayName}`, component: UserTable},
+        {path: `/${displayName}`, component: () => (<TableGenerator {...manifest} />)},
     ],
+    table: {
+        columnSelection: true,
+        columns: [
+            {
+                title: 'ID',
+                dataIndex: 'id',
+                key: 'id',
+                sorter: true,
+                hidden: true,
+            },
+            {
+                title: 'Name',
+                dataIndex: 'name',
+                key: 'name',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Email',
+                dataIndex: 'email',
+                key: 'email',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Created At',
+                dataIndex: 'created_at',
+                key: 'created_at',
+                sorter: true,
+                filter: DATE_RANGE,
+            },
+        ],
+        kanban: {
+            selected_fields: ['name', 'avatar', 'email'],
+            title: 'name',
+            avatar: 'avatar',
+            description: [
+                {
+                    key: 'email',
+                    render: (record) => {
+                        return record.email;
+                    }
+                },
+            ]
+        }
+    },
     form: {
         row_1: {
             col_1: [

@@ -1,5 +1,6 @@
-import ContactTable from "./ContactTable";
 import FormGenerator from "../../Components/Form/FormGenerator"
+import {DATE_RANGE, SEARCH} from "../../consts"
+import TableGenerator from "../../Components/TableGenerator"
 
 const displayName = "contacts";
 
@@ -10,8 +11,70 @@ const manifest = {
     "routes": [
         {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
-        {path: `/${displayName}`, component: ContactTable},
+        {path: `/${displayName}`, component: () => (<TableGenerator {...manifest} />)},
     ],
+    table: {
+        columnSelection: true,
+        columns: [
+            {
+                title: 'ID',
+                dataIndex: 'id',
+                key: 'id',
+                sorter: true,
+                hidden: true,
+            },
+            {
+                title: 'Name',
+                dataIndex: 'name',
+                key: 'name',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Phone',
+                dataIndex: 'phone',
+                key: 'phone',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Email',
+                dataIndex: 'email',
+                key: 'email',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Created At',
+                dataIndex: 'created_at',
+                key: 'created_at',
+                sorter: true,
+                filter: DATE_RANGE,
+            },
+        ],
+        kanban: {
+            selected_fields: ['name', 'avatar', 'phone', 'email'],
+            title: 'name',
+            avatar: 'avatar',
+            description: [
+                {
+                    key: 'phone',
+                    render: (record) => {
+                        return record.phone;
+                    }
+                },
+                {
+                    key: 'email',
+                    render: (record) => {
+                        return record.email;
+                    }
+                },
+            ]
+        },
+    },
     form: {
         initialValue: true,
         row_1: {

@@ -1,5 +1,6 @@
-import AppMenuTable from "./AppMenuTable";
 import FormGenerator from "../../Components/Form/FormGenerator"
+import TableGenerator from "../../Components/TableGenerator"
+import {DATE_RANGE, SEARCH} from "../../consts"
 
 const displayName = "app_menus";
 
@@ -10,8 +11,34 @@ const manifest = {
     "routes": [
         {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
-        {path: `/${displayName}`, component: AppMenuTable},
+        {path: `/${displayName}`, component: () => (<TableGenerator {...manifest} />)},
     ],
+    table: {
+        columns: [
+            {
+                title: 'ID',
+                dataIndex: 'id',
+                key: 'id',
+                sorter: true,
+                hidden: true,
+            },
+            {
+                title: 'Label',
+                dataIndex: 'parents',
+                key: 'label',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Created At',
+                dataIndex: 'created_at',
+                key: 'created_at',
+                sorter: true,
+                filter: DATE_RANGE,
+            },
+        ],
+    },
     form: {
         initialValue: true,
         row_1: {

@@ -1,5 +1,6 @@
-import SequenceTable from "./SequenceTable";
 import FormGenerator from "../../Components/Form/FormGenerator"
+import TableGenerator from "../../Components/TableGenerator"
+import {DATE_RANGE, SEARCH} from "../../consts"
 
 const displayName = "sequences";
 
@@ -10,8 +11,91 @@ const manifest = {
     "routes": [
         {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
-        {path: `/${displayName}`, component: SequenceTable},
+        {path: `/${displayName}`, component: () => (<TableGenerator {...manifest} />)},
     ],
+    table: {
+        columnSelection: true,
+        columns: [
+            {
+                title: 'ID',
+                dataIndex: 'id',
+                key: 'id',
+                sorter: true,
+                hidden: true,
+            },
+            {
+                title: 'Name',
+                dataIndex: 'name',
+                key: 'name',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Sequence Code',
+                dataIndex: 'sequence_code',
+                key: 'sequence_code',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Implementation',
+                dataIndex: 'implementation',
+                key: 'implementation',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Prefix',
+                dataIndex: 'prefix',
+                key: 'prefix',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Suffix',
+                dataIndex: 'suffix',
+                key: 'suffix',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Sequence Size',
+                dataIndex: 'sequence_size',
+                key: 'sequence_size',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Step',
+                dataIndex: 'step',
+                key: 'step',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Next Number',
+                dataIndex: 'next_number',
+                key: 'next_number',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Created At',
+                dataIndex: 'created_at',
+                key: 'created_at',
+                sorter: true,
+                filter: DATE_RANGE,
+            },
+        ]
+    },
     form: {
         initialValue: true,
         row_1: {

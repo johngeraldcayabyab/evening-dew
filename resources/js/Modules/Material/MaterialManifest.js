@@ -1,7 +1,7 @@
-import MaterialTable from "./MaterialTable";
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form"
-import {GET} from "../../consts"
+import {DATE_RANGE, GET, SEARCH} from "../../consts"
 import FormGenerator from "../../Components/Form/FormGenerator"
+import TableGenerator from "../../Components/TableGenerator"
 
 const displayName = "materials";
 
@@ -12,8 +12,54 @@ const manifest = {
     "routes": [
         {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
-        {path: `/${displayName}`, component: MaterialTable},
+        {path: `/${displayName}`, component: () => (<TableGenerator {...manifest} />)},
     ],
+    table: {
+        columnSelection: true,
+        columns: [
+            {
+                title: 'ID',
+                dataIndex: 'id',
+                key: 'id',
+                sorter: true,
+                hidden: true,
+            },
+            {
+                title: 'Product',
+                dataIndex: 'product',
+                key: 'product',
+                sorter: true,
+                filter: SEARCH,
+                render: (text, record) => {
+                    return record.product.name;
+                },
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Reference',
+                dataIndex: 'reference',
+                key: 'reference',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Type',
+                dataIndex: 'type',
+                key: 'type',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Created At',
+                dataIndex: 'created_at',
+                key: 'created_at',
+                sorter: true,
+                filter: DATE_RANGE,
+            },
+        ]
+    },
     form: {
         initialValue: true,
         onValuesChange: (changedValues, allValues, formContext) => {

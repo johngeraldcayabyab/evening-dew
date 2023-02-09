@@ -1,5 +1,6 @@
-import StockMovementTable from "./StockMovementTable";
 import FormGenerator from "../../Components/Form/FormGenerator"
+import TableGenerator from "../../Components/TableGenerator"
+import {DATE_RANGE, SEARCH} from "../../consts"
 
 const displayName = "stock_movements";
 
@@ -10,8 +11,93 @@ const manifest = {
     routes: [
         {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
-        {path: `/${displayName}`, component: StockMovementTable},
+        {path: `/${displayName}`, component: () => (<TableGenerator {...manifest} />)},
     ],
+    table: {
+        columnSelection: true,
+        columns: [
+            {
+                title: 'ID',
+                dataIndex: 'id',
+                key: 'id',
+                sorter: true,
+                hidden: true,
+            },
+            {
+                title: 'Reference',
+                dataIndex: 'reference',
+                key: 'reference',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Source',
+                dataIndex: 'source',
+                key: 'source',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Product',
+                dataIndex: 'product',
+                key: 'product',
+                sorter: true,
+                filter: SEARCH,
+                render: (text, record) => {
+                    if (record.product) {
+                        return record.product.name;
+                    }
+                    return null;
+                },
+                isGlobalSearch: true,
+            },
+            {
+                title: 'From',
+                dataIndex: 'source_location',
+                key: 'source_location',
+                sorter: true,
+                filter: SEARCH,
+                render: (text, record) => {
+                    if (record.source_location) {
+                        return record.source_location.parents;
+                    }
+                    return null;
+                },
+                isGlobalSearch: true,
+            },
+            {
+                title: 'To',
+                dataIndex: 'destination_location',
+                key: 'destination_location',
+                sorter: true,
+                filter: SEARCH,
+                render: (text, record) => {
+                    if (record.destination_location) {
+                        return record.destination_location.parents;
+                    }
+                    return null;
+                },
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Quantity Done',
+                dataIndex: 'quantity_done',
+                key: 'quantity_done',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Created At',
+                dataIndex: 'created_at',
+                key: 'created_at',
+                sorter: true,
+                filter: DATE_RANGE,
+            },
+        ]
+    },
     form: {
         row_1: {
             col_1: [

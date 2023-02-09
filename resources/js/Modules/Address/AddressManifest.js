@@ -1,5 +1,6 @@
-import AddressTable from "./AddressTable";
 import FormGenerator from "../../Components/Form/FormGenerator"
+import {DATE_RANGE, SEARCH} from "../../consts"
+import TableGenerator from "../../Components/TableGenerator"
 
 const displayName = "addresses";
 
@@ -10,8 +11,79 @@ const manifest = {
     "routes": [
         {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
-        {path: `/${displayName}`, component: AddressTable},
+        {path: `/${displayName}`, component: () => (<TableGenerator {...manifest} />)},
     ],
+    table: {
+        columnSelection: true,
+        columns: [
+            {
+                title: 'ID',
+                dataIndex: 'id',
+                key: 'id',
+                sorter: true,
+                hidden: true,
+            },
+            {
+                title: 'Address Name',
+                dataIndex: 'address_name',
+                key: 'address_name',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Address',
+                dataIndex: 'address',
+                key: 'address',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Type',
+                dataIndex: 'type',
+                key: 'type',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Country',
+                dataIndex: 'country',
+                key: 'country',
+                sorter: true,
+                filter: SEARCH,
+                render: (text, record) => {
+                    if (record.country) {
+                        return record.country.country_name;
+                    }
+                    return null;
+                },
+                isGlobalSearch: true,
+            },
+            {
+                title: 'City',
+                dataIndex: 'city',
+                key: 'city',
+                sorter: true,
+                filter: SEARCH,
+                render: (text, record) => {
+                    if (record.city) {
+                        return record.city.name;
+                    }
+                    return null;
+                },
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Created At',
+                dataIndex: 'created_at',
+                key: 'created_at',
+                sorter: true,
+                filter: DATE_RANGE,
+            },
+        ]
+    },
     form: {
         initialValue: true,
         row_1: {

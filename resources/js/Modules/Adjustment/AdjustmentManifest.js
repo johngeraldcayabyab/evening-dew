@@ -1,7 +1,7 @@
-import AdjustmentTable from "./AdjustmentTable";
-import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form"
-import {GET} from "../../consts"
-import FormGenerator from "../../Components/Form/FormGenerator"
+import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
+import {DATE_RANGE, GET, SEARCH} from "../../consts";
+import FormGenerator from "../../Components/Form/FormGenerator";
+import TableGenerator from "../../Components/TableGenerator";
 
 const displayName = "adjustments";
 
@@ -12,8 +12,46 @@ const manifest = {
     "routes": [
         {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
-        {path: `/${displayName}`, component: AdjustmentTable},
+        {path: `/${displayName}`, component: () => (<TableGenerator {...manifest} />)},
     ],
+    table: {
+        columnSelection: true,
+        columns: [
+            {
+                title: 'ID',
+                dataIndex: 'id',
+                key: 'id',
+                sorter: true,
+                hidden: true,
+            },
+            {
+                title: 'Number',
+                dataIndex: 'number',
+                key: 'number',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Product Category',
+                dataIndex: 'product_category',
+                key: 'product_category',
+                sorter: true,
+                filter: SEARCH,
+                render: (text, record) => {
+                    return record.product_category.category;
+                },
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Created At',
+                dataIndex: 'created_at',
+                key: 'created_at',
+                sorter: true,
+                filter: DATE_RANGE,
+            },
+        ]
+    },
     statuses: [
         {
             value: 'draft',

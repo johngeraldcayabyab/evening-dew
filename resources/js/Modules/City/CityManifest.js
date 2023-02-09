@@ -1,5 +1,6 @@
-import CityTable from "./CityTable";
-import FormGenerator from "../../Components/Form/FormGenerator"
+import FormGenerator from "../../Components/Form/FormGenerator";
+import {DATE_RANGE, SEARCH} from "../../consts";
+import TableGenerator from "../../Components/TableGenerator";
 
 const displayName = "cities";
 
@@ -10,8 +11,57 @@ const manifest = {
     "routes": [
         {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
-        {path: `/${displayName}`, component: CityTable},
+        {path: `/${displayName}`, component: () => (<TableGenerator {...manifest} />)},
     ],
+    table: {
+        columnSelection: true,
+        columns: [
+            {
+                title: 'ID',
+                dataIndex: 'id',
+                key: 'id',
+                sorter: true,
+                hidden: true,
+            },
+            {
+                title: 'Name',
+                dataIndex: 'name',
+                key: 'name',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Province',
+                dataIndex: 'province',
+                key: 'province',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Region',
+                dataIndex: 'region',
+                key: 'region',
+                sorter: true,
+                filter: SEARCH,
+                render: (text, record) => {
+                    if (record.region) {
+                        return record.region.region;
+                    }
+                    return null;
+                },
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Created At',
+                dataIndex: 'created_at',
+                key: 'created_at',
+                sorter: true,
+                filter: DATE_RANGE,
+            },
+        ]
+    },
     form: {
         row_1: {
             col_1: [

@@ -1,5 +1,7 @@
-import DeliveryFeeTable from "./DeliveryFeeTable";
 import FormGenerator from "../../Components/Form/FormGenerator"
+import TableGenerator from "../../Components/TableGenerator"
+import {DATE_RANGE, SEARCH} from "../../consts"
+import {Tag} from "antd"
 
 const displayName = "delivery_fees";
 
@@ -10,8 +12,60 @@ const manifest = {
     "routes": [
         {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
         {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
-        {path: `/${displayName}`, component: DeliveryFeeTable},
+        {path: `/${displayName}`, component: () => (<TableGenerator {...manifest} />)},
     ],
+    table: {
+        columnSelection: true,
+        columns: [
+            {
+                title: 'ID',
+                dataIndex: 'id',
+                key: 'id',
+                sorter: true,
+                hidden: true,
+            },
+            {
+                title: 'Name',
+                dataIndex: 'name',
+                key: 'name',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Fee',
+                dataIndex: 'product',
+                key: 'product',
+                sorter: true,
+                filter: SEARCH,
+                render: (text, record) => {
+                    return record.product.sales_price;
+                },
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Enabled',
+                dataIndex: 'is_enabled',
+                key: 'is_enabled',
+                sorter: true,
+                filter: SEARCH,
+                render: (text, record) => {
+                    if (record.is_enabled) {
+                        return <Tag color={'success'}>Yes</Tag>;
+                    }
+                    return <Tag color={'default'}>No</Tag>;
+                }
+            },
+            {
+                title: 'Created At',
+                dataIndex: 'created_at',
+                key: 'created_at',
+                sorter: true,
+                filter: DATE_RANGE,
+                hidden: true,
+            },
+        ]
+    },
     form: {
         row_1: {
             col_1: [
