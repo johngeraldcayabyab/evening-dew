@@ -146,6 +146,9 @@ const FormItems = () => {
             if (field.type === 'divider') {
                 return generateDivider(field, field.name);
             }
+            if (field.type === 'component') {
+                return field.component;
+            }
             return null;
         });
     }
@@ -198,13 +201,13 @@ const FormItems = () => {
         const tabPaneItems = [];
         for (let tabPaneItem of Object.keys(tab[tabPaneKey])) {
             if (tabPaneItem.includes('divider')) {
-                tabPaneItems.push(generateDivider(tab[tabPaneKey][tabPaneItem], `${tabKey}-${tabPaneKey}`))
+                tabPaneItems.push(generateDivider(tab[tabPaneKey][tabPaneItem], `${tabKey}-${tabPaneKey}-${tabPaneItem}`))
             }
             if (tabPaneItem.includes('row')) {
-                tabPaneItems.push(generateRow(tab[tabPaneKey][tabPaneItem], `${tabKey}-${tabPaneKey}`));
+                tabPaneItems.push(generateRow(tab[tabPaneKey][tabPaneItem], `${tabKey}-${tabPaneKey}-${tabPaneItem}`));
             }
             if (tabPaneItem.includes('form_line')) {
-                tabPaneItems.push(generateLine(tab[tabPaneKey][tabPaneItem], `${tabKey}-${tabPaneKey}`));
+                tabPaneItems.push(generateLine(tab[tabPaneKey][tabPaneItem], `${tabKey}-${tabPaneKey}-${tabPaneItem}`));
             }
         }
         return tabPaneItems;

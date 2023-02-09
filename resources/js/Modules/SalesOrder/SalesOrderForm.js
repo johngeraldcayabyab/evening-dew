@@ -32,10 +32,12 @@ import FormItemTextArea from "../../Components/FormItem/FormItemTextArea";
 import {AppContext} from "../../App";
 import SalesOrderPDF from "./SalesOrderPDF"
 import SalesOrderManifest from "./SalesOrderManifest"
+import FormGenerator from "../../Components/Form/FormGenerator"
 
 const {TabPane} = Tabs;
 
 const SalesOrderForm = () => {
+    return <FormGenerator {...SalesOrderManifest} />
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, SalesOrderManifest, true);
@@ -217,37 +219,37 @@ const SalesOrderForm = () => {
                 bottomColOneLeft={<FormButtons/>}
                 bottomColTwoRight={<NextPreviousRecord/>}
             />
-            <StatusBar
-                statuses={[
-                    {
-                        value: 'draft',
-                        title: 'Draft',
-                        status: {draft: 'process', done: 'finish', cancelled: 'wait'}
-                    },
-                    {
-                        value: 'done',
-                        title: 'Done',
-                        type: 'primary',
-                        label: 'Validate',
-                        status: {draft: 'wait', done: 'finish', cancelled: 'wait'},
-                        visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
-                    },
-                    {
-                        value: 'cancelled',
-                        title: 'Cancelled',
-                        type: 'ghost',
-                        label: 'Cancel',
-                        status: {draft: 'wait', done: 'wait', cancelled: 'finish'},
-                        visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
-                    },
-                ]}
-            />
+            {/*<StatusBar*/}
+            {/*    statuses={[*/}
+            {/*        {*/}
+            {/*            value: 'draft',*/}
+            {/*            title: 'Draft',*/}
+            {/*            status: {draft: 'process', done: 'finish', cancelled: 'wait'}*/}
+            {/*        },*/}
+            {/*        {*/}
+            {/*            value: 'done',*/}
+            {/*            title: 'Done',*/}
+            {/*            type: 'primary',*/}
+            {/*            label: 'Validate',*/}
+            {/*            status: {draft: 'wait', done: 'finish', cancelled: 'wait'},*/}
+            {/*            visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},*/}
+            {/*        },*/}
+            {/*        {*/}
+            {/*            value: 'cancelled',*/}
+            {/*            title: 'Cancelled',*/}
+            {/*            type: 'ghost',*/}
+            {/*            label: 'Cancel',*/}
+            {/*            status: {draft: 'wait', done: 'wait', cancelled: 'finish'},*/}
+            {/*            visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},*/}
+            {/*        },*/}
+            {/*    ]}*/}
+            {/*/>*/}
             <FormCard>
-                <FormLinks
-                    links={[{
-                        module: 'transfers', param: 'source_document', value: 'number', label: 'Deliveries',
-                    },]}
-                />
+                {/*<FormLinks*/}
+                {/*    links={[{*/}
+                {/*        module: 'transfers', param: 'source_document', value: 'number', label: 'Deliveries',*/}
+                {/*    },]}*/}
+                {/*/>*/}
                 <RowForm>
                     <ColForm>
                         <FormItemStatus

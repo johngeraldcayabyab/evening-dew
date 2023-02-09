@@ -11,6 +11,14 @@ const FormLinks = (props) => {
     const formContext = useContext(FormContext);
 
     let links = [];
+
+    function labelizer(label) {
+        if(typeof label === 'function'){
+            return label(formContext.formState.initialValues);
+        }
+        return label;
+    }
+
     if (objectHasValue(formContext.formState.initialValues)) {
         props.links.forEach((link) => {
             /**
@@ -40,7 +48,7 @@ const FormLinks = (props) => {
                                                 type={"ghost"}
                                                 size={'default'}
                                             >
-                                                {link.label(formContext.formState.initialValues)}
+                                                {labelizer(link.label)}
                                             </Button>
                                         </Link>
                                     )
@@ -52,7 +60,7 @@ const FormLinks = (props) => {
                                         type={"ghost"}
                                         size={'default'}
                                     >
-                                        {link.label(formContext.formState.initialValues)}
+                                        {labelizer(link.label)}
                                     </Button>
                                 )
                             })}
