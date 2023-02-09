@@ -8,7 +8,7 @@ import NextPreviousRecord from "../NextPreviousRecord"
 import ControlPanel from "../ControlPanel"
 import FormCard from "../FormCard"
 import CustomForm from "../CustomForm"
-import React, {useEffect} from "react"
+import React, {useEffect, useState} from "react"
 import useOptionHook from "../../Hooks/useOptionHook"
 import useOptionLineHook from "../../Hooks/useOptionLineHook"
 import FormItems from "./FormItems"
@@ -23,6 +23,7 @@ const FormGenerator = (manifest) => {
     const [formState, formActions] = useFormHook(id, form, manifest, manifest.form.initialValue);
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
+    const [state, setState] = useState(manifest.initialState);
 
     const urlQueries = [];
     const options = {};
@@ -116,7 +117,9 @@ const FormGenerator = (manifest) => {
         onFinish: formActions.onFinish,
         useFetch: useFetch,
         fetchCatcher: fetchCatcher,
-        options: options
+        options: options,
+        state: state,
+        setState: setState,
     };
 
     if (manifest.form.hasOwnProperty('onValuesChange')) {

@@ -17,6 +17,11 @@ export default {
         {path: `/${displayName}/:id`, component: SalesOrderForm},
         {path: `/${displayName}`, component: SalesOrderTable},
     ],
+    initialState: {
+        breakdown: {
+            untaxedAmount: 0, tax: 0, total: 0,
+        }
+    },
     statuses: [
         {
             value: 'draft',
@@ -115,15 +120,15 @@ export default {
                 formContext.form.setFieldsValue({
                     sales_order_lines: salesOrderLines
                 });
-                // const total = computeTotal(salesOrderLines);
-                // setState((prevState) => ({
-                //     ...prevState,
-                //     breakdown: {
-                //         untaxedAmount: total,
-                //         tax: 0,
-                //         total: total,
-                //     }
-                // }));
+                const total = salesOrderLines.map((salesOrderLine) => (salesOrderLine.subtotal)).reduce((total, subtotal) => (total + subtotal));
+                formContext.setState((prevState) => ({
+                    ...prevState,
+                    breakdown: {
+                        untaxedAmount: total,
+                        tax: 0,
+                        total: total,
+                    }
+                }));
             });
             isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'unit_price', (changedSalesOrderLine, allValues) => {
                 const salesOrderLines = allValues.sales_order_lines;
@@ -137,15 +142,15 @@ export default {
                 formContext.form.setFieldsValue({
                     sales_order_lines: salesOrderLines
                 });
-                // const total = computeTotal(salesOrderLines);
-                // setState((prevState) => ({
-                //     ...prevState,
-                //     breakdown: {
-                //         untaxedAmount: total,
-                //         tax: 0,
-                //         total: total,
-                //     }
-                // }));
+                const total = salesOrderLines.map((salesOrderLine) => (salesOrderLine.subtotal)).reduce((total, subtotal) => (total + subtotal));
+                formContext.setState((prevState) => ({
+                    ...prevState,
+                    breakdown: {
+                        untaxedAmount: total,
+                        tax: 0,
+                        total: total,
+                    }
+                }));
             });
         },
         row_1: {
