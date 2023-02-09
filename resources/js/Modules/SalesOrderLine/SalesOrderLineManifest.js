@@ -1,4 +1,3 @@
-import TableGenerator from "../../Components/TableGenerator"
 import {DATE_RANGE, SEARCH} from "../../consts"
 
 const displayName = "sales_order_lines";
@@ -17,7 +16,7 @@ const manifest = {
         "has_value": "storable"
     },
     "routes": [
-        {path: `/${displayName}`, component: () => (<TableGenerator {...manifest} />)},
+        {path: `/${displayName}`, manifest: () => manifest},
     ],
     table: {
         columnSelection: true,

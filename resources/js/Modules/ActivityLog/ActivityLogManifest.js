@@ -1,4 +1,3 @@
-import TableGenerator from "../../Components/TableGenerator"
 import {DATE_RANGE, SEARCH} from "../../consts"
 import Text from "antd/es/typography/Text"
 import {Space} from "antd"
@@ -10,7 +9,7 @@ const manifest = {
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}`, component: () => (<TableGenerator {...manifest} />)},
+        {path: `/${displayName}`, manifest: () => manifest},
     ],
     table: {
         columnSelection: true,

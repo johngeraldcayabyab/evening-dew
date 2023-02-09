@@ -1,7 +1,5 @@
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form";
 import {DATE_RANGE, GET, SEARCH} from "../../consts";
-import FormGenerator from "../../Components/Form/FormGenerator";
-import TableGenerator from "../../Components/TableGenerator";
 
 const displayName = "adjustments";
 
@@ -10,9 +8,9 @@ const manifest = {
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
-        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
-        {path: `/${displayName}`, component: () => (<TableGenerator {...manifest} />)},
+        {path: `/${displayName}/create`, manifest: () => manifest},
+        {path: `/${displayName}/:id`, manifest: () => manifest},
+        {path: `/${displayName}`, manifest: () => manifest},
     ],
     table: {
         columnSelection: true,

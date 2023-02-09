@@ -3,8 +3,6 @@ import {DATE_RANGE, GET, SEARCH} from "../../consts"
 import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form"
 import SalesOrderPDF from "./SalesOrderPDF"
 import SalesOrderBreakDown from "./SalesOrderBreakDown"
-import FormGenerator from "../../Components/Form/FormGenerator"
-import TableGenerator from "../../Components/TableGenerator"
 import Text from "antd/es/typography/Text"
 import {Tag} from "antd"
 
@@ -15,9 +13,9 @@ const manifest = {
     "displayName": "sales_orders",
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
-        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
-        {path: `/${displayName}`, component: () => (<TableGenerator {...manifest} />)},
+        {path: `/${displayName}/create`, manifest: () => manifest},
+        {path: `/${displayName}/:id`, manifest: () => manifest},
+        {path: `/${displayName}`, manifest: () => manifest},
     ],
     table: {
         columnSelection: true,

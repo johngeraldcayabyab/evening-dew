@@ -1,6 +1,4 @@
 import {DATE_RANGE, SEARCH, VISIBILITY_CREATING} from "../../consts"
-import FormGenerator from "../../Components/Form/FormGenerator"
-import TableGenerator from "../../Components/TableGenerator"
 
 const displayName = "users";
 
@@ -9,9 +7,9 @@ const manifest = {
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}/create`, component: () => (<FormGenerator {...manifest} />)},
-        {path: `/${displayName}/:id`, component: () => (<FormGenerator {...manifest} />)},
-        {path: `/${displayName}`, component: () => (<TableGenerator {...manifest} />)},
+        {path: `/${displayName}/create`, manifest: () => manifest},
+        {path: `/${displayName}/:id`, manifest: () => manifest},
+        {path: `/${displayName}`, manifest: () => manifest},
     ],
     table: {
         columnSelection: true,
