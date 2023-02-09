@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import useListHook from "../../Hooks/useListHook";
 import TableCreateButton from "../../Components/TableButtons/TableCreateButton";
 import ControlPanel from "../../Components/ControlPanel";
@@ -7,22 +7,25 @@ import ActionsDropdownButton from "../../Components/TableButtons/ActionsDropdown
 import CustomPagination from "../../Components/CustomPagination";
 import CustomBreadcrumb from "../../Components/CustomBreadcrumb";
 import {TableContextProvider} from "../../Contexts/TableContext";
-import {DATE_RANGE, SEARCH} from "../../consts";
+import {DATE_RANGE, KANBAN, SEARCH, TABLE} from "../../consts";
 import GlobalSearchFilter from "../../Components/TableFilters/GlobalSearchFilter"
 import ContactManifest from "./ContactManifest"
+import {Col, Row} from "antd"
+import KanbanTablePicker from "../../Components/KanbanTablePicker"
+import Cardination from "../../Components/Cardination"
 
 const ContactTable = () => {
     const [tableState, tableActions] = useListHook(ContactManifest);
-    // const [dataState, setDataState] = useState({
-    //     mode: KANBAN
-    // });
+    const [dataState, setDataState] = useState({
+        mode: TABLE
+    });
     return (
         <TableContextProvider value={{
             manifest: ContactManifest,
             tableState: tableState,
             tableActions: tableActions,
-            // dataState: dataState,
-            // setDataState: setDataState,
+            dataState: dataState,
+            setDataState: setDataState,
             columnSelection: true,
             columns: [
                 {
@@ -89,17 +92,15 @@ const ContactTable = () => {
                 topColTwoRight={<GlobalSearchFilter/>}
                 bottomColOneLeft={<TableCreateButton/>}
                 bottomColOneRight={<ActionsDropdownButton/>}
-                bottomColTwoRight={<CustomPagination/>}
-                // bottomColTwoRight={
-                //     <Row align={'right'}>
-                //         <Col span={20}><CustomPagination/></Col>
-                //         <Col span={4}><KanbanTablePicker/></Col>
-                //     </Row>
-                // }
+                bottomColTwoRight={
+                    <Row align={'right'}>
+                        <Col span={20}><CustomPagination/></Col>
+                        <Col span={4}><KanbanTablePicker/></Col>
+                    </Row>
+                }
             />
-            <CustomTable/>
-            {/*{dataState.mode === TABLE ? <CustomTable/> : null}*/}
-            {/*{dataState.mode === KANBAN ? <Cardination/> : null}*/}
+            {dataState.mode === TABLE ? <CustomTable/> : null}
+            {dataState.mode === KANBAN ? <Cardination/> : null}
         </TableContextProvider>
     )
 };
