@@ -4,7 +4,7 @@ import {render} from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import {getCookie} from "./Helpers/cookie";
 
-import AppContainerWithContent from './Components/AppContainterWithContent';
+import ContentContainer from './Components/ContentContainter';
 import LoginRoute from './Modules/Login/LoginRoute';
 import HomeRoute from "./Modules/Home/HomeRoute";
 import {objectHasValue} from "./Helpers/object";
@@ -101,7 +101,7 @@ const App = () => {
     return (
         <BrowserRouter>
             <AppContextProvider value={{appState: appState, setAppState: setAppState}}>
-                <AppContainerWithContent>
+                <ContentContainer>
                     <SwitchMaster
                         switches={[
                             AccessRight.routes,
@@ -139,7 +139,7 @@ const App = () => {
                     />
                     <HomeRoute/>
                     <LoginRoute/>
-                </AppContainerWithContent>
+                </ContentContainer>
             </AppContextProvider>
         </BrowserRouter>
     )

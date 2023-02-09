@@ -3,7 +3,7 @@ import React from "react";
 import {Content} from "antd/es/layout/layout";
 import CustomMenu from './CustomMenu';
 
-const AppContainerWithContent = (props) => {
+const ContentContainer = (props) => {
     return (
         <AppContainer>
             <CustomMenu/>
@@ -14,4 +14,4 @@ const AppContainerWithContent = (props) => {
     )
 };
 
-export default AppContainerWithContent;
+export default ContentContainer;
