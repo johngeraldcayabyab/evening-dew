@@ -13,6 +13,7 @@
         "@babel/preset-react": "^7.13.13",
         "laravel-echo": "^1.11.3",
         "laravel-mix": "^6.0.49",
+        "laravel-mix-bundle-analyzer": "^1.0.5",
         "postcss": "^8.1.14",
         "pusher-js": "^7.0.3",
         "react": "^17.0.2",

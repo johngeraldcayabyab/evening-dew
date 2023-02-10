@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+require('laravel-mix-bundle-analyzer');
 require('dotenv').config();
 
 mix.options({
@@ -21,4 +22,9 @@ mix.js('resources/js/App.js', 'public/js')
 
 if (mix.inProduction()) {
     mix.disableNotifications();
+    // mix.bundleAnalyzer();
 }
+
+// if (!mix.inProduction()) {
+//
+// }
