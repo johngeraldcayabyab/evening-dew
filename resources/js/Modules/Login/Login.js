@@ -42,7 +42,6 @@ const Login = () => {
                 // user: user,
                 // globalSetting: globalSettingResponse,
             }));
-            history.push('/home');
 
 
             // useFetch(`/api/users`, GET, {
@@ -81,7 +80,7 @@ const Login = () => {
 
     useEffect(() => {
         if (appContext.appState.isLogin) {
-            history.push('/');
+            history.push('/home');
         }
         useFetch(`/api/sanctum/csrf-cookie`, GET).catch((responseErr) => {
             fetchCatcher.get(responseErr);
