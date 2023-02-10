@@ -246,7 +246,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 $this->log("New shopify sales order created {$shopifyOrderNumber}");
             }
         } catch (Exception $exception) {
-            $this->log("ERROR : " . $exception->getMessage());
+            $this->log("ERROR : " . $exception->getMessage() . " " . $exception->getLine());
         }
     }
 
@@ -263,10 +263,14 @@ class ImportShopifyOrdersJob implements ShouldQueue
     {
         $shippingDate = null;
         foreach ($shippingProperties as $shippingProperty) {
-            if ($shippingProperty['name'] === 'Delivery Date') {
-                $shippingDate = explode('-', $shippingProperty['value']);
-                $shippingDate = Carbon::parse($shippingDate[2] . '-' . $shippingDate[0] . '-' . $shippingDate[1]);
+            if ($shippingProperty['name'] !== 'Delivery Date') {
+                continue;
             }
+            preg_match('/\d{2}-\d{2}-\d{4}/', $shippingProperty['value'], $results);
+            if (!count($results)) {
+                continue;
+            }
+            $shippingDate = Carbon::createFromFormat('m-d-Y', $results[0]);
         }
         return $shippingDate;
     }
@@ -284,13 +288,13 @@ class ImportShopifyOrdersJob implements ShouldQueue
                     $selectTime = '01_00_PM_03_00_PM';
                 } elseif ($shippingPropertyValue === '03:00 PM - 04:00 PM') {
                     $selectTime = '03_00_PM_04_00_PM';
-                }elseif ($shippingPropertyValue === '03:00 PM - 05:00 PM') {
+                } elseif ($shippingPropertyValue === '03:00 PM - 05:00 PM') {
                     $selectTime = '03_00_PM_05_00_PM';
                 } elseif ($shippingPropertyValue === '04:00 PM - 05:30 PM') {
                     $selectTime = '04_00_PM_05_30_PM';
                 } elseif ($shippingPropertyValue === '04:00 PM - 06:00 PM') {
                     $selectTime = '04_00_PM_06_00_PM';
-                }elseif ($shippingPropertyValue === '05:00 PM - 07:00 PM') {
+                } elseif ($shippingPropertyValue === '05:00 PM - 07:00 PM') {
                     $selectTime = '05_00_PM_07_00_PM';
                 } elseif ($shippingPropertyValue === '05:30 PM - 06:30 PM') {
                     $selectTime = '05_30_PM_06_30_PM';
