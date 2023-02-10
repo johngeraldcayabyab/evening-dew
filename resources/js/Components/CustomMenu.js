@@ -5,14 +5,13 @@ import {AppstoreOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 import useFetchCatcherHook from "../Hooks/useFetchCatcherHook";
 import useFetchHook from "../Hooks/useFetchHook";
-import {GET, POST} from "../consts";
-import {eraseCookie} from "../Helpers/cookie";
+import {POST} from "../consts";
 import {useHistory, useLocation} from "react-router";
 import {AppContext} from "../App";
 import {setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import AvatarUser from "./AvatarUser";
-import {setPayload, setPayloadModule} from "../Helpers/localstorage";
+import {reset} from "../Helpers/reset";
 
 function resetBreadcrumbs(url) {
     let splitPathName = url.split('/');
@@ -81,17 +80,17 @@ const CustomMenu = () => {
 
     function onLogout() {
         useFetch('/api/logout', POST).then((response) => {
-            eraseCookie('Authorization');
             appContext.setAppState((prevState) => ({
                 ...prevState,
                 isLogin: false,
+                userEmail: false,
+                globalSetting: {},
+                user: {},
+                appInitialLoad: true,
             }));
-            setBreadcrumbs([]);
-            setClickedBreadcrumb({});
-            setPayload({});
-            setPayloadModule('');
-            history.push('/login');
             message.success('Logged Out!');
+            reset();
+            history.push('/login');
         }).catch((responseErr) => {
             fetchCatcher.get(responseErr);
         });

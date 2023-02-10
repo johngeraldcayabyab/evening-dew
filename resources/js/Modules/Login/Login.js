@@ -34,39 +34,11 @@ const Login = () => {
             const authorization = `Bearer ${responseText}`
             setCookie('Authorization', authorization, 365);
             setCookie('userEmail', values.email);
-
             appContext.setAppState(prevState => ({
                 ...prevState,
                 isLogin: authorization,
                 userEmail: values.email,
-                // user: user,
-                // globalSetting: globalSettingResponse,
             }));
-
-
-            // useFetch(`/api/users`, GET, {
-            //     email: values.email,
-            // }, false, {
-            //     Authorization: authorization,
-            // }).then((userResponse) => {
-            //     const user = userResponse.data[0];
-            //     useFetch(`/api/global_settings/initial_values`, GET, {}, false, {
-            //         Authorization: authorization,
-            //     }).then((globalSettingResponse) => {
-            //         appContext.setAppState(prevState => ({
-            //             ...prevState,
-            //             isLogin: true,
-            //             userEmail: values.email,
-            //             user: user,
-            //             globalSetting: globalSettingResponse,
-            //         }));
-            //         history.push('/home');
-            //     }).catch((responseErr) => {
-            //         fetchCatcher.get(responseErr);
-            //     });
-            // }).catch((responseErr) => {
-            //     fetchCatcher.get(responseErr);
-            // });
         }).catch((responseErr) => {
             fetchCatcher.get(responseErr).then((errors) => {
                 setState(prevState => ({
@@ -80,12 +52,12 @@ const Login = () => {
 
     useEffect(() => {
         if (appContext.appState.isLogin) {
-            history.push('/home');
+            history.push('/contacts');
         }
         useFetch(`/api/sanctum/csrf-cookie`, GET).catch((responseErr) => {
             fetchCatcher.get(responseErr);
         });
-    }, []);
+    }, [appContext.appState.isLogin]);
 
     return (
         <Spin spinning={state.loading}>
