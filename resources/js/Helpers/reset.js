@@ -9,4 +9,8 @@ export const reset = () => {
     setClickedBreadcrumb({});
     setPayload({});
     setPayloadModule('');
+
+    localStorage.removeItem("user");
+    localStorage.removeItem("accessRights");
+    localStorage.removeItem("globalSetting");
 }

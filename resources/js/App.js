@@ -2,7 +2,7 @@ import './bootstrap.js';
 import React, {lazy, useEffect, useState} from 'react';
 import {render} from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
-import {getCookie} from "./Helpers/cookie";
+import {getCookie, setCookie} from "./Helpers/cookie";
 import ContentContainer from './Components/ContentContainter';
 import LoginRoute from './Modules/Login/LoginRoute';
 import HomeRoute from "./Modules/Home/HomeRoute";
@@ -33,43 +33,63 @@ const App = () => {
         window.Echo.channel('refresh-browser').listen('RefreshBrowserEvent', () => {
             window.location.reload();
         });
-        if (appState.isLogin) {
-            useFetch(`/api/users`, GET, {
-                email: getCookie('userEmail'),
-            }).then((userResponse) => {
-                const user = userResponse.data[0];
-                let accessRights = [];
-                const userGroupLines = user.user_group_lines;
-                if (userGroupLines && userGroupLines.length) {
-                    userGroupLines.forEach(userGroupLine => {
-                        const group = userGroupLine.group;
-                        if (group && group.access_rights && group.access_rights.length) {
-                            accessRights = [...accessRights, ...group.access_rights];
-                        }
-                    });
-                    accessRights = accessRights.filter((v, i, a) => a.findIndex(v2 => (v2.name === v.name)) === i);
-                }
-                useFetch(`/api/global_settings/initial_values`, GET).then((globalSettingResponse) => {
-                    setAppState(prevState => ({
-                        ...prevState,
-                        isLogin: getCookie('Authorization'),
-                        user: user,
-                        accessRights: accessRights,
-                        globalSetting: globalSettingResponse,
-                        appInitialLoad: false,
-                    }));
-                }).catch((responseErr) => {
-                    fetchCatcher.get(responseErr);
-                });
-            }).catch((responseErr) => {
-                fetchCatcher.get(responseErr);
-            });
-        } else {
+        if (!appState.isLogin) {
             if (!window.location.href.includes('login')) {
                 message.warning('Please login first!'); // this thing does nothing because the state isnt fixed
                 window.location.href = '/login';
             }
+            return;
         }
+
+        const user = localStorage.getItem("user");
+        const accessRights = localStorage.getItem("accessRights");
+        const globalSetting = localStorage.getItem("globalSetting");
+        if (user && accessRights && globalSetting) {
+            setAppState(prevState => ({
+                ...prevState,
+                isLogin: getCookie('Authorization'),
+                user: JSON.parse(user),
+                accessRights: JSON.parse(accessRights),
+                globalSetting: JSON.parse(globalSetting),
+                appInitialLoad: false,
+            }));
+            return;
+        }
+
+
+        useFetch(`/api/users`, GET, {
+            email: getCookie('userEmail'),
+        }).then((userResponse) => {
+            const user = userResponse.data[0];
+            let accessRights = [];
+            const userGroupLines = user.user_group_lines;
+            if (userGroupLines && userGroupLines.length) {
+                userGroupLines.forEach(userGroupLine => {
+                    const group = userGroupLine.group;
+                    if (group && group.access_rights && group.access_rights.length) {
+                        accessRights = [...accessRights, ...group.access_rights];
+                    }
+                });
+                accessRights = accessRights.filter((v, i, a) => a.findIndex(v2 => (v2.name === v.name)) === i);
+            }
+            useFetch(`/api/global_settings/initial_values`, GET).then((globalSettingResponse) => {
+                localStorage.setItem("user", JSON.stringify(user));
+                localStorage.setItem("accessRights", JSON.stringify(accessRights));
+                localStorage.setItem("globalSetting", JSON.stringify(globalSettingResponse));
+                setAppState(prevState => ({
+                    ...prevState,
+                    isLogin: getCookie('Authorization'),
+                    user: user,
+                    accessRights: accessRights,
+                    globalSetting: globalSettingResponse,
+                    appInitialLoad: false,
+                }));
+            }).catch((responseErr) => {
+                fetchCatcher.get(responseErr);
+            });
+        }).catch((responseErr) => {
+            fetchCatcher.get(responseErr);
+        });
     }, [appState.isLogin]);
 
     return (

@@ -65,6 +65,7 @@ const CustomMenu = () => {
 
     useEffect(() => {
         if (appContext.appState.isLogin && !appContext.appState.appInitialLoad) {
+            console.log(appContext.appState.user);
             const appMenu = appContext.appState.user.app_menu.children;
             const pathname = location.pathname;
             const index = getRootIndex(appMenu, pathname);
