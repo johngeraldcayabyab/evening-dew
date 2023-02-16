@@ -67,12 +67,12 @@ use App\Services\Router;
 use Illuminate\Support\Facades\Route;
 use Spatie\Activitylog\Models\Activity;
 
-Route::group(['middleware' => ['api', 'cors', 'auth:sanctum']], function () {
-    Route::post('/tokens/create', [LoginController::class, 'tokensCreate'])->name('auth.csrf');
-    Route::post('/sanctum/token', [LoginController::class, 'authenticate'])->name('auth.login');
+Route::group(['middleware' => ['api', 'cors']], function () {
+    Route::post('/tokens/create', [LoginController::class, 'tokensCreate']);
+    Route::post('/sanctum/token', [LoginController::class, 'authenticate']);
 });
 
-Route::group(['middleware' => ['api', 'cors']], function () {
+Route::group(['middleware' => ['api', 'cors', 'auth:sanctum']], function () {
     (new Router(AccessRight::class))::generate(AccessRightController::class);
     (new Router(Activity::class))::generate(ActivityLogController::class);
     (new Router(Address::class))::generate(AddressController::class);
@@ -86,7 +86,7 @@ Route::group(['middleware' => ['api', 'cors']], function () {
     (new Router(DeliveryFee::class))::generate(DeliveryFeeController::class);
     (new Router(GlobalSetting::class))::generate(GlobalSettingController::class);
     (new Router(Location::class))::generate(LocationController::class);
-    Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
+    Route::post('/logout', [LoginController::class, 'logout']);
     (new Router(Material::class))::generate(MaterialController::class);
     (new Router(MeasurementCategory::class))::generate(MeasurementCategoryController::class);
     (new Router(Measurement::class))::generate(MeasurementController::class);
@@ -95,7 +95,7 @@ Route::group(['middleware' => ['api', 'cors']], function () {
     (new Router(PaymentTerm::class))::generate(PaymentTermController::class);
     (new Router(ProductCategory::class))::generate(ProductCategoryController::class);
     (new Router(Region::class))::generate(RegionController::class);
-    Route::get("sales_orders/sales_per_day", [SalesOrderController::class, 'sales_per_day'])->name("sales_orders.sales_per_day");
+    Route::get("sales_orders/sales_per_day", [SalesOrderController::class, 'sales_per_day']);
     (new Router(SalesOrder::class))::generate(SalesOrderController::class);
     (new Router(SalesOrderLine::class))::generate(SalesOrderLineController::class);
     (new Router(Product::class))::generate(ProductController::class);
