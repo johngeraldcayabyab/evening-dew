@@ -37,7 +37,7 @@ class Router implements Generator
             $massDestroy = SystemSetting::MASS_DESTROY;
             $store = SystemSetting::STORE;
             $index = SystemSetting::INDEX;
-            $controllerInstance = new $controller;
+            $controllerInstance = get_class(new $controller);
             if (self::findMethod($methods, SystemSetting::INITIAL_VALUES, $controllerInstance)) {
                 Route::get("/{$initialValues}", [$controller, $initialValues]);
             }
@@ -68,7 +68,7 @@ class Router implements Generator
     private static function findMethod($methods, $specificMethod, $controllerInstance)
     {
         foreach ($methods as $method) {
-            if ($method->class !== get_class($controllerInstance)) {
+            if ($method->class !== $controllerInstance) {
                 continue;
             }
             if ($method->name === $specificMethod) {
