@@ -10,25 +10,17 @@ use ReflectionClass;
 
 class Router implements Generator
 {
-    private static $plural;
-    private static $singular;
-
-    public function __construct($model = null)
-    {
-        if ($model) {
-            $model = new $model;
-            self::$plural = $model->getTable();
-            self::$singular = Str::snake(Str::replace('App\Models\\', '', get_class($model)));
-        }
-    }
-
     public static function generate($controller)
     {
-        $plural = self::$plural;
-        Route::prefix($plural)->group(function () use ($controller) {
+        $controllerPath = get_class(new $controller);
+        $model = Str::replace(['App\Http\Controllers\\', 'Controller'], '', $controllerPath);
+        $modelPath = "App\Models\\" . $model;
+        $modelInstance = new $modelPath();
+        $plural = $modelInstance->getTable();
+        $singular = Str::snake($model);
+        Route::prefix($plural)->group(function () use ($controller, $controllerPath, $singular) {
             $f = new ReflectionClass($controller);
             $methods = $f->getMethods();
-            $singular = self::$singular;
             $initialValues = SystemSetting::INITIAL_VALUES;
             $slug = SystemSetting::SLUG;
             $show = SystemSetting::SHOW;
@@ -37,38 +29,37 @@ class Router implements Generator
             $massDestroy = SystemSetting::MASS_DESTROY;
             $store = SystemSetting::STORE;
             $index = SystemSetting::INDEX;
-            $controllerInstance = get_class(new $controller);
-            if (self::findMethod($methods, SystemSetting::INITIAL_VALUES, $controllerInstance)) {
+            if (self::findMethod($methods, SystemSetting::INITIAL_VALUES, $controllerPath)) {
                 Route::get("/{$initialValues}", [$controller, $initialValues]);
             }
-            if (self::findMethod($methods, SystemSetting::SLUG, $controllerInstance)) {
+            if (self::findMethod($methods, SystemSetting::SLUG, $controllerPath)) {
                 Route::get("/{{$singular}}/{$slug}", [$controller, $slug]);
             }
-            if (self::findMethod($methods, SystemSetting::SHOW, $controllerInstance)) {
+            if (self::findMethod($methods, SystemSetting::SHOW, $controllerPath)) {
                 Route::get("/{{$singular}}", [$controller, $show]);
             }
-            if (self::findMethod($methods, SystemSetting::UPDATE, $controllerInstance)) {
+            if (self::findMethod($methods, SystemSetting::UPDATE, $controllerPath)) {
                 Route::put("/{{$singular}}", [$controller, $update]);
             }
-            if (self::findMethod($methods, SystemSetting::DESTROY, $controllerInstance)) {
+            if (self::findMethod($methods, SystemSetting::DESTROY, $controllerPath)) {
                 Route::delete("/{{$singular}}", [$controller, $destroy]);
             }
-            if (self::findMethod($methods, SystemSetting::MASS_DESTROY, $controllerInstance)) {
+            if (self::findMethod($methods, SystemSetting::MASS_DESTROY, $controllerPath)) {
                 Route::post("/{$massDestroy}", [$controller, $massDestroy]);
             }
-            if (self::findMethod($methods, SystemSetting::STORE, $controllerInstance)) {
+            if (self::findMethod($methods, SystemSetting::STORE, $controllerPath)) {
                 Route::post("", [$controller, $store]);
             }
-            if (self::findMethod($methods, SystemSetting::INDEX, $controllerInstance)) {
+            if (self::findMethod($methods, SystemSetting::INDEX, $controllerPath)) {
                 Route::get("", [$controller, $index]);
             }
         });
     }
 
-    private static function findMethod($methods, $specificMethod, $controllerInstance)
+    private static function findMethod($methods, $specificMethod, $controllerPath)
     {
         foreach ($methods as $method) {
-            if ($method->class !== $controllerInstance) {
+            if ($method->class !== $controllerPath) {
                 continue;
             }
             if ($method->name === $specificMethod) {
