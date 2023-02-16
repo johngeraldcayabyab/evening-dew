@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use ReflectionClass;
 
-class RouteGenerator implements Generator
+class Router implements Generator
 {
     private static $plural;
     private static $singular;
@@ -24,10 +24,10 @@ class RouteGenerator implements Generator
 
     public static function generate($controller)
     {
-        Route::middleware('auth:sanctum')->group(function () use ($controller) {
+        $plural = self::$plural;
+        Route::prefix($plural)->group(function () use ($controller, $plural) {
             $f = new ReflectionClass($controller);
             $methods = $f->getMethods();
-            $plural = self::$plural;
             $singular = self::$singular;
             $initialValues = SystemSetting::INITIAL_VALUES;
             $slug = SystemSetting::SLUG;
@@ -39,39 +39,41 @@ class RouteGenerator implements Generator
             $index = SystemSetting::INDEX;
             $controllerInstance = new $controller;
             if (self::findMethod($methods, SystemSetting::INITIAL_VALUES, $controllerInstance)) {
-                Route::get("{$plural}/{$initialValues}", [$controller, $initialValues])->name("{$plural}.{$initialValues}");
+                Route::get("/{$initialValues}", [$controller, $initialValues])->name("{$plural}.{$initialValues}");
             }
             if (self::findMethod($methods, SystemSetting::SLUG, $controllerInstance)) {
-                Route::get("{$plural}/{{$singular}}/{$slug}", [$controller, $slug])->name("{$plural}.{$slug}");
+                Route::get("/{{$singular}}/{$slug}", [$controller, $slug])->name("{$plural}.{$slug}");
             }
             if (self::findMethod($methods, SystemSetting::SHOW, $controllerInstance)) {
-                Route::get("{$plural}/{{$singular}}", [$controller, $show])->name("{$plural}.{$show}");
+                Route::get("/{{$singular}}", [$controller, $show])->name("{$plural}.{$show}");
             }
             if (self::findMethod($methods, SystemSetting::UPDATE, $controllerInstance)) {
-                Route::put("{$plural}/{{$singular}}", [$controller, $update])->name("{$plural}.{$update}");
+                Route::put("/{{$singular}}", [$controller, $update])->name("{$plural}.{$update}");
             }
             if (self::findMethod($methods, SystemSetting::DESTROY, $controllerInstance)) {
-                Route::delete("{$plural}/{{$singular}}", [$controller, $destroy])->name("{$plural}.{$destroy}");
+                Route::delete("/{{$singular}}", [$controller, $destroy])->name("{$plural}.{$destroy}");
             }
             if (self::findMethod($methods, SystemSetting::MASS_DESTROY, $controllerInstance)) {
-                Route::post("{$plural}/{$massDestroy}", [$controller, $massDestroy])->name("{$plural}.{$massDestroy}");
+                Route::post("/{$massDestroy}", [$controller, $massDestroy])->name("{$plural}.{$massDestroy}");
             }
             if (self::findMethod($methods, SystemSetting::STORE, $controllerInstance)) {
-                Route::post("{$plural}", [$controller, $store])->name("{$plural}.{$store}");
+                Route::post("", [$controller, $store])->name("{$plural}.{$store}");
             }
             if (self::findMethod($methods, SystemSetting::INDEX, $controllerInstance)) {
-                Route::get("{$plural}", [$controller, $index])->name("{$plural}.{$index}");
+                Route::get("", [$controller, $index])->name("{$plural}.{$index}");
             }
         });
+
     }
 
     private static function findMethod($methods, $specificMethod, $controllerInstance)
     {
         foreach ($methods as $method) {
-            if ($method->class == get_class($controllerInstance)) {
-                if ($method->name === $specificMethod) {
-                    return true;
-                }
+            if ($method->class !== get_class($controllerInstance)) {
+                continue;
+            }
+            if ($method->name === $specificMethod) {
+                return true;
             }
         }
         return false;

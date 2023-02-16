@@ -63,70 +63,48 @@ use App\Models\Transfer;
 use App\Models\User;
 use App\Models\Group;
 use App\Models\Warehouse;
-use App\Services\RouteGenerator;
+use App\Services\Router;
 use Illuminate\Support\Facades\Route;
 use Spatie\Activitylog\Models\Activity;
 
-
-Route::group(['middleware' => ['api', 'cors']], function () {
-    (new RouteGenerator(AccessRight::class))::generate(AccessRightController::class);
-    (new RouteGenerator(Activity::class))::generate(ActivityLogController::class);
-    (new RouteGenerator(Address::class))::generate(AddressController::class);
-    (new RouteGenerator(Adjustment::class))::generate(AdjustmentController::class);
-    (new RouteGenerator(AppMenu::class))::generate(AppMenuController::class);
-    (new RouteGenerator(City::class))::generate(CityController::class);
-    (new RouteGenerator(Contact::class))::generate(ContactController::class);
-    (new RouteGenerator(Country::class))::generate(CountryController::class);
-    (new RouteGenerator(Courier::class))::generate(CourierController::class);
-    (new RouteGenerator(Currency::class))::generate(CurrencyController::class);
-    (new RouteGenerator(DeliveryFee::class))::generate(DeliveryFeeController::class);
-    (new RouteGenerator(GlobalSetting::class))::generate(GlobalSettingController::class);
-    (new RouteGenerator(Location::class))::generate(LocationController::class);
+Route::group(['middleware' => ['api', 'cors', 'auth:sanctum']], function () {
     Route::post('/tokens/create', [LoginController::class, 'tokensCreate'])->name('auth.csrf');
     Route::post('/sanctum/token', [LoginController::class, 'authenticate'])->name('auth.login');
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
-    });
-    (new RouteGenerator(Material::class))::generate(MaterialController::class);
-    (new RouteGenerator(MeasurementCategory::class))::generate(MeasurementCategoryController::class);
-    (new RouteGenerator(Measurement::class))::generate(MeasurementController::class);
-    (new RouteGenerator(Menu::class))::generate(MenuController::class);
-    (new RouteGenerator(OperationType::class))::generate(OperationTypeController::class);
-    (new RouteGenerator(PaymentTerm::class))::generate(PaymentTermController::class);
-    (new RouteGenerator(ProductCategory::class))::generate(ProductCategoryController::class);
-    (new RouteGenerator(Region::class))::generate(RegionController::class);
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::get("sales_orders/sales_per_day", [SalesOrderController::class, 'sales_per_day'])->name("sales_orders.sales_per_day");
-    });
-    (new RouteGenerator(SalesOrder::class))::generate(SalesOrderController::class);
-    (new RouteGenerator(SalesOrderLine::class))::generate(SalesOrderLineController::class);
-    (new RouteGenerator(Product::class))::generate(ProductController::class);
-    (new RouteGenerator(Sequence::class))::generate(SequenceController::class);
-    (new RouteGenerator(Source::class))::generate(SourceController::class);
-    (new RouteGenerator(StockMovement::class))::generate(StockMovementController::class);
-    (new RouteGenerator(Transfer::class))::generate(TransferController::class);
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::post('uploads/images', [UploadController::class, 'image']);
-    });
-    (new RouteGenerator(User::class))::generate(UserController::class);
-    (new RouteGenerator(Group::class))::generate(GroupController::class);
-    (new RouteGenerator(Warehouse::class))::generate(WarehouseController::class);
 });
 
-/**
- *
- * For future use
- *
- * $dir = new DirectoryIterator(app_path() . '/Http/Controllers');
- * foreach ($dir as $fileInfo) {
- * if (!$fileInfo->isDot()) {
- * if ($fileInfo === 'LoginController.php' || $fileInfo === 'UploadController') {
- * continue;
- * }
- *
- * $controller = Str::replace('.php', '', $fileInfo);
- * $model = Str::replace('Controller', '', $controller);
- * (new RouteGenerator('App\Models\\' . $model))::generate('App\Http\Controllers\\' . $controller);
- * }
- * }
- */
+Route::group(['middleware' => ['api', 'cors']], function () {
+    (new Router(AccessRight::class))::generate(AccessRightController::class);
+    (new Router(Activity::class))::generate(ActivityLogController::class);
+    (new Router(Address::class))::generate(AddressController::class);
+    (new Router(Adjustment::class))::generate(AdjustmentController::class);
+    (new Router(AppMenu::class))::generate(AppMenuController::class);
+    (new Router(City::class))::generate(CityController::class);
+    (new Router(Contact::class))::generate(ContactController::class);
+    (new Router(Country::class))::generate(CountryController::class);
+    (new Router(Courier::class))::generate(CourierController::class);
+    (new Router(Currency::class))::generate(CurrencyController::class);
+    (new Router(DeliveryFee::class))::generate(DeliveryFeeController::class);
+    (new Router(GlobalSetting::class))::generate(GlobalSettingController::class);
+    (new Router(Location::class))::generate(LocationController::class);
+    Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
+    (new Router(Material::class))::generate(MaterialController::class);
+    (new Router(MeasurementCategory::class))::generate(MeasurementCategoryController::class);
+    (new Router(Measurement::class))::generate(MeasurementController::class);
+    (new Router(Menu::class))::generate(MenuController::class);
+    (new Router(OperationType::class))::generate(OperationTypeController::class);
+    (new Router(PaymentTerm::class))::generate(PaymentTermController::class);
+    (new Router(ProductCategory::class))::generate(ProductCategoryController::class);
+    (new Router(Region::class))::generate(RegionController::class);
+    Route::get("sales_orders/sales_per_day", [SalesOrderController::class, 'sales_per_day'])->name("sales_orders.sales_per_day");
+    (new Router(SalesOrder::class))::generate(SalesOrderController::class);
+    (new Router(SalesOrderLine::class))::generate(SalesOrderLineController::class);
+    (new Router(Product::class))::generate(ProductController::class);
+    (new Router(Sequence::class))::generate(SequenceController::class);
+    (new Router(Source::class))::generate(SourceController::class);
+    (new Router(StockMovement::class))::generate(StockMovementController::class);
+    (new Router(Transfer::class))::generate(TransferController::class);
+    Route::post('uploads/images', [UploadController::class, 'image']);
+    (new Router(User::class))::generate(UserController::class);
+    (new Router(Group::class))::generate(GroupController::class);
+    (new Router(Warehouse::class))::generate(WarehouseController::class);
+});
