@@ -22,12 +22,12 @@ class GenerateStockMovementFromValidatedAdjustmentListener implements ShouldQueu
             $quantityDone = $adjustmentLine->quantity_on_hand;
             $sourceLocationId = null;
             $destinationLocationId = null;
-            if ($adjustmentLine->quantity_on_hand > $adjustmentLine->quantity_counted) {
+            if ($this->onHandGreaterThanCounted($adjustmentLine)) {
                 $sourceLocationId = $warehouse->stock_location_id;
                 $destinationLocationId = $warehouse->adjustment_location_id;
                 $quantityDone = $adjustmentLine->quantity_on_hand - $adjustmentLine->quantity_counted;
             }
-            if ($adjustmentLine->quantity_on_hand < $adjustmentLine->quantity_counted) {
+            if ($this->countedGreaterThanOnHand($adjustmentLine)) {
                 $sourceLocationId = $warehouse->adjustment_location_id;
                 $destinationLocationId = $warehouse->stock_location_id;
                 $quantityDone = $adjustmentLine->quantity_counted - $adjustmentLine->quantity_on_hand;
@@ -56,5 +56,21 @@ class GenerateStockMovementFromValidatedAdjustmentListener implements ShouldQueu
         if (count($stockMovementData)) {
             StockMovement::massUpsert($stockMovementData);
         }
+    }
+
+    private function onHandGreaterThanCounted($adjustmentLine)
+    {
+        if ($adjustmentLine->quantity_on_hand > $adjustmentLine->quantity_counted) {
+            return true;
+        }
+        return false;
+    }
+
+    private function countedGreaterThanOnHand($adjustmentLine)
+    {
+        if ($adjustmentLine->quantity_on_hand < $adjustmentLine->quantity_counted) {
+            return true;
+        }
+        return false;
     }
 }
