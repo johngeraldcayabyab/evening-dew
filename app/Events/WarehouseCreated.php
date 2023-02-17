@@ -2,21 +2,19 @@
 
 namespace App\Events;
 
-use App\Models\Contact;
+use App\Models\Warehouse;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ContactUpdatedEvent
+class WarehouseCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $contact;
-    public $data;
+    public $warehouse;
 
-    public function __construct(Contact $contact, $data = [])
+    public function __construct(Warehouse $warehouse)
     {
-        $this->contact = $contact;
-        $this->data = $data;
+        $this->warehouse = $warehouse;
     }
 }

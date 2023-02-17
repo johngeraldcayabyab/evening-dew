@@ -2,15 +2,15 @@
 
 namespace App\Listeners;
 
-use App\Events\ContactCreatedEvent;
-use App\Events\ContactUpdatedEvent;
-use App\Events\UserUpdatedEvent;
+use App\Events\ContactCreated;
+use App\Events\ContactUpdated;
+use App\Events\UserUpdated;
 use App\Models\Contact;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class UserUpdateContactListener implements ShouldQueue
 {
-    public function handle(UserUpdatedEvent $event)
+    public function handle(UserUpdated $event)
     {
         $user = $event->user;
         $contact = Contact::where('email', $user->email)->first();
@@ -19,6 +19,6 @@ class UserUpdateContactListener implements ShouldQueue
             'email' => $user->email,
             'avatar' => $user->avatar,
         ]);
-        ContactUpdatedEvent::dispatch($contact);
+        ContactUpdated::dispatch($contact);
     }
 }

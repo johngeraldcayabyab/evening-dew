@@ -2,14 +2,14 @@
 
 namespace App\Listeners;
 
-use App\Events\ProductHasMaterialEvent;
+use App\Events\ProductHasMaterial;
 use App\Models\Product;
 use App\Models\StockMovement;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class GenerateStockMovementForMaterialLinesListener implements ShouldQueue
 {
-    public function handle(ProductHasMaterialEvent $event)
+    public function handle(ProductHasMaterial $event)
     {
         $reference = $event->reference;
         $source = $event->source;
@@ -31,7 +31,7 @@ class GenerateStockMovementForMaterialLinesListener implements ShouldQueue
                 ];
             }
             if ($materialLineProduct->material()->exists()) {
-                ProductHasMaterialEvent::dispatch(
+                ProductHasMaterial::dispatch(
                     $reference,
                     $source,
                     $sourceLocationId,

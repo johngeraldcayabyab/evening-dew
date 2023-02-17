@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Events\UserCreatedEvent;
+use App\Events\UserCreated;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -17,6 +17,6 @@ class UserSeeder extends Seeder
             'password' => Hash::make('admin'),
             'app_menu_id' => 1
         ]);
-        UserCreatedEvent::dispatch($admin);
+        UserCreated::dispatch($admin);
     }
 }

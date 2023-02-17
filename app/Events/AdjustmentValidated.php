@@ -2,19 +2,19 @@
 
 namespace App\Events;
 
-use App\Models\Warehouse;
+use App\Models\Adjustment;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class WarehouseCreatedEvent
+class AdjustmentValidated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $warehouse;
+    public $adjustment;
 
-    public function __construct(Warehouse $warehouse)
+    public function __construct(Adjustment $adjustment)
     {
-        $this->warehouse = $warehouse;
+        $this->adjustment = $adjustment;
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\UserCreatedEvent;
-use App\Events\UserUpdatedEvent;
+use App\Events\UserCreated;
+use App\Events\UserUpdated;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -41,7 +41,7 @@ class UserController
             $userGroupLinesData = $data['user_group_lines'];
             UserGroupLine::massUpsert($userGroupLinesData, $user);
         }
-        UserCreatedEvent::dispatch($user, $userData);
+        UserCreated::dispatch($user, $userData);
         return $this->responseCreate($user);
     }
 
@@ -57,7 +57,7 @@ class UserController
         if (isset($data['user_group_lines_deleted'])) {
             UserGroupLine::massDelete(collect($data['user_group_lines_deleted'])->pluck('id'));
         }
-        UserUpdatedEvent::dispatch($user, $userData);
+        UserUpdated::dispatch($user, $userData);
         return $this->responseUpdate();
     }
 

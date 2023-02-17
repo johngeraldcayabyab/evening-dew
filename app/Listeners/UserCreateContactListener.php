@@ -2,13 +2,13 @@
 
 namespace App\Listeners;
 
-use App\Events\ContactCreatedEvent;
-use App\Events\UserCreatedEvent;
+use App\Events\ContactCreated;
+use App\Events\UserCreated;
 use App\Models\Contact;
 
 class UserCreateContactListener
 {
-    public function handle(UserCreatedEvent $event)
+    public function handle(UserCreated $event)
     {
         $user = $event->user;
         $contact = Contact::create([
@@ -16,6 +16,6 @@ class UserCreateContactListener
             'email' => $user->email,
             'avatar' => $user->avatar,
         ]);
-        ContactCreatedEvent::dispatch($contact);
+        ContactCreated::dispatch($contact);
     }
 }

@@ -2,19 +2,19 @@
 
 namespace App\Events;
 
-use App\Models\Adjustment;
+use App\Models\Transfer;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class AdjustmentValidatedEvent
+class TransferValidated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $adjustment;
+    public $transfer;
 
-    public function __construct(Adjustment $adjustment)
+    public function __construct(Transfer $transfer)
     {
-        $this->adjustment = $adjustment;
+        $this->transfer = $transfer;
     }
 }

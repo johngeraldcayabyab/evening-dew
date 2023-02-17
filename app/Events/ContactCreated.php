@@ -2,21 +2,21 @@
 
 namespace App\Events;
 
-use App\Models\User;
+use App\Models\Contact;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class UserCreatedEvent
+class ContactCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $user;
+    public $contact;
     public $data;
 
-    public function __construct(User $user, $data = [])
+    public function __construct(Contact $contact, $data = [])
     {
-        $this->user = $user;
+        $this->contact = $contact;
         $this->data = $data;
     }
 }

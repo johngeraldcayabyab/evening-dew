@@ -2,13 +2,13 @@
 
 namespace App\Listeners;
 
-use App\Events\ContactCreatedEvent;
+use App\Events\ContactCreated;
 use App\Models\Address;
 use Illuminate\Support\Arr;
 
 class ContactCreateAddressListener
 {
-    public function handle(ContactCreatedEvent $event)
+    public function handle(ContactCreated $event)
     {
         $contact = $event->contact;
         $data = $event->data;

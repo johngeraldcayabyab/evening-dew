@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Data\SystemSetting;
-use App\Events\SalesOrderValidatedEvent;
+use App\Events\SalesOrderValidated;
 use App\Models\OperationType;
 use App\Models\Product;
 use App\Models\SalesOrderTransfer;
@@ -15,7 +15,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class GenerateTransferFromValidatedSalesOrderListener implements ShouldQueue
 {
-    public function handle(SalesOrderValidatedEvent $event)
+    public function handle(SalesOrderValidated $event)
     {
         $salesOrder = $event->salesOrder;
         $operationTypeDelivery = OperationType::defaultDelivery();

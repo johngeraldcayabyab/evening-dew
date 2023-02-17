@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Events\TransferValidatedEvent;
+use App\Events\TransferValidated;
 use App\Models\Transfer;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -21,7 +21,7 @@ class ValidateAllDraftTransfersJob implements ShouldQueue, ShouldBeUnique
         foreach ($draftTransfers as $draftTransfer) {
             $draftTransfer->status = Transfer::DONE;
             $draftTransfer->save();
-            TransferValidatedEvent::dispatch($draftTransfer);
+            TransferValidated::dispatch($draftTransfer);
         }
     }
 }

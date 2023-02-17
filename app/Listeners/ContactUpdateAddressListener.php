@@ -2,14 +2,14 @@
 
 namespace App\Listeners;
 
-use App\Events\ContactUpdatedEvent;
+use App\Events\ContactUpdated;
 use App\Models\Address;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Arr;
 
 class ContactUpdateAddressListener implements ShouldQueue
 {
-    public function handle(ContactUpdatedEvent $event)
+    public function handle(ContactUpdated $event)
     {
         $contact = $event->contact;
         $data = $event->data;

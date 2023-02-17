@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Data\SystemSetting;
-use App\Events\SalesOrderValidatedEvent;
+use App\Events\SalesOrderValidated;
 use App\Http\Requests\SalesOrderRequest;
 use App\Http\Resources\SalesOrderResource;
 use App\Models\GlobalSetting;
@@ -46,7 +46,7 @@ class SalesOrderController
             SalesOrderLine::massUpsert($salesOrderLinesData, $salesOrder);
         }
         if ($salesOrder->status === SalesOrder::DONE) {
-            SalesOrderValidatedEvent::dispatch($salesOrder);
+            SalesOrderValidated::dispatch($salesOrder);
         }
         return $this->responseCreate($salesOrder);
     }
@@ -64,7 +64,7 @@ class SalesOrderController
             SalesOrderLine::massDelete(collect($data['sales_order_lines_deleted'])->pluck('id'));
         }
         if ($salesOrder->status === SalesOrder::DONE) {
-            SalesOrderValidatedEvent::dispatch($salesOrder);
+            SalesOrderValidated::dispatch($salesOrder);
         }
         return $this->responseUpdate();
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\AdjustmentValidatedEvent;
+use App\Events\AdjustmentValidated;
 use App\Http\Requests\AdjustmentRequest;
 use App\Http\Resources\AdjustmentResource;
 use App\Models\Adjustment;
@@ -41,7 +41,7 @@ class AdjustmentController
             AdjustmentLine::massUpsert($adjustmentLinesData, $adjustment);
         }
         if ($adjustment->status === Adjustment::DONE) {
-            AdjustmentValidatedEvent::dispatch($adjustment);
+            AdjustmentValidated::dispatch($adjustment);
         }
         return $this->responseCreate($adjustment);
     }
@@ -59,7 +59,7 @@ class AdjustmentController
             AdjustmentLine::massDelete(collect($data['adjustment_lines_deleted'])->pluck('id'));
         }
         if ($adjustment->status === Adjustment::DONE) {
-            AdjustmentValidatedEvent::dispatch($adjustment);
+            AdjustmentValidated::dispatch($adjustment);
         }
         return $this->responseUpdate();
     }

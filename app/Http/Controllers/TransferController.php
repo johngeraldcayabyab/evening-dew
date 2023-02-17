@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Data\SystemSetting;
-use App\Events\TransferValidatedEvent;
+use App\Events\TransferValidated;
 use App\Http\Requests\TransferRequest;
 use App\Http\Resources\TransferResource;
 use App\Models\Transfer;
@@ -40,7 +40,7 @@ class TransferController
             TransferLine::massUpsert($transferLinesData, $transfer);
         }
         if ($transfer->status === Transfer::DONE) {
-            TransferValidatedEvent::dispatch($transfer);
+            TransferValidated::dispatch($transfer);
         }
         return $this->responseCreate($transfer);
     }
@@ -58,7 +58,7 @@ class TransferController
             TransferLine::massDelete(collect($data['transfer_lines_deleted'])->pluck('id'));
         }
         if ($transfer->status === Transfer::DONE) {
-            TransferValidatedEvent::dispatch($transfer);
+            TransferValidated::dispatch($transfer);
         }
         return $this->responseUpdate();
     }

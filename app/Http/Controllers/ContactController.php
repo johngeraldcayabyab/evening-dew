@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\ContactCreatedEvent;
-use App\Events\ContactUpdatedEvent;
+use App\Events\ContactCreated;
+use App\Events\ContactUpdated;
 use App\Http\Requests\ContactRequest;
 use App\Http\Resources\ContactResource;
 use App\Models\Contact;
@@ -35,7 +35,7 @@ class ContactController
         $data = $request->validated();
         $contactData = Arr::only($data, (new Contact())->getFields());
         $contact = Contact::create($contactData);
-        ContactCreatedEvent::dispatch($contact, $data);
+        ContactCreated::dispatch($contact, $data);
         return $this->responseCreate($contact);
     }
 
@@ -44,7 +44,7 @@ class ContactController
         $data = $request->validated();
         $contactData = Arr::only($data, (new Contact())->getFields());
         $contact->update($contactData);
-        ContactUpdatedEvent::dispatch($contact, $data);
+        ContactUpdated::dispatch($contact, $data);
         return $this->responseUpdate();
     }
 

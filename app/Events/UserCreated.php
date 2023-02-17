@@ -2,19 +2,21 @@
 
 namespace App\Events;
 
-use App\Models\Transfer;
+use App\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class TransferValidatedEvent
+class UserCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $transfer;
+    public $user;
+    public $data;
 
-    public function __construct(Transfer $transfer)
+    public function __construct(User $user, $data = [])
     {
-        $this->transfer = $transfer;
+        $this->user = $user;
+        $this->data = $data;
     }
 }

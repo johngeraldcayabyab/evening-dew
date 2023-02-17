@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\WarehouseCreatedEvent;
+use App\Events\WarehouseCreated;
 use App\Models\Location;
 use App\Models\OperationType;
 use App\Models\Sequence;
@@ -44,7 +44,7 @@ class WarehouseInitializeDefaultsListener
     private $adjustmentSequence;
 
 
-    public function handle(WarehouseCreatedEvent $event)
+    public function handle(WarehouseCreated $event)
     {
         $this->warehouse = $event->warehouse;
         $this->initializeWarehouseLocations();

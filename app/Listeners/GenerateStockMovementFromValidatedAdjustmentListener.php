@@ -2,15 +2,15 @@
 
 namespace App\Listeners;
 
-use App\Events\AdjustmentValidatedEvent;
-use App\Events\ProductHasMaterialEvent;
+use App\Events\AdjustmentValidated;
+use App\Events\ProductHasMaterial;
 use App\Models\Product;
 use App\Models\StockMovement;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class GenerateStockMovementFromValidatedAdjustmentListener implements ShouldQueue
 {
-    public function handle(AdjustmentValidatedEvent $event)
+    public function handle(AdjustmentValidated $event)
     {
         $adjustment = $event->adjustment;
         $adjustmentLines = $adjustment->adjustmentLines;
@@ -43,7 +43,7 @@ class GenerateStockMovementFromValidatedAdjustmentListener implements ShouldQueu
                 ];
             }
             if ($product->material()->exists()) {
-                ProductHasMaterialEvent::dispatch(
+                ProductHasMaterial::dispatch(
                     $adjustment->number,
                     $adjustment->number,
                     $sourceLocationId,

@@ -2,13 +2,13 @@
 
 namespace App\Listeners;
 
-use App\Events\ContactUpdatedEvent;
+use App\Events\ContactUpdated;
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ContactUpdateUserListener implements ShouldQueue
 {
-    public function handle(ContactUpdatedEvent $event)
+    public function handle(ContactUpdated $event)
     {
         $contact = $event->contact;
         $user = User::where('email', $contact->email)->first();

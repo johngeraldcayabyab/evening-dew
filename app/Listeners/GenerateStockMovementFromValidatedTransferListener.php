@@ -2,8 +2,8 @@
 
 namespace App\Listeners;
 
-use App\Events\ProductHasMaterialEvent;
-use App\Events\TransferValidatedEvent;
+use App\Events\ProductHasMaterial;
+use App\Events\TransferValidated;
 use App\Models\Product;
 use App\Models\StockMovement;
 use App\Models\TransferLineStockMovement;
@@ -11,7 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class GenerateStockMovementFromValidatedTransferListener implements ShouldQueue
 {
-    public function handle(TransferValidatedEvent $event)
+    public function handle(TransferValidated $event)
     {
         $transfer = $event->transfer;
         $stockMovementData = [];
@@ -41,7 +41,7 @@ class GenerateStockMovementFromValidatedTransferListener implements ShouldQueue
                     }
                 }
                 if ($product->material()->exists()) {
-                    ProductHasMaterialEvent::dispatch(
+                    ProductHasMaterial::dispatch(
                         $transfer->reference,
                         $transfer->reference,
                         $sourceLocationId,
