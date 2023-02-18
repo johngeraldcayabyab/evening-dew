@@ -14,11 +14,11 @@ class GenerateStockMovementFromValidatedTransferListener implements ShouldQueue
     public function handle(TransferValidated $event)
     {
         $transfer = $event->transfer;
+        $transferLines = $transfer->transferLines;
         $stockMovementData = [];
         if (!$transfer->isDone($transfer->status)) {
             return;
         }
-        $transferLines = $transfer->transferLines;
         foreach ($transferLines as $transferLine) {
             $stockMovement = $this->storableProductGenerateMovement($transfer, $transferLine);
             if ($stockMovement) {
@@ -37,7 +37,6 @@ class GenerateStockMovementFromValidatedTransferListener implements ShouldQueue
          * any dependencies.
          */
         $transferLineStockMovementLines = [];
-        $transferLines = $transfer->transferLines;
         foreach ($transferLines as $transferLine) {
             $stockMovement = StockMovement::where('product_id', $transferLine->product_id)
                 ->where('created_at', $transferLine->created_at)
@@ -80,15 +79,16 @@ class GenerateStockMovementFromValidatedTransferListener implements ShouldQueue
     private function hasMaterialGenerateMovement($transfer, $transferLine)
     {
         $product = $transferLine->product;
-        if ($product->material()->exists()) {
-            ProductHasMaterial::dispatch(
-                $transfer->reference,
-                $transfer->reference,
-                $transfer->source_location_id,
-                $transfer->destination_location_id,
-                $product->material,
-                $transferLine->demand
-            );
+        if (!$product->material()->exists()) {
+            return;
         }
+        ProductHasMaterial::dispatch(
+            $transfer->reference,
+            $transfer->reference,
+            $transfer->source_location_id,
+            $transfer->destination_location_id,
+            $product->material,
+            $transferLine->demand
+        );
     }
 }
