@@ -2,7 +2,7 @@
 
 namespace App\Console;
 
-use App\Jobs\ComputeProductQuantityJob;
+use App\Jobs\ComputeAllProductQuantityJob;
 use App\Jobs\ValidateAllDraftTransfersJob;
 use App\Models\GlobalSetting;
 use Illuminate\Console\Scheduling\Schedule;
@@ -21,7 +21,7 @@ class Kernel extends ConsoleKernel
                 ValidateAllDraftTransfersJob::dispatch();
             }
             if ($globalSetting->inventory_compute_product_quantity) {
-                ComputeProductQuantityJob::dispatch();
+                ComputeAllProductQuantityJob::dispatch();
             }
         })->everyMinute();
     }

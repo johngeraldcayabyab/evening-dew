@@ -17,7 +17,8 @@ mix.js('resources/js/App.js', 'public/js')
         'react-router-dom',
         'moment',
         'antd',
-        '@ant-design/icons'
+        '@ant-design/icons',
+        '@ant-design/charts'
     ]).version();
 
 if (mix.inProduction()) {
@@ -25,6 +26,6 @@ if (mix.inProduction()) {
     // mix.bundleAnalyzer();
 }
 
-// if (!mix.inProduction()) {
-//
-// }
+if (!mix.inProduction()) {
+    mix.bundleAnalyzer();
+}
