@@ -6,7 +6,7 @@ use App\Events\ContactCreated;
 use App\Models\Address;
 use Illuminate\Support\Arr;
 
-class ContactCreateAddressListener
+class ContactCreateAddress
 {
     public function handle(ContactCreated $event)
     {

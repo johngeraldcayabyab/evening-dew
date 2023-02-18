@@ -6,7 +6,7 @@ use App\Events\ContactCreated;
 use App\Events\UserCreated;
 use App\Models\Contact;
 
-class UserCreateContactListener
+class UserCreateContact
 {
     public function handle(UserCreated $event)
     {

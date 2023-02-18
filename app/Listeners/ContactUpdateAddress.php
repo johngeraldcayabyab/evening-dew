@@ -4,10 +4,9 @@ namespace App\Listeners;
 
 use App\Events\ContactUpdated;
 use App\Models\Address;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Arr;
 
-class ContactUpdateAddressListener implements ShouldQueue
+class ContactUpdateAddress
 {
     public function handle(ContactUpdated $event)
     {

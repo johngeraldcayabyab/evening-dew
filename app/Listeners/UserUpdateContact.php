@@ -2,13 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Events\ContactCreated;
 use App\Events\ContactUpdated;
 use App\Events\UserUpdated;
 use App\Models\Contact;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
-class UserUpdateContactListener implements ShouldQueue
+class UserUpdateContact
 {
     public function handle(UserUpdated $event)
     {
