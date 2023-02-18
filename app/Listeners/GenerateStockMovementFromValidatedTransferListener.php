@@ -30,6 +30,12 @@ class GenerateStockMovementFromValidatedTransferListener implements ShouldQueue
             return;
         }
         StockMovement::massUpsert($stockMovementData);
+
+        /**
+         * This block of code is important for the stock movement
+         * because it keeps the stock movement pure from
+         * any dependencies.
+         */
         $transferLineStockMovementLines = [];
         $transferLines = $transfer->transferLines;
         foreach ($transferLines as $transferLine) {
