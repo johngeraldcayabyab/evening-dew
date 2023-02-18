@@ -18,7 +18,7 @@ class Router implements Generator
         $modelInstance = new $modelPath();
         $plural = $modelInstance->getTable();
         $singular = Str::snake($model);
-        Route::prefix($plural)->group(function () use ($controller, $controllerPath, $singular) {
+        Route::prefix($plural)->group(function () use ($controller, $controllerPath, $plural, $singular) {
             $f = new ReflectionClass($controller);
             $methods = $f->getMethods();
             $initialValues = SystemSetting::INITIAL_VALUES;
@@ -30,28 +30,28 @@ class Router implements Generator
             $store = SystemSetting::STORE;
             $index = SystemSetting::INDEX;
             if (self::findMethod($methods, SystemSetting::INITIAL_VALUES, $controllerPath)) {
-                Route::get("/{$initialValues}", [$controller, $initialValues]);
+                Route::get("/{$initialValues}", [$controller, $initialValues])->name("{$plural}.{$initialValues}");
             }
             if (self::findMethod($methods, SystemSetting::SLUG, $controllerPath)) {
-                Route::get("/{{$singular}}/{$slug}", [$controller, $slug]);
+                Route::get("/{{$singular}}/{$slug}", [$controller, $slug])->name("{$plural}.{$slug}");
             }
             if (self::findMethod($methods, SystemSetting::SHOW, $controllerPath)) {
-                Route::get("/{{$singular}}", [$controller, $show]);
+                Route::get("/{{$singular}}", [$controller, $show])->name("{$plural}.{$show}");
             }
             if (self::findMethod($methods, SystemSetting::UPDATE, $controllerPath)) {
-                Route::put("/{{$singular}}", [$controller, $update]);
+                Route::put("/{{$singular}}", [$controller, $update])->name("{$plural}.{$update}");
             }
             if (self::findMethod($methods, SystemSetting::DESTROY, $controllerPath)) {
-                Route::delete("/{{$singular}}", [$controller, $destroy]);
+                Route::delete("/{{$singular}}", [$controller, $destroy])->name("{$plural}.{$massDestroy}");
             }
             if (self::findMethod($methods, SystemSetting::MASS_DESTROY, $controllerPath)) {
                 Route::post("/{$massDestroy}", [$controller, $massDestroy]);
             }
             if (self::findMethod($methods, SystemSetting::STORE, $controllerPath)) {
-                Route::post("", [$controller, $store]);
+                Route::post("", [$controller, $store])->name("{$plural}.{$store}");
             }
             if (self::findMethod($methods, SystemSetting::INDEX, $controllerPath)) {
-                Route::get("", [$controller, $index]);
+                Route::get("", [$controller, $index])->name("{$plural}.{$index}");
             }
         });
     }
