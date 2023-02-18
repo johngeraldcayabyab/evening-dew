@@ -9,7 +9,7 @@ use App\Models\StockMovement;
 use App\Models\TransferLineStockMovement;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class GenerateStockMovementFromValidatedTransferListener implements ShouldQueue
+class GenerateStockMovementFromValidatedTransfer implements ShouldQueue
 {
     public function handle(TransferValidated $event)
     {

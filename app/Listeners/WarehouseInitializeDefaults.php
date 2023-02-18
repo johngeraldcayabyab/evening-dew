@@ -7,7 +7,7 @@ use App\Models\Location;
 use App\Models\OperationType;
 use App\Models\Sequence;
 
-class WarehouseInitializeDefaultsListener
+class WarehouseInitializeDefaults
 {
     private $warehouse;
 

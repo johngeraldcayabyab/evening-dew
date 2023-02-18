@@ -13,7 +13,7 @@ use App\Models\TransferLine;
 use App\Services\MeasurementConversion;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class GenerateTransferFromValidatedSalesOrderListener implements ShouldQueue
+class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
 {
     public function handle(SalesOrderValidated $event)
     {

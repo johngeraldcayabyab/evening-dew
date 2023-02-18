@@ -7,7 +7,7 @@ use App\Models\Product;
 use App\Models\StockMovement;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class GenerateStockMovementForMaterialLinesListener implements ShouldQueue
+class GenerateStockMovementForMaterialLines implements ShouldQueue
 {
     public function handle(ProductHasMaterial $event)
     {
