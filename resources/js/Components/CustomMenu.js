@@ -84,6 +84,7 @@ const CustomMenu = () => {
             appContext.setAppState((prevState) => ({
                 ...prevState,
                 isLogin: false,
+                accessRights: false,
                 userEmail: false,
                 globalSetting: {},
                 user: {},

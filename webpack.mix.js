@@ -23,9 +23,6 @@ mix.js('resources/js/App.js', 'public/js')
 
 if (mix.inProduction()) {
     mix.disableNotifications();
-    // mix.bundleAnalyzer();
-}
-
-if (!mix.inProduction()) {
     mix.bundleAnalyzer();
+    // mix.bundleAnalyzer();
 }

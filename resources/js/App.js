@@ -60,6 +60,7 @@ const App = () => {
         useFetch(`/api/users`, GET, {
             email: getCookie('userEmail'),
         }).then((userResponse) => {
+            console.log(userResponse);
             const user = userResponse.data[0];
             let accessRights = [];
             const userGroupLines = user.user_group_lines;
@@ -88,6 +89,18 @@ const App = () => {
                 fetchCatcher.get(responseErr);
             });
         }).catch((responseErr) => {
+            if (responseErr.status === 401) {
+                reset();
+                setAppState(prevState => ({
+                    ...prevState,
+                    isLogin: false,
+                    accessRights: false,
+                    userEmail: false,
+                    globalSetting: {},
+                    user: {},
+                    appInitialLoad: true,
+                }));
+            }
             fetchCatcher.get(responseErr);
         });
     }, [appState.isLogin]);
