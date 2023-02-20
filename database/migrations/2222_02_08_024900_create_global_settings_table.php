@@ -17,7 +17,7 @@ class CreateGlobalSettingsTable extends Migration
             $table->unsignedInteger('inventory_default_product_category_id')->nullable();
             $table->unsignedInteger('inventory_default_customer_location_id')->nullable();
             $table->unsignedInteger('inventory_default_vendor_location_id')->nullable();
-            $table->unsignedInteger('inventory_default_inventory_adjustment_id')->nullable();
+            $table->unsignedInteger('inventory_default_adjustment_location_id')->nullable();
             $table->unsignedInteger('inventory_default_production_id')->nullable();
             $table->unsignedInteger('inventory_default_scrap_id')->nullable();
             $table->unsignedInteger('inventory_default_warehouse_id')->nullable();

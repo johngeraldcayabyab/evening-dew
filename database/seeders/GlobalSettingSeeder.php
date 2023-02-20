@@ -18,7 +18,7 @@ class GlobalSettingSeeder extends Seeder
                 'inventory_default_product_category_id' => 1,
                 'inventory_default_customer_location_id' => 3,
                 'inventory_default_vendor_location_id' => 4,
-                'inventory_default_inventory_adjustment_id' => 5,
+                'inventory_default_adjustment_location_id' => 5,
                 'inventory_default_production_id' => 6,
                 'inventory_default_scrap_id' => 7,
                 'inventory_default_warehouse_id' => 1,

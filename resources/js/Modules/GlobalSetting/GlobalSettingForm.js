@@ -179,7 +179,7 @@ const GlobalSettingForm = () => {
 
                                     <FormItemSelect
                                         label={'Default Inventory Adjustment Location'}
-                                        name={'inventory_default_inventory_adjustment_id'}
+                                        name={'inventory_default_adjustment_location_id'}
                                         message={'Please select a default customer location'}
                                         required={true}
                                         {...inventoryDefaultInventoryAdjustmentOptions}

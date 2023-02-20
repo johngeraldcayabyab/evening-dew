@@ -67,7 +67,7 @@ class GlobalSetting extends Model
 
     public function inventoryDefaultInventoryAdjustment()
     {
-        return $this->belongsTo(Location::class, 'inventory_default_inventory_adjustment_id', 'id');
+        return $this->belongsTo(Location::class, 'inventory_default_adjustment_location_id', 'id');
     }
 
     public function inventoryDefaultProduction()
