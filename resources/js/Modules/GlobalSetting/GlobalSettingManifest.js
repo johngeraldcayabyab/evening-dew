@@ -5,7 +5,7 @@ const manifest = {
     "displayName": displayName,
     "queryDefaults": {},
     "routes": [
-        {path: `/${displayName}`, manifest: () => manifest},
+        {path: `/${displayName}/create`, manifest: () => manifest},
     ],
     form: {
         initialValue: true,
@@ -22,13 +22,15 @@ const manifest = {
                             query: {url: '/api/countries', field: 'general_default_country.country_name'},
                         },
                     ],
-                    col_2: [
-                        {
-                            type: 'divider',
-                            name: 'divider_1',
-                            orientation: 'left',
-                            label: 'Table'
-                        },
+                },
+                divider_1: {
+                    type: 'divider',
+                    name: 'divider_1',
+                    orientation: 'left',
+                    label: 'Table'
+                },
+                row_2: {
+                    col_1: [
                         {
                             type: 'checkbox',
                             name: 'general_clickable_row',
@@ -97,7 +99,7 @@ const manifest = {
                             label: 'Default Product Category',
                             query: {
                                 url: '/api/product_categories',
-                                field: 'inventory_default_product_category.name'
+                                field: 'inventory_default_product_category.category'
                             },
                         },
                     ]

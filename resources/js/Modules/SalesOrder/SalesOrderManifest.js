@@ -139,7 +139,7 @@ const manifest = {
             if (cityId) {
                 formContext.useFetch(`/api/cities/${cityId}`, GET).then((response) => {
                     if (response.delivery_fee_lines.length) {
-                        console.log(response);
+                        // console.log(response);
                         const product = response.delivery_fee_lines[0].product;
                         const deliveryFeeLineFee = response.delivery_fee_lines[0].fee;
                         let salesOrderLines = allValues.sales_order_lines;

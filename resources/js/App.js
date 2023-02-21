@@ -60,7 +60,7 @@ const App = () => {
         useFetch(`/api/users`, GET, {
             email: getCookie('userEmail'),
         }).then((userResponse) => {
-            console.log(userResponse);
+            // console.log(userResponse);
             const user = userResponse.data[0];
             let accessRights = [];
             const userGroupLines = user.user_group_lines;

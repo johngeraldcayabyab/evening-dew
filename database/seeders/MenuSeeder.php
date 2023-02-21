@@ -56,7 +56,7 @@ class MenuSeeder extends Seeder
             ],
             [
                 'label' => 'Global Settings',
-                'url' => '/global_settings',
+                'url' => '/global_settings/create',
             ],
             [
                 'label' => 'Groups',
