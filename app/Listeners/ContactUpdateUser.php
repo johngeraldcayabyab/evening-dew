@@ -11,10 +11,12 @@ class ContactUpdateUser
     {
         $contact = $event->contact;
         $user = User::where('email', $contact->email)->first();
-        $user->update([
-            'name' => $contact->name,
-            'email' => $contact->email,
-            'avatar' => $contact->avatar,
-        ]);
+        if ($user) {
+            $user->update([
+                'name' => $contact->name,
+                'email' => $contact->email,
+                'avatar' => $contact->avatar,
+            ]);
+        }
     }
 }

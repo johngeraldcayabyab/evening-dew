@@ -79,6 +79,13 @@ const manifest = {
                     required: true,
                     size: 'large'
                 },
+                {
+                    type: 'text',
+                    name: 'email',
+                    label: 'Email',
+                    required: true,
+                    size: 'medium'
+                },
             ],
             col_2: [
                 {
