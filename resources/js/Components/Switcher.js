@@ -5,27 +5,35 @@ import TableGenerator from "./TableGenerator"
 import FormGenerator from "./Form/FormGenerator"
 
 const Switcher = (props) => {
-    return (<Switch>
-        {props.routes.map((route) => {
-            if (route.path.includes('create') || route.path.includes(':id')) {
-                return (
-                    <Routes
-                        key={uuidv4()}
-                        path={route.path}
-                        component={() => <FormGenerator {...route.manifest()}/>}
-                    />
-                )
-            } else {
-                return (
-                    <Routes
-                        key={uuidv4()}
-                        path={route.path}
-                        component={() => <TableGenerator {...route.manifest()}/>}
-                    />
-                )
+    const manifest = props.manifest;
+    return (
+        <Switch>
+            {
+                manifest.form &&
+                <Routes
+                    key={uuidv4()}
+                    path={`/${manifest.displayName}/create`}
+                    component={() => <FormGenerator {...manifest}/>}
+                />
             }
-        })}
-    </Switch>)
+            {
+                (manifest.form && !manifest.form.hasOwnProperty('updatable')) &&
+                <Routes
+                    key={uuidv4()}
+                    path={`/${manifest.displayName}/:id`}
+                    component={() => <FormGenerator {...manifest}/>}
+                />
+            }
+            {
+                manifest.table &&
+                <Routes
+                    key={uuidv4()}
+                    path={`/${manifest.displayName}`}
+                    component={() => <TableGenerator {...manifest}/>}
+                />
+            }
+        </Switch>
+    )
 };
 
 export default Switcher;

@@ -5,7 +5,7 @@ const SwitchMaster = (props) => {
     return (
         props.switches.map((switched) => {
             return (
-                <Switcher key={uuidv4()} routes={switched}/>
+                <Switcher key={uuidv4()} manifest={switched}/>
             )
         })
     );
