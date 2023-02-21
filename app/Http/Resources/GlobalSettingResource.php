@@ -34,7 +34,7 @@ class GlobalSettingResource extends JsonResource
             'inventory_default_product_category' => $this->inventoryDefaultProductCategory,
             'inventory_default_customer_location' => $this->inventoryDefaultCustomerLocation,
             'inventory_default_vendor_location' => $this->inventoryDefaultVendorLocation,
-            'inventory_default_inventory_adjustment' => $this->inventoryDefaultInventoryAdjustment,
+            'inventory_default_adjustment_location' => $this->inventoryDefaultAdjustmentLocation,
             'inventory_default_production' => $this->inventoryDefaultProduction,
             'inventory_default_scrap' => $this->inventoryDefaultScrap,
             'inventory_default_warehouse' => $this->inventoryDefaultWarehouse,
