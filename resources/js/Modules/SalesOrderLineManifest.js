@@ -15,9 +15,6 @@ const manifest = {
         "has_field": "product_type",
         "has_value": "storable"
     },
-    "routes": [
-        {path: `/${displayName}`, manifest: () => manifest},
-    ],
     table: {
         columnSelection: true,
         columns: [

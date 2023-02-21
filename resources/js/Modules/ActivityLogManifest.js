@@ -8,9 +8,6 @@ const manifest = {
     "moduleName": "activity_log",
     "displayName": displayName,
     "queryDefaults": {},
-    "routes": [
-        {path: `/${displayName}`, manifest: () => manifest},
-    ],
     table: {
         columnSelection: true,
         columns: [

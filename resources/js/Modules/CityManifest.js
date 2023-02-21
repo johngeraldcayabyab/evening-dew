@@ -6,11 +6,6 @@ const manifest = {
     "moduleName": "cities",
     "displayName": displayName,
     "queryDefaults": {},
-    "routes": [
-        {path: `/${displayName}/create`, manifest: () => manifest},
-        {path: `/${displayName}/:id`, manifest: () => manifest},
-        {path: `/${displayName}`, manifest: () => manifest},
-    ],
     table: {
         columnSelection: true,
         columns: [

@@ -4,9 +4,6 @@ const manifest = {
     "moduleName": "global_settings",
     "displayName": displayName,
     "queryDefaults": {},
-    "routes": [
-        {path: `/${displayName}/create`, manifest: () => manifest},
-    ],
     form: {
         updatable: false,
         initialValue: true,
