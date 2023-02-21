@@ -96,9 +96,11 @@ const FormGenerator = (manifest) => {
 
     urlQueries.forEach((field) => {
         if (field.hasOwnProperty('listName')) {
-            options[`${field.name}-lineOptions`] = useOptionLineHook(field.query.url, field.query.field, field.listName);
+            const tableField = field.name.replace('_id', '');
+            options[`${field.name}-lineOptions`] = useOptionLineHook(field.query.url, `${tableField}.${field.query.field}`, field.listName);
         } else {
-            options[`${field.name}-options`] = useOptionHook(field.query.url, field.query.field);
+            const tableField = field.name.replace('_id', '');
+            options[`${field.name}-options`] = useOptionHook(field.query.url, `${tableField}.${field.query.field}`);
         }
     });
 
@@ -126,8 +128,7 @@ const FormGenerator = (manifest) => {
         formContextProviderValues['onValuesChange'] = manifest.form.onValuesChange;
     }
 
-    return (
-        <FormContextProvider
+    return (<FormContextProvider
             value={formContextProviderValues}
         >
             <CustomForm>
@@ -142,8 +143,7 @@ const FormGenerator = (manifest) => {
                     <FormItems/>
                 </FormCard>
             </CustomForm>
-        </FormContextProvider>
-    );
+        </FormContextProvider>);
 };
 
 export default FormGenerator;

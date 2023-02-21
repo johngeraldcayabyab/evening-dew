@@ -79,7 +79,7 @@ const manifest = {
                     type: 'select',
                     name: 'product_id',
                     label: 'Product',
-                    query: {url: '/api/products', field: 'product.name'},
+                    query: {url: '/api/products', field: 'name'},
                 },
             ]
         },
@@ -95,7 +95,7 @@ const manifest = {
                             type: 'select',
                             name: 'city_id',
                             placeholder: 'City',
-                            query: {url: '/api/cities', field: 'city.name'},
+                            query: {url: '/api/cities', field: 'name'},
                             required: true,
                             listName: 'delivery_fee_lines',
                         },

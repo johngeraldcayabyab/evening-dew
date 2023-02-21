@@ -1,8 +1,8 @@
-import {disableIfStatus} from "../../Helpers/object"
-import {DATE_RANGE, GET, SEARCH} from "../../consts"
-import {getPersistedKey, isLineFieldExecute} from "../../Helpers/form"
-import SalesOrderPDF from "./SalesOrderPDF"
-import SalesOrderBreakDown from "./SalesOrderBreakDown"
+import {disableIfStatus} from "../Helpers/object"
+import {DATE_RANGE, GET, SEARCH} from "../consts"
+import {getPersistedKey, isLineFieldExecute} from "../Helpers/form"
+import SalesOrderPDF from "./SalesOrder/SalesOrderPDF"
+import SalesOrderBreakDown from "./SalesOrder/SalesOrderBreakDown"
 import Text from "antd/es/typography/Text"
 import {Tag} from "antd"
 
@@ -256,7 +256,7 @@ const manifest = {
                     type: 'select',
                     name: 'customer_id',
                     label: 'Customer',
-                    query: {url: '/api/contacts', field: 'contact.name'},
+                    query: {url: '/api/contacts', field: 'name'},
                     required: true,
                 },
                 {

@@ -104,7 +104,7 @@ const manifest = {
                     type: 'select',
                     name: 'measurement_category_id',
                     label: 'Measurement Category',
-                    query: {url: '/api/measurement_categories', field: 'measurement_category.name'},
+                    query: {url: '/api/measurement_categories', field: 'name'},
                     required: true,
                 },
             ]

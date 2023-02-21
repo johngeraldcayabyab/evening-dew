@@ -107,7 +107,7 @@ const manifest = {
                     type: 'select',
                     name: 'group_id',
                     label: 'Group',
-                    query: {url: '/api/groups', field: 'group.name'},
+                    query: {url: '/api/groups', field: 'name'},
                 },
                 {
                     type: 'checkbox',

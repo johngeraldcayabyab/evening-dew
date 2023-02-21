@@ -48,7 +48,7 @@ const manifest = {
                     type: 'select',
                     name: 'parent_location_id',
                     label: 'Parent Location',
-                    query: {url: '/api/locations', field: 'parent_location.name'},
+                    query: {url: '/api/locations', field: 'name'},
                     size: 'medium'
                 },
             ]

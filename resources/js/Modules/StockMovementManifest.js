@@ -109,21 +109,21 @@ const manifest = {
                     type: 'select',
                     name: 'product_id',
                     label: 'Product',
-                    query: {url: '/api/products', field: 'product.name'},
+                    query: {url: '/api/products', field: 'name'},
                     required: true
                 },
                 {
                     type: 'select',
                     name: 'source_location_id',
                     label: 'Please select source location',
-                    query: {url: '/api/locations', field: 'source_location.name'},
+                    query: {url: '/api/locations', field: 'name'},
                     required: true
                 },
                 {
                     type: 'select',
                     name: 'destination_location_id',
                     label: 'Please select destination location',
-                    query: {url: '/api/locations', field: 'destination_location.name'},
+                    query: {url: '/api/locations', field: 'name'},
                     required: true
                 },
                 {

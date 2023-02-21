@@ -75,7 +75,7 @@ const manifest = {
                     type: 'select',
                     name: 'reference_sequence_id',
                     label: 'Reference Sequence',
-                    query: {url: '/api/sequences', field: 'reference_sequence.name'},
+                    query: {url: '/api/sequences', field: 'name'},
                     required: true,
                 },
                 {
@@ -88,7 +88,7 @@ const manifest = {
                     type: 'select',
                     name: 'warehouse_id',
                     label: 'Warehouse',
-                    query: {url: '/api/warehouses', field: 'warehouse.name'},
+                    query: {url: '/api/warehouses', field: 'name'},
                 },
                 {
                     type: 'select',
@@ -131,7 +131,7 @@ const manifest = {
                     type: 'select',
                     name: 'operation_type_for_returns_id',
                     label: 'Operation Type For Returns',
-                    query: {url: '/api/operations_types', field: 'operation_type_for_returns.name'},
+                    query: {url: '/api/operations_types', field: 'name'},
                 },
                 {
                     type: 'checkbox',
@@ -168,13 +168,13 @@ const manifest = {
                     type: 'select',
                     name: 'default_source_location_id',
                     label: 'Default Source Location',
-                    query: {url: '/api/locations', field: 'default_source_location.name'},
+                    query: {url: '/api/locations', field: 'name'},
                 },
                 {
                     type: 'select',
                     name: 'default_destination_location_id',
                     label: 'Default Destination Location',
-                    query: {url: '/api/locations', field: 'default_destination_location.name'},
+                    query: {url: '/api/locations', field: 'name'},
                 },
             ]
         }

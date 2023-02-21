@@ -17,7 +17,7 @@ const manifest = {
                             type: 'select',
                             name: 'general_default_country_id',
                             label: 'Default Country',
-                            query: {url: '/api/countries', field: 'general_default_country.country_name'},
+                            query: {url: '/api/countries', field: 'country_name'},
                         },
                     ],
                 },
@@ -53,7 +53,7 @@ const manifest = {
                             label: 'Default Measurement Category',
                             query: {
                                 url: '/api/measurement_categories',
-                                field: 'inventory_default_measurement_category.name'
+                                field: 'name'
                             },
                         },
                         {
@@ -62,7 +62,7 @@ const manifest = {
                             label: 'Default Measurement',
                             query: {
                                 url: '/api/measurements',
-                                field: 'inventory_default_measurement.name'
+                                field: 'name'
                             },
                         },
                         {
@@ -71,7 +71,7 @@ const manifest = {
                             label: 'Default Purchase Measurement',
                             query: {
                                 url: '/api/measurements',
-                                field: 'inventory_default_purchase_measurement.name'
+                                field: 'name'
                             },
                         },
                         {
@@ -80,7 +80,7 @@ const manifest = {
                             label: 'Default Sales Measurement',
                             query: {
                                 url: '/api/measurements',
-                                field: 'inventory_default_sales_measurement.name'
+                                field: 'name'
                             },
                         },
                     ],
@@ -97,7 +97,7 @@ const manifest = {
                             label: 'Default Product Category',
                             query: {
                                 url: '/api/product_categories',
-                                field: 'inventory_default_product_category.category'
+                                field: 'category'
                             },
                         },
                     ]
@@ -116,7 +116,7 @@ const manifest = {
                             label: 'Default Customer Location',
                             query: {
                                 url: '/api/locations',
-                                field: 'inventory_default_customer_location.name'
+                                field: 'name'
                             },
                         },
                         {
@@ -125,7 +125,7 @@ const manifest = {
                             label: 'Default Vendor Location',
                             query: {
                                 url: '/api/locations',
-                                field: 'inventory_default_vendor_location.name'
+                                field: 'name'
                             },
                         },
                         {
@@ -134,7 +134,7 @@ const manifest = {
                             label: 'Default Adjustment Location',
                             query: {
                                 url: '/api/locations',
-                                field: 'inventory_default_adjustment_location.name'
+                                field: 'name'
                             },
                         },
                     ],
@@ -145,7 +145,7 @@ const manifest = {
                             label: 'Default Production Location',
                             query: {
                                 url: '/api/locations',
-                                field: 'inventory_default_production.name'
+                                field: 'name'
                             },
                         },
                         {
@@ -154,7 +154,7 @@ const manifest = {
                             label: 'Default Scrap Location',
                             query: {
                                 url: '/api/locations',
-                                field: 'inventory_default_scrap.name'
+                                field: 'name'
                             },
                         },
                     ]
@@ -173,7 +173,7 @@ const manifest = {
                             label: 'Default Warehouse',
                             query: {
                                 url: '/api/warehouses',
-                                field: 'inventory_default_warehouse.name'
+                                field: 'name'
                             },
                         },
 
@@ -210,7 +210,7 @@ const manifest = {
                             label: 'Default Currency',
                             query: {
                                 url: '/api/currencies',
-                                field: 'accounting_default_currency.name'
+                                field: 'name'
                             },
                         },
                     ],
@@ -226,7 +226,7 @@ const manifest = {
                             label: 'Sales Default Sequence',
                             query: {
                                 url: '/api/sequences',
-                                field: 'sales_order_default_sequence.name'
+                                field: 'name'
                             },
                         },
                         {
@@ -235,7 +235,7 @@ const manifest = {
                             label: 'Sales Default Delivery Fee',
                             query: {
                                 url: '/api/delivery_fees',
-                                field: 'sales_order_default_delivery_fee.name'
+                                field: 'name'
                             },
                         },
                     ],

@@ -103,13 +103,13 @@ const manifest = {
                     type: 'select',
                     name: 'country_id',
                     label: 'Country',
-                    query: {url: '/api/countries', field: 'country.country_name'},
+                    query: {url: '/api/countries', field: 'country_name'},
                 },
                 {
                     type: 'select',
                     name: 'city_id',
                     label: 'City',
-                    query: {url: '/api/cities', field: 'city.name'},
+                    query: {url: '/api/cities', field: 'name'},
                 },
                 {
                     type: 'text',

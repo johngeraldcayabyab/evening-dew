@@ -94,63 +94,63 @@ const manifest = {
                             type: 'select',
                             name: 'view_location_id',
                             label: 'View Location',
-                            query: {url: '/api/locations', field: 'view_location.name'},
+                            query: {url: '/api/locations', field: 'name'},
                             required: true
                         },
                         {
                             type: 'select',
                             name: 'stock_location_id',
                             label: 'Stock Location',
-                            query: {url: '/api/locations', field: 'stock_location.name'},
+                            query: {url: '/api/locations', field: 'name'},
                             required: true
                         },
                         {
                             type: 'select',
                             name: 'input_location_id',
                             label: 'Input Location',
-                            query: {url: '/api/locations', field: 'input_location.name'},
+                            query: {url: '/api/locations', field: 'name'},
                             required: true
                         },
                         {
                             type: 'select',
                             name: 'quality_control_location_id',
                             label: 'Quality Control Location',
-                            query: {url: '/api/locations', field: 'quality_control_location.name'},
+                            query: {url: '/api/locations', field: 'name'},
                             required: true
                         },
                         {
                             type: 'select',
                             name: 'packing_location_id',
                             label: 'Packing Location',
-                            query: {url: '/api/locations', field: 'packing_location.name'},
+                            query: {url: '/api/locations', field: 'name'},
                             required: true
                         },
                         {
                             type: 'select',
                             name: 'output_location_id',
                             label: 'Output Location',
-                            query: {url: '/api/locations', field: 'output_location.name'},
+                            query: {url: '/api/locations', field: 'name'},
                             required: true
                         },
                         {
                             type: 'select',
                             name: 'stock_after_manufacturing_location_id',
                             label: 'Stock after manufacturing location',
-                            query: {url: '/api/locations', field: 'stock_after_manufacturing_location.name'},
+                            query: {url: '/api/locations', field: 'name'},
                             required: true
                         },
                         {
                             type: 'select',
                             name: 'picking_before_manufacturing_location_id',
                             label: 'Picking before manufacturing location',
-                            query: {url: '/api/locations', field: 'picking_before_manufacturing_location.name'},
+                            query: {url: '/api/locations', field: 'name'},
                             required: true
                         },
                         {
                             type: 'select',
                             name: 'adjustment_location_id',
                             label: 'Adjustment Location',
-                            query: {url: '/api/locations', field: 'adjustment_location.name'},
+                            query: {url: '/api/locations', field: 'name'},
                             required: true
                         },
                     ],
@@ -165,35 +165,35 @@ const manifest = {
                             type: 'select',
                             name: 'in_type_id',
                             label: 'In Type',
-                            query: {url: '/api/operations_types', field: 'in_type.name'},
+                            query: {url: '/api/operations_types', field: 'name'},
                             required: true
                         },
                         {
                             type: 'select',
                             name: 'internal_type_id',
                             label: 'Internal Type',
-                            query: {url: '/api/operations_types', field: 'internal_type.name'},
+                            query: {url: '/api/operations_types', field: 'name'},
                             required: true
                         },
                         {
                             type: 'select',
                             name: 'pick_type_id',
                             label: 'Pick Type',
-                            query: {url: '/api/operations_types', field: 'pick_type.name'},
+                            query: {url: '/api/operations_types', field: 'name'},
                             required: true
                         },
                         {
                             type: 'select',
                             name: 'pack_type_id',
                             label: 'Pack Type',
-                            query: {url: '/api/operations_types', field: 'pack_type.name'},
+                            query: {url: '/api/operations_types', field: 'name'},
                             required: true
                         },
                         {
                             type: 'select',
                             name: 'out_type_id',
                             label: 'Out Type',
-                            query: {url: '/api/operations_types', field: 'out_type.name'},
+                            query: {url: '/api/operations_types', field: 'name'},
                             required: true
                         },
                         {
@@ -202,7 +202,7 @@ const manifest = {
                             label: 'Stock After Manufacturing Operation Type',
                             query: {
                                 url: '/api/operations_types',
-                                field: 'stock_after_manufacturing_operation_type.name'
+                                field: 'name'
                             },
                             required: true
                         },
@@ -212,7 +212,7 @@ const manifest = {
                             label: 'Picking Before Manufacturing Operation Type',
                             query: {
                                 url: '/api/operations_types',
-                                field: 'picking_before_manufacturing_operation_type.name'
+                                field: 'name'
                             },
                             required: true
                         },
@@ -220,14 +220,14 @@ const manifest = {
                             type: 'select',
                             name: 'manufacturing_operation_type_id',
                             label: 'Manufacturing Operation Type',
-                            query: {url: '/api/operations_types', field: 'manufacturing_operation_type.name'},
+                            query: {url: '/api/operations_types', field: 'name'},
                             required: true
                         },
                         {
                             type: 'select',
                             name: 'adjustment_operation_type_id',
                             label: 'Adjustment Operation Type',
-                            query: {url: '/api/operations_types', field: 'adjustment_operation_type.name'},
+                            query: {url: '/api/operations_types', field: 'name'},
                             required: true
                         },
                     ]

@@ -54,7 +54,7 @@ const manifest = {
                     type: 'select',
                     name: 'currency_id',
                     label: 'Currency',
-                    query: {url: '/api/currencies', field: 'currency.currency'},
+                    query: {url: '/api/currencies', field: 'currency'},
                 },
                 {
                     type: 'text',

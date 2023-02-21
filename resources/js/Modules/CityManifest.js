@@ -73,7 +73,7 @@ const manifest = {
                     type: 'select',
                     name: 'region_id',
                     label: 'Region',
-                    query: {url: '/api/regions', field: 'region.region'},
+                    query: {url: '/api/regions', field: 'region'},
                 },
             ]
         }

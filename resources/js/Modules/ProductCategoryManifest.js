@@ -48,7 +48,7 @@ const manifest = {
                     type: 'select',
                     name: 'parent_product_category_id',
                     label: 'Parent Category',
-                    query: {url: '/api/product_categories', field: 'parent_category.category'},
+                    query: {url: '/api/product_categories', field: 'category'},
                 },
             ]
         },
