@@ -8,6 +8,7 @@ const manifest = {
         {path: `/${displayName}/create`, manifest: () => manifest},
     ],
     form: {
+        isEditable: false,
         initialValue: true,
         tab_1: {
             defaultActiveKey: 'tab_pane_1',
