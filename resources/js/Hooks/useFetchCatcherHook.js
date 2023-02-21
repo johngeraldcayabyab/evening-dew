@@ -1,9 +1,7 @@
 import {message} from "antd";
-import {useContext, useState} from "react";
-import {AppContext} from "../App";
+import {useState} from "react";
 
 const useFetchCatcherHook = () => {
-    const appContext = useContext(AppContext);
     const [handle] = useState({
         get: (response) => {
             if (response.status === 401) {
