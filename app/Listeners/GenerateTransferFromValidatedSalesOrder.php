@@ -11,9 +11,8 @@ use App\Models\SalesOrderTransferLine;
 use App\Models\Transfer;
 use App\Models\TransferLine;
 use App\Services\MeasurementConversion;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
-class GenerateTransferFromValidatedSalesOrder implements ShouldQueue
+class GenerateTransferFromValidatedSalesOrder
 {
     public function handle(SalesOrderValidated $event)
     {

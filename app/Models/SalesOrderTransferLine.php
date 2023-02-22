@@ -45,7 +45,7 @@ class SalesOrderTransferLine extends Model
         return $this->belongsTo(TransferLine::class);
     }
 
-    public function scopeMatchSalesOrderOrTransferLines
+    public static function matchSalesOrderOrTransferLines
     (
         $salesOrderTransfer,
         $salesOrder,
@@ -55,21 +55,20 @@ class SalesOrderTransferLine extends Model
         $lineField
     )
     {
-        $lines = [];
-        foreach ($theLines as $theLine) {
+        $lines = $theLines->map(function ($theLine) use ($modelLine, $lineField, $salesOrder, $transfer, $salesOrderTransfer) {
             $salesOrderLine = $modelLine
                 ->where($lineField, $salesOrder->id)
                 ->where('product_id', $theLine->product_id)
                 ->where('created_at', $theLine->created_at)
                 ->first();
-            $lines[] = [
+            return [
                 'sales_order_id' => $salesOrder->id,
                 'transfer_id' => $transfer->id,
                 'sales_order_line_id' => $salesOrderLine->id,
                 'transfer_line_id' => $theLine->id,
                 'sales_order_transfer_id' => $salesOrderTransfer->id,
             ];
-        }
+        });
         if (count($lines)) {
             SalesOrderTransferLine::massUpsert($lines, $salesOrderTransfer);
         }
