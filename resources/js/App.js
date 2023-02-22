@@ -2,16 +2,15 @@ import './bootstrap.js';
 import React, {lazy, useEffect, useState} from 'react';
 import {render} from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
-import {getCookie, setCookie} from "./Helpers/cookie";
+import {getCookie} from "./Helpers/cookie";
 import ContentContainer from './Components/ContentContainter';
 import LoginRoute from './Modules/Login/LoginRoute';
 import HomeRoute from "./Modules/Home/HomeRoute";
 import {GET} from "./consts";
 import useFetchHook from "./Hooks/useFetchHook";
 import useFetchCatcherHook from "./Hooks/useFetchCatcherHook";
-import {Layout, message} from "antd"
+import {message} from "antd"
 import {reset} from "./Helpers/reset"
-import {useHistory} from "react-router"
 
 export const AppContext = React.createContext({});
 export const AppContextProvider = AppContext.Provider;
@@ -113,15 +112,13 @@ const App = () => {
                     setAppState: setAppState
                 }}
             >
-                <Layout style={{height: '100%', background: '#f6f7fa'}}>
-                    <ContentContainer>
-                        <React.Suspense fallback={<></>}>
-                            <Routerist/>
-                        </React.Suspense>
-                        <HomeRoute/>
-                        <LoginRoute/>
-                    </ContentContainer>
-                </Layout>
+                <ContentContainer>
+                    <React.Suspense fallback={<></>}>
+                        <Routerist/>
+                    </React.Suspense>
+                    <HomeRoute/>
+                    <LoginRoute/>
+                </ContentContainer>
             </AppContextProvider>
         </BrowserRouter>
     )
