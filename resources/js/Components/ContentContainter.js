@@ -8,23 +8,26 @@ import {getCookie} from "../Helpers/cookie";
 import {GET} from "../consts";
 import {reset} from "../Helpers/reset";
 import {AppContext} from "../App";
+import {useHistory, useLocation} from "react-router";
 
 const ContentContainer = (props) => {
     const appContext = useContext(AppContext);
     const appState = appContext.appState;
     const setAppState = appContext.setAppState;
+    const location = useLocation();
+    const history = useHistory();
 
     const useFetch = useFetchHook();
     const fetchCatcher = useFetchCatcherHook();
 
     useEffect(() => {
         window.Echo.channel('refresh-browser').listen('RefreshBrowserEvent', () => {
-            window.location.reload();
+            history.go(0);
         });
         if (!appState.isLogin) {
-            if (!window.location.href.includes('login')) {
+            if (!location.pathname.includes('login')) {
                 message.warning('Please login first!'); // this thing does nothing because the state isnt fixed
-                window.location.href = '/login';
+                history.push('/login');
             }
             return;
         }
@@ -92,14 +95,12 @@ const ContentContainer = (props) => {
         });
     }, [appState.isLogin]);
 
-    return (
-        <Layout style={{height: '100%', background: '#f6f7fa'}}>
+    return (<Layout style={{height: '100%', background: '#f6f7fa'}}>
             <CustomMenu/>
             <Content style={{marginTop: '50px', borderTop: 'none'}}>
                 {props.children}
             </Content>
-        </Layout>
-    )
+        </Layout>)
 };
 
 export default ContentContainer;
