@@ -19,11 +19,12 @@ class MeasurementConversion
      *
      *
      */
-    public static function convertSalesMeasurement($productId, $toConvertMeasurementId, $quantity)
+    public static function convertSalesMeasurement($salesOrderLine)
     {
-        $product = Product::find($productId);
+        $product = $salesOrderLine->product;
         $baseMeasurement = $product->measurement;
-        $toConvertMeasurement = Measurement::find($toConvertMeasurementId);
+        $quantity = $salesOrderLine->quantity;
+        $toConvertMeasurement = $salesOrderLine->measurement;
 
         // Bigger to reference
         if ($toConvertMeasurement->ratio > $baseMeasurement->ratio) {

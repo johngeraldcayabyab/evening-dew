@@ -5,7 +5,6 @@ namespace App\Listeners;
 use App\Data\SystemSetting;
 use App\Events\SalesOrderValidated;
 use App\Models\OperationType;
-use App\Models\Product;
 use App\Models\SalesOrderTransfer;
 use App\Models\Transfer;
 use App\Models\TransferLine;
@@ -46,17 +45,17 @@ class GenerateTransferFromValidatedSalesOrder
             'shipping_method' => $salesOrder->shipping_method,
             'status' => Transfer::DRAFT,
         ]);
-        $lines = $salesOrder->salesOrderLines->map(function ($salesOrderLine) {
-            $transferDemand = MeasurementConversion::convertSalesMeasurement($salesOrderLine->product_id, $salesOrderLine->measurement_id, $salesOrderLine->quantity);
+        $transferLines = $salesOrder->salesOrderLines->map(function ($salesOrderLine) {
+            $transferDemand = MeasurementConversion::convertSalesMeasurement($salesOrderLine);
             return [
                 'product_id' => $salesOrderLine->product_id,
                 'description' => $salesOrderLine->description,
                 'demand' => $transferDemand,
-                'measurement_id' => Product::find($salesOrderLine->product_id)->measurement_id,
+                'measurement_id' => $salesOrderLine->product->measurement_id,
             ];
         });
-        if (count($lines)) {
-            TransferLine::massUpsert($lines, $transfer);
+        if (count($transferLines)) {
+            TransferLine::massUpsert($transferLines, $transfer);
         }
         return $transfer;
     }
