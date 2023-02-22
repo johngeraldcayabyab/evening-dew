@@ -42,20 +42,13 @@ class UserGroupLine extends Model
 
     public function scopeMassUpsert($query, $data, $parent)
     {
-        $lines = [];
-        $date = now();
-        foreach ($data as $datum) {
-            $line = [
+        $lines = $data->map(function ($datum) use ($parent) {
+            return [
                 'id' => isset($datum['id']) ? $datum['id'] : null,
                 'group_id' => $datum['group_id'],
                 'user_id' => $parent->id,
-                'updated_at' => $datum['updated_at'] ?? $date,
             ];
-            if (!isset($datum['id'])) {
-                $line['created_at'] = $datum['created_at'] ?? $date;
-            }
-            $lines[] = $line;
-        }
+        });
         $query->upsert($lines, ['id']);
         return $query;
     }

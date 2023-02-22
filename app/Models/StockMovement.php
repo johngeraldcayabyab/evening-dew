@@ -48,7 +48,6 @@ class StockMovement extends Model
     public function scopeMassUpsert($query, $data)
     {
         $transactionLines = [];
-        $date = now();
         foreach ($data as $datum) {
             $transactionLine = [
                 'id' => isset($datum['id']) ? $datum['id'] : null,
@@ -58,11 +57,7 @@ class StockMovement extends Model
                 'source_location_id' => $datum['source_location_id'],
                 'destination_location_id' => $datum['destination_location_id'],
                 'quantity_done' => $datum['quantity_done'],
-                'updated_at' => $datum['updated_at'] ?? $date,
             ];
-            if (!isset($datum['id'])) {
-                $transactionLine['created_at'] = $datum['created_at'] ?? $date;
-            }
             $transactionLines[] = $transactionLine;
         }
         $query->upsert($transactionLines, ['id']);

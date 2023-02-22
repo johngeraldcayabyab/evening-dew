@@ -48,7 +48,6 @@ class AdjustmentLine extends Model
     public function scopeMassUpsert($query, $data, $parent)
     {
         $lines = [];
-        $date = now();
         foreach ($data as $datum) {
             $line = [
                 'id' => isset($datum['id']) ? $datum['id'] : null,
@@ -57,11 +56,7 @@ class AdjustmentLine extends Model
                 'quantity_on_hand' => $datum['quantity_on_hand'],
                 'quantity_counted' => $datum['quantity_counted'],
                 'adjustment_id' => $parent->id,
-                'updated_at' => $datum['updated_at'] ?? $date,
             ];
-            if (!isset($datum['id'])) {
-                $line['created_at'] = $datum['created_at'] ?? $date;
-            }
             $lines[] = $line;
         }
         $query->upsert($lines, ['id']);

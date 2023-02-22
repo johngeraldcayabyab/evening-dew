@@ -43,18 +43,13 @@ class TransferLineStockMovement extends Model
     public function scopeMassUpsert($query, $data)
     {
         $lines = [];
-        $date = now();
         foreach ($data as $datum) {
             $line = [
                 'id' => isset($datum['id']) ? $datum['id'] : null,
                 'transfer_id' => $datum['transfer_id'],
                 'transfer_line_id' => $datum['transfer_line_id'],
                 'stock_movement_id' => $datum['stock_movement_id'],
-                'updated_at' => $datum['updated_at'] ?? $date,
             ];
-            if (!isset($datum['id'])) {
-                $line['created_at'] = $datum['created_at'] ?? $date;
-            }
             $lines[] = $line;
         }
         $query->upsert($lines, ['id']);

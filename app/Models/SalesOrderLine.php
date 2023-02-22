@@ -53,7 +53,6 @@ class SalesOrderLine extends Model
         $inventoryDefaultMeasurement = $globalSetting->inventoryDefaultMeasurement;
         $measurementId = $inventoryDefaultMeasurement->id;
         $lines = [];
-        $date = now();
         $subtotal = 0;
         foreach ($data as $datum) {
             $unitPrice = (float)str_replace(',', '', $datum['unit_price']);
@@ -68,11 +67,7 @@ class SalesOrderLine extends Model
                 'subtotal' => $unitPrice * $datum['quantity'],
                 'shipping_date' => isset($datum['shipping_date']) ? Carbon::parse($datum['shipping_date'])->format(SystemSetting::DATE_TIME_FORMAT) : $parent->shipping_date,
                 'sales_order_id' => $parent->id,
-                'updated_at' => $datum['updated_at'] ?? $date,
             ];
-            if (!isset($datum['id'])) {
-                $line['created_at'] = $datum['created_at'] ?? $date;
-            }
             $lines[] = $line;
             $subtotal += $line['subtotal'];
         }

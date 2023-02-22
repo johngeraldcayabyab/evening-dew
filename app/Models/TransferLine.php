@@ -53,7 +53,6 @@ class TransferLine extends Model
     public function scopeMassUpsert($query, $data, $parent)
     {
         $lines = [];
-        $date = now();
         foreach ($data as $datum) {
             $line = [
                 'id' => isset($datum['id']) ? $datum['id'] : null,
@@ -62,11 +61,7 @@ class TransferLine extends Model
                 'demand' => $datum['demand'],
                 'measurement_id' => $datum['measurement_id'],
                 'transfer_id' => $parent->id,
-                'updated_at' => $datum['updated_at'] ?? $date,
             ];
-            if (!isset($datum['id'])) {
-                $line['created_at'] = $datum['created_at'] ?? $date;
-            }
             $lines[] = $line;
         }
         $query->upsert($lines, ['id']);
