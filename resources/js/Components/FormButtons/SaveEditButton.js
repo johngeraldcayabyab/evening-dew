@@ -14,10 +14,7 @@ const SaveEditButton = () => {
     }
 
     function isEditing() {
-        if (formContext.id && !formContext.formState.formDisabled) {
-            return true;
-        }
-        return false;
+        return formContext.id && !formContext.formState.formDisabled;
     }
 
     if (!isEditing()) {
