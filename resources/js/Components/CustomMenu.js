@@ -156,28 +156,25 @@ const CustomMenu = () => {
         },
     ];
 
-    if (appContext.appState.isLogin) {
-        return (
-            <Spin spinning={state.loading}>
-                <Header
-                    style={{
-                        position: 'fixed',
-                        zIndex: 1,
-                        width: '100%',
-                        padding: 0,
-                        height: '50px',
-                        lineHeight: '50px',
-                    }}
-                >
-                    <Menu
-                        theme={'dark'}
-                        mode={'horizontal'}
-                        items={items}
-                    />
-                </Header>
-            </Spin>
-        );
-    }
-    return null;
+    return (
+        <Spin spinning={state.loading}>
+            <Header
+                style={{
+                    position: 'fixed',
+                    zIndex: 1,
+                    width: '100%',
+                    padding: 0,
+                    height: '50px',
+                    lineHeight: '50px',
+                }}
+            >
+                <Menu
+                    theme={'dark'}
+                    mode={'horizontal'}
+                    items={items}
+                />
+            </Header>
+        </Spin>
+    );
 }
 export default CustomMenu;

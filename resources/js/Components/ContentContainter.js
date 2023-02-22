@@ -50,7 +50,6 @@ const ContentContainer = (props) => {
         useFetch(`/api/users`, GET, {
             email: getCookie('userEmail'),
         }).then((userResponse) => {
-            // console.log(userResponse);
             const user = userResponse.data[0];
             let accessRights = [];
             const userGroupLines = user.user_group_lines;
@@ -95,12 +94,14 @@ const ContentContainer = (props) => {
         });
     }, [appState.isLogin]);
 
-    return (<Layout style={{height: '100%', background: '#f6f7fa'}}>
-            <CustomMenu/>
+    return (
+        <Layout style={{height: '100%', background: '#f6f7fa'}}>
+            {appState.isLogin && <CustomMenu/>}
             <Content style={{marginTop: '50px', borderTop: 'none'}}>
                 {props.children}
             </Content>
-        </Layout>)
+        </Layout>
+    )
 };
 
 export default ContentContainer;
