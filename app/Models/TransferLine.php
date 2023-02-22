@@ -40,11 +40,6 @@ class TransferLine extends Model
         return $this->belongsTo(Transfer::class);
     }
 
-    public function salesOrderTransferLine()
-    {
-        return $this->hasOne(SalesOrderTransferLine::class);
-    }
-
     public function transferLineStockMovement()
     {
         return $this->hasOne(TransferLineStockMovement::class);

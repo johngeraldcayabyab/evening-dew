@@ -42,11 +42,6 @@ class SalesOrderLine extends Model
         return $this->belongsTo(SalesOrder::class);
     }
 
-    public function salesOrderTransferLine()
-    {
-        return $this->hasOne(SalesOrderTransferLine::class);
-    }
-
     public function scopeMassUpsert($query, $data, $parent)
     {
         $globalSetting = GlobalSetting::latestFirst();
