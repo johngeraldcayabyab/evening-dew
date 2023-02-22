@@ -29,46 +29,76 @@ import StockMovement from "./Modules/StockMovementManifest"
 import Transfer from "./Modules/TransferManifest"
 import User from "./Modules/UserManifest"
 import Warehouse from "./Modules/WarehouseManifest"
-import SwitchMaster from "./Components/SwitchMaster"
+import {Switch} from "react-router-dom"
+import Routes from "./Components/Routes"
+import FormGenerator from "./Components/Form/FormGenerator"
+import TableGenerator from "./Components/TableGenerator"
 
 const RouteMaster = () => {
-    return (
-        <SwitchMaster
-            switches={[
-                AccessRight,
-                ActivityLog,
-                Address,
-                Adjustment,
-                AppMenu,
-                City,
-                Contact,
-                Country,
-                Courier,
-                Currency,
-                DeliveryFee,
-                GlobalSetting,
-                Group,
-                LocationManifest,
-                Material,
-                Measurement,
-                MeasurementCategory,
-                Menu,
-                OperationType,
-                PaymentTerm,
-                Product,
-                ProductCategory,
-                Region,
-                SalesOrder,
-                SalesOrderLine,
-                Sequence,
-                Source,
-                StockMovement,
-                Transfer,
-                User,
-                Warehouse
-            ]}
-        />
-    )
+    const manifests = [
+        AccessRight,
+        ActivityLog,
+        Address,
+        Adjustment,
+        AppMenu,
+        City,
+        Contact,
+        Country,
+        Courier,
+        Currency,
+        DeliveryFee,
+        GlobalSetting,
+        Group,
+        LocationManifest,
+        Material,
+        Measurement,
+        MeasurementCategory,
+        Menu,
+        OperationType,
+        PaymentTerm,
+        Product,
+        ProductCategory,
+        Region,
+        SalesOrder,
+        SalesOrderLine,
+        Sequence,
+        Source,
+        StockMovement,
+        Transfer,
+        User,
+        Warehouse
+    ];
+
+    return manifests.map((manifest) => {
+        return (
+            <Switch key={`${manifest.moduleName}-${manifest.displayName}`}>
+                {
+                    manifest.form &&
+                    <Routes
+                        key={`${manifest.moduleName}-${manifest.displayName}-create-form`}
+                        path={`/${manifest.displayName}/create`}
+                        component={() => <FormGenerator {...manifest}/>}
+                    />
+                }
+                {
+                    (manifest.form && !manifest.form.hasOwnProperty('updatable')) &&
+                    <Routes
+                        key={`${manifest.moduleName}-${manifest.displayName}-update-form`}
+                        path={`/${manifest.displayName}/:id`}
+                        component={() => <FormGenerator {...manifest}/>}
+                    />
+                }
+                {
+                    manifest.table &&
+                    <Routes
+                        key={`${manifest.moduleName}-${manifest.displayName}-table`}
+                        path={`/${manifest.displayName}`}
+                        component={() => <TableGenerator {...manifest}/>}
+                    />
+                }
+            </Switch>
+        )
+    });
 };
 
 export default RouteMaster;
