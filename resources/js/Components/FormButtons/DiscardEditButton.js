@@ -13,22 +13,27 @@ const DiscardEditButton = () => {
         return null;
     }
 
-    if (formContext.id && !formContext.formState.formDisabled) {
-        return (
-            <Button
-                htmlType={"button"}
-                type={"primary"}
-                size={'default'}
-                onClick={() => {
-                    formContext.formActions.toggleEditMode();
-                    formContext.form.setFieldsValue(formContext.formState.initialValues);
-                }}
-            >
-                Discard
-            </Button>
-        )
+    function isEditing() {
+        return formContext.id && !formContext.formState.formDisabled;
     }
-    return null;
+
+    if (!isEditing()) {
+        return null;
+    }
+
+    return (
+        <Button
+            htmlType={"button"}
+            type={"primary"}
+            size={'default'}
+            onClick={() => {
+                formContext.formActions.toggleEditMode();
+                formContext.form.setFieldsValue(formContext.formState.initialValues);
+            }}
+        >
+            Discard
+        </Button>
+    );
 };
 
 export default DiscardEditButton;

@@ -13,18 +13,26 @@ const SaveEditButton = () => {
         return null;
     }
 
-    if (formContext.id && !formContext.formState.formDisabled) {
-        return (
-            <Button
-                htmlType={"submit"}
-                type={"primary"}
-                size={'default'}
-            >
-                Save
-            </Button>
-        )
+    function isEditing() {
+        if (formContext.id && !formContext.formState.formDisabled) {
+            return true;
+        }
+        return false;
     }
-    return null;
+
+    if (!isEditing()) {
+        return null;
+    }
+
+    return (
+        <Button
+            htmlType={"submit"}
+            type={"primary"}
+            size={'default'}
+        >
+            Save
+        </Button>
+    );
 };
 
 export default SaveEditButton;

@@ -14,8 +14,16 @@ const FormCreateButton = () => {
         return null;
     }
 
-    if (formContext.id && formContext.formState.formDisabled) {
-        return (<Button
+    function isCreating() {
+        return !!(formContext.id && formContext.formState.formDisabled);
+    }
+
+    if (!isCreating()) {
+        return null;
+    }
+
+    return (
+        <Button
             htmlType={"submit"}
             type={"primary"}
             size={'default'}
@@ -23,9 +31,8 @@ const FormCreateButton = () => {
             <Link to={`/${formContext.manifest.displayName}/create`}>
                 Create
             </Link>
-        </Button>)
-    }
-    return null;
+        </Button>
+    );
 };
 
 export default FormCreateButton;

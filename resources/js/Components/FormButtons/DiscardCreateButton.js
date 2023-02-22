@@ -14,20 +14,25 @@ const DiscardCreateButton = () => {
         return null;
     }
 
-    if (!formContext.id && !formContext.formState.formDisabled) {
-        return (
-            <Button
-                htmlType={"button"}
-                type={"primary"}
-                size={'default'}
-            >
-                <Link to={`/${formContext.manifest.displayName}`}>
-                    Discard
-                </Link>
-            </Button>
-        )
+    function isCreating() {
+        return !formContext.id && !formContext.formState.formDisabled;
     }
-    return null;
+
+    if (!isCreating()) {
+        return null;
+    }
+
+    return (
+        <Button
+            htmlType={"button"}
+            type={"primary"}
+            size={'default'}
+        >
+            <Link to={`/${formContext.manifest.displayName}`}>
+                Discard
+            </Link>
+        </Button>
+    );
 };
 
 export default DiscardCreateButton;

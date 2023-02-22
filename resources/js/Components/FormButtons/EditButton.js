@@ -13,8 +13,16 @@ const EditButton = () => {
         return null;
     }
 
-    if (formContext.id && formContext.formState.formDisabled) {
-        return (<Button
+    function isViewing() {
+        return !!(formContext.id && formContext.formState.formDisabled);
+    }
+
+    if (!isViewing()) {
+        return null;
+    }
+
+    return (
+        <Button
             htmlType={"submit"}
             type={"primary"}
             size={'default'}
@@ -23,9 +31,8 @@ const EditButton = () => {
             }}
         >
             Edit
-        </Button>)
-    }
-    return null;
+        </Button>
+    );
 };
 
 export default EditButton;

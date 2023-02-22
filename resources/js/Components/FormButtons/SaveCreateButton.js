@@ -13,18 +13,23 @@ const SaveCreateButton = () => {
         return null;
     }
 
-    if (!formContext.id && !formContext.formState.formDisabled) {
-        return (
-            <Button
-                htmlType={"submit"}
-                type={"primary"}
-                size={'default'}
-            >
-                Save
-            </Button>
-        )
+    function isCreating() {
+        return !formContext.id && !formContext.formState.formDisabled;
     }
-    return null;
+
+    if (isCreating()) {
+        return null;
+    }
+
+    return (
+        <Button
+            htmlType={"submit"}
+            type={"primary"}
+            size={'default'}
+        >
+            Save
+        </Button>
+    );
 };
 
 export default SaveCreateButton;
