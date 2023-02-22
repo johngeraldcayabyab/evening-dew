@@ -4,9 +4,11 @@ namespace App\Listeners;
 
 use App\Events\AdjustmentValidated;
 use App\Events\ProductHasMaterial;
+use App\Jobs\ComputeProductQuantity;
 use App\Models\Product;
 use App\Models\StockMovement;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Arr;
 
 class GenerateStockMovementFromValidatedAdjustment implements ShouldQueue
 {
@@ -55,6 +57,8 @@ class GenerateStockMovementFromValidatedAdjustment implements ShouldQueue
         }
         if (count($stockMovementData)) {
             StockMovement::massUpsert($stockMovementData);
+            $productIds = Arr::pluck($stockMovementData, 'product_id');
+            ComputeProductQuantity::dispatch($productIds);
         }
     }
 

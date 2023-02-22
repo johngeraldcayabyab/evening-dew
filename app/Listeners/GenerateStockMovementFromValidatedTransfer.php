@@ -4,10 +4,12 @@ namespace App\Listeners;
 
 use App\Events\ProductHasMaterial;
 use App\Events\TransferValidated;
+use App\Jobs\ComputeProductQuantity;
 use App\Models\Product;
 use App\Models\StockMovement;
 use App\Models\TransferLineStockMovement;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Arr;
 
 class GenerateStockMovementFromValidatedTransfer implements ShouldQueue
 {
@@ -30,6 +32,8 @@ class GenerateStockMovementFromValidatedTransfer implements ShouldQueue
             return;
         }
         StockMovement::massUpsert($stockMovementData);
+        $productIds = Arr::pluck($stockMovementData, 'product_id');
+        ComputeProductQuantity::dispatch($productIds);
 
         /**
          * This block of code is important for the stock movement

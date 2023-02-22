@@ -21,7 +21,7 @@ class Kernel extends ConsoleKernel
                 ValidateAllDraftTransfersJob::dispatch();
             }
             if ($globalSetting->inventory_compute_product_quantity) {
-                ComputeAllProductQuantityJob::dispatch();
+//                ComputeAllProductQuantityJob::dispatch();
             }
         })->everyMinute();
     }
