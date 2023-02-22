@@ -1,9 +1,97 @@
-import React from "react";
+import React, {useContext, useEffect} from "react";
 import {Content} from "antd/es/layout/layout";
 import CustomMenu from './CustomMenu';
-import {Layout} from "antd"
+import {Layout, message} from "antd";
+import useFetchHook from "../Hooks/useFetchHook";
+import useFetchCatcherHook from "../Hooks/useFetchCatcherHook";
+import {getCookie} from "../Helpers/cookie";
+import {GET} from "../consts";
+import {reset} from "../Helpers/reset";
+import {AppContext} from "../App";
 
 const ContentContainer = (props) => {
+    const appContext = useContext(AppContext);
+    const appState = appContext.appState;
+    const setAppState = appContext.setAppState;
+
+    const useFetch = useFetchHook();
+    const fetchCatcher = useFetchCatcherHook();
+
+    useEffect(() => {
+        window.Echo.channel('refresh-browser').listen('RefreshBrowserEvent', () => {
+            window.location.reload();
+        });
+        if (!appState.isLogin) {
+            if (!window.location.href.includes('login')) {
+                message.warning('Please login first!'); // this thing does nothing because the state isnt fixed
+                window.location.href = '/login';
+            }
+            return;
+        }
+
+        const user = localStorage.getItem("user");
+        const accessRights = localStorage.getItem("accessRights");
+        const globalSetting = localStorage.getItem("globalSetting");
+        if (user && accessRights && globalSetting) {
+            setAppState(prevState => ({
+                ...prevState,
+                isLogin: getCookie('Authorization'),
+                user: JSON.parse(user),
+                accessRights: JSON.parse(accessRights),
+                globalSetting: JSON.parse(globalSetting),
+                appInitialLoad: false,
+            }));
+            return;
+        }
+
+        useFetch(`/api/users`, GET, {
+            email: getCookie('userEmail'),
+        }).then((userResponse) => {
+            // console.log(userResponse);
+            const user = userResponse.data[0];
+            let accessRights = [];
+            const userGroupLines = user.user_group_lines;
+            if (userGroupLines && userGroupLines.length) {
+                userGroupLines.forEach(userGroupLine => {
+                    const group = userGroupLine.group;
+                    if (group && group.access_rights && group.access_rights.length) {
+                        accessRights = [...accessRights, ...group.access_rights];
+                    }
+                });
+                accessRights = accessRights.filter((v, i, a) => a.findIndex(v2 => (v2.name === v.name)) === i);
+            }
+            useFetch(`/api/global_settings/initial_values`, GET).then((globalSettingResponse) => {
+                localStorage.setItem("user", JSON.stringify(user));
+                localStorage.setItem("accessRights", JSON.stringify(accessRights));
+                localStorage.setItem("globalSetting", JSON.stringify(globalSettingResponse));
+                setAppState(prevState => ({
+                    ...prevState,
+                    isLogin: getCookie('Authorization'),
+                    user: user,
+                    accessRights: accessRights,
+                    globalSetting: globalSettingResponse,
+                    appInitialLoad: false,
+                }));
+            }).catch((responseErr) => {
+                fetchCatcher.get(responseErr);
+            });
+        }).catch((responseErr) => {
+            if (responseErr.status === 401) {
+                reset();
+                setAppState(prevState => ({
+                    ...prevState,
+                    isLogin: false,
+                    accessRights: false,
+                    userEmail: false,
+                    globalSetting: {},
+                    user: {},
+                    appInitialLoad: true,
+                }));
+            }
+            fetchCatcher.get(responseErr);
+        });
+    }, [appState.isLogin]);
+
     return (
         <Layout style={{height: '100%', background: '#f6f7fa'}}>
             <CustomMenu/>

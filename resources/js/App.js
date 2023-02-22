@@ -1,20 +1,15 @@
 import './bootstrap.js';
-import React, {lazy, useEffect, useState} from 'react';
+import React, {lazy, useState} from 'react';
 import {render} from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import {getCookie} from "./Helpers/cookie";
 import ContentContainer from './Components/ContentContainter';
 import LoginRoute from './Modules/Login/LoginRoute';
 import HomeRoute from "./Modules/Home/HomeRoute";
-import {GET} from "./consts";
-import useFetchHook from "./Hooks/useFetchHook";
-import useFetchCatcherHook from "./Hooks/useFetchCatcherHook";
-import {message} from "antd"
-import {reset} from "./Helpers/reset"
 
 export const AppContext = React.createContext({});
 export const AppContextProvider = AppContext.Provider;
-const Routerist = lazy(() => import("./Routerist"));
+const RouteMaster = lazy(() => import("./RouteMaster"));
 
 
 const App = () => {
@@ -25,84 +20,6 @@ const App = () => {
         user: {},
         globalSetting: {},
     });
-    const useFetch = useFetchHook();
-    const fetchCatcher = useFetchCatcherHook();
-
-    useEffect(() => {
-        window.Echo.channel('refresh-browser').listen('RefreshBrowserEvent', () => {
-            window.location.reload();
-        });
-        if (!appState.isLogin) {
-            if (!window.location.href.includes('login')) {
-                message.warning('Please login first!'); // this thing does nothing because the state isnt fixed
-                window.location.href = '/login';
-            }
-            return;
-        }
-
-        const user = localStorage.getItem("user");
-        const accessRights = localStorage.getItem("accessRights");
-        const globalSetting = localStorage.getItem("globalSetting");
-        if (user && accessRights && globalSetting) {
-            setAppState(prevState => ({
-                ...prevState,
-                isLogin: getCookie('Authorization'),
-                user: JSON.parse(user),
-                accessRights: JSON.parse(accessRights),
-                globalSetting: JSON.parse(globalSetting),
-                appInitialLoad: false,
-            }));
-            return;
-        }
-
-
-        useFetch(`/api/users`, GET, {
-            email: getCookie('userEmail'),
-        }).then((userResponse) => {
-            // console.log(userResponse);
-            const user = userResponse.data[0];
-            let accessRights = [];
-            const userGroupLines = user.user_group_lines;
-            if (userGroupLines && userGroupLines.length) {
-                userGroupLines.forEach(userGroupLine => {
-                    const group = userGroupLine.group;
-                    if (group && group.access_rights && group.access_rights.length) {
-                        accessRights = [...accessRights, ...group.access_rights];
-                    }
-                });
-                accessRights = accessRights.filter((v, i, a) => a.findIndex(v2 => (v2.name === v.name)) === i);
-            }
-            useFetch(`/api/global_settings/initial_values`, GET).then((globalSettingResponse) => {
-                localStorage.setItem("user", JSON.stringify(user));
-                localStorage.setItem("accessRights", JSON.stringify(accessRights));
-                localStorage.setItem("globalSetting", JSON.stringify(globalSettingResponse));
-                setAppState(prevState => ({
-                    ...prevState,
-                    isLogin: getCookie('Authorization'),
-                    user: user,
-                    accessRights: accessRights,
-                    globalSetting: globalSettingResponse,
-                    appInitialLoad: false,
-                }));
-            }).catch((responseErr) => {
-                fetchCatcher.get(responseErr);
-            });
-        }).catch((responseErr) => {
-            if (responseErr.status === 401) {
-                reset();
-                setAppState(prevState => ({
-                    ...prevState,
-                    isLogin: false,
-                    accessRights: false,
-                    userEmail: false,
-                    globalSetting: {},
-                    user: {},
-                    appInitialLoad: true,
-                }));
-            }
-            fetchCatcher.get(responseErr);
-        });
-    }, [appState.isLogin]);
 
     return (
         <BrowserRouter>
@@ -114,7 +31,7 @@ const App = () => {
             >
                 <ContentContainer>
                     <React.Suspense fallback={<></>}>
-                        <Routerist/>
+                        <RouteMaster/>
                     </React.Suspense>
                     <HomeRoute/>
                     <LoginRoute/>

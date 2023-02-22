@@ -31,7 +31,7 @@ import User from "./Modules/UserManifest"
 import Warehouse from "./Modules/WarehouseManifest"
 import SwitchMaster from "./Components/SwitchMaster"
 
-const Routerist = () => {
+const RouteMaster = () => {
     return (
         <SwitchMaster
             switches={[
@@ -71,4 +71,4 @@ const Routerist = () => {
     )
 };
 
-export default Routerist;
+export default RouteMaster;
