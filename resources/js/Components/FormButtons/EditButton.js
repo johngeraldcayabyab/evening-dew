@@ -5,14 +5,6 @@ import {FormContext} from "../../Contexts/FormContext";
 const EditButton = () => {
     const formContext = useContext(FormContext);
 
-    function isViewing() {
-        return !!(formContext.id && formContext.formState.formDisabled);
-    }
-
-    if (!isViewing()) {
-        return null;
-    }
-
     return (
         <Button
             htmlType={"submit"}

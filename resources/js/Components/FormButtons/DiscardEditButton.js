@@ -5,14 +5,6 @@ import {FormContext} from "../../Contexts/FormContext";
 const DiscardEditButton = () => {
     const formContext = useContext(FormContext);
 
-    function isEditing() {
-        return formContext.id && !formContext.formState.formDisabled;
-    }
-
-    if (!isEditing()) {
-        return null;
-    }
-
     return (
         <Button
             htmlType={"button"}

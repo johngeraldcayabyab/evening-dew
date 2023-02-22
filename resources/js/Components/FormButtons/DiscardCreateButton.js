@@ -6,14 +6,6 @@ import {FormContext} from "../../Contexts/FormContext";
 const DiscardCreateButton = () => {
     const formContext = useContext(FormContext);
 
-    function isCreating() {
-        return !formContext.id && !formContext.formState.formDisabled;
-    }
-
-    if (!isCreating()) {
-        return null;
-    }
-
     return (
         <Button
             htmlType={"button"}

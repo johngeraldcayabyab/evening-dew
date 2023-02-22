@@ -6,14 +6,6 @@ import {Button} from "antd";
 const CreateButton = () => {
     const formContext = useContext(FormContext);
 
-    function isCreating() {
-        return !!(formContext.id && formContext.formState.formDisabled);
-    }
-
-    if (!isCreating()) {
-        return null;
-    }
-
     return (
         <Button
             htmlType={"submit"}
