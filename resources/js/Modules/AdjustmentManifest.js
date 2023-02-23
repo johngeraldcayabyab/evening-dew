@@ -26,6 +26,14 @@ const manifest = {
                 isGlobalSearch: true,
             },
             {
+                title: 'Source Document',
+                dataIndex: 'source_document',
+                key: 'source_document',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
+            {
                 title: 'Product Category',
                 dataIndex: 'product_category',
                 key: 'product_category',
@@ -96,11 +104,18 @@ const manifest = {
                     name: 'status',
                 },
                 {
-                    type: 'number',
+                    type: 'text',
                     name: 'number',
                     label: 'Number',
                     required: true,
                     size: 'large',
+                },
+                {
+                    type: 'text',
+                    name: 'source_document',
+                    label: 'Source Document',
+                    required: true,
+                    size: 'medium',
                 },
                 {
                     type: 'select',
