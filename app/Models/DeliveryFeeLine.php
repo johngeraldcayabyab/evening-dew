@@ -40,7 +40,7 @@ class DeliveryFeeLine extends Model
         $lines = [];
         foreach ($data as $datum) {
             $line = [
-                'id' => isset($datum['id']) ? $datum['id'] : null,
+                'id' => $datum['id'] ?? null,
                 'city_id' => $datum['city_id'],
                 'fee' => $datum['fee'],
                 'delivery_fee_id' => $parent->id,

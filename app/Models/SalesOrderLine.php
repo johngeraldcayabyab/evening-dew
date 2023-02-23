@@ -53,9 +53,9 @@ class SalesOrderLine extends Model
             $unitPrice = (float)str_replace(',', '', $datum['unit_price']);
             $measurementId = $datum['measurement_id'] ?? $measurementId;
             $line = [
-                'id' => isset($datum['id']) ? $datum['id'] : null,
+                'id' => $datum['id'] ?? null,
                 'product_id' => $datum['product_id'],
-                'description' => isset($datum['description']) ? $datum['description'] : null,
+                'description' => $datum['description'] ?? null,
                 'quantity' => $datum['quantity'],
                 'measurement_id' => $measurementId,
                 'unit_price' => $unitPrice,

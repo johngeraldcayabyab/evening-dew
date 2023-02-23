@@ -45,7 +45,7 @@ class MaterialLine extends Model
         $lines = [];
         foreach ($data as $datum) {
             $line = [
-                'id' => isset($datum['id']) ? $datum['id'] : null,
+                'id' => $datum['id'] ?? null,
                 'product_id' => $datum['product_id'],
                 'quantity' => $datum['quantity'],
                 'measurement_id' => $datum['measurement_id'],

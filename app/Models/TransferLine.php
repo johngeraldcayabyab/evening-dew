@@ -50,9 +50,9 @@ class TransferLine extends Model
         $lines = [];
         foreach ($data as $datum) {
             $line = [
-                'id' => isset($datum['id']) ? $datum['id'] : null,
+                'id' => $datum['id'] ?? null,
                 'product_id' => $datum['product_id'],
-                'description' => isset($datum['description']) ? $datum['description'] : null,
+                'description' => $datum['description'] ?? null,
                 'demand' => $datum['demand'],
                 'measurement_id' => $datum['measurement_id'],
                 'transfer_id' => $parent->id,

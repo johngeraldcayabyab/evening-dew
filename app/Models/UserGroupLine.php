@@ -42,9 +42,9 @@ class UserGroupLine extends Model
 
     public function scopeMassUpsert($query, $data, $parent)
     {
-        $lines = $data->map(function ($datum) use ($parent) {
+        $lines = collect($data)->map(function ($datum) use ($parent) {
             return [
-                'id' => isset($datum['id']) ? $datum['id'] : null,
+                'id' => $datum['id'] ?? null,
                 'group_id' => $datum['group_id'],
                 'user_id' => $parent->id,
             ];
