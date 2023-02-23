@@ -40,11 +40,6 @@ class TransferLine extends Model
         return $this->belongsTo(Transfer::class);
     }
 
-    public function transferLineStockMovement()
-    {
-        return $this->hasOne(TransferLineStockMovement::class);
-    }
-
     public function scopeMassUpsert($query, $data, $parent)
     {
         $lines = collect($data)->map(fn($datum) => [
