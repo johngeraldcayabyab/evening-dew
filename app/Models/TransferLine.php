@@ -47,18 +47,14 @@ class TransferLine extends Model
 
     public function scopeMassUpsert($query, $data, $parent)
     {
-        $lines = [];
-        foreach ($data as $datum) {
-            $line = [
-                'id' => $datum['id'] ?? null,
-                'product_id' => $datum['product_id'],
-                'description' => $datum['description'] ?? null,
-                'demand' => $datum['demand'],
-                'measurement_id' => $datum['measurement_id'],
-                'transfer_id' => $parent->id,
-            ];
-            $lines[] = $line;
-        }
+        $lines = collect($data)->map(fn($datum) => [
+            'id' => $datum['id'] ?? null,
+            'product_id' => $datum['product_id'],
+            'description' => $datum['description'] ?? null,
+            'demand' => $datum['demand'],
+            'measurement_id' => $datum['measurement_id'],
+            'transfer_id' => $parent->id,
+        ])->toArray();
         $query->upsert($lines, ['id']);
         return $query;
     }

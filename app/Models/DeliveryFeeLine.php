@@ -37,16 +37,12 @@ class DeliveryFeeLine extends Model
 
     public function scopeMassUpsert($query, $data, $parent)
     {
-        $lines = [];
-        foreach ($data as $datum) {
-            $line = [
-                'id' => $datum['id'] ?? null,
-                'city_id' => $datum['city_id'],
-                'fee' => $datum['fee'],
-                'delivery_fee_id' => $parent->id,
-            ];
-            $lines[] = $line;
-        }
+        $lines = collect($data)->map(fn($datum) => [
+            'id' => $datum['id'] ?? null,
+            'city_id' => $datum['city_id'],
+            'fee' => $datum['fee'],
+            'delivery_fee_id' => $parent->id,
+        ])->toArray();
         $query->upsert($lines, ['id']);
         return $query;
     }

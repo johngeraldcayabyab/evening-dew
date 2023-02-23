@@ -42,17 +42,13 @@ class MaterialLine extends Model
 
     public function scopeMassUpsert($query, $data, $parent)
     {
-        $lines = [];
-        foreach ($data as $datum) {
-            $line = [
-                'id' => $datum['id'] ?? null,
-                'product_id' => $datum['product_id'],
-                'quantity' => $datum['quantity'],
-                'measurement_id' => $datum['measurement_id'],
-                'material_id' => $parent->id,
-            ];
-            $lines[] = $line;
-        }
+        $lines = collect($data)->map(fn($datum) => [
+            'id' => $datum['id'] ?? null,
+            'product_id' => $datum['product_id'],
+            'quantity' => $datum['quantity'],
+            'measurement_id' => $datum['measurement_id'],
+            'material_id' => $parent->id,
+        ])->toArray();
         $query->upsert($lines, ['id']);
         return $query;
     }

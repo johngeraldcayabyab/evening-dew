@@ -47,18 +47,14 @@ class AdjustmentLine extends Model
 
     public function scopeMassUpsert($query, $data, $parent)
     {
-        $lines = [];
-        foreach ($data as $datum) {
-            $line = [
-                'id' => $datum['id'] ?? null,
-                'product_id' => $datum['product_id'],
-                'measurement_id' => $datum['measurement_id'],
-                'quantity_on_hand' => $datum['quantity_on_hand'],
-                'quantity_counted' => $datum['quantity_counted'],
-                'adjustment_id' => $parent->id,
-            ];
-            $lines[] = $line;
-        }
+        $lines = collect($data)->map(fn($datum) => [
+            'id' => $datum['id'] ?? null,
+            'product_id' => $datum['product_id'],
+            'measurement_id' => $datum['measurement_id'],
+            'quantity_on_hand' => $datum['quantity_on_hand'],
+            'quantity_counted' => $datum['quantity_counted'],
+            'adjustment_id' => $parent->id,
+        ])->toArray();
         $query->upsert($lines, ['id']);
         return $query;
     }

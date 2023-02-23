@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Arr;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class SalesOrderLine extends Model
@@ -47,12 +48,11 @@ class SalesOrderLine extends Model
         $globalSetting = GlobalSetting::latestFirst();
         $inventoryDefaultMeasurement = $globalSetting->inventoryDefaultMeasurement;
         $measurementId = $inventoryDefaultMeasurement->id;
-        $lines = [];
-        $subtotal = 0;
-        foreach ($data as $datum) {
+        $lines = collect($data)->map(function ($datum) use ($measurementId, $parent) {
             $unitPrice = (float)str_replace(',', '', $datum['unit_price']);
             $measurementId = $datum['measurement_id'] ?? $measurementId;
-            $line = [
+            $shippingDate = $datum['shipping_date'] ?? $parent->shipping_date;
+            return [
                 'id' => $datum['id'] ?? null,
                 'product_id' => $datum['product_id'],
                 'description' => $datum['description'] ?? null,
@@ -60,14 +60,16 @@ class SalesOrderLine extends Model
                 'measurement_id' => $measurementId,
                 'unit_price' => $unitPrice,
                 'subtotal' => $unitPrice * $datum['quantity'],
-                'shipping_date' => isset($datum['shipping_date']) ? Carbon::parse($datum['shipping_date'])->format(SystemSetting::DATE_TIME_FORMAT) : $parent->shipping_date,
+                'shipping_date' => Carbon::parse($shippingDate)->format(SystemSetting::DATE_TIME_FORMAT),
                 'sales_order_id' => $parent->id,
             ];
-            $lines[] = $line;
-            $subtotal += $line['subtotal'];
-        }
+        })->toArray();
         $query->upsert($lines, ['id']);
-        $parent->subtotal = $subtotal;
+        $lineSubtotal = Arr::pluck($lines, 'subtotal');
+        info($lineSubtotal);
+        $subTotal = collect($lineSubtotal)->sum();
+        info($subTotal);
+        $parent->subtotal = $subTotal;
         $parent->save();
         return $query;
     }

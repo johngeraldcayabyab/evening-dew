@@ -42,16 +42,12 @@ class TransferLineStockMovement extends Model
 
     public function scopeMassUpsert($query, $data)
     {
-        $lines = [];
-        foreach ($data as $datum) {
-            $line = [
-                'id' => $datum['id'] ?? null,
-                'transfer_id' => $datum['transfer_id'],
-                'transfer_line_id' => $datum['transfer_line_id'],
-                'stock_movement_id' => $datum['stock_movement_id'],
-            ];
-            $lines[] = $line;
-        }
+        $lines = collect($data)->map(fn($datum) => [
+            'id' => $datum['id'] ?? null,
+            'transfer_id' => $datum['transfer_id'],
+            'transfer_line_id' => $datum['transfer_line_id'],
+            'stock_movement_id' => $datum['stock_movement_id'],
+        ])->toArray();
         $query->upsert($lines, ['id']);
         return $query;
     }
