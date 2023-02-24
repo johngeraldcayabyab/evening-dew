@@ -82,12 +82,12 @@ trait FilterTrait
             if (!$requestField) {
                 continue;
             }
-            $has = $this->hasRelationGet($modelInstance, $field);
-            if ($has) {
-                $related = $modelInstance->$has()->getRelated();
+            $relationship = $this->hasRelationGet($modelInstance, $field);
+            if ($relationship) {
+                $related = $modelInstance->$relationship()->getRelated();
                 $relatedSlug = $related->slug();
                 $relatedField = $this->isParentGet($relatedSlug);
-                $query = $query->filterHas([$has, $relatedField, $requestField]);
+                $query = $query->filterHas([$relationship, $relatedField, $requestField]);
                 continue;
             }
             $query = $query->filter([$field, $requestField]);
@@ -131,13 +131,13 @@ trait FilterTrait
             $to = Carbon::parse($dateRange[1]);
             return $query->whereBetween($field, [$from, $to]);
         }
-        return $query->where($field, 'like', "%$value%");
+        return $this->whereLike($query, $field, $value);
     }
 
     public function scopeFilterHas($query, $filter)
     {
         return $query->whereHas($filter[0], function ($query) use ($filter) {
-            return $query->where($filter[1], 'like', "%$filter[2]%");
+            return $this->whereLike($query, $filter[1], $filter[2]);
         });
     }
 
@@ -149,6 +149,9 @@ trait FilterTrait
     public function getFields($hasRelation = true)
     {
         $fields = Schema::getColumnListing($this->getTable());
+        /**
+         * Can be removed
+         */
         if ($hasRelation) {
             foreach ($fields as $field) {
                 $id = substr($field, -3);
@@ -231,7 +234,12 @@ trait FilterTrait
     public function scopeFilterHasGlobal($query, $filter)
     {
         return $query->orWhereHas($filter[0], function ($query) use ($filter) {
-            return $query->where($filter[1], 'like', "%$filter[2]%");
+            return $this->whereLike($query, $filter[1], $filter[2]);
         });
+    }
+
+    private function whereLike($query, $field, $value)
+    {
+        return $query->where($field, 'like', "%$value%");
     }
 }
