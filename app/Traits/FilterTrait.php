@@ -25,10 +25,7 @@ trait FilterTrait
         $query = $this->filterNow($fields, $request, $modelInstance, $query);
         $query = $this->hasNow($request, $query);
         $query = $this->orderNow($request, $modelInstance, $query);
-        $pageSize = SystemSetting::PAGE_SIZE;
-        if ($request->page_size) {
-            $pageSize = $request->page_size;
-        }
+        $pageSize = $request->page_size ?? SystemSetting::PAGE_SIZE;
         return $query->paginate($pageSize);
     }
 
@@ -70,12 +67,12 @@ trait FilterTrait
         $has = $request->has;
         $hasField = $request->has_field;
         $hasValue = $request->has_value;
-        if ($has && $hasField && $hasValue) {
-            return $query->whereHas($has, function ($query) use ($hasField, $hasValue) {
-                return $query->where($hasField, $hasValue);
-            });
+        if (!$has || !$hasField || !$hasValue) {
+            return $query;
         }
-        return $query;
+        return $query->whereHas($has, function ($query) use ($hasField, $hasValue) {
+            return $query->where($hasField, $hasValue);
+        });
     }
 
     private function filterNow($fields, $request, $modelInstance, $query)
