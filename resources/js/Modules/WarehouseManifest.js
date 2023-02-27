@@ -214,10 +214,7 @@ const manifest = {
                             type: 'select',
                             name: 'stock_after_manufacturing_operation_type_id',
                             label: 'Stock After Manufacturing Operation Type',
-                            query: {
-                                url: '/api/operations_types',
-                                field: 'name'
-                            },
+                            query: {url: '/api/operations_types', field: 'name'},
                             required: true,
                             overrideDisabled: true,
                         },
@@ -225,10 +222,7 @@ const manifest = {
                             type: 'select',
                             name: 'picking_before_manufacturing_operation_type_id',
                             label: 'Picking Before Manufacturing Operation Type',
-                            query: {
-                                url: '/api/operations_types',
-                                field: 'name'
-                            },
+                            query: {url: '/api/operations_types', field: 'name'},
                             required: true,
                             overrideDisabled: true,
                         },
