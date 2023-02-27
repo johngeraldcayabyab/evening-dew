@@ -47,7 +47,7 @@ class GenerateStockMovementFromValidatedAdjustment implements ShouldQueue
             if ($product->material()->exists()) {
                 ProductHasMaterial::dispatch(
                     $adjustment->number,
-                    $adjustment->number,
+                    'Product Quantity Updated',
                     $sourceLocationId,
                     $destinationLocationId,
                     $product->material,

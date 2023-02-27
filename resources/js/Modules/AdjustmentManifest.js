@@ -111,13 +111,6 @@ const manifest = {
                     size: 'large',
                 },
                 {
-                    type: 'text',
-                    name: 'source_document',
-                    label: 'Source Document',
-                    required: true,
-                    size: 'medium',
-                },
-                {
                     type: 'select',
                     name: 'product_category_id',
                     label: 'Product Category',
