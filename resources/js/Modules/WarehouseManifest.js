@@ -95,63 +95,72 @@ const manifest = {
                             name: 'view_location_id',
                             label: 'View Location',
                             query: {url: '/api/locations', field: 'name'},
-                            required: true
+                            required: true,
+                            overrideDisabled: true,
                         },
                         {
                             type: 'select',
                             name: 'stock_location_id',
                             label: 'Stock Location',
                             query: {url: '/api/locations', field: 'name'},
-                            required: true
+                            required: true,
+                            overrideDisabled: true,
                         },
                         {
                             type: 'select',
                             name: 'input_location_id',
                             label: 'Input Location',
                             query: {url: '/api/locations', field: 'name'},
-                            required: true
+                            required: true,
+                            overrideDisabled: true,
                         },
                         {
                             type: 'select',
                             name: 'quality_control_location_id',
                             label: 'Quality Control Location',
                             query: {url: '/api/locations', field: 'name'},
-                            required: true
+                            required: true,
+                            overrideDisabled: true,
                         },
                         {
                             type: 'select',
                             name: 'packing_location_id',
                             label: 'Packing Location',
                             query: {url: '/api/locations', field: 'name'},
-                            required: true
+                            required: true,
+                            overrideDisabled: true,
                         },
                         {
                             type: 'select',
                             name: 'output_location_id',
                             label: 'Output Location',
                             query: {url: '/api/locations', field: 'name'},
-                            required: true
+                            required: true,
+                            overrideDisabled: true,
                         },
                         {
                             type: 'select',
                             name: 'stock_after_manufacturing_location_id',
                             label: 'Stock after manufacturing location',
                             query: {url: '/api/locations', field: 'name'},
-                            required: true
+                            required: true,
+                            overrideDisabled: true,
                         },
                         {
                             type: 'select',
                             name: 'picking_before_manufacturing_location_id',
                             label: 'Picking before manufacturing location',
                             query: {url: '/api/locations', field: 'name'},
-                            required: true
+                            required: true,
+                            overrideDisabled: true,
                         },
                         {
                             type: 'select',
                             name: 'adjustment_location_id',
                             label: 'Adjustment Location',
                             query: {url: '/api/locations', field: 'name'},
-                            required: true
+                            required: true,
+                            overrideDisabled: true,
                         },
                     ],
                     col_2: [
@@ -166,35 +175,40 @@ const manifest = {
                             name: 'in_type_id',
                             label: 'In Type',
                             query: {url: '/api/operations_types', field: 'name'},
-                            required: true
+                            required: true,
+                            overrideDisabled: true,
                         },
                         {
                             type: 'select',
                             name: 'internal_type_id',
                             label: 'Internal Type',
                             query: {url: '/api/operations_types', field: 'name'},
-                            required: true
+                            required: true,
+                            overrideDisabled: true,
                         },
                         {
                             type: 'select',
                             name: 'pick_type_id',
                             label: 'Pick Type',
                             query: {url: '/api/operations_types', field: 'name'},
-                            required: true
+                            required: true,
+                            overrideDisabled: true,
                         },
                         {
                             type: 'select',
                             name: 'pack_type_id',
                             label: 'Pack Type',
                             query: {url: '/api/operations_types', field: 'name'},
-                            required: true
+                            required: true,
+                            overrideDisabled: true,
                         },
                         {
                             type: 'select',
                             name: 'out_type_id',
                             label: 'Out Type',
                             query: {url: '/api/operations_types', field: 'name'},
-                            required: true
+                            required: true,
+                            overrideDisabled: true,
                         },
                         {
                             type: 'select',
@@ -204,7 +218,8 @@ const manifest = {
                                 url: '/api/operations_types',
                                 field: 'name'
                             },
-                            required: true
+                            required: true,
+                            overrideDisabled: true,
                         },
                         {
                             type: 'select',
@@ -214,21 +229,24 @@ const manifest = {
                                 url: '/api/operations_types',
                                 field: 'name'
                             },
-                            required: true
+                            required: true,
+                            overrideDisabled: true,
                         },
                         {
                             type: 'select',
                             name: 'manufacturing_operation_type_id',
                             label: 'Manufacturing Operation Type',
                             query: {url: '/api/operations_types', field: 'name'},
-                            required: true
+                            required: true,
+                            overrideDisabled: true,
                         },
                         {
                             type: 'select',
                             name: 'adjustment_operation_type_id',
                             label: 'Adjustment Operation Type',
                             query: {url: '/api/operations_types', field: 'name'},
-                            required: true
+                            required: true,
+                            overrideDisabled: true,
                         },
                     ]
                 }
