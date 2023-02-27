@@ -26,14 +26,6 @@ const manifest = {
                 isGlobalSearch: true,
             },
             {
-                title: 'Source Document',
-                dataIndex: 'source_document',
-                key: 'source_document',
-                sorter: true,
-                filter: SEARCH,
-                isGlobalSearch: true,
-            },
-            {
                 title: 'Product Category',
                 dataIndex: 'product_category',
                 key: 'product_category',

@@ -12,7 +12,6 @@ class AdjustmentRequest extends FormRequest
         $statuses = implode_types(Adjustment::getStatuses());
         return [
             'number' => 'required',
-            'source_document' => 'nullable',
             'product_category_id' => ['required', "exists:product_categories,id"],
             'warehouse_id' => ['required', "exists:warehouses,id"],
             'status' => ['nullable', "in:$statuses"],

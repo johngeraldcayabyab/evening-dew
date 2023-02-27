@@ -14,7 +14,6 @@ class AdjustmentResource extends JsonResource
         $slug = $this->slug();
         return $this->defaults($this, $request, [
             'number' => $this->number,
-            'source_document' => $this->source_document,
             'product_category_id' => $this->product_category_id,
             'warehouse_id' => $this->warehouse_id,
             'product_category' => new ProductCategoryResource($this->productCategory),
