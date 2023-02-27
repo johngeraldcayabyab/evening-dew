@@ -37,7 +37,7 @@ class GenerateStockMovementFromValidatedAdjustment implements ShouldQueue
             if (Product::isStorable($product->product_type)) {
                 $stockMovementData[] = [
                     'reference' => $adjustment->number,
-                    'source' => $adjustment->number,
+                    'source' => 'Product Quantity Updated',
                     'product_id' => $adjustmentLine->product_id,
                     'source_location_id' => $sourceLocationId,
                     'destination_location_id' => $destinationLocationId,

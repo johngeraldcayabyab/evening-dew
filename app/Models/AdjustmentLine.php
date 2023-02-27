@@ -51,8 +51,8 @@ class AdjustmentLine extends Model
             'id' => $datum['id'] ?? null,
             'product_id' => $datum['product_id'],
             'measurement_id' => $datum['measurement_id'],
-            'quantity_on_hand' => $datum['quantity_on_hand'],
-            'quantity_counted' => $datum['quantity_counted'],
+            'quantity_on_hand' => (float)$datum['quantity_on_hand'],
+            'quantity_counted' => (float)$datum['quantity_counted'],
             'adjustment_id' => $parent->id,
         ])->toArray();
         $query->upsert($lines, ['id']);
