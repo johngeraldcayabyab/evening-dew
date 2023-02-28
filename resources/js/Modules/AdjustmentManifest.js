@@ -1,5 +1,6 @@
 import {getPersistedKey, isLineFieldExecute} from "../Helpers/form";
 import {DATE_RANGE, GET, SEARCH} from "../consts";
+import {parseFloatComma} from "../Helpers/string"
 
 const displayName = "adjustments";
 
@@ -77,7 +78,7 @@ const manifest = {
                     adjustmentLines[line.key] = {
                         ...adjustmentLines[line.key],
                         measurement_id: response.measurement_id,
-                        quantity_on_hand: response.quantity,
+                        quantity_on_hand: parseFloatComma(response.quantity),
                     };
                     formContext.form.setFieldsValue({
                         material_lines: adjustmentLines
