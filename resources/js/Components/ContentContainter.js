@@ -26,6 +26,7 @@ const ContentContainer = (props) => {
         });
         if (!appState.isLogin) {
             if (!location.pathname.includes('login')) {
+                reset();
                 message.warning('Please login first!'); // this thing does nothing because the state isnt fixed
                 history.push('/login');
             }

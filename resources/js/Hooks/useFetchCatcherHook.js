@@ -6,8 +6,8 @@ const useFetchCatcherHook = () => {
     const [handle] = useState({
         get: (response) => {
             if (response.status === 401) {
-                message.error('Please login first!');
                 reset();
+                message.error('Please login first!');
             } else if (response.status === 403) {
                 message.error('You cant do this action! Please ask your admin for permission');
             } else if (response.status === 422) {
