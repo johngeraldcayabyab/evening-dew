@@ -71,9 +71,7 @@ class SalesOrderLine extends Model
         })->toArray();
         $query->upsert($lines, ['id']);
         $lineSubtotal = Arr::pluck($lines, 'subtotal');
-        info($lineSubtotal);
         $subTotal = collect($lineSubtotal)->sum();
-        info($subTotal);
         $parent->subtotal = $subTotal;
         $parent->save();
         return $query;

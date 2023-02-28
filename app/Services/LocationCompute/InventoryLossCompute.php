@@ -18,8 +18,7 @@ class InventoryLossCompute
     public function handle($initialQuantity)
     {
         $destinationLocation = $this->destinationLocation;
-        $quantityDone = (float)$this->quantityDone;
-        $initialQuantity = (float)$initialQuantity;
+        $quantityDone = $this->quantityDone;
         if (Location::isCustomer($destinationLocation)) { // what does this even do
             return $initialQuantity;
         }

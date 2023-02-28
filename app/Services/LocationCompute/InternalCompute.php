@@ -18,7 +18,6 @@ class InternalCompute
     public function handle($initialQuantity)
     {
         $quantityDone = $this->quantityDone;
-        $initialQuantity = (float)$initialQuantity;
 
         $destinationLocation = $this->destinationLocation;
         if (Location::isCustomer($destinationLocation)) {
