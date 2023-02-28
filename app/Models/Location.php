@@ -46,6 +46,16 @@ class Location extends Model implements Sluggable
         return $this->belongsTo(Location::class, 'parent_location_id', 'id');
     }
 
+    public function stockMovementSources()
+    {
+        return $this->hasMany(StockMovement::class, 'source_location_id', 'id');
+    }
+
+    public function stockMovementDestinations()
+    {
+        return $this->hasMany(StockMovement::class, 'destination_location_id', 'id');
+    }
+
     public function slug()
     {
         return 'parent.name';
