@@ -20,7 +20,7 @@ class ComputeProductQuantity implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $productIds;
+    public array $productIds;
 
     public function __construct(array $productIds)
     {
