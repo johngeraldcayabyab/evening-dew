@@ -149,6 +149,7 @@ const manifest = {
                             placeholder: 'Quantity on hand',
                             required: true,
                             listName: 'adjustment_lines',
+                            overrideDisabled: true,
                         },
                         {
                             type: 'number',
