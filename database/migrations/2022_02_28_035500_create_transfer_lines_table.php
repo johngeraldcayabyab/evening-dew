@@ -10,11 +10,11 @@ class CreateTransferLinesTable extends Migration
     {
         Schema::create('transfer_lines', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('product_id')->nullable();
+            $table->unsignedInteger('product_id')->nullable();
             $table->string('description')->nullable();
             $table->integer('demand');
-            $table->bigInteger('measurement_id');
-            $table->bigInteger('transfer_id')->nullable();
+            $table->unsignedInteger('measurement_id');
+            $table->unsignedInteger('transfer_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

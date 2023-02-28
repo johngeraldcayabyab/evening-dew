@@ -10,8 +10,8 @@ class CreateSalesOrderTransfersTable extends Migration
     {
         Schema::create('sales_order_transfers', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('sales_order_id')->nullable();
-            $table->bigInteger('transfer_id')->nullable();
+            $table->unsignedInteger('sales_order_id')->nullable();
+            $table->unsignedInteger('transfer_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

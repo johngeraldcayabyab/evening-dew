@@ -13,9 +13,9 @@ class CreateAddressesTable extends Migration
             $table->string('address_name')->nullable();
             $table->string('address')->nullable();
             $table->string('zip')->nullable();
-            $table->bigInteger('country_id')->nullable();
-            $table->bigInteger('city_id')->nullable();
-            $table->bigInteger('contact_id')->nullable();
+            $table->unsignedInteger('country_id')->nullable();
+            $table->unsignedInteger('city_id')->nullable();
+            $table->unsignedInteger('contact_id')->nullable();
             $table->string('type');
             $table->softDeletes();
             $table->timestamps();

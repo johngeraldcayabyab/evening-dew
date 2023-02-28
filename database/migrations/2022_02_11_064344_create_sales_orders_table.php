@@ -11,17 +11,17 @@ class CreateSalesOrdersTable extends Migration
         Schema::create('sales_orders', function (Blueprint $table) {
             $table->id();
             $table->string('number');
-            $table->bigInteger('customer_id')->nullable();
+            $table->unsignedInteger('customer_id')->nullable();
             $table->string('invoice_address')->nullable();
             $table->string('delivery_address')->nullable();
-            $table->bigInteger('invoice_city_id')->nullable();
-            $table->bigInteger('delivery_city_id')->nullable();
+            $table->unsignedInteger('invoice_city_id')->nullable();
+            $table->unsignedInteger('delivery_city_id')->nullable();
             $table->string('invoice_phone')->nullable();
             $table->string('delivery_phone')->nullable();
             $table->dateTime('expiration_date')->nullable();
             $table->dateTime('quotation_date')->nullable();
-            $table->bigInteger('payment_term_id')->nullable();
-            $table->bigInteger('salesperson_id')->nullable();
+            $table->unsignedInteger('payment_term_id')->nullable();
+            $table->unsignedInteger('salesperson_id')->nullable();
             $table->string('shipping_method')->nullable();
             $table->string('customer_reference')->nullable();
             $table->string('shipping_policy')->nullable();
@@ -29,8 +29,8 @@ class CreateSalesOrdersTable extends Migration
             $table->string('source_document')->nullable();
             $table->longText('notes')->nullable();
             $table->string('status')->nullable();
-            $table->bigInteger('source_id')->nullable();
-            $table->bigInteger('courier_id')->nullable();
+            $table->unsignedInteger('source_id')->nullable();
+            $table->unsignedInteger('courier_id')->nullable();
             $table->integer('subtotal')->nullable()->default(0);
             $table->softDeletes();
             $table->timestamps();

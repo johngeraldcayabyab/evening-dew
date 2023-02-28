@@ -10,8 +10,8 @@ class CreateUserGroupLinesTable extends Migration
     {
         Schema::create('user_group_lines', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->nullable();
-            $table->bigInteger('group_id')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('group_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -12,9 +12,9 @@ class CreateStockMovementsTable extends Migration
             $table->id();
             $table->string('reference')->nullable();
             $table->string('source')->nullable();
-            $table->bigInteger('product_id')->nullable();
-            $table->bigInteger('source_location_id')->nullable();
-            $table->bigInteger('destination_location_id')->nullable();
+            $table->unsignedInteger('product_id')->nullable();
+            $table->unsignedInteger('source_location_id')->nullable();
+            $table->unsignedInteger('destination_location_id')->nullable();
             $table->integer('quantity_done');
             $table->softDeletes();
             $table->timestamps();

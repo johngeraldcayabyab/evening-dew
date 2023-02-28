@@ -10,9 +10,9 @@ class CreateTransferLinesStockMovementTable extends Migration
     {
         Schema::create('transfer_lines_stock_movement', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('transfer_id')->nullable();
-            $table->bigInteger('transfer_line_id')->nullable();
-            $table->bigInteger('stock_movement_id')->nullable();
+            $table->unsignedInteger('transfer_id')->nullable();
+            $table->unsignedInteger('transfer_line_id')->nullable();
+            $table->unsignedInteger('stock_movement_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

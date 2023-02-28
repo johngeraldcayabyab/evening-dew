@@ -12,7 +12,7 @@ class CreateCitiesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('province')->nullable();
-            $table->bigInteger('region_id')->nullable();
+            $table->unsignedInteger('region_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -12,7 +12,7 @@ class CreateDeliveryFeesTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->boolean('is_enabled')->default(false);
-            $table->bigInteger('product_id')->nullable();
+            $table->unsignedInteger('product_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

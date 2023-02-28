@@ -10,8 +10,8 @@ class CreateMaterialsTable extends Migration
     {
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('product_id')->nullable();
-            $table->bigInteger('measurement_id');
+            $table->unsignedInteger('product_id')->nullable();
+            $table->unsignedInteger('measurement_id');
             $table->string('reference')->nullable();
             $table->string('material_type')->nullable();
             $table->string('flexible_consumption')->nullable();

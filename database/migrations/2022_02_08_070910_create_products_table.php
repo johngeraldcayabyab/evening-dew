@@ -17,10 +17,10 @@ class CreateProductsTable extends Migration
             $table->string('invoicing_policy');
             $table->double('sales_price');
             $table->double('cost');
-            $table->bigInteger('measurement_id')->nullable();
-            $table->bigInteger('purchase_measurement_id')->nullable();
-            $table->bigInteger('sales_measurement_id')->nullable();
-            $table->bigInteger('product_category_id')->nullable();
+            $table->unsignedInteger('measurement_id')->nullable();
+            $table->unsignedInteger('purchase_measurement_id')->nullable();
+            $table->unsignedInteger('sales_measurement_id')->nullable();
+            $table->unsignedInteger('product_category_id')->nullable();
             $table->string('internal_reference')->nullable();
             $table->string('avatar')->nullable();
             $table->string('sales_description')->nullable();

@@ -10,14 +10,14 @@ class CreateSalesOrderLinesTable extends Migration
     {
         Schema::create('sales_order_lines', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('product_id')->nullable();
+            $table->unsignedInteger('product_id')->nullable();
             $table->string('description')->nullable();
             $table->integer('quantity');
-            $table->bigInteger('measurement_id');
+            $table->unsignedInteger('measurement_id');
             $table->integer('unit_price');
             $table->integer('subtotal');
             $table->dateTime('shipping_date')->nullable();
-            $table->bigInteger('sales_order_id')->nullable();
+            $table->unsignedInteger('sales_order_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

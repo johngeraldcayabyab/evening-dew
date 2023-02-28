@@ -11,8 +11,8 @@ class CreateAdjustmentsTable extends Migration
         Schema::create('adjustments', function (Blueprint $table) {
             $table->id();
             $table->string('number');
-            $table->bigInteger('product_category_id')->nullable();
-            $table->bigInteger('warehouse_id')->nullable();
+            $table->unsignedInteger('product_category_id')->nullable();
+            $table->unsignedInteger('warehouse_id')->nullable();
             $table->string('status')->nullable();
             $table->softDeletes();
             $table->timestamps();
