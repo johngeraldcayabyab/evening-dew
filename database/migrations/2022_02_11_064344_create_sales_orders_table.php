@@ -31,7 +31,7 @@ class CreateSalesOrdersTable extends Migration
             $table->string('status')->nullable();
             $table->unsignedInteger('source_id')->nullable();
             $table->unsignedInteger('courier_id')->nullable();
-            $table->integer('subtotal')->nullable()->default(0);
+            $table->double('subtotal')->nullable()->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -11,7 +11,7 @@ class CreateMaterialLinesTable extends Migration
         Schema::create('material_lines', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('product_id')->nullable();
-            $table->integer('quantity');
+            $table->double('quantity');
             $table->unsignedInteger('measurement_id');
             $table->unsignedInteger('material_id')->nullable();
             $table->softDeletes();

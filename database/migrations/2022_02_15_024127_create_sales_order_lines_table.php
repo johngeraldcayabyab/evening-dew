@@ -12,10 +12,10 @@ class CreateSalesOrderLinesTable extends Migration
             $table->id();
             $table->unsignedInteger('product_id')->nullable();
             $table->string('description')->nullable();
-            $table->integer('quantity');
+            $table->double('quantity');
             $table->unsignedInteger('measurement_id');
-            $table->integer('unit_price');
-            $table->integer('subtotal');
+            $table->double('unit_price');
+            $table->double('subtotal');
             $table->dateTime('shipping_date')->nullable();
             $table->unsignedInteger('sales_order_id')->nullable();
             $table->softDeletes();

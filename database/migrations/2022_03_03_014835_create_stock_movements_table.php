@@ -15,7 +15,7 @@ class CreateStockMovementsTable extends Migration
             $table->unsignedInteger('product_id')->nullable();
             $table->unsignedInteger('source_location_id')->nullable();
             $table->unsignedInteger('destination_location_id')->nullable();
-            $table->integer('quantity_done');
+            $table->double('quantity_done');
             $table->softDeletes();
             $table->timestamps();
         });

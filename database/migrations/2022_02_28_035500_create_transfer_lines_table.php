@@ -12,7 +12,7 @@ class CreateTransferLinesTable extends Migration
             $table->id();
             $table->unsignedInteger('product_id')->nullable();
             $table->string('description')->nullable();
-            $table->integer('demand');
+            $table->double('demand');
             $table->unsignedInteger('measurement_id');
             $table->unsignedInteger('transfer_id')->nullable();
             $table->softDeletes();

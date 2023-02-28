@@ -13,8 +13,8 @@ class CreateAdjustmentLinesTable extends Migration
             $table->unsignedInteger('adjustment_id')->nullable();
             $table->unsignedInteger('product_id')->nullable();
             $table->unsignedInteger('measurement_id');
-            $table->integer('quantity_on_hand');
-            $table->integer('quantity_counted');
+            $table->double('quantity_on_hand');
+            $table->double('quantity_counted');
             $table->softDeletes();
             $table->timestamps();
         });
