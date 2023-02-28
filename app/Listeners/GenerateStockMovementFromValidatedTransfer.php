@@ -3,16 +3,14 @@
 
 namespace App\Listeners;
 
-use App\Events\ProductHasMaterial;
 use App\Events\TransferValidated;
-use App\Jobs\ComputeProductQuantity;
-use App\Models\Product;
-use App\Models\StockMovement;
+use App\Traits\StockTrait;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Arr;
 
 class GenerateStockMovementFromValidatedTransfer implements ShouldQueue
 {
+    use StockTrait;
+
     public function handle(TransferValidated $event)
     {
         $transfer = $event->transfer;
@@ -22,49 +20,27 @@ class GenerateStockMovementFromValidatedTransfer implements ShouldQueue
             return;
         }
         foreach ($transferLines as $transferLine) {
-            $stockMovement = $this->storableProductGenerateMovement($transfer, $transferLine);
+            $stockMovement = $this->storableProductGenerateMovement([
+                'reference' => $transfer->reference,
+                'source' => $transfer->source_document,
+                'product_id' => $transferLine->product_id,
+                'source_location_id' => $transfer->source_location_id,
+                'destination_location_id' => $transfer->destination_location_id,
+                'quantity_done' => $transferLine->demand,
+                'product_type' => $transferLine->product->product_type,
+            ]);
             if ($stockMovement) {
                 $stockMovementData[] = $stockMovement;
             }
-            $this->hasMaterialGenerateMovement($transfer, $transferLine);
+            $this->hasMaterialGenerateMovement([
+                'product' => $transferLine->product,
+                'reference' => $transfer->reference,
+                'source_document' => $transfer->source_document,
+                'source_location_id' => $transfer->source_location_id,
+                'destination_location_id' => $transfer->destination_location_id,
+                'demand' => $transferLine->demand,
+            ]);
         }
-        if (!count($stockMovementData)) {
-            return;
-        }
-        StockMovement::massUpsert($stockMovementData);
-        $productIds = Arr::pluck($stockMovementData, 'product_id');
-        ComputeProductQuantity::dispatch($productIds);
-    }
-
-    private function storableProductGenerateMovement($transfer, $transferLine)
-    {
-        $product = $transferLine->product;
-        if (!Product::isStorable($product->product_type)) {
-            return false;
-        }
-        return [
-            'reference' => $transfer->reference,
-            'source' => $transfer->source_document,
-            'product_id' => $transferLine->product_id,
-            'source_location_id' => $transfer->source_location_id,
-            'destination_location_id' => $transfer->destination_location_id,
-            'quantity_done' => $transferLine->demand,
-        ];
-    }
-
-    private function hasMaterialGenerateMovement($transfer, $transferLine)
-    {
-        $product = $transferLine->product;
-        if (!$product->material()->exists()) {
-            return;
-        }
-        ProductHasMaterial::dispatch(
-            $transfer->reference,
-            $transfer->source_document,
-            $transfer->source_location_id,
-            $transfer->destination_location_id,
-            $product->material,
-            $transferLine->demand
-        );
+        $this->computeStockMovementData($stockMovementData);
     }
 }

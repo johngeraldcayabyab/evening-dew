@@ -3,15 +3,13 @@
 namespace App\Listeners;
 
 use App\Events\AdjustmentValidated;
-use App\Events\ProductHasMaterial;
-use App\Jobs\ComputeProductQuantity;
-use App\Models\Product;
-use App\Models\StockMovement;
+use App\Traits\StockTrait;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Arr;
 
 class GenerateStockMovementFromValidatedAdjustment implements ShouldQueue
 {
+    use StockTrait;
+
     public function handle(AdjustmentValidated $event)
     {
         $adjustment = $event->adjustment;
@@ -34,32 +32,28 @@ class GenerateStockMovementFromValidatedAdjustment implements ShouldQueue
                 $destinationLocationId = $warehouse->stock_location_id;
                 $quantityDone = $adjustmentLine->quantity_counted - $adjustmentLine->quantity_on_hand;
             }
-            if (Product::isStorable($product->product_type)) {
-                $stockMovementData[] = [
-                    'reference' => $adjustment->number,
-                    'source' => 'Product Quantity Updated',
-                    'product_id' => $adjustmentLine->product_id,
-                    'source_location_id' => $sourceLocationId,
-                    'destination_location_id' => $destinationLocationId,
-                    'quantity_done' => $quantityDone,
-                ];
+            $stockMovement = $this->storableProductGenerateMovement([
+                'reference' => $adjustment->number,
+                'source' => 'Product Quantity Updated',
+                'product_id' => $adjustmentLine->product_id,
+                'source_location_id' => $sourceLocationId,
+                'destination_location_id' => $destinationLocationId,
+                'quantity_done' => $quantityDone,
+                'product_type' => $product->product_type,
+            ]);
+            if ($stockMovement) {
+                $stockMovementData[] = $stockMovement;
             }
-            if ($product->material()->exists()) {
-                ProductHasMaterial::dispatch(
-                    $adjustment->number,
-                    'Product Quantity Updated',
-                    $sourceLocationId,
-                    $destinationLocationId,
-                    $product->material,
-                    $quantityDone,
-                );
-            }
+            $this->hasMaterialGenerateMovement([
+                'product' => $product,
+                'reference' => $adjustment->number,
+                'source_document' => 'Product Quantity Updated',
+                'source_location_id' => $sourceLocationId,
+                'destination_location_id' => $destinationLocationId,
+                'demand' => $quantityDone,
+            ]);
         }
-        if (count($stockMovementData)) {
-            StockMovement::massUpsert($stockMovementData);
-            $productIds = Arr::pluck($stockMovementData, 'product_id');
-            ComputeProductQuantity::dispatch($productIds);
-        }
+        $this->computeStockMovementData($stockMovementData);
     }
 
     private function onHandGreaterThanCounted($adjustmentLine)

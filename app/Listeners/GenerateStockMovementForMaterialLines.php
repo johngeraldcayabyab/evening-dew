@@ -3,14 +3,13 @@
 namespace App\Listeners;
 
 use App\Events\ProductHasMaterial;
-use App\Jobs\ComputeProductQuantity;
-use App\Models\Product;
-use App\Models\StockMovement;
+use App\Traits\StockTrait;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Arr;
 
 class GenerateStockMovementForMaterialLines implements ShouldQueue
 {
+    use StockTrait;
+
     public function handle(ProductHasMaterial $event)
     {
         $reference = $event->reference;
@@ -22,31 +21,27 @@ class GenerateStockMovementForMaterialLines implements ShouldQueue
         $stockMovementData = [];
         foreach ($materialLines as $materialLine) {
             $materialLineProduct = $materialLine->product;
-            if (Product::isStorable($materialLineProduct->product_type)) {
-                $stockMovementData[] = [
-                    'reference' => $reference,
-                    'source' => $source,
-                    'product_id' => $materialLine->product_id,
-                    'source_location_id' => $sourceLocationId,
-                    'destination_location_id' => $destinationLocationId,
-                    'quantity_done' => $materialLine->quantity * $event->demand,
-                ];
+            $stockMovement = $this->storableProductGenerateMovement([
+                'reference' => $reference,
+                'source' => $source,
+                'product_id' => $materialLine->product_id,
+                'source_location_id' => $sourceLocationId,
+                'destination_location_id' => $destinationLocationId,
+                'quantity_done' => $materialLine->quantity * $event->demand,
+                'product_type' => $materialLineProduct->product_type
+            ]);
+            if ($stockMovement) {
+                $stockMovementData[] = $stockMovement;
             }
-            if ($materialLineProduct->material()->exists()) {
-                ProductHasMaterial::dispatch(
-                    $reference,
-                    $source,
-                    $sourceLocationId,
-                    $destinationLocationId,
-                    $materialLineProduct->material,
-                    $materialLine->quantity
-                );
-            }
+            $this->hasMaterialGenerateMovement([
+                'product' => $materialLineProduct,
+                'reference' => $reference,
+                'source_document' => $source,
+                'source_location_id' => $sourceLocationId,
+                'destination_location_id' => $destinationLocationId,
+                'demand' => $materialLine->quantity,
+            ]);
         }
-        if (count($stockMovementData)) {
-            StockMovement::massUpsert($stockMovementData);
-            $productIds = Arr::pluck($stockMovementData, 'product_id');
-            ComputeProductQuantity::dispatch($productIds);
-        }
+        $this->computeStockMovementData($stockMovementData);
     }
 }
