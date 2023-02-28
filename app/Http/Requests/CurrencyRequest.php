@@ -15,7 +15,7 @@ class CurrencyRequest extends FormRequest
             'name' => ['nullable'],
             'unit' => ['nullable'],
             'sub_unit' => ['nullable'],
-            'rounding_factor' => ['required'],
+            'rounding_factor' => ['required', 'numeric'],
             'decimal_places' => ['required'],
             'symbol' => ['required'],
             'symbol_position' => ['required', "in:$symbolPositions"],

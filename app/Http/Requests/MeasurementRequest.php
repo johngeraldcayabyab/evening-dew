@@ -14,8 +14,8 @@ class MeasurementRequest extends FormRequest
         return [
             'name' => ['required', "unique:measurements,name,{$id}"],
             'type' => ['nullable', "in:$types"],
-            'ratio' => ['nullable'],
-            'rounding_precision' => ['nullable'],
+            'ratio' => ['nullable', 'numeric'],
+            'rounding_precision' => ['nullable', 'numeric'],
             'measurement_category_id' => ['nullable', "exists:measurement_categories,id"]
         ];
     }

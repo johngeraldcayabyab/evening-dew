@@ -39,9 +39,9 @@ class SalesOrderRequest extends FormRequest
             'sales_order_lines.*.id' => ['nullable', 'exists:sales_order_lines,id'],
             'sales_order_lines.*.product_id' => ['required', "exists:products,id"],
             'sales_order_lines.*.description' => ['nullable'],
-            'sales_order_lines.*.quantity' => ['required'],
+            'sales_order_lines.*.quantity' => ['required', 'numeric'],
             'sales_order_lines.*.measurement_id' => ["nullable", "exists:measurements,id", new SalesOrderSameMeasurementCategory],
-            'sales_order_lines.*.unit_price' => ['required'],
+            'sales_order_lines.*.unit_price' => ['required', 'numeric'],
             'sales_order_lines.*.shipping_date' => ['nullable'],
             'sales_order_lines_deleted.*.id' => ['nullable', 'exists:sales_order_lines,id'],
         ];

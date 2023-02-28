@@ -14,7 +14,7 @@ class StockMovementRequest extends FormRequest
             'product_id' => ['required', "exists:products,id"],
             'source_location_id' => ['required', 'exists:locations,id'],
             'destination_location_id' => ['required', 'exists:locations,id'],
-            'quantity_done' => ['required'],
+            'quantity_done' => ['required', 'numeric'],
         ];
     }
 }

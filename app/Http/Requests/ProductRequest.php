@@ -18,8 +18,8 @@ class ProductRequest extends FormRequest
             'can_be_sold' => ['nullable'],
             'can_be_purchased' => ['nullable'],
             'invoicing_policy' => ['nullable', "in:$invoicingPolicies"], //required in front end
-            'sales_price' => 'nullable', //required in front end
-            'cost' => 'nullable', //required in front end
+            'sales_price' => ['nullable', 'numeric'], //required in front end
+            'cost' => ['nullable', 'numeric'], //required in front end
             'measurement_id' => ['nullable', "exists:measurements,id"], //required in front end
             'purchase_measurement_id' => ['nullable', "exists:measurements,id", new SameMeasurementCategory], //required in front end
             'sales_measurement_id' => ['nullable', "exists:measurements,id", new SameMeasurementCategory], //required in front end
