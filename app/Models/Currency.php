@@ -28,6 +28,9 @@ class Currency extends Model implements Sluggable
     protected $table = 'currencies';
     protected $guarded = [];
     protected static $logAttributes = ['*'];
+    protected $casts = [
+        'rounding_factor' => 'double',
+    ];
 
     public static function getSymbolPositions()
     {

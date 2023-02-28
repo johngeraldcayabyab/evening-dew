@@ -38,6 +38,11 @@ class Product extends Model implements Sluggable
     protected $table = 'products';
     protected $guarded = [];
     protected static $logAttributes = ['*'];
+    protected $casts = [
+        'sales_price' => 'double',
+        'cost' => 'double',
+        'quantity' => 'double',
+    ];
 
     public static function getProductTypes()
     {

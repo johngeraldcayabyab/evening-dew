@@ -32,6 +32,10 @@ class Measurement extends Model implements Sluggable
     protected $table = 'measurements';
     protected $guarded = [];
     protected static $logAttributes = ['*'];
+    protected $casts = [
+        'ratio' => 'double',
+        'rounding_precision' => 'double',
+    ];
 
     public static function getTypes()
     {

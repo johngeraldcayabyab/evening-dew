@@ -24,6 +24,9 @@ class MaterialLine extends Model
     protected $table = 'material_lines';
     protected $guarded = [];
     protected static $logAttributes = ['*'];
+    protected $casts = [
+        'quantity' => 'double',
+    ];
 
     public function product()
     {

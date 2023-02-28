@@ -24,6 +24,11 @@ class AdjustmentLine extends Model
     protected $table = 'adjustment_lines';
     protected $guarded = [];
     protected static $logAttributes = ['*'];
+    protected $casts = [
+        'quantity_on_hand' => 'double',
+        'quantity_counted' => 'double',
+    ];
+
 
     public function adjustment()
     {

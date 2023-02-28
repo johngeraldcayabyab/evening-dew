@@ -25,6 +25,9 @@ class DeliveryFee extends Model implements Sluggable
     protected $table = 'delivery_fees';
     protected $guarded = [];
     protected static $logAttributes = ['*'];
+    protected $casts = [
+        'fee' => 'double',
+    ];
 
     public function deliveryFeeLines()
     {

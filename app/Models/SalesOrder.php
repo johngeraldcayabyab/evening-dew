@@ -25,6 +25,9 @@ class SalesOrder extends Model implements Sluggable
     protected $table = 'sales_orders';
     protected $guarded = [];
     protected static $logAttributes = ['*'];
+    protected $casts = [
+        'subtotal' => 'double',
+    ];
 
     const DRAFT = 'draft';
     const DONE = 'done';

@@ -24,6 +24,9 @@ class StockMovement extends Model
     protected $table = 'stock_movements';
     protected $guarded = [];
     protected static $logAttributes = ['*'];
+    protected $casts = [
+        'quantity_done' => 'double',
+    ];
 
     public function product()
     {

@@ -24,6 +24,9 @@ class TransferLine extends Model
     protected $table = 'transfer_lines';
     protected $guarded = [];
     protected static $logAttributes = ['*'];
+    protected $casts = [
+        'demand' => 'double',
+    ];
 
     public function product()
     {

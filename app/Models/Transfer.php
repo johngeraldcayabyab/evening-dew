@@ -25,6 +25,11 @@ class Transfer extends Model implements Sluggable
     protected $table = 'transfers';
     protected $guarded = [];
     protected static $logAttributes = ['*'];
+    protected $casts = [
+        'quantity' => 'weight',
+        'unit_price' => 'weight_for_shipping',
+    ];
+
 
     const AS_SOON_AS_POSSIBLE = 'as_soon_as_possible';
     const WHEN_ALL_PRODUCTS_ARE_READY = 'when_all_products_are_ready';

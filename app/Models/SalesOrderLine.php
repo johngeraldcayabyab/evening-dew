@@ -27,6 +27,11 @@ class SalesOrderLine extends Model
     protected $table = 'sales_order_lines';
     protected $guarded = [];
     protected static $logAttributes = ['*'];
+    protected $casts = [
+        'quantity' => 'double',
+        'unit_price' => 'double',
+        'subtotal' => 'double',
+    ];
 
     public function product()
     {
