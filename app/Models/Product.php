@@ -79,6 +79,11 @@ class Product extends Model implements Sluggable
         return $this->hasOne(Material::class);
     }
 
+    public function stockMovements()
+    {
+        return $this->hasMany(StockMovement::class);
+    }
+
     public static function isStorable($type)
     {
         if ($type === Product::STORABLE) {
