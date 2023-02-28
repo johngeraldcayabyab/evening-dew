@@ -15,7 +15,7 @@ class CreateCurrenciesTable extends Migration
             $table->string('unit')->nullable();
             $table->string('sub_unit')->nullable();
             $table->unsignedDouble('rounding_factor');
-            $table->unsignedDouble('decimal_places');
+            $table->integer('decimal_places');
             $table->string('symbol');
             $table->string('symbol_position');
             $table->softDeletes();
