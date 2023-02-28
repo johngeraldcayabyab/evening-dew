@@ -17,18 +17,21 @@ class InternalCompute
 
     public function handle($initialQuantity)
     {
+        $quantityDone = $this->quantityDone;
+        $initialQuantity = (float)$initialQuantity;
+
         $destinationLocation = $this->destinationLocation;
         if (Location::isCustomer($destinationLocation)) {
-            return $initialQuantity - $this->quantityDone;
+            return $initialQuantity - $quantityDone;
         }
         if (Location::isInternal($destinationLocation)) {
             return $initialQuantity;
         }
         if (Location::isInventoryLoss($destinationLocation)) {
-            return $initialQuantity - $this->quantityDone;
+            return $initialQuantity - $quantityDone;
         }
         if (Location::isVendor($destinationLocation)) {
-            return $initialQuantity - $this->quantityDone;
+            return $initialQuantity - $quantityDone;
         }
         return $initialQuantity;
     }

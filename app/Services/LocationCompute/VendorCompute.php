@@ -18,14 +18,16 @@ class VendorCompute
     public function handle($initialQuantity)
     {
         $destinationLocation = $this->destinationLocation;
+        $quantityDone = (float)$this->quantityDone;
+        $initialQuantity = (float)$initialQuantity;
         if (Location::isCustomer($destinationLocation)) { //dropship??
             return $initialQuantity;
         }
         if (Location::isInternal($destinationLocation)) {
-            return $initialQuantity + $this->quantityDone;
+            return $initialQuantity + $quantityDone;
         }
         if (Location::isInventoryLoss($destinationLocation)) {
-            return $initialQuantity - $this->quantityDone;
+            return $initialQuantity - $quantityDone;
         }
         if (Location::isVendor($destinationLocation)) {
             return $initialQuantity;

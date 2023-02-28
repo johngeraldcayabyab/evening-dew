@@ -21,18 +21,18 @@ class GenerateStockMovementFromValidatedAdjustment implements ShouldQueue
         $stockMovementData = [];
         foreach ($adjustmentLines as $adjustmentLine) {
             $product = $adjustmentLine->product;
-            $quantityDone = $adjustmentLine->quantity_on_hand;
+            $quantityDone = (float)$adjustmentLine->quantity_on_hand;
             $sourceLocationId = null;
             $destinationLocationId = null;
             if ($this->onHandGreaterThanCounted($adjustmentLine)) {
                 $sourceLocationId = $warehouse->stock_location_id;
                 $destinationLocationId = $warehouse->adjustment_location_id;
-                $quantityDone = $adjustmentLine->quantity_on_hand - $adjustmentLine->quantity_counted;
+                $quantityDone = (float)$adjustmentLine->quantity_on_hand - (float)$adjustmentLine->quantity_counted;
             }
             if ($this->countedGreaterThanOnHand($adjustmentLine)) {
                 $sourceLocationId = $warehouse->adjustment_location_id;
                 $destinationLocationId = $warehouse->stock_location_id;
-                $quantityDone = $adjustmentLine->quantity_counted - $adjustmentLine->quantity_on_hand;
+                $quantityDone = (float)$adjustmentLine->quantity_counted - (float)$adjustmentLine->quantity_on_hand;
             }
             if (Product::isStorable($product->product_type)) {
                 $stockMovementData[] = [
@@ -64,7 +64,7 @@ class GenerateStockMovementFromValidatedAdjustment implements ShouldQueue
 
     private function onHandGreaterThanCounted($adjustmentLine)
     {
-        if ($adjustmentLine->quantity_on_hand > $adjustmentLine->quantity_counted) {
+        if ((float)$adjustmentLine->quantity_on_hand > (float)$adjustmentLine->quantity_counted) {
             return true;
         }
         return false;
@@ -72,7 +72,7 @@ class GenerateStockMovementFromValidatedAdjustment implements ShouldQueue
 
     private function countedGreaterThanOnHand($adjustmentLine)
     {
-        if ($adjustmentLine->quantity_on_hand < $adjustmentLine->quantity_counted) {
+        if ((float)$adjustmentLine->quantity_on_hand < (float)$adjustmentLine->quantity_counted) {
             return true;
         }
         return false;
