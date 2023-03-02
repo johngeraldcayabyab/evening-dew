@@ -30,12 +30,10 @@ class ComputeProductQuantity implements ShouldQueue, ShouldBeUnique
             $internalLocationQuantity = collect($internalLocationIds)->reduce(function (int $quantity, $internalLocationId) use ($product) {
                 $stockMovementSourceLocationSum = StockMovement::where('product_id', $product->id)
                     ->where('source_location_id', $internalLocationId)
-                    ->get()
                     ->pluck('quantity_done')
                     ->sum();
                 $stockMovementDestinationLocationSum = StockMovement::where('product_id', $product->id)
                     ->where('destination_location_id', $internalLocationId)
-                    ->get()
                     ->pluck('quantity_done')
                     ->sum();
                 $quantity += $stockMovementDestinationLocationSum - $stockMovementSourceLocationSum;
