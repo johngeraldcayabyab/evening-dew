@@ -19,7 +19,7 @@ trait StockTrait
             'reference' => $data['reference'],
             'source' => $data['source'],
             'product_id' => $data['product_id'],
-            'source_location_id' => $data['source_location'],
+            'source_location_id' => $data['source_location_id'],
             'destination_location_id' => $data['destination_location_id'],
             'quantity_done' => $data['quantity_done']
         ];
