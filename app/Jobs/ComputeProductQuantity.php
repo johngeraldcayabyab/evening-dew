@@ -5,10 +5,6 @@ namespace App\Jobs;
 use App\Models\Location;
 use App\Models\Product;
 use App\Models\StockMovement;
-use App\Services\LocationCompute\CustomerCompute;
-use App\Services\LocationCompute\InternalCompute;
-use App\Services\LocationCompute\InventoryLossCompute;
-use App\Services\LocationCompute\VendorCompute;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -29,33 +25,24 @@ class ComputeProductQuantity implements ShouldQueue, ShouldBeUnique
 
     public function handle()
     {
-        Product::find($this->productIds)->each(function ($product) {
-            $currentQuantity = $product->quantity;
-            $stockMovements = StockMovement::where('product_id', $product->id)->get();
-            $doneQuantity = $stockMovements->reduce(function (int $carry, StockMovement $stockMovement) {
-                $sourceLocation = $stockMovement->sourceLocation;
-                if (Location::isCustomer($sourceLocation)) {
-                    $customerCompute = new CustomerCompute($stockMovement);
-                    $carry = $customerCompute->handle($carry);
-                }
-                if (Location::isInternal($sourceLocation)) {
-                    $internalCompute = new InternalCompute($stockMovement);
-                    $carry = $internalCompute->handle($carry);
-                }
-                if (Location::isInventoryLoss($sourceLocation)) {
-                    $inventoryLossCompute = new InventoryLossCompute($stockMovement);
-                    $carry = $inventoryLossCompute->handle($carry);
-                }
-                if (Location::isVendor($sourceLocation)) {
-                    $vendorCompute = new VendorCompute($stockMovement);
-                    $carry = $vendorCompute->handle($carry);
-                }
-                return $carry;
+        $internalLocationIds = Location::where('type', Location::INTERNAL)->pluck('id');
+        Product::find($this->productIds)->each(function ($product) use ($internalLocationIds) {
+            $internalLocationQuantity = collect($internalLocationIds)->reduce(function (int $quantity, $internalLocationId) use ($product) {
+                $stockMovementSourceLocationSum = StockMovement::where('product_id', $product->id)
+                    ->where('source_location_id', $internalLocationId)
+                    ->get()
+                    ->pluck('quantity_done')
+                    ->sum();
+                $stockMovementDestinationLocationSum = StockMovement::where('product_id', $product->id)
+                    ->where('destination_location_id', $internalLocationId)
+                    ->get()
+                    ->pluck('quantity_done')
+                    ->sum();
+                $quantity += $stockMovementDestinationLocationSum - $stockMovementSourceLocationSum;
+                return $quantity;
             }, 0);
-            if ($currentQuantity !== $doneQuantity) {
-                $product->quantity = $doneQuantity;
-                $product->save();
-            }
+            $product->quantity = $internalLocationQuantity;
+            $product->save();
         });
     }
 }
