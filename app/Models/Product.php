@@ -92,6 +92,32 @@ class Product extends Model implements Sluggable
         return false;
     }
 
+    public function stockQuantityPerLocation()
+    {
+        return Location::where('type', Location::INTERNAL)
+            ->get()
+            ->map(function ($internalLocation) {
+                $stockMovementSourceLocationSum = $this->stockMovements()
+                    ->where('source_location_id', $internalLocation->id)
+                    ->pluck('quantity_done')
+                    ->sum();
+                $stockMovementDestinationLocationSum = $this->stockMovements()
+                    ->where('destination_location_id', $internalLocation->id)
+                    ->pluck('quantity_done')
+                    ->sum();
+                $quantity = $stockMovementDestinationLocationSum - $stockMovementSourceLocationSum;
+                return [
+                    'name' => $internalLocation->name,
+                    'quantity' => $quantity,
+                ];
+            })->filter(function ($stockQuantityLocation) {
+                if ($stockQuantityLocation['quantity'] === 0) {
+                    return false;
+                }
+                return true;
+            });
+    }
+
     public function slug()
     {
         return 'name';
