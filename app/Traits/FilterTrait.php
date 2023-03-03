@@ -20,6 +20,16 @@ trait FilterTrait
         $query = $this;
         $modelInstance = $this;
         $fields = $query->getFields();
+        $relationships = [];
+        foreach ($fields as $field) {
+            $relationship = $this->hasRelationGet($modelInstance, $field);
+            if ($relationship) {
+                $relationships[] = $relationship;
+            }
+        }
+        if (count($relationships)) {
+            $query = $query->with($relationships);
+        }
         $query = $this->groupNow($request, $query);
         $query = $this->filterNowGlobal($fields, $request, $modelInstance, $query);
         $query = $this->filterNow($fields, $request, $modelInstance, $query);
