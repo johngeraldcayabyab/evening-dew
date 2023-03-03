@@ -74,4 +74,9 @@ class ProductController
             'product_category_id' => $inventoryDefaultProductCategory->id,
         ];
     }
+
+    public function stockLocationQuantity(Product $product)
+    {
+        return $product->stockLocationQuantity();
+    }
 }

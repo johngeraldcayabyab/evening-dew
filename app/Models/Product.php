@@ -92,7 +92,7 @@ class Product extends Model implements Sluggable
         return false;
     }
 
-    public function stockQuantityPerLocation()
+    public function stockLocationQuantity()
     {
         return Location::where('type', Location::INTERNAL)
             ->get()

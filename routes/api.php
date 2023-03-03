@@ -68,6 +68,7 @@ Route::group(['middleware' => ['api', 'cors', 'auth:sanctum']], function () {
     Router::generate(SalesOrderController::class);
     Router::generate(SalesOrderLineController::class);
     Router::generate(ProductController::class);
+    Route::get("products/{product}/stock_location_quantity", [ProductController::class, 'stockLocationQuantity']);
     Router::generate(SequenceController::class);
     Router::generate(SourceController::class);
     Router::generate(StockMovementController::class);
