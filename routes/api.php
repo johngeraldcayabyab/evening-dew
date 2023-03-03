@@ -28,6 +28,7 @@ use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\SalesOrderLineController;
 use App\Http\Controllers\SequenceController;
 use App\Http\Controllers\SourceController;
+use App\Http\Controllers\StockLocationQuantityController;
 use App\Http\Controllers\StockMovementController;
 use App\Http\Controllers\TransferController;
 use App\Http\Controllers\UploadController;
@@ -68,9 +69,9 @@ Route::group(['middleware' => ['api', 'cors', 'auth:sanctum']], function () {
     Router::generate(SalesOrderController::class);
     Router::generate(SalesOrderLineController::class);
     Router::generate(ProductController::class);
-    Route::get("products/{product}/stock_location_quantity", [ProductController::class, 'stockLocationQuantity']);
     Router::generate(SequenceController::class);
     Router::generate(SourceController::class);
+    Route::get('/stock_location_quantity', [StockLocationQuantityController::class, 'index']);
     Router::generate(StockMovementController::class);
     Router::generate(TransferController::class);
     Route::post('uploads/images', [UploadController::class, 'image']);

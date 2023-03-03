@@ -29,6 +29,7 @@ import StockMovement from "./Modules/StockMovementManifest"
 import Transfer from "./Modules/TransferManifest"
 import User from "./Modules/UserManifest"
 import Warehouse from "./Modules/WarehouseManifest"
+import StockLocationQuantity from "./Modules/StockLocationQuantityManifest"
 import {Switch} from "react-router-dom"
 import Routes from "./Components/Routes"
 import FormGenerator from "./Components/Form/FormGenerator"
@@ -63,6 +64,7 @@ const RouteMaster = () => {
         SalesOrderLine,
         Sequence,
         Source,
+        StockLocationQuantity,
         StockMovement,
         Transfer,
         User,

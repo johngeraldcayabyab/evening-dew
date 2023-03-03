@@ -1,9 +1,9 @@
 import {DATE_RANGE, SEARCH} from "../consts"
 
-const displayName = "sales_order_lines";
+const displayName = "stock_location_quantity";
 
 const manifest = {
-    "moduleName": "sales_order_lines",
+    "moduleName": "stock_location_quantity",
     "displayName": displayName,
     "queryDefaults": {
         "group_by": "product_id,shipping_date",
