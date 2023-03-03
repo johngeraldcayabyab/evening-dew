@@ -12,6 +12,7 @@ import {setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import AvatarUser from "./AvatarUser";
 import {reset} from "../Helpers/reset";
+import {objectHasValue} from "../Helpers/object"
 
 function resetBreadcrumbs(url) {
     let splitPathName = url.split('/');
@@ -100,7 +101,7 @@ const CustomMenu = () => {
         });
     }
 
-    const sectionMenu = state.appMenuChildren.map((menu) => {
+    const sectionMenu = state.appMenuChildren ? state.appMenuChildren.map((menu) => {
         if (menu.children.length) {
             return {
                 label: menu.label,
@@ -123,38 +124,42 @@ const CustomMenu = () => {
                 resetBreadcrumbs(menu.menu.url);
             }
         }
+    }) : {};
+
+    const items = [];
+
+    items.push({
+        label: '',
+        key: 'app-menu',
+        icon: <AppstoreOutlined/>,
+        children: state.appMenu.map((appMenu) => ({
+            label: <Link to={appMenu.menu.url}>{appMenu.label}</Link>,
+            key: `app-menu-${appMenu.id}`,
+            onClick: () => {
+                const index = state.appMenu.findIndex(m => m.id === appMenu.id);
+                resetBreadcrumbs(appMenu.menu.url);
+                setState((prevState) => ({
+                    ...prevState, appMenuChildren: state.appMenu[index].children
+                }));
+            }
+        })),
     });
 
-    const items = [
-        {
-            label: '',
-            key: 'app-menu',
-            icon: <AppstoreOutlined/>,
-            children: state.appMenu.map((appMenu) => ({
-                label: <Link to={appMenu.menu.url}>{appMenu.label}</Link>,
-                key: `app-menu-${appMenu.id}`,
-                onClick: () => {
-                    const index = state.appMenu.findIndex(m => m.id === appMenu.id);
-                    resetBreadcrumbs(appMenu.menu.url);
-                    setState((prevState) => ({
-                        ...prevState, appMenuChildren: state.appMenu[index].children
-                    }));
-                }
-            })),
-        },
-        ...sectionMenu,
-        {
-            label: '',
-            key: 'systray-menu',
-            icon: <AvatarUser/>,
-            className: 'top-nav-avatar',
-            children: [{
-                label: 'Logout', onClick: () => {
-                    onLogout()
-                }
-            },]
-        },
-    ];
+    if (typeof sectionMenu === 'object' && objectHasValue(sectionMenu)) {
+        items.push(...sectionMenu);
+    }
+
+    items.push({
+        label: '',
+        key: 'systray-menu',
+        icon: <AvatarUser/>,
+        className: 'top-nav-avatar',
+        children: [{
+            label: 'Logout', onClick: () => {
+                onLogout()
+            }
+        },]
+    });
 
     return (
         <Spin spinning={state.loading}>
