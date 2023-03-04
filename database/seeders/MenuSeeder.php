@@ -123,6 +123,10 @@ class MenuSeeder extends Seeder
                 'url' => '/sources',
             ],
             [
+                'label' => 'Stock Location Quantity',
+                'url' => '/stock_location_quantity',
+            ],
+            [
                 'label' => 'Stock Movements',
                 'url' => '/stock_movements',
             ],

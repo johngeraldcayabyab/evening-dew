@@ -78,6 +78,10 @@ class AppMenuSeeder extends Seeder
                                 'label' => 'Reporting',
                                 'children' => [
                                     [
+                                        'label' => 'Stock Location Quantity',
+                                        'menu_key' => 'Stock Location Quantity',
+                                    ],
+                                    [
                                         'label' => 'Stock Movements',
                                         'menu_key' => 'Stock Movements',
                                     ],
