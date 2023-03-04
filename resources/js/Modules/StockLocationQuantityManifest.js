@@ -19,24 +19,19 @@ const manifest = {
         columnSelection: true,
         columns: [
             {
-                title: 'Shipping date',
-                dataIndex: 'shipping_date',
-                key: 'shipping_date',
-                sorter: true,
-                filter: DATE_RANGE,
-            },
-            {
-                title: 'Product',
-                dataIndex: 'product',
-                key: 'product',
+                title: 'Product Name',
+                dataIndex: 'product_name',
+                key: 'product_name',
                 sorter: true,
                 filter: SEARCH,
-                render: (text, record) => {
-                    if (record.product) {
-                        return record.product.name;
-                    }
-                    return '';
-                },
+                isGlobalSearch: true,
+            },
+            {
+                title: 'Location Name',
+                dataIndex: 'location_name',
+                key: 'location_name',
+                sorter: true,
+                filter: SEARCH,
                 isGlobalSearch: true,
             },
             {
