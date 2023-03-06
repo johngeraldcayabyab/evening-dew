@@ -25,7 +25,7 @@ const FormLinks = (props) => {
             /**
              * this needs to be refactored
              */
-            if (objectHasValue(initialValues[link.value])) {
+            if (initialValues[link.value]) {
                 links.push(link);
             }
         });
@@ -33,6 +33,7 @@ const FormLinks = (props) => {
             return null;
         }
     }
+
     return (
         <div style={{
             borderBottom: '1px solid #cccccc',

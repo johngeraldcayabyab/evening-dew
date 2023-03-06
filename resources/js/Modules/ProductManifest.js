@@ -124,7 +124,9 @@ const manifest = {
     },
     formLinks: [
         {
-            value: 'name',
+            value: 'id',
+            module: 'stock_location_quantity',
+            param: 'product_id',
             label: (initialValues) => {
                 return `Quantity: ${initialValues.quantity} ${initialValues.measurement ? initialValues.measurement.name : null}`
             }

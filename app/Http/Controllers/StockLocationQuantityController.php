@@ -35,12 +35,19 @@ class StockLocationQuantityController extends Controller
             ->selectRaw("
                 COUNT(stock_movement_quantity.product_id) as product_aggregate,
                 COUNT(stock_movement_quantity.destination_location_id) as location_aggregate,
+                product_id,
+                stock_movement_quantity.destination_location_id as location_id,
                 products.name as product_name,
                 locations.name as location_name,
                 $rawQuery"
             )
             ->leftJoin('products', 'products.id', '=', 'stock_movement_quantity.product_id')
-            ->leftJoin('locations', 'locations.id', '=', 'stock_movement_quantity.destination_location_id')
+            ->leftJoin('locations', 'locations.id', '=', 'stock_movement_quantity.destination_location_id');
+        if ($request->product_id) {
+            $stockLocationQuantity = $stockLocationQuantity
+                ->where('stock_movement_quantity.product_id', $request->product_id);
+        }
+        $stockLocationQuantity = $stockLocationQuantity
             ->whereIn('destination_location_id', $internalLocationIds)
             ->withTrashed()
             ->whereNull("stock_movement_quantity.deleted_at")

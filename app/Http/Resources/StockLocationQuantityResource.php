@@ -11,6 +11,8 @@ class StockLocationQuantityResource extends JsonResource
     {
         return [
             'id' => Str::uuid(),
+            'product_id' => $this->product_id,
+            'location_id' => $this->location_id,
             'product_name' => $this->product_name,
             'location_name' => $this->location_name,
             'quantity' => $this->quantity,

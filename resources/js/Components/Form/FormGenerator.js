@@ -128,7 +128,8 @@ const FormGenerator = (manifest) => {
         formContextProviderValues['onValuesChange'] = manifest.form.onValuesChange;
     }
 
-    return (<FormContextProvider
+    return (
+        <FormContextProvider
             value={formContextProviderValues}
         >
             <CustomForm>
@@ -143,7 +144,8 @@ const FormGenerator = (manifest) => {
                     <FormItems/>
                 </FormCard>
             </CustomForm>
-        </FormContextProvider>);
+        </FormContextProvider>
+    );
 };
 
 export default FormGenerator;
