@@ -20,11 +20,15 @@ class StockLocationQuantityController extends Controller
             ->selectRaw('COALESCE(sum(stock_destination.quantity_done), 0)')
             ->where('stock_destination.product_id', 'products.id')
             ->where('stock_destination.destination_location_id', 'locations.id')
+            ->withTrashed()
+            ->whereNull("stock_destination.deleted_at")
             ->sqlRaw();
         $sourceRaw = StockMovement::from('stock_movements as stock_source')
             ->selectRaw('COALESCE(sum(stock_source.quantity_done), 0)')
             ->where('stock_source.product_id', 'products.id')
             ->where('stock_source.source_location_id', 'locations.id')
+            ->withTrashed()
+            ->whereNull("stock_source.deleted_at")
             ->sqlRaw();
         $rawQuery = "(($destinationRaw) - ($sourceRaw)) as quantity";
         $stockLocationQuantity = StockMovement::from('stock_movements as stock_movement_quantity')
@@ -38,7 +42,9 @@ class StockLocationQuantityController extends Controller
             ->leftJoin('products', 'products.id', '=', 'stock_movement_quantity.product_id')
             ->leftJoin('locations', 'locations.id', '=', 'stock_movement_quantity.destination_location_id')
             ->whereIn('destination_location_id', $internalLocationIds)
-            ->groupBy('stock_movements.product_id', 'stock_movements.destination_location_id')
+            ->withTrashed()
+            ->whereNull("stock_movement_quantity.deleted_at")
+            ->groupBy('stock_movement_quantity.product_id', 'stock_movement_quantity.destination_location_id')
             ->paginate();
         return StockLocationQuantityResource::collection($stockLocationQuantity);
     }
