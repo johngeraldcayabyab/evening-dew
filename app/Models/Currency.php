@@ -42,6 +42,11 @@ class Currency extends Model implements Sluggable
         return $this->hasMany(Country::class);
     }
 
+    public function bankAccounts()
+    {
+        return $this->hasMany(BankAccount::class);
+    }
+
     public function slug()
     {
         return 'currency';

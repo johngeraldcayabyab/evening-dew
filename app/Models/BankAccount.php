@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Bank extends Model implements Sluggable
+class BankAccount extends Model implements Sluggable
 {
     use HasFactory;
     use SoftDeletes;
@@ -22,17 +22,27 @@ class Bank extends Model implements Sluggable
     use ModelHelperTrait;
     use NextAndPreviousRecordTrait;
 
-    protected $table = 'banks';
+    protected $table = 'bank_accounts';
     protected $guarded = [];
     protected static $logAttributes = ['*'];
 
-    public function bankAccounts()
+    public function accountHolder()
     {
-        return $this->hasMany(BankAccount::class);
+        return $this->belongsTo(Contact::class);
+    }
+
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class);
+    }
+
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
     }
 
     public function slug()
     {
-        return 'name';
+        return 'account_number';
     }
 }

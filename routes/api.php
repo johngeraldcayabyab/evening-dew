@@ -5,6 +5,7 @@ use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdjustmentController;
 use App\Http\Controllers\AppMenuController;
+use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ContactController;
@@ -49,6 +50,7 @@ Route::group(['middleware' => ['api', 'cors', 'auth:sanctum']], function () {
     Router::generate(AddressController::class);
     Router::generate(AdjustmentController::class);
     Router::generate(AppMenuController::class);
+    Router::generate(BankAccountController::class);
     Router::generate(BankController::class);
     Router::generate(CityController::class);
     Router::generate(ContactController::class);

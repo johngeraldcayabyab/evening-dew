@@ -56,6 +56,11 @@ class Contact extends Model implements Sluggable
         return $this->addresses->where('type', Address::PRIVATE)->last();
     }
 
+    public function bankAccounts()
+    {
+        return $this->hasMany(BankAccount::class);
+    }
+
     public function slug()
     {
         return 'name';
