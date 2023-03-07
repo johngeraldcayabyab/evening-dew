@@ -30,6 +30,7 @@ import Transfer from "./Modules/TransferManifest"
 import User from "./Modules/UserManifest"
 import Warehouse from "./Modules/WarehouseManifest"
 import StockLocationQuantity from "./Modules/StockLocationQuantityManifest"
+import Bank from "./Modules/BankManifest"
 import {Switch} from "react-router-dom"
 import Routes from "./Components/Routes"
 import FormGenerator from "./Components/Form/FormGenerator"
@@ -42,6 +43,7 @@ const RouteMaster = () => {
         Address,
         Adjustment,
         AppMenu,
+        Bank,
         City,
         Contact,
         Country,
