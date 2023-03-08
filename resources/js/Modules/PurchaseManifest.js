@@ -118,11 +118,11 @@ const manifest = {
             visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
         },
     ],
-    // formLinks: [
-    //     {
-    //         module: 'transfers', param: 'source_document', value: 'number', label: 'Deliveries',
-    //     },
-    // ],
+    formLinks: [
+        {
+            module: 'transfers', param: 'source_document', value: 'number', label: 'Receipts',
+        },
+    ],
     form: {
         initialValue: true,
         onValuesChange: (changedValues, allValues, formContext) => {
