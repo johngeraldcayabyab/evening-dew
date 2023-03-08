@@ -18,5 +18,15 @@ class SequenceSeeder extends Seeder
             'step' => Sequence::STEP,
             'next_number' => Sequence::NEXT_NUMBER,
         ]);
+
+        Sequence::create([
+            'name' => "Purchase Sequence",
+            'sequence_code' => "purchase.sequence",
+            'implementation' => Sequence::STANDARD,
+            'prefix' => "P/O/",
+            'sequence_size' => Sequence::SEQUENCE_SIZE,
+            'step' => Sequence::STEP,
+            'next_number' => Sequence::NEXT_NUMBER,
+        ]);
     }
 }

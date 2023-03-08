@@ -139,6 +139,26 @@ class AppMenuSeeder extends Seeder
                             ],
                         ]
                     ],
+
+                    [
+                        'label' => 'Purchases',
+                        'menu_key' => 'Purchases',
+                        'children' => [
+                            [
+                                'label' => 'Purchases',
+                                'menu_key' => 'Purchases',
+                            ],
+                            [
+                                'label' => 'Configurations',
+                                'children' => [
+                                    [
+                                        'label' => 'Payment Terms',
+                                        'menu_key' => 'Payment Terms',
+                                    ],
+                                ]
+                            ],
+                        ],
+                    ],
                     [
                         'label' => 'Sales',
                         'menu_key' => 'Sales Orders',

@@ -25,6 +25,7 @@ use App\Http\Controllers\OperationTypeController;
 use App\Http\Controllers\PaymentTermController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\SalesOrderLineController;
@@ -68,6 +69,7 @@ Route::group(['middleware' => ['api', 'cors', 'auth:sanctum']], function () {
     Router::generate(OperationTypeController::class);
     Router::generate(PaymentTermController::class);
     Router::generate(ProductCategoryController::class);
+    Router::generate(PurchaseController::class);
     Router::generate(RegionController::class);
     Route::get("sales_orders/sales_per_day", [SalesOrderController::class, 'sales_per_day']);
     Router::generate(SalesOrderController::class);
