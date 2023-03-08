@@ -80,6 +80,15 @@ class OperationType extends Model implements Sluggable
         return $query->where('warehouse_id', $inventoryDefaultWarehouse->id)->where('type', self::DELIVERY)->first();
     }
 
+    public function scopeDefaultReceipt($query)
+    {
+        $inventoryDefaultWarehouse = GlobalSetting::latestFirst()->inventoryDefaultWarehouse;
+        if (!$inventoryDefaultWarehouse) {
+            return false;
+        }
+        return $query->where('warehouse_id', $inventoryDefaultWarehouse->id)->where('type', self::RECEIPT)->first();
+    }
+
     public function slug()
     {
         return 'name';

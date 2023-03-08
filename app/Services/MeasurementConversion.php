@@ -39,4 +39,25 @@ class MeasurementConversion
         // Do nothing if same measurement
         return $quantity;
     }
+
+    public static function convertPurchaseMeasurement($purchaseLine)
+    {
+        $product = $purchaseLine->product;
+        $baseMeasurement = $product->measurement;
+        $quantity = $purchaseLine->quantity;
+        $toConvertMeasurement = $purchaseLine->measurement;
+
+        // Bigger to reference
+        if ($toConvertMeasurement->ratio > $baseMeasurement->ratio) {
+            return $toConvertMeasurement->ratio * $quantity;
+        }
+
+        // Smaller to reference
+        if ($toConvertMeasurement->ratio < $baseMeasurement->ratio) {
+            return $quantity / $toConvertMeasurement->ratio;
+        }
+
+        // Do nothing if same measurement
+        return $quantity;
+    }
 }
