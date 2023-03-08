@@ -26,7 +26,7 @@ class GenerateTransferFromValidatedPurchase
         $transfer = Transfer::create([
             'contact_id' => $purchase->vendor_id,
             'operation_type_id' => $operationType->id,
-            'source_location_id' => $operationType->default_source_location_id,
+            'destination_location_id' => $operationType->default_destination_location_id,
             'scheduled_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
             'responsible_id' => $purchase->purchase_representative_id,
             'source_document' => $purchase->number,
