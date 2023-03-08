@@ -17,6 +17,7 @@ class CreatePurchasesTable extends Migration
             $table->unsignedInteger('currency_id')->nullable();
             $table->dateTime('order_deadline')->nullable();
             $table->dateTime('receipt_date')->nullable();
+            $table->string('shipping_method')->nullable();
             $table->unsignedInteger('purchase_representative_id')->nullable();
             $table->unsignedInteger('drop_ship_address_id')->nullable();
             $table->unsignedInteger('payment_term_id')->nullable();

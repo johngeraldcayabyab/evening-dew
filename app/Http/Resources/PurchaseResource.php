@@ -20,6 +20,7 @@ class PurchaseResource extends JsonResource
             'currency_id' => $this->currency_id,
             'order_deadline' => $this->order_deadline,
             'receipt_date' => $this->receipt_date,
+            'shipping_method' => $this->shipping_method,
             'purchase_representative_id' => $this->purchase_representative_id,
             'drop_ship_address_id' => $this->drop_ship_address_id,
             'payment_term_id' => $this->payment_term_id,

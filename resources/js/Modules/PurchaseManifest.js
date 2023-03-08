@@ -243,6 +243,15 @@ const manifest = {
                     name: 'receipt_date',
                     label: 'Receipt Date',
                 },
+                {
+                    type: 'select',
+                    name: 'shipping_method',
+                    label: 'Shipping Method',
+                    options: [
+                        {value: 'delivery', label: 'Delivery'},
+                        {value: 'pickup', label: 'Pickup'},
+                    ]
+                },
             ],
         },
         tab_1: {
