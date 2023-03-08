@@ -86,11 +86,6 @@ class Transfer extends Model implements Sluggable
         return $this->hasMany(TransferLine::class);
     }
 
-    public function salesOrderTransfer()
-    {
-        return $this->hasOne(SalesOrderTransfer::class);
-    }
-
     public function isDone($status)
     {
         if ($status === Transfer::DONE) {

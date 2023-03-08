@@ -5,7 +5,6 @@ namespace App\Listeners;
 use App\Data\SystemSetting;
 use App\Events\SalesOrderValidated;
 use App\Models\OperationType;
-use App\Models\SalesOrderTransfer;
 use App\Models\Transfer;
 use App\Models\TransferLine;
 use App\Services\MeasurementConversion;
@@ -19,18 +18,7 @@ class GenerateTransferFromValidatedSalesOrder
         if (!$operationTypeDelivery) {
             return;
         }
-        $salesOrderLines = $salesOrder->salesOrderLines;
-        if ($salesOrder->salesOrderTransfer()->exists()) {
-            return;
-        }
-        if (!count($salesOrderLines)) {
-            return;
-        }
-        $transfer = $this->createTransferAndLines($operationTypeDelivery, $salesOrder);
-        $salesOrderTransfer = new SalesOrderTransfer();
-        $salesOrderTransfer->sales_order_id = $salesOrder->id;
-        $salesOrderTransfer->transfer_id = $transfer->id;
-        $salesOrderTransfer->save();
+        $this->createTransferAndLines($operationTypeDelivery, $salesOrder);
     }
 
     private function createTransferAndLines($operationType, $salesOrder)
