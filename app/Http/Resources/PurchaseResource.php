@@ -30,6 +30,7 @@ class PurchaseResource extends JsonResource
             'purchase_representative' => $this->purchaseRepresentative,
             'drop_ship_address' => $this->dropShipAddress,
             'payment_term' => $this->paymentTerm,
+            'purchase_lines' => PurchaseLineResource::collection($this->purchaseLines),
             'slug' => $this->$slug,
         ]);
     }

@@ -63,6 +63,11 @@ class Purchase extends Model implements Sluggable
         return $this->belongsTo(PaymentTerm::class, 'payment_term_id', 'id');
     }
 
+    public function purchaseLines()
+    {
+        return $this->hasMany(PurchaseLine::class);
+    }
+
     public function slug()
     {
         return 'number';

@@ -1,6 +1,7 @@
 import {SEARCH} from "../consts"
 import Text from "antd/es/typography/Text"
 import {Tag} from "antd"
+import {disableIfStatus} from "../Helpers/object"
 
 const displayName = "purchases";
 
@@ -180,76 +181,76 @@ const manifest = {
         },
         tab_1: {
             defaultActiveKey: 'tab_pane_2',
-            // tab_pane_1: {
-            //     name: "Order Lines",
-            //     form_line_1: {
-            //         columns: ['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Shipping Date', 'Subtotal'],
-            //         listName: 'purchase_lines',
-            //         fields: [
-            //             // {
-            //             //     type: 'select',
-            //             //     name: 'product_id',
-            //             //     placeholder: 'Product',
-            //             //     query: {url: '/api/products', field: 'product.name'},
-            //             //     required: true,
-            //             //     listName: 'sales_order_lines',
-            //             //     overrideDisabled: (formContext) => {
-            //             //         return disableIfStatus(formContext.formState, 'done')
-            //             //     }
-            //             // },
-            //             // {
-            //             //     type: 'text',
-            //             //     name: 'description',
-            //             //     placeholder: 'Description',
-            //             //     listName: 'sales_order_lines',
-            //             // },
-            //             // {
-            //             //     type: 'number',
-            //             //     name: 'quantity',
-            //             //     placeholder: 'Quantity',
-            //             //     required: true,
-            //             //     listName: 'sales_order_lines',
-            //             //     overrideDisabled: (formContext) => {
-            //             //         return disableIfStatus(formContext.formState, 'done')
-            //             //     }
-            //             // },
-            //             // {
-            //             //     type: 'select',
-            //             //     name: 'measurement_id',
-            //             //     placeholder: 'Measurement',
-            //             //     query: {url: '/api/measurements', field: 'measurement.name'},
-            //             //     required: true,
-            //             //     listName: 'sales_order_lines',
-            //             //     overrideDisabled: (formContext) => {
-            //             //         return disableIfStatus(formContext.formState, 'done')
-            //             //     }
-            //             // },
-            //             // {
-            //             //     type: 'number',
-            //             //     name: 'unit_price',
-            //             //     placeholder: 'Unit Price',
-            //             //     required: true,
-            //             //     listName: 'sales_order_lines',
-            //             // },
-            //             // {
-            //             //     type: 'date',
-            //             //     name: 'shipping_date',
-            //             //     placeholder: 'Shipping date',
-            //             //     listName: 'sales_order_lines',
-            //             //     overrideDisabled: (formContext) => {
-            //             //         return disableIfStatus(formContext.formState, 'done')
-            //             //     }
-            //             // },
-            //             // {
-            //             //     type: 'number',
-            //             //     name: 'subtotal',
-            //             //     placeholder: 'Subtotal',
-            //             //     listName: 'sales_order_lines',
-            //             //     overrideDisabled: true,
-            //             // },
-            //         ]
-            //     },
-            // },
+            tab_pane_1: {
+                name: "Order Lines",
+                form_line_1: {
+                    columns: ['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Shipping Date', 'Subtotal'],
+                    listName: 'purchase_lines',
+                    fields: [
+                        {
+                            type: 'select',
+                            name: 'product_id',
+                            placeholder: 'Product',
+                            query: {url: '/api/products', field: 'product.name'},
+                            required: true,
+                            listName: 'purchase_lines',
+                            overrideDisabled: (formContext) => {
+                                return disableIfStatus(formContext.formState, 'done')
+                            }
+                        },
+                        {
+                            type: 'text',
+                            name: 'description',
+                            placeholder: 'Description',
+                            listName: 'purchase_lines',
+                        },
+                        {
+                            type: 'number',
+                            name: 'quantity',
+                            placeholder: 'Quantity',
+                            required: true,
+                            listName: 'purchase_lines',
+                            overrideDisabled: (formContext) => {
+                                return disableIfStatus(formContext.formState, 'done')
+                            }
+                        },
+                        {
+                            type: 'select',
+                            name: 'measurement_id',
+                            placeholder: 'Measurement',
+                            query: {url: '/api/measurements', field: 'measurement.name'},
+                            required: true,
+                            listName: 'purchase_lines',
+                            overrideDisabled: (formContext) => {
+                                return disableIfStatus(formContext.formState, 'done')
+                            }
+                        },
+                        {
+                            type: 'number',
+                            name: 'unit_price',
+                            placeholder: 'Unit Price',
+                            required: true,
+                            listName: 'purchase_lines',
+                        },
+                        {
+                            type: 'date',
+                            name: 'receiving_date',
+                            placeholder: 'Receiving date',
+                            listName: 'purchase_lines',
+                            overrideDisabled: (formContext) => {
+                                return disableIfStatus(formContext.formState, 'done')
+                            }
+                        },
+                        {
+                            type: 'number',
+                            name: 'subtotal',
+                            placeholder: 'Subtotal',
+                            listName: 'purchase_lines',
+                            overrideDisabled: true,
+                        },
+                    ]
+                },
+            },
             tab_pane_2: {
                 name: "Other Information",
                 row_1: {

@@ -7,6 +7,7 @@ use App\Http\Requests\PurchaseRequest;
 use App\Http\Resources\PurchaseResource;
 use App\Models\GlobalSetting;
 use App\Models\Purchase;
+use App\Models\PurchaseLine;
 use App\Models\Sequence;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
@@ -36,8 +37,8 @@ class PurchaseController
         $purchaseData = Arr::except($data, ['purchase_lines']);
         $purchase = Purchase::create($purchaseData);
         if (isset($data['purchase_lines'])) {
-//            $purchaseLinesData = $data['purchase_lines'];
-//            PurchaseLine::massUpsert($purchaseLinesData, $purchase);
+            $purchaseLinesData = $data['purchase_lines'];
+            PurchaseLine::massUpsert($purchaseLinesData, $purchase);
         }
         if ($purchase->status === Purchase::DONE) {
             PurchaseValidated::dispatch($purchase);
@@ -52,10 +53,10 @@ class PurchaseController
         $purchase->update($purchaseData);
         if (isset($data['purchase_lines'])) {
             $purchaseLinesData = $data['purchase_lines'];
-//            PurchaseLine::massUpsert($purchaseLinesData, $purchase);
+            PurchaseLine::massUpsert($purchaseLinesData, $purchase);
         }
         if (isset($data['purchase_lines_deleted'])) {
-//            PurchaseLine::massDelete(collect($data['purchase_lines_deleted'])->pluck('id'));
+            PurchaseLine::massDelete(collect($data['purchase_lines_deleted'])->pluck('id'));
         }
         if ($purchase->status === Purchase::DONE) {
             PurchaseValidated::dispatch($purchase);
