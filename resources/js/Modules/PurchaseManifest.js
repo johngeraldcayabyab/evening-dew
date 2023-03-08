@@ -134,12 +134,12 @@ const manifest = {
                         description: response.purchase_description,
                         quantity: 1,
                         measurement_id: response.purchase_measurement_id,
-                        unit_price: response.cost_price,
+                        unit_price: response.cost,
                     };
                     formContext.form.setFieldsValue({
                         purchase_lines: purchaseLines
                     });
-                    const persistedKey = getPersistedKey(line, formContext.options['measurement_id-lineOptions']);
+                    const persistedKey = getPersistedKey(line, formContext.options['measurement_id-lineOptions'].options);
                     formContext.options['measurement_id-lineOptions'].getOptions(response.purchase_measurement.name, persistedKey);
                 }).catch((responseErr) => {
                     formContext.fetchCatcher.get(responseErr);

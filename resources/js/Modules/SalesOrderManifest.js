@@ -184,7 +184,7 @@ const manifest = {
                     formContext.form.setFieldsValue({
                         sales_order_lines: salesOrderLines
                     });
-                    const persistedKey = getPersistedKey(line, formContext.options['measurement_id-lineOptions']);
+                    const persistedKey = getPersistedKey(line, formContext.options['measurement_id-lineOptions'].options);
                     formContext.options['measurement_id-lineOptions'].getOptions(response.sales_measurement.name, persistedKey);
                 }).catch((responseErr) => {
                     formContext.fetchCatcher.get(responseErr);
