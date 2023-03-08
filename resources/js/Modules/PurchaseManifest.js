@@ -139,8 +139,8 @@ const manifest = {
                     formContext.form.setFieldsValue({
                         purchase_lines: purchaseLines
                     });
-                    const persistedKey = getPersistedKey(line, formContext.options['purchase_measurement_id-options']);
-                    formContext.options['purchase_measurement_id-options'].getOptions(response.purchase_measurement.name, persistedKey);
+                    const persistedKey = getPersistedKey(line, formContext.options['purchase_measurement_id-lineOptions']);
+                    formContext.options['purchase_measurement_id-lineOptions'].getOptions(response.purchase_measurement.name, persistedKey);
                 }).catch((responseErr) => {
                     formContext.fetchCatcher.get(responseErr);
                 });
