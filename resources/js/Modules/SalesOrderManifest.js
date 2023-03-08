@@ -184,8 +184,8 @@ const manifest = {
                     formContext.form.setFieldsValue({
                         sales_order_lines: salesOrderLines
                     });
-                    const persistedKey = getPersistedKey(line, formContext.options['sales_measurement_id-lineOptions']);
-                    formContext.options['sales_measurement_id-lineOptions'].getOptions(response.sales_measurement.name, persistedKey);
+                    const persistedKey = getPersistedKey(line, formContext.options['measurement_id-lineOptions']);
+                    formContext.options['measurement_id-lineOptions'].getOptions(response.sales_measurement.name, persistedKey);
                 }).catch((responseErr) => {
                     formContext.fetchCatcher.get(responseErr);
                 });
@@ -307,7 +307,7 @@ const manifest = {
                     type: 'select',
                     name: 'invoice_city_id',
                     label: 'Invoice city',
-                    query: {url: '/api/cities', field: 'invoice_city.name'},
+                    query: {url: '/api/cities', field: 'name'},
                 },
                 {
                     type: 'text',
@@ -325,7 +325,7 @@ const manifest = {
                     type: 'select',
                     name: 'delivery_city_id',
                     label: 'Delivery city',
-                    query: {url: '/api/cities', field: 'delivery_city.name'},
+                    query: {url: '/api/cities', field: 'name'},
                 },
                 {
                     type: 'text',
@@ -346,7 +346,7 @@ const manifest = {
                             type: 'select',
                             name: 'product_id',
                             placeholder: 'Product',
-                            query: {url: '/api/products', field: 'product.name'},
+                            query: {url: '/api/products', field: 'name'},
                             required: true,
                             listName: 'sales_order_lines',
                             overrideDisabled: (formContext) => {
@@ -373,7 +373,7 @@ const manifest = {
                             type: 'select',
                             name: 'measurement_id',
                             placeholder: 'Measurement',
-                            query: {url: '/api/measurements', field: 'measurement.name'},
+                            query: {url: '/api/measurements', field: 'name'},
                             required: true,
                             listName: 'sales_order_lines',
                             overrideDisabled: (formContext) => {
@@ -420,7 +420,7 @@ const manifest = {
                             type: 'select',
                             name: 'salesperson_id',
                             label: 'Salesperson',
-                            query: {url: '/api/users', field: 'salesperson.name'},
+                            query: {url: '/api/users', field: 'name'},
                             required: true
                         },
                         {
@@ -468,7 +468,7 @@ const manifest = {
                             type: 'select',
                             name: 'source_id',
                             label: 'Source',
-                            query: {url: '/api/sources', field: 'source.name'},
+                            query: {url: '/api/sources', field: 'name'},
                         },
                     ]
                 },
@@ -483,7 +483,7 @@ const manifest = {
                             type: 'select',
                             name: 'payment_term_id',
                             label: 'Payment Term',
-                            query: {url: '/api/payment_terms', field: 'payment_term.name'},
+                            query: {url: '/api/payment_terms', field: 'name'},
                         },
                     ],
                 }

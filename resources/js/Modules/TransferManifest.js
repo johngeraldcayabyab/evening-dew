@@ -264,7 +264,7 @@ const manifest = {
                             type: 'select',
                             name: 'product_id',
                             placeholder: 'Product',
-                            query: {url: '/api/products', field: 'product.name'},
+                            query: {url: '/api/products', field: 'name'},
                             required: true,
                             listName: 'transfer_lines',
                             overrideDisabled: (formContext) => {
@@ -291,7 +291,7 @@ const manifest = {
                             type: 'select',
                             name: 'measurement_id',
                             placeholder: 'Measurement',
-                            query: {url: '/api/measurements', field: 'measurement.name'},
+                            query: {url: '/api/measurements', field: 'name'},
                             required: true,
                             listName: 'transfer_lines',
                             overrideDisabled: (formContext) => {
@@ -326,7 +326,7 @@ const manifest = {
                             type: 'select',
                             name: 'responsible_id',
                             label: 'Responsible',
-                            query: {url: '/api/users', field: 'responsible.name'},
+                            query: {url: '/api/users', field: 'name'},
                         },
                     ]
                 }

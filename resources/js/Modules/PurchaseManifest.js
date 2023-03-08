@@ -139,8 +139,8 @@ const manifest = {
                     formContext.form.setFieldsValue({
                         purchase_lines: purchaseLines
                     });
-                    const persistedKey = getPersistedKey(line, formContext.options['purchase_measurement_id-lineOptions']);
-                    formContext.options['purchase_measurement_id-lineOptions'].getOptions(response.purchase_measurement.name, persistedKey);
+                    const persistedKey = getPersistedKey(line, formContext.options['measurement_id-lineOptions']);
+                    formContext.options['measurement_id-lineOptions'].getOptions(response.purchase_measurement.name, persistedKey);
                 }).catch((responseErr) => {
                     formContext.fetchCatcher.get(responseErr);
                 });
@@ -257,7 +257,7 @@ const manifest = {
                             type: 'select',
                             name: 'product_id',
                             placeholder: 'Product',
-                            query: {url: '/api/products', field: 'product.name'},
+                            query: {url: '/api/products', field: 'name'},
                             required: true,
                             listName: 'purchase_lines',
                             overrideDisabled: (formContext) => {
@@ -284,7 +284,7 @@ const manifest = {
                             type: 'select',
                             name: 'measurement_id',
                             placeholder: 'Measurement',
-                            query: {url: '/api/measurements', field: 'measurement.name'},
+                            query: {url: '/api/measurements', field: 'name'},
                             required: true,
                             listName: 'purchase_lines',
                             overrideDisabled: (formContext) => {
@@ -325,7 +325,7 @@ const manifest = {
                             type: 'select',
                             name: 'purchase_representative_id',
                             label: 'Purchase Representative',
-                            query: {url: '/api/users', field: 'purchase_representative.name'},
+                            query: {url: '/api/users', field: 'name'},
                             required: true
                         },
                         {
