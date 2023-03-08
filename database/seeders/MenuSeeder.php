@@ -35,6 +35,10 @@ class MenuSeeder extends Seeder
                 'url' => '/banks',
             ],
             [
+                'label' => 'Bank Accounts',
+                'url' => '/bank_accounts',
+            ],
+            [
                 'label' => 'Cities',
                 'url' => '/cities',
             ],

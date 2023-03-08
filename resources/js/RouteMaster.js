@@ -31,10 +31,12 @@ import User from "./Modules/UserManifest"
 import Warehouse from "./Modules/WarehouseManifest"
 import StockLocationQuantity from "./Modules/StockLocationQuantityManifest"
 import Bank from "./Modules/BankManifest"
+import BankAccount from "./Modules/BankAccountManifest"
 import {Switch} from "react-router-dom"
 import Routes from "./Components/Routes"
 import FormGenerator from "./Components/Form/FormGenerator"
 import TableGenerator from "./Components/TableGenerator"
+import BankAccountManifest from "./Modules/BankAccountManifest"
 
 const RouteMaster = () => {
     const manifests = [
@@ -44,6 +46,7 @@ const RouteMaster = () => {
         Adjustment,
         AppMenu,
         Bank,
+        BankAccountManifest,
         City,
         Contact,
         Country,

@@ -57,6 +57,10 @@ class AppMenuSeeder extends Seeder
                                         'label' => 'Banks',
                                         'menu_key' => 'Banks',
                                     ],
+                                    [
+                                        'label' => 'Bank Accounts',
+                                        'menu_key' => 'Bank Accounts',
+                                    ],
                                 ]
                             ],
                         ],

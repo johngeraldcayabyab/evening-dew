@@ -11,8 +11,8 @@ class BankAccountRequest extends FormRequest
         return [
             'account_number' => ['string', 'required'],
             'account_holder_id' => ['nullable', "exists:contacts,id"],
-            'bank_id' => ['nullable', "exists:bank,id"],
-            'currency_id' => ['nullable', "exists:currency,id"],
+            'bank_id' => ['nullable', "exists:banks,id"],
+            'currency_id' => ['nullable', "exists:currencies,id"],
             'account_holder_name' => ['nullable', 'string'],
         ];
     }
