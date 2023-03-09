@@ -205,8 +205,8 @@ const manifest = {
             col_1: [
                 {
                     type: 'select',
-                    name: 'vendor_id',
-                    label: 'Vendor',
+                    name: 'customer_id',
+                    label: 'Customer',
                     query: {url: '/api/contacts', field: 'name'},
                     required: true,
                 },
