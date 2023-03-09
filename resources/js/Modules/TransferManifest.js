@@ -1,5 +1,5 @@
 import {getPersistedKey, isLineFieldExecute} from "../Helpers/form";
-import {DATE_RANGE, GET, SEARCH} from "../consts";
+import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 import {disableIfStatus} from "../Helpers/object";
 import Text from "antd/es/typography/Text";
 import {Tag} from "antd";
@@ -8,6 +8,7 @@ const manifest = {
     moduleName: "transfers",
     displayName: "transfers",
     queryDefaults: {},
+    routes: [HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE],
     table: {
         columnSelection: true,
         columns: [

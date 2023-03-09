@@ -1,4 +1,4 @@
-import {DATE_RANGE, SEARCH} from "../consts"
+import {DATE_RANGE, HAS_TABLE, SEARCH} from "../consts"
 import Text from "antd/es/typography/Text"
 import {Space} from "antd"
 
@@ -6,6 +6,7 @@ const manifest = {
     moduleName: "activity_log",
     displayName: "activity_log",
     queryDefaults: {},
+    routes: [HAS_TABLE],
     table: {
         columnSelection: true,
         columns: [

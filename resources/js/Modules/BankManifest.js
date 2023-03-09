@@ -1,9 +1,10 @@
-import {SEARCH} from "../consts";
+import {HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 
 const manifest = {
     moduleName: "banks",
     displayName: "banks",
     queryDefaults: {},
+    routes: [HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE],
     table: {
         columnSelection: true,
         columns: [

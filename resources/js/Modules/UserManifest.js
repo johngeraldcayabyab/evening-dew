@@ -1,9 +1,10 @@
-import {DATE_RANGE, SEARCH, VISIBILITY_CREATING} from "../consts";
+import {DATE_RANGE, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH, VISIBILITY_CREATING} from "../consts";
 
 const manifest = {
     moduleName: "users",
     displayName: "users",
     queryDefaults: {},
+    routes: [HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE],
     table: {
         columnSelection: true,
         columns: [

@@ -1,9 +1,10 @@
-import {DATE_RANGE, SEARCH} from "../consts";
+import {DATE_RANGE, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 
 const manifest = {
     moduleName: "stock_movements",
     displayName: "stock_movements",
     queryDefaults: {},
+    routes: [HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE],
     table: {
         columnSelection: true,
         columns: [

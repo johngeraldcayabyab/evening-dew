@@ -1,7 +1,10 @@
+import {HAS_TABLE} from "../consts"
+
 const manifest = {
     moduleName: "stock_location_quantity",
     displayName: "stock_location_quantity",
     queryDefaults: {},
+    routes: [HAS_TABLE],
     table: {
         columnSelection: true,
         columns: [

@@ -1,4 +1,4 @@
-import {DATE_RANGE, GET, SEARCH} from "../consts";
+import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 import Text from "antd/es/typography/Text";
 import {Tag} from "antd";
 import {disableIfStatus} from "../Helpers/object";
@@ -8,6 +8,7 @@ const manifest = {
     moduleName: "invoices",
     displayName: "invoices",
     queryDefaults: {},
+    routes: [HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE],
     table: {
         columnSelection: true,
         columns: [

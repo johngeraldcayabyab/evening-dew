@@ -1,4 +1,4 @@
-import {DATE_RANGE, SEARCH} from "../consts";
+import {DATE_RANGE, HAS_TABLE, SEARCH} from "../consts";
 
 const manifest = {
     moduleName: "sales_order_lines",
@@ -13,6 +13,7 @@ const manifest = {
         has_field: "product_type",
         has_value: "storable"
     },
+    routes: [HAS_TABLE],
     table: {
         columnSelection: true,
         columns: [

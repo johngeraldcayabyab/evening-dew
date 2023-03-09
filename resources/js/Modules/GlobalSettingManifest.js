@@ -1,7 +1,10 @@
+import {HAS_FORM_CREATE} from "../consts"
+
 const manifest = {
     moduleName: "global_settings",
     displayName: "global_settings",
     queryDefaults: {},
+    routes: [HAS_FORM_CREATE],
     form: {
         updatable: false,
         initialValue: true,

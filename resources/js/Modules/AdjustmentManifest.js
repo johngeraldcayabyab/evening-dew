@@ -1,11 +1,12 @@
 import {getPersistedKey, isLineFieldExecute} from "../Helpers/form";
-import {DATE_RANGE, GET, SEARCH} from "../consts";
+import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 import {parseFloatComma} from "../Helpers/string"
 
 const manifest = {
     moduleName: "adjustments",
     displayName: "adjustments",
     queryDefaults: {},
+    routes: [HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE],
     table: {
         columnSelection: true,
         columns: [
