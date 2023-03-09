@@ -11,7 +11,7 @@ import Currency from "./Modules/CurrencyManifest"
 import DeliveryFee from "./Modules/DeliveryFeeManifest"
 import GlobalSetting from "./Modules/GlobalSettingManifest"
 import Group from "./Modules/GroupManifest"
-import LocationManifest from "./Modules/LocationManifest"
+import Location from "./Modules/LocationManifest"
 import Material from "./Modules/MaterialManifest"
 import Measurement from "./Modules/MeasurementManifest"
 import MeasurementCategory from "./Modules/MeasurementCategoryManifest"
@@ -37,6 +37,7 @@ import FormGenerator from "./Components/Form/FormGenerator"
 import TableGenerator from "./Components/TableGenerator"
 import BankAccount from "./Modules/BankAccountManifest"
 import Purchase from "./Modules/PurchaseManifest"
+import Journal from "./Modules/JournalManifest"
 
 const RouteMaster = () => {
     const manifests = [
@@ -55,7 +56,8 @@ const RouteMaster = () => {
         DeliveryFee,
         GlobalSetting,
         Group,
-        LocationManifest,
+        Journal,
+        Location,
         Material,
         Measurement,
         MeasurementCategory,

@@ -15,6 +15,7 @@ use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\DeliveryFeeController;
 use App\Http\Controllers\GlobalSettingController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\JournalController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MaterialController;
@@ -60,6 +61,8 @@ Route::group(['middleware' => ['api', 'cors', 'auth:sanctum']], function () {
     Router::generate(CurrencyController::class);
     Router::generate(DeliveryFeeController::class);
     Router::generate(GlobalSettingController::class);
+    Router::generate(GroupController::class);
+    Router::generate(JournalController::class);
     Router::generate(LocationController::class);
     Route::post('/logout', [LoginController::class, 'logout']);
     Router::generate(MaterialController::class);
@@ -82,6 +85,5 @@ Route::group(['middleware' => ['api', 'cors', 'auth:sanctum']], function () {
     Router::generate(TransferController::class);
     Route::post('uploads/images', [UploadController::class, 'image']);
     Router::generate(UserController::class);
-    Router::generate(GroupController::class);
     Router::generate(WarehouseController::class);
 });
