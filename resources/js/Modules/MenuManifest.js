@@ -1,10 +1,8 @@
-import {DATE_RANGE, SEARCH} from "../consts"
-
-const displayName = "menus";
+import {DATE_RANGE, SEARCH} from "../consts";
 
 const manifest = {
     "moduleName": "menus",
-    "displayName": displayName,
+    "displayName": "menus",
     "queryDefaults": {},
     table: {
         columnSelection: true,

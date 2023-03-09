@@ -1,20 +1,13 @@
-import {GET, SEARCH} from "../consts"
-import Text from "antd/es/typography/Text"
-import {Tag} from "antd"
-import {disableIfStatus} from "../Helpers/object"
-import {getPersistedKey, isLineFieldExecute} from "../Helpers/form"
-
-const displayName = "purchases";
+import {GET, SEARCH} from "../consts";
+import Text from "antd/es/typography/Text";
+import {Tag} from "antd";
+import {disableIfStatus} from "../Helpers/object";
+import {getPersistedKey, isLineFieldExecute} from "../Helpers/form";
 
 const manifest = {
     "moduleName": "purchases",
     "displayName": "purchases",
     "queryDefaults": {},
-    "routes": [
-        {path: `/${displayName}/create`, manifest: () => manifest},
-        {path: `/${displayName}/:id`, manifest: () => manifest},
-        {path: `/${displayName}`, manifest: () => manifest},
-    ],
     table: {
         columnSelection: true,
         columns: [

@@ -1,10 +1,8 @@
-import {SEARCH} from "../consts"
-
-const displayName = "bank_accounts";
+import {SEARCH} from "../consts";
 
 const manifest = {
     "moduleName": "bank_accounts",
-    "displayName": displayName,
+    "displayName": "bank_accounts",
     "queryDefaults": {},
     table: {
         columnSelection: true,

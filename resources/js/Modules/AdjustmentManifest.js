@@ -2,11 +2,9 @@ import {getPersistedKey, isLineFieldExecute} from "../Helpers/form";
 import {DATE_RANGE, GET, SEARCH} from "../consts";
 import {parseFloatComma} from "../Helpers/string"
 
-const displayName = "adjustments";
-
 const manifest = {
     "moduleName": "adjustments",
-    "displayName": displayName,
+    "displayName": "adjustments",
     "queryDefaults": {},
     table: {
         columnSelection: true,

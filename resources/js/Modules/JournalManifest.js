@@ -1,10 +1,8 @@
-import {SEARCH} from "../consts"
-
-const displayName = "journals";
+import {SEARCH} from "../consts";
 
 const manifest = {
     "moduleName": "journals",
-    "displayName": displayName,
+    "displayName": "journals",
     "queryDefaults": {},
     table: {
         columnSelection: true,

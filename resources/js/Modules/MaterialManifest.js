@@ -1,11 +1,9 @@
-import {getPersistedKey, isLineFieldExecute} from "../Helpers/form"
-import {DATE_RANGE, GET, SEARCH} from "../consts"
-
-const displayName = "materials";
+import {getPersistedKey, isLineFieldExecute} from "../Helpers/form";
+import {DATE_RANGE, GET, SEARCH} from "../consts";
 
 const manifest = {
     "moduleName": "materials",
-    "displayName": displayName,
+    "displayName": "materials",
     "queryDefaults": {},
     table: {
         columnSelection: true,

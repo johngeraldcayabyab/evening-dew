@@ -1,10 +1,8 @@
-import {DATE_RANGE, SEARCH, VISIBILITY_CREATED} from "../consts"
-
-const displayName = "warehouses";
+import {DATE_RANGE, SEARCH, VISIBILITY_CREATED} from "../consts";
 
 const manifest = {
     "moduleName": "warehouses",
-    "displayName": displayName,
+    "displayName": "warehouses",
     "queryDefaults": {},
     table: {
         columnSelection: true,

@@ -1,10 +1,8 @@
-import {SEARCH} from "../consts"
-
-const displayName = "groups";
+import {SEARCH} from "../consts";
 
 const manifest = {
     "moduleName": "groups",
-    "displayName": displayName,
+    "displayName": "groups",
     "queryDefaults": {},
     table: {
         columnSelection: true,

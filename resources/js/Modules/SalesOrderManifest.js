@@ -1,22 +1,15 @@
-import {disableIfStatus} from "../Helpers/object"
-import {DATE_RANGE, GET, SEARCH} from "../consts"
-import {getPersistedKey, isLineFieldExecute} from "../Helpers/form"
-import SalesOrderPDF from "./SalesOrder/SalesOrderPDF"
-import SalesOrderBreakDown from "./SalesOrder/SalesOrderBreakDown"
-import Text from "antd/es/typography/Text"
-import {Tag} from "antd"
-
-const displayName = "sales_orders";
+import {disableIfStatus} from "../Helpers/object";
+import {DATE_RANGE, GET, SEARCH} from "../consts";
+import {getPersistedKey, isLineFieldExecute} from "../Helpers/form";
+import SalesOrderPDF from "./SalesOrder/SalesOrderPDF";
+import SalesOrderBreakDown from "./SalesOrder/SalesOrderBreakDown";
+import Text from "antd/es/typography/Text";
+import {Tag} from "antd";
 
 const manifest = {
     "moduleName": "sales_orders",
     "displayName": "sales_orders",
     "queryDefaults": {},
-    "routes": [
-        {path: `/${displayName}/create`, manifest: () => manifest},
-        {path: `/${displayName}/:id`, manifest: () => manifest},
-        {path: `/${displayName}`, manifest: () => manifest},
-    ],
     table: {
         columnSelection: true,
         columns: [

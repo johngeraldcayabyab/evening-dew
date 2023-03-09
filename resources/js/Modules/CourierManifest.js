@@ -1,11 +1,9 @@
-import {DATE_RANGE, SEARCH} from "../consts"
-import {Tag} from "antd"
-
-const displayName = "couriers";
+import {DATE_RANGE, SEARCH} from "../consts";
+import {Tag} from "antd";
 
 const manifest = {
     "moduleName": "couriers",
-    "displayName": displayName,
+    "displayName": "couriers",
     "queryDefaults": {},
     table: {
         columnSelection: true,

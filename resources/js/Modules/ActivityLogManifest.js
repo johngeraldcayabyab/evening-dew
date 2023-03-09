@@ -2,11 +2,9 @@ import {DATE_RANGE, SEARCH} from "../consts"
 import Text from "antd/es/typography/Text"
 import {Space} from "antd"
 
-const displayName = "activity_log";
-
 const manifest = {
     "moduleName": "activity_log",
-    "displayName": displayName,
+    "displayName": "activity_log",
     "queryDefaults": {},
     table: {
         columnSelection: true,
@@ -68,8 +66,11 @@ const manifest = {
                         const changes = [];
                         keys.forEach(key => {
                             if (key !== 'created_at' && key !== 'updated_at' && oldObject[key] !== newObject[key]) {
-                                changes.push(<Text code
-                                                   key={key}>{`${key}: ${oldObject[key]} ---> ${newObject[key]}`}</Text>)
+                                changes.push(
+                                    <Text code key={key}>
+                                        {`${key}: ${oldObject[key]} ---> ${newObject[key]}`}
+                                    </Text>
+                                )
                             }
                         });
                         return (

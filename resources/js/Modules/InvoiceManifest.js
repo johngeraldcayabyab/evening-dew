@@ -1,20 +1,13 @@
-import {DATE_RANGE, GET, SEARCH} from "../consts"
-import Text from "antd/es/typography/Text"
-import {Tag} from "antd"
-import {disableIfStatus} from "../Helpers/object"
-import {isLineFieldExecute} from "../Helpers/form"
-
-const displayName = "invoices";
+import {DATE_RANGE, GET, SEARCH} from "../consts";
+import Text from "antd/es/typography/Text";
+import {Tag} from "antd";
+import {disableIfStatus} from "../Helpers/object";
+import {isLineFieldExecute} from "../Helpers/form";
 
 const manifest = {
     "moduleName": "invoices",
     "displayName": "invoices",
     "queryDefaults": {},
-    "routes": [
-        {path: `/${displayName}/create`, manifest: () => manifest},
-        {path: `/${displayName}/:id`, manifest: () => manifest},
-        {path: `/${displayName}`, manifest: () => manifest},
-    ],
     table: {
         columnSelection: true,
         columns: [

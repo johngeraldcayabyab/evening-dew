@@ -1,14 +1,12 @@
-import {getPersistedKey, isLineFieldExecute} from "../Helpers/form"
-import {DATE_RANGE, GET, SEARCH} from "../consts"
-import {disableIfStatus} from "../Helpers/object"
-import Text from "antd/es/typography/Text"
-import {Tag} from "antd"
-
-const displayName = "transfers";
+import {getPersistedKey, isLineFieldExecute} from "../Helpers/form";
+import {DATE_RANGE, GET, SEARCH} from "../consts";
+import {disableIfStatus} from "../Helpers/object";
+import Text from "antd/es/typography/Text";
+import {Tag} from "antd";
 
 const manifest = {
     "moduleName": "transfers",
-    "displayName": displayName,
+    "displayName": "transfers",
     "queryDefaults": {},
     table: {
         columnSelection: true,
