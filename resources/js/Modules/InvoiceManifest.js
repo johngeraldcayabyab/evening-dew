@@ -240,7 +240,7 @@ const manifest = {
             tab_pane_1: {
                 name: "Order Lines",
                 form_line_1: {
-                    columns: ['Product', 'Description', 'Quantity', 'Unit Price', 'Shipping Date', 'Subtotal'],
+                    columns: ['Product', 'Description', 'Quantity', 'Unit Price', 'Subtotal'],
                     listName: 'invoice_lines',
                     fields: [
                         {
