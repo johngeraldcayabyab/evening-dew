@@ -48,7 +48,7 @@ class PurchaseObserver
             }
         }
         if (!$model->currency_id) {
-            $model->currency_id = $this->settings->defaultCurrency->id;
+            $model->currency_id = $this->settings->accountingDefaultCurrency->id;
         }
     }
 
