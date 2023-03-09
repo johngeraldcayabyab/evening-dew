@@ -6,8 +6,8 @@ import {getDevice} from "../../Helpers/device";
 import {useHistory} from "react-router";
 import {GET, POST} from "../../consts";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
-import {AppContext} from "../../App";
 import useFetchHook from "../../Hooks/useFetchHook";
+import {AppContext} from "../../Contexts/AppContext"
 
 const Login = () => {
     const [state, setState] = useState({

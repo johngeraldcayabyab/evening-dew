@@ -7,12 +7,12 @@ import useFetchCatcherHook from "../Hooks/useFetchCatcherHook";
 import useFetchHook from "../Hooks/useFetchHook";
 import {POST} from "../consts";
 import {useHistory, useLocation} from "react-router";
-import {AppContext} from "../App";
 import {setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import AvatarUser from "./AvatarUser";
 import {reset} from "../Helpers/reset";
 import {objectHasValue} from "../Helpers/object"
+import {AppContext} from "../Contexts/AppContext"
 
 function resetBreadcrumbs(url) {
     let splitPathName = url.split('/');

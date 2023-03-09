@@ -2,7 +2,7 @@ import {getCookie} from "../Helpers/cookie";
 import {GET} from "../consts";
 import {useContext, useEffect} from "react";
 import {toQueryString} from "../Helpers/url";
-import {AppContext} from "../App";
+import {AppContext} from "../Contexts/AppContext"
 
 const useFetchHook = () => {
     const appContext = useContext(AppContext);

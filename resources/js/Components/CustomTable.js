@@ -8,8 +8,8 @@ import {getAllUrlParams} from "../Helpers/url";
 import {COLUMN_SELECTION, DATE_RANGE, SEARCH, SELECT} from "../consts";
 import DateRangeFilter from "./TableFilters/DateRangeFilter";
 import ColumnSelectionFilter from "./TableFilters/ColumnSelectionFilter";
-import {AppContext} from "../App";
 import SelectFilter from "./TableFilters/SelectFilter"
+import {AppContext} from "../Contexts/AppContext"
 
 const CustomTable = (props) => {
     const appContext = useContext(AppContext);

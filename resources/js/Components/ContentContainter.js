@@ -7,8 +7,8 @@ import useFetchCatcherHook from "../Hooks/useFetchCatcherHook";
 import {getCookie} from "../Helpers/cookie";
 import {GET} from "../consts";
 import {reset} from "../Helpers/reset";
-import {AppContext} from "../App";
 import {useHistory, useLocation} from "react-router";
+import {AppContext} from "../Contexts/AppContext"
 
 const ContentContainer = (props) => {
     const appContext = useContext(AppContext);

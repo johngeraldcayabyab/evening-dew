@@ -1,9 +1,9 @@
 import {Divider, Input, Space, Typography} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
 import {useContext} from "react"
-import {AppContext} from "../App"
 import {isShowButton} from "../Helpers/object"
 import {CREATE_ACCESS} from "../consts"
+import {AppContext} from "../Contexts/AppContext"
 
 const CustomDropdownMenu = (props) => {
     const appContext = useContext(AppContext);

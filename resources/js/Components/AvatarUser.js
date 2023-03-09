@@ -1,7 +1,7 @@
 import {useContext} from "react";
-import {AppContext} from "../App";
 import {UserOutlined} from "@ant-design/icons";
 import {Avatar, Space} from "antd";
+import {AppContext} from "../Contexts/AppContext"
 
 const AvatarUser = () => {
     const appContext = useContext(AppContext);
