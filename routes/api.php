@@ -25,6 +25,7 @@ use App\Http\Controllers\RegionController;
 use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\SalesOrderLineController;
 use App\Http\Controllers\SequenceController;
+use App\Http\Controllers\SmNorthSalesController;
 use App\Http\Controllers\SourceController;
 use App\Http\Controllers\StockMovementController;
 use App\Http\Controllers\TransferController;
@@ -107,6 +108,8 @@ Route::group(['middleware' => ['api', 'cors']], function () {
     (new RouteGenerator(User::class))::generate(UserController::class);
     (new RouteGenerator(Warehouse::class))::generate(WarehouseController::class);
 });
+
+Route::post('/sm_north_sales/import', [SmNorthSalesController::class, 'import'])->name('sm_north_sales.import');
 
 /**
  *
