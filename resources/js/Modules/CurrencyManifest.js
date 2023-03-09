@@ -1,9 +1,9 @@
 import {DATE_RANGE, SEARCH} from "../consts";
 
 const manifest = {
-    "moduleName": "currencies",
-    "displayName": "currencies",
-    "queryDefaults": {},
+    moduleName: "currencies",
+    displayName: "currencies",
+    queryDefaults: {},
     table: {
         columnSelection: true,
         columns: [

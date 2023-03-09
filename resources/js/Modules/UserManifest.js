@@ -1,9 +1,9 @@
 import {DATE_RANGE, SEARCH, VISIBILITY_CREATING} from "../consts";
 
 const manifest = {
-    "moduleName": "users",
-    "displayName": "users",
-    "queryDefaults": {},
+    moduleName: "users",
+    displayName: "users",
+    queryDefaults: {},
     table: {
         columnSelection: true,
         columns: [

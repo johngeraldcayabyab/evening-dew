@@ -5,9 +5,9 @@ import {disableIfStatus} from "../Helpers/object";
 import {getPersistedKey, isLineFieldExecute} from "../Helpers/form";
 
 const manifest = {
-    "moduleName": "purchases",
-    "displayName": "purchases",
-    "queryDefaults": {},
+    moduleName: "purchases",
+    displayName: "purchases",
+    queryDefaults: {},
     table: {
         columnSelection: true,
         columns: [

@@ -1,9 +1,9 @@
 import {DATE_RANGE, SEARCH} from "../consts";
 
 const manifest = {
-    "moduleName": "sequences",
-    "displayName": "sequences",
-    "queryDefaults": {},
+    moduleName: "sequences",
+    displayName: "sequences",
+    queryDefaults: {},
     table: {
         columnSelection: true,
         columns: [

@@ -3,9 +3,9 @@ import {DATE_RANGE, GET, SEARCH} from "../consts";
 import {parseFloatComma} from "../Helpers/string"
 
 const manifest = {
-    "moduleName": "adjustments",
-    "displayName": "adjustments",
-    "queryDefaults": {},
+    moduleName: "adjustments",
+    displayName: "adjustments",
+    queryDefaults: {},
     table: {
         columnSelection: true,
         columns: [

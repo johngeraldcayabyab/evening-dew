@@ -5,9 +5,9 @@ import {disableIfStatus} from "../Helpers/object";
 import {isLineFieldExecute} from "../Helpers/form";
 
 const manifest = {
-    "moduleName": "invoices",
-    "displayName": "invoices",
-    "queryDefaults": {},
+    moduleName: "invoices",
+    displayName: "invoices",
+    queryDefaults: {},
     table: {
         columnSelection: true,
         columns: [

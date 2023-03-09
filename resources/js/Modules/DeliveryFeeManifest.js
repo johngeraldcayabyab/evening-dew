@@ -2,9 +2,9 @@ import {DATE_RANGE, SEARCH} from "../consts";
 import {Tag} from "antd";
 
 const manifest = {
-    "moduleName": "delivery_fees",
-    "displayName": "delivery_fees",
-    "queryDefaults": {},
+    moduleName: "delivery_fees",
+    displayName: "delivery_fees",
+    queryDefaults: {},
     table: {
         columnSelection: true,
         columns: [

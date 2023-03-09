@@ -2,9 +2,9 @@ import {SEARCH} from "../consts"
 import {Tag} from "antd"
 
 const manifest = {
-    "moduleName": "access_rights",
-    "displayName": "access_rights",
-    "queryDefaults": {},
+    moduleName: "access_rights",
+    displayName: "access_rights",
+    queryDefaults: {},
     table: {
         columnSelection: true,
         columns: [

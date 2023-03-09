@@ -1,9 +1,9 @@
 import {SEARCH} from "../consts";
 
 const manifest = {
-    "moduleName": "journals",
-    "displayName": "journals",
-    "queryDefaults": {},
+    moduleName: "journals",
+    displayName: "journals",
+    queryDefaults: {},
     table: {
         columnSelection: true,
         columns: [

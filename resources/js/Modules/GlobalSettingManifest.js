@@ -1,7 +1,7 @@
 const manifest = {
-    "moduleName": "global_settings",
-    "displayName": "global_settings",
-    "queryDefaults": {},
+    moduleName: "global_settings",
+    displayName: "global_settings",
+    queryDefaults: {},
     form: {
         updatable: false,
         initialValue: true,

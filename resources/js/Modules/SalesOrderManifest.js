@@ -7,9 +7,9 @@ import Text from "antd/es/typography/Text";
 import {Tag} from "antd";
 
 const manifest = {
-    "moduleName": "sales_orders",
-    "displayName": "sales_orders",
-    "queryDefaults": {},
+    moduleName: "sales_orders",
+    displayName: "sales_orders",
+    queryDefaults: {},
     table: {
         columnSelection: true,
         columns: [

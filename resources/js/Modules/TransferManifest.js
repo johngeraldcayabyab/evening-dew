@@ -5,9 +5,9 @@ import Text from "antd/es/typography/Text";
 import {Tag} from "antd";
 
 const manifest = {
-    "moduleName": "transfers",
-    "displayName": "transfers",
-    "queryDefaults": {},
+    moduleName: "transfers",
+    displayName: "transfers",
+    queryDefaults: {},
     table: {
         columnSelection: true,
         columns: [

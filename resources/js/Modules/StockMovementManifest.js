@@ -1,9 +1,9 @@
 import {DATE_RANGE, SEARCH} from "../consts";
 
 const manifest = {
-    "moduleName": "stock_movements",
-    "displayName": "stock_movements",
-    "queryDefaults": {},
+    moduleName: "stock_movements",
+    displayName: "stock_movements",
+    queryDefaults: {},
     table: {
         columnSelection: true,
         columns: [

@@ -3,9 +3,9 @@ import Text from "antd/es/typography/Text"
 import {Space} from "antd"
 
 const manifest = {
-    "moduleName": "activity_log",
-    "displayName": "activity_log",
-    "queryDefaults": {},
+    moduleName: "activity_log",
+    displayName: "activity_log",
+    queryDefaults: {},
     table: {
         columnSelection: true,
         columns: [

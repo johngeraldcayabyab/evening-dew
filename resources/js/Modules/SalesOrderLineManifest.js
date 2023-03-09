@@ -1,17 +1,17 @@
 import {DATE_RANGE, SEARCH} from "../consts";
 
 const manifest = {
-    "moduleName": "sales_order_lines",
-    "displayName": "sales_order_lines",
-    "queryDefaults": {
-        "group_by": "product_id,shipping_date",
-        "aggregate_by": "quantity",
-        "aggregate_type": "SUM",
-        "orderByColumn": "shipping_date",
-        "orderByDirection": "desc",
-        "has": "product",
-        "has_field": "product_type",
-        "has_value": "storable"
+    moduleName: "sales_order_lines",
+    displayName: "sales_order_lines",
+    queryDefaults: {
+        group_by: "product_id,shipping_date",
+        aggregate_by: "quantity",
+        aggregate_type: "SUM",
+        orderByColumn: "shipping_date",
+        orderByDirection: "desc",
+        has: "product",
+        has_field: "product_type",
+        has_value: "storable"
     },
     table: {
         columnSelection: true,

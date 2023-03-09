@@ -1,7 +1,7 @@
 const manifest = {
-    "moduleName": "stock_location_quantity",
-    "displayName": "stock_location_quantity",
-    "queryDefaults": {},
+    moduleName: "stock_location_quantity",
+    displayName: "stock_location_quantity",
+    queryDefaults: {},
     table: {
         columnSelection: true,
         columns: [

@@ -1,9 +1,9 @@
 import {SEARCH} from "../consts";
 
 const manifest = {
-    "moduleName": "groups",
-    "displayName": "groups",
-    "queryDefaults": {},
+    moduleName: "groups",
+    displayName: "groups",
+    queryDefaults: {},
     table: {
         columnSelection: true,
         columns: [
