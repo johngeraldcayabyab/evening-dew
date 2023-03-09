@@ -109,4 +109,9 @@ class GlobalSetting extends Model
     {
         return $this->belongsTo(Sequence::class, 'purchase_default_sequence_id', 'id');
     }
+
+    public function invoiceDefaultSequence()
+    {
+        return $this->belongsTo(Sequence::class, 'invoice_default_sequence_id', 'id');
+    }
 }

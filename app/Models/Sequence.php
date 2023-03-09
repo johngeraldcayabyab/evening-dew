@@ -74,6 +74,24 @@ class Sequence extends Model implements Sluggable
         return $generatedSequence;
     }
 
+    public static function generateInvoiceSequence()
+    {
+        $invoiceDefaultSequence = GlobalSetting::latestFirst()->invoiceDefaultSequence;
+        $generatedSequence = "";
+        if ($invoiceDefaultSequence) {
+            $sequence = Sequence::find($invoiceDefaultSequence->id);
+            if ($sequence->prefix) {
+                $generatedSequence .= $sequence->prefix;
+            }
+            $newNum = $sequence->next_number + $sequence->step;
+            $generatedSequence .= sprintf("%0{$sequence->sequence_size}d", $newNum);
+            if ($sequence->suffix) {
+                $generatedSequence .= $sequence->suffix;
+            }
+        }
+        return $generatedSequence;
+    }
+
     public function scopeGenerateSequence($query, $id)
     {
         $generatedSequence = "";

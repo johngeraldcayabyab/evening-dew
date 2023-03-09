@@ -38,6 +38,7 @@ import TableGenerator from "./Components/TableGenerator"
 import BankAccount from "./Modules/BankAccountManifest"
 import Purchase from "./Modules/PurchaseManifest"
 import Journal from "./Modules/JournalManifest"
+import Invoice from "./Modules/InvoiceManifest"
 
 const RouteMaster = () => {
     const manifests = [
@@ -56,6 +57,7 @@ const RouteMaster = () => {
         DeliveryFee,
         GlobalSetting,
         Group,
+        Invoice,
         Journal,
         Location,
         Material,

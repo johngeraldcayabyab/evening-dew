@@ -141,11 +141,11 @@ class AppMenuSeeder extends Seeder
                     ],
                     [
                         'label' => 'Invoicing',
-                        'menu_key' => 'Journals',
+                        'menu_key' => 'Invoices',
                         'children' => [
                             [
-                                'label' => 'Journals',
-                                'menu_key' => 'Journals',
+                                'label' => 'Invoices',
+                                'menu_key' => 'Invoices',
                             ],
                             [
                                 'label' => 'Configurations',

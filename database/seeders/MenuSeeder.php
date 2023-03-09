@@ -71,6 +71,10 @@ class MenuSeeder extends Seeder
                 'url' => '/groups',
             ],
             [
+                'label' => 'Invoices',
+                'url' => '/invoices',
+            ],
+            [
                 'label' => 'Journals',
                 'url' => '/journals',
             ],
