@@ -83,7 +83,7 @@ const RouteMaster = () => {
 
     return manifests.map((manifest) => {
         return (
-            <Switch key={`${manifest.moduleName}-${manifest.displayName}`}>
+            <Switch key={`${manifest.moduleName}-${manifest.displayName}-switch`}>
                 {
                     manifest.form &&
                     <Routes

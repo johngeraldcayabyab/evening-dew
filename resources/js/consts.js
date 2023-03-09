@@ -15,19 +15,25 @@ export const COLUMN_SELECTION = 'column_selection';
 export const SELECT_PAGE_SIZE = 5;
 export const DATE_FORMAT = 'YYYY-MM-DD HH:mm:ss';
 
+/**
+ * These are for button visibility
+ */
 export const CREATE_ACCESS = 'create_access';
 export const READ_ACCESS = 'read_access';
 export const WRITE_ACCESS = 'write_access';
 export const DELETE_ACCESS = 'delete_access';
 
 
-export const EDIT_BUTTON = 'edit_button';
-export const SAVE_EDIT_BUTTON = 'save_edit_button';
-export const DISCARD_EDIT_BUTTON = 'discard_edit_button';
-export const FORM_CREATE_BUTTON = 'form_create_button';
-export const SAVE_CREATE_BUTTON = 'save_create_button';
-export const DISCARD_CREATE_BUTTON = 'discard_create_button';
-
-
+/**
+ * These are for form field visibility
+ */
 export const VISIBILITY_CREATED = 'visibility_created';
 export const VISIBILITY_CREATING = 'visibility_creating';
+
+
+/**
+ * These are for the modules front end modules itself
+ */
+export const HAS_FORM_CREATE = 'has_form_create';
+export const HAS_FORM_UPDATE = 'has_form_update';
+export const HAS_TABLE = 'has_table';
