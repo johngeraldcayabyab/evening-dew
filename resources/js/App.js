@@ -6,11 +6,9 @@ import {getCookie} from "./Helpers/cookie";
 import ContentContainer from './Components/ContentContainter';
 import LoginRoute from './Modules/Login/LoginRoute';
 import HomeRoute from "./Modules/Home/HomeRoute";
+import {AppContextProvider} from "./Contexts/AppContext"
 
-export const AppContext = React.createContext({});
-export const AppContextProvider = AppContext.Provider;
 const RouteMaster = lazy(() => import("./RouteMaster"));
-
 
 const App = () => {
     const [appState, setAppState] = useState({
