@@ -27,6 +27,7 @@ class GlobalSettingSeeder extends Seeder
                 'general_default_country_id' => 1,
                 'sales_order_default_sequence_id' => 1,
                 'purchase_default_sequence_id' => 2,
+                'invoice_default_sequence_id' => 3,
             ],
         ];
         foreach ($data as $datum) {

@@ -51,37 +51,25 @@ const manifest = {
                             type: 'select',
                             name: 'inventory_default_measurement_category_id',
                             label: 'Default Measurement Category',
-                            query: {
-                                url: '/api/measurement_categories',
-                                field: 'name'
-                            },
+                            query: {url: '/api/measurement_categories', field: 'name'},
                         },
                         {
                             type: 'select',
                             name: 'inventory_default_measurement_id',
                             label: 'Default Measurement',
-                            query: {
-                                url: '/api/measurements',
-                                field: 'name'
-                            },
+                            query: {url: '/api/measurements', field: 'name'},
                         },
                         {
                             type: 'select',
                             name: 'inventory_default_purchase_measurement_id',
                             label: 'Default Purchase Measurement',
-                            query: {
-                                url: '/api/measurements',
-                                field: 'name'
-                            },
+                            query: {url: '/api/measurements', field: 'name'},
                         },
                         {
                             type: 'select',
                             name: 'inventory_default_sales_measurement_id',
                             label: 'Default Sales Measurement',
-                            query: {
-                                url: '/api/measurements',
-                                field: 'name'
-                            },
+                            query: {url: '/api/measurements', field: 'name'},
                         },
                     ],
                     col_2: [
@@ -95,10 +83,7 @@ const manifest = {
                             type: 'select',
                             name: 'inventory_default_product_category_id',
                             label: 'Default Product Category',
-                            query: {
-                                url: '/api/product_categories',
-                                field: 'category'
-                            },
+                            query: {url: '/api/product_categories', field: 'category'},
                         },
                     ]
                 },
@@ -114,28 +99,19 @@ const manifest = {
                             type: 'select',
                             name: 'inventory_default_customer_location_id',
                             label: 'Default Customer Location',
-                            query: {
-                                url: '/api/locations',
-                                field: 'name'
-                            },
+                            query: {url: '/api/locations', field: 'name'},
                         },
                         {
                             type: 'select',
                             name: 'inventory_default_vendor_location_id',
                             label: 'Default Vendor Location',
-                            query: {
-                                url: '/api/locations',
-                                field: 'name'
-                            },
+                            query: {url: '/api/locations', field: 'name'},
                         },
                         {
                             type: 'select',
                             name: 'inventory_default_adjustment_location_id',
                             label: 'Default Adjustment Location',
-                            query: {
-                                url: '/api/locations',
-                                field: 'name'
-                            },
+                            query: {url: '/api/locations', field: 'name'},
                         },
                     ],
                     col_2: [
@@ -143,19 +119,13 @@ const manifest = {
                             type: 'select',
                             name: 'inventory_default_production_id',
                             label: 'Default Production Location',
-                            query: {
-                                url: '/api/locations',
-                                field: 'name'
-                            },
+                            query: {url: '/api/locations', field: 'name'},
                         },
                         {
                             type: 'select',
                             name: 'inventory_default_scrap_id',
                             label: 'Default Scrap Location',
-                            query: {
-                                url: '/api/locations',
-                                field: 'name'
-                            },
+                            query: {url: '/api/locations', field: 'name'},
                         },
                     ]
                 },
@@ -171,10 +141,7 @@ const manifest = {
                             type: 'select',
                             name: 'inventory_default_warehouse_id',
                             label: 'Default Warehouse',
-                            query: {
-                                url: '/api/warehouses',
-                                field: 'name'
-                            },
+                            query: {url: '/api/warehouses', field: 'name'},
                         },
 
                     ],
@@ -206,12 +173,15 @@ const manifest = {
                     col_1: [
                         {
                             type: 'select',
+                            name: 'invoice_default_sequence_id',
+                            label: 'Invoice Default Sequence',
+                            query: {url: '/api/sequences', field: 'name'},
+                        },
+                        {
+                            type: 'select',
                             name: 'accounting_default_currency_id',
                             label: 'Default Currency',
-                            query: {
-                                url: '/api/currencies',
-                                field: 'name'
-                            },
+                            query: {url: '/api/currencies', field: 'name'},
                         },
                     ],
                 },
@@ -224,19 +194,26 @@ const manifest = {
                             type: 'select',
                             name: 'sales_order_default_sequence_id',
                             label: 'Sales Default Sequence',
-                            query: {
-                                url: '/api/sequences',
-                                field: 'name'
-                            },
+                            query: {url: '/api/sequences', field: 'name'},
                         },
                         {
                             type: 'select',
                             name: 'sales_order_default_delivery_fee_id',
                             label: 'Sales Default Delivery Fee',
-                            query: {
-                                url: '/api/delivery_fees',
-                                field: 'name'
-                            },
+                            query: {url: '/api/delivery_fees', field: 'name'},
+                        },
+                    ],
+                },
+            },
+            tab_pane_5: {
+                name: 'Purchases',
+                row_1: {
+                    col_1: [
+                        {
+                            type: 'select',
+                            name: 'purchase_default_sequence_id',
+                            label: 'Purchase Default Sequence',
+                            query: {url: '/api/sequences', field: 'name'},
                         },
                     ],
                 },

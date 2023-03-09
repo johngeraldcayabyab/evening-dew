@@ -28,6 +28,7 @@ class GlobalSettingRequest extends FormRequest
             'sales_order_default_sequence_id' => ['nullable', "exists:sequences,id"],
             'sales_order_default_delivery_fee_id' => ['nullable', "exists:delivery_fees,id"],
             'purchase_default_sequence_id' => ['nullable', "exists:sequences,id"],
+            'invoice_default_sequence_id' => ['nullable', "exists:sequences,id"],
         ];
     }
 }
