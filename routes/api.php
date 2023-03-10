@@ -110,6 +110,7 @@ Route::group(['middleware' => ['api', 'cors']], function () {
 });
 
 Route::post('/sm_north_sales/import', [SmNorthSalesController::class, 'import'])->name('sm_north_sales.import');
+Route::post('/sm_north_sales/import_lines', [SmNorthSalesController::class, 'import_lines'])->name('sm_north_sales.import_lines');
 
 /**
  *
