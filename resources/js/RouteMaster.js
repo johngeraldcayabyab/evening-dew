@@ -39,6 +39,7 @@ import BankAccount from "./Modules/BankAccountManifest"
 import Purchase from "./Modules/PurchaseManifest"
 import Journal from "./Modules/JournalManifest"
 import Invoice from "./Modules/InvoiceManifest"
+import {HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE} from "./consts"
 
 const RouteMaster = () => {
     const manifests = [
@@ -82,32 +83,61 @@ const RouteMaster = () => {
     ];
 
     return manifests.map((manifest) => {
+        const manifestRoutes = manifest.routes;
+        let routes = [];
+
+        if (
+            manifestRoutes.length === 3 ||
+            (manifestRoutes.includes(HAS_TABLE) && manifestRoutes.includes(HAS_FORM_CREATE)) ||
+            (manifestRoutes.includes(HAS_TABLE) && manifestRoutes.includes(HAS_FORM_UPDATE))
+        ) {
+            routes = manifestRoutes.map((route) => {
+                if (route === HAS_FORM_CREATE) {
+                    return (
+                        <Routes
+                            key={`${manifest.moduleName}-${manifest.displayName}-create-form`}
+                            path={`/${manifest.displayName}/create`}
+                            component={() => <FormGenerator {...manifest}/>}
+                        />
+                    )
+                } else if (route === HAS_FORM_UPDATE) {
+                    return (
+                        <Routes
+                            key={`${manifest.moduleName}-${manifest.displayName}-update-form`}
+                            path={`/${manifest.displayName}/:id`}
+                            component={() => <FormGenerator {...manifest}/>}
+                        />
+                    )
+                } else if (route === HAS_TABLE) {
+                    return (
+                        <Routes
+                            key={`${manifest.moduleName}-${manifest.displayName}-table`}
+                            path={`/${manifest.displayName}`}
+                            component={() => <TableGenerator {...manifest}/>}
+                        />
+                    )
+                }
+            });
+        } else if (manifestRoutes.length === 1 && manifestRoutes.includes(HAS_FORM_CREATE)) {
+            routes.push(
+                <Routes
+                    key={`${manifest.moduleName}-${manifest.displayName}-create-form`}
+                    path={`/${manifest.displayName}`}
+                    component={() => <FormGenerator {...manifest}/>}
+                />
+            )
+        } else if (manifestRoutes.length === 1 && manifestRoutes.includes(HAS_TABLE)){
+            return (
+                <Routes
+                    key={`${manifest.moduleName}-${manifest.displayName}-table`}
+                    path={`/${manifest.displayName}`}
+                    component={() => <TableGenerator {...manifest}/>}
+                />
+            )
+        }
         return (
             <Switch key={`${manifest.moduleName}-${manifest.displayName}-switch`}>
-                {
-                    manifest.form &&
-                    <Routes
-                        key={`${manifest.moduleName}-${manifest.displayName}-create-form`}
-                        path={`/${manifest.displayName}/create`}
-                        component={() => <FormGenerator {...manifest}/>}
-                    />
-                }
-                {
-                    (manifest.form && !manifest.form.hasOwnProperty('updatable')) &&
-                    <Routes
-                        key={`${manifest.moduleName}-${manifest.displayName}-update-form`}
-                        path={`/${manifest.displayName}/:id`}
-                        component={() => <FormGenerator {...manifest}/>}
-                    />
-                }
-                {
-                    manifest.table &&
-                    <Routes
-                        key={`${manifest.moduleName}-${manifest.displayName}-table`}
-                        path={`/${manifest.displayName}`}
-                        component={() => <TableGenerator {...manifest}/>}
-                    />
-                }
+                {routes}
             </Switch>
         )
     });

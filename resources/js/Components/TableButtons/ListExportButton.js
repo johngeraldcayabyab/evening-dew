@@ -7,7 +7,8 @@ import {toQueryString} from "../../Helpers/url";
 const ListExportButton = () => {
     const listContext = useContext(TableContext);
     const params = toQueryString(listContext.tableState.params);
-    const exportLink = listContext.exportLink ? `${listContext.exportLink}/?${params}` : `${listContext.manifest.moduleName}/export?${params}`;
+    const manifest = listContext.manifest;
+    const exportLink = listContext.exportLink ? `${listContext.exportLink}/?${params}` : `${manifest.moduleName}/export?${params}`;
     return (
         <Menu.Item key={'exporter'}>
             <Popconfirm

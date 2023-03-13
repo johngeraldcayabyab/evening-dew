@@ -138,9 +138,9 @@ const FormGenerator = (manifest) => {
                     bottomColOneLeft={<FormButtons/>}
                     bottomColTwoRight={<NextPreviousRecord/>}
                 />
-                {manifest.statuses && <StatusBar statuses={manifest.statuses}/>}
+                {manifest.statuses && <StatusBar/>}
                 <FormCard>
-                    {manifest.formLinks && <FormLinks links={manifest.formLinks}/>}
+                    {manifest.formLinks && <FormLinks/>}
                     <FormItems/>
                 </FormCard>
             </CustomForm>
