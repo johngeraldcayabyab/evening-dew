@@ -3,13 +3,18 @@ import React, {useContext} from 'react';
 import {Link} from 'react-router-dom';
 import {TableContext} from "../../Contexts/TableContext";
 import {isShowButton} from "../../Helpers/object"
-import {CREATE_ACCESS} from "../../consts"
+import {CREATE_ACCESS, HAS_FORM_CREATE} from "../../consts"
 import {AppContext} from "../../Contexts/AppContext"
 
 const TableCreateButton = () => {
     const appContext = useContext(AppContext);
     const listContext = useContext(TableContext);
-    if (!isShowButton(appContext, listContext.manifest.moduleName, CREATE_ACCESS)) {
+    const manifest = listContext.manifest;
+    if (!isShowButton(appContext, manifest.moduleName, CREATE_ACCESS)) {
+        return null;
+    }
+
+    if (!manifest.routes.includes(HAS_FORM_CREATE)) {
         return null;
     }
 
@@ -19,7 +24,7 @@ const TableCreateButton = () => {
             type={"primary"}
             size={'default'}
         >
-            <Link to={`/${listContext.manifest.displayName}/create`}>
+            <Link to={`/${manifest.displayName}/create`}>
                 Create
             </Link>
         </Button>

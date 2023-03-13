@@ -5,7 +5,7 @@ import {EyeOutlined, SearchOutlined} from "@ant-design/icons";
 import {TableContext} from "../Contexts/TableContext";
 import SearchFilter from "./TableFilters/SearchFilter";
 import {getAllUrlParams} from "../Helpers/url";
-import {COLUMN_SELECTION, DATE_RANGE, SEARCH, SELECT} from "../consts";
+import {COLUMN_SELECTION, DATE_RANGE, HAS_FORM_CREATE, HAS_FORM_UPDATE, SEARCH, SELECT} from "../consts";
 import DateRangeFilter from "./TableFilters/DateRangeFilter";
 import ColumnSelectionFilter from "./TableFilters/ColumnSelectionFilter";
 import SelectFilter from "./TableFilters/SelectFilter"
@@ -14,6 +14,7 @@ import {AppContext} from "../Contexts/AppContext"
 const CustomTable = (props) => {
     const appContext = useContext(AppContext);
     const listContext = useContext(TableContext);
+    const manifest = listContext.manifest;
     const history = useHistory();
     const [state, setState] = useState({
         columns: listContext.columns
@@ -21,7 +22,7 @@ const CustomTable = (props) => {
 
     useEffect(() => {
         return (() => {
-            if (isClickableRow()) {
+            if (isClickableRow()  && isCreatableAndUpdatable()) {
                 document.body.style.cursor = "default";
             }
         })
@@ -35,7 +36,7 @@ const CustomTable = (props) => {
             });
             let urlParams = getAllUrlParams();
             urlParams.selected_fields = selectedFields;
-            urlParams = {...urlParams, ...listContext.manifest.queryDefaults};
+            urlParams = {...urlParams, ...manifest.queryDefaults};
             listContext.tableActions.renderData(urlParams);
         }
     }, [appContext.appState.appInitialLoad]);
@@ -53,7 +54,7 @@ const CustomTable = (props) => {
             return column;
         });
 
-        if (!isClickableRow()) {
+        if (!isClickableRow()  && isCreatableAndUpdatable()) {
             columns.push({
                 className: 'column-actions',
                 dataIndex: 'column_actions',
@@ -62,7 +63,7 @@ const CustomTable = (props) => {
                 render: (text, record) => {
                     return (
                         <Button type="primary" size={'small'}>
-                            <Link to={`/${listContext.manifest.displayName}/${record.id}`}>
+                            <Link to={`/${manifest.displayName}/${record.id}`}>
                                 <EyeOutlined/>
                             </Link>
                         </Button>
@@ -91,6 +92,13 @@ const CustomTable = (props) => {
                 return column;
             }
         })
+    }
+
+    function isCreatableAndUpdatable() {
+        if (manifest.routes.includes(HAS_FORM_UPDATE) || manifest.routes.includes(HAS_FORM_CREATE)) {
+            return true;
+        }
+        return false;
     }
 
     function generateColumnFilterByType(column) {
@@ -151,8 +159,8 @@ const CustomTable = (props) => {
     function onRow(record, rowIndex) {
         return {
             onClick: event => {
-                if (isClickableRow()) {
-                    history.push(`/${listContext.manifest.displayName}/${record.id}`);
+                if (isClickableRow() && isCreatableAndUpdatable()) {
+                    history.push(`/${manifest.displayName}/${record.id}`);
                 }
             },
             onDoubleClick: event => {
@@ -160,12 +168,12 @@ const CustomTable = (props) => {
             onContextMenu: event => {
             },
             onMouseEnter: event => {
-                if (isClickableRow()) {
+                if (isClickableRow() && isCreatableAndUpdatable()) {
                     document.body.style.cursor = "pointer";
                 }
             },
             onMouseLeave: event => {
-                if (isClickableRow()) {
+                if (isClickableRow() && isCreatableAndUpdatable()) {
                     document.body.style.cursor = "default";
                 }
             },
@@ -190,27 +198,25 @@ const CustomTable = (props) => {
     }
 
     function isClickableRow() {
-        if (appContext.appState.globalSetting.general_clickable_row) {
-            return true;
-        }
-        return false;
+        return !!appContext.appState.globalSetting.general_clickable_row;
     }
 
-    return (
-        <Table
-            className={'custom-table'}
-            rowSelection={listContext.tableActions.rowSelection}
-            loading={listContext.tableState.loading}
-            dataSource={listContext.tableState.dataSource}
-            columns={getColumns()}
-            rowKey={'id'}
-            onRow={onRow}
-            pagination={false}
-            childrenColumnName={'test'}
-            onChange={onChange}
-            size={'small'}
-            expandable={props.expandable}
-        />
+    const tableProps = {
+        className: 'custom-table',
+        rowSelection: listContext.tableActions.rowSelection,
+        loading: listContext.tableState.loading,
+        dataSource: listContext.tableState.dataSource,
+        columns: getColumns(),
+        rowKey: 'id',
+        onRow: onRow,
+        pagination: false,
+        childrenColumnName: 'test',
+        onChange: onChange,
+        size: 'small',
+        expandable: props.expandable,
+    };
+
+    return (<Table {...tableProps}/>
     )
 };
 

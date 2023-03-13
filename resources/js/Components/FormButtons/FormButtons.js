@@ -14,6 +14,7 @@ import {AppContext} from "../../Contexts/AppContext"
 const FormButtons = () => {
     const appContext = useContext(AppContext);
     const formContext = useContext(FormContext);
+    const manifest = formContext.manifest;
 
     function isViewing() {
         return !!(formContext.id && formContext.formState.formDisabled);
@@ -30,7 +31,7 @@ const FormButtons = () => {
     return (
         <Space size={'small'}>
             {
-                isShowButton(appContext, formContext.manifest.moduleName, WRITE_ACCESS) &&
+                isShowButton(appContext, manifest.moduleName, WRITE_ACCESS) &&
                 <>
                     {isViewing() && <EditButton/>}
                     {isEditing() && <SaveEditButton/>}
@@ -38,9 +39,9 @@ const FormButtons = () => {
                 </>
             }
             {
-                isShowButton(appContext, formContext.manifest.moduleName, CREATE_ACCESS) &&
+                isShowButton(appContext, manifest.moduleName, CREATE_ACCESS) &&
                 <>
-                    {isViewing() && <CreateButton/>}
+                    {true && isViewing() && <CreateButton/>}
                     {isCreating() && <SaveCreateButton/>}
                     {isCreating() && <DiscardCreateButton/>}
                 </>
