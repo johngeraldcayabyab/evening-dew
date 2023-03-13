@@ -140,7 +140,7 @@ const FormGenerator = (manifest) => {
                 />
                 {manifest.statuses && <StatusBar/>}
                 <FormCard>
-                    {manifest.formLinks && <FormLinks links={manifest.formLinks}/>}
+                    {manifest.formLinks && <FormLinks/>}
                     <FormItems/>
                 </FormCard>
             </CustomForm>
