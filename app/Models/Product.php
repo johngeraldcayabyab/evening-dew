@@ -118,6 +118,11 @@ class Product extends Model implements Sluggable
             });
     }
 
+    public function __clone()
+    {
+        return unserialize(serialize($this));
+    }
+
     public function slug()
     {
         return 'name';
