@@ -4,51 +4,63 @@ import {FormContext} from "../Contexts/FormContext";
 
 const {Step} = Steps;
 
-const StatusBar = (props) => {
+const StatusBar = () => {
     const formContext = useContext(FormContext);
+    const manifest = formContext.manifest;
+    const initialValues = formContext.formState.initialValues;
 
-    let statusButtons = [];
-    props.statuses.forEach((status) => {
-        if (status.hasOwnProperty('type') && status.visibility[formContext.formState.initialValues.status] === 'visible') {
-            statusButtons.push(status);
+    const statusButtons = manifest.statuses.filter((status) => {
+        if (status.hasOwnProperty('type') && status.visibility[initialValues.status] === 'visible') {
+            return status;
         }
+    }).map((statusButton, key) => {
+        return (
+            <Button
+                key={statusButton.value}
+                htmlType={"submit"}
+                type={statusButton.type}
+                size={'default'}
+                onClick={() => {
+                    formContext.form.setFieldsValue({
+                        'status': statusButton.value,
+                    });
+                }}
+            >
+                {statusButton.label}
+            </Button>
+        )
     });
+
+    const steps = manifest.statuses.map((status) => (
+        <Step
+            key={`${status.value}-status-step`}
+            status={status.status[initialValues.status]}
+            title={status.title}
+        />
+    ));
+
     return (
-        <div style={{paddingLeft: '16px', paddingRight: '16px', borderBottom: '1px solid #cccccc', background: '#fff'}}>
+        <div
+            style={{
+                paddingLeft: '16px',
+                paddingRight: '16px',
+                borderBottom: '1px solid #cccccc',
+                background: '#fff'
+            }}
+        >
             <Row align={'middle'} style={{marginTop: '4px', marginBottom: '4px'}}>
                 <Col span={18}>
                     <Space size={'small'}>
-                        {statusButtons.map((statusButton, key) => {
-                            return (
-                                <Button
-                                    key={statusButton.value}
-                                    htmlType={"submit"}
-                                    type={statusButton.type}
-                                    size={'default'}
-                                    onClick={() => {
-                                        formContext.form.setFieldsValue({
-                                            'status': statusButton.value,
-                                        });
-                                    }}
-                                >
-                                    {statusButton.label}
-                                </Button>
-                            )
-                        })}
+                        {statusButtons}
                     </Space>
                 </Col>
                 <Col span={6} style={{textAlign: 'right', paddingRight: '8px'}}>
                     <Steps
                         type="default"
                         size="small"
-                        current={formContext.formState.initialValues.status}
+                        current={initialValues.status}
                     >
-                        {
-                            props.statuses.map((status) => (
-                                <Step key={status.value} status={status.status[formContext.formState.initialValues.status]}
-                                      title={status.title}/>
-                            ))
-                        }
+                        {steps}
                     </Steps>
                 </Col>
             </Row>
