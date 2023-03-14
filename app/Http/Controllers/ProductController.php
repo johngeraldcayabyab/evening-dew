@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ProductCreated;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\GlobalSetting;
@@ -10,6 +11,7 @@ use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Facades\DB;
 
 class ProductController
 {
@@ -29,7 +31,13 @@ class ProductController
 
     public function store(ProductRequest $request): JsonResponse
     {
-        return $this->responseCreate(Product::create($request->validated()));
+        $product = null;
+        DB::transaction(function() use ($request) {
+            $product = Product::create($request->validated());
+            ProductCreated::dispatch($product);
+        });
+
+        return $this->responseCreate($product);
     }
 
     public function update(ProductRequest $request, Product $product): JsonResponse
