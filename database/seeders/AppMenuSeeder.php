@@ -140,8 +140,8 @@ class AppMenuSeeder extends Seeder
                         ]
                     ],
                     [
-                        'label' => 'Invoicing',
-                        'menu_key' => 'Invoices',
+                        'label' => 'Accounting',
+                        'menu_key' => 'Accounting',
                         'children' => [
                             [
                                 'label' => 'Invoices',
@@ -153,6 +153,10 @@ class AppMenuSeeder extends Seeder
                                     [
                                         'label' => 'Journals',
                                         'menu_key' => 'Journals',
+                                    ],
+                                    [
+                                        'label' => 'Currencies',
+                                        'menu_key' => 'Currencies',
                                     ],
                                 ]
                             ],
@@ -223,10 +227,6 @@ class AppMenuSeeder extends Seeder
                             [
                                 'label' => 'Menus',
                                 'menu_key' => 'Menus',
-                            ],
-                            [
-                                'label' => 'Currencies',
-                                'menu_key' => 'Currencies',
                             ],
                             [
                                 'label' => 'Sequences',
