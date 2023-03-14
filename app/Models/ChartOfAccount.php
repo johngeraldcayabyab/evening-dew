@@ -26,24 +26,24 @@ class ChartOfAccount extends Model implements Sluggable
     protected $guarded = [];
     protected static $logAttributes = ['*'];
 
-    const RECEIVABLE = "Receivable";
-    const BANK_AND_CASH = "Bank and Cash";
-    const CURRENT_ASSETS = "Current Assets";
-    const NON_CURRENT_ASSETS = "Non-current Assets";
-    const PREPAYMENTS = "Prepayments";
-    const FIXED_ASSETS = "Fixed Assets";
-    const PAYABLE = "Payable";
-    const CREDIT_CARD = "Credit Card";
-    const CURRENT_LIABILITIES = "Current Liabilities";
-    const NON_CURRENT_LIABILITIES = "Non-current Liabilities";
-    const EQUITY = "Equity";
-    const CURRENT_YEAR_EARNINGS = "Current Year Earnings";
-    const INCOME = "Income";
-    const OTHER_INCOME = "Other Income";
-    const EXPENSES = "Expenses";
-    const DEPRECIATION = "Depreciation";
-    const COST_OF_REVENUE = "Cost of Revenue";
-    const OFF_BALANCE_SHEET = "Off-Balance Sheet";
+    const RECEIVABLE = "receivable";
+    const BANK_AND_CASH = "bank_and_cash";
+    const CURRENT_ASSETS = "current_assets";
+    const NON_CURRENT_ASSETS = "non_current_assets";
+    const PREPAYMENTS = "prepayments";
+    const FIXED_ASSETS = "fixed_assets";
+    const PAYABLE = "payable";
+    const CREDIT_CARD = "credit_card";
+    const CURRENT_LIABILITIES = "current_liabilities";
+    const NON_CURRENT_LIABILITIES = "non_current_liabilities";
+    const EQUITY = "equity";
+    const CURRENT_YEAR_EARNINGS = "current_year_earnings";
+    const INCOME = "income";
+    const OTHER_INCOME = "other_income";
+    const EXPENSES = "expenses";
+    const DEPRECIATION = "depreciation";
+    const COST_OF_REVENUE = "cost_of_revenue";
+    const OFF_BALANCE_SHEET = "off_balance_sheet";
 
     public static function getTypes()
     {
