@@ -10,6 +10,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AppMenuSeeder::class,
+            ChartOfAccountSeeder::class,
             CountrySeeder::class,
             CourierSeeder::class,
             CurrencySeeder::class,
