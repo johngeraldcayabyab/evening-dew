@@ -16,6 +16,7 @@ class CreateChartOfAccountsTable extends Migration
             $table->unsignedInteger('currency_id')->nullable();
             $table->boolean('deprecated')->default(false);
             $table->boolean('allow_reconciliation')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

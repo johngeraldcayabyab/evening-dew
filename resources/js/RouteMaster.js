@@ -39,6 +39,7 @@ import BankAccount from "./Modules/BankAccountManifest"
 import Purchase from "./Modules/PurchaseManifest"
 import Journal from "./Modules/JournalManifest"
 import Invoice from "./Modules/InvoiceManifest"
+import ChartOfAccount from "./Modules/ChartOfAccountManifest";
 import {HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE} from "./consts"
 
 const RouteMaster = () => {
@@ -50,6 +51,7 @@ const RouteMaster = () => {
         AppMenu,
         Bank,
         BankAccount,
+        ChartOfAccount,
         City,
         Contact,
         Country,
@@ -126,7 +128,7 @@ const RouteMaster = () => {
                     component={() => <FormGenerator {...manifest}/>}
                 />
             )
-        } else if (manifestRoutes.length === 1 && manifestRoutes.includes(HAS_TABLE)){
+        } else if (manifestRoutes.length === 1 && manifestRoutes.includes(HAS_TABLE)) {
             return (
                 <Routes
                     key={`${manifest.moduleName}-${manifest.displayName}-table`}
