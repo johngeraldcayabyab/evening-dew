@@ -18,6 +18,13 @@ class CreateJournalsTable extends Migration
             $table->boolean('incoming_payment_method_manual')->default(false);
             $table->boolean('incoming_payment_method_electronic')->default(false);
             $table->boolean('outgoing_payment_method_manual')->default(false);
+            $table->unsignedInteger('income_chart_of_account_id')->nullable();
+            $table->unsignedInteger('expense_chart_of_account_id')->nullable();
+            $table->unsignedInteger('bank_chart_of_account_id')->nullable();
+            $table->unsignedInteger('suspense_chart_of_account_id')->nullable();
+            $table->unsignedInteger('cash_chart_of_account_id')->nullable();
+            $table->unsignedInteger('profit_chart_of_account_id')->nullable();
+            $table->unsignedInteger('loss_chart_of_account_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

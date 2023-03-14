@@ -82,6 +82,52 @@ const manifest = {
                     label: 'Outgoing Payment Method Manual',
                 },
             ]
+        },
+        row_2: {
+            col_1: [
+                {
+                    type: 'select',
+                    name: 'income_chart_of_account_id',
+                    label: 'Income Account',
+                    query: {url: '/api/chart_of_accounts', field: 'code'},
+                },
+                {
+                    type: 'select',
+                    name: 'expense_chart_of_account_id',
+                    label: 'Expense Account',
+                    query: {url: '/api/chart_of_accounts', field: 'code'},
+                },
+                {
+                    type: 'select',
+                    name: 'bank_chart_of_account_id',
+                    label: 'Bank Account',
+                    query: {url: '/api/chart_of_accounts', field: 'code'},
+                },
+                {
+                    type: 'select',
+                    name: 'suspense_chart_of_account_id',
+                    label: 'Suspense Account',
+                    query: {url: '/api/chart_of_accounts', field: 'code'},
+                },
+                {
+                    type: 'select',
+                    name: 'cash_chart_of_account_id',
+                    label: 'Cash Account',
+                    query: {url: '/api/chart_of_accounts', field: 'code'},
+                },
+                {
+                    type: 'select',
+                    name: 'profit_chart_of_account_id',
+                    label: 'Profit Account',
+                    query: {url: '/api/chart_of_accounts', field: 'code'},
+                },
+                {
+                    type: 'select',
+                    name: 'loss_chart_of_account_id',
+                    label: 'Loss Account',
+                    query: {url: '/api/chart_of_accounts', field: 'code'},
+                },
+            ],
         }
     }
 };

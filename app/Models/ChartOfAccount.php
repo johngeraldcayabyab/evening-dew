@@ -76,6 +76,6 @@ class ChartOfAccount extends Model implements Sluggable
 
     public function slug()
     {
-        return 'account_number';
+        return 'code';
     }
 }

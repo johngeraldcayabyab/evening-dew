@@ -44,6 +44,42 @@ class Journal extends Model implements Sluggable
         return $this->belongsTo(Currency::class);
     }
 
+    public function incomeChartOfAccount()
+    {
+        return $this->belongsTo(ChartOfAccount::class, 'income_chart_of_account_id', 'id');
+    }
+
+    public function expenseChartOfAccount()
+    {
+        return $this->belongsTo(ChartOfAccount::class, 'expense_chart_of_account_id', 'id');
+    }
+
+    public function bankChartOfAccount()
+    {
+        return $this->belongsTo(ChartOfAccount::class, 'bank_chart_of_account_id', 'id');
+    }
+
+    public function suspenseChartOfAccount()
+    {
+        return $this->belongsTo(ChartOfAccount::class, 'suspense_chart_of_account_id', 'id');
+    }
+
+    public function cashChartOfAccount()
+    {
+        return $this->belongsTo(ChartOfAccount::class, 'cash_chart_of_account_id', 'id');
+    }
+
+    public function profitChartOfAccount()
+    {
+        return $this->belongsTo(ChartOfAccount::class, 'profit_chart_of_account_id', 'id');
+    }
+
+    public function lossChartOfAccount()
+    {
+        return $this->belongsTo(ChartOfAccount::class, 'loss_chart_of_account_id', 'id');
+    }
+
+
     public function slug()
     {
         return 'name';
