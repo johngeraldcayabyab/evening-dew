@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Sales;
+namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property mixed $created_at
  * @property mixed $updated_at
  */
-class Product extends Model
+class SalesProduct extends Model
 {
 
     /**
@@ -35,7 +35,11 @@ class Product extends Model
     protected $table = 'sales_products';
 
 
-    public function __construct(\App\Models\Product $product){
+    /*
+     *
+     * TODO - refactor and remove constructor
+     * */
+    public function __construct(Product $product){
         parent::__construct();
         $this->id=$product->id;
         $this->name=$product->name;
