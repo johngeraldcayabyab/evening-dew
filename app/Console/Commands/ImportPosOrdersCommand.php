@@ -57,6 +57,8 @@ class ImportPosOrdersCommand extends Command
                 'shipping_date' => $date,
                 'salesperson_id' => $salesPerson->id,
                 'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
+                'source_document' => $order['sequence'],
+                'select_time' => '11_00_AM_01_00_PM',
                 'customer_reference' => "POS {$order['sequence']}",
                 'status' => SalesOrder::DRAFT,
                 'shipping_method' => Transfer::PICKUP,
