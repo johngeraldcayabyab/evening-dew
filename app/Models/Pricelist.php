@@ -8,8 +8,8 @@ class Pricelist extends Model
 {
 
     protected $table = 'pricelists';
-
-    public function pricelistProducts()
+    protected $fillable = ['name'];
+    public function products()
     {
         return $this->hasMany(PricelistProduct::class);
     }

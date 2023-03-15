@@ -11,8 +11,7 @@ class CreatePricelistRequest extends FormRequest
         return [
             'name' => ['required'],
             'customer_products.*.product_id' => ['required', 'numeric'],
-            'customer_products.*.customer_id' => ['required', 'numeric'],
-            'customer_products.*.unit_price' => ['required', 'numeric'],
+            'customer_products.*.unit_price' => ['required', 'numeric']
         ];
     }
 }

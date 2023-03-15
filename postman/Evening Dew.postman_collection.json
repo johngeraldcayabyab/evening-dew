@@ -74,7 +74,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"my_pricelist\",\r\n    \"customer_products\":[\r\n        {\r\n              \"product_id\":1,\r\n              \"customer_id\":1,\r\n              \"unit_price\":100.0\r\n        }\r\n\r\n    ]\r\n}",
+							"raw": "{\r\n    \"name\":\"my_pricelist\",\r\n    \"customer_products\":[\r\n        {\r\n              \"product_id\":1,\r\n              \"unit_price\":100.0\r\n        }\r\n\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

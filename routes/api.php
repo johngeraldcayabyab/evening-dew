@@ -26,6 +26,7 @@ use App\Http\Controllers\MeasurementController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OperationTypeController;
 use App\Http\Controllers\PaymentTermController;
+use App\Http\Controllers\PricelistController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
@@ -90,4 +91,6 @@ Route::group(['middleware' => ['api', 'cors', 'auth:sanctum']], function () {
     Route::post('uploads/images', [UploadController::class, 'image']);
     Router::generate(UserController::class);
     Router::generate(WarehouseController::class);
+    Router::generate(PricelistController::class);
+
 });

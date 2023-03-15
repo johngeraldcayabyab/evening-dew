@@ -31,13 +31,7 @@ class ProductController
 
     public function store(ProductRequest $request): JsonResponse
     {
-        $product = null;
-        DB::transaction(function() use ($request) {
-            $product = Product::create($request->validated());
-            ProductCreated::dispatch($product);
-        });
-
-        return $this->responseCreate($product);
+        return $this->responseCreate(Product::create($request->validated()));
     }
 
     public function update(ProductRequest $request, Product $product): JsonResponse
