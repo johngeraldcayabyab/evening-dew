@@ -63,7 +63,9 @@ use App\Models\Warehouse;
 use App\Services\RouteGenerator;
 use Illuminate\Support\Facades\Route;
 use Spatie\Activitylog\Models\Activity;
+use App\Http\Middleware\VerifyCsrfToken;
 
+//Route::post('/sm_north_sales/import', [SmNorthSalesController::class, 'import']);
 
 Route::group(['middleware' => ['api', 'cors']], function () {
     (new RouteGenerator(Activity::class))::generate(ActivityLogController::class);
@@ -109,8 +111,7 @@ Route::group(['middleware' => ['api', 'cors']], function () {
     (new RouteGenerator(Warehouse::class))::generate(WarehouseController::class);
 });
 
-Route::post('/sm_north_sales/import', [SmNorthSalesController::class, 'import'])->name('sm_north_sales.import');
-Route::post('/sm_north_sales/import_lines', [SmNorthSalesController::class, 'import_lines'])->name('sm_north_sales.import_lines');
+Route::post('/sm_north_sales/electronic_journal', [SmNorthSalesController::class, 'import'])->withoutMiddleware([VerifyCsrfToken::class]);
 
 /**
  *
