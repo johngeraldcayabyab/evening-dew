@@ -106,6 +106,6 @@ class ImportPosOrdersCommand extends Command
 
     private function log($message)
     {
-        info($message);
+//        Log::channel('shopify')->info($message);
     }
 }

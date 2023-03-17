@@ -10,6 +10,7 @@ use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Str;
 
 class ProductController
 {
@@ -18,7 +19,12 @@ class ProductController
     public function index(Request $request): ResourceCollection
     {
         $model = new Product();
-        $model = $model->filterAndOrder($request);
+        $model = $model->filterAndOrder($request, function ($query) use ($request){
+            if (Str::contains($request->selected_fields, 'slug') && !$request->id) {
+                $query = $query->where('product_category_id', '!=', 5);
+            }
+            return $query;
+        });
         return ProductResource::collection($model);
     }
 

@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
  */
 trait FilterTrait
 {
-    public function filterAndOrder(Request $request)
+    public function filterAndOrder(Request $request, $function = null)
     {
         $query = $this;
         $modelInstance = $this;
@@ -34,6 +34,9 @@ trait FilterTrait
 //            $query = $query->with($relationships);
 //        }
         $query = $this->groupNow($request, $query);
+        if ($function) {
+            $query = $function($query);
+        }
         $query = $this->filterNow($fields, $request, $modelInstance, $query);
         $query = $this->hasNow($request, $query);
         $query = $this->orderNow($request, $modelInstance, $query);
