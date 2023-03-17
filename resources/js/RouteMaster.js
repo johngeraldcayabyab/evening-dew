@@ -39,6 +39,7 @@ import BankAccount from "./Modules/BankAccountManifest"
 import Purchase from "./Modules/PurchaseManifest"
 import Journal from "./Modules/JournalManifest"
 import Invoice from "./Modules/InvoiceManifest"
+import Payment from "./Modules/PaymentManifest"
 import ChartOfAccount from "./Modules/ChartOfAccountManifest";
 import {HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE} from "./consts"
 
@@ -68,6 +69,7 @@ const RouteMaster = () => {
         MeasurementCategory,
         Menu,
         OperationType,
+        Payment,
         PaymentTerm,
         Product,
         ProductCategory,

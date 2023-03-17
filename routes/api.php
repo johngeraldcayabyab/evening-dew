@@ -25,6 +25,7 @@ use App\Http\Controllers\MeasurementCategoryController;
 use App\Http\Controllers\MeasurementController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OperationTypeController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PaymentTermController;
 use App\Http\Controllers\PricelistController;
 use App\Http\Controllers\ProductCategoryController;
@@ -75,6 +76,7 @@ Route::group(['middleware' => ['api', 'cors', 'auth:sanctum']], function () {
     Router::generate(MeasurementController::class);
     Router::generate(MenuController::class);
     Router::generate(OperationTypeController::class);
+    Router::generate(PaymentController::class);
     Router::generate(PaymentTermController::class);
     Router::generate(ProductCategoryController::class);
     Router::generate(PurchaseController::class);

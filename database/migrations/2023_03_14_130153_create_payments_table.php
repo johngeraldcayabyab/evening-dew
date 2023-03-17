@@ -14,13 +14,14 @@ class CreatePaymentsTable extends Migration
             $table->string('payment_type');
             $table->string('partner_type');
             $table->string('contact_id');
+            $table->unsignedInteger('destination_account_id');
             $table->boolean('is_internal_transfer')->default(false);
             $table->double('amount')->default(0);
             $table->unsignedInteger('currency_id');
             $table->dateTime('payment_date')->nullable();
             $table->string('memo');
             $table->unsignedInteger('journal_id');
-            $table->unsignedInteger('bank_accounts_id');
+            $table->unsignedInteger('bank_account_id');
             $table->longText('notes');
             $table->softDeletes();
             $table->timestamps();

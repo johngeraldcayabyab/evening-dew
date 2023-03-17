@@ -22,30 +22,45 @@ class Payment extends Model implements Sluggable
     use ModelHelperTrait;
     use NextAndPreviousRecordTrait;
 
-    const AT_CONFIRMATION = 'at_confirmation';
-    const MANUALLY = 'manually';
-    const BEFORE_SCHEDULED_DATE = 'before_scheduled_date';
+    const SEND_MONEY = 'send_money';
+    const RECEIVE_MONEY = 'receive_money';
 
-    const RECEIPT = 'receipt';
-    const DELIVERY = 'delivery';
-    const INTERNAL = 'internal';
-    const MANUFACTURING = 'manufacturing';
-    const ADJUSTMENT = 'adjustment';
+    const VENDOR = 'vendor';
+    const CUSTOMER = 'customer';
 
     protected $table = 'operations_types';
     protected $guarded = [];
     protected static $logAttributes = ['*'];
 
-    public static function getReservationMethods()
+    public static function getPaymentTypes()
     {
-        return [self::AT_CONFIRMATION, self::MANUALLY, self::BEFORE_SCHEDULED_DATE];
+        return [self::SEND_MONEY, self::RECEIVE_MONEY];
     }
 
-    public static function getTypes()
+    public static function getPartnerTypes()
     {
-        return [self::RECEIPT, self::DELIVERY, self::INTERNAL, self::MANUFACTURING, self::ADJUSTMENT];
+        return [self::VENDOR, self::CUSTOMER];
     }
 
+    public function destinationAccount()
+    {
+        return $this->belongsTo(ChartOfAccount::class, 'destination_account_id');
+    }
+
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class,);
+    }
+
+    public function journal()
+    {
+        return $this->belongsTo(Journal::class);
+    }
+
+    public function bankAccount()
+    {
+        return $this->belongsTo(BankAccount::class);
+    }
 
     public function slug()
     {

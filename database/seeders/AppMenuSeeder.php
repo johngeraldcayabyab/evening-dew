@@ -148,6 +148,10 @@ class AppMenuSeeder extends Seeder
                                 'menu_key' => 'Invoices',
                             ],
                             [
+                                'label' => 'Payments',
+                                'menu_key' => 'Payments',
+                            ],
+                            [
                                 'label' => 'Configurations',
                                 'children' => [
                                     [
