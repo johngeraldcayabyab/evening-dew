@@ -27,14 +27,5 @@ class SequenceSeeder extends Seeder
             'step' => Sequence::STEP,
             'next_number' => Sequence::NEXT_NUMBER,
         ]);
-        Sequence::create([
-            'name' => "Invoice Sequence",
-            'sequence_code' => "invoice.sequence",
-            'implementation' => Sequence::STANDARD,
-            'prefix' => "INV/",
-            'sequence_size' => Sequence::SEQUENCE_SIZE,
-            'step' => Sequence::STEP,
-            'next_number' => Sequence::NEXT_NUMBER,
-        ]);
     }
 }

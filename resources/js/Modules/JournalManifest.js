@@ -53,6 +53,7 @@ const manifest = {
                     type: 'text',
                     name: 'short_code',
                     label: 'Short Code',
+                    required: true,
                 },
                 {
                     type: 'select',

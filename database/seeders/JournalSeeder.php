@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\ChartOfAccount;
 use App\Models\Journal;
+use App\Models\Sequence;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class JournalSeeder extends Seeder
 {
@@ -12,7 +14,7 @@ class JournalSeeder extends Seeder
     {
         collect([
             [
-                'name' => 'Customer Invoices',
+                'name' => 'Invoices',
                 'type' => Journal::SALES,
                 'dedicated_credit_note_sequence' => true,
                 'short_code' => 'INV',
@@ -23,7 +25,7 @@ class JournalSeeder extends Seeder
                 'income_chart_of_account_id' => ChartOfAccount::where('code', '400000')->first()->id,
             ],
             [
-                'name' => 'Vendor Bills',
+                'name' => 'Bills',
                 'type' => Journal::PURCHASE,
                 'dedicated_credit_note_sequence' => true,
                 'short_code' => 'BILL',
@@ -64,8 +66,8 @@ class JournalSeeder extends Seeder
                 'outgoing_payment_method_manual' => true,
                 'bank_chart_of_account_id' => ChartOfAccount::where('code', '101402')->first()->id,
                 'suspense_chart_of_account_id' => ChartOfAccount::where('code', '101401')->first()->id,
-                'outstanding_receipt_account_id'=> ChartOfAccount::where('code', '101403')->first()->id,
-                'outstanding_payment_account_id'=> ChartOfAccount::where('code', '101404')->first()->id,
+                'outstanding_receipt_account_id' => ChartOfAccount::where('code', '101403')->first()->id,
+                'outstanding_payment_account_id' => ChartOfAccount::where('code', '101404')->first()->id,
             ],
             [
                 'name' => 'Cash',
@@ -80,8 +82,8 @@ class JournalSeeder extends Seeder
                 'suspense_chart_of_account_id' => ChartOfAccount::where('code', '101401')->first()->id,
                 'profit_chart_of_account_id' => ChartOfAccount::where('code', '442000')->first()->id,
                 'loss_chart_of_account_id' => ChartOfAccount::where('code', '642000')->first()->id,
-                'outstanding_receipt_account_id'=> ChartOfAccount::where('code', '101502')->first()->id,
-                'outstanding_payment_account_id'=> ChartOfAccount::where('code', '101503')->first()->id,
+                'outstanding_receipt_account_id' => ChartOfAccount::where('code', '101502')->first()->id,
+                'outstanding_payment_account_id' => ChartOfAccount::where('code', '101503')->first()->id,
             ],
             [
                 'name' => 'Cash Basis Taxes',
@@ -104,7 +106,17 @@ class JournalSeeder extends Seeder
                 'outgoing_payment_method_manual' => false,
             ]
         ])->each(function ($data) {
-            Journal::create($data);
+            $journal = Journal::create($data);
+            $sequenceCode = Str::snake($journal->name . " sequence", '.');
+            Sequence::create([
+                'name' => $journal->name . " sequence",
+                'sequence_code' => $sequenceCode,
+                'implementation' => Sequence::STANDARD,
+                'prefix' => "{$journal->short_code}/",
+                'sequence_size' => Sequence::SEQUENCE_SIZE,
+                'step' => Sequence::STEP,
+                'next_number' => Sequence::NEXT_NUMBER,
+            ]);
         });
     }
 }

@@ -14,7 +14,7 @@ class JournalRequest extends FormRequest
             'name' => ['string', 'required'],
             'type' => ['nullable', "in:$types"],
             'dedicated_credit_note_sequence' => ['nullable', 'boolean'],
-            'short_code' => ['nullable', 'required'],
+            'short_code' => ['string', 'required'],
             'currency_id' => ['nullable', "exists:currencies,id"],
             'incoming_payment_method_manual' => ['nullable', 'boolean'],
             'incoming_payment_method_electronic' => ['nullable', 'boolean'],

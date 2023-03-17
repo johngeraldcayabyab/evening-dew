@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\JournalCreated;
 use App\Http\Requests\JournalRequest;
 use App\Http\Resources\JournalResource;
 use App\Models\Journal;
@@ -28,7 +29,9 @@ class JournalController extends Controller
 
     public function store(JournalRequest $request): JsonResponse
     {
-        return $this->responseCreate(Journal::create($request->validated()));
+        $journal = Journal::create($request->validated());
+        JournalCreated::dispatch($journal);
+        return $this->responseCreate($journal);
     }
 
     public function update(JournalRequest $request, Journal $journal): JsonResponse
