@@ -28,6 +28,8 @@ class JournalResource extends JsonResource
             'cash_chart_of_account_id' => $this->cash_chart_of_account_id,
             'profit_chart_of_account_id' => $this->profit_chart_of_account_id,
             'loss_chart_of_account_id' => $this->loss_chart_of_account_id,
+            'outstanding_receipt_account_id' => $this->outstanding_receipt_account_id,
+            'outstanding_payment_account_id' => $this->outstanding_payment_account_id,
             'currency' => new CurrencyResource($this->currency),
             'income_chart_of_account' => new ChartOfAccountResource($this->incomeChartOfAccount),
             'expense_chart_of_account' => new ChartOfAccountResource($this->expenseChartOfAccount),
@@ -36,6 +38,8 @@ class JournalResource extends JsonResource
             'cash_chart_of_account' => new ChartOfAccountResource($this->cashChartOfAccount),
             'profit_chart_of_account' => new ChartOfAccountResource($this->profitChartOfAccount),
             'loss_chart_of_account' => new ChartOfAccountResource($this->lossChartOfAccount),
+            'outstanding_receipt_account' => new ChartOfAccountResource($this->outstandingReceiptAccount),
+            'outstanding_payment_account' => new ChartOfAccountResource($this->outstandingPaymentAccount),
             'slug' => $this->$slug,
         ]);
     }

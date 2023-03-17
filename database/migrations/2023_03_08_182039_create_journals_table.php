@@ -25,6 +25,8 @@ class CreateJournalsTable extends Migration
             $table->unsignedInteger('cash_chart_of_account_id')->nullable();
             $table->unsignedInteger('profit_chart_of_account_id')->nullable();
             $table->unsignedInteger('loss_chart_of_account_id')->nullable();
+            $table->unsignedInteger('outstanding_receipt_account_id')->nullable();
+            $table->unsignedInteger('outstanding_payment_account_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

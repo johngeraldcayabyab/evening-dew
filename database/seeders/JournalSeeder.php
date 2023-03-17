@@ -64,6 +64,8 @@ class JournalSeeder extends Seeder
                 'outgoing_payment_method_manual' => true,
                 'bank_chart_of_account_id' => ChartOfAccount::where('code', '101402')->first()->id,
                 'suspense_chart_of_account_id' => ChartOfAccount::where('code', '101401')->first()->id,
+                'outstanding_receipt_account_id'=> ChartOfAccount::where('code', '101403')->first()->id,
+                'outstanding_payment_account_id'=> ChartOfAccount::where('code', '101404')->first()->id,
             ],
             [
                 'name' => 'Cash',
@@ -78,6 +80,8 @@ class JournalSeeder extends Seeder
                 'suspense_chart_of_account_id' => ChartOfAccount::where('code', '101401')->first()->id,
                 'profit_chart_of_account_id' => ChartOfAccount::where('code', '442000')->first()->id,
                 'loss_chart_of_account_id' => ChartOfAccount::where('code', '642000')->first()->id,
+                'outstanding_receipt_account_id'=> ChartOfAccount::where('code', '101502')->first()->id,
+                'outstanding_payment_account_id'=> ChartOfAccount::where('code', '101503')->first()->id,
             ],
             [
                 'name' => 'Cash Basis Taxes',

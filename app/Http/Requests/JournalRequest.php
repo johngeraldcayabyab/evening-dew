@@ -26,6 +26,8 @@ class JournalRequest extends FormRequest
             'cash_chart_of_account_id' => ['nullable', 'exists:chart_of_accounts:id'],
             'profit_chart_of_account_id' => ['nullable', 'exists:chart_of_accounts:id'],
             'loss_chart_of_account_id' => ['nullable', 'exists:chart_of_accounts:id'],
+            'outstanding_receipt_account_id' => ['nullable', 'exists:chart_of_accounts:id'],
+            'outstanding_payment_account_id' => ['nullable', 'exists:chart_of_accounts:id'],
         ];
     }
 }

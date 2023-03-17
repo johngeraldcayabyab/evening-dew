@@ -79,6 +79,15 @@ class Journal extends Model implements Sluggable
         return $this->belongsTo(ChartOfAccount::class, 'loss_chart_of_account_id', 'id');
     }
 
+    public function outstandingReceiptAccount()
+    {
+        return $this->belongsTo(ChartOfAccount::class, 'outstanding_receipt_account_id', 'id');
+    }
+
+    public function outstandingPaymentAccount()
+    {
+        return $this->belongsTo(ChartOfAccount::class, 'outstanding_payment_account_id', 'id');
+    }
 
     public function slug()
     {
