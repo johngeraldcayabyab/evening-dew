@@ -185,6 +185,7 @@ class SmNorthSalesController
                 $productData = [
                     'name' => $item[0],
                     'sales_price' => $item[2],
+                    'product_category_id' => 5
                 ];
                 $quantity = $item[1];
                 $product = Product::where('name', trim($item[0]))->first();
