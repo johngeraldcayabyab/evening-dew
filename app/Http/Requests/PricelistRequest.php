@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreatePricelistRequest extends FormRequest
+class PricelistRequest extends FormRequest
 {
     public function rules()
     {

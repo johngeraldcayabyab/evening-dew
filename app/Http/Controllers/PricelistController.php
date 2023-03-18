@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreatePricelistRequest;
-use App\Models\PaymentTerm;
+use App\Http\Requests\PricelistRequest;
+use App\Http\Resources\PricelistResource;
 use App\Models\Pricelist;
 use App\Models\PricelistProduct;
-use App\Models\SalesOrderLine;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Arr;
 
 class PricelistController extends Controller
@@ -17,36 +17,41 @@ class PricelistController extends Controller
 
     use ControllerHelperTrait;
 
-    public function index(Request $request): JsonResponse
+    public function index(Request $request): ResourceCollection
     {
-        return $this->responseCreate("priceList");
-
-    }
-
-    public function show(Pricelist $priceList): JsonResponse
-    {
-        return $this->responseCreate("");
-
+        $model = new Pricelist();
+        $model = $model->filterAndOrder($request);
+        return PricelistResource::collection($model);
     }
 
     /*
-     * TODO - refactor
+     *
+     * TODO - fix display for single pricelist
      * */
-    public function store(CreatePricelistRequest $request): JsonResponse
+
+    public function show(Pricelist $priceList): JsonResponse
+    {
+        return response()->json(new PricelistResource($priceList));
+    }
+
+    public function store(PricelistRequest $request): JsonResponse
     {
         $data = $request->validated();
         $priceListData = Arr::except($data, ['customer_products']);
         $priceList = Pricelist::create($priceListData);
 
-        foreach ($data['customer_products'] as $obj){
-            $priceListProduct = new PricelistProduct;
+
+        collect($data['customer_products'])->each(function ($obj) use ($priceList) {
+            $priceListProduct = new PricelistProduct();
             $priceListProduct->product_id=$obj['product_id'];
             $priceListProduct->unit_price=$obj['unit_price'];
             $priceListProduct->pricelist()->associate($priceList);
             $priceListProduct->save();
-        }
+        });
 
-
+        /*
+         * TODO - should not return anything unless required.
+         * */
         return $this->responseCreate($priceList);
     }
 
