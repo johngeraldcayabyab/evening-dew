@@ -1,13 +1,11 @@
 import {useState} from "react";
 import {GET, POST, SELECT_PAGE_SIZE} from "../consts";
 import useFetchHook from "./useFetchHook";
-import useFetchCatcherHook from "./useFetchCatcherHook";
 import {objectHasValue} from "../Helpers/object";
 import {getFieldFromInitialValues} from "../Helpers/form";
 
-const useOptionLineHook = (url, tableField, lineName,  customParams = null) => {
+const useOptionLineHook = (url, tableField, lineName, customParams = null) => {
     const useFetch = useFetchHook();
-    const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
         keys: [],
         values: {},
@@ -68,8 +66,6 @@ const useOptionLineHook = (url, tableField, lineName,  customParams = null) => {
                     search: searchState,
                     keys: keys,
                 }));
-            }).catch((responseErr) => {
-                fetchCatcher.get(responseErr);
             });
         },
         onChange: (event, key) => {
@@ -91,8 +87,6 @@ const useOptionLineHook = (url, tableField, lineName,  customParams = null) => {
                     values: values
                 }));
                 optionActions.getOptions(null, key);
-            }).catch((responseErr) => {
-                fetchCatcher.get(responseErr);
             });
         },
         onSearch: (search, key) => {
@@ -126,16 +120,12 @@ const useOptionLineHook = (url, tableField, lineName,  customParams = null) => {
                                 tag: option.tag,
                             });
                         });
-
                         options[key] = options[key].filter((v, i, a) => a.findIndex(v2 => (v2.value === v.value)) === i);
-
                         setState((prevState) => ({
                             ...prevState,
                             meta: meta,
                             options: options,
                         }));
-                    }).catch((responseErr) => {
-                        fetchCatcher.get(responseErr);
                     });
                 }
             }

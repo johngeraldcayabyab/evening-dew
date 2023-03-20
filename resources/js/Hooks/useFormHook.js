@@ -1,6 +1,5 @@
 import {useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
-import useFetchCatcherHook from "./useFetchCatcherHook";
 import useFetchHook from "./useFetchHook";
 import {GET, POST, PUT} from "../consts";
 import {formatInitialValuesDatetimeToMoment} from "../Helpers/object";
@@ -10,7 +9,6 @@ import {AppContext} from "../Contexts/AppContext"
 const useFormHook = (id, form, manifest, getInitialValues = false) => {
     const appContext = useContext(AppContext);
     const useFetch = useFetchHook();
-    const fetchCatcher = useFetchCatcherHook();
     const history = useHistory();
 
     const [formState, setFormState] = useState({
@@ -36,8 +34,6 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
                         loading: false,
                         formDisabled: true,
                     });
-                }).catch((responseErr) => {
-                    fetchCatcher.get(responseErr);
                 });
             } else {
                 if (getInitialValues && formState.initialLoad) {
@@ -45,8 +41,6 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
                         setFormValuesAndState(response, {
                             initialValues: response,
                         });
-                    }).catch((responseErr) => {
-                        fetchCatcher.get(responseErr);
                     });
                 } else if (formState.initialLoad) {
                     setFormState(state => ({
@@ -116,11 +110,11 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
     }
 
     function handleFormErrors(responseErr) {
-        fetchCatcher.get(responseErr).then((errors) => {
+        responseErr.json().then((error) => {
             setFormState(state => ({
                 ...state,
                 loading: false,
-                errors: errors
+                errors: error
             }));
         });
     }

@@ -1,13 +1,10 @@
 import {useState} from "react";
 import useFetchHook from "./useFetchHook";
 import {DELETE, GET, POST} from "../consts";
-import useFetchCatcherHook from "./useFetchCatcherHook";
 import {getPayload, getPayloadModule, setPayload, setPayloadModule} from "../Helpers/localstorage";
-import {objectHasValue} from "../Helpers/object";
 
 const useListHook = (manifest) => {
     const useFetch = useFetchHook();
-    const fetchCatcher = useFetchCatcherHook();
     const [tableState, setTableState] = useState({
         initialLoad: true,
         loading: true,
@@ -19,11 +16,7 @@ const useListHook = (manifest) => {
     });
     const [tableActions] = useState({
         handleDelete: (id) => {
-            useFetch(`api/${manifest.moduleName}/${id}`, DELETE).then(() => {
-
-            }).catch((responseErr) => {
-
-            });
+            useFetch(`api/${manifest.moduleName}/${id}`, DELETE);
         },
         handleMassDelete: (ids) => {
             setTableState(state => ({
@@ -32,13 +25,6 @@ const useListHook = (manifest) => {
             }));
             useFetch(`api/${manifest.moduleName}/mass_destroy`, POST, {ids: ids}).then(() => {
                 tableActions.renderData(tableState.params);
-            }).catch((responseErr) => {
-                fetchCatcher.get(responseErr).then(() => {
-                    setTableState(state => ({
-                        ...state,
-                        loading: false,
-                    }));
-                });
             });
         },
         rowSelection: {
@@ -64,8 +50,6 @@ const useListHook = (manifest) => {
                     meta: response.meta,
                     params: params,
                 }));
-            }).catch((responseErr) => {
-                fetchCatcher.get(responseErr);
             });
         }
     });

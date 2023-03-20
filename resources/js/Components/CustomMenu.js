@@ -3,7 +3,6 @@ import {Header} from "antd/lib/layout/layout";
 import {Menu, message, Spin} from "antd";
 import {AppstoreOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
-import useFetchCatcherHook from "../Hooks/useFetchCatcherHook";
 import useFetchHook from "../Hooks/useFetchHook";
 import {POST} from "../consts";
 import {useHistory, useLocation} from "react-router";
@@ -24,7 +23,6 @@ function resetBreadcrumbs(url) {
 
 const CustomMenu = () => {
     const location = useLocation();
-    const fetchCatcher = useFetchCatcherHook();
     const appContext = useContext(AppContext);
     const useFetch = useFetchHook();
     const [state, setState] = useState({
@@ -96,8 +94,6 @@ const CustomMenu = () => {
             message.success('Logged Out!');
             reset();
             history.push('/login');
-        }).catch((responseErr) => {
-            fetchCatcher.get(responseErr);
         });
     }
 

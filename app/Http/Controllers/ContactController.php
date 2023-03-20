@@ -18,8 +18,9 @@ class ContactController
 {
     use ControllerHelperTrait;
 
-    public function index(Request $request): ResourceCollection
+    public function index(Request $request)
     {
+//        return response()->json(1, 404);
         $model = new Contact();
         $model = $model->filterAndOrder($request);
         return ContactResource::collection($model);
@@ -27,6 +28,7 @@ class ContactController
 
     public function show(Contact $contact): JsonResponse
     {
+        return response()->json(1, 404);
         return response()->json(new ContactResource($contact));
     }
 

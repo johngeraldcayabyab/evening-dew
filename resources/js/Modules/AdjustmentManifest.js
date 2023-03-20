@@ -84,8 +84,6 @@ const manifest = {
                     });
                     const persistedKey = getPersistedKey(line, formContext.options['measurement_id-lineOptions'].options)
                     formContext.options['measurement_id-lineOptions'].getOptions(response.measurement.name, persistedKey);
-                }).catch((responseErr) => {
-                    formContext.fetchCatcher.get(responseErr);
                 });
             });
         },

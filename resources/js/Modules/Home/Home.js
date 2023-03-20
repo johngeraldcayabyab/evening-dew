@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 import Title from "antd/lib/typography/Title";
 import {useEffect, useState} from "react";
 import useFetchHook from "../../Hooks/useFetchHook";
-import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import {GET} from "../../consts";
 import {Card, Col, DatePicker, Row, Spin} from "antd";
 import moment from "moment";
@@ -15,7 +14,6 @@ const dateFormat = 'YYYY-MM-DD';
 
 const Home = () => {
     const useFetch = useFetchHook();
-    const fetchCatcher = useFetchCatcherHook();
 
     const [state, setState] = useState({
         salesPerDayLoading: true,
@@ -46,8 +44,6 @@ const Home = () => {
                 from: from,
                 to: to
             }));
-        }).catch((responseErr) => {
-            fetchCatcher.get(responseErr);
         });
     }
 

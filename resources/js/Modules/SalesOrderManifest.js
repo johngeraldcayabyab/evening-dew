@@ -161,8 +161,6 @@ const manifest = {
                             formContext.options['product_id-lineOptions'].getOptions(product.name, maxProductLineOptionKey + 1);
                         }
                     }
-                }).catch((responseErr) => {
-                    formContext.fetchCatcher.get(responseErr);
                 });
             }
             isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'product_id', (line, allValues) => {
@@ -180,8 +178,6 @@ const manifest = {
                     });
                     const persistedKey = getPersistedKey(line, formContext.options['measurement_id-lineOptions'].options);
                     formContext.options['measurement_id-lineOptions'].getOptions(response.sales_measurement.name, persistedKey);
-                }).catch((responseErr) => {
-                    formContext.fetchCatcher.get(responseErr);
                 });
             });
             isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'quantity', (changedSalesOrderLine, allValues) => {

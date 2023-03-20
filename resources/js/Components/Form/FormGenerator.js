@@ -14,7 +14,6 @@ import useOptionLineHook from "../../Hooks/useOptionLineHook"
 import FormItems from "./FormItems"
 import FormLinks from "../FormLinks";
 import useFetchHook from "../../Hooks/useFetchHook"
-import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook"
 import StatusBar from "../StatusBar"
 
 const FormGenerator = (manifest) => {
@@ -22,7 +21,6 @@ const FormGenerator = (manifest) => {
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, manifest.form.initialValue);
     const useFetch = useFetchHook();
-    const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState(manifest.initialState);
 
     const urlQueries = [];
@@ -118,7 +116,6 @@ const FormGenerator = (manifest) => {
         formActions: formActions,
         onFinish: formActions.onFinish,
         useFetch: useFetch,
-        fetchCatcher: fetchCatcher,
         options: options,
         state: state,
         setState: setState,

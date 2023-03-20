@@ -131,8 +131,6 @@ const manifest = {
                     formContext.form.setFieldsValue({
                         invoice_lines: invoiceLines
                     });
-                }).catch((responseErr) => {
-                    formContext.fetchCatcher.get(responseErr);
                 });
             });
             isLineFieldExecute(changedValues, allValues, 'invoice_lines', 'quantity', (changedInvoiceLine, allValues) => {

@@ -1,13 +1,11 @@
 import {useState} from "react";
 import {GET, POST, SELECT_PAGE_SIZE} from "../consts";
 import useFetchHook from "./useFetchHook";
-import useFetchCatcherHook from "./useFetchCatcherHook";
 import {objectHasValue} from "../Helpers/object";
 import {getFieldFromInitialValues} from "../Helpers/form";
 
 const useOptionHook = (url, tableField, customParams = null) => {
     const useFetch = useFetchHook();
-    const fetchCatcher = useFetchCatcherHook();
     const [state, setState] = useState({
         value: null,
         options: [],
@@ -59,8 +57,6 @@ const useOptionHook = (url, tableField, customParams = null) => {
                     meta: meta,
                     search: params,
                 }));
-            }).catch((responseErr) => {
-                fetchCatcher.get(responseErr);
             });
         },
         onChange: (event) => {
@@ -78,8 +74,6 @@ const useOptionHook = (url, tableField, customParams = null) => {
                     value: null
                 }));
                 optionActions.getOptions();
-            }).catch((responseErr) => {
-                fetchCatcher.get(responseErr);
             });
         },
         onSearch: (search) => {
@@ -117,8 +111,6 @@ const useOptionHook = (url, tableField, customParams = null) => {
                             meta: meta,
                             options: options.filter((v, i, a) => a.findIndex(v2 => (v2.value === v.value)) === i),
                         }));
-                    }).catch((responseErr) => {
-                        fetchCatcher.get(responseErr);
                     });
                 }
             }

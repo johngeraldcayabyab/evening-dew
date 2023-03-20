@@ -3,6 +3,8 @@ import {GET} from "../consts";
 import {useContext, useEffect} from "react";
 import {toQueryString} from "../Helpers/url";
 import {AppContext} from "../Contexts/AppContext"
+import {reset} from "../Helpers/reset"
+import {message} from "antd"
 
 const useFetchHook = () => {
     const appContext = useContext(AppContext);
@@ -57,6 +59,31 @@ const useFetchHook = () => {
             }
             // for 204 response it has a blank content type. so for now return all the response
             return responseOk;
+        }).catch((error) => {
+            if (error.status === 401) {
+                appContext.setAppState(state => ({
+                    ...state,
+                    isLogin: false,
+                    accessRights: false,
+                    userEmail: false,
+                    globalSetting: {},
+                    user: {},
+                    appInitialLoad: true,
+                }));
+                reset();
+                appContext.appState.history.push('/login');
+            } else if (error.status === 403) {
+                message.error('You cant do this action! Please ask your admin for permission');
+            } else if (error.status === 404) {
+                message.error("This endpoint doesn't exist!");
+            } else if (error.status === 422) {
+                message.warning('The given data was invalid.');
+            } else if (error.status === 500) {
+                error.json().then((body) => {
+                    message.error(body.message);
+                });
+            }
+            throw error;
         });
     }
 };

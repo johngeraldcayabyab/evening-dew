@@ -135,8 +135,6 @@ const manifest = {
                     });
                     const persistedKey = getPersistedKey(line, formContext.options['measurement_id-lineOptions'].options);
                     formContext.options['measurement_id-lineOptions'].getOptions(response.purchase_measurement.name, persistedKey);
-                }).catch((responseErr) => {
-                    formContext.fetchCatcher.get(responseErr);
                 });
             });
             isLineFieldExecute(changedValues, allValues, 'purchase_lines', 'quantity', (changedPurchaseLine, allValues) => {

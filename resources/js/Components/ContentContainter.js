@@ -3,7 +3,6 @@ import {Content} from "antd/es/layout/layout";
 import CustomMenu from './CustomMenu';
 import {Layout, message} from "antd";
 import useFetchHook from "../Hooks/useFetchHook";
-import useFetchCatcherHook from "../Hooks/useFetchCatcherHook";
 import {getCookie} from "../Helpers/cookie";
 import {GET} from "../consts";
 import {reset} from "../Helpers/reset";
@@ -18,7 +17,6 @@ const ContentContainer = (props) => {
     const history = useHistory();
 
     const useFetch = useFetchHook();
-    const fetchCatcher = useFetchCatcherHook();
 
     useEffect(() => {
         window.Echo.channel('refresh-browser').listen('RefreshBrowserEvent', () => {
@@ -32,7 +30,6 @@ const ContentContainer = (props) => {
             }
             return;
         }
-
         const user = localStorage.getItem("user");
         const accessRights = localStorage.getItem("accessRights");
         const globalSetting = localStorage.getItem("globalSetting");
@@ -75,23 +72,7 @@ const ContentContainer = (props) => {
                     globalSetting: globalSettingResponse,
                     appInitialLoad: false,
                 }));
-            }).catch((responseErr) => {
-                fetchCatcher.get(responseErr);
             });
-        }).catch((responseErr) => {
-            if (responseErr.status === 401) {
-                reset();
-                setAppState(prevState => ({
-                    ...prevState,
-                    isLogin: false,
-                    accessRights: false,
-                    userEmail: false,
-                    globalSetting: {},
-                    user: {},
-                    appInitialLoad: true,
-                }));
-            }
-            fetchCatcher.get(responseErr);
         });
     }, [appState.isLogin]);
 

@@ -5,7 +5,6 @@ import {setCookie} from "../../Helpers/cookie";
 import {getDevice} from "../../Helpers/device";
 import {useHistory} from "react-router";
 import {GET, POST} from "../../consts";
-import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
 import useFetchHook from "../../Hooks/useFetchHook";
 import {AppContext} from "../../Contexts/AppContext"
 
@@ -15,7 +14,6 @@ const Login = () => {
         errors: {},
     });
     const useFetch = useFetchHook();
-    const fetchCatcher = useFetchCatcherHook();
     const history = useHistory();
     const appContext = useContext(AppContext);
 
@@ -39,12 +37,12 @@ const Login = () => {
                 isLogin: authorization,
                 userEmail: values.email,
             }));
-        }).catch((responseErr) => {
-            fetchCatcher.get(responseErr).then((errors) => {
+        }).catch((errors) => {
+            errors.json().then((error) => {
                 setState(prevState => ({
                     ...prevState,
                     loading: false,
-                    errors: errors
+                    errors: error.errors
                 }));
             });
         });
@@ -54,9 +52,7 @@ const Login = () => {
         if (appContext.appState.isLogin) {
             history.push('/contacts');
         }
-        useFetch(`/api/sanctum/csrf-cookie`, GET).catch((responseErr) => {
-            fetchCatcher.get(responseErr);
-        });
+        useFetch(`/api/sanctum/csrf-cookie`, GET);
     }, [appContext.appState.isLogin]);
 
     return (

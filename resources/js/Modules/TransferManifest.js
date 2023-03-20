@@ -160,8 +160,6 @@ const manifest = {
                     });
                     formContext.options['source_location_id-options'].getOptions({id: sourceLocationId});
                     formContext.options['destination_location_id-options'].getOptions({id: destinationLocationId});
-                }).catch((responseErr) => {
-                    formContext.fetchCatcher.get(responseErr);
                 });
             }
             isLineFieldExecute(changedValues, allValues, 'transfer_lines', 'product_id', (line, allValues) => {
@@ -176,8 +174,6 @@ const manifest = {
                     });
                     const persistedKey = getPersistedKey(line, formContext.options['measurement_id-lineOptions'].options)
                     formContext.options['measurement_id-lineOptions'].getOptions(response.measurement.name, persistedKey);
-                }).catch((responseErr) => {
-                    formContext.fetchCatcher.get(responseErr);
                 });
             });
         },
