@@ -195,9 +195,9 @@ class SmNorthSalesController
                 $salesOrderLineSubtotal = $item[3];
                 SalesOrderLine::create([
                     'product_id' => $product->id,
-                    'quantity' => $quantity,
+                    'quantity' => 1,
                     'measurement_id' => $inventoryDefaultMeasurement->id,
-                    'unit_price' => $productData['sales_price'],
+                    'unit_price' => $salesOrderLineSubtotal,
                     'subtotal' => $salesOrderLineSubtotal,
                     'shipping_date' => $date,
                     'sales_order_id' => $salesOrder->id,
