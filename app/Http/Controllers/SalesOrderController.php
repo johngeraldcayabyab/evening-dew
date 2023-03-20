@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class SalesOrderController
 {
@@ -38,7 +39,12 @@ class SalesOrderController
                 $request->quotation_date = $date;
             }
         }
-        $model = $model->filterAndOrder($request);
+        $model = $model->filterAndOrder($request, function ($query) use ($request){
+            if ($request->same_day && $request->source_id != 6) {
+                $query = $query->where('source_id', '!=', 6);
+            }
+            return $query;
+        });
 
         return SalesOrderResource::collection($model);
     }
