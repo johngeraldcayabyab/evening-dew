@@ -24,14 +24,10 @@ class PricelistController extends Controller
         return PricelistResource::collection($model);
     }
 
-    /*
-     *
-     * TODO - fix display for single pricelist
-     * */
 
-    public function show(Pricelist $priceList): JsonResponse
+    public function show(Pricelist $pricelist): JsonResponse
     {
-        return response()->json(new PricelistResource($priceList));
+        return response()->json(new PricelistResource($pricelist));
     }
 
     public function store(PricelistRequest $request): JsonResponse
