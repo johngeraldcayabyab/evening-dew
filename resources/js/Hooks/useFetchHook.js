@@ -2,9 +2,8 @@ import {getCookie} from "../Helpers/cookie";
 import {GET} from "../consts";
 import {useContext, useEffect} from "react";
 import {toQueryString} from "../Helpers/url";
-import {AppContext} from "../Contexts/AppContext"
-import {reset} from "../Helpers/reset"
-import {message} from "antd"
+import {AppContext} from "../Contexts/AppContext";
+import {message} from "antd";
 
 const useFetchHook = () => {
     const appContext = useContext(AppContext);
@@ -27,11 +26,8 @@ const useFetchHook = () => {
     return (url, method, values = {}, withHeaders = false, customHeaders) => {
         const fetchInit = {
             headers: {
-                ...defaultHeaders,
-                ...customHeaders,
-            },
-            signal,
-            method: method,
+                ...defaultHeaders, ...customHeaders,
+            }, signal, method: method,
         };
         if (method === GET) {
             values = toQueryString(values);
@@ -70,8 +66,6 @@ const useFetchHook = () => {
                     user: {},
                     appInitialLoad: true,
                 }));
-                reset();
-                appContext.appState.history.push('/login');
             } else if (error.status === 403) {
                 message.error('You cant do this action! Please ask your admin for permission');
             } else if (error.status === 404) {

@@ -44,7 +44,6 @@ const ContentContainer = (props) => {
             }));
             return;
         }
-
         useFetch(`/api/users`, GET, {
             email: getCookie('userEmail'),
         }).then((userResponse) => {
