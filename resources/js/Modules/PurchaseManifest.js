@@ -260,7 +260,6 @@ const manifest = {
                             placeholder: 'Product',
                             query: {url: '/api/products', field: 'name'},
                             required: true,
-                            listName: 'purchase_lines',
                             overrideDisabled: (formContext) => {
                                 return disableIfStatus(formContext.formState, 'done')
                             }
@@ -269,14 +268,12 @@ const manifest = {
                             type: 'text',
                             name: 'description',
                             placeholder: 'Description',
-                            listName: 'purchase_lines',
                         },
                         {
                             type: 'number',
                             name: 'quantity',
                             placeholder: 'Quantity',
                             required: true,
-                            listName: 'purchase_lines',
                             overrideDisabled: (formContext) => {
                                 return disableIfStatus(formContext.formState, 'done')
                             }
@@ -287,7 +284,6 @@ const manifest = {
                             placeholder: 'Measurement',
                             query: {url: '/api/measurements', field: 'name'},
                             required: true,
-                            listName: 'purchase_lines',
                             overrideDisabled: (formContext) => {
                                 return disableIfStatus(formContext.formState, 'done')
                             }
@@ -297,13 +293,11 @@ const manifest = {
                             name: 'unit_price',
                             placeholder: 'Unit Price',
                             required: true,
-                            listName: 'purchase_lines',
                         },
                         {
                             type: 'date',
                             name: 'receiving_date',
                             placeholder: 'Receiving date',
-                            listName: 'purchase_lines',
                             overrideDisabled: (formContext) => {
                                 return disableIfStatus(formContext.formState, 'done')
                             }
@@ -312,7 +306,6 @@ const manifest = {
                             type: 'number',
                             name: 'subtotal',
                             placeholder: 'Subtotal',
-                            listName: 'purchase_lines',
                             overrideDisabled: true,
                         },
                     ]

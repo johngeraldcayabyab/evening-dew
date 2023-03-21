@@ -96,14 +96,12 @@ const manifest = {
                             placeholder: 'City',
                             query: {url: '/api/cities', field: 'name'},
                             required: true,
-                            listName: 'delivery_fee_lines',
                         },
                         {
                             type: 'number',
                             name: 'fee',
                             placeholder: 'Fee',
                             required: true,
-                            listName: 'delivery_fee_lines',
                         },
                     ]
                 },

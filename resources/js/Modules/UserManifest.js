@@ -118,7 +118,6 @@ const manifest = {
                             placeholder: 'User',
                             query: {url: '/api/users', field: 'name'},
                             required: true,
-                            listName: 'user_group_lines',
                         },
                         {
                             type: 'select',
@@ -126,7 +125,6 @@ const manifest = {
                             placeholder: 'Group',
                             query: {url: '/api/groups', field: 'name'},
                             required: true,
-                            listName: 'user_group_lines',
                         },
                     ]
                 },

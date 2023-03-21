@@ -241,7 +241,6 @@ const manifest = {
                             placeholder: 'Product',
                             query: {url: '/api/products', field: 'name'},
                             required: true,
-                            listName: 'invoice_lines',
                             overrideDisabled: (formContext) => {
                                 return disableIfStatus(formContext.formState, 'done')
                             }
@@ -250,14 +249,12 @@ const manifest = {
                             type: 'text',
                             name: 'description',
                             placeholder: 'Description',
-                            listName: 'invoice_lines',
                         },
                         {
                             type: 'number',
                             name: 'quantity',
                             placeholder: 'Quantity',
                             required: true,
-                            listName: 'invoice_lines',
                             overrideDisabled: (formContext) => {
                                 return disableIfStatus(formContext.formState, 'done')
                             }
@@ -267,13 +264,11 @@ const manifest = {
                             name: 'unit_price',
                             placeholder: 'Unit Price',
                             required: true,
-                            listName: 'invoice_lines',
                         },
                         {
                             type: 'number',
                             name: 'subtotal',
                             placeholder: 'Subtotal',
-                            listName: 'invoice_lines',
                             overrideDisabled: true,
                         },
                     ]
