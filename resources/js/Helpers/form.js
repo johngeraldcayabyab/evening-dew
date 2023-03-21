@@ -108,10 +108,7 @@ export const isOnlyTwoProperty = (line) => {
         return false;
     }
     let keys = Object.keys(line);
-    if (keys.length === 2) {
-        return true;
-    }
-    return false;
+    return keys.length === 2;
 }
 
 
