@@ -4,11 +4,15 @@ import {FormContext} from "../Contexts/FormContext";
 
 export const formItemFieldProps = (props, specialFieldProps = {}) => {
     const formContext = useContext(FormContext);
+    const formState = formContext.formState;
     const formItemProps = {
         label: props.label ? <FormLabel>{props.label}</FormLabel> : null,
         name: props.name,
         rules: [
-            {required: props.required, message: props.message ? props.message : 'This field is required'}
+            {
+                required: props.required,
+                message: props.message ? props.message : `${props.label} is required`
+            }
         ],
         colon: false,
         labelCol: props.size === 'large' || props.size === 'medium' ? {span: 24} : {span: 8},
@@ -18,19 +22,19 @@ export const formItemFieldProps = (props, specialFieldProps = {}) => {
         } : {span: 16},
     };
 
-    if (formContext.formState.errors[props.name]) {
+    if (formState.errors[props.name]) {
         formItemProps.validateStatus = 'error';
-        formItemProps.help = formContext.formState.errors[props.name];
+        formItemProps.help = formState.errors[props.name];
     }
 
     const fieldProps = {
-        disabled: formContext.formState.formDisabled,
+        disabled: formState.formDisabled,
         size: props.size ? props.size : 'small',
         placeholder: props.placeholder ? props.placeholder : null,
         ...specialFieldProps
     };
 
-    if (props.hasOwnProperty('overrideDisabled') && props.overrideDisabled && !formContext.formState.formDisabled) {
+    if (props.hasOwnProperty('overrideDisabled') && props.overrideDisabled && !formState.formDisabled) {
         if (typeof props.overrideDisabled === 'function') {
             fieldProps.disabled = props.overrideDisabled(formContext);
         } else {
