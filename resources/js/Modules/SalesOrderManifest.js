@@ -129,6 +129,40 @@ const manifest = {
     form: {
         initialValue: true,
         onValuesChange: (changedValues, allValues, formContext) => {
+            if (changedValues.customer_id) {
+                formContext.useFetch(`/api/addresses`, GET, {
+                    contact_id: changedValues.customer_id
+                }).then((response) => {
+                    const data = response.data;
+                    let defaultAddress = data.find((address) => (address.type === 'default'));
+                    let invoiceAddress = data.find((address) => (address.type === 'invoice'));
+                    let deliveryAddress = data.find((address) => (address.type === 'delivery'));
+                    invoiceAddress = invoiceAddress ? invoiceAddress : defaultAddress;
+                    deliveryAddress = deliveryAddress ? deliveryAddress : defaultAddress;
+                    formContext.options['invoice_city_id-options'].getOptions({id: invoiceAddress.city.id});
+                    formContext.options['delivery_city_id-options'].getOptions({id: deliveryAddress.city.id});
+                    formContext.form.setFieldsValue({
+                        invoice_phone: invoiceAddress.contact.phone,
+                        delivery_phone: deliveryAddress.contact.phone,
+                        invoice_address: invoiceAddress.address,
+                        delivery_address: deliveryAddress.address,
+                        invoice_city_id: invoiceAddress.city.id,
+                        delivery_city_id: deliveryAddress.city.id,
+                    });
+                    // // invoiceCityOptions.getOptions({id: invoiceAddress.city.id});
+                    // // deliveryCityOptions.getOptions({id: deliveryAddress.city.id});
+                    // form.setFieldsValue({
+                    //     invoice_phone: defaultAddress.contact.phone,
+                    //     delivery_phone: defaultAddress.contact.phone,
+                    //     invoice_address: invoiceAddress.address,
+                    //     delivery_address: deliveryAddress.address,
+                    //     invoice_city_id: invoiceAddress.city.id,
+                    //     delivery_city_id: deliveryAddress.city.id,
+                    // });
+                    //
+                    // setDeliveryFeeByCity({delivery_city_id: deliveryAddress.city.id}, allValues);
+                });
+            }
             const cityId = changedValues.delivery_city_id;
             if (cityId) {
                 formContext.useFetch(`/api/cities/${cityId}`, GET).then((response) => {
