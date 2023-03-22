@@ -170,6 +170,10 @@ class MenuSeeder extends Seeder
                 'label' => 'Warehouses',
                 'url' => '/warehouses',
             ],
+            [
+                'label' => 'Pricelists',
+                'url' => '/pricelists',
+            ],
         ];
     }
 

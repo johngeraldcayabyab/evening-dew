@@ -202,6 +202,10 @@ class AppMenuSeeder extends Seeder
                                 'menu_key' => 'Sales Order Lines',
                             ],
                             [
+                                'label' => 'Pricelists',
+                                'menu_key' => 'Pricelists',
+                            ],
+                            [
                                 'label' => 'Configurations',
                                 'children' => [
                                     [
