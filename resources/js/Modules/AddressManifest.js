@@ -93,11 +93,6 @@ const manifest = {
             col_1: [
                 {
                     type: 'text',
-                    name: 'name',
-                    label: 'Name',
-                },
-                {
-                    type: 'text',
                     name: 'zip',
                     label: 'Zip',
                 },
@@ -120,6 +115,19 @@ const manifest = {
                     name: 'contact_id',
                     label: 'Contact',
                     query: {url: '/api/contacts', field: 'name'},
+                    required: true,
+                },
+                {
+                    type: 'select',
+                    name: 'type',
+                    label: 'Type',
+                    options: [
+                        {value: 'default', label: 'Default'},
+                        {value: 'invoice', label: 'Invoice'},
+                        {value: 'delivery', label: 'Delivery'},
+                        {value: 'others', label: 'Others'},
+                        {value: 'private', label: 'Private'},
+                    ],
                     required: true,
                 },
             ],

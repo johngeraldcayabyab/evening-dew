@@ -119,14 +119,12 @@ const manifest = {
                             placeholder: 'Product',
                             query: {url: '/api/products', field: 'name'},
                             required: true,
-                            listName: 'material_lines',
                         },
                         {
                             type: 'number',
                             name: 'quantity',
                             placeholder: 'Quantity',
                             required: true,
-                            listName: 'material_lines',
                         },
                         {
                             type: 'select',
@@ -134,7 +132,6 @@ const manifest = {
                             placeholder: 'Measurement',
                             query: {url: '/api/measurements', field: 'name'},
                             required: true,
-                            listName: 'material_lines',
                         },
                     ]
                 },

@@ -56,7 +56,7 @@ class AddressController
         return [
             'country' => $generalDefaultCountry,
             'country_id' => $generalDefaultCountry->id,
-            'type' => Address::DEFAULT
+            'type' => Address::OTHERS
         ];
     }
 }

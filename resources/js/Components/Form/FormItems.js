@@ -248,13 +248,18 @@ const FormItems = () => {
 
     function generateLine(line, lineKey) {
         const lines = [];
-        const fields = generateFields(line.fields);
+        const listName = line.listName;
+        const lineFields = line.fields.map((lineField) => {
+            lineField['listName'] = listName;
+            return lineField;
+        });
+        const fields = generateFields(lineFields);
         lines.push(
             <RowForm key={lineKey}>
                 <ColForm lg={24}>
                     <FormLineParent
                         columns={line.columns}
-                        listName={line.listName}
+                        listName={listName}
                     >
                         <FormItemLineId name={'id'}/>
                         {fields}

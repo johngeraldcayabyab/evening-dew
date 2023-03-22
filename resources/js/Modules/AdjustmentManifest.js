@@ -130,7 +130,6 @@ const manifest = {
                             placeholder: 'Product',
                             query: {url: '/api/products', field: 'name'},
                             required: true,
-                            listName: 'adjustment_lines',
                         },
                         {
                             type: 'select',
@@ -138,14 +137,12 @@ const manifest = {
                             placeholder: 'Measurement',
                             query: {url: '/api/measurements', field: 'name'},
                             required: true,
-                            listName: 'adjustment_lines',
                         },
                         {
                             type: 'number',
                             name: 'quantity_on_hand',
                             placeholder: 'Quantity on hand',
                             required: true,
-                            listName: 'adjustment_lines',
                             overrideDisabled: true,
                         },
                         {
@@ -153,7 +150,6 @@ const manifest = {
                             name: 'quantity_counted',
                             placeholder: 'Quantity counted',
                             required: true,
-                            listName: 'adjustment_lines',
                         },
                     ]
                 },

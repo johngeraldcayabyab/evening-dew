@@ -32,7 +32,11 @@ const FormGenerator = (manifest) => {
                 getRowQuery(tab[tabPaneKey][tabPaneItem]);
             }
             if (tabPaneItem.includes('form_line')) {
-                getLineQuery(tab[tabPaneKey][tabPaneItem].fields);
+                const lineFields = tab[tabPaneKey][tabPaneItem].fields.map((lineField) => {
+                    lineField['listName'] = tab[tabPaneKey][tabPaneItem].listName;
+                    return lineField;
+                });
+                getLineQuery(lineFields);
             }
         }
     }
@@ -88,7 +92,11 @@ const FormGenerator = (manifest) => {
             getTabQuery(item, itemKey);
         }
         if (itemKey.includes('line')) {
-            getLineQuery(item.fields);
+            const lineFields = item.fields.map((lineField) => {
+                lineField['listName'] = item.listName;
+                return lineField;
+            });
+            getLineQuery(lineFields);
         }
     }
 

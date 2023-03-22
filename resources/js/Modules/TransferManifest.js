@@ -261,7 +261,6 @@ const manifest = {
                             placeholder: 'Product',
                             query: {url: '/api/products', field: 'name'},
                             required: true,
-                            listName: 'transfer_lines',
                             overrideDisabled: (formContext) => {
                                 return disableIfStatus(formContext.formState, 'done')
                             }
@@ -269,7 +268,6 @@ const manifest = {
                         {
                             type: 'text',
                             name: 'description',
-                            listName: 'transfer_lines',
                             placeholder: 'Description',
                         },
                         {
@@ -277,7 +275,6 @@ const manifest = {
                             name: 'demand',
                             placeholder: 'Demand',
                             required: true,
-                            listName: 'transfer_lines',
                             overrideDisabled: (formContext) => {
                                 return disableIfStatus(formContext.formState, 'done')
                             }
@@ -288,7 +285,6 @@ const manifest = {
                             placeholder: 'Measurement',
                             query: {url: '/api/measurements', field: 'name'},
                             required: true,
-                            listName: 'transfer_lines',
                             overrideDisabled: (formContext) => {
                                 return disableIfStatus(formContext.formState, 'done')
                             }
