@@ -130,3 +130,7 @@ export const getFieldFromInitialValues = (initialValues, tableField) => {
     });
     return field;
 }
+
+export const getField = (tableField) => {
+    return tableField.split('.').slice(-1)[0];
+}

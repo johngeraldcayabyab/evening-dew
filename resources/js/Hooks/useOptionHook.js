@@ -2,7 +2,7 @@ import {useState} from "react";
 import {GET, POST, SELECT_PAGE_SIZE} from "../consts";
 import useFetchHook from "./useFetchHook";
 import {objectHasValue} from "../Helpers/object";
-import {getFieldFromInitialValues} from "../Helpers/form";
+import {getField, getFieldFromInitialValues} from "../Helpers/form";
 
 const useOptionHook = (url, tableField, customParams = null) => {
     const useFetch = useFetchHook();
@@ -14,15 +14,9 @@ const useOptionHook = (url, tableField, customParams = null) => {
         search: null,
     });
 
-    // console.log(state);
-
-    function getField() {
-        return tableField.split('.').slice(-1)[0];
-    }
-
     const optionActions = {
         getOptions: (params = null) => {
-            const field = getField();
+            const field = getField(tableField);
             let payload = {
                 page_size: SELECT_PAGE_SIZE,
                 selected_fields: ['id', 'slug', 'tag'],
@@ -67,7 +61,7 @@ const useOptionHook = (url, tableField, customParams = null) => {
         },
         onCreate: () => {
             const payload = {};
-            payload[getField()] = state.value;
+            payload[getField(tableField)] = state.value;
             useFetch(`${url}`, POST, payload).then((response) => {
                 setState(prevState => ({
                     ...prevState,
@@ -86,7 +80,7 @@ const useOptionHook = (url, tableField, customParams = null) => {
             let target = event.target;
             if (!state.optionsLoading && target.scrollTop + target.offsetHeight === target.scrollHeight) {
                 if (state.meta.current_page !== state.meta.last_page) {
-                    const field = getField();
+                    const field = getField(tableField);
                     let payload = {
                         page_size: SELECT_PAGE_SIZE,
                         selected_fields: ['id', 'slug', 'tag'],
