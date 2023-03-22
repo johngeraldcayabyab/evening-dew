@@ -4,16 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{config('app.name')}}</title>
-    <link rel="stylesheet" href="{{mix('/css/App.css')}}">
+    <link type="text/css" rel="stylesheet" href="{{mix('/css/App.css')}}">
 </head>
 <body>
 
 <div id="root">
 </div>
 
-<script src="{{ mix('/js/manifest.js') }}"></script>
-<script src="{{ mix('/js/vendor.js') }}"></script>
-<script src="{{ mix('/js/App.js') }}"></script>
+<script type="application/javascript" src="{{ mix('/js/manifest.js') }}"></script>
+<script type="application/javascript" src="{{ mix('/js/vendor.js') }}"></script>
+<script type="application/javascript" src="{{ mix('/js/App.js') }}"></script>
 
 </body>
 </html>
