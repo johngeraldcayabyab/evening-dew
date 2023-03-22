@@ -11,7 +11,7 @@ export const formItemFieldProps = (props, specialFieldProps = {}) => {
         rules: [
             {
                 required: props.required,
-                message: props.message ? props.message : `${props.label} is required`
+                message: props.message ? props.message : `${props.label ? props.label : props.placeholder} is required`
             }
         ],
         colon: false,
