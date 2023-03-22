@@ -101,11 +101,10 @@ const FormGenerator = (manifest) => {
     }
 
     urlQueries.forEach((field) => {
+        const tableField = field.name.replace('_id', '');
         if (field.hasOwnProperty('listName')) {
-            const tableField = field.name.replace('_id', '');
             options[`${field.name}-lineOptions`] = useOptionLineHook(field.query.url, `${tableField}.${field.query.field}`, field.listName);
         } else {
-            const tableField = field.name.replace('_id', '');
             options[`${field.name}-options`] = useOptionHook(field.query.url, `${tableField}.${field.query.field}`);
         }
     });
