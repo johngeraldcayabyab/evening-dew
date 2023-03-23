@@ -11,7 +11,7 @@ class SequenceSeeder extends Seeder
     {
         Sequence::create([
             'name' => "Sales Order Sequence",
-            'sequence_code' => "sales.order.sequence",
+            'sequence_code' => "sales_order.sequence",
             'implementation' => Sequence::STANDARD,
             'prefix' => "S/O/",
             'sequence_size' => Sequence::SEQUENCE_SIZE,
