@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Data\SystemSetting;
 use App\Models\GlobalSetting;
+use App\Models\Location;
 use App\Models\OperationType;
 use App\Models\Sequence;
 use App\Models\Transfer;
@@ -42,7 +43,7 @@ class TransferObserver
                 if ($operationType->default_destination_location_id) {
                     $transfer->destination_location_id = $operationType->default_destination_location_id;
                 } else {
-                    $transfer->destination_location_id = GlobalSetting::latestFirst()->inventoryDefaultCustomerLocation->id;
+                    $transfer->destination_location_id = Location::where('type', Location::CUSTOMER)->first()->id;
                 }
             }
         }

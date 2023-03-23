@@ -55,11 +55,6 @@ class GlobalSetting extends Model
         return $this->belongsTo(ProductCategory::class, 'inventory_default_product_category_id', 'id');
     }
 
-    public function inventoryDefaultCustomerLocation()
-    {
-        return $this->belongsTo(Location::class, 'inventory_default_customer_location_id', 'id');
-    }
-
     public function inventoryDefaultVendorLocation()
     {
         return $this->belongsTo(Location::class, 'inventory_default_vendor_location_id', 'id');
