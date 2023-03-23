@@ -1,6 +1,7 @@
 import FormLabel from "../Components/Typography/FormLabel";
 import React, {useContext} from "react";
 import {FormContext} from "../Contexts/FormContext";
+import {SELECT_PAGE_SIZE} from "../consts"
 
 export const formItemFieldProps = (props, specialFieldProps = {}) => {
     const formContext = useContext(FormContext);
@@ -133,4 +134,29 @@ export const getFieldFromInitialValues = (initialValues, tableField) => {
 
 export const getField = (tableField) => {
     return tableField.split('.').slice(-1)[0];
+}
+
+export const payloadMaker = (params, customParams, tableField) => {
+    const field = getField(tableField);
+    let payload = {
+        page_size: SELECT_PAGE_SIZE,
+        selected_fields: ['id', 'slug', 'tag'],
+        orderByColumn: field,
+        orderByDirection: 'asc',
+    };
+    if (typeof params === 'string') {
+        payload[field] = params;
+    } else if (typeof params === 'object') {
+        payload = {
+            ...payload,
+            ...params
+        };
+        if (customParams) {
+            payload = {
+                ...payload,
+                ...customParams
+            }
+        }
+    }
+    return payload;
 }

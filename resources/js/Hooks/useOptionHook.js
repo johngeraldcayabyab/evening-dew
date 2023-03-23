@@ -2,7 +2,7 @@ import {useState} from "react";
 import {GET, POST, SELECT_PAGE_SIZE} from "../consts";
 import useFetchHook from "./useFetchHook";
 import {objectHasValue} from "../Helpers/object";
-import {getField, getFieldFromInitialValues} from "../Helpers/form";
+import {getField, getFieldFromInitialValues, payloadMaker} from "../Helpers/form";
 
 const useOptionHook = (url, tableField, customParams = null) => {
     const useFetch = useFetchHook();
@@ -16,37 +16,18 @@ const useOptionHook = (url, tableField, customParams = null) => {
 
     const optionActions = {
         getOptions: (params = null) => {
-            const field = getField(tableField);
-            let payload = {
-                page_size: SELECT_PAGE_SIZE,
-                selected_fields: ['id', 'slug', 'tag'],
-                orderByColumn: field,
-                orderByDirection: 'asc',
-            };
-            if (typeof params === 'string') {
-                payload[field] = params;
-            } else if (typeof params === 'object') {
-                payload = {
-                    ...payload,
-                    ...params
-                };
-                if (customParams) {
-                    payload = {
-                        ...payload,
-                        ...customParams
-                    }
-                }
-            }
+            const payload = payloadMaker(params, customParams, tableField);
             useFetch(`${url}`, GET, payload).then((response) => {
                 const data = response.data;
                 const meta = response.meta;
+                const options = data.map((option) => ({
+                    value: option.id,
+                    label: option.slug,
+                    tag: option.tag,
+                }));
                 setState((prevState) => ({
                     ...prevState,
-                    options: data.map((option) => ({
-                        value: option.id,
-                        label: option.slug,
-                        tag: option.tag,
-                    })),
+                    options: options,
                     optionsLoading: false,
                     meta: meta,
                     search: params,

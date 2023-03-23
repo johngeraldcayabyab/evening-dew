@@ -2,7 +2,7 @@ import {useState} from "react";
 import {GET, POST, SELECT_PAGE_SIZE} from "../consts";
 import useFetchHook from "./useFetchHook";
 import {objectHasValue} from "../Helpers/object";
-import {getField, getFieldFromInitialValues} from "../Helpers/form";
+import {getField, getFieldFromInitialValues, payloadMaker} from "../Helpers/form";
 
 const useOptionLineHook = (url, tableField, lineName, customParams = null) => {
     const useFetch = useFetchHook();
@@ -17,27 +17,7 @@ const useOptionLineHook = (url, tableField, lineName, customParams = null) => {
 
     const optionActions = {
         getOptions: (params = null, key) => {
-            const field = getField(tableField);
-            let payload = {
-                page_size: SELECT_PAGE_SIZE,
-                selected_fields: ['id', 'slug', 'tag'],
-                orderByColumn: field,
-                orderByDirection: 'asc',
-            };
-            if (typeof params === 'string') {
-                payload[field] = params;
-            } else if (typeof params === 'object') {
-                payload = {
-                    ...payload,
-                    ...params
-                };
-                if (customParams) {
-                    payload = {
-                        ...payload,
-                        ...customParams
-                    }
-                }
-            }
+            const payload = payloadMaker(params, customParams, tableField);
             useFetch(`${url}`, GET, payload).then((response) => {
                 const data = response.data;
                 const meta = state.meta;
@@ -73,8 +53,8 @@ const useOptionLineHook = (url, tableField, lineName, customParams = null) => {
             }));
         },
         onCreate: (key) => {
-            const values = state.values;
             const payload = {};
+            const values = state.values;
             payload[getField(tableField)] = values[key];
             values[key] = null;
             useFetch(`${url}`, POST, payload).then((response) => {
