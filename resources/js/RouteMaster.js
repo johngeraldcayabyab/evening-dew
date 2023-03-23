@@ -41,6 +41,7 @@ import Journal from "./Modules/JournalManifest"
 import Invoice from "./Modules/InvoiceManifest"
 import Payment from "./Modules/PaymentManifest"
 import ChartOfAccount from "./Modules/ChartOfAccountManifest";
+import Pricelist from "./Modules/PricelistManifest";
 import {HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE} from "./consts"
 
 const RouteMaster = () => {
@@ -83,7 +84,8 @@ const RouteMaster = () => {
         StockMovement,
         Transfer,
         User,
-        Warehouse
+        Warehouse,
+        Pricelist
     ];
 
     return manifests.map((manifest) => {
