@@ -27,7 +27,6 @@ class CreateGlobalSettingsTable extends Migration
             $table->unsignedInteger('general_default_country_id')->nullable();
             $table->boolean('general_clickable_row')->default(true);
             $table->unsignedInteger('sales_order_default_delivery_fee_id')->nullable();
-            $table->unsignedInteger('invoice_default_sequence_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -25,7 +25,6 @@ class GlobalSettingSeeder extends Seeder
                 'inventory_auto_validate_draft' => false,
                 'accounting_default_currency_id' => 1,
                 'general_default_country_id' => 1,
-                'invoice_default_sequence_id' => 3,
             ],
         ];
         foreach ($data as $datum) {

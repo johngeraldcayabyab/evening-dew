@@ -174,12 +174,6 @@ const manifest = {
                     col_1: [
                         {
                             type: 'select',
-                            name: 'invoice_default_sequence_id',
-                            label: 'Invoice Default Sequence',
-                            query: {url: '/api/sequences', field: 'name'},
-                        },
-                        {
-                            type: 'select',
                             name: 'accounting_default_currency_id',
                             label: 'Default Currency',
                             query: {url: '/api/currencies', field: 'name'},
@@ -203,9 +197,7 @@ const manifest = {
             tab_pane_5: {
                 name: 'Purchases',
                 row_1: {
-                    col_1: [
-
-                    ],
+                    col_1: [],
                 },
             }
         }

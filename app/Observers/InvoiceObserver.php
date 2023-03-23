@@ -54,18 +54,15 @@ class InvoiceObserver
     public function setOrder($invoice)
     {
         $number = $invoice->number;
-        $invoiceDefaultSequence = $this->settings->invoiceDefaultSequence;
-        if ($invoiceDefaultSequence) {
-            $prefix = preg_replace('/([^A-Za-z0-9\s])/', '\\\\$1', $invoiceDefaultSequence->prefix);
-            $steps = $invoiceDefaultSequence->sequence_size;
-            $suffix = preg_replace('/([^A-Za-z0-9\s])/', '\\\\$1', $invoiceDefaultSequence->suffix);
-            preg_match("/$prefix\d{" . $steps . "}$suffix$/", $number, $matches);
-            if (count($matches)) {
-                $invoice->number = Sequence::generateInvoiceSequence();
-                $invoiceDefaultSequenceNew = $this->settings->invoiceDefaultSequence;
-                $invoiceDefaultSequenceNew->next_number = $invoiceDefaultSequence->next_number + $invoiceDefaultSequence->step;
-                $invoiceDefaultSequenceNew->save();
-            }
+        $invoiceSequence = Sequence::where('sequence_code', 'invoices.sequence')->first();
+        $prefix = preg_replace('/([^A-Za-z0-9\s])/', '\\\\$1', $invoiceSequence->prefix);
+        $suffix = preg_replace('/([^A-Za-z0-9\s])/', '\\\\$1', $invoiceSequence->suffix);
+        $steps = $invoiceSequence->sequence_size;
+        preg_match("/$prefix\d{" . $steps . "}$suffix$/", $number, $matches);
+        if (count($matches)) {
+            $invoice->number = Sequence::generateSequence($invoiceSequence->id);
+            $invoiceSequence->next_number = $invoiceSequence->next_number + $invoiceSequence->step;
+            $invoiceSequence->save();
         }
     }
 }
