@@ -23,6 +23,14 @@ const manifest = {
                 filter: SEARCH,
                 isGlobalSearch: true,
             },
+            {
+                title: 'Type',
+                dataIndex: 'type',
+                key: 'type',
+                sorter: true,
+                filter: SEARCH,
+                isGlobalSearch: true,
+            },
         ]
     },
     form: {
