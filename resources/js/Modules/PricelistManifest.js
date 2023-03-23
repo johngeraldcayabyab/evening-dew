@@ -1,4 +1,5 @@
 import {DATE_RANGE, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
+import {disableIfStatus} from "../Helpers/object";
 
 const manifest = {
     moduleName: "pricelists",
@@ -37,6 +38,50 @@ const manifest = {
         initialValue: false,
         onValuesChange: (changedValues, allValues, formContext) => {
 
+        },
+        row_1: {
+            col_1: [
+                {
+                    type: 'text',
+                    name: 'name',
+                    label: 'Name',
+                    required: true,
+                    size: 'large',
+                },
+            ],
+        },
+        tab_1: {
+            defaultActiveKey: 'tab_pane_1',
+            tab_pane_1: {
+                name: "Price Rules",
+                form_line_1: {
+                    columns: ['Product','Measurement', 'Unit Price'],
+                    listName: 'customer_products',
+                    fields: [
+                        {
+                            type: 'select',
+                            name: 'product_id',
+                            placeholder: 'Product',
+                            query: {url: '/api/products', field: 'name'},
+                            required: true
+                        },
+                        /*
+                        * TODO - disabled field - meausrement id and product category should display
+                        * */
+                        {
+                            type: 'text',
+                            name: 'measurement_id',
+                            required: false
+                        },
+                        {
+                            type: 'number',
+                            name: 'unit_price',
+                            placeholder: 'Unit Price',
+                            required: true,
+                        }
+                    ]
+                }
+            }
         }
     }
 

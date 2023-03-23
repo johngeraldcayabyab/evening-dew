@@ -16,7 +16,7 @@ class CreatePricelistsProductsTable extends Migration
         Schema::create('pricelists_products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pricelist_id')->constrained('pricelists');
-            $table->unsignedInteger('product_id');
+            $table->unsignedInteger('product_id')->unique();
             $table->double('unit_price');
             $table->softDeletes();
             $table->timestamps();

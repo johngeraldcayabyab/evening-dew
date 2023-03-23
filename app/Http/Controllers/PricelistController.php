@@ -30,6 +30,9 @@ class PricelistController extends Controller
         return response()->json(new PricelistResource($pricelist));
     }
 
+    /*
+     * TODO - add rollback on duplicate failure
+     * */
     public function store(PricelistRequest $request): JsonResponse
     {
         $data = $request->validated();
