@@ -83,11 +83,13 @@ class SalesOrderController
 
     public function initial_values(Request $request)
     {
+        $salesOrderSequence = Sequence::where('sequence_code', 'sales_order.sequence')->first();
+        $salesOrderSequenceNumber = Sequence::generateSequence($salesOrderSequence->id);
         $initialValues = [
             'shipping_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
             'quotation_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
             'measurement' => GlobalSetting::latestFirst()->inventoryDefaultSalesMeasurement,
-            'number' => Sequence::generateSalesOrderSequence(),
+            'number' => $salesOrderSequenceNumber,
             'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
             'shipping_method' => Transfer::DELIVERY,
             'salesperson_id' => auth()->user()->id,

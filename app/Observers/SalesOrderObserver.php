@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Data\SystemSetting;
-use App\Models\GlobalSetting;
 use App\Models\SalesOrder;
 use App\Models\Sequence;
 use App\Models\Transfer;
@@ -32,11 +31,9 @@ class SalesOrderObserver
         if ($model->expiration_date) {
             $model->expiration_date = Carbon::parse($model->expiration_date)->format(SystemSetting::DATE_TIME_FORMAT);
         }
-
-        if($model->quotation_date){
+        if ($model->quotation_date) {
             $model->quotation_date = Carbon::parse($model->quotation_date)->format(SystemSetting::DATE_TIME_FORMAT);
         }
-
         if (!$model->salesperson_id) {
             if (auth()->user()) {
                 $model->salesperson_id = auth()->user()->id;
@@ -56,18 +53,15 @@ class SalesOrderObserver
     public function setOrder($salesOrder)
     {
         $number = $salesOrder->number;
-        $salesOrderDefaultSequence = GlobalSetting::latestFirst()->salesOrderDefaultSequence;
-        if ($salesOrderDefaultSequence) {
-            $prefix = preg_replace('/([^A-Za-z0-9\s])/', '\\\\$1', $salesOrderDefaultSequence->prefix);
-            $steps = $salesOrderDefaultSequence->sequence_size;
-            $suffix = preg_replace('/([^A-Za-z0-9\s])/', '\\\\$1', $salesOrderDefaultSequence->suffix);
-            preg_match("/$prefix\d{" . $steps . "}$suffix$/", $number, $matches);
-            if (count($matches)) {
-                $salesOrder->number = Sequence::generateSalesOrderSequence();
-                $salesOrderDefaultSequenceNew = GlobalSetting::latestFirst()->salesOrderDefaultSequence;
-                $salesOrderDefaultSequenceNew->next_number = $salesOrderDefaultSequence->next_number + $salesOrderDefaultSequence->step;
-                $salesOrderDefaultSequenceNew->save();
-            }
+        $salesOrderSequence = Sequence::where('sequence_code', 'sales_order.sequence')->first();
+        $prefix = preg_replace('/([^A-Za-z0-9\s])/', '\\\\$1', $salesOrderSequence->prefix);
+        $steps = $salesOrderSequence->sequence_size;
+        $suffix = preg_replace('/([^A-Za-z0-9\s])/', '\\\\$1', $salesOrderSequence->suffix);
+        preg_match("/$prefix\d{" . $steps . "}$suffix$/", $number, $matches);
+        if (count($matches)) {
+            $salesOrder->number = Sequence::generateSequence($salesOrderSequence->id);
+            $salesOrderSequence->next_number = $salesOrderSequence->next_number + $salesOrderSequence->step;
+            $salesOrderSequence->save();
         }
     }
 }

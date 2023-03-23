@@ -55,16 +55,14 @@ class PurchaseObserver
     {
         $number = $purchase->number;
         $purchaseSequence = Sequence::where('sequence_code', 'purchase.sequence')->first();
-        $purchaseSequenceNumber = Sequence::generateSequence($purchaseSequence->id);
         $prefix = preg_replace('/([^A-Za-z0-9\s])/', '\\\\$1', $purchaseSequence->prefix);
         $steps = $purchaseSequence->sequence_size;
         $suffix = preg_replace('/([^A-Za-z0-9\s])/', '\\\\$1', $purchaseSequence->suffix);
         preg_match("/$prefix\d{" . $steps . "}$suffix$/", $number, $matches);
         if (count($matches)) {
-            $purchase->number = $purchaseSequenceNumber;
-            $purchaseSequenceNew = $purchaseSequence;
-            $purchaseSequenceNew->next_number = $purchaseSequence->next_number + $purchaseSequence->step;
-            $purchaseSequenceNew->save();
+            $purchase->number = Sequence::generateSequence($purchaseSequence->id);
+            $purchaseSequence->next_number = $purchaseSequence->next_number + $purchaseSequence->step;
+            $purchaseSequence->save();
         }
     }
 }

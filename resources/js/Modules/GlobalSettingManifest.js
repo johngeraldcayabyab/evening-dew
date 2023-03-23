@@ -193,12 +193,6 @@ const manifest = {
                     col_1: [
                         {
                             type: 'select',
-                            name: 'sales_order_default_sequence_id',
-                            label: 'Sales Default Sequence',
-                            query: {url: '/api/sequences', field: 'name'},
-                        },
-                        {
-                            type: 'select',
                             name: 'sales_order_default_delivery_fee_id',
                             label: 'Sales Default Delivery Fee',
                             query: {url: '/api/delivery_fees', field: 'name'},

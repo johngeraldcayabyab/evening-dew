@@ -38,24 +38,6 @@ class Sequence extends Model implements Sluggable
         return [self::NO_GAP, self::STANDARD];
     }
 
-    public function scopeGenerateSalesOrderSequence()
-    {
-        $salesOrderDefaultSequence = GlobalSetting::latestFirst()->salesOrderDefaultSequence;
-        $generatedSequence = "";
-        if ($salesOrderDefaultSequence) {
-            $sequence = Sequence::find($salesOrderDefaultSequence->id);
-            if ($sequence->prefix) {
-                $generatedSequence .= $sequence->prefix;
-            }
-            $newNum = $sequence->next_number + $sequence->step;
-            $generatedSequence .= sprintf("%0{$sequence->sequence_size}d", $newNum);
-            if ($sequence->suffix) {
-                $generatedSequence .= $sequence->suffix;
-            }
-        }
-        return $generatedSequence;
-    }
-
     public static function generateInvoiceSequence()
     {
         $invoiceDefaultSequence = GlobalSetting::latestFirst()->invoiceDefaultSequence;
