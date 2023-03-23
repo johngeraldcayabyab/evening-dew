@@ -98,12 +98,6 @@ const manifest = {
                     col_1: [
                         {
                             type: 'select',
-                            name: 'inventory_default_vendor_location_id',
-                            label: 'Default Vendor Location',
-                            query: {url: '/api/locations', field: 'name'},
-                        },
-                        {
-                            type: 'select',
                             name: 'inventory_default_adjustment_location_id',
                             label: 'Default Adjustment Location',
                             query: {url: '/api/locations', field: 'name'},

@@ -35,7 +35,7 @@ class TransferObserver
                 if ($operationType->default_source_location_id) {
                     $transfer->source_location_id = $operationType->default_source_location_id;
                 } else {
-                    $transfer->source_location_id = GlobalSetting::latestFirst()->inventoryDefaultVendorLocation->id;
+                    $transfer->source_location_id = Location::where('type', Location::VENDOR)->first()->id;
                 }
             }
         } elseif ($operationType->type === OperationType::DELIVERY) {
