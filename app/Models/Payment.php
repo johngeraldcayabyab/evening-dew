@@ -28,7 +28,7 @@ class Payment extends Model implements Sluggable
     const VENDOR = 'vendor';
     const CUSTOMER = 'customer';
 
-    protected $table = 'operations_types';
+    protected $table = 'payments';
     protected $guarded = [];
     protected static $logAttributes = ['*'];
 
