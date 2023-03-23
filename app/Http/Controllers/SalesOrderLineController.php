@@ -8,7 +8,7 @@ use App\Models\SalesOrderLine;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
-class SalesOrderLineController
+class SalesOrderLineController extends Controller
 {
     public function index(Request $request)
     {

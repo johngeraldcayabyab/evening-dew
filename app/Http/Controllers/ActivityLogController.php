@@ -7,7 +7,7 @@ use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class ActivityLogController
+class ActivityLogController extends Controller
 {
     public function index(Request $request): ResourceCollection
     {

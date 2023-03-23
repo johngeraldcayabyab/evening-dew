@@ -20,7 +20,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
-class SalesOrderController
+class SalesOrderController extends Controller
 {
     use ControllerHelperTrait;
 

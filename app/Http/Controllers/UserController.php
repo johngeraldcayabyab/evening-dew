@@ -15,7 +15,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 
-class UserController
+class UserController extends Controller
 {
     use ControllerHelperTrait;
 

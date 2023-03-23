@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Arr;
 
-class ContactController
+class ContactController extends Controller
 {
     use ControllerHelperTrait;
 

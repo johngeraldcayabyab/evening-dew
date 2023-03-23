@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Arr;
 
-class AdjustmentController
+class AdjustmentController extends Controller
 {
     use ControllerHelperTrait;
 

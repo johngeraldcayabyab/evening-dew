@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Arr;
 
-class PurchaseController
+class PurchaseController extends Controller
 {
     use ControllerHelperTrait;
 

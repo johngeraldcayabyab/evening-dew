@@ -9,7 +9,7 @@ use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 
-class GlobalSettingController
+class GlobalSettingController extends Controller
 {
     use ControllerHelperTrait;
 

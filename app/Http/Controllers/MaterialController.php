@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Arr;
 
-class MaterialController
+class MaterialController extends Controller
 {
     use ControllerHelperTrait;
 

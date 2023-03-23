@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class AppMenuController
+class AppMenuController extends Controller
 {
     use ControllerHelperTrait;
 
