@@ -6,7 +6,6 @@ use App\Data\SystemSetting;
 use App\Models\GlobalSetting;
 use App\Models\Purchase;
 use App\Models\Sequence;
-use App\Models\Transfer;
 use Carbon\Carbon;
 
 class PurchaseObserver
@@ -55,18 +54,17 @@ class PurchaseObserver
     public function setOrder($purchase)
     {
         $number = $purchase->number;
-        $purchaseDefaultSequence = $this->settings->purchaseDefaultSequence;
-        if ($purchaseDefaultSequence) {
-            $prefix = preg_replace('/([^A-Za-z0-9\s])/', '\\\\$1', $purchaseDefaultSequence->prefix);
-            $steps = $purchaseDefaultSequence->sequence_size;
-            $suffix = preg_replace('/([^A-Za-z0-9\s])/', '\\\\$1', $purchaseDefaultSequence->suffix);
-            preg_match("/$prefix\d{" . $steps . "}$suffix$/", $number, $matches);
-            if (count($matches)) {
-                $purchase->number = Sequence::generatePurchaseSequence();
-                $purchaseDefaultSequenceNew = $this->settings->purchaseDefaultSequence;
-                $purchaseDefaultSequenceNew->next_number = $purchaseDefaultSequence->next_number + $purchaseDefaultSequence->step;
-                $purchaseDefaultSequenceNew->save();
-            }
+        $purchaseSequence = Sequence::where('sequence_code', 'purchase.sequence')->first();
+        $purchaseSequenceNumber = Sequence::generateSequence($purchaseSequence->id);
+        $prefix = preg_replace('/([^A-Za-z0-9\s])/', '\\\\$1', $purchaseSequence->prefix);
+        $steps = $purchaseSequence->sequence_size;
+        $suffix = preg_replace('/([^A-Za-z0-9\s])/', '\\\\$1', $purchaseSequence->suffix);
+        preg_match("/$prefix\d{" . $steps . "}$suffix$/", $number, $matches);
+        if (count($matches)) {
+            $purchase->number = $purchaseSequenceNumber;
+            $purchaseSequenceNew = $purchaseSequence;
+            $purchaseSequenceNew->next_number = $purchaseSequence->next_number + $purchaseSequence->step;
+            $purchaseSequenceNew->save();
         }
     }
 }

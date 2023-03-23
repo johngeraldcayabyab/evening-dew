@@ -105,11 +105,6 @@ class GlobalSetting extends Model
         return $this->belongsTo(DeliveryFee::class, 'sales_order_default_delivery_fee', 'id');
     }
 
-    public function purchaseDefaultSequence()
-    {
-        return $this->belongsTo(Sequence::class, 'purchase_default_sequence_id', 'id');
-    }
-
     public function invoiceDefaultSequence()
     {
         return $this->belongsTo(Sequence::class, 'invoice_default_sequence_id', 'id');

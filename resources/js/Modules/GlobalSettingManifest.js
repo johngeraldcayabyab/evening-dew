@@ -210,12 +210,7 @@ const manifest = {
                 name: 'Purchases',
                 row_1: {
                     col_1: [
-                        {
-                            type: 'select',
-                            name: 'purchase_default_sequence_id',
-                            label: 'Purchase Default Sequence',
-                            query: {url: '/api/sequences', field: 'name'},
-                        },
+
                     ],
                 },
             }

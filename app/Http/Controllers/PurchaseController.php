@@ -80,8 +80,10 @@ class PurchaseController
     {
         $settings = GlobalSetting::latestFirst();
         $defaultCurrency = $settings->accountingDefaultCurrency;
+        $purchaseSequence = Sequence::where('sequence_code', 'purchase.sequence')->first();
+        $purchaseSequenceNumber = Sequence::generateSequence($purchaseSequence->id);
         $initialValues = [
-            'number' => Sequence::generatePurchaseSequence(),
+            'number' => $purchaseSequenceNumber,
             'currency_id' => $defaultCurrency->id,
             'currency' => $defaultCurrency,
             'purchase_representative_id' => auth()->user()->id,

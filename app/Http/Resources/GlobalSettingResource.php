@@ -27,7 +27,6 @@ class GlobalSettingResource extends JsonResource
             'general_clickable_row' => $this->general_clickable_row,
             'sales_order_default_sequence_id' => $this->sales_order_default_sequence_id,
             'sales_order_default_delivery_fee_id' => $this->sales_order_default_delivery_fee_id,
-            'purchase_default_sequence_id' => $this->purchase_default_sequence_id,
             'invoice_default_sequence_id' => $this->invoice_default_sequence_id,
             'inventory_default_measurement_category' => $this->inventoryDefaultMeasurementCategory,
             'inventory_default_measurement' => $this->inventoryDefaultMeasurement,
@@ -44,7 +43,6 @@ class GlobalSettingResource extends JsonResource
             'general_default_country' => $this->generalDefaultCountry,
             'sales_order_default_sequence' => $this->salesOrderDefaultSequence,
             'sales_order_default_delivery_fee' => $this->salesOrderDefaultDeliveryFee,
-            'purchase_default_sequence' => $this->purchaseDefaultSequence,
             'invoice_default_sequence' => $this->invoiceDefaultSequence,
         ];
     }
