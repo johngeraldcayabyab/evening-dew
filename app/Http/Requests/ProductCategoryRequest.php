@@ -12,6 +12,7 @@ class ProductCategoryRequest extends FormRequest
         return [
             'category' => ['required', "unique:product_categories,category,{$id}"],
             'parent_product_category_id' => ['nullable', "exists:product_categories,id"],
+            'is_default' => ['nullable', 'boolean'],
         ];
     }
 }

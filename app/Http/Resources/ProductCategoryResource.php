@@ -15,6 +15,7 @@ class ProductCategoryResource extends JsonResource
         return $this->defaults($this, $request, [
             'category' => $this->category,
             'parent_product_category_id' => $this->parent_product_category_id,
+            'is_default' => $this->is_default,
             'parent_product_category' => new ProductCategoryResource($this->parentProductCategory),
             'parents' => $slug,
             'slug' => $slug,

@@ -9,14 +9,9 @@ class ProductCategorySeeder extends Seeder
 {
     public function run()
     {
-        $data = [
-            [
-                'category' => 'All',
-            ],
-        ];
-
-        foreach ($data as $datum) {
-            ProductCategory::create($datum);
-        }
+        ProductCategory::create([
+            'category' => 'All',
+            'is_default' => true,
+        ]);
     }
 }

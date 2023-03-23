@@ -12,6 +12,7 @@ class CreateProductCategoriesTable extends Migration
             $table->id();
             $table->string('category');
             $table->unsignedInteger('parent_product_category_id')->nullable();
+            $table->boolean('is_default')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });
