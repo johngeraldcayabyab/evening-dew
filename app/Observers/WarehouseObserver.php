@@ -18,7 +18,7 @@ class WarehouseObserver
         if (!$warehouse->is_default) {
             $currentDefault = Warehouse::where('id', $warehouse->id)->first();
             if ($currentDefault->is_default) {
-                throw ValidationException::withMessages(['parent_product_category_id' => 'There should be one default']);
+                throw ValidationException::withMessages(['is_default' => 'There should be one default']);
             }
         }
         $this->setDefaults($warehouse);
