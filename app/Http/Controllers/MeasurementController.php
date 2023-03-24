@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MeasurementRequest;
 use App\Http\Resources\MeasurementResource;
-use App\Models\GlobalSetting;
 use App\Models\Measurement;
+use App\Models\MeasurementCategory;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -52,13 +52,13 @@ class MeasurementController extends Controller
 
     public function initial_values()
     {
-        $inventoryDefaultMeasurementCategory = GlobalSetting::latestFirst()->inventoryDefaultMeasurementCategory;
+        $defaultMeasurementCategory = MeasurementCategory::default();
         return [
             'type' => Measurement::REFERENCE,
             'ratio' => Measurement::DEFAULT_RATIO,
             'rounding_precision' => Measurement::DEFAULT_ROUNDING_PRECISION,
-            'measurement_category' => $inventoryDefaultMeasurementCategory,
-            'measurement_category_id' => $inventoryDefaultMeasurementCategory->id,
+            'measurement_category' => $defaultMeasurementCategory,
+            'measurement_category_id' => $defaultMeasurementCategory->id,
         ];
     }
 }

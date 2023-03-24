@@ -11,6 +11,7 @@ class CreateMeasurementCategories extends Migration
         Schema::create('measurement_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->boolean('is_default')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

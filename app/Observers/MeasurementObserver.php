@@ -2,9 +2,8 @@
 
 namespace App\Observers;
 
-use App\Models\GlobalSetting;
 use App\Models\Measurement;
-use App\Models\ProductCategory;
+use App\Models\MeasurementCategory;
 use Illuminate\Validation\ValidationException;
 
 class MeasurementObserver
@@ -28,7 +27,7 @@ class MeasurementObserver
     public function setDefaults($measurement)
     {
         $modelArray = $measurement->toArray();
-        $inventoryDefaultMeasurementCategory = GlobalSetting::latestFirst()->inventoryDefaultMeasurementCategory;
+        $defaultMeasurementCategory = MeasurementCategory::default();
         if (!isset($modelArray['type'])) {
             $measurement->type = Measurement::REFERENCE;
         }
@@ -39,7 +38,7 @@ class MeasurementObserver
             $measurement->rounding_precision = Measurement::DEFAULT_ROUNDING_PRECISION;
         }
         if (!isset($modelArray['measurement_category_id'])) {
-            $measurement->measurement_category_id = $inventoryDefaultMeasurementCategory->id;
+            $measurement->measurement_category_id = $defaultMeasurementCategory->id;
         }
         if ($measurement->is_default) {
             $previousDefault = Measurement::where('is_default', true)

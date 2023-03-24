@@ -9,7 +9,6 @@ class GlobalSettingResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'inventory_default_measurement_category_id' => $this->inventory_default_measurement_category_id,
             'inventory_default_purchase_measurement_id' => $this->inventory_default_purchase_measurement_id,
             'inventory_default_sales_measurement_id' => $this->inventory_default_sales_measurement_id,
             'inventory_default_adjustment_location_id' => $this->inventory_default_adjustment_location_id,
@@ -21,7 +20,6 @@ class GlobalSettingResource extends JsonResource
             'general_default_country_id' => $this->general_default_country_id,
             'general_clickable_row' => $this->general_clickable_row,
             'sales_order_default_delivery_fee_id' => $this->sales_order_default_delivery_fee_id,
-            'inventory_default_measurement_category' => $this->inventoryDefaultMeasurementCategory,
             'inventory_default_purchase_measurement' => $this->inventoryDefaultPurchaseMeasurement,
             'inventory_default_sales_measurement' => $this->inventoryDefaultSalesMeasurement,
             'inventory_default_adjustment_location' => $this->inventoryDefaultAdjustmentLocation,

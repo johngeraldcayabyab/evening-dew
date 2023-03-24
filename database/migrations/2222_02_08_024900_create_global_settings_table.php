@@ -10,7 +10,6 @@ class CreateGlobalSettingsTable extends Migration
     {
         Schema::create('global_settings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('inventory_default_measurement_category_id')->nullable();
             $table->unsignedInteger('inventory_default_purchase_measurement_id')->nullable();
             $table->unsignedInteger('inventory_default_sales_measurement_id')->nullable();
             $table->unsignedInteger('inventory_default_adjustment_location_id')->nullable();

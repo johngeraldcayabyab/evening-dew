@@ -10,7 +10,8 @@ class MeasurementCategoryRequest extends FormRequest
     {
         $id = $this->measurement_category->id ?? null;
         return [
-            'name' => ['required', "unique:measurement_categories,name,{$id}"]
+            'name' => ['required', "unique:measurement_categories,name,{$id}"],
+            'is_default' => ['nullable', 'boolean'],
         ];
     }
 }

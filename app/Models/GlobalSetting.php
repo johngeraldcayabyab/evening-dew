@@ -30,11 +30,6 @@ class GlobalSetting extends Model
         return $query->orderBy('id', 'desc')->first();
     }
 
-    public function inventoryDefaultMeasurementCategory()
-    {
-        return $this->belongsTo(MeasurementCategory::class, 'inventory_default_measurement_category_id', 'id');
-    }
-
     public function inventoryDefaultPurchaseMeasurement()
     {
         return $this->belongsTo(Measurement::class, 'inventory_default_purchase_measurement_id', 'id');
