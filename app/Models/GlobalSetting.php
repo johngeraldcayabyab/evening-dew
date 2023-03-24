@@ -60,11 +60,6 @@ class GlobalSetting extends Model
         return $this->belongsTo(Currency::class, 'accounting_default_currency_id', 'id');
     }
 
-    public function generalDefaultCountry()
-    {
-        return $this->belongsTo(Country::class, 'general_default_country_id', 'id');
-    }
-
     public function salesOrderDefaultDeliveryFee()
     {
         return $this->belongsTo(DeliveryFee::class, 'sales_order_default_delivery_fee', 'id');

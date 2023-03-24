@@ -13,14 +13,7 @@ const manifest = {
             tab_pane_1: {
                 name: 'General',
                 row_1: {
-                    col_1: [
-                        {
-                            type: 'select',
-                            name: 'general_default_country_id',
-                            label: 'Default Country',
-                            query: {url: '/api/countries', field: 'country_name'},
-                        },
-                    ],
+                    col_1: [],
                 },
                 divider_1: {
                     type: 'divider',

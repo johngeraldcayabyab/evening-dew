@@ -31,6 +31,11 @@ class Country extends Model implements Sluggable
         return $this->belongsTo(Currency::class);
     }
 
+    public function scopeDefault($query)
+    {
+        return $query->where('is_default', true)->first();
+    }
+
     public function slug()
     {
         return 'country_name';

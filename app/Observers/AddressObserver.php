@@ -3,7 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Address;
-use App\Models\GlobalSetting;
+use App\Models\Country;
 
 class AddressObserver
 {
@@ -19,10 +19,9 @@ class AddressObserver
 
     public function setDefaults($model)
     {
-        $generalDefaultCountry = GlobalSetting::latestFirst()->generalDefaultCountry;
         $modelArray = $model->toArray();
         if (!isset($modelArray['country_id'])) {
-            $model->country_id = $generalDefaultCountry->id;
+            $model->country_id = Country::default()->id;
         }
         if (!isset($modelArray['type'])) {
             $model->type = Address::DEFAULT;

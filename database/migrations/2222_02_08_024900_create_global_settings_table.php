@@ -18,7 +18,6 @@ class CreateGlobalSettingsTable extends Migration
             $table->boolean('inventory_auto_validate_draft')->default(false);
             $table->boolean('inventory_compute_product_quantity')->default(false);
             $table->unsignedInteger('accounting_default_currency_id')->nullable();
-            $table->unsignedInteger('general_default_country_id')->nullable();
             $table->boolean('general_clickable_row')->default(true);
             $table->unsignedInteger('sales_order_default_delivery_fee_id')->nullable();
             $table->softDeletes();

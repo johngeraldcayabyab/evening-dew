@@ -15,6 +15,7 @@ class CreateCountriesTable extends Migration
             $table->string('country_code')->nullable();
             $table->string('country_calling_code')->nullable();
             $table->string('vat_label')->nullable();
+            $table->boolean('is_default')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

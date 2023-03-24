@@ -18,6 +18,7 @@ class MeasurementResource extends JsonResource
             'ratio' => $this->ratio,
             'rounding_precision' => $this->rounding_precision,
             'measurement_category_id' => $this->measurement_category_id,
+            'is_default' => $this->is_default,
             'measurement_category' => $this->measurementCategory,
             'slug' => $this->$slug,
         ]);

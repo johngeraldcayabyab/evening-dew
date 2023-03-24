@@ -14,6 +14,7 @@ class CountryRequest extends FormRequest
             'country_code' => ['nullable'],
             'country_calling_code' => ['nullable'],
             'vat_label' => ['nullable'],
+            'is_default' => ['nullable', 'boolean'],
         ];
     }
 }
