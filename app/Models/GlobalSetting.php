@@ -40,21 +40,6 @@ class GlobalSetting extends Model
         return $this->belongsTo(Measurement::class, 'inventory_default_sales_measurement_id', 'id');
     }
 
-    public function inventoryDefaultAdjustmentLocation()
-    {
-        return $this->belongsTo(Location::class, 'inventory_default_adjustment_location_id', 'id');
-    }
-
-    public function inventoryDefaultProduction()
-    {
-        return $this->belongsTo(Location::class, 'inventory_default_production_id', 'id');
-    }
-
-    public function inventoryDefaultScrap()
-    {
-        return $this->belongsTo(Location::class, 'inventory_default_scrap_id', 'id');
-    }
-
     public function salesOrderDefaultDeliveryFee()
     {
         return $this->belongsTo(DeliveryFee::class, 'sales_order_default_delivery_fee', 'id');

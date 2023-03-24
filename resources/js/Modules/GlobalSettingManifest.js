@@ -70,28 +70,8 @@ const manifest = {
                     label: 'Locations'
                 },
                 row_2: {
-                    col_1: [
-                        {
-                            type: 'select',
-                            name: 'inventory_default_adjustment_location_id',
-                            label: 'Default Adjustment Location',
-                            query: {url: '/api/locations', field: 'name'},
-                        },
-                    ],
-                    col_2: [
-                        {
-                            type: 'select',
-                            name: 'inventory_default_production_id',
-                            label: 'Default Production Location',
-                            query: {url: '/api/locations', field: 'name'},
-                        },
-                        {
-                            type: 'select',
-                            name: 'inventory_default_scrap_id',
-                            label: 'Default Scrap Location',
-                            query: {url: '/api/locations', field: 'name'},
-                        },
-                    ]
+                    col_1: [],
+                    col_2: []
                 },
                 divider_2: {
                     type: 'divider',
