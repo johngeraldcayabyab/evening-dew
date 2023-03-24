@@ -87,7 +87,7 @@ const manifest = {
                 {
                     type: 'text',
                     name: 'sub_unit',
-                    label: 'sub_unit',
+                    label: 'Sub Unit',
                 },
                 {
                     type: 'checkbox',
