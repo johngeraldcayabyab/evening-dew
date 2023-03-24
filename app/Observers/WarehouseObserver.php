@@ -2,7 +2,6 @@
 
 namespace App\Observers;
 
-use App\Models\ProductCategory;
 use App\Models\Warehouse;
 use Illuminate\Validation\ValidationException;
 

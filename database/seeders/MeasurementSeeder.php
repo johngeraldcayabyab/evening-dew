@@ -16,6 +16,7 @@ class MeasurementSeeder extends Seeder
                 'ratio' => 1.00,
                 'rounding_precision' => 0.01,
                 'measurement_category_id' => 1,
+                'is_default' => true,
             ],
             [
                 'name' => 'Dozens',

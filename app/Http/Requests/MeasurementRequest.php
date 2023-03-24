@@ -16,7 +16,8 @@ class MeasurementRequest extends FormRequest
             'type' => ['nullable', "in:$types"],
             'ratio' => ['nullable', 'numeric'],
             'rounding_precision' => ['nullable', 'numeric'],
-            'measurement_category_id' => ['nullable', "exists:measurement_categories,id"]
+            'measurement_category_id' => ['nullable', "exists:measurement_categories,id"],
+            'is_default' => ['nullable', 'boolean'],
         ];
     }
 }

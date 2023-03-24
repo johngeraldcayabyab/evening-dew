@@ -35,11 +35,6 @@ class GlobalSetting extends Model
         return $this->belongsTo(MeasurementCategory::class, 'inventory_default_measurement_category_id', 'id');
     }
 
-    public function inventoryDefaultMeasurement()
-    {
-        return $this->belongsTo(Measurement::class, 'inventory_default_measurement_id', 'id');
-    }
-
     public function inventoryDefaultPurchaseMeasurement()
     {
         return $this->belongsTo(Measurement::class, 'inventory_default_purchase_measurement_id', 'id');

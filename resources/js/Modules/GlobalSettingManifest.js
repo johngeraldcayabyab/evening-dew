@@ -56,12 +56,6 @@ const manifest = {
                         },
                         {
                             type: 'select',
-                            name: 'inventory_default_measurement_id',
-                            label: 'Default Measurement',
-                            query: {url: '/api/measurements', field: 'name'},
-                        },
-                        {
-                            type: 'select',
                             name: 'inventory_default_purchase_measurement_id',
                             label: 'Default Purchase Measurement',
                             query: {url: '/api/measurements', field: 'name'},

@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\GlobalSetting;
+use App\Models\Measurement;
 use App\Models\Product;
 use App\Models\ProductCategory;
 
@@ -23,7 +24,7 @@ class ProductObserver
     {
         $modelArray = $model->toArray();
         $globalSetting = GlobalSetting::latestFirst();
-        $inventoryDefaultMeasurement = $globalSetting->inventoryDefaultMeasurement;
+        $defaultMeasurement = Measurement::default();
         $inventoryDefaultPurchaseMeasurement = $globalSetting->inventoryDefaultPurchaseMeasurement;
         $inventoryDefaultSalesMeasurement = $globalSetting->inventoryDefaultSalesMeasurement;
         if (!isset($modelArray['product_type'])) {
@@ -39,7 +40,7 @@ class ProductObserver
             $model->cost = Product::DEFAULT_COST;
         }
         if (!isset($modelArray['measurement_id'])) {
-            $model->measurement_id = $inventoryDefaultMeasurement->id;
+            $model->measurement_id = $defaultMeasurement->id;
         }
         if (!isset($modelArray['purchase_measurement_id'])) {
             $model->purchase_measurement_id = $inventoryDefaultPurchaseMeasurement->id;

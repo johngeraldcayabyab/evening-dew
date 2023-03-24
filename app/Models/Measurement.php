@@ -47,6 +47,11 @@ class Measurement extends Model implements Sluggable
         return $this->belongsTo(MeasurementCategory::class);
     }
 
+    public function scopeDefault($query)
+    {
+        return $query->where('is_default', true)->first();
+    }
+
     public function slug()
     {
         return 'name';

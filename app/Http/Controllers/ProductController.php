@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\GlobalSetting;
+use App\Models\Measurement;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Traits\ControllerHelperTrait;
@@ -54,7 +55,7 @@ class ProductController extends Controller
     public function initial_values()
     {
         $globalSetting = GlobalSetting::latestFirst();
-        $inventoryDefaultMeasurement = $globalSetting->inventoryDefaultMeasurement;
+        $defaultMeasurement = Measurement::default();
         $inventoryDefaultPurchaseMeasurement = $globalSetting->inventoryDefaultPurchaseMeasurement;
         $inventoryDefaultSalesMeasurement = $globalSetting->inventoryDefaultSalesMeasurement;
         $defaultProductCategory = ProductCategory::default();
@@ -65,8 +66,8 @@ class ProductController extends Controller
             'invoicing_policy' => Product::ORDERED_QUANTITIES,
             'sales_price' => Product::DEFAULT_SALES_PRICE,
             'cost' => Product::DEFAULT_COST,
-            'measurement' => $inventoryDefaultMeasurement,
-            'measurement_id' => $inventoryDefaultMeasurement->id,
+            'measurement' => $defaultMeasurement,
+            'measurement_id' => $defaultMeasurement->id,
             'purchase_measurement' => $inventoryDefaultPurchaseMeasurement,
             'purchase_measurement_id' => $inventoryDefaultPurchaseMeasurement->id,
             'sales_measurement' => $inventoryDefaultSalesMeasurement,
