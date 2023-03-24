@@ -6,7 +6,6 @@ use App\Events\PurchaseValidated;
 use App\Http\Requests\PurchaseRequest;
 use App\Http\Resources\PurchaseResource;
 use App\Models\Currency;
-use App\Models\GlobalSetting;
 use App\Models\Purchase;
 use App\Models\PurchaseLine;
 use App\Models\Sequence;

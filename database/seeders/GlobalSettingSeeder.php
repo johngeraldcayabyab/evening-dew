@@ -11,8 +11,6 @@ class GlobalSettingSeeder extends Seeder
     {
         $data = [
             [
-                'inventory_default_purchase_measurement_id' => 1,
-                'inventory_default_sales_measurement_id' => 1,
                 'inventory_auto_validate_draft' => false,
             ],
         ];

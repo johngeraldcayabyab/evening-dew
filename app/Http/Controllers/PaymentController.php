@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PaymentRequest;
 use App\Http\Resources\PaymentResource;
 use App\Models\Currency;
-use App\Models\GlobalSetting;
 use App\Models\Payment;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;

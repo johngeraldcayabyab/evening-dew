@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
-use App\Models\GlobalSetting;
 use App\Models\Measurement;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -54,10 +53,7 @@ class ProductController extends Controller
 
     public function initial_values()
     {
-        $globalSetting = GlobalSetting::latestFirst();
         $defaultMeasurement = Measurement::default();
-        $inventoryDefaultPurchaseMeasurement = $globalSetting->inventoryDefaultPurchaseMeasurement;
-        $inventoryDefaultSalesMeasurement = $globalSetting->inventoryDefaultSalesMeasurement;
         $defaultProductCategory = ProductCategory::default();
         return [
             'product_type' => Product::STORABLE,
@@ -68,10 +64,10 @@ class ProductController extends Controller
             'cost' => Product::DEFAULT_COST,
             'measurement' => $defaultMeasurement,
             'measurement_id' => $defaultMeasurement->id,
-            'purchase_measurement' => $inventoryDefaultPurchaseMeasurement,
-            'purchase_measurement_id' => $inventoryDefaultPurchaseMeasurement->id,
-            'sales_measurement' => $inventoryDefaultSalesMeasurement,
-            'sales_measurement_id' => $inventoryDefaultSalesMeasurement->id,
+            'purchase_measurement' => $defaultMeasurement,
+            'purchase_measurement_id' => $defaultMeasurement->id,
+            'sales_measurement' => $defaultMeasurement,
+            'sales_measurement_id' => $defaultMeasurement->id,
             'product_category' => $defaultProductCategory,
             'product_category_id' => $defaultProductCategory->id,
         ];

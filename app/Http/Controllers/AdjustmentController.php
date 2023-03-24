@@ -7,7 +7,6 @@ use App\Http\Requests\AdjustmentRequest;
 use App\Http\Resources\AdjustmentResource;
 use App\Models\Adjustment;
 use App\Models\AdjustmentLine;
-use App\Models\GlobalSetting;
 use App\Models\ProductCategory;
 use App\Models\Sequence;
 use App\Models\Warehouse;

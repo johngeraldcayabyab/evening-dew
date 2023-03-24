@@ -29,14 +29,4 @@ class GlobalSetting extends Model
     {
         return $query->orderBy('id', 'desc')->first();
     }
-
-    public function inventoryDefaultPurchaseMeasurement()
-    {
-        return $this->belongsTo(Measurement::class, 'inventory_default_purchase_measurement_id', 'id');
-    }
-
-    public function inventoryDefaultSalesMeasurement()
-    {
-        return $this->belongsTo(Measurement::class, 'inventory_default_sales_measurement_id', 'id');
-    }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Observers;
 
-use App\Models\GlobalSetting;
 use App\Models\Measurement;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -23,10 +22,7 @@ class ProductObserver
     public function setDefaults($model)
     {
         $modelArray = $model->toArray();
-        $globalSetting = GlobalSetting::latestFirst();
         $defaultMeasurement = Measurement::default();
-        $inventoryDefaultPurchaseMeasurement = $globalSetting->inventoryDefaultPurchaseMeasurement;
-        $inventoryDefaultSalesMeasurement = $globalSetting->inventoryDefaultSalesMeasurement;
         if (!isset($modelArray['product_type'])) {
             $model->product_type = Product::STORABLE;
         }
@@ -43,10 +39,10 @@ class ProductObserver
             $model->measurement_id = $defaultMeasurement->id;
         }
         if (!isset($modelArray['purchase_measurement_id'])) {
-            $model->purchase_measurement_id = $inventoryDefaultPurchaseMeasurement->id;
+            $model->purchase_measurement_id = $defaultMeasurement->id;
         }
         if (!isset($modelArray['sales_measurement_id'])) {
-            $model->sales_measurement_id = $inventoryDefaultSalesMeasurement->id;
+            $model->sales_measurement_id = $defaultMeasurement->id;
         }
         if (!isset($modelArray['product_category_id'])) {
             $model->product_category_id = ProductCategory::default()->id;

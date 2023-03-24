@@ -6,7 +6,7 @@ use App\Data\SystemSetting;
 use App\Events\SalesOrderValidated;
 use App\Http\Requests\SalesOrderRequest;
 use App\Http\Resources\SalesOrderResource;
-use App\Models\GlobalSetting;
+use App\Models\Measurement;
 use App\Models\SalesOrder;
 use App\Models\SalesOrderLine;
 use App\Models\Sequence;
@@ -88,7 +88,7 @@ class SalesOrderController extends Controller
         $initialValues = [
             'shipping_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
             'quotation_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
-            'measurement' => GlobalSetting::latestFirst()->inventoryDefaultSalesMeasurement,
+            'measurement' => Measurement::default(),
             'number' => $salesOrderSequenceNumber,
             'shipping_policy' => Transfer::AS_SOON_AS_POSSIBLE,
             'shipping_method' => Transfer::DELIVERY,

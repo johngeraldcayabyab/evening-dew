@@ -4,20 +4,12 @@ namespace App\Observers;
 
 use App\Data\SystemSetting;
 use App\Models\Currency;
-use App\Models\GlobalSetting;
 use App\Models\Purchase;
 use App\Models\Sequence;
 use Carbon\Carbon;
 
 class PurchaseObserver
 {
-    private $settings;
-
-    public function __construct()
-    {
-        $this->settings = GlobalSetting::latestFirst();
-    }
-
     public function creating(Purchase $model)
     {
         $this->setDefaults($model);
