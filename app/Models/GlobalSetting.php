@@ -39,9 +39,4 @@ class GlobalSetting extends Model
     {
         return $this->belongsTo(Measurement::class, 'inventory_default_sales_measurement_id', 'id');
     }
-
-    public function salesOrderDefaultDeliveryFee()
-    {
-        return $this->belongsTo(DeliveryFee::class, 'sales_order_default_delivery_fee', 'id');
-    }
 }

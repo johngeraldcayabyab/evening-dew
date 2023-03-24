@@ -109,14 +109,7 @@ const manifest = {
             tab_pane_4: {
                 name: 'Sales',
                 row_1: {
-                    col_1: [
-                        {
-                            type: 'select',
-                            name: 'sales_order_default_delivery_fee_id',
-                            label: 'Sales Default Delivery Fee',
-                            query: {url: '/api/delivery_fees', field: 'name'},
-                        },
-                    ],
+                    col_1: [],
                 },
             },
             tab_pane_5: {
