@@ -80,12 +80,6 @@ const manifest = {
                             orientation: 'left',
                             label: 'Category'
                         },
-                        {
-                            type: 'select',
-                            name: 'inventory_default_product_category_id',
-                            label: 'Default Product Category',
-                            query: {url: '/api/product_categories', field: 'category'},
-                        },
                     ]
                 },
                 divider_1: {

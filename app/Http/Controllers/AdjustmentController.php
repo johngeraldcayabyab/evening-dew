@@ -8,6 +8,7 @@ use App\Http\Resources\AdjustmentResource;
 use App\Models\Adjustment;
 use App\Models\AdjustmentLine;
 use App\Models\GlobalSetting;
+use App\Models\ProductCategory;
 use App\Models\Sequence;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
@@ -80,13 +81,12 @@ class AdjustmentController extends Controller
     {
         $globalSetting = GlobalSetting::latestFirst();
         $inventoryDefaultWarehouse = $globalSetting->inventoryDefaultWarehouse;
-        $inventoryDefaultProductCategory = $globalSetting->inventoryDefaultProductCategory;
         $adjustmentOperationType = $inventoryDefaultWarehouse->adjustmentOperationType;
         return [
             'number' => Sequence::generateSequence($adjustmentOperationType->reference_sequence_id),
             'status' => Adjustment::DRAFT,
             'warehouse_id' => $inventoryDefaultWarehouse->id,
-            'product_category_id' => $inventoryDefaultProductCategory->id,
+            'product_category_id' => ProductCategory::default()->id,
         ];
     }
 }

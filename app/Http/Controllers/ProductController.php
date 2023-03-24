@@ -6,6 +6,7 @@ use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\GlobalSetting;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -56,7 +57,7 @@ class ProductController extends Controller
         $inventoryDefaultMeasurement = $globalSetting->inventoryDefaultMeasurement;
         $inventoryDefaultPurchaseMeasurement = $globalSetting->inventoryDefaultPurchaseMeasurement;
         $inventoryDefaultSalesMeasurement = $globalSetting->inventoryDefaultSalesMeasurement;
-        $inventoryDefaultProductCategory = $globalSetting->inventoryDefaultProductCategory;
+        $defaultProductCategory = ProductCategory::default();
         return [
             'product_type' => Product::STORABLE,
             'can_be_sold' => Product::DEFAULT_CAN_BE_SOLD,
@@ -70,8 +71,8 @@ class ProductController extends Controller
             'purchase_measurement_id' => $inventoryDefaultPurchaseMeasurement->id,
             'sales_measurement' => $inventoryDefaultSalesMeasurement,
             'sales_measurement_id' => $inventoryDefaultSalesMeasurement->id,
-            'product_category' => $inventoryDefaultProductCategory,
-            'product_category_id' => $inventoryDefaultProductCategory->id,
+            'product_category' => $defaultProductCategory,
+            'product_category_id' => $defaultProductCategory ? $defaultProductCategory->id : null,
         ];
     }
 

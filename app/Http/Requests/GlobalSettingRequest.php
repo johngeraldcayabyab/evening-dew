@@ -13,7 +13,6 @@ class GlobalSettingRequest extends FormRequest
             'inventory_default_measurement_id' => ['nullable', "exists:measurements,id"],
             'inventory_default_purchase_measurement_id' => ['nullable', "exists:measurements,id"],
             'inventory_default_sales_measurement_id' => ['nullable', "exists:measurements,id"],
-            'inventory_default_product_category_id' => ['nullable', "exists:product_categories,id"],
             'inventory_default_adjustment_location_id' => ['nullable', "exists:locations,id"],
             'inventory_default_production_id' => ['nullable', "exists:locations,id"],
             'inventory_default_scrap_id' => ['nullable', "exists:locations,id"],

@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\GlobalSetting;
 use App\Models\Product;
+use App\Models\ProductCategory;
 
 class ProductObserver
 {
@@ -25,7 +26,6 @@ class ProductObserver
         $inventoryDefaultMeasurement = $globalSetting->inventoryDefaultMeasurement;
         $inventoryDefaultPurchaseMeasurement = $globalSetting->inventoryDefaultPurchaseMeasurement;
         $inventoryDefaultSalesMeasurement = $globalSetting->inventoryDefaultSalesMeasurement;
-        $inventoryDefaultProductCategory = $globalSetting->inventoryDefaultProductCategory;
         if (!isset($modelArray['product_type'])) {
             $model->product_type = Product::STORABLE;
         }
@@ -48,7 +48,7 @@ class ProductObserver
             $model->sales_measurement_id = $inventoryDefaultSalesMeasurement->id;
         }
         if (!isset($modelArray['product_category_id'])) {
-            $model->product_category_id = $inventoryDefaultProductCategory->id;
+            $model->product_category_id = ProductCategory::default()->id;
         }
     }
 }

@@ -33,6 +33,11 @@ class ProductCategory extends Model implements Sluggable
         return $this->belongsTo(ProductCategory::class, 'parent_product_category_id', 'id');
     }
 
+    public function scopeDefault($query)
+    {
+        return $query->where('is_default', true)->first();
+    }
+
     public function slug()
     {
         return 'parent.category';

@@ -7,7 +7,7 @@ use Illuminate\Validation\ValidationException;
 
 class ProductCategoryObserver
 {
-    public function creating(ProductCategory $productCategory)
+    public function created(ProductCategory $productCategory)
     {
         $this->defaults($productCategory);
     }
@@ -23,9 +23,13 @@ class ProductCategoryObserver
     public function defaults($productCategory)
     {
         if ($productCategory->is_default) {
-            $currentDefault = ProductCategory::where('is_default', true)->first();
-            $currentDefault->is_default = false;
-            $currentDefault->save();
+            $previousDefault = ProductCategory::where('is_default', true)
+                ->where('id', '!=', $productCategory->id)
+                ->first();
+            if ($previousDefault) {
+                $previousDefault->is_default = false;
+                $previousDefault->save();
+            }
         }
     }
 }
