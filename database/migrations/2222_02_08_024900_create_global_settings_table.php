@@ -17,7 +17,6 @@ class CreateGlobalSettingsTable extends Migration
             $table->unsignedInteger('inventory_default_adjustment_location_id')->nullable();
             $table->unsignedInteger('inventory_default_production_id')->nullable();
             $table->unsignedInteger('inventory_default_scrap_id')->nullable();
-            $table->unsignedInteger('inventory_default_warehouse_id')->nullable();
             $table->boolean('inventory_auto_validate_draft')->default(false);
             $table->boolean('inventory_compute_product_quantity')->default(false);
             $table->unsignedInteger('accounting_default_currency_id')->nullable();

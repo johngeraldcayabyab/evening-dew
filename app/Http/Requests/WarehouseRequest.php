@@ -31,6 +31,7 @@ class WarehouseRequest extends FormRequest
             'picking_before_manufacturing_operation_type_id' => ['nullable', 'exists:operations_types,id'],
             'manufacturing_operation_type_id' => ['nullable', 'exists:operations_types,id'],
             'adjustment_operation_type_id' => ['nullable', 'exists:operations_types,id'],
+            'is_default' => ['nullable', 'boolean'],
         ];
     }
 }

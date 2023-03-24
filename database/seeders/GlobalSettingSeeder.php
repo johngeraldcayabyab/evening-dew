@@ -18,7 +18,6 @@ class GlobalSettingSeeder extends Seeder
                 'inventory_default_adjustment_location_id' => 5,
                 'inventory_default_production_id' => 6,
                 'inventory_default_scrap_id' => 7,
-                'inventory_default_warehouse_id' => 1,
                 'inventory_auto_validate_draft' => false,
                 'accounting_default_currency_id' => 1,
                 'general_default_country_id' => 1,

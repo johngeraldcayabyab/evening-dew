@@ -7,7 +7,7 @@ use Illuminate\Validation\ValidationException;
 
 class ProductCategoryObserver
 {
-    public function created(ProductCategory $productCategory)
+    public function creating(ProductCategory $productCategory)
     {
         $this->defaults($productCategory);
     }

@@ -118,17 +118,6 @@ const manifest = {
                     orientation: 'left',
                     label: 'Defaults'
                 },
-                row_3: {
-                    col_1: [
-                        {
-                            type: 'select',
-                            name: 'inventory_default_warehouse_id',
-                            label: 'Default Warehouse',
-                            query: {url: '/api/warehouses', field: 'name'},
-                        },
-
-                    ],
-                },
                 divider_3: {
                     type: 'divider',
                     name: 'divider_3',

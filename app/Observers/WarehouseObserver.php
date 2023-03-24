@@ -16,14 +16,23 @@ class WarehouseObserver
         $this->setDefaults($warehouse);
     }
 
-    public function setDefaults($model)
+    public function setDefaults($warehouse)
     {
-        $modelArray = $model->toArray();
+        $modelArray = $warehouse->toArray();
         if (!isset($modelArray['manufacture_to_resupply'])) {
-            $model->manufacture_to_resupply = Warehouse::DEFAULT_MANUFACTURE_TO_RESUPPLY;
+            $warehouse->manufacture_to_resupply = Warehouse::DEFAULT_MANUFACTURE_TO_RESUPPLY;
         }
         if (!isset($modelArray['buy_to_resupply'])) {
-            $model->buy_to_resupply = Warehouse::DEFAULT_BUY_TO_RESUPPLY;
+            $warehouse->buy_to_resupply = Warehouse::DEFAULT_BUY_TO_RESUPPLY;
+        }
+        if ($warehouse->is_default) {
+            $previousDefault = Warehouse::where('is_default', true)
+                ->where('id', '!=', $warehouse->id)
+                ->first();
+            if ($previousDefault) {
+                $previousDefault->is_default = false;
+                $previousDefault->save();
+            }
         }
     }
 }

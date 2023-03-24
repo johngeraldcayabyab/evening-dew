@@ -35,6 +35,7 @@ class WarehouseResource extends JsonResource
             'picking_before_manufacturing_operation_type_id' => $this->picking_before_manufacturing_operation_type_id,
             'manufacturing_operation_type_id' => $this->manufacturing_operation_type_id,
             'adjustment_operation_type_id' => $this->adjustment_operation_type_id,
+            'is_default' => $this->is_default,
             'stock_location' => new LocationResource($this->stockLocation),
             'view_location' => new LocationResource($this->viewLocation),
             'input_location' => new LocationResource($this->inputLocation),

@@ -65,11 +65,6 @@ class GlobalSetting extends Model
         return $this->belongsTo(Location::class, 'inventory_default_scrap_id', 'id');
     }
 
-    public function inventoryDefaultWarehouse()
-    {
-        return $this->belongsTo(Warehouse::class, 'inventory_default_warehouse_id', 'id');
-    }
-
     public function accountingDefaultCurrency()
     {
         return $this->belongsTo(Currency::class, 'accounting_default_currency_id', 'id');
