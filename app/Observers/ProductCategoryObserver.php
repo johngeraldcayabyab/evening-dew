@@ -17,6 +17,12 @@ class ProductCategoryObserver
         if ($productCategory->parent_product_category_id === $productCategory->id) {
             throw ValidationException::withMessages(['parent_product_category_id' => 'Recursion detected']);
         }
+        if (!$productCategory->is_default) {
+            $currentDefault = ProductCategory::where('id', $productCategory->id)->first();
+            if ($currentDefault->is_default) {
+                throw ValidationException::withMessages(['parent_product_category_id' => 'There should be one default']);
+            }
+        }
         $this->defaults($productCategory);
     }
 
@@ -28,7 +34,7 @@ class ProductCategoryObserver
                 ->first();
             if ($previousDefault) {
                 $previousDefault->is_default = false;
-                $previousDefault->save();
+                $previousDefault->saveQuietly();
             }
         }
     }

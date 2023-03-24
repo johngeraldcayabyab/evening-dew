@@ -2,7 +2,9 @@
 
 namespace App\Observers;
 
+use App\Models\ProductCategory;
 use App\Models\Warehouse;
+use Illuminate\Validation\ValidationException;
 
 class WarehouseObserver
 {
@@ -13,6 +15,12 @@ class WarehouseObserver
 
     public function updating(Warehouse $warehouse)
     {
+        if (!$warehouse->is_default) {
+            $currentDefault = Warehouse::where('id', $warehouse->id)->first();
+            if ($currentDefault->is_default) {
+                throw ValidationException::withMessages(['parent_product_category_id' => 'There should be one default']);
+            }
+        }
         $this->setDefaults($warehouse);
     }
 
@@ -31,7 +39,7 @@ class WarehouseObserver
                 ->first();
             if ($previousDefault) {
                 $previousDefault->is_default = false;
-                $previousDefault->save();
+                $previousDefault->saveQuietly();
             }
         }
     }

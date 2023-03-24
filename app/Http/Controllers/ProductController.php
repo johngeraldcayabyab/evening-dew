@@ -72,7 +72,7 @@ class ProductController extends Controller
             'sales_measurement' => $inventoryDefaultSalesMeasurement,
             'sales_measurement_id' => $inventoryDefaultSalesMeasurement->id,
             'product_category' => $defaultProductCategory,
-            'product_category_id' => $defaultProductCategory ? $defaultProductCategory->id : null,
+            'product_category_id' => $defaultProductCategory->id,
         ];
     }
 

@@ -51,9 +51,8 @@ class ProductCategoryController extends Controller
 
     public function initial_values()
     {
-        $defaultProductCategory = ProductCategory::default();
         return [
-            'parent_product_category_id' => $defaultProductCategory ? $defaultProductCategory->id : null,
+            'parent_product_category_id' => ProductCategory::default()->id,
         ];
     }
 }
