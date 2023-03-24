@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\InvoiceRequest;
 use App\Http\Resources\InvoiceResource;
-use App\Models\GlobalSetting;
+use App\Models\Currency;
 use App\Models\Invoice;
 use App\Models\InvoiceLine;
 use App\Models\Sequence;
@@ -71,8 +71,7 @@ class InvoiceController extends Controller
 
     public function initial_values(Request $request)
     {
-        $settings = GlobalSetting::latestFirst();
-        $defaultCurrency = $settings->accountingDefaultCurrency;
+        $defaultCurrency = Currency::default();
         $initialValues = [
             'number' => Sequence::generateInvoiceSequence(),
             'currency_id' => $defaultCurrency->id,

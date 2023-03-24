@@ -123,14 +123,7 @@ const manifest = {
             tab_pane_3: {
                 name: 'Accounting',
                 row_1: {
-                    col_1: [
-                        {
-                            type: 'select',
-                            name: 'accounting_default_currency_id',
-                            label: 'Default Currency',
-                            query: {url: '/api/currencies', field: 'name'},
-                        },
-                    ],
+                    col_1: [],
                 },
             },
             tab_pane_4: {

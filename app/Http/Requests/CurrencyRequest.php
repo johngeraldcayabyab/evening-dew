@@ -19,6 +19,7 @@ class CurrencyRequest extends FormRequest
             'decimal_places' => ['required'],
             'symbol' => ['required'],
             'symbol_position' => ['required', "in:$symbolPositions"],
+            'is_default' => ['nullable', 'boolean'],
         ];
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\PurchaseValidated;
 use App\Http\Requests\PurchaseRequest;
 use App\Http\Resources\PurchaseResource;
+use App\Models\Currency;
 use App\Models\GlobalSetting;
 use App\Models\Purchase;
 use App\Models\PurchaseLine;
@@ -78,8 +79,7 @@ class PurchaseController extends Controller
 
     public function initial_values(Request $request)
     {
-        $settings = GlobalSetting::latestFirst();
-        $defaultCurrency = $settings->accountingDefaultCurrency;
+        $defaultCurrency = Currency::default();
         $purchaseSequence = Sequence::where('sequence_code', 'purchase.sequence')->first();
         $purchaseSequenceNumber = Sequence::generateSequence($purchaseSequence->id);
         $initialValues = [

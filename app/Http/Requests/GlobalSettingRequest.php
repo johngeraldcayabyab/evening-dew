@@ -16,7 +16,6 @@ class GlobalSettingRequest extends FormRequest
             'inventory_default_scrap_id' => ['nullable', "exists:locations,id"],
             'inventory_auto_validate_draft' => ['nullable', 'boolean'],
             'inventory_compute_product_quantity' => ['nullable', 'boolean'],
-            'accounting_default_currency_id' => ['nullable', "exists:currencies,id"],
             'general_clickable_row' => ['nullable', "boolean"],
             'sales_order_default_delivery_fee_id' => ['nullable', "exists:delivery_fees,id"],
         ];
