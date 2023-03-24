@@ -9,6 +9,137 @@
 			"name": "Sales",
 			"item": [
 				{
+					"name": "Pricelist",
+					"item": [
+						{
+							"name": "Get Pricelists",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"const reponseToken = pm.response.text();\r",
+											"pm.environment.set(\"token\", reponseToken)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/pricelists",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"pricelists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Pricelist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"const reponseToken = pm.response.text();\r",
+											"pm.environment.set(\"token\", reponseToken)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/pricelists/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"pricelists",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Pricelist",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"my_pricelist\",\r\n    \"customer_products\":[\r\n        {\r\n              \"product_id\":1,\r\n              \"unit_price\":100.0\r\n        },\r\n         {\r\n              \"product_id\":2,\r\n              \"unit_price\":100.0\r\n        }\r\n\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/pricelists",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"pricelists"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Get Sales Orders",
 					"event": [
 						{
@@ -52,45 +183,6 @@
 									"key": "selected_fields",
 									"value": "id,number,customer,salesperson,status,source_document,shipping_date,created_at"
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create pricelist",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"my_pricelist\",\r\n    \"customer_products\":[\r\n        {\r\n              \"product_id\":1,\r\n              \"unit_price\":100.0\r\n        }\r\n\r\n    ]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8000/api/pricelists",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"api",
-								"pricelists"
 							]
 						}
 					},
