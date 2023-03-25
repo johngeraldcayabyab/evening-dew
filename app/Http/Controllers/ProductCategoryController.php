@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductCategoryRequest;
 use App\Http\Resources\ProductCategoryResource;
-use App\Models\GlobalSetting;
 use App\Models\ProductCategory;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
@@ -52,9 +51,8 @@ class ProductCategoryController extends Controller
 
     public function initial_values()
     {
-        $inventoryDefaultProductCategory = GlobalSetting::latestFirst()->inventoryDefaultProductCategory;
         return [
-            'parent_product_category_id' => $inventoryDefaultProductCategory->id,
+            'parent_product_category_id' => ProductCategory::default()->id,
         ];
     }
 }

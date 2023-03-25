@@ -1,4 +1,5 @@
 import {DATE_RANGE, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
+import {Tag} from "antd";
 
 const manifest = {
     moduleName: "countries",
@@ -30,6 +31,19 @@ const manifest = {
                 sorter: true,
                 filter: SEARCH,
                 isGlobalSearch: true,
+            },
+            {
+                title: 'Default',
+                dataIndex: 'is_default',
+                key: 'is_default',
+                sorter: true,
+                filter: SEARCH,
+                render: (text, record) => {
+                    if (record.is_default) {
+                        return <Tag color="green">Yes</Tag>
+                    }
+                    return <Tag color="red">No</Tag>
+                }
             },
             {
                 title: 'Created At',
@@ -66,6 +80,11 @@ const manifest = {
                     type: 'text',
                     name: 'country_calling_code',
                     label: 'Country Calling Code',
+                },
+                {
+                    type: 'checkbox',
+                    name: 'is_default',
+                    label: 'Is Default',
                 },
             ]
         }

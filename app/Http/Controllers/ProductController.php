@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
-use App\Models\GlobalSetting;
+use App\Models\Measurement;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -52,11 +53,8 @@ class ProductController extends Controller
 
     public function initial_values()
     {
-        $globalSetting = GlobalSetting::latestFirst();
-        $inventoryDefaultMeasurement = $globalSetting->inventoryDefaultMeasurement;
-        $inventoryDefaultPurchaseMeasurement = $globalSetting->inventoryDefaultPurchaseMeasurement;
-        $inventoryDefaultSalesMeasurement = $globalSetting->inventoryDefaultSalesMeasurement;
-        $inventoryDefaultProductCategory = $globalSetting->inventoryDefaultProductCategory;
+        $defaultMeasurement = Measurement::default();
+        $defaultProductCategory = ProductCategory::default();
         return [
             'product_type' => Product::STORABLE,
             'can_be_sold' => Product::DEFAULT_CAN_BE_SOLD,
@@ -64,14 +62,14 @@ class ProductController extends Controller
             'invoicing_policy' => Product::ORDERED_QUANTITIES,
             'sales_price' => Product::DEFAULT_SALES_PRICE,
             'cost' => Product::DEFAULT_COST,
-            'measurement' => $inventoryDefaultMeasurement,
-            'measurement_id' => $inventoryDefaultMeasurement->id,
-            'purchase_measurement' => $inventoryDefaultPurchaseMeasurement,
-            'purchase_measurement_id' => $inventoryDefaultPurchaseMeasurement->id,
-            'sales_measurement' => $inventoryDefaultSalesMeasurement,
-            'sales_measurement_id' => $inventoryDefaultSalesMeasurement->id,
-            'product_category' => $inventoryDefaultProductCategory,
-            'product_category_id' => $inventoryDefaultProductCategory->id,
+            'measurement' => $defaultMeasurement,
+            'measurement_id' => $defaultMeasurement->id,
+            'purchase_measurement' => $defaultMeasurement,
+            'purchase_measurement_id' => $defaultMeasurement->id,
+            'sales_measurement' => $defaultMeasurement,
+            'sales_measurement_id' => $defaultMeasurement->id,
+            'product_category' => $defaultProductCategory,
+            'product_category_id' => $defaultProductCategory->id,
         ];
     }
 

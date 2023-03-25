@@ -32,6 +32,7 @@ class CreateWarehousesTable extends Migration
             $table->unsignedInteger('picking_before_manufacturing_operation_type_id')->nullable();
             $table->unsignedInteger('manufacturing_operation_type_id')->nullable();
             $table->unsignedInteger('adjustment_operation_type_id')->nullable();
+            $table->boolean('is_default')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

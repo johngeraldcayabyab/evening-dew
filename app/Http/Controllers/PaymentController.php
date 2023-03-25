@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PaymentRequest;
 use App\Http\Resources\PaymentResource;
-use App\Models\GlobalSetting;
+use App\Models\Currency;
 use App\Models\Payment;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
@@ -52,13 +52,11 @@ class PaymentController extends Controller
 
     public function initial_values()
     {
-        $settings = GlobalSetting::latestFirst();
-        $defaultCurrency = $settings->accountingDefaultCurrency;
         return [
             'payment_type' => Payment::SEND_MONEY,
             'partner_type' => Payment::VENDOR,
             'amount' => 0,
-            'currency_id' => $defaultCurrency->id,
+            'currency_id' => Currency::default()->id,
         ];
     }
 }

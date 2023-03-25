@@ -19,6 +19,7 @@ class CountryResource extends JsonResource
             'country_calling_code' => $this->country_calling_code,
             'vat_label' => $this->vat_label,
             'currency' => new CurrencyResource($this->currency),
+            'is_default' => $this->is_default,
             'slug' => $this->$slug,
         ]);
     }

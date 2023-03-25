@@ -7,8 +7,9 @@ use App\Http\Requests\AdjustmentRequest;
 use App\Http\Resources\AdjustmentResource;
 use App\Models\Adjustment;
 use App\Models\AdjustmentLine;
-use App\Models\GlobalSetting;
+use App\Models\ProductCategory;
 use App\Models\Sequence;
+use App\Models\Warehouse;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -78,15 +79,13 @@ class AdjustmentController extends Controller
 
     public function initial_values()
     {
-        $globalSetting = GlobalSetting::latestFirst();
-        $inventoryDefaultWarehouse = $globalSetting->inventoryDefaultWarehouse;
-        $inventoryDefaultProductCategory = $globalSetting->inventoryDefaultProductCategory;
-        $adjustmentOperationType = $inventoryDefaultWarehouse->adjustmentOperationType;
+        $defaultWarehouse = Warehouse::default();
+        $adjustmentOperationType = $defaultWarehouse->adjustmentOperationType;
         return [
             'number' => Sequence::generateSequence($adjustmentOperationType->reference_sequence_id),
             'status' => Adjustment::DRAFT,
-            'warehouse_id' => $inventoryDefaultWarehouse->id,
-            'product_category_id' => $inventoryDefaultProductCategory->id,
+            'warehouse_id' => $defaultWarehouse->id,
+            'product_category_id' => ProductCategory::default()->id,
         ];
     }
 }

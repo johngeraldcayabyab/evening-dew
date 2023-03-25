@@ -18,6 +18,7 @@ class UserResource extends JsonResource
             'avatar' => $this->avatar ? asset("storage/images/" . $this->avatar) : null,
             'contact_id' => $this->contact_id,
             'app_menu_id' => $this->app_menu_id,
+            'general_clickable_row' => $this->general_clickable_row,
             'contact' => new ContactResource($this->contact),
             'app_menu' => new AppMenuResource($this->appMenu),
             'user_group_lines' => UserGroupLineResource::collection($this->userGroupLines),

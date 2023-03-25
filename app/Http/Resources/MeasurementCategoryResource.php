@@ -14,6 +14,7 @@ class MeasurementCategoryResource extends JsonResource
         $slug = $this->slug();
         return $this->defaults($this, $request, [
             'name' => $this->name,
+            'is_default' => $this->is_default,
             'slug' => $this->$slug,
         ]);
     }

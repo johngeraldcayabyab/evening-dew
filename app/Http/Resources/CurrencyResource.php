@@ -21,6 +21,7 @@ class CurrencyResource extends JsonResource
             'decimal_places' => $this->decimal_places,
             'symbol' => $this->symbol,
             'symbol_position' => $this->symbol_position,
+            'is_default' => $this->is_default,
             'slug' => $this->$slug,
         ]);
     }

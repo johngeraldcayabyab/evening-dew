@@ -114,7 +114,7 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
             setFormState(state => ({
                 ...state,
                 loading: false,
-                errors: error
+                errors: error.errors
             }));
         });
     }

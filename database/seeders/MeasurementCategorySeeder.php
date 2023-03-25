@@ -10,7 +10,7 @@ class MeasurementCategorySeeder extends Seeder
     public function run()
     {
         $data = [
-            ['name' => 'Units'],
+            ['name' => 'Units', 'is_default' => true,],
             ['name' => 'Weight'],
         ];
         foreach ($data as $datum) {

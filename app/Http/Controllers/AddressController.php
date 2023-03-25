@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddressRequest;
 use App\Http\Resources\AddressResource;
 use App\Models\Address;
-use App\Models\GlobalSetting;
+use App\Models\Country;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -52,10 +52,10 @@ class AddressController extends Controller
 
     public function initial_values()
     {
-        $generalDefaultCountry = GlobalSetting::latestFirst()->generalDefaultCountry;
+        $defaultCountry = Country::default();
         return [
-            'country' => $generalDefaultCountry,
-            'country_id' => $generalDefaultCountry->id,
+            'country' => $defaultCountry,
+            'country_id' => $defaultCountry->id,
             'type' => Address::OTHERS
         ];
     }

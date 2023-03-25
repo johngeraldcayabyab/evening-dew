@@ -15,7 +15,7 @@ class UserRequest extends FormRequest
             'password' => 'nullable|confirmed|min:6',
             'app_menu_id' => ['nullable', 'exists:app_menus,id'],
             'avatar' => 'nullable',
-
+            'general_clickable_row' => ['nullable', 'boolean'],
             'user_group_lines.*.id' => ['nullable', 'exists:user_group_lines,id'],
             'user_group_lines.*.user_id' => ['required', "exists:users,id"],
             'user_group_lines.*.group_id' => ["required", "exists:groups,id"],

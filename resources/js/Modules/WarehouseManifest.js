@@ -1,4 +1,5 @@
 import {DATE_RANGE, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH, VISIBILITY_CREATED} from "../consts";
+import {Tag} from "antd"
 
 const manifest = {
     moduleName: "warehouses",
@@ -32,6 +33,19 @@ const manifest = {
                 isGlobalSearch: true,
             },
             {
+                title: 'Default',
+                dataIndex: 'is_default',
+                key: 'is_default',
+                sorter: true,
+                filter: SEARCH,
+                render: (text, record) => {
+                    if (record.is_default) {
+                        return <Tag color="green">Yes</Tag>
+                    }
+                    return <Tag color="red">No</Tag>
+                }
+            },
+            {
                 title: 'Created At',
                 dataIndex: 'created_at',
                 key: 'created_at',
@@ -57,6 +71,13 @@ const manifest = {
                     label: 'Short Name',
                     required: true,
                     size: 'medium'
+                },
+            ],
+            col_2: [
+                {
+                    type: 'checkbox',
+                    name: 'is_default',
+                    label: 'Is Default',
                 },
             ]
         },

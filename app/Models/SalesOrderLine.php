@@ -50,9 +50,8 @@ class SalesOrderLine extends Model
 
     public function scopeMassUpsert($query, $data, $parent)
     {
-        $globalSetting = GlobalSetting::latestFirst();
-        $inventoryDefaultMeasurement = $globalSetting->inventoryDefaultMeasurement;
-        $measurementId = $inventoryDefaultMeasurement->id;
+        $defaultMeasurement = Measurement::default();
+        $measurementId = $defaultMeasurement->id;
         $lines = collect($data)->map(function ($datum) use ($measurementId, $parent) {
             $unitPrice = (float)str_replace(',', '', $datum['unit_price']);
             $measurementId = $datum['measurement_id'] ?? $measurementId;

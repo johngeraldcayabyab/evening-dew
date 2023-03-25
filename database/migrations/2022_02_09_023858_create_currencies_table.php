@@ -18,6 +18,7 @@ class CreateCurrenciesTable extends Migration
             $table->integer('decimal_places');
             $table->string('symbol');
             $table->string('symbol_position');
+            $table->boolean('is_default')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

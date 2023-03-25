@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Data\SystemSetting;
-use App\Models\GlobalSetting;
 use App\Models\Location;
 use App\Models\OperationType;
 use App\Models\Sequence;

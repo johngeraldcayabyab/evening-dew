@@ -7,11 +7,10 @@ use App\Events\ContactUpdated;
 use App\Http\Requests\ContactRequest;
 use App\Http\Resources\ContactResource;
 use App\Models\Contact;
-use App\Models\GlobalSetting;
+use App\Models\Country;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Arr;
 
 class ContactController extends Controller
@@ -62,10 +61,10 @@ class ContactController extends Controller
 
     public function initial_values()
     {
-        $generalDefaultCountry = GlobalSetting::latestFirst()->generalDefaultCountry;
+        $defaultCountry = Country::default();
         return [
-            'default_address_country' => $generalDefaultCountry,
-            'country_id' => $generalDefaultCountry->id,
+            'default_address_country' => $defaultCountry,
+            'country_id' => $defaultCountry->id,
         ];
     }
 }

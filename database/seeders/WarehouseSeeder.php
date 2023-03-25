@@ -13,6 +13,7 @@ class WarehouseSeeder extends Seeder
         $warehouse = Warehouse::create([
             "name" => "Warehouse",
             "short_name" => "WH",
+            'is_default' => true,
         ]);
         WarehouseCreated::dispatch($warehouse);
     }

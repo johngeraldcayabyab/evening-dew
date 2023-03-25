@@ -22,7 +22,7 @@ const CustomTable = (props) => {
 
     useEffect(() => {
         return (() => {
-            if (isClickableRow()  && isCreatableAndUpdatable()) {
+            if (isClickableRow() && isCreatableAndUpdatable()) {
                 document.body.style.cursor = "default";
             }
         })
@@ -54,7 +54,7 @@ const CustomTable = (props) => {
             return column;
         });
 
-        if (!isClickableRow()  && isCreatableAndUpdatable()) {
+        if (!isClickableRow() && isCreatableAndUpdatable()) {
             columns.push({
                 className: 'column-actions',
                 dataIndex: 'column_actions',
@@ -198,7 +198,7 @@ const CustomTable = (props) => {
     }
 
     function isClickableRow() {
-        return !!appContext.appState.globalSetting.general_clickable_row;
+        return !!appContext.appState.user.general_clickable_row;
     }
 
     const tableProps = {

@@ -119,6 +119,11 @@ class Warehouse extends Model implements Sluggable
         return $this->belongsTo(OperationType::class, 'adjustment_operation_type_id', 'id');
     }
 
+    public function scopeDefault($query)
+    {
+        return $query->where('is_default', true)->first();
+    }
+
     public function slug()
     {
         return 'name';

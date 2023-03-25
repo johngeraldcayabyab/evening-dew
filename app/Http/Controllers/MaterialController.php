@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MaterialRequest;
 use App\Http\Resources\MaterialResource;
-use App\Models\GlobalSetting;
 use App\Models\Material;
 use App\Models\MaterialLine;
+use App\Models\Measurement;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -70,13 +70,13 @@ class MaterialController extends Controller
 
     public function initial_values()
     {
-        $inventoryDefaultMeasurement = GlobalSetting::latestFirst()->inventoryDefaultMeasurement;
+        $defaultMeasurement = Measurement::default();
         return [
             'quantity' => 1,
-            'measurement_id' => $inventoryDefaultMeasurement->id,
+            'measurement_id' => $defaultMeasurement->id,
             'material_type' => Material::MANUFACTURE_THIS_PRODUCT,
             'flexible_consumption' => Material::ALLOWED_WITH_WARNING,
-            'measurement' => $inventoryDefaultMeasurement,
+            'measurement' => $defaultMeasurement,
         ];
     }
 }
