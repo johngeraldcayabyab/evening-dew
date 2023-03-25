@@ -1,5 +1,4 @@
 import {DATE_RANGE, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
-import {disableIfStatus} from "../Helpers/object";
 
 const manifest = {
     moduleName: "pricelists",
@@ -65,13 +64,13 @@ const manifest = {
                             query: {url: '/api/products', field: 'name'},
                             required: true
                         },
-                        /*
-                        * TODO - disabled field - meausrement id and product category should display
-                        * */
                         {
                             type: 'text',
                             name: 'measurement_id',
-                            required: false
+                            required: false,
+                            handleOnClick: ()=>{
+                                console.log("test handleonclick")
+                            }
                         },
                         {
                             type: 'number',
