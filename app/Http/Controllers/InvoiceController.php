@@ -72,8 +72,10 @@ class InvoiceController extends Controller
     public function initial_values(Request $request)
     {
         $defaultCurrency = Currency::default();
+        $invoiceSequence = Sequence::where('sequence_code', 'invoices.sequence')->first();
+        $invoiceSequenceNumber = Sequence::generateSequence($invoiceSequence->id);
         $initialValues = [
-            'number' => Sequence::generateInvoiceSequence(),
+            'number' => $invoiceSequenceNumber,
             'currency_id' => $defaultCurrency->id,
             'currency' => $defaultCurrency,
             'salesperson_id' => auth()->user()->id,
