@@ -11,7 +11,6 @@ class GlobalSettingResource extends JsonResource
         return [
             'inventory_auto_validate_draft' => $this->inventory_auto_validate_draft,
             'inventory_compute_product_quantity' => $this->inventory_compute_product_quantity,
-            'general_clickable_row' => $this->general_clickable_row,
         ];
     }
 }

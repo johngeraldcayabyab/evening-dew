@@ -21,15 +21,6 @@ const manifest = {
                     orientation: 'left',
                     label: 'Table'
                 },
-                row_2: {
-                    col_1: [
-                        {
-                            type: 'checkbox',
-                            name: 'general_clickable_row',
-                            label: 'Clickable Row',
-                        },
-                    ],
-                },
             },
             tab_pane_2: {
                 name: 'Inventory',

@@ -76,6 +76,11 @@ const manifest = {
                     label: 'App Menu',
                     query: {url: '/api/app_menus', field: 'label'},
                 },
+                {
+                    type: 'checkbox',
+                    name: 'general_clickable_row',
+                    label: 'Clickable Row',
+                }
             ],
             col_2: [
                 {

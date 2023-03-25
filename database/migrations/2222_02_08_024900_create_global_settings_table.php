@@ -12,7 +12,6 @@ class CreateGlobalSettingsTable extends Migration
             $table->id();
             $table->boolean('inventory_auto_validate_draft')->default(false);
             $table->boolean('inventory_compute_product_quantity')->default(false);
-            $table->boolean('general_clickable_row')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });

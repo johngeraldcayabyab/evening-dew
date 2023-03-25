@@ -11,7 +11,6 @@ class GlobalSettingRequest extends FormRequest
         return [
             'inventory_auto_validate_draft' => ['nullable', 'boolean'],
             'inventory_compute_product_quantity' => ['nullable', 'boolean'],
-            'general_clickable_row' => ['nullable', "boolean"],
         ];
     }
 }
