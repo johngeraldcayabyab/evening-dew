@@ -144,6 +144,10 @@ class AppMenuSeeder extends Seeder
                         'menu_key' => 'Invoices',
                         'children' => [
                             [
+                                'label' => 'Bills',
+                                'menu_key' => 'Bills',
+                            ],
+                            [
                                 'label' => 'Invoices',
                                 'menu_key' => 'Invoices',
                             ],

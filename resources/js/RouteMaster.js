@@ -42,6 +42,7 @@ import Invoice from "./Modules/InvoiceManifest"
 import Payment from "./Modules/PaymentManifest"
 import ChartOfAccount from "./Modules/ChartOfAccountManifest";
 import Pricelist from "./Modules/PricelistManifest";
+import Bill from "./Modules/BillManifest";
 import {HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE} from "./consts"
 
 const RouteMaster = () => {
@@ -52,6 +53,7 @@ const RouteMaster = () => {
         Adjustment,
         AppMenu,
         Bank,
+        Bill,
         BankAccount,
         ChartOfAccount,
         City,
