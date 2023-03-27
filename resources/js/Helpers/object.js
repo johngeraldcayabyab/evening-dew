@@ -14,16 +14,6 @@ export const objectHasValue = (obj) => {
     return obj && Object.keys(obj).length;
 }
 
-export const loopThroughObjRecurs = (obj, propExec) => {
-    for (const k in obj) {
-        if (typeof obj[k] === 'object' && obj[k] !== null) {
-            loopThroughObjRecurs(obj[k], propExec)
-        } else if (obj.hasOwnProperty(k)) {
-            propExec(k, obj[k], obj)
-        }
-    }
-}
-
 export const formatInitialValuesDatetimeToMoment = (obj) => {
     for (let k in obj) {
         if (typeof obj[k] == "object" && obj[k] !== null)
