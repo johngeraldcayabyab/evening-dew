@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\SystemSetting;
 use App\Http\Requests\BillRequest;
 use App\Http\Resources\BillResource;
 use App\Models\Bill;
@@ -75,12 +76,14 @@ class BillController extends Controller
         $defaultCurrency = Currency::default();
         $billSequence = Sequence::where('sequence_code', 'bills.sequence')->first();
         $billSequenceNumber = Sequence::generateSequence($billSequence->id);
+        $dateNow = now()->format(SystemSetting::DATE_TIME_FORMAT);
         $initialValues = [
             'number' => $billSequenceNumber,
             'currency_id' => $defaultCurrency->id,
             'currency' => $defaultCurrency,
-            'salesperson_id' => auth()->user()->id,
-            'salesperson' => auth()->user(),
+            'bill_date' => $dateNow,
+            'accounting_date' => $dateNow,
+            'due_date' => $dateNow,
             'status' => Bill::DRAFT,
             'journal_id' => Journal::where('type', Journal::PURCHASE)->first()->id,
         ];

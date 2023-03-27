@@ -305,6 +305,13 @@ const manifest = {
                 row_1: {
                     col_1: [
                         {
+                            type: 'select',
+                            name: 'currency_id',
+                            label: 'Currencies',
+                            query: {url: '/api/currencies', field: 'name'},
+                            required: true,
+                        },
+                        {
                             type: 'checkbox',
                             name: 'post_automatically',
                             label: 'Post Automatically',

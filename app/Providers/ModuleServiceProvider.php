@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Address;
 use App\Models\Adjustment;
+use App\Models\Bill;
 use App\Models\Contact;
 use App\Models\Country;
 use App\Models\Currency;
@@ -22,6 +23,7 @@ use App\Models\User;
 use App\Models\Warehouse;
 use App\Observers\AddressObserver;
 use App\Observers\AdjustmentObserver;
+use App\Observers\BillObserver;
 use App\Observers\ContactObserver;
 use App\Observers\CountryObserver;
 use App\Observers\CurrencyObserver;
@@ -51,6 +53,7 @@ class ModuleServiceProvider extends ServiceProvider
     {
         Address::observe(AddressObserver::class);
         Adjustment::observe(AdjustmentObserver::class);
+        Bill::observe(BillObserver::class);
         Contact::observe(ContactObserver::class);
         Country::observe(CountryObserver::class);
         Currency::observe(CurrencyObserver::class);
