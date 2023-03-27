@@ -238,7 +238,7 @@ const manifest = {
             tab_pane_1: {
                 name: "Order Lines",
                 form_line_1: {
-                    columns: ['Product', 'Description', 'Quantity', 'Unit Price', 'Subtotal'],
+                    columns: ['Product', 'Description', 'Quantity', 'Unit Price', 'Account', 'Subtotal'],
                     listName: 'invoice_lines',
                     fields: [
                         {
@@ -270,6 +270,15 @@ const manifest = {
                             name: 'unit_price',
                             placeholder: 'Unit Price',
                             required: true,
+                        },
+                        {
+                            type: 'select',
+                            name: 'chart_of_account_id',
+                            placeholder: 'Chart Of Account',
+                            query: {url: '/api/chart_of_accounts', field: 'name'},
+                            overrideDisabled: (formContext) => {
+                                return disableIfStatus(formContext.formState, 'done')
+                            }
                         },
                         {
                             type: 'number',

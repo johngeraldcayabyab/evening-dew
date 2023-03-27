@@ -75,6 +75,7 @@ class BillController extends Controller
     {
         $defaultCurrency = Currency::default();
         $billSequence = Sequence::where('sequence_code', 'bills.sequence')->first();
+        $defaultJournal = Journal::where('type', Journal::PURCHASE)->first();
         $billSequenceNumber = Sequence::generateSequence($billSequence->id);
         $dateNow = now()->format(SystemSetting::DATE_TIME_FORMAT);
         $initialValues = [
@@ -84,7 +85,8 @@ class BillController extends Controller
             'bill_date' => $dateNow,
             'accounting_date' => $dateNow,
             'status' => Bill::DRAFT,
-            'journal_id' => Journal::where('type', Journal::PURCHASE)->first()->id,
+            'journal_id' => $defaultJournal->id,
+            'journal' => $defaultJournal,
         ];
         return $initialValues;
     }

@@ -30,6 +30,7 @@ class InvoiceRequest extends FormRequest
             'invoice_lines.*.description' => ['nullable'],
             'invoice_lines.*.quantity' => ['required', 'numeric'],
             'invoice_lines.*.unit_price' => ['required', 'numeric'],
+            'invoice_lines.*.chart_of_account_id' => ['nullable', 'exists:chart_of_accounts,id'],
             'invoice_lines_deleted.*.id' => ['nullable', 'exists:invoice_lines,id'],
         ];
     }

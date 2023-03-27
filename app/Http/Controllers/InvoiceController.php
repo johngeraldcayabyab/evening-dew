@@ -75,6 +75,7 @@ class InvoiceController extends Controller
         $defaultCurrency = Currency::default();
         $invoiceSequence = Sequence::where('sequence_code', 'invoices.sequence')->first();
         $invoiceSequenceNumber = Sequence::generateSequence($invoiceSequence->id);
+        $defaultJournal = Journal::where('type', Journal::SALES)->first();
         $initialValues = [
             'number' => $invoiceSequenceNumber,
             'currency_id' => $defaultCurrency->id,
@@ -82,7 +83,8 @@ class InvoiceController extends Controller
             'salesperson_id' => auth()->user()->id,
             'salesperson' => auth()->user(),
             'status' => Invoice::DRAFT,
-            'journal_id' => Journal::where('type', Journal::SALES)->first()->id,
+            'journal_id' => $defaultJournal->id,
+            'journal' => $defaultJournal
         ];
         return $initialValues;
     }
