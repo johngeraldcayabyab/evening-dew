@@ -15,6 +15,7 @@ import FormItems from "./FormItems"
 import FormLinks from "../FormLinks";
 import useFetchHook from "../../Hooks/useFetchHook"
 import StatusBar from "../StatusBar"
+import {loopThroughObjRecurs} from "../../Helpers/object"
 
 const FormGenerator = (manifest) => {
     let {id} = useParams();
@@ -23,7 +24,7 @@ const FormGenerator = (manifest) => {
     const useFetch = useFetchHook();
     const [state, setState] = useState(manifest.initialState);
 
-    const urlQueries = [];
+
     const options = {};
 
     function getTabPaneItemQuery(tab, tabKey, tabPaneKey) {
@@ -100,7 +101,17 @@ const FormGenerator = (manifest) => {
         }
     }
 
-    urlQueries.forEach((field) => {
+    let customQueries = [];
+
+    loopThroughObjRecurs(manifest.form, (key, value, object) => {
+        if (object.hasOwnProperty('query')) {
+            customQueries.push(object);
+        }
+    });
+
+    customQueries = customQueries.filter((value, index, self) => index === self.findIndex((t) => (t.place === value.place && t.name === value.name)));
+
+    customQueries.forEach((field) => {
         const tableField = field.name.replace('_id', '');
         if (field.hasOwnProperty('listName')) {
             options[`${field.name}-lineOptions`] = useOptionLineHook(field.query.url, `${tableField}.${field.query.field}`, field.listName);
@@ -108,6 +119,7 @@ const FormGenerator = (manifest) => {
             options[`${field.name}-options`] = useOptionHook(field.query.url, `${tableField}.${field.query.field}`);
         }
     });
+
 
     useEffect(() => {
         for (const option in options) {
@@ -132,24 +144,22 @@ const FormGenerator = (manifest) => {
         formContextProviderValues['onValuesChange'] = manifest.form.onValuesChange;
     }
 
-    return (
-        <FormContextProvider
-            value={formContextProviderValues}
-        >
-            <CustomForm>
-                <ControlPanel
-                    topColOneLeft={<CustomBreadcrumb/>}
-                    bottomColOneLeft={<FormButtons/>}
-                    bottomColTwoRight={<NextPreviousRecord/>}
-                />
-                {manifest.statuses && <StatusBar/>}
-                <FormCard>
-                    {manifest.formLinks && <FormLinks/>}
-                    <FormItems/>
-                </FormCard>
-            </CustomForm>
-        </FormContextProvider>
-    );
+    return (<FormContextProvider
+        value={formContextProviderValues}
+    >
+        <CustomForm>
+            <ControlPanel
+                topColOneLeft={<CustomBreadcrumb/>}
+                bottomColOneLeft={<FormButtons/>}
+                bottomColTwoRight={<NextPreviousRecord/>}
+            />
+            {manifest.statuses && <StatusBar/>}
+            <FormCard>
+                {manifest.formLinks && <FormLinks/>}
+                <FormItems/>
+            </FormCard>
+        </CustomForm>
+    </FormContextProvider>);
 };
 
 export default FormGenerator;
