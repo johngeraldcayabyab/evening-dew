@@ -35,7 +35,7 @@ class BillResource extends JsonResource
             'payment_term' => $this->payment_term,
             'journal' => $this->journal,
             'currency' => $this->currency,
-//            'invoice_lines' => InvoiceLineResource::collection($this->invoicelines),
+            'bill_lines' => BillLineResource::collection($this->billLines),
             'slug' => $this->$slug,
         ]);
     }

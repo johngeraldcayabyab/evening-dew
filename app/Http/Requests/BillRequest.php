@@ -27,6 +27,13 @@ class BillRequest extends FormRequest
             'to_check' => ['nullable', 'boolean'],
             'status' => ['nullable', "in:$statuses"],
             'terms_and_conditions' => ['nullable', 'string'],
+            'bill_lines.*.id' => ['nullable', 'exists:bill_lines,id'],
+            'bill_lines.*.product_id' => ['required', "exists:products,id"],
+            'bill_lines.*.description' => ['nullable'],
+            'bill_lines.*.quantity' => ['required', 'numeric'],
+            'bill_lines.*.unit_price' => ['required', 'numeric'],
+            'bill_lines.*.chart_of_account_id' => ['nullable', 'exists:chart_of_accounts,id'],
+            'bill_lines_deleted.*.id' => ['nullable', 'exists:bill_lines,id'],
         ];
     }
 }

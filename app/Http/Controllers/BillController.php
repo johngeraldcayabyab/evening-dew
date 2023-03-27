@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BillRequest;
 use App\Http\Resources\BillResource;
 use App\Models\Bill;
+use App\Models\BillLine;
 use App\Models\Currency;
 use App\Models\Journal;
 use App\Models\Sequence;
@@ -37,7 +38,7 @@ class BillController extends Controller
         $bill = Bill::create($billData);
         if (isset($data['bill_lines'])) {
             $billLinesData = $data['bill_lines'];
-//            BillLine::massUpsert($billLinesData, $bill);
+            BillLine::massUpsert($billLinesData, $bill);
         }
         return $this->responseCreate($bill);
     }
@@ -49,10 +50,10 @@ class BillController extends Controller
         $bill->update($billData);
         if (isset($data['bill_lines'])) {
             $billLinesData = $data['bill_lines'];
-//            BillLine::massUpsert($billLinesData, $bill);
+            BillLine::massUpsert($billLinesData, $bill);
         }
         if (isset($data['bill_lines_deleted'])) {
-//            BillLine::massDelete(collect($data['bill_lines_deleted'])->pluck('id'));
+            BillLine::massDelete(collect($data['bill_lines_deleted'])->pluck('id'));
         }
         return $this->responseUpdate();
     }

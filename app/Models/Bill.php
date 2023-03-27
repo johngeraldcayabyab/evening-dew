@@ -63,10 +63,10 @@ class Bill extends Model implements Sluggable
         return $this->belongsTo(Currency::class);
     }
 
-//    public function invoiceLines()
-//    {
-//        return $this->hasMany(InvoiceLine::class);
-//    }
+    public function billLines()
+    {
+        return $this->hasMany(BillLine::class);
+    }
 
     public function slug()
     {

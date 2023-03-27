@@ -247,49 +247,58 @@ const manifest = {
         tab_1: {
             defaultActiveKey: 'tab_pane_2',
             tab_pane_1: {
-                name: "Order Lines",
-                // form_line_1: {
-                //     columns: ['Product', 'Description', 'Quantity', 'Unit Price', 'Subtotal'],
-                //     listName: 'invoice_lines',
-                //     fields: [
-                //         {
-                //             type: 'select',
-                //             name: 'product_id',
-                //             placeholder: 'Product',
-                //             query: {url: '/api/products', field: 'name'},
-                //             required: true,
-                //             overrideDisabled: (formContext) => {
-                //                 return disableIfStatus(formContext.formState, 'done')
-                //             }
-                //         },
-                //         {
-                //             type: 'text',
-                //             name: 'description',
-                //             placeholder: 'Description',
-                //         },
-                //         {
-                //             type: 'number',
-                //             name: 'quantity',
-                //             placeholder: 'Quantity',
-                //             required: true,
-                //             overrideDisabled: (formContext) => {
-                //                 return disableIfStatus(formContext.formState, 'done')
-                //             }
-                //         },
-                //         {
-                //             type: 'number',
-                //             name: 'unit_price',
-                //             placeholder: 'Unit Price',
-                //             required: true,
-                //         },
-                //         {
-                //             type: 'number',
-                //             name: 'subtotal',
-                //             placeholder: 'Subtotal',
-                //             overrideDisabled: true,
-                //         },
-                //     ]
-                // },
+                name: "Bill Lines",
+                form_line_1: {
+                    columns: ['Product', 'Description', 'Quantity', 'Unit Price', 'Account', 'Subtotal'],
+                    listName: 'bill_lines',
+                    fields: [
+                        {
+                            type: 'select',
+                            name: 'product_id',
+                            placeholder: 'Product',
+                            query: {url: '/api/products', field: 'name'},
+                            required: true,
+                            overrideDisabled: (formContext) => {
+                                return disableIfStatus(formContext.formState, 'done')
+                            }
+                        },
+                        {
+                            type: 'text',
+                            name: 'description',
+                            placeholder: 'Description',
+                        },
+                        {
+                            type: 'number',
+                            name: 'quantity',
+                            placeholder: 'Quantity',
+                            required: true,
+                            overrideDisabled: (formContext) => {
+                                return disableIfStatus(formContext.formState, 'done')
+                            }
+                        },
+                        {
+                            type: 'number',
+                            name: 'unit_price',
+                            placeholder: 'Unit Price',
+                            required: true,
+                        },
+                        {
+                            type: 'select',
+                            name: 'chart_of_account_id',
+                            placeholder: 'Chart Of Account',
+                            query: {url: '/api/chart_of_accounts', field: 'name'},
+                            overrideDisabled: (formContext) => {
+                                return disableIfStatus(formContext.formState, 'done')
+                            }
+                        },
+                        {
+                            type: 'number',
+                            name: 'subtotal',
+                            placeholder: 'Subtotal',
+                            overrideDisabled: true,
+                        },
+                    ]
+                },
             },
             tab_pane_2: {
                 name: "Other Information",
