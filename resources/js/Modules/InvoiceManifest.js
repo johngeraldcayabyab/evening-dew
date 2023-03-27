@@ -225,6 +225,12 @@ const manifest = {
                     label: 'Or Payment Term',
                     query: {url: '/api/payment_terms', field: 'name'},
                 },
+                {
+                    type: 'select',
+                    name: 'journal_id',
+                    label: 'Journal',
+                    query: {url: '/api/journals', field: 'name'},
+                },
             ],
         },
         tab_1: {

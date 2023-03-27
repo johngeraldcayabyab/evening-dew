@@ -16,6 +16,7 @@ class CreateInvoicesTable extends Migration
             $table->dateTime('invoice_date')->nullable();
             $table->dateTime('due_date')->nullable();
             $table->unsignedInteger('payment_term_id')->nullable();
+            $table->unsignedInteger('journal_id')->nullable();
             $table->unsignedInteger('currency_id')->nullable();
             $table->string('customer_reference')->nullable();
             $table->unsignedInteger('salesperson_id')->nullable();

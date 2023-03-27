@@ -83,7 +83,6 @@ class BillController extends Controller
             'currency' => $defaultCurrency,
             'bill_date' => $dateNow,
             'accounting_date' => $dateNow,
-            'due_date' => $dateNow,
             'status' => Bill::DRAFT,
             'journal_id' => Journal::where('type', Journal::PURCHASE)->first()->id,
         ];

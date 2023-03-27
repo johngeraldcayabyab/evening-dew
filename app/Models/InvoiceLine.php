@@ -40,9 +40,10 @@ class InvoiceLine extends Model
         return $this->belongsTo(Invoice::class);
     }
 
-    public function scopeMassUpsert($query, $data, $parent)
+    public function scopeMassUpsert($query, $data, $invoice)
     {
-        $lines = collect($data)->map(function ($datum) use ($parent) {
+        $incomeAccount = $invoice->journal->incomeChartOfAccount;
+        $lines = collect($data)->map(function ($datum) use ($invoice, $incomeAccount) {
             $unitPrice = (float)str_replace(',', '', $datum['unit_price']);
             return [
                 'id' => $datum['id'] ?? null,
@@ -51,7 +52,8 @@ class InvoiceLine extends Model
                 'quantity' => $datum['quantity'],
                 'unit_price' => $unitPrice,
                 'subtotal' => $unitPrice * $datum['quantity'],
-                'invoice_id' => $parent->id,
+                'chart_of_account_id' => $datum['chart_of_account_id'] ?? $incomeAccount->id,
+                'invoice_id' => $invoice->id,
             ];
         })->toArray();
         $query->upsert($lines, ['id']);

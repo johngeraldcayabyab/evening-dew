@@ -17,6 +17,7 @@ class InvoiceRequest extends FormRequest
             'invoice_date' => ['nullable'],
             'due_date' => ['nullable'],
             'payment_term_id' => ['nullable', "exists:payment_terms,id"],
+            'journal_id' => ['required', "exists:journals,id"],
             'currency_id' => ['nullable', "exists:currencies,id"],
             'customer_reference' => ['nullable'],
             'salesperson_id' => ['nullable', 'exists:users,id'],

@@ -7,6 +7,7 @@ use App\Http\Resources\InvoiceResource;
 use App\Models\Currency;
 use App\Models\Invoice;
 use App\Models\InvoiceLine;
+use App\Models\Journal;
 use App\Models\Sequence;
 use App\Traits\ControllerHelperTrait;
 use Illuminate\Http\JsonResponse;
@@ -81,6 +82,7 @@ class InvoiceController extends Controller
             'salesperson_id' => auth()->user()->id,
             'salesperson' => auth()->user(),
             'status' => Invoice::DRAFT,
+            'journal_id' => Journal::where('type', Journal::SALES)->first()->id,
         ];
         return $initialValues;
     }

@@ -58,6 +58,11 @@ class Invoice extends Model implements Sluggable
         return $this->belongsTo(Bank::class);
     }
 
+    public function journal()
+    {
+        return $this->belongsTo(Journal::class);
+    }
+
     public function invoiceLines()
     {
         return $this->hasMany(InvoiceLine::class);
