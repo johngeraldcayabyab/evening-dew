@@ -17,13 +17,16 @@ function resetBreadcrumbs(url) {
     let splitPathName = url.split('/');
     setClickedBreadcrumb({});
     setBreadcrumbs([{
-        key: uuidv4(), slug: titleCase(replaceUnderscoreWithSpace(splitPathName[1])), link: url
+        key: uuidv4(),
+        slug: titleCase(replaceUnderscoreWithSpace(splitPathName[1])),
+        link: url
     }]);
 }
 
 const CustomMenu = () => {
     const location = useLocation();
     const appContext = useContext(AppContext);
+    const appState = appContext.appState;
     const useFetch = useFetchHook();
     const [state, setState] = useState({
         loading: true,
@@ -63,8 +66,8 @@ const CustomMenu = () => {
     }
 
     useEffect(() => {
-        if (appContext.appState.isLogin && !appContext.appState.appInitialLoad) {
-            const appMenu = appContext.appState.user.app_menu.children;
+        if (appState.isLogin && !appState.appInitialLoad) {
+            const appMenu = appState.user.app_menu.children;
             const pathname = location.pathname;
             const index = getRootIndex(appMenu, pathname);
             let appMenuChildren = appMenu[index];
@@ -78,7 +81,7 @@ const CustomMenu = () => {
                 appMenuChildren: appMenuChildren,
             }));
         }
-    }, [appContext.appState.isLogin, appContext.appState.appInitialLoad]);
+    }, [appState.isLogin, appState.appInitialLoad]);
 
     function onLogout() {
         useFetch('/api/logout', POST).then((response) => {
@@ -151,7 +154,8 @@ const CustomMenu = () => {
         icon: <AvatarUser/>,
         className: 'top-nav-avatar',
         children: [{
-            label: 'Logout', onClick: () => {
+            label: 'Logout',
+            onClick: () => {
                 onLogout()
             }
         },]
