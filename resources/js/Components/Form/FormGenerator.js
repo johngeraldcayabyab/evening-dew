@@ -24,39 +24,14 @@ const FormGenerator = (manifest) => {
     const useFetch = useFetchHook();
     const [state, setState] = useState(manifest.initialState);
 
-    for (let itemKey of Object.keys(manifest.form)) {
-        const item = manifest.form[itemKey];
-        if (itemKey.includes('tab')) {
-            getTabQuery(item, itemKey);
-        }
-    }
-
-    function getTabQuery(tab, tabKey) {
-        getTabPaneQuery(tab, tabKey);
-    }
-
-    function getTabPaneQuery(tab, tabKey) {
-        for (let tabPaneKey of Object.keys(tab)) {
-            if (tabPaneKey.includes('tab_pane')) {
-                getTabPaneItemQuery(tab, tabKey, tabPaneKey);
-            }
-        }
-    }
-
-    function getTabPaneItemQuery(tab, tabKey, tabPaneKey) {
-        for (let tabPaneItem of Object.keys(tab[tabPaneKey])) {
-            if (tabPaneItem.includes('form_line')) {
-                tab[tabPaneKey][tabPaneItem].fields.map((lineField) => {
-                    console.log(lineField, tab[tabPaneKey][tabPaneItem].listName);
-                    lineField['listName'] = tab[tabPaneKey][tabPaneItem].listName;
-                });
-            }
-        }
-    }
-
     let customQueries = [];
     const options = {};
     loopThroughObjRecurs(manifest.form, (key, value, object) => {
+        if (object.hasOwnProperty('fields')) {
+            object.fields.map((lineField) => {
+                lineField['listName'] = object.listName;
+            });
+        }
         if (object.hasOwnProperty('query')) {
             customQueries.push(object);
         }
@@ -70,7 +45,6 @@ const FormGenerator = (manifest) => {
             options[`${field.name}-options`] = useOptionHook(field.query.url, `${fieldName}.${field.query.field}`);
         }
     });
-
 
     useEffect(() => {
         for (const option in options) {
