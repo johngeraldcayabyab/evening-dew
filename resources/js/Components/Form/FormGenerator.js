@@ -24,22 +24,15 @@ const FormGenerator = (manifest) => {
     const useFetch = useFetchHook();
     const [state, setState] = useState(manifest.initialState);
 
-
-    const options = {};
-
-    function getTabPaneItemQuery(tab, tabKey, tabPaneKey) {
-        for (let tabPaneItem of Object.keys(tab[tabPaneKey])) {
-            if (tabPaneItem.includes('row')) {
-                getRowQuery(tab[tabPaneKey][tabPaneItem]);
-            }
-            if (tabPaneItem.includes('form_line')) {
-                const lineFields = tab[tabPaneKey][tabPaneItem].fields.map((lineField) => {
-                    lineField['listName'] = tab[tabPaneKey][tabPaneItem].listName;
-                    return lineField;
-                });
-                getLineQuery(lineFields);
-            }
+    for (let itemKey of Object.keys(manifest.form)) {
+        const item = manifest.form[itemKey];
+        if (itemKey.includes('tab')) {
+            getTabQuery(item, itemKey);
         }
+    }
+
+    function getTabQuery(tab, tabKey) {
+        getTabPaneQuery(tab, tabKey);
     }
 
     function getTabPaneQuery(tab, tabKey) {
@@ -50,73 +43,31 @@ const FormGenerator = (manifest) => {
         }
     }
 
-    function getTabQuery(tab, tabKey) {
-        getTabPaneQuery(tab, tabKey);
-    }
-
-    function getFieldQuery(fields) {
-        if (!Array.isArray(fields)) {
-            return;
-        }
-        fields.map((field) => {
-            if (field.hasOwnProperty('query')) {
-                urlQueries.push(field);
+    function getTabPaneItemQuery(tab, tabKey, tabPaneKey) {
+        for (let tabPaneItem of Object.keys(tab[tabPaneKey])) {
+            if (tabPaneItem.includes('form_line')) {
+                tab[tabPaneKey][tabPaneItem].fields.map((lineField) => {
+                    console.log(lineField, tab[tabPaneKey][tabPaneItem].listName);
+                    lineField['listName'] = tab[tabPaneKey][tabPaneItem].listName;
+                });
             }
-        });
-    }
-
-    function getColumnQuery(row) {
-        for (let columnKey of Object.keys(row)) {
-            const fields = row[columnKey];
-            getFieldQuery(fields);
-        }
-    }
-
-    function getRowQuery(row) {
-        getColumnQuery(row);
-    }
-
-    function getLineQuery(fields) {
-        fields.map((field) => {
-            if (field.hasOwnProperty('query')) {
-                urlQueries.push(field);
-            }
-        });
-    }
-
-    for (let itemKey of Object.keys(manifest.form)) {
-        const item = manifest.form[itemKey];
-        if (itemKey.includes('row')) {
-            getRowQuery(item);
-        }
-        if (itemKey.includes('tab')) {
-            getTabQuery(item, itemKey);
-        }
-        if (itemKey.includes('line')) {
-            const lineFields = item.fields.map((lineField) => {
-                lineField['listName'] = item.listName;
-                return lineField;
-            });
-            getLineQuery(lineFields);
         }
     }
 
     let customQueries = [];
-
+    const options = {};
     loopThroughObjRecurs(manifest.form, (key, value, object) => {
         if (object.hasOwnProperty('query')) {
             customQueries.push(object);
         }
     });
-
     customQueries = customQueries.filter((value, index, self) => index === self.findIndex((t) => (t.place === value.place && t.name === value.name)));
-
     customQueries.forEach((field) => {
-        const tableField = field.name.replace('_id', '');
+        const fieldName = field.name.replace('_id', '');
         if (field.hasOwnProperty('listName')) {
-            options[`${field.name}-lineOptions`] = useOptionLineHook(field.query.url, `${tableField}.${field.query.field}`, field.listName);
+            options[`${field.name}-lineOptions`] = useOptionLineHook(field.query.url, `${fieldName}.${field.query.field}`, field.listName);
         } else {
-            options[`${field.name}-options`] = useOptionHook(field.query.url, `${tableField}.${field.query.field}`);
+            options[`${field.name}-options`] = useOptionHook(field.query.url, `${fieldName}.${field.query.field}`);
         }
     });
 
