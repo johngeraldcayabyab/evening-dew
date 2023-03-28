@@ -1,4 +1,4 @@
-import {DATE_RANGE, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
+import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 
 const manifest = {
     moduleName: "pricelists",
@@ -62,15 +62,22 @@ const manifest = {
                             name: 'product_id',
                             placeholder: 'Product',
                             query: {url: '/api/products', field: 'name'},
-                            required: true
+                            required: true,
+                            handleOnChange: (formContext)=>{
+
+                                return (productId)=>{
+
+                                    formContext.useFetch(`/api/measurements/${productId}`, GET).then((response) => {
+
+                                    });
+                                }
+
+                            }
                         },
                         {
                             type: 'text',
                             name: 'measurement_id',
-                            required: false,
-                            handleOnClick: ()=>{
-                                console.log("test handleonclick")
-                            }
+                            required: false
                         },
                         {
                             type: 'number',

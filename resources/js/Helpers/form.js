@@ -72,7 +72,7 @@ export const formItemFieldProps = (props, specialFieldProps = {}) => {
         eventHandler = eventHandler[0].toLowerCase() + eventHandler.substring(1,eventHandler.length);
         //Do not override synthetic events if automatically added by antd
         if(!fieldProps.hasOwnProperty(eventHandler)){
-            fieldProps[eventHandler]=eventHandlers[key];
+            fieldProps[eventHandler]=eventHandlers[key](formContext);
         }
 
     })
