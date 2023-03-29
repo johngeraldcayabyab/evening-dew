@@ -29,7 +29,7 @@ export const formItemFieldProps = (props, specialFieldProps = {}) => {
     }
 
     const fieldProps = {
-        disabled: formState.formDisabled,
+        disabled: props.disabled || formState.formDisabled,
         size: props.size ? props.size : 'small',
         placeholder: props.placeholder ? props.placeholder : null,
         ...specialFieldProps
@@ -76,7 +76,6 @@ export const formItemFieldProps = (props, specialFieldProps = {}) => {
         }
 
     })
-
 
     return [formItemProps, fieldProps];
 };

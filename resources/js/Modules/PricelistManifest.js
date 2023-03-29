@@ -1,4 +1,5 @@
 import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
+import {isLineFieldExecute} from "../Helpers/form";
 
 const manifest = {
     moduleName: "pricelists",
@@ -37,6 +38,26 @@ const manifest = {
         initialValue: false,
         onValuesChange: (changedValues, allValues, formContext) => {
 
+            isLineFieldExecute(changedValues,allValues,"customer_products","product_id",(line,allValues)=>{
+
+                formContext.useFetch(`/api/measurements/${line.product_id}`, GET).then((response) => {
+                    const customerProducts = allValues.customer_products;
+                    customerProducts[line.key] = {
+                        ...customerProducts[line.key],
+                        measurement_name: response.name
+                    };
+
+                    formContext.form.setFieldsValue({
+                        customer_products: customerProducts
+                    });
+
+                });
+
+            })
+
+
+
+
         },
         row_1: {
             col_1: [
@@ -62,22 +83,13 @@ const manifest = {
                             name: 'product_id',
                             placeholder: 'Product',
                             query: {url: '/api/products', field: 'name'},
-                            required: true,
-                            handleOnChange: (formContext)=>{
-
-                                return (productId)=>{
-
-                                    formContext.useFetch(`/api/measurements/${productId}`, GET).then((response) => {
-
-                                    });
-                                }
-
-                            }
+                            required: true
                         },
                         {
                             type: 'text',
-                            name: 'measurement_id',
-                            required: false
+                            name: 'measurement_name',
+                            required: false,
+                            disabled:true
                         },
                         {
                             type: 'number',
