@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 class SalesOrderLine extends Model
 {
@@ -20,7 +19,6 @@ class SalesOrderLine extends Model
     use SoftDeletes;
     use BroadcastsEvents;
     use FilterTrait;
-    use LogsActivity;
     use ModelHelperTrait;
     use NextAndPreviousRecordTrait;
 

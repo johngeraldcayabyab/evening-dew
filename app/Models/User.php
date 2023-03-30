@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable implements Sluggable
 {
@@ -22,7 +21,6 @@ class User extends Authenticatable implements Sluggable
     use SoftDeletes;
     use BroadcastsEvents;
     use FilterTrait;
-    use LogsActivity;
     use ModelHelperTrait;
     use NextAndPreviousRecordTrait;
 

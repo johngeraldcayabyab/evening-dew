@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 class PricelistProduct extends Model
 {
@@ -17,7 +16,6 @@ class PricelistProduct extends Model
     use SoftDeletes;
     use BroadcastsEvents;
     use FilterTrait;
-    use LogsActivity;
     use ModelHelperTrait;
     use NextAndPreviousRecordTrait;
 
@@ -30,5 +28,4 @@ class PricelistProduct extends Model
     {
         return $this->belongsTo(Pricelist::class);
     }
-
 }

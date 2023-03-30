@@ -9,8 +9,6 @@ use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Activitylog\Traits\LogsActivity;
-
 
 class Pricelist extends Model implements Sluggable
 {
@@ -19,7 +17,6 @@ class Pricelist extends Model implements Sluggable
     use SoftDeletes;
     use BroadcastsEvents;
     use FilterTrait;
-    use LogsActivity;
     use ModelHelperTrait;
     use NextAndPreviousRecordTrait;
 
@@ -28,6 +25,7 @@ class Pricelist extends Model implements Sluggable
     protected $fillable = ['name'];
 
     protected static $logAttributes = ['*'];
+
     public function products()
     {
         return $this->hasMany(PricelistProduct::class);
