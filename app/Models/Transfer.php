@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Contracts\Sluggable;
+use App\Traits\AutoLogTrait;
 use App\Traits\FilterTrait;
 use App\Traits\ModelHelperTrait;
 use App\Traits\NextAndPreviousRecordTrait;
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transfer extends Model implements Sluggable
 {
+    use AutoLogTrait;
     use HasFactory;
     use SoftDeletes;
     use BroadcastsEvents;

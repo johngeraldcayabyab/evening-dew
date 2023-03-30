@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Contracts\Sluggable;
+use App\Traits\AutoLogTrait;
 use App\Traits\FilterTrait;
 use App\Traits\HierarchyTrait;
 use App\Traits\ModelHelperTrait;
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Location extends Model implements Sluggable
 {
+    use AutoLogTrait;
     use HasFactory;
     use SoftDeletes;
     use BroadcastsEvents;

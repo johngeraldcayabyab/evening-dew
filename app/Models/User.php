@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Contracts\Sluggable;
+use App\Traits\AutoLogTrait;
 use App\Traits\FilterTrait;
 use App\Traits\ModelHelperTrait;
 use App\Traits\NextAndPreviousRecordTrait;
@@ -15,6 +16,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements Sluggable
 {
+    use AutoLogTrait;
     use HasApiTokens;
     use HasFactory;
     use Notifiable;

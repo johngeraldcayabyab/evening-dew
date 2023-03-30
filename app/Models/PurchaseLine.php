@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Data\SystemSetting;
+use App\Traits\AutoLogTrait;
 use App\Traits\FilterTrait;
 use App\Traits\ModelHelperTrait;
 use App\Traits\NextAndPreviousRecordTrait;
@@ -15,6 +16,7 @@ use Illuminate\Support\Arr;
 
 class PurchaseLine extends Model
 {
+    use AutoLogTrait;
     use HasFactory;
     use SoftDeletes;
     use BroadcastsEvents;
