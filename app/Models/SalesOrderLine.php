@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Data\SystemSetting;
+use App\Traits\AutoLogTrait;
 use App\Traits\FilterTrait;
 use App\Traits\ModelHelperTrait;
 use App\Traits\NextAndPreviousRecordTrait;
@@ -12,15 +13,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 class SalesOrderLine extends Model
 {
+    use AutoLogTrait;
     use HasFactory;
     use SoftDeletes;
     use BroadcastsEvents;
     use FilterTrait;
-    use LogsActivity;
     use ModelHelperTrait;
     use NextAndPreviousRecordTrait;
 
