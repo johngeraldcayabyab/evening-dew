@@ -3,7 +3,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 import {EyeOutlined, SearchOutlined} from "@ant-design/icons";
 import {TableContext} from "../Contexts/TableContext";
-import SearchFilter from "./TableFilters/SearchFilter";
+import SearchFilter from "./TableFilters/SearchFilter.jsx";
 import {getAllUrlParams} from "../Helpers/url";
 import {COLUMN_SELECTION, DATE_RANGE, HAS_FORM_CREATE, HAS_FORM_UPDATE, SEARCH, SELECT} from "../consts";
 import DateRangeFilter from "./TableFilters/DateRangeFilter";

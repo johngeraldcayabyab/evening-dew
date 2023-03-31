@@ -1,14 +1,15 @@
+import "antd/dist/antd.min.css";
+import "../sass/App.scss";
 import './bootstrap.js';
-import React, {lazy, useState} from 'react';
+import React, {useState} from 'react';
 import {render} from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import {getCookie} from "./Helpers/cookie";
 import ContentContainer from './Components/ContentContainter';
 import LoginRoute from './Modules/Login/LoginRoute';
 import HomeRoute from "./Modules/Home/HomeRoute";
-import {AppContextProvider} from "./Contexts/AppContext"
-
-const RouteMaster = lazy(() => import("./RouteMaster"));
+import {AppContextProvider} from "./Contexts/AppContext";
+import RouteMaster from "./RouteMaster";
 
 const App = () => {
     const [appState, setAppState] = useState({
