@@ -175,11 +175,11 @@ const FormItems = () => {
                     continue;
                 }
                 const tabPaneItems = generateTabPaneItems(tab, tabKey, tabPaneKey);
-                tabPanes.push(
-                    <TabPane key={`${tabKey}-${tabPaneKey}`} tab={tabPane.name}>
-                        {tabPaneItems}
-                    </TabPane>
-                )
+                tabPanes.push({
+                    key: `${tabKey}-${tabPaneKey}`,
+                    label: tabPane.name,
+                    children: tabPaneItems
+                });
             }
         }
         return tabPanes;
@@ -229,9 +229,8 @@ const FormItems = () => {
             <Tabs
                 defaultActiveKey={defaultActiveKey}
                 key={tabKey}
-            >
-                {tabPanes}
-            </Tabs>
+                items={tabPanes}
+            />
         )
     }
 
