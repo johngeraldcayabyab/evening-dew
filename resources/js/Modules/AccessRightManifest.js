@@ -44,8 +44,8 @@ const manifest = {
                 sorter: true,
                 filter: SEARCH,
                 booleanTagRender: [
-                    {color: 'green', label: 'Yes', value: true},
-                    {color: 'red', label: 'No', value: false}
+                    {color: '#87d068', label: 'Yes', value: true},
+                    {color: '#f50', label: 'No', value: false}
                 ]
             },
             {
@@ -55,8 +55,8 @@ const manifest = {
                 sorter: true,
                 filter: SEARCH,
                 booleanTagRender: [
-                    {color: 'green', label: 'Yes', value: true},
-                    {color: 'red', label: 'No', value: false}
+                    {color: '#87d068', label: 'Yes', value: true},
+                    {color: '#f50', label: 'No', value: false}
                 ]
             },
             {
@@ -66,8 +66,8 @@ const manifest = {
                 sorter: true,
                 filter: SEARCH,
                 booleanTagRender: [
-                    {color: 'green', label: 'Yes', value: true},
-                    {color: 'red', label: 'No', value: false}
+                    {color: '#87d068', label: 'Yes', value: true},
+                    {color: '#f50', label: 'No', value: false}
                 ]
             },
             {
@@ -77,8 +77,8 @@ const manifest = {
                 sorter: true,
                 filter: SEARCH,
                 booleanTagRender: [
-                    {color: 'green', label: 'Yes', value: true},
-                    {color: 'red', label: 'No', value: false}
+                    {color: '#87d068', label: 'Yes', value: true},
+                    {color: '#f50', label: 'No', value: false}
                 ]
             },
         ]

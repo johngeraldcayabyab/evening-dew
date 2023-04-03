@@ -1,6 +1,6 @@
 import {DATE_RANGE, HAS_TABLE, SEARCH} from "../consts"
 import Text from "antd/es/typography/Text"
-import {Space, Tag} from "antd"
+import {Space} from "antd"
 
 const manifest = {
     moduleName: "activity_log",
@@ -38,18 +38,11 @@ const manifest = {
                 sorter: true,
                 filter: SEARCH,
                 isGlobalSearch: true,
-                render: (text, record) => {
-                    const description = record.description;
-                    const descriptionUpperCased = description.toUpperCase();
-                    if (description === 'created') {
-                        return <Tag color={'#87d068'}>{descriptionUpperCased}</Tag>;
-                    } else if (description === 'updated') {
-                        return <Tag color={'#2db7f5'}>{descriptionUpperCased}</Tag>;
-                    } else if (description === 'deleted') {
-                        return <Tag color={'#f50'}>{descriptionUpperCased}</Tag>;
-                    }
-                    return descriptionUpperCased;
-                },
+                booleanTagRender: [
+                    {color: '#87d068', label: 'Created', value: 'created'},
+                    {color: '#2db7f5', label: 'Updated', value: 'updated'},
+                    {color: '#f50', label: 'Deleted', value: 'deleted'}
+                ],
             },
             {
                 title: 'Subject ID',

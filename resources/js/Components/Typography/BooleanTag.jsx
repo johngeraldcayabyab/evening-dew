@@ -6,7 +6,7 @@ const BooleanTag = (props) => {
     const field = props.field;
     const fieldValue = record[field];
     const tag = props.tags.filter((tag) => {
-        if (Number(tag.value) === Number(fieldValue)) {
+        if (tag.value == fieldValue) {
             return tag;
         }
     })[0];

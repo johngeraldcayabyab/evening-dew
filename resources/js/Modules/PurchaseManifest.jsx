@@ -1,6 +1,5 @@
 import {GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 import Text from "antd/es/typography/Text";
-import {Tag} from "antd";
 import {disableIfStatus} from "../Helpers/object";
 import {getPersistedKey, isLineFieldExecute} from "../Helpers/form";
 
@@ -73,13 +72,11 @@ const manifest = {
                 key: 'status',
                 sorter: true,
                 filter: SEARCH,
-                render: (text, record) => {
-                    if (!record.status) {
-                        return null;
-                    }
-                    const color = {draft: 'processing', done: 'success', cancelled: 'default'};
-                    return <Tag color={color[record.status]}>{record.status.toUpperCase()}</Tag>
-                },
+                booleanTagRender: [
+                    {color: 'processing', label: 'Draft', value: 'draft'},
+                    {color: 'default', label: 'Cancelled', value: 'cancelled'},
+                    {color: 'success', label: 'Done', value: 'done'}
+                ],
                 isGlobalSearch: true,
             },
         ]
