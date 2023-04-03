@@ -42,6 +42,10 @@ class SalesOrder extends Model implements Sluggable
     {
         return $this->belongsTo(Contact::class, 'customer_id', 'id');
     }
+    public function pricelist()
+    {
+        return $this->belongsTo(Pricelist::class, 'pricelist_id', 'id');
+    }
 
     public function invoiceCity()
     {

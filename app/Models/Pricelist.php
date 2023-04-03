@@ -35,6 +35,6 @@ class Pricelist extends Model implements Sluggable
 
     public function slug()
     {
-        return 'number';
+        return 'name';
     }
 }

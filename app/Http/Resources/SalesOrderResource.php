@@ -15,6 +15,7 @@ class SalesOrderResource extends JsonResource
         return $this->defaults($this, $request, [
             'number' => $this->number,
             'customer_id' => $this->customer_id,
+            'pricelist_id' => $this->pricelist_id,
             'invoice_address' => $this->invoice_address,
             'delivery_address' => $this->delivery_address,
             'invoice_city_id' => $this->invoice_city_id,

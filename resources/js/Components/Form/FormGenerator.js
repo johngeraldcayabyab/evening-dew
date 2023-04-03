@@ -46,12 +46,6 @@ const FormGenerator = (manifest) => {
         }
     });
 
-    useEffect(() => {
-        for (const option in options) {
-            options[option].getInitialOptions(formState);
-        }
-    }, [formState.initialLoad]);
-
     const formContextProviderValues = {
         id: id,
         manifest: manifest,
@@ -68,6 +62,16 @@ const FormGenerator = (manifest) => {
     if (manifest.form.hasOwnProperty('onValuesChange')) {
         formContextProviderValues['onValuesChange'] = manifest.form.onValuesChange;
     }
+    /*
+    * TODO - fix double rendering due to deps
+    * */
+    useEffect(() => {
+        for (const option in options) {
+            options[option].getInitialOptions(formState);
+        }
+        manifest.form.afterRender(formContextProviderValues);
+    }, [formState.initialLoad]);
+
 
     return (<FormContextProvider
         value={formContextProviderValues}
