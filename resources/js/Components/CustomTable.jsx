@@ -11,6 +11,7 @@ import ColumnSelectionFilter from "./TableFilters/ColumnSelectionFilter";
 import SelectFilter from "./TableFilters/SelectFilter"
 import {AppContext} from "../Contexts/AppContext"
 import BooleanTag from "./Typography/BooleanTag"
+import SequenceNumber from "./Typography/SequenceNumber"
 
 const CustomTable = (props) => {
     const appContext = useContext(AppContext);
@@ -59,6 +60,15 @@ const CustomTable = (props) => {
                         record={record}
                         field={column.dataIndex}
                         tags={column.booleanTagRender}
+                    />)
+                }
+            }
+            if (column.hasOwnProperty('sequenceNumberRender')) {
+                column['render'] = (text, record) => {
+                    return (<SequenceNumber
+                        text={text}
+                        record={record}
+                        field={column.dataIndex}
                     />)
                 }
             }
