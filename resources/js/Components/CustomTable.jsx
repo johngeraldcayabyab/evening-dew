@@ -10,6 +10,7 @@ import DateRangeFilter from "./TableFilters/DateRangeFilter";
 import ColumnSelectionFilter from "./TableFilters/ColumnSelectionFilter";
 import SelectFilter from "./TableFilters/SelectFilter"
 import {AppContext} from "../Contexts/AppContext"
+import BooleanTag from "./Typography/BooleanTag"
 
 const CustomTable = (props) => {
     const appContext = useContext(AppContext);
@@ -49,6 +50,16 @@ const CustomTable = (props) => {
                 const filterType = generateColumnFilterByType(column);
                 if (filterType) {
                     column = {...column, ...filterType};
+                }
+            }
+            if (column.hasOwnProperty('booleanTagRender')) {
+                column['render'] = (text, record) => {
+                    return (<BooleanTag
+                        text={text}
+                        record={record}
+                        field={column.dataIndex}
+                        tags={column.booleanTagRender}
+                    />)
                 }
             }
             return column;

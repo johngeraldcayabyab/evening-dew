@@ -1,5 +1,4 @@
 import {HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts"
-import {Tag} from "antd"
 
 const manifest = {
     moduleName: "access_rights",
@@ -44,12 +43,10 @@ const manifest = {
                 key: 'read_access',
                 sorter: true,
                 filter: SEARCH,
-                render: (text, record) => {
-                    if (record.read_access) {
-                        return <Tag color="green">Yes</Tag>
-                    }
-                    return <Tag color="red">No</Tag>
-                }
+                booleanTagRender: [
+                    {color: 'green', label: 'Yes', value: true},
+                    {color: 'red', label: 'No', value: false}
+                ]
             },
             {
                 title: 'Write Access',
@@ -57,12 +54,10 @@ const manifest = {
                 key: 'write_access',
                 sorter: true,
                 filter: SEARCH,
-                render: (text, record) => {
-                    if (record.write_access) {
-                        return <Tag color="green">Yes</Tag>
-                    }
-                    return <Tag color="red">No</Tag>
-                }
+                booleanTagRender: [
+                    {color: 'green', label: 'Yes', value: true},
+                    {color: 'red', label: 'No', value: false}
+                ]
             },
             {
                 title: 'Create Access',
@@ -70,12 +65,10 @@ const manifest = {
                 key: 'create_access',
                 sorter: true,
                 filter: SEARCH,
-                render: (text, record) => {
-                    if (record.create_access) {
-                        return <Tag color="green">Yes</Tag>
-                    }
-                    return <Tag color="red">No</Tag>
-                }
+                booleanTagRender: [
+                    {color: 'green', label: 'Yes', value: true},
+                    {color: 'red', label: 'No', value: false}
+                ]
             },
             {
                 title: 'Delete Access',
@@ -83,12 +76,10 @@ const manifest = {
                 key: 'delete_access',
                 sorter: true,
                 filter: SEARCH,
-                render: (text, record) => {
-                    if (record.delete_access) {
-                        return <Tag color="green">Yes</Tag>
-                    }
-                    return <Tag color="red">No</Tag>
-                }
+                booleanTagRender: [
+                    {color: 'green', label: 'Yes', value: true},
+                    {color: 'red', label: 'No', value: false}
+                ]
             },
         ]
     },
