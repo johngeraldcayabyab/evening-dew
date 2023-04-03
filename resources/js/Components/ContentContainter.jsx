@@ -19,9 +19,9 @@ const ContentContainer = (props) => {
     const useFetch = useFetchHook();
 
     useEffect(() => {
-        window.Echo.channel('refresh-browser').listen('RefreshBrowserEvent', () => {
-            history.go(0);
-        });
+        // window.Echo.channel('refresh-browser').listen('RefreshBrowserEvent', () => {
+        //     history.go(0);
+        // });
         if (!appState.isLogin) {
             if (!location.pathname.includes('login')) {
                 reset();

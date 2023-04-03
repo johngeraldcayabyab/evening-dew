@@ -2,7 +2,6 @@ import {getPersistedKey, isLineFieldExecute} from "../Helpers/form";
 import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 import {disableIfStatus} from "../Helpers/object";
 import Text from "antd/es/typography/Text";
-import {Tag} from "antd";
 
 const manifest = {
     moduleName: "transfers",
@@ -25,9 +24,7 @@ const manifest = {
                 key: 'reference',
                 sorter: true,
                 filter: SEARCH,
-                render: (text, record) => {
-                    return <Text strong><span style={{fontSize: '12px'}}>{record.reference}</span></Text>
-                },
+                sequenceNumberRender: true,
                 isGlobalSearch: true,
             },
             {
@@ -106,10 +103,11 @@ const manifest = {
                 key: 'status',
                 sorter: true,
                 filter: SEARCH,
-                render: (text, record) => {
-                    const color = {draft: 'processing', done: 'success', cancelled: 'default'};
-                    return <Tag color={color[record.status]}>{record.status.toUpperCase()}</Tag>
-                },
+                booleanTagRender: [
+                    {color: 'processing', label: 'Draft', value: 'draft'},
+                    {color: 'default', label: 'Cancelled', value: 'cancelled'},
+                    {color: 'success', label: 'Done', value: 'done'}
+                ],
                 isGlobalSearch: true,
             },
             {

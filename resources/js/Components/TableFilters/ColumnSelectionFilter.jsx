@@ -4,17 +4,17 @@ import {COLUMN_SELECTION} from "../../consts";
 import {MoreOutlined} from "@ant-design/icons";
 
 const ColumnSelectionFilter = (props) => {
-    const [visible, setVisible] = useState(false);
+    const [open, setOpen] = useState(false);
     const columns = props.state.columns;
 
     function handleMenuClick(e) {
         if (e.key === '3') {
-            setVisible(false);
+            setOpen(false);
         }
     }
 
-    function handleVisibleChange(flag) {
-        setVisible(flag);
+    function handleOnOpenChange(flag) {
+        setOpen(flag);
     }
 
     function toggleColumn(column) {
@@ -59,7 +59,12 @@ const ColumnSelectionFilter = (props) => {
     );
 
     return (
-        <Dropdown overlay={menu} size={'small'} onVisibleChange={handleVisibleChange} visible={visible}>
+        <Dropdown
+            menu={menu}
+            size={'small'}
+            onOpenChange={handleOnOpenChange}
+            open={open}
+        >
             <Button size={'small'} type={'text'} onClick={(e) => e.preventDefault()}>
                 <MoreOutlined style={{color: 'grey', fontSize: '15px'}}/>
             </Button>

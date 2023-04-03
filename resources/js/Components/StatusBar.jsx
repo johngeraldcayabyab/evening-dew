@@ -2,7 +2,6 @@ import {Button, Col, Row, Space, Steps} from "antd";
 import React, {useContext} from "react";
 import {FormContext} from "../Contexts/FormContext";
 
-const {Step} = Steps;
 
 const StatusBar = () => {
     const formContext = useContext(FormContext);
@@ -31,13 +30,11 @@ const StatusBar = () => {
         )
     });
 
-    const steps = manifest.statuses.map((status) => (
-        <Step
-            key={`${status.value}-status-step`}
-            status={status.status[initialValues.status]}
-            title={status.title}
-        />
-    ));
+    const steps = manifest.statuses.map((status) => ({
+        key: `${status.value}-status-step`,
+        status: status.status[initialValues.status],
+        title: status.title,
+    }));
 
     return (
         <div
@@ -59,9 +56,8 @@ const StatusBar = () => {
                         type="default"
                         size="small"
                         current={initialValues.status}
-                    >
-                        {steps}
-                    </Steps>
+                        items={steps}
+                    />
                 </Col>
             </Row>
         </div>

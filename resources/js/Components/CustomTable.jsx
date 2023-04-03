@@ -3,13 +3,15 @@ import React, {useContext, useEffect, useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 import {EyeOutlined, SearchOutlined} from "@ant-design/icons";
 import {TableContext} from "../Contexts/TableContext";
-import SearchFilter from "./TableFilters/SearchFilter";
+import SearchFilter from "./TableFilters/SearchFilter.jsx";
 import {getAllUrlParams} from "../Helpers/url";
 import {COLUMN_SELECTION, DATE_RANGE, HAS_FORM_CREATE, HAS_FORM_UPDATE, SEARCH, SELECT} from "../consts";
 import DateRangeFilter from "./TableFilters/DateRangeFilter";
 import ColumnSelectionFilter from "./TableFilters/ColumnSelectionFilter";
 import SelectFilter from "./TableFilters/SelectFilter"
 import {AppContext} from "../Contexts/AppContext"
+import BooleanTag from "./Typography/BooleanTag"
+import SequenceNumber from "./Typography/SequenceNumber"
 
 const CustomTable = (props) => {
     const appContext = useContext(AppContext);
@@ -49,6 +51,25 @@ const CustomTable = (props) => {
                 const filterType = generateColumnFilterByType(column);
                 if (filterType) {
                     column = {...column, ...filterType};
+                }
+            }
+            if (column.hasOwnProperty('booleanTagRender')) {
+                column['render'] = (text, record) => {
+                    return (<BooleanTag
+                        text={text}
+                        record={record}
+                        field={column.dataIndex}
+                        tags={column.booleanTagRender}
+                    />)
+                }
+            }
+            if (column.hasOwnProperty('sequenceNumberRender')) {
+                column['render'] = (text, record) => {
+                    return (<SequenceNumber
+                        text={text}
+                        record={record}
+                        field={column.dataIndex}
+                    />)
                 }
             }
             return column;

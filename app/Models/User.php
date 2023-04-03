@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Contracts\Sluggable;
+use App\Traits\AutoLogTrait;
 use App\Traits\FilterTrait;
 use App\Traits\ModelHelperTrait;
 use App\Traits\NextAndPreviousRecordTrait;
@@ -12,17 +13,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable implements Sluggable
 {
+    use AutoLogTrait;
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
     use SoftDeletes;
     use BroadcastsEvents;
     use FilterTrait;
-    use LogsActivity;
     use ModelHelperTrait;
     use NextAndPreviousRecordTrait;
 

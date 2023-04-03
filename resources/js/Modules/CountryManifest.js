@@ -1,5 +1,4 @@
 import {DATE_RANGE, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
-import {Tag} from "antd";
 
 const manifest = {
     moduleName: "countries",
@@ -38,12 +37,10 @@ const manifest = {
                 key: 'is_default',
                 sorter: true,
                 filter: SEARCH,
-                render: (text, record) => {
-                    if (record.is_default) {
-                        return <Tag color="green">Yes</Tag>
-                    }
-                    return <Tag color="red">No</Tag>
-                }
+                booleanTagRender: [
+                    {color: '#87d068', label: 'Yes', value: true},
+                    {color: '#f50', label: 'No', value: false}
+                ]
             },
             {
                 title: 'Created At',

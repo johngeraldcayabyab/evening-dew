@@ -1,5 +1,4 @@
 import {DATE_RANGE, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
-import {Tag} from "antd"
 
 const manifest = {
     moduleName: "chart_of_accounts",
@@ -38,12 +37,10 @@ const manifest = {
                 key: 'allow_reconciliation',
                 sorter: true,
                 filter: SEARCH,
-                render: (text, record) => {
-                    if (record.allow_reconciliation) {
-                        return <Tag color={'success'}>Yes</Tag>;
-                    }
-                    return <Tag color={'default'}>No</Tag>;
-                }
+                booleanTagRender: [
+                    {color: '#87d068', label: 'Yes', value: true},
+                    {color: '#f50', label: 'No', value: false}
+                ]
             },
             {
                 title: 'Deprecated',
@@ -51,12 +48,10 @@ const manifest = {
                 key: 'deprecated',
                 sorter: true,
                 filter: SEARCH,
-                render: (text, record) => {
-                    if (record.deprecated) {
-                        return <Tag color={'success'}>Yes</Tag>;
-                    }
-                    return <Tag color={'default'}>No</Tag>;
-                }
+                booleanTagRender: [
+                    {color: '#87d068', label: 'Yes', value: true},
+                    {color: '#f50', label: 'No', value: false}
+                ]
             },
             {
                 title: 'Currency',

@@ -1,26 +1,23 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run development",
-        "development": "mix",
-        "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=3000",
-        "hot": "mix watch --hot",
-        "prod": "npm run production",
-        "production": "mix --production"
+        "dev": "vite",
+        "build": "vite build"
     },
     "devDependencies": {
         "@babel/preset-react": "^7.13.13",
+        "@vitejs/plugin-react": "^3.1.0",
         "laravel-echo": "^1.11.3",
-        "laravel-mix": "^6.0.49",
         "laravel-mix-bundle-analyzer": "^1.0.5",
+        "laravel-vite-plugin": "^0.7.4",
         "postcss": "^8.1.14",
         "pusher-js": "^7.0.3",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "resolve-url-loader": "^4.0.0",
         "sass": "^1.49.11",
-        "sass-loader": "^12.6.0"
+        "sass-loader": "^12.6.0",
+        "vite": "^4.2.1"
     },
     "dependencies": {
         "@ant-design/charts": "^1.3.6",

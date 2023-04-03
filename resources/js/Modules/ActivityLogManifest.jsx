@@ -38,6 +38,11 @@ const manifest = {
                 sorter: true,
                 filter: SEARCH,
                 isGlobalSearch: true,
+                booleanTagRender: [
+                    {color: '#87d068', label: 'Created', value: 'created'},
+                    {color: '#2db7f5', label: 'Updated', value: 'updated'},
+                    {color: '#f50', label: 'Deleted', value: 'deleted'}
+                ],
             },
             {
                 title: 'Subject ID',
