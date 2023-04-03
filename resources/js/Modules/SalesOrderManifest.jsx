@@ -3,7 +3,6 @@ import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} fr
 import {getPersistedKey, isLineFieldExecute} from "../Helpers/form";
 import SalesOrderPDF from "./SalesOrder/SalesOrderPDF";
 import SalesOrderBreakDown from "./SalesOrder/SalesOrderBreakDown";
-import Text from "antd/es/typography/Text";
 
 const manifest = {
     moduleName: "sales_orders",
@@ -26,9 +25,7 @@ const manifest = {
                 key: 'number',
                 sorter: true,
                 filter: SEARCH,
-                render: (text, record) => {
-                    return <Text strong><span style={{fontSize: '12px'}}>{record.number}</span></Text>
-                },
+                sequenceNumberRender: true,
                 isGlobalSearch: true,
             },
             {
