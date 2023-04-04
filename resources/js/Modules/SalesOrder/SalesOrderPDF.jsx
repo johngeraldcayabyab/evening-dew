@@ -47,7 +47,7 @@ const SalesOrderPDF = () => {
 
         <Modal
             title={<b>ORDER # {initialValues.number}</b>}
-            visible={isModalVisible}
+            open={isModalVisible}
             onOk={handleOk}
             onCancel={handleCancel}
             width={900}
