@@ -1,17 +1,17 @@
-import useListHook from "../Hooks/useListHook"
-import {TableContextProvider} from "../Contexts/TableContext"
-import ControlPanel from "./ControlPanel"
-import CustomBreadcrumb from "./CustomBreadcrumb"
+import useListHook from "../../Hooks/useListHook"
+import {TableContextProvider} from "../../Contexts/TableContext"
+import ControlPanel from "../ControlPanel"
+import CustomBreadcrumb from "../CustomBreadcrumb"
 import GlobalSearchFilter from "./TableFilters/GlobalSearchFilter"
 import TableCreateButton from "./TableButtons/TableCreateButton"
 import ActionsDropdownButton from "./TableButtons/ActionsDropdownButton"
 import CustomPagination from "./CustomPagination"
 import CustomTable from "./CustomTable"
-import {KANBAN, TABLE} from "../consts"
+import {KANBAN, TABLE} from "../../consts"
 import {useState} from "react"
 import {Col, Row} from "antd"
 import KanbanTablePicker from "./KanbanTablePicker"
-import Cardination from "./Cardination"
+import Kanban from "./Kanban"
 
 const TableGenerator = (manifest) => {
     const [tableState, tableActions] = useListHook(manifest);
@@ -40,7 +40,7 @@ const TableGenerator = (manifest) => {
                 }
             />
             {dataState.mode === TABLE ? <CustomTable/> : null}
-            {dataState.mode === KANBAN ? <Cardination/> : null}
+            {dataState.mode === KANBAN ? <Kanban/> : null}
         </TableContextProvider>
     )
 };

@@ -1,8 +1,8 @@
 import {Button} from "antd";
 import {AppstoreOutlined, BarsOutlined} from "@ant-design/icons";
-import {TableContext} from "../Contexts/TableContext";
+import {TableContext} from "../../Contexts/TableContext";
 import {useContext} from "react";
-import {KANBAN, TABLE} from "../consts";
+import {KANBAN, TABLE} from "../../consts";
 
 const KanbanTablePicker = () => {
     const listContext = useContext(TableContext);

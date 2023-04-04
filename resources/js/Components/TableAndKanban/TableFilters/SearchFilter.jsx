@@ -1,6 +1,6 @@
 import {Button, Input, Space} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
-import {replaceUnderscoreWithSpace, titleCase} from "../../Helpers/string";
+import {replaceUnderscoreWithSpace, titleCase} from "../../../Helpers/string";
 
 const SearchFilter = (props) => {
     return (

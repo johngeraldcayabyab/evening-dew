@@ -1,15 +1,15 @@
 import {Avatar, Card, Space, Spin, Typography} from "antd";
 import {useContext, useEffect} from "react";
-import {TableContext} from "../Contexts/TableContext";
+import {TableContext} from "../../Contexts/TableContext";
 import {useHistory} from "react-router-dom";
-import {getAllUrlParams} from "../Helpers/url";
-import {uuidv4} from "../Helpers/string";
+import {getAllUrlParams} from "../../Helpers/url";
+import {uuidv4} from "../../Helpers/string";
 
 
 const {Meta} = Card;
 const {Text} = Typography;
 
-const Cardination = () => {
+const Kanban = () => {
     const listContext = useContext(TableContext);
     const history = useHistory();
 
@@ -117,4 +117,4 @@ const Cardination = () => {
     )
 };
 
-export default Cardination;
+export default Kanban;

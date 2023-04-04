@@ -1,6 +1,6 @@
 import {Input} from "antd"
 import React, {useContext} from "react"
-import {TableContext} from "../../Contexts/TableContext"
+import {TableContext} from "../../../Contexts/TableContext"
 
 const GlobalSearchFilter = () => {
     const listContext = useContext(TableContext);

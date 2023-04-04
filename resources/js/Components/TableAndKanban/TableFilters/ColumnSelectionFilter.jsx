@@ -1,6 +1,6 @@
 import {Button, Checkbox, Dropdown, Menu} from "antd";
 import React, {useState} from "react";
-import {COLUMN_SELECTION} from "../../consts";
+import {COLUMN_SELECTION} from "../../../consts";
 import {MoreOutlined} from "@ant-design/icons";
 
 const ColumnSelectionFilter = (props) => {

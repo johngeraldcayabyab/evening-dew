@@ -1,5 +1,5 @@
 import {Pagination, Skeleton} from "antd";
-import {TableContext} from "../Contexts/TableContext";
+import {TableContext} from "../../Contexts/TableContext";
 import {useContext} from "react";
 
 const CustomPagination = () => {

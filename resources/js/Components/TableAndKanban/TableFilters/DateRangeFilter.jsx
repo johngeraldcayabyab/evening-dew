@@ -1,5 +1,5 @@
 import {Button, DatePicker, Input, Space} from "antd";
-import {replaceUnderscoreWithSpace, titleCase} from "../../Helpers/string";
+import {replaceUnderscoreWithSpace, titleCase} from "../../../Helpers/string";
 import {SearchOutlined} from "@ant-design/icons";
 import moment from "moment";
 
