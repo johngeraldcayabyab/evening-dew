@@ -158,19 +158,7 @@ trait FilterTrait
 
     public function getFields($hasRelation = true)
     {
-        $fields = Schema::getColumnListing($this->getTable());
-        /**
-         * Can be removed
-         */
-        if ($hasRelation) {
-            foreach ($fields as $field) {
-                $id = substr($field, -3);
-                if ($id === '_id') {
-                    $fields[] = str_replace($id, '', $field);
-                }
-            }
-        }
-        return $fields;
+        return Schema::getColumnListing($this->getTable());
     }
 
     private function hasRelationGet($model, $relation)
