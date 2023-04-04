@@ -156,9 +156,17 @@ trait FilterTrait
         return $query->orderBy($filter[0], "$filter[1]");
     }
 
-    public function getFields($hasRelation = true)
+    public function getFields()
     {
-        return Schema::getColumnListing($this->getTable());
+        $fields = Schema::getColumnListing($this->getTable());
+        foreach ($fields as $field) {
+            $id = substr($field, -3);
+            if ($id !== '_id') {
+                continue;
+            }
+            $fields[] = str_replace($id, '', $field);
+        }
+        return $fields;
     }
 
     private function hasRelationGet($model, $relation)
