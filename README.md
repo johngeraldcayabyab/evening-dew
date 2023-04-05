@@ -25,8 +25,7 @@
 <br>
 <div><b>Step 4:</b></div>
 <div><i>Almost done, but a few commands must be run before you can start developing,<br>
-run <code>sail artisan key:generate</code> and <code>sail artisan storage:link</code>
-then open 2 more terminals or use tmux to <br>
+run <code>sail artisan storage:link</code> then open 2 more terminals or use tmux to <br>
 run these next commands so the queues, scheduled jobs(cron), <br>
 and npm watch(to watch for front-end changes) to work locally.
 </i></div>
