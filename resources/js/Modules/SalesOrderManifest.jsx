@@ -91,8 +91,8 @@ const manifest = {
         breakdown: {
             untaxedAmount: 0, tax: 0, total: 0,
         },
-        pricelist:{
-            id:-1
+        pricelist: {
+            id: -1
         }
     },
     statuses: [
@@ -124,22 +124,22 @@ const manifest = {
         },
     ],
     form: {
-        afterRender:(formContext)=>{
+        afterRender: (formContext) => {
             const initialValues = formContext.formState.initialValues;
             /*
             * TODO - refactor chained promises to async await
             * */
-            if(initialValues.pricelist_id){
+            if (initialValues.pricelist_id) {
                 formContext.useFetch(`/api/pricelists/${initialValues.pricelist_id}`, GET)
                     .then((response) => {
                         return response;
                     })
-                    .then((res)=>{
+                    .then((res) => {
 
                         formContext.setState((prevState) => ({
                             ...prevState,
                             pricelist: {
-                                id:res.id
+                                id: res.id
                             }
                         }));
                     });
@@ -158,15 +158,21 @@ const manifest = {
                     let deliveryAddress = data.find((address) => (address.type === 'delivery'));
                     invoiceAddress = invoiceAddress ? invoiceAddress : defaultAddress;
                     deliveryAddress = deliveryAddress ? deliveryAddress : defaultAddress;
-                    formContext.options['invoice_city_id-options'].getOptions({id: invoiceAddress.city.id});
-                    formContext.options['delivery_city_id-options'].getOptions({id: deliveryAddress.city.id});
+                    const invoiceCity = invoiceAddress.city;
+                    const deliveryCity = deliveryAddress.city;
+                    if (invoiceCity) {
+                        formContext.options['invoice_city_id-options'].getOptions({id: invoiceCity.id});
+                    }
+                    if (deliveryCity) {
+                        formContext.options['delivery_city_id-options'].getOptions({id: deliveryCity.id});
+                    }
                     formContext.form.setFieldsValue({
                         invoice_phone: invoiceAddress.contact.phone,
                         delivery_phone: deliveryAddress.contact.phone,
                         invoice_address: invoiceAddress.address,
                         delivery_address: deliveryAddress.address,
-                        invoice_city_id: invoiceAddress.city.id,
-                        delivery_city_id: deliveryAddress.city.id,
+                        invoice_city_id: invoiceCity ? invoiceCity.id : null,
+                        delivery_city_id: deliveryCity ? deliveryCity.id : null,
                     });
                     // // invoiceCityOptions.getOptions({id: invoiceAddress.city.id});
                     // // deliveryCityOptions.getOptions({id: deliveryAddress.city.id});
@@ -308,12 +314,12 @@ const manifest = {
                     label: 'Pricelist',
                     query: {url: '/api/pricelists', field: 'name'},
                     required: false,
-                    handleOnChange:(formContext)=>{
-                        return (val)=>{
+                    handleOnChange: (formContext) => {
+                        return (val) => {
                             formContext.setState((prevState) => ({
                                 ...prevState,
                                 pricelist: {
-                                    id:val
+                                    id: val
                                 }
                             }));
                         }
