@@ -69,7 +69,12 @@ const FormGenerator = (manifest) => {
         for (const option in options) {
             options[option].getInitialOptions(formState);
         }
-        manifest.form.afterRender(formContextProviderValues);
+
+        if(manifest && manifest.form && manifest.form.afterRender){
+            manifest.form.afterRender(formContextProviderValues);
+        }
+
+        
     }, [formState.initialLoad]);
 
 
