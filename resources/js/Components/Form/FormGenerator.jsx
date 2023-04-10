@@ -73,8 +73,7 @@ const FormGenerator = (manifest) => {
         if(manifest && manifest.form && manifest.form.afterRender){
             manifest.form.afterRender(formContextProviderValues);
         }
-
-        
+    
     }, [formState.initialLoad]);
 
 

@@ -223,14 +223,31 @@ const manifest = {
                 });
             }
             isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'product_id', (line, allValues) => {
-                formContext.useFetch(`/api/products/${line.product_id}`, GET).then((response) => {
+
+                async function useFetchAsync() {
+                    return formContext.useFetch(`/api/pricelists/${formContext.state.pricelist.id}/products/${line.product_id}`, GET);
+                }
+
+                formContext.useFetch(`/api/products/${line.product_id}`, GET).then(async (response) => {
+
+                    const isPricelistSet = formContext.state.pricelist.id && formContext.state.pricelist.id !== -1;
+                    let pricelistPrice = -1;
+
+                    if (isPricelistSet) {
+
+                        const res = await useFetchAsync();
+                        if(res && res.unit_price){
+                            pricelistPrice=res.unit_price;
+                        }
+                    }
+
                     const salesOrderLines = allValues.sales_order_lines;
                     salesOrderLines[line.key] = {
                         ...salesOrderLines[line.key],
                         description: response.sales_description,
                         quantity: 1,
                         measurement_id: response.sales_measurement_id,
-                        unit_price: response.sales_price,
+                        unit_price: isPricelistSet &&  pricelistPrice !==-1 ? pricelistPrice: response.sales_price,
                     };
                     formContext.form.setFieldsValue({
                         sales_order_lines: salesOrderLines

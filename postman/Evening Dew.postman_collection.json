@@ -99,6 +99,52 @@
 							"response": []
 						},
 						{
+							"name": "Get Pricelist Product",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"const reponseToken = pm.response.text();\r",
+											"pm.environment.set(\"token\", reponseToken)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/pricelists/1/products/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"pricelists",
+										"1",
+										"products",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Create Pricelist",
 							"request": {
 								"auth": {

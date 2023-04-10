@@ -96,5 +96,7 @@ Route::group(['middleware' => ['api', 'cors', 'auth:sanctum']], function () {
     Router::generate(UserController::class);
     Router::generate(WarehouseController::class);
     Router::generate(PricelistController::class);
+    Route::get("pricelists/{priceListId}/products/{productId}", [PricelistController::class, 'get_pricelist_product_price']);
+
 
 });

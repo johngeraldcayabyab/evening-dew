@@ -54,4 +54,11 @@ class PricelistController extends Controller
         return $this->responseCreate($priceList);
     }
 
+    public function get_pricelist_product_price(Request $request, $priceListId ,$productId)
+    {
+
+        return PricelistProduct::where('pricelist_id', $priceListId)->where('product_id',$productId)->firstOrFail();
+
+    }
+
 }
