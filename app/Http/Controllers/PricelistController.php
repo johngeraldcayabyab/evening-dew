@@ -7,10 +7,12 @@ use App\Http\Resources\PricelistResource;
 use App\Models\Pricelist;
 use App\Models\PricelistProduct;
 use App\Traits\ControllerHelperTrait;
+use DB;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Arr;
+use Throwable;
 
 class PricelistController extends Controller
 {
@@ -30,28 +32,38 @@ class PricelistController extends Controller
         return response()->json(new PricelistResource($pricelist));
     }
 
-    /*
-     * TODO - add rollback on duplicate failure
-     * */
+
+    /**
+     * @throws Throwable
+     */
     public function store(PricelistRequest $request): JsonResponse
     {
-        $data = $request->validated();
-        $priceListData = Arr::except($data, ['customer_products']);
-        $priceList = Pricelist::create($priceListData);
+
+        DB::transaction(function () use ($request) {
+            $data = $request->validated();
+            $priceListData = Arr::except($data, ['customer_products']);
+            $priceList = Pricelist::create($priceListData);
 
 
-        collect($data['customer_products'])->each(function ($obj) use ($priceList) {
-            $priceListProduct = new PricelistProduct();
-            $priceListProduct->product_id=$obj['product_id'];
-            $priceListProduct->unit_price=$obj['unit_price'];
-            $priceListProduct->pricelist()->associate($priceList);
-            $priceListProduct->save();
+            collect($data['customer_products'])->each(function ($obj) use ($priceList) {
+                $priceListProduct = new PricelistProduct();
+                $priceListProduct->product_id=$obj['product_id'];
+                $priceListProduct->unit_price=$obj['unit_price'];
+                $priceListProduct->pricelist()->associate($priceList);
+                $priceListProduct->save();
+            });
         });
 
-        /*
-         * TODO - should not return anything unless required.
-         * */
-        return $this->responseCreate($priceList);
+        return $this->responseCreate();
+    }
+
+    /*
+     * TODO -Add cascade delete
+     * */
+    public function mass_destroy(Request $request): JsonResponse
+    {
+        $this->massDelete(new Pricelist(), $request);
+        return $this->responseDelete();
     }
 
     public function get_pricelist_product_price(Request $request, $priceListId ,$productId)

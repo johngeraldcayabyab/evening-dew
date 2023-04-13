@@ -55,9 +55,6 @@ const manifest = {
 
             })
 
-
-
-
         },
         row_1: {
             col_1: [
@@ -75,9 +72,16 @@ const manifest = {
             tab_pane_1: {
                 name: "Price Rules",
                 form_line_1: {
-                    columns: ['Product','Measurement', 'Unit Price'],
+                    columns: ['Product ID','Product','Measurement', 'Unit Price'],
                     listName: 'customer_products',
                     fields: [
+                        {
+                            type: 'text',
+                            name: 'product_id',
+                            placeholder: 'Product ID',
+                            required: false,
+                            disabled:true
+                        },
                         {
                             type: 'select',
                             name: 'product_id',
@@ -85,9 +89,11 @@ const manifest = {
                             query: {url: '/api/products', field: 'name'},
                             required: true
                         },
+                        // TODO - rest call when viewing
                         {
                             type: 'text',
                             name: 'measurement_name',
+                            placeholder: 'Measurement',
                             required: false,
                             disabled:true
                         },
