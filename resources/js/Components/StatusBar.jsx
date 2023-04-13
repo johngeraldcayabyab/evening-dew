@@ -6,6 +6,7 @@ import {FormContext} from "../Contexts/FormContext";
 const StatusBar = () => {
     const formContext = useContext(FormContext);
     const manifest = formContext.manifest;
+    const customButtons = manifest.customButtons ?? [];
     const initialValues = formContext.formState.initialValues;
 
     const statusButtons = manifest.statuses.filter((status) => {
@@ -48,6 +49,7 @@ const StatusBar = () => {
             <Row align={'middle'} style={{marginTop: '4px', marginBottom: '4px'}}>
                 <Col span={18}>
                     <Space size={'small'}>
+                        {...customButtons}
                         {statusButtons}
                     </Space>
                 </Col>

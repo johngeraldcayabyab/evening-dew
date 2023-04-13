@@ -41,7 +41,7 @@ const FormButtons = () => {
             {
                 isShowButton(appContext, manifest.moduleName, CREATE_ACCESS) &&
                 <>
-                    {true && isViewing() && <CreateButton/>}
+                    {isViewing() && <CreateButton/>}
                     {isCreating() && <SaveCreateButton/>}
                     {isCreating() && <DiscardCreateButton/>}
                 </>

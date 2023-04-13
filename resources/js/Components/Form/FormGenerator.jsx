@@ -70,29 +70,31 @@ const FormGenerator = (manifest) => {
             options[option].getInitialOptions(formState);
         }
 
-        if(manifest && manifest.form && manifest.form.afterRender){
+        if (manifest && manifest.form && manifest.form.afterRender) {
             manifest.form.afterRender(formContextProviderValues);
         }
-    
+
     }, [formState.initialLoad]);
 
 
-    return (<FormContextProvider
-        value={formContextProviderValues}
-    >
-        <CustomForm>
-            <ControlPanel
-                topColOneLeft={<CustomBreadcrumb/>}
-                bottomColOneLeft={<FormButtons/>}
-                bottomColTwoRight={<NextPreviousRecord/>}
-            />
-            {manifest.statuses && <StatusBar/>}
-            <FormCard>
-                {manifest.formLinks && <FormLinks/>}
-                <FormItems/>
-            </FormCard>
-        </CustomForm>
-    </FormContextProvider>);
+    return (
+        <FormContextProvider
+            value={formContextProviderValues}
+        >
+            <CustomForm>
+                <ControlPanel
+                    topColOneLeft={<CustomBreadcrumb/>}
+                    bottomColOneLeft={<FormButtons/>}
+                    bottomColTwoRight={<NextPreviousRecord/>}
+                />
+                {manifest.statuses && <StatusBar/>}
+                <FormCard>
+                    {manifest.formLinks && <FormLinks/>}
+                    <FormItems/>
+                </FormCard>
+            </CustomForm>
+        </FormContextProvider>
+    );
 };
 
 export default FormGenerator;
