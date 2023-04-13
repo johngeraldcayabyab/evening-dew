@@ -3,6 +3,7 @@ import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} fr
 import {getPersistedKey, isLineFieldExecute} from "../Helpers/form";
 import SalesOrderPDF from "./SalesOrder/SalesOrderPDF";
 import SalesOrderBreakDown from "./SalesOrder/SalesOrderBreakDown";
+import CreateInvoiceButton from "./SalesOrder/CreateInvoiceButton"
 
 const manifest = {
     moduleName: "sales_orders",
@@ -123,6 +124,7 @@ const manifest = {
             module: 'transfers', param: 'source_document', value: 'number', label: 'Deliveries',
         },
     ],
+    customButtons: [<CreateInvoiceButton/>],
     form: {
         afterRender: (formContext) => {
             const initialValues = formContext.formState.initialValues;
@@ -236,8 +238,8 @@ const manifest = {
                     if (isPricelistSet) {
 
                         const res = await useFetchAsync();
-                        if(res && res.unit_price){
-                            pricelistPrice=res.unit_price;
+                        if (res && res.unit_price) {
+                            pricelistPrice = res.unit_price;
                         }
                     }
 
@@ -247,7 +249,7 @@ const manifest = {
                         description: response.sales_description,
                         quantity: 1,
                         measurement_id: response.sales_measurement_id,
-                        unit_price: isPricelistSet &&  pricelistPrice !==-1 ? pricelistPrice: response.sales_price,
+                        unit_price: isPricelistSet && pricelistPrice !== -1 ? pricelistPrice : response.sales_price,
                     };
                     formContext.form.setFieldsValue({
                         sales_order_lines: salesOrderLines
