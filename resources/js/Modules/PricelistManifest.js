@@ -1,5 +1,4 @@
-import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
-import {isLineFieldExecute} from "../Helpers/form";
+import {DATE_RANGE, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 
 const manifest = {
     moduleName: "pricelists",
@@ -38,22 +37,6 @@ const manifest = {
         initialValue: false,
         onValuesChange: (changedValues, allValues, formContext) => {
 
-            isLineFieldExecute(changedValues,allValues,"customer_products","product_id",(line,allValues)=>{
-
-                formContext.useFetch(`/api/measurements/${line.product_id}`, GET).then((response) => {
-                    const customerProducts = allValues.customer_products;
-                    customerProducts[line.key] = {
-                        ...customerProducts[line.key],
-                        measurement_name: response.name
-                    };
-
-                    formContext.form.setFieldsValue({
-                        customer_products: customerProducts
-                    });
-
-                });
-
-            })
 
         },
         row_1: {
@@ -72,15 +55,25 @@ const manifest = {
             tab_pane_1: {
                 name: "Price Rules",
                 form_line_1: {
-                    columns: ['Product ID','Product','Measurement', 'Unit Price'],
+                    columns: ['Product ID','Product', 'Unit Price'],
                     listName: 'customer_products',
                     fields: [
                         {
                             type: 'text',
                             name: 'product_id',
+                            key:'product_id-' + Date.now(),
                             placeholder: 'Product ID',
-                            required: false,
-                            disabled:true
+                            readOnly: true,
+                            handleOnClick:(formContext)=>{
+                                return (e)=>{
+                                    if(e.target.value){
+                                        const productPath = "/products/" + e.target.value;
+                                        formContext.history.push(productPath);
+                                    }
+
+                                }
+
+                            }
                         },
                         {
                             type: 'select',
@@ -88,14 +81,6 @@ const manifest = {
                             placeholder: 'Product',
                             query: {url: '/api/products', field: 'name'},
                             required: true
-                        },
-                        // TODO - rest call when viewing
-                        {
-                            type: 'text',
-                            name: 'measurement_name',
-                            placeholder: 'Measurement',
-                            required: false,
-                            disabled:true
                         },
                         {
                             type: 'number',

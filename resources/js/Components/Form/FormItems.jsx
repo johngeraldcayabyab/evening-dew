@@ -26,7 +26,7 @@ const FormItems = () => {
     function generateItemText(field) {
         return (
             <FormItemText
-                key={field.name}
+                key={field.key ? field.key:field.name}
                 {...field}
             />
         )

@@ -29,6 +29,7 @@ export const formItemFieldProps = (props, specialFieldProps = {}) => {
     }
 
     const fieldProps = {
+        readOnly: props.readOnly,
         disabled: props.disabled || formState.formDisabled,
         size: props.size ? props.size : 'small',
         placeholder: props.placeholder ? props.placeholder : null,
