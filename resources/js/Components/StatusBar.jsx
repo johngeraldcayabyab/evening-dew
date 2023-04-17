@@ -38,15 +38,8 @@ const StatusBar = () => {
     }));
 
     return (
-        <div
-            style={{
-                paddingLeft: '16px',
-                paddingRight: '16px',
-                borderBottom: '1px solid #cccccc',
-                background: '#fff'
-            }}
-        >
-            <Row align={'middle'} style={{marginTop: '4px', marginBottom: '4px'}}>
+        <div id={'status-bar'}>
+            <Row align={'middle'}>
                 <Col span={18}>
                     <Space size={'small'}>
                         {...customButtons}
