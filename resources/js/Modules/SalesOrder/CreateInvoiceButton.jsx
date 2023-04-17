@@ -2,6 +2,7 @@ import {Button, Input, Modal, Radio, Space, Form, Tooltip} from "antd";
 import {useContext, useState} from "react";
 import {FormContext} from "../../Contexts/FormContext";
 import {WarningOutlined} from "@ant-design/icons"
+import Text from "antd/es/typography/Text"
 
 const CreateInvoiceButton = () => {
     const formContext = useContext(FormContext);
@@ -18,7 +19,7 @@ const CreateInvoiceButton = () => {
     };
 
     const handleOk = () => {
-        setIsModalVisible(false);
+        // setIsModalVisible(false);
     };
 
     const handleCancel = () => {
@@ -26,7 +27,7 @@ const CreateInvoiceButton = () => {
     };
 
     const handleCreateDraftInvoice = () => {
-        setIsModalVisible(false);
+        formContext.form.submit();
     }
 
     if (initialValues.status !== 'done') {
@@ -52,90 +53,97 @@ const CreateInvoiceButton = () => {
                 onCancel={handleCancel}
                 width={900}
                 footer={[
-                    <Button type="primary" key="back" onClick={handleCreateDraftInvoice}>
+                    <Button
+                        htmlType={"submit"}
+                        type="primary"
+                        key="create-draft-invoice"
+                        onClick={handleCreateDraftInvoice}
+                    >
                         Create Draft Invoice
                     </Button>,
-                    <Button key="back" onClick={handleCancel}>
+                    <Button key="close" onClick={handleCancel}>
                         Close
                     </Button>,
                 ]}
                 className={'create-invoice-wrapper'}
             >
-                <Radio.Group onChange={onChange} value={value}>
-                    <Space direction="vertical">
-                        <Radio value={1}>Regular invoice</Radio>
-                        <Radio value={2}>
-                            <Tooltip
-                                title={tooltipMessage}
-                            >
-                                Down payment (percentage) <WarningOutlined/>
-                            </Tooltip>
-                            {value === 2 ? (
-                                <>
-                                    <Form.Item
-                                        label="Down Payment Amount in %"
-                                        name="down_payment_amount"
-                                        colon={false}
-                                        labelWrap={true}
-                                    >
-                                        <Input/>
-                                    </Form.Item>
-                                    <Form.Item
-                                        label="Income Account"
-                                        name="income_account_id"
-                                        colon={false}
-                                        labelWrap={true}
-                                    >
-                                        <Input/>
-                                    </Form.Item>
-                                    <Form.Item
-                                        label="Customer Taxes"
-                                        name="customer_taxes"
-                                        colon={false}
-                                        labelWrap={true}
-                                    >
-                                        <Input/>
-                                    </Form.Item>
-                                </>
-                            ) : null}
-                        </Radio>
-                        <Radio value={3}>
-                            <Tooltip
-                                title={tooltipMessage}
-                            >
-                                Down payment (fixed amount) <WarningOutlined/>
-                            </Tooltip>
-                            {value === 3 ? (
-                                <>
-                                    <Form.Item
-                                        label="Down Payment Amount"
-                                        name="down_payment_amount"
-                                        colon={false}
-                                        labelWrap={true}
-                                    >
-                                        <Input/>
-                                    </Form.Item>
-                                    <Form.Item
-                                        label="Income Account"
-                                        name="income_account_id"
-                                        colon={false}
-                                        labelWrap={true}
-                                    >
-                                        <Input/>
-                                    </Form.Item>
-                                    <Form.Item
-                                        label="Customer Taxes"
-                                        name="customer_taxes"
-                                        colon={false}
-                                        labelWrap={true}
-                                    >
-                                        <Input/>
-                                    </Form.Item>
-                                </>
-                            ) : null}
-                        </Radio>
-                    </Space>
-                </Radio.Group>
+                <Form.Item name={'invoice_type'}>
+                    <Radio.Group onChange={onChange} value={value}>
+                        <Space direction="vertical">
+                            <Radio value={'regular_invoice'}>Regular invoice</Radio>
+                            <Radio value={'down_payment_percentage'}>
+                                <Tooltip
+                                    title={tooltipMessage}
+                                >
+                                    <Text delete>Down payment (percentage) <WarningOutlined/></Text>
+                                </Tooltip>
+                                {value === 2 ? (
+                                    <>
+                                        <Form.Item
+                                            label="Down Payment Amount in %"
+                                            name="down_payment_amount"
+                                            colon={false}
+                                            labelWrap={true}
+                                        >
+                                            <Input disabled={true}/>
+                                        </Form.Item>
+                                        <Form.Item
+                                            label="Income Account"
+                                            name="income_account_id"
+                                            colon={false}
+                                            labelWrap={true}
+                                        >
+                                            <Input disabled={true}/>
+                                        </Form.Item>
+                                        <Form.Item
+                                            label="Customer Taxes"
+                                            name="customer_taxes"
+                                            colon={false}
+                                            labelWrap={true}
+                                        >
+                                            <Input disabled={true}/>
+                                        </Form.Item>
+                                    </>
+                                ) : null}
+                            </Radio>
+                            <Radio value={'down_payment_fixed'}>
+                                <Tooltip
+                                    title={tooltipMessage}
+                                >
+                                    <Text delete>Down payment (fixed amount) <WarningOutlined/></Text>
+                                </Tooltip>
+                                {value === 3 ? (
+                                    <>
+                                        <Form.Item
+                                            label="Down Payment Amount"
+                                            name="down_payment_amount"
+                                            colon={false}
+                                            labelWrap={true}
+                                        >
+                                            <Input disabled={true}/>
+                                        </Form.Item>
+                                        <Form.Item
+                                            label="Income Account"
+                                            name="income_account_id"
+                                            colon={false}
+                                            labelWrap={true}
+                                        >
+                                            <Input disabled={true}/>
+                                        </Form.Item>
+                                        <Form.Item
+                                            label="Customer Taxes"
+                                            name="customer_taxes"
+                                            colon={false}
+                                            labelWrap={true}
+                                        >
+                                            <Input disabled={true}/>
+                                        </Form.Item>
+                                    </>
+                                ) : null}
+                            </Radio>
+                        </Space>
+                    </Radio.Group>
+                </Form.Item>
             </Modal>
         </div>
     )

@@ -33,6 +33,15 @@ class Invoice extends Model implements Sluggable
     const DONE = 'done';
     const CANCELLED = 'cancelled';
 
+    const REGULAR_INVOICE = 'regular_invoice';
+    const DOWN_PAYMENT_PERCENTAGE = 'down_payment_percentage';
+    const DOWN_PAYMENT_FIXED = 'down_payment_fixed';
+
+    public static function getTypes()
+    {
+        return [self::REGULAR_INVOICE, self::DOWN_PAYMENT_PERCENTAGE, self::DOWN_PAYMENT_FIXED];
+    }
+
     public static function getStatuses()
     {
         return [self::DRAFT, self::DONE, self::CANCELLED];
