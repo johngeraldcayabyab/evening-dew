@@ -33,8 +33,9 @@ class GenerateInvoiceFromValidatedSalesOrder
             'payment_term_id' => $salesOrder->payment_term_id,
             'journal_id' => $defaultJournal->id,
             'currency_id' => Currency::default()->id,
-            'salesperson_id' => $salesOrder->salesperson_id,
             'customer_reference' => $salesOrder->customer_reference,
+            'salesperson_id' => $salesOrder->salesperson_id,
+            'source_document' => $salesOrder->number,
             'status' => Invoice::DRAFT,
             'amount_due' => $salesOrder->subtotal,
         ]);

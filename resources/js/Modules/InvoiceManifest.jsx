@@ -317,6 +317,11 @@ const manifest = {
                             name: 'to_check',
                             label: 'To Check',
                         },
+                        {
+                            type: 'text',
+                            name: 'source_document',
+                            label: 'Source Document',
+                        },
                     ]
                 },
             },

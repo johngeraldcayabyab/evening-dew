@@ -24,6 +24,7 @@ class InvoiceRequest extends FormRequest
             'bank_id' => ['nullable', 'exists:banks,id'],
             'post_automatically' => ['nullable', 'boolean'],
             'to_check' => ['nullable', 'boolean'],
+            'source_document' => ['nullable'],
             'status' => ['nullable', "in:$statuses"],
             'invoice_lines.*.id' => ['nullable', 'exists:invoice_lines,id'],
             'invoice_lines.*.product_id' => ['required', "exists:products,id"],

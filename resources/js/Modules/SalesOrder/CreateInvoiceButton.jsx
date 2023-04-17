@@ -27,7 +27,8 @@ const CreateInvoiceButton = () => {
     };
 
     const handleCreateDraftInvoice = () => {
-        formContext.form.submit();
+        setIsModalVisible(false);
+        formContext.formActions.modalSubmit();
     }
 
     if (initialValues.status !== 'done') {

@@ -23,6 +23,7 @@ class CreateInvoicesTable extends Migration
             $table->unsignedInteger('bank_id')->nullable();
             $table->boolean('post_automatically')->default(false);
             $table->boolean('to_check')->default(false);
+            $table->string('source_document')->nullable();
             $table->string('status')->nullable();
             $table->double('amount_due')->nullable()->default(0);
             $table->softDeletes();

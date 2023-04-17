@@ -26,6 +26,7 @@ class InvoiceResource extends JsonResource
             'bank_id' => $this->bank_id,
             'post_automatically' => $this->post_automatically,
             'to_check' => $this->to_check,
+            'source_document' => $this->source_document,
             'amount_due' => $this->amount_due,
             'status' => $this->status,
             'customer' => $this->customer,

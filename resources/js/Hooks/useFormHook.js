@@ -99,6 +99,9 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
                 ...state,
                 formDisabled: state.formDisabled !== true
             }));
+        },
+        modalSubmit: () => {
+            form.submit();
         }
     });
 
