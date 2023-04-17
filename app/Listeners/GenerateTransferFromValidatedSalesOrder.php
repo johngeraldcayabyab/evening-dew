@@ -11,11 +11,11 @@ use App\Services\MeasurementConversion;
 
 class GenerateTransferFromValidatedSalesOrder
 {
-    public function handle(SalesOrderValidated $event)
+    public function handle(SalesOrderValidated $event): void
     {
         $salesOrder = $event->salesOrder;
         if ($this->isTransferExist($salesOrder->number)) {
-            return false;
+            return;
         }
         $operationTypeDelivery = OperationType::defaultDelivery();
         if (!$operationTypeDelivery) {
