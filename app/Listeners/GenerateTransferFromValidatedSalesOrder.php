@@ -14,11 +14,22 @@ class GenerateTransferFromValidatedSalesOrder
     public function handle(SalesOrderValidated $event)
     {
         $salesOrder = $event->salesOrder;
+        if ($this->isTransferExist($salesOrder->number)) {
+            return false;
+        }
         $operationTypeDelivery = OperationType::defaultDelivery();
         if (!$operationTypeDelivery) {
             return;
         }
         $this->createTransferAndLines($operationTypeDelivery, $salesOrder);
+    }
+
+    private function isTransferExist($sourceDocument)
+    {
+        if (Transfer::where('source_document', $sourceDocument)->first()) {
+            return true;
+        }
+        return false;
     }
 
     private function createTransferAndLines($operationType, $salesOrder)
