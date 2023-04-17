@@ -54,7 +54,7 @@ class SalesOrderController extends Controller
     public function update(SalesOrderRequest $request, SalesOrder $salesOrder): JsonResponse
     {
         $data = $request->validated();
-        $salesOrderData = Arr::except($data, ['sales_order_lines', 'sales_order_lines_deleted']);
+        $salesOrderData = Arr::except($data, ['sales_order_lines', 'sales_order_lines_deleted', 'invoice_type']);
         $salesOrder->update($salesOrderData);
         if (isset($data['sales_order_lines'])) {
             $salesOrderLinesData = $data['sales_order_lines'];
@@ -64,6 +64,9 @@ class SalesOrderController extends Controller
             SalesOrderLine::massDelete(collect($data['sales_order_lines_deleted'])->pluck('id'));
         }
         if ($salesOrder->status === SalesOrder::DONE) {
+            if (isset($data['invoice_type'])) {
+                $salesOrder->invoice_type = $data['invoice_type'];
+            }
             SalesOrderValidated::dispatch($salesOrder);
         }
         return $this->responseUpdate();
