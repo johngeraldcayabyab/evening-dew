@@ -8,6 +8,7 @@ use App\Models\Currency;
 use App\Models\Invoice;
 use App\Models\InvoiceLine;
 use App\Models\Journal;
+use App\Models\Sequence;
 
 class GenerateInvoiceFromValidatedSalesOrder
 {
@@ -22,8 +23,11 @@ class GenerateInvoiceFromValidatedSalesOrder
 
     private function createInvoiceAndLines($salesOrder)
     {
+        $invoiceSequence = Sequence::where('sequence_code', 'invoices.sequence')->first();
+        $invoiceSequenceNumber = Sequence::generateSequence($invoiceSequence->id);
         $defaultJournal = Journal::where('type', Journal::SALES)->first();
         $invoice = Invoice::create([
+            'number' => $invoiceSequenceNumber,
             'customer_id' => $salesOrder->customer_id,
             'invoice_date' => now()->format(SystemSetting::DATE_TIME_FORMAT),
             'payment_term_id' => $salesOrder->payment_term_id,
