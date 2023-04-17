@@ -121,6 +121,9 @@ const manifest = {
     ],
     formLinks: [
         {
+            module: 'invoices', param: 'source_document', value: 'number', label: 'Invoices',
+        },
+        {
             module: 'transfers', param: 'source_document', value: 'number', label: 'Deliveries',
         },
     ],
