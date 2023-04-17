@@ -42,6 +42,7 @@ class SalesOrder extends Model implements Sluggable
     {
         return $this->belongsTo(Contact::class, 'customer_id', 'id');
     }
+
     public function pricelist()
     {
         return $this->belongsTo(Pricelist::class, 'pricelist_id', 'id');
@@ -80,6 +81,16 @@ class SalesOrder extends Model implements Sluggable
     public function salesOrderLines()
     {
         return $this->hasMany(SalesOrderLine::class);
+    }
+
+    public function transfers()
+    {
+        return $this->hasMany(Transfer::class, 'source_document', 'number');
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class, 'source_document', 'number');
     }
 
     public function slug()
