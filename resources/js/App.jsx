@@ -1,15 +1,15 @@
-import "antd/dist/antd.min.css";
+// import "antd/dist/antd.min.css";
 import "../sass/App.scss";
 import './bootstrap.js';
 import React, {useState} from 'react';
-import {render} from 'react-dom';
-import {BrowserRouter} from 'react-router-dom';
+import {BrowserRouter, Routes} from 'react-router-dom';
 import {getCookie} from "./Helpers/cookie";
 import ContentContainer from './Components/ContentContainter';
 import LoginRoute from './Modules/Login/LoginRoute';
 import HomeRoute from "./Modules/Home/HomeRoute";
 import {AppContextProvider} from "./Contexts/AppContext";
 import RouteMaster from "./RouteMaster";
+import {createRoot} from 'react-dom/client';
 
 const App = () => {
     const [appState, setAppState] = useState({
@@ -29,16 +29,19 @@ const App = () => {
                 }}
             >
                 <ContentContainer>
-                    <React.Suspense fallback={<></>}>
-                        <RouteMaster/>
-                    </React.Suspense>
+                    {/*<React.Suspense fallback={<></>}>*/}
+                        {/*<RouteMaster/>*/}
+                    {/*</React.Suspense>*/}
                     <HomeRoute/>
                     <LoginRoute/>
                 </ContentContainer>
             </AppContextProvider>
+
         </BrowserRouter>
     )
 };
 
-render(<App/>, document.getElementById('root'));
+const container = document.getElementById('root');
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
+root.render(<App/>);
 

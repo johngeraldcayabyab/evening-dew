@@ -3,7 +3,7 @@ import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {useContext, useEffect, useState} from "react";
 import {setCookie} from "../../Helpers/cookie";
 import {getDevice} from "../../Helpers/device";
-import {useHistory} from "react-router";
+import {useNavigate} from "react-router";
 import {GET, POST} from "../../consts";
 import useFetchHook from "../../Hooks/useFetchHook";
 import {AppContext} from "../../Contexts/AppContext"
@@ -14,7 +14,7 @@ const Login = () => {
         errors: {},
     });
     const useFetch = useFetchHook();
-    const history = useHistory();
+    const navigate = useNavigate();
     const appContext = useContext(AppContext);
 
     const onFinish = (values) => {
@@ -50,7 +50,7 @@ const Login = () => {
 
     useEffect(() => {
         if (appContext.appState.isLogin) {
-            history.push('/contacts');
+            navigate('/contacts');
         }
         useFetch(`/api/sanctum/csrf-cookie`, GET);
     }, [appContext.appState.isLogin]);

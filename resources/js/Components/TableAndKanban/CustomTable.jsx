@@ -1,6 +1,6 @@
 import {Button, Table} from "antd";
 import React, {useContext, useEffect, useState} from "react";
-import {Link, useHistory} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {EyeOutlined, SearchOutlined} from "@ant-design/icons";
 import {TableContext} from "../../Contexts/TableContext";
 import SearchFilter from "./TableFilters/SearchFilter.jsx";
@@ -17,7 +17,7 @@ const CustomTable = (props) => {
     const appContext = useContext(AppContext);
     const listContext = useContext(TableContext);
     const manifest = listContext.manifest;
-    const history = useHistory();
+    const history = useNavigate();
     const [state, setState] = useState({
         columns: listContext.columns
     });

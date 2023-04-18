@@ -31,8 +31,6 @@ import User from "./Modules/UserManifest"
 import Warehouse from "./Modules/WarehouseManifest"
 import StockLocationQuantity from "./Modules/StockLocationQuantityManifest"
 import Bank from "./Modules/BankManifest"
-import {Switch} from "react-router-dom"
-import Routes from "./Components/Routes"
 import FormGenerator from "./Components/Form/FormGenerator"
 import TableGenerator from "./Components/TableAndKanban/TableGenerator"
 import BankAccount from "./Modules/BankAccountManifest"
@@ -43,7 +41,8 @@ import Payment from "./Modules/PaymentManifest"
 import ChartOfAccount from "./Modules/ChartOfAccountManifest";
 import Pricelist from "./Modules/PricelistManifest";
 import Bill from "./Modules/BillManifest";
-import {HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE} from "./consts"
+import {HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE} from "./consts";
+import {Route, Routes} from "react-router-dom"
 
 const RouteMaster = () => {
     const manifests = [
@@ -102,51 +101,51 @@ const RouteMaster = () => {
             routes = manifestRoutes.map((route) => {
                 if (route === HAS_FORM_CREATE) {
                     return (
-                        <Routes
+                        <Route
                             key={`${manifest.moduleName}-${manifest.displayName}-create-form`}
                             path={`/${manifest.displayName}/create`}
-                            component={() => <FormGenerator {...manifest}/>}
+                            element={<FormGenerator {...manifest}/>}
                         />
                     )
                 } else if (route === HAS_FORM_UPDATE) {
                     return (
-                        <Routes
+                        <Route
                             key={`${manifest.moduleName}-${manifest.displayName}-update-form`}
                             path={`/${manifest.displayName}/:id`}
-                            component={() => <FormGenerator {...manifest}/>}
+                            element={<FormGenerator {...manifest}/>}
                         />
                     )
                 } else if (route === HAS_TABLE) {
                     return (
-                        <Routes
+                        <Route
                             key={`${manifest.moduleName}-${manifest.displayName}-table`}
                             path={`/${manifest.displayName}`}
-                            component={() => <TableGenerator {...manifest}/>}
+                            element={<TableGenerator {...manifest}/>}
                         />
                     )
                 }
             });
         } else if (manifestRoutes.length === 1 && manifestRoutes.includes(HAS_FORM_CREATE)) {
             routes.push(
-                <Routes
+                <Route
                     key={`${manifest.moduleName}-${manifest.displayName}-create-form`}
                     path={`/${manifest.displayName}`}
-                    component={() => <FormGenerator {...manifest}/>}
+                    element={<FormGenerator {...manifest}/>}
                 />
             )
         } else if (manifestRoutes.length === 1 && manifestRoutes.includes(HAS_TABLE)) {
             return (
-                <Routes
+                <Route
                     key={`${manifest.moduleName}-${manifest.displayName}-table`}
                     path={`/${manifest.displayName}`}
-                    component={() => <TableGenerator {...manifest}/>}
+                    element={<TableGenerator {...manifest}/>}
                 />
             )
         }
         return (
-            <Switch key={`${manifest.moduleName}-${manifest.displayName}-switch`}>
+            <Routes key={`${manifest.moduleName}-${manifest.displayName}-switch`}>
                 {routes}
-            </Switch>
+            </Routes>
         )
     });
 };

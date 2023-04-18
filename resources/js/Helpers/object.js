@@ -1,4 +1,4 @@
-import moment from 'moment';
+// import moment from 'moment';
 import {DATE_FORMAT} from "../consts";
 
 export const cleanObject = (obj) => {
@@ -25,19 +25,19 @@ export const loopThroughObjRecurs = (obj, propExec) => {
 }
 
 export const formatInitialValuesDatetimeToMoment = (obj) => {
-    for (let k in obj) {
-        if (typeof obj[k] == "object" && obj[k] !== null)
-            formatInitialValuesDatetimeToMoment(obj[k]);
-        else {
-            if (moment(obj[k], DATE_FORMAT, true).isValid()) {
-                obj[k] = formatToMoment(obj[k]);
-            }
-        }
-    }
+    // for (let k in obj) {
+    //     if (typeof obj[k] == "object" && obj[k] !== null)
+    //         formatInitialValuesDatetimeToMoment(obj[k]);
+    //     else {
+    //         if (moment(obj[k], DATE_FORMAT, true).isValid()) {
+    //             obj[k] = formatToMoment(obj[k]);
+    //         }
+    //     }
+    // }
 }
 
 export const formatToMoment = (obj) => {
-    return moment(obj, DATE_FORMAT);
+    // return moment(obj, DATE_FORMAT);
 }
 
 export const isShowButton = (appContext, moduleName, access) => {

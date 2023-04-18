@@ -6,7 +6,7 @@ import useFetchHook from "../Hooks/useFetchHook";
 import {getCookie} from "../Helpers/cookie";
 import {GET} from "../consts";
 import {reset} from "../Helpers/reset";
-import {useHistory, useLocation} from "react-router";
+import {useNavigate, useLocation} from "react-router-dom";
 import {AppContext} from "../Contexts/AppContext"
 
 const ContentContainer = (props) => {
@@ -14,7 +14,7 @@ const ContentContainer = (props) => {
     const appState = appContext.appState;
     const setAppState = appContext.setAppState;
     const location = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const useFetch = useFetchHook();
 
@@ -26,7 +26,7 @@ const ContentContainer = (props) => {
             if (!location.pathname.includes('login')) {
                 reset();
                 message.warning('Please login first!'); // this thing does nothing because the state isnt fixed
-                history.push('/login');
+                navigate('/login');
             }
             return;
         }

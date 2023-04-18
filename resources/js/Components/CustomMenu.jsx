@@ -5,7 +5,7 @@ import {AppstoreOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 import useFetchHook from "../Hooks/useFetchHook";
 import {POST} from "../consts";
-import {useHistory, useLocation} from "react-router";
+import {useNavigate, useLocation} from "react-router";
 import {setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import AvatarUser from "./AvatarUser";
@@ -33,7 +33,7 @@ const CustomMenu = () => {
         appMenu: [],
         appMenuChildren: [],
     });
-    const history = useHistory();
+    const history = useNavigate();
 
     function getRootIndex(appMenu = [], value) {
         value = '/' + value.split('/')[1];

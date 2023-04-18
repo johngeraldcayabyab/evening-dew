@@ -1,15 +1,16 @@
 import {useContext, useEffect, useState} from "react";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import useFetchHook from "./useFetchHook";
 import {GET, POST, PUT} from "../consts";
 import {formatInitialValuesDatetimeToMoment} from "../Helpers/object";
-import moment from "moment";
+// import moment from "moment";
 import {AppContext} from "../Contexts/AppContext"
+
 
 const useFormHook = (id, form, manifest, getInitialValues = false) => {
     const appContext = useContext(AppContext);
     const useFetch = useFetchHook();
-    const history = useHistory();
+    const history = useNavigate();
 
     const [formState, setFormState] = useState({
         id: id,
@@ -54,9 +55,9 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
 
             for (let key in values) {
                 if (values.hasOwnProperty(key)) {
-                    if (values[key] instanceof moment) {
-                        values[key] = values[key].format('YYYY-MM-DD HH:mm:ss');
-                    }
+                    // if (values[key] instanceof moment) {
+                    //     values[key] = values[key].format('YYYY-MM-DD HH:mm:ss');
+                    // }
                 }
             }
 
