@@ -16,6 +16,7 @@ class CreateContactsTable extends Migration
             $table->string('email')->nullable();
             $table->string('website')->nullable();
             $table->unsignedInteger('tax_id')->nullable();
+            $table->unsignedInteger('pricelist_id')->nullable();
             $table->string('avatar')->nullable();
             $table->softDeletes();
             $table->timestamps();

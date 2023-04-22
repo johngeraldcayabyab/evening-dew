@@ -15,6 +15,7 @@ class ContactRequest extends FormRequest
             'email' => ['nullable'],
             'website' => ['nullable'],
             'tax_id' => ['nullable'],
+            'pricelist_id' => ['nullable'],
             'avatar' => ['nullable'],
             'address' => ['nullable'],
             'zip' => ['nullable'],

@@ -125,9 +125,10 @@ const manifest = {
             ],
             col_2: [
                 {
-                    type: 'text',
-                    name: 'tax_id',
-                    label: 'Tax ID',
+                    type: 'select',
+                    name: 'pricelist_id',
+                    label: 'Pricelist',
+                    query: {url: '/api/pricelists', field: 'name'},
                 },
                 {
                     type: 'text',

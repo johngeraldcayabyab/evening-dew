@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "31e34f9f-8815-4716-becf-eb37c0a9340c",
+		"_postman_id": "d6e58368-28c4-46a8-8724-f7ee521cfdd7",
 		"name": "Evening Dew",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -12,7 +12,7 @@
 					"name": "Pricelist",
 					"item": [
 						{
-							"name": "Get Pricelists",
+							"name": "Get pricelists",
 							"event": [
 								{
 									"listen": "test",
@@ -55,7 +55,7 @@
 							"response": []
 						},
 						{
-							"name": "Get Pricelist",
+							"name": "Get pricelist",
 							"event": [
 								{
 									"listen": "test",
@@ -99,7 +99,7 @@
 							"response": []
 						},
 						{
-							"name": "Get Pricelist Product",
+							"name": "Get pricelist product",
 							"event": [
 								{
 									"listen": "test",
@@ -145,7 +145,7 @@
 							"response": []
 						},
 						{
-							"name": "Create Pricelist",
+							"name": "Create pricelist",
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -186,7 +186,7 @@
 					]
 				},
 				{
-					"name": "Get Sales Orders",
+					"name": "Get sales orders",
 					"event": [
 						{
 							"listen": "test",
@@ -240,7 +240,7 @@
 			"name": "Inventory",
 			"item": [
 				{
-					"name": "Get Products",
+					"name": "Get products",
 					"event": [
 						{
 							"listen": "test",
@@ -322,6 +322,92 @@
 							"path": [
 								"api",
 								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contacts",
+			"item": [
+				{
+					"name": "Create contact",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"tope mabs\",\"email\":\"topemabs@gmail.com\",\"country_id\":1,\"pricelist_id\":1}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/contacts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get contacts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/contacts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"contacts"
 							]
 						}
 					},
