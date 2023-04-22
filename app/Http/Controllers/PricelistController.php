@@ -58,12 +58,27 @@ class PricelistController extends Controller
         return $this->responseCreate();
     }
 
+
     /*
-     * TODO -Add cascade delete
+     * TODO - add update
      * */
+
+    /**
+     * @throws Throwable
+     */
     public function mass_destroy(Request $request): JsonResponse
     {
-        $this->massDelete(new Pricelist(), $request);
+        DB::transaction(function () use ($request) {
+
+            $collection = collect($request->input('ids'));
+            $collection->each(function (int $item, int $key) {
+
+                $pricelist = Pricelist::find($item);
+                $pricelist->products()->delete();
+                $pricelist->delete();
+            });
+
+       });
         return $this->responseDelete();
     }
 
