@@ -74,6 +74,7 @@ const manifest = {
                     type: 'select',
                     name: 'app_menu_id',
                     label: 'App Menu',
+                    required: true,
                     query: {url: '/api/app_menus', field: 'label'},
                 },
                 {
