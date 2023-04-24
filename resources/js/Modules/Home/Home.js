@@ -5,10 +5,9 @@ import Title from "antd/lib/typography/Title";
 import {useEffect, useState} from "react";
 import useFetchHook from "../../Hooks/useFetchHook";
 import useFetchCatcherHook from "../../Hooks/useFetchCatcherHook";
-import {GET, SEARCH} from "../../consts";
-import {Card, Col, DatePicker, Row, Spin, Radio, Table} from "antd";
+import {GET} from "../../consts";
+import {Card, Col, DatePicker, Radio, Row, Spin, Table} from "antd";
 import moment from "moment";
-import Text from "antd/es/typography/Text";
 import {numberWithCommas} from "../../Helpers/string";
 
 const {RangePicker} = DatePicker;
@@ -37,12 +36,6 @@ const Home = () => {
         smNorthSalesFrom: moment().subtract(7, 'months'),
         smNorthSalesTo: moment(),
         smNorthPicker: 'month',
-
-        // allSalesLoading: true,
-        // allSales: [],
-        // allSalesFrom: moment().subtract(7, 'months'),
-        // allSalesTo: moment(),
-        // allSalesPicker: 'month',
     });
 
     useEffect(() => {
@@ -51,7 +44,6 @@ const Home = () => {
         fetchShopifySales(from, to);
         fetchManualSales(from, to);
         fetchSmNorthSales(from, to);
-        // fetchAllSales(from, to);
     }, []);
 
     function fetchSmNorthSales(from, to, dateUnit = false) {
@@ -122,108 +114,6 @@ const Home = () => {
             fetchCatcher.get(responseErr);
         });
     }
-
-    // function fetchAllSales(from, to) {
-    //     useFetch(`/api/sales_orders/sales_per_day`, GET, {
-    //         from: from.format(dateFormat),
-    //         to: to.format(dateFormat),
-    //     }).then((response) => {
-    //         const sales = response.map((sales) => ({
-    //             time: sales.time,
-    //             total: parseInt(sales.total)
-    //         }));
-    //         setState((prevState) => ({
-    //             ...prevState,
-    //             allSales: sales,
-    //             allSalesLoading: false,
-    //             allSalesFrom: from,
-    //             allSalesTo: to
-    //         }));
-    //     }).catch((responseErr) => {
-    //         fetchCatcher.get(responseErr);
-    //     });
-    // }
-
-    // const shopifySalesConfig = {
-    //     data: state.shopifySales,
-    //     xField: 'time',
-    //     yField: 'total',
-    //     label: {
-    //         position: 'middle',
-    //         style: {
-    //             fill: '#FFFFFF',
-    //             opacity: 0.6,
-    //         },
-    //     },
-    //     xAxis: {
-    //         label: {
-    //             autoHide: true,
-    //             autoRotate: false,
-    //         },
-    //     },
-    //     meta: {
-    //         time: {
-    //             alias: 'Time',
-    //         },
-    //         total: {
-    //             alias: 'Total',
-    //         },
-    //     },
-    // };
-
-    // const manualSalesConfig = {
-    //     data: state.manualSales,
-    //     xField: 'time',
-    //     yField: 'total',
-    //     label: {
-    //         position: 'middle',
-    //         style: {
-    //             fill: '#FFFFFF',
-    //             opacity: 0.6,
-    //         },
-    //     },
-    //     xAxis: {
-    //         label: {
-    //             autoHide: true,
-    //             autoRotate: false,
-    //         },
-    //     },
-    //     meta: {
-    //         time: {
-    //             alias: 'Time',
-    //         },
-    //         total: {
-    //             alias: 'Total',
-    //         },
-    //     },
-    // };
-
-    // const allSalesConfig = {
-    //     data: state.allSales,
-    //     xField: 'time',
-    //     yField: 'total',
-    //     label: {
-    //         position: 'middle',
-    //         style: {
-    //             fill: '#FFFFFF',
-    //             opacity: 0.6,
-    //         },
-    //     },
-    //     xAxis: {
-    //         label: {
-    //             autoHide: true,
-    //             autoRotate: false,
-    //         },
-    //     },
-    //     meta: {
-    //         time: {
-    //             alias: 'Time',
-    //         },
-    //         total: {
-    //             alias: 'Total',
-    //         },
-    //     },
-    // };
 
     function setShopifyPicker(value) {
         let dateUnit;
@@ -373,10 +263,6 @@ const Home = () => {
                         pagination={false}
                         size={'small'}
                     />
-
-                    {/*<Spin spinning={state.shopifySalesLoading}>*/}
-                    {/*    <Column {...shopifySalesConfig} />*/}
-                    {/*</Spin>*/}
                 </Card>
             </Col>
 
@@ -443,11 +329,6 @@ const Home = () => {
                         pagination={false}
                         size={'small'}
                     />
-
-
-                    {/*<Spin spinning={state.manualSalesLoading}>*/}
-                    {/*    <Column {...manualSalesConfig} />*/}
-                    {/*</Spin>*/}
                 </Card>
             </Col>
         </Row>
@@ -517,114 +398,9 @@ const Home = () => {
                         pagination={false}
                         size={'small'}
                     />
-
-                    {/*<Spin spinning={state.shopifySalesLoading}>*/}
-                    {/*    <Column {...shopifySalesConfig} />*/}
-                    {/*</Spin>*/}
                 </Card>
             </Col>
-
-            {/*<Col*/}
-            {/*    xs={{span: 24}}*/}
-            {/*    sm={{span: 24}}*/}
-            {/*    md={{span: 24}}*/}
-            {/*    lg={{span: 12}}*/}
-            {/*>*/}
-            {/*    <Card*/}
-            {/*        title={"Manual Sales"}*/}
-            {/*        extra={*/}
-            {/*            <RangePicker*/}
-            {/*                onChange={e => {*/}
-            {/*                    fetchManualSales(moment(e[0]), moment(e[1]));*/}
-            {/*                }}*/}
-            {/*                allowClear={false}*/}
-            {/*                style={{marginBottom: 8, width: '100%'}}*/}
-            {/*                defaultValue={[state.manualSalesFrom, state.manualSalesTo]}*/}
-            {/*                picker={state.manualPicker}*/}
-            {/*            />*/}
-            {/*        }*/}
-            {/*        style={{margin: '5%', padding: '15px'}}*/}
-            {/*    >*/}
-            {/*        <Radio.Group*/}
-            {/*            value={state.manualPicker}*/}
-            {/*            onChange={e => {*/}
-            {/*                setManualPicker(e.target.value);*/}
-            {/*            }}*/}
-            {/*        >*/}
-            {/*            <Radio.Button value="date">Day</Radio.Button>*/}
-            {/*            <Radio.Button value="month">Month</Radio.Button>*/}
-            {/*            <Radio.Button value="year">Year</Radio.Button>*/}
-            {/*        </Radio.Group>*/}
-
-
-            {/*        <Table*/}
-            {/*            loading={state.manualSalesLoading}*/}
-            {/*            dataSource={state.manualSales}*/}
-            {/*            columns={[*/}
-            {/*                {*/}
-            {/*                    title: 'Date',*/}
-            {/*                    dataIndex: 'year',*/}
-            {/*                    key: 'year',*/}
-            {/*                    render: (text, record) => {*/}
-            {/*                        if (record.month) {*/}
-            {/*                            const month = String(record.month).length === 1 ? `0${record.month}` : record.month;*/}
-            {/*                            return `${record.year}-${month}`;*/}
-            {/*                        }*/}
-            {/*                        return record.year;*/}
-            {/*                    }*/}
-            {/*                },*/}
-            {/*                {*/}
-            {/*                    title: 'Total',*/}
-            {/*                    dataIndex: 'total',*/}
-            {/*                    key: 'total',*/}
-            {/*                    render: (text, record) => {*/}
-            {/*                        return numberWithCommas(record.total)*/}
-            {/*                    }*/}
-            {/*                }*/}
-            {/*                ,*/}
-            {/*            ]}*/}
-            {/*            rowKey={'total'}*/}
-            {/*            pagination={false}*/}
-            {/*            size={'small'}*/}
-            {/*        />*/}
-
-
-            {/*        /!*<Spin spinning={state.manualSalesLoading}>*!/*/}
-            {/*        /!*    <Column {...manualSalesConfig} />*!/*/}
-            {/*        /!*</Spin>*!/*/}
-            {/*    </Card>*/}
-            {/*</Col>*/}
         </Row>
-
-        {/*<Row align={'middle'} style={{marginTop: '15px'}}>*/}
-        {/*    <Col*/}
-        {/*        xs={{span: 24}}*/}
-        {/*        sm={{span: 24}}*/}
-        {/*        md={{span: 24}}*/}
-        {/*        lg={{span: 16, offset: 4}}*/}
-        {/*    >*/}
-        {/*        <Card*/}
-        {/*            title={"All Sales"}*/}
-        {/*            extra={*/}
-        {/*                <*/}
-        {/*                    RangePicker*/}
-        {/*                    onChange={e => {*/}
-        {/*                        fetchAllSales(moment(e[0]), moment(e[1]));*/}
-        {/*                    }}*/}
-        {/*                    allowClear={false}*/}
-        {/*                    style={{marginBottom: 8, width: '100%'}}*/}
-        {/*                    defaultValue={[state.allSalesFrom, state.allSalesTo]}*/}
-        {/*                    picker={state.allSalesPicker}*/}
-        {/*                />*/}
-        {/*            }*/}
-        {/*            style={{margin: '5%', padding: '15px'}}*/}
-        {/*        >*/}
-        {/*            <Spin spinning={state.allSalesLoading}>*/}
-        {/*                <Column {...allSalesConfig} />*/}
-        {/*            </Spin>*/}
-        {/*        </Card>*/}
-        {/*    </Col>*/}
-        {/*</Row>*/}
     </>);
 };
 
