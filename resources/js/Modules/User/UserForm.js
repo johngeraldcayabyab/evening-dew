@@ -67,6 +67,7 @@ const UserForm = () => {
                             <FormItemSelect
                                 label={'App Menu'}
                                 name={'app_menu_id'}
+	    			required={true}
                                 {...appMenuOptions}
                             />
                         </ColForm>

@@ -271,8 +271,8 @@ const ShopifyForm = () => {
                             <FormItemSelect
                                 label={'Source'}
                                 name={'source_id'}
-                                disabled={true}
-                                overrideDisabled={true}
+                                // disabled={true}
+                                // overrideDisabled={true}
                                 {...sourceOptions}
                             />
 
