@@ -57,7 +57,7 @@ const Home = () => {
         useFetch(`/api/sales_orders/sales_per_day`, GET, {
             from: from.format(dateFormat),
             to: to.format(dateFormat),
-            source_id: 7,
+            name: 'grab',
             date_unit: dateUnit ? dateUnit : state.grabPicker
         }).then((response) => {
             const sales = response.map((sales) => ({

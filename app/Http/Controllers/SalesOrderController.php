@@ -7,6 +7,7 @@ use App\Events\SalesOrderValidatedEvent;
 use App\Events\SmNorthPaidEvent;
 use App\Http\Requests\SalesOrderRequest;
 use App\Http\Resources\SalesOrderResource;
+use App\Models\Contact;
 use App\Models\GlobalSetting;
 use App\Models\SalesOrder;
 use App\Models\SalesOrderLine;
@@ -39,7 +40,7 @@ class SalesOrderController
                 $request->quotation_date = $date;
             }
         }
-        $model = $model->filterAndOrder($request, function ($query) use ($request){
+        $model = $model->filterAndOrder($request, function ($query) use ($request) {
             if ($request->same_day && $request->source_id != 6) {
                 $query = $query->where('source_id', '!=', 6);
             }
@@ -142,6 +143,10 @@ class SalesOrderController
             if ($request->source_id) {
                 $salesPerDay = $salesPerDay->where('source_id', $request->source_id);
             }
+            if ($request->name) {
+                $contactIds = Contact::where('name', 'like', "%$request->name%")->get('id')->pluck('id')->toArray();
+                $salesPerDay = $salesPerDay->whereIn('customer_id', $contactIds)->where('source_document', 'like', '%grab%');
+            }
             $salesPerDay = $salesPerDay
                 ->groupBy('year')
                 ->orderBy('year', 'desc')
@@ -154,6 +159,10 @@ class SalesOrderController
                 ->whereBetween('shipping_date', [$from, $to]);
             if ($request->source_id) {
                 $salesPerDay = $salesPerDay->where('source_id', $request->source_id);
+            }
+            if ($request->name) {
+                $contactIds = Contact::where('name', 'like', "%$request->name%")->get('id')->pluck('id')->toArray();
+                $salesPerDay = $salesPerDay->whereIn('customer_id', $contactIds)->where('source_document', 'like', '%grab%');
             }
             $salesPerDay = $salesPerDay
                 ->groupBy('year')
@@ -169,6 +178,10 @@ class SalesOrderController
                 ->whereBetween('quotation_date', [$from, $to]);
             if ($request->source_id) {
                 $salesPerDay = $salesPerDay->where('source_id', $request->source_id);
+            }
+            if ($request->name) {
+                $contactIds = Contact::where('name', 'like', "%$request->name%")->get('id')->pluck('id')->toArray();
+                $salesPerDay = $salesPerDay->whereIn('customer_id', $contactIds)->where('source_document', 'like', '%grab%');
             }
             $salesPerDay = $salesPerDay
                 ->groupBy('year')
