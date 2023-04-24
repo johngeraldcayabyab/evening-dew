@@ -36,6 +36,12 @@ const Home = () => {
         smNorthSalesFrom: moment().subtract(7, 'months'),
         smNorthSalesTo: moment(),
         smNorthPicker: 'month',
+
+        grabSalesLoading: true,
+        grabSales: [],
+        grabSalesFrom: moment().subtract(7, 'months'),
+        grabSalesTo: moment(),
+        grabPicker: 'month',
     });
 
     useEffect(() => {
@@ -44,7 +50,31 @@ const Home = () => {
         fetchShopifySales(from, to);
         fetchManualSales(from, to);
         fetchSmNorthSales(from, to);
+        fetchGrabSales(from, to);
     }, []);
+
+    function fetchGrabSales(from, to, dateUnit = false) {
+        useFetch(`/api/sales_orders/sales_per_day`, GET, {
+            from: from.format(dateFormat),
+            to: to.format(dateFormat),
+            source_id: 7,
+            date_unit: dateUnit ? dateUnit : state.grabPicker
+        }).then((response) => {
+            const sales = response.map((sales) => ({
+                ...sales,
+                total: parseInt(sales.total)
+            }));
+            setState((prevState) => ({
+                ...prevState,
+                grabSales: sales,
+                grabSalesLoading: false,
+                grabSalesFrom: from,
+                grabSalesTo: to
+            }));
+        }).catch((responseErr) => {
+            fetchCatcher.get(responseErr);
+        });
+    }
 
     function fetchSmNorthSales(from, to, dateUnit = false) {
         useFetch(`/api/sales_orders/sales_per_day`, GET, {
@@ -164,6 +194,31 @@ const Home = () => {
         }));
 
         fetchManualSales(from, to, value);
+    }
+
+    function setGrabPicker(value) {
+        let dateUnit;
+        let dateAmount;
+        if (value === 'date') {
+            dateUnit = 'days';
+            dateAmount = 7;
+        } else if (value === 'month') {
+            dateUnit = 'months';
+            dateAmount = 7;
+        } else if (value === 'year') {
+            dateUnit = 'years';
+            dateAmount = 3;
+        }
+
+        const from = moment().subtract(dateAmount, dateUnit);
+        const to = moment();
+        setState((prevState) => ({
+            ...prevState,
+            grabPicker: value,
+            grabSalesFrom: from,
+        }));
+
+        fetchGrabSales(from, to, value);
     }
 
     function setSmNorthPicker(value) {
@@ -371,6 +426,73 @@ const Home = () => {
                     <Table
                         loading={state.smNorthSalesLoading}
                         dataSource={state.smNorthSales}
+                        columns={[
+                            {
+                                title: 'Date',
+                                dataIndex: 'year',
+                                key: 'year',
+                                render: (text, record) => {
+                                    if (record.month) {
+                                        const month = String(record.month).length === 1 ? `0${record.month}` : record.month;
+                                        return `${record.year}-${month}`;
+                                    }
+                                    return record.year;
+                                }
+                            },
+                            {
+                                title: 'Total',
+                                dataIndex: 'total',
+                                key: 'total',
+                                render: (text, record) => {
+                                    return numberWithCommas(record.total)
+                                }
+                            }
+                            ,
+                        ]}
+                        rowKey={'total'}
+                        pagination={false}
+                        size={'small'}
+                    />
+                </Card>
+            </Col>
+
+
+            <Col
+                xs={{span: 24}}
+                sm={{span: 24}}
+                md={{span: 24}}
+                lg={{span: 12}}
+            >
+                <Card
+                    title={"Grab"}
+                    extra={
+                        <RangePicker
+                            onChange={e => {
+                                fetchGrabSales(moment(e[0]), moment(e[1]));
+                            }}
+                            allowClear={false}
+                            style={{marginBottom: 8, width: '100%'}}
+                            defaultValue={[state.grabSalesFrom, state.grabSalesTo]}
+                            picker={state.grabPicker}
+                        />
+                    }
+                    style={{margin: '5%', padding: '15px'}}
+                >
+                    <Radio.Group
+                        value={state.grabPicker}
+                        onChange={e => {
+                            setGrabPicker(e.target.value);
+                        }}
+                    >
+                        <Radio.Button value="date">Day</Radio.Button>
+                        <Radio.Button value="month">Month</Radio.Button>
+                        <Radio.Button value="year">Year</Radio.Button>
+                    </Radio.Group>
+
+
+                    <Table
+                        loading={state.grabSalesLoading}
+                        dataSource={state.grabSales}
                         columns={[
                             {
                                 title: 'Date',
