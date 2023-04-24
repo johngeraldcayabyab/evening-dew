@@ -144,7 +144,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 if (isset($order['shipping_lines']) && isset($order['shipping_lines'][0])) {
                     $shippingLineCode = $order['shipping_lines'][0]['code'];
                     $shippingLineDiscountedPrice = $order['shipping_lines'][0]['discounted_price'];
-                    if ($shippingLineCode == 'Taste&Tell Mnl' && !(int)$shippingLineDiscountedPrice) {
+                    if (in_array($shippingLineCode, ['Taste&Tell Mnl', 'Taste & Tell SM North EDSA']) && !(int)$shippingLineDiscountedPrice) {
                         $shippingMethod = Transfer::PICKUP;
                         $vehicleType = null;
                     }
