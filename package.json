@@ -24,7 +24,6 @@
         "buffer": "^4.9.2",
         "dayjs": "^1.11.7",
         "dotenv": "^16.0.3",
-        "history": "^5.3.0",
         "process": "^0.11.10",
         "react-router": "^6.10.0",
         "react-router-dom": "^6.10.0",
