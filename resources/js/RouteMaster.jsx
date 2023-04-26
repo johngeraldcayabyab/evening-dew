@@ -89,15 +89,21 @@ const RouteMaster = () => {
         Pricelist
     ];
 
+    return (
+        <Routes>
+
+        </Routes>
+    );
+
     return manifests.map((manifest) => {
         const manifestRoutes = manifest.routes;
         let routes = [];
 
-        if (
-            manifestRoutes.length === 3 ||
-            (manifestRoutes.includes(HAS_TABLE) && manifestRoutes.includes(HAS_FORM_CREATE)) ||
-            (manifestRoutes.includes(HAS_TABLE) && manifestRoutes.includes(HAS_FORM_UPDATE))
-        ) {
+        const isRouteLength3 = manifestRoutes.length === 3;
+        const hasTableAndCreate = manifestRoutes.includes(HAS_TABLE) && manifestRoutes.includes(HAS_FORM_CREATE);
+        const hasTableAndUpdate = manifestRoutes.includes(HAS_TABLE) && manifestRoutes.includes(HAS_FORM_UPDATE);
+
+        if (isRouteLength3 || hasTableAndCreate || hasTableAndUpdate) {
             routes = manifestRoutes.map((route) => {
                 if (route === HAS_FORM_CREATE) {
                     return (
