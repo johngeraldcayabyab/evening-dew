@@ -1,5 +1,5 @@
 import {Breadcrumb} from "antd";
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
 import Title from "antd/lib/typography/Title";
 import {getBreadcrumbs, getClickedBreadcrumb, setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
@@ -93,6 +93,21 @@ const CustomBreadcrumb = () => {
             ...prevState,
             breadcrumbs: breadcrumbs
         }));
+    }
+
+    // <Title level={5} style={{display: 'inline-block'}}>
+    //     <Link key={breadcrumb.key} to={breadcrumb.link} onClick={() => {
+    //         setClickedBreadcrumb(breadcrumb);
+    //     }}>
+    //         {breadcrumb.slug}
+    //     </Link>
+    // </Title>
+
+    function itemRender(route, params, items, paths) {
+        // return <Title level={5} style={{display: 'inline-block'}}>{item.title}</Title>
+        // const last = items.indexOf(item) === items.length - 1;
+        // return last ? <Title level={5} style={{display: 'inline-block'}}>{item.title}</Title> :
+        //     <Title level={5} style={{display: 'inline-block'}}><Link to={paths.join('/')}>{item.title}</Link></Title>;
     }
 
     const items = state.breadcrumbs.map((breadcrumb) => {
