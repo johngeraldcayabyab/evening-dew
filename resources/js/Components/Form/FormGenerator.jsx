@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom"
+import {useParams,useNavigate} from "react-router-dom"
 import {Form} from "antd"
 import useFormHook from "../../Hooks/useFormHook"
 import {FormContextProvider} from "../../Contexts/FormContext";
@@ -16,7 +16,6 @@ import FormLinks from "../FormLinks";
 import useFetchHook from "../../Hooks/useFetchHook"
 import StatusBar from "../StatusBar"
 import {loopThroughObjRecurs} from "../../Helpers/object"
-import { useNavigate } from "react-router-dom";
 
 const FormGenerator = (manifest) => {
     let {id} = useParams();
