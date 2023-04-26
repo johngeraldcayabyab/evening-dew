@@ -1,4 +1,3 @@
-// import "antd/dist/antd.min.css";
 import "../sass/App.scss";
 import './bootstrap.js';
 import React, {useState} from 'react';
@@ -185,58 +184,6 @@ const App = () => {
                                     }
                                 />
                             );
-
-
-                            // if (isRouteLength3 || hasTableAndCreate || hasTableAndUpdate) {
-                            //     routes = manifestRoutes.map((route) => {
-                            //         if (route === HAS_FORM_CREATE) {
-                            //             return (
-                            //                 <Route
-                            //                     key={`${manifest.moduleName}-${manifest.displayName}-create-form`}
-                            //                     path={`/${manifest.displayName}/create`}
-                            //                     element={<FormGenerator {...manifest}/>}
-                            //                 />
-                            //             )
-                            //         } else if (route === HAS_FORM_UPDATE) {
-                            //             return (
-                            //                 <Route
-                            //                     key={`${manifest.moduleName}-${manifest.displayName}-update-form`}
-                            //                     path={`/${manifest.displayName}/:id`}
-                            //                     element={<FormGenerator {...manifest}/>}
-                            //                 />
-                            //             )
-                            //         } else if (route === HAS_TABLE) {
-                            //             return (
-                            //                 <Route
-                            //                     key={`${manifest.moduleName}-${manifest.displayName}-table`}
-                            //                     path={`/${manifest.displayName}`}
-                            //                     element={<TableGenerator {...manifest}/>}
-                            //                 />
-                            //             )
-                            //         }
-                            //     });
-                            // } else if (manifestRoutes.length === 1 && manifestRoutes.includes(HAS_FORM_CREATE)) {
-                            //     routes.push(
-                            //         <Route
-                            //             key={`${manifest.moduleName}-${manifest.displayName}-create-form`}
-                            //             path={`/${manifest.displayName}`}
-                            //             element={<FormGenerator {...manifest}/>}
-                            //         />
-                            //     )
-                            // } else if (manifestRoutes.length === 1 && manifestRoutes.includes(HAS_TABLE)) {
-                            //     return (
-                            //         <Route
-                            //             key={`${manifest.moduleName}-${manifest.displayName}-table`}
-                            //             path={`/${manifest.displayName}`}
-                            //             element={<TableGenerator {...manifest}/>}
-                            //         />
-                            //     )
-                            // }
-                            // return (
-                            //     <Routes key={`${manifest.moduleName}-${manifest.displayName}-switch`}>
-                            //         {routes}
-                            //     </Routes>
-                            // )
                         })}
                     </Routes>
                 </ContentContainer>
@@ -247,6 +194,6 @@ const App = () => {
 };
 
 const container = document.getElementById('root');
-const root = createRoot(container); // createRoot(container!) if you use TypeScript
+const root = createRoot(container);
 root.render(<App/>);
 
