@@ -1,7 +1,6 @@
 import {Breadcrumb} from "antd";
-import {Link, useLocation} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
-import Title from "antd/lib/typography/Title";
 import {getBreadcrumbs, getClickedBreadcrumb, setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import {objectHasValue} from "../Helpers/object";
@@ -110,15 +109,13 @@ const CustomBreadcrumb = () => {
         //     <Title level={5} style={{display: 'inline-block'}}><Link to={paths.join('/')}>{item.title}</Link></Title>;
     }
 
-    const items = state.breadcrumbs.map((breadcrumb) => {
-        return {
-            href: breadcrumb.link,
-            title: breadcrumb.slug,
-            onClick: () => {
-                setClickedBreadcrumb(breadcrumb);
-            },
-        }
-    });
+    const items = state.breadcrumbs.map((breadcrumb) => ({
+        href: breadcrumb.link,
+        title: breadcrumb.slug,
+        onClick: () => {
+            setClickedBreadcrumb(breadcrumb);
+        },
+    }));
 
     return <Breadcrumb items={items}/>
 };
