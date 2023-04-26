@@ -3,7 +3,7 @@ import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {useContext, useEffect, useState} from "react";
 import {setCookie} from "../../Helpers/cookie";
 import {getDevice} from "../../Helpers/device";
-import {useNavigate} from "react-router";
+import {useNavigate} from "react-router-dom";
 import {GET, POST} from "../../consts";
 import useFetchHook from "../../Hooks/useFetchHook";
 import {AppContext} from "../../Contexts/AppContext"
