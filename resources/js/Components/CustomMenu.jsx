@@ -4,7 +4,7 @@ import {Menu, message, Spin} from "antd";
 import {AppstoreOutlined} from "@ant-design/icons";
 import useFetchHook from "../Hooks/useFetchHook";
 import {POST} from "../consts";
-import {useNavigate, useLocation, Link} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import AvatarUser from "./AvatarUser";
@@ -32,7 +32,7 @@ const CustomMenu = () => {
         appMenu: [],
         appMenuChildren: [],
     });
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     function getRootIndex(appMenu = [], value) {
         value = '/' + value.split('/')[1];
@@ -95,7 +95,7 @@ const CustomMenu = () => {
             }));
             message.success('Logged Out!');
             reset();
-            history.push('/login');
+            navigate('/login');
         });
     }
 

@@ -17,7 +17,7 @@ const CustomTable = (props) => {
     const appContext = useContext(AppContext);
     const listContext = useContext(TableContext);
     const manifest = listContext.manifest;
-    const history = useNavigate();
+    const navigate = useNavigate();
     const [state, setState] = useState({
         columns: listContext.columns
     });
@@ -181,7 +181,7 @@ const CustomTable = (props) => {
         return {
             onClick: event => {
                 if (isClickableRow() && isCreatableAndUpdatable()) {
-                    history.push(`/${manifest.displayName}/${record.id}`);
+                    navigate(`/${manifest.displayName}/${record.id}`);
                 }
             },
             onDoubleClick: event => {
