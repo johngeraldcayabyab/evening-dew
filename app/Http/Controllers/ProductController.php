@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ProductDeleted;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Measurement;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Traits\ControllerHelperTrait;
+use DB;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -41,7 +43,12 @@ class ProductController extends Controller
 
     public function destroy(Product $product): JsonResponse
     {
-        $product->delete();
+        DB::transaction(function () use ($product) {
+            ProductDeleted::dispatch($product);
+            $product->delete();
+        });
+
+
         return $this->responseDelete();
     }
 
