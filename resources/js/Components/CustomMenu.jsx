@@ -4,7 +4,7 @@ import {Menu, message, Spin} from "antd";
 import {AppstoreOutlined} from "@ant-design/icons";
 import useFetchHook from "../Hooks/useFetchHook";
 import {POST} from "../consts";
-import {Link, useLocation, useNavigate, Navigate} from "react-router-dom";
+import {Link, useLocation, useNavigate, Navigate, NavLink} from "react-router-dom";
 import {setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import AvatarUser from "./AvatarUser";
@@ -103,14 +103,14 @@ const CustomMenu = () => {
         if (menu.children.length) {
             const children = menu.children.map((child) => ({
                 label: child.menu_id ?
-                    <Link
+                    <NavLink
                         to={child.menu.url}
                         onClick={() => {
+                            navigate(menu.menu.url);
                             resetBreadcrumbs(child.menu.url);
-
                         }}>
                         {child.label}
-                    </Link>
+                    </NavLink>
                     : child.label, key: `section-menu-child-${child.id}`
             }));
             return {
@@ -120,9 +120,10 @@ const CustomMenu = () => {
             }
         }
         return {
-            label: menu.menu_id ? <Link to={menu.menu.url}>{menu.label}</Link> : menu.label,
+            label: menu.menu_id ? <NavLink to={menu.menu.url}>{menu.label}</NavLink> : menu.label,
             key: `section-menu-${menu.id}`,
             onClick: () => {
+                navigate(menu.menu.url);
                 resetBreadcrumbs(menu.menu.url);
             }
         }
@@ -135,7 +136,7 @@ const CustomMenu = () => {
         key: 'app-menu',
         icon: <AppstoreOutlined/>,
         children: state.appMenu.map((appMenu) => ({
-            label: <Link to={appMenu.menu.url}>{appMenu.label}</Link>,
+            label: <NavLink to={appMenu.menu.url}>{appMenu.label}</NavLink>,
             key: `app-menu-${appMenu.id}`,
             onClick: () => {
                 const index = state.appMenu.findIndex(m => m.id === appMenu.id);
