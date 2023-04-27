@@ -1,7 +1,7 @@
 import "../sass/App.scss";
 import './bootstrap.js';
 import React, {useState} from 'react';
-import {Navigate, Route, Routes, RouterProvider, createBrowserRouter, BrowserRouter} from 'react-router-dom';
+import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import {getCookie} from "./Helpers/cookie";
 import ContentContainer from './Components/ContentContainter';
 import {AppContextProvider} from "./Contexts/AppContext";
@@ -98,7 +98,7 @@ const manifests = [
     Pricelist
 ];
 
-const shing = [
+const routes = [
     {
         path: "/login",
         element: <Login/>,
@@ -115,45 +115,41 @@ manifests.forEach((manifest) => {
     const hasTableAndCreate = manifestRoutes.includes(HAS_TABLE) && manifestRoutes.includes(HAS_FORM_CREATE);
     const hasTableAndUpdate = manifestRoutes.includes(HAS_TABLE) && manifestRoutes.includes(HAS_FORM_UPDATE);
     if (isRouteLength3 || hasTableAndCreate || hasTableAndUpdate) {
-        const children = [];
+        const children = [{
+            index: true,
+            key: `${manifest.moduleName}-${manifest.displayName}-table`,
+            element: <TableGenerator {...manifest}/>,
+        }];
         manifestRoutes.forEach((route) => {
             if (route === HAS_FORM_UPDATE) {
                 children.push({
-                    exact: true,
                     key: `${manifest.moduleName}-${manifest.displayName}-update`,
                     path: `:id`,
                     element: <FormGenerator {...manifest}/>
                 });
             } else if (route === HAS_FORM_CREATE) {
                 children.push({
-                    exact: true,
                     key: `${manifest.moduleName}-${manifest.displayName}-create`,
                     path: `create`,
                     element: <FormGenerator {...manifest}/>
                 });
-            } else if (route === HAS_TABLE) {
-                children.push({
-                    index: true,
-                    key: `${manifest.moduleName}-${manifest.displayName}-table`,
-                    element: <TableGenerator {...manifest}/>,
-                });
             }
         });
-        shing.push({
+        routes.push({
             key: `${manifest.moduleName}-${manifest.displayName}`,
             path: `${manifest.displayName}`,
             children: children
         });
     } else if (manifestRoutes.length === 1 && manifestRoutes.includes(HAS_FORM_CREATE)) {
-        shing.push({
-            exact: true,
+        routes.push({
+            index: true,
             key: `${manifest.moduleName}-${manifest.displayName}-create`,
             path: `/${manifest.displayName}`,
             element: <FormGenerator {...manifest}/>
         });
     } else if (manifestRoutes.length === 1 && manifestRoutes.includes(HAS_TABLE)) {
-        shing.push({
-            exact: true,
+        routes.push({
+            index: true,
             key: `${manifest.moduleName}-${manifest.displayName}-table`,
             path: `/${manifest.displayName}`,
             element: <TableGenerator {...manifest}/>
@@ -163,10 +159,9 @@ manifests.forEach((manifest) => {
 
 
 const router = createBrowserRouter([{
-    path: "/",
     element: <ContentContainer/>,
     errorElement: <ErrorPage/>,
-    children: shing
+    children: routes
 }]);
 
 const App = () => {

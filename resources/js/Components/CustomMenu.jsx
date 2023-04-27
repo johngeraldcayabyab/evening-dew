@@ -104,9 +104,10 @@ const CustomMenu = () => {
             const children = menu.children.map((child) => ({
                 label: child.menu_id ?
                     <NavLink
+                        // relative="route"
+                        reloadDocument={true}
                         to={child.menu.url}
                         onClick={() => {
-                            navigate(menu.menu.url);
                             resetBreadcrumbs(child.menu.url);
                         }}>
                         {child.label}
@@ -120,7 +121,14 @@ const CustomMenu = () => {
             }
         }
         return {
-            label: menu.menu_id ? <NavLink to={menu.menu.url}>{menu.label}</NavLink> : menu.label,
+            label: menu.menu_id ?
+                <NavLink
+                    // relative="route"
+                    reloadDocument={true}
+                    to={menu.menu.url}>
+                    {menu.label}
+                </NavLink>
+                : menu.label,
             key: `section-menu-${menu.id}`,
             onClick: () => {
                 navigate(menu.menu.url);
@@ -136,7 +144,14 @@ const CustomMenu = () => {
         key: 'app-menu',
         icon: <AppstoreOutlined/>,
         children: state.appMenu.map((appMenu) => ({
-            label: <NavLink to={appMenu.menu.url}>{appMenu.label}</NavLink>,
+            label:
+                <NavLink
+                    // relative="route"
+                    reloadDocument={true}
+                    to={appMenu.menu.url}
+                >
+                    {appMenu.label}
+                </NavLink>,
             key: `app-menu-${appMenu.id}`,
             onClick: () => {
                 const index = state.appMenu.findIndex(m => m.id === appMenu.id);
