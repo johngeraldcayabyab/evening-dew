@@ -6,10 +6,10 @@ import useFetchHook from "../Hooks/useFetchHook";
 import {getCookie} from "../Helpers/cookie";
 import {GET} from "../consts";
 import {reset} from "../Helpers/reset";
-import {useNavigate, useLocation} from "react-router-dom";
+import {useNavigate, useLocation, Outlet} from "react-router-dom";
 import {AppContext} from "../Contexts/AppContext"
 
-const ContentContainer = (props) => {
+const ContentContainer = () => {
     const appContext = useContext(AppContext);
     const appState = appContext.appState;
     const setAppState = appContext.setAppState;
@@ -79,7 +79,8 @@ const ContentContainer = (props) => {
         <Layout style={{height: '100%', background: '#f6f7fa'}}>
             {appState.isLogin && <CustomMenu/>}
             <Content style={{marginTop: '50px', borderTop: 'none'}}>
-                {props.children}
+                <Outlet/>
+                {/*{props.children}*/}
             </Content>
         </Layout>
     )

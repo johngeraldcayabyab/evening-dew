@@ -1,7 +1,7 @@
 import "../sass/App.scss";
 import './bootstrap.js';
 import React, {useState} from 'react';
-import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
+import {Navigate, Route, Routes, RouterProvider, createBrowserRouter, BrowserRouter} from 'react-router-dom';
 import {getCookie} from "./Helpers/cookie";
 import ContentContainer from './Components/ContentContainter';
 import {AppContextProvider} from "./Contexts/AppContext";
@@ -52,141 +52,143 @@ import Pricelist from "./Modules/PricelistManifest";
 import {HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE} from "./consts";
 import FormGenerator from "./Components/Form/FormGenerator";
 import TableGenerator from "./Components/TableAndKanban/TableGenerator";
+import ErrorPage from "./Error";
+
+const manifests = [
+    AccessRight,
+    ActivityLog,
+    Address,
+    Adjustment,
+    AppMenu,
+    Bank,
+    Bill,
+    BankAccount,
+    ChartOfAccount,
+    City,
+    Contact,
+    Country,
+    Courier,
+    Currency,
+    DeliveryFee,
+    GlobalSetting,
+    Group,
+    Invoice,
+    Journal,
+    Location,
+    Material,
+    Measurement,
+    MeasurementCategory,
+    Menu,
+    OperationType,
+    Payment,
+    PaymentTerm,
+    Product,
+    ProductCategory,
+    Purchase,
+    Region,
+    SalesOrder,
+    SalesOrderLine,
+    Sequence,
+    Source,
+    StockLocationQuantity,
+    StockMovement,
+    Transfer,
+    User,
+    Warehouse,
+    Pricelist
+];
+
+const shing = [
+    {
+        path: "/login",
+        element: <Login/>,
+    },
+    {
+        path: "/home",
+        element: <Home/>,
+    },
+];
+
+manifests.forEach((manifest) => {
+    const manifestRoutes = manifest.routes;
+    const isRouteLength3 = manifestRoutes.length === 3;
+    const hasTableAndCreate = manifestRoutes.includes(HAS_TABLE) && manifestRoutes.includes(HAS_FORM_CREATE);
+    const hasTableAndUpdate = manifestRoutes.includes(HAS_TABLE) && manifestRoutes.includes(HAS_FORM_UPDATE);
+    if (isRouteLength3 || hasTableAndCreate || hasTableAndUpdate) {
+        const children = [];
+        manifestRoutes.forEach((route) => {
+            if (route === HAS_FORM_UPDATE) {
+                children.push({
+                    exact: true,
+                    key: `${manifest.moduleName}-${manifest.displayName}-update`,
+                    path: `:id`,
+                    element: <FormGenerator {...manifest}/>
+                });
+            } else if (route === HAS_FORM_CREATE) {
+                children.push({
+                    exact: true,
+                    key: `${manifest.moduleName}-${manifest.displayName}-create`,
+                    path: `create`,
+                    element: <FormGenerator {...manifest}/>
+                });
+            } else if (route === HAS_TABLE) {
+                children.push({
+                    index: true,
+                    key: `${manifest.moduleName}-${manifest.displayName}-table`,
+                    element: <TableGenerator {...manifest}/>,
+                });
+            }
+        });
+        shing.push({
+            key: `${manifest.moduleName}-${manifest.displayName}`,
+            path: `${manifest.displayName}`,
+            children: children
+        });
+    } else if (manifestRoutes.length === 1 && manifestRoutes.includes(HAS_FORM_CREATE)) {
+        shing.push({
+            exact: true,
+            key: `${manifest.moduleName}-${manifest.displayName}-create`,
+            path: `/${manifest.displayName}`,
+            element: <FormGenerator {...manifest}/>
+        });
+    } else if (manifestRoutes.length === 1 && manifestRoutes.includes(HAS_TABLE)) {
+        shing.push({
+            exact: true,
+            key: `${manifest.moduleName}-${manifest.displayName}-table`,
+            path: `/${manifest.displayName}`,
+            element: <TableGenerator {...manifest}/>
+        });
+    }
+})
+
+
+const router = createBrowserRouter([{
+    path: "/",
+    element: <ContentContainer/>,
+    errorElement: <ErrorPage/>,
+    children: shing
+}]);
 
 const App = () => {
-        const [appState, setAppState] = useState({
-            isLogin: getCookie('Authorization'),
-            userEmail: getCookie('userEmail'),
-            appInitialLoad: true,
-            user: {},
-            globalSetting: {},
-        });
-
-        const manifests = [
-            AccessRight,
-            ActivityLog,
-            Address,
-            Adjustment,
-            AppMenu,
-            Bank,
-            Bill,
-            BankAccount,
-            ChartOfAccount,
-            City,
-            Contact,
-            Country,
-            Courier,
-            Currency,
-            DeliveryFee,
-            GlobalSetting,
-            Group,
-            Invoice,
-            Journal,
-            Location,
-            Material,
-            Measurement,
-            MeasurementCategory,
-            Menu,
-            OperationType,
-            Payment,
-            PaymentTerm,
-            Product,
-            ProductCategory,
-            Purchase,
-            Region,
-            SalesOrder,
-            SalesOrderLine,
-            Sequence,
-            Source,
-            StockLocationQuantity,
-            StockMovement,
-            Transfer,
-            User,
-            Warehouse,
-            Pricelist
-        ];
-
-        return (
-            <BrowserRouter>
-                <AppContextProvider
-                    value={{
-                        appState: appState,
-                        setAppState: setAppState
-                    }}
-                >
-                    <ContentContainer>
-                        <Routes>
-                            <Route path={`/`} element={<Navigate to={`/home`}/>}/>
-                            <Route path={`home`} element={<Home/>}/>
-                            <Route path={`login`} element={<Login/>}/>
-                            {...manifests.map((manifest) => {
-                                const manifestRoutes = manifest.routes;
-                                const isRouteLength3 = manifestRoutes.length === 3;
-                                const hasTableAndCreate = manifestRoutes.includes(HAS_TABLE) && manifestRoutes.includes(HAS_FORM_CREATE);
-                                const hasTableAndUpdate = manifestRoutes.includes(HAS_TABLE) && manifestRoutes.includes(HAS_FORM_UPDATE);
-
-                                if (isRouteLength3 || hasTableAndCreate || hasTableAndUpdate) {
-                                    return (
-                                        <Route
-                                            key={`${manifest.moduleName}-${manifest.displayName}`}
-                                            path={`${manifest.displayName}/*`}
-                                        >
-                                            <Route
-                                                index
-                                                key={`${manifest.moduleName}-${manifest.displayName}-table`}
-                                                element={<TableGenerator {...manifest}/>}
-                                            />
-                                            {...manifestRoutes.map((route) => {
-                                                if (route === HAS_FORM_CREATE) {
-                                                    return (
-                                                        <Route
-                                                            key={`${manifest.moduleName}-${manifest.displayName}-create`}
-                                                            path={`create`}
-                                                            element={<FormGenerator {...manifest}/>}
-                                                        />
-                                                    )
-                                                } else if (route === HAS_FORM_UPDATE) {
-                                                    return (
-                                                        <Route
-                                                            key={`${manifest.moduleName}-${manifest.displayName}-update`}
-                                                            path={`:id`}
-                                                            element={<FormGenerator {...manifest}/>}
-                                                        />
-                                                    )
-                                                }
-                                            })}
-                                        </Route>
-                                    )
-                                } else if (manifestRoutes.length === 1 && manifestRoutes.includes(HAS_FORM_CREATE)) {
-                                    return (
-                                        <Route
-                                            index
-                                            key={`${manifest.moduleName}-${manifest.displayName}-create`}
-                                            path={`${manifest.displayName}`}
-                                            element={<FormGenerator {...manifest}/>}
-                                        />
-                                    )
-                                } else if (manifestRoutes.length === 1 && manifestRoutes.includes(HAS_TABLE)) {
-                                    return (
-                                        <Route
-                                            index
-                                            key={`${manifest.moduleName}-${manifest.displayName}-table`}
-                                            path={`${manifest.displayName}`}
-                                            element={<TableGenerator {...manifest}/>}
-                                        />
-                                    )
-                                }
-                            })}
-                        </Routes>
-                    </ContentContainer>
-                </AppContextProvider>
-
-            </BrowserRouter>
-        )
-    }
-;
+    const [appState, setAppState] = useState({
+        isLogin: getCookie('Authorization'),
+        userEmail: getCookie('userEmail'),
+        appInitialLoad: true,
+        user: {},
+        globalSetting: {},
+    });
+    return (
+        <AppContextProvider
+            value={{
+                appState: appState,
+                setAppState: setAppState
+            }}
+        >
+            <RouterProvider router={router}/>
+        </AppContextProvider>
+    )
+};
 
 const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(<App/>);
-

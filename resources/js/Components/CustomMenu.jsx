@@ -4,7 +4,7 @@ import {Menu, message, Spin} from "antd";
 import {AppstoreOutlined} from "@ant-design/icons";
 import useFetchHook from "../Hooks/useFetchHook";
 import {POST} from "../consts";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate, Navigate} from "react-router-dom";
 import {setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import AvatarUser from "./AvatarUser";
@@ -101,18 +101,22 @@ const CustomMenu = () => {
 
     const sectionMenu = state.appMenuChildren ? state.appMenuChildren.map((menu) => {
         if (menu.children.length) {
-            return {
-                label: menu.label,
-                key: `section-menu-${menu.id}`,
-                children: menu.children.map((child) => ({
-                    label: child.menu_id ? <Link
+            const children = menu.children.map((child) => ({
+                label: child.menu_id ?
+                    <Link
                         to={child.menu.url}
                         onClick={() => {
                             resetBreadcrumbs(child.menu.url);
+
                         }}>
                         {child.label}
-                    </Link> : child.label, key: `section-menu-child-${child.id}`
-                }))
+                    </Link>
+                    : child.label, key: `section-menu-child-${child.id}`
+            }));
+            return {
+                label: menu.label,
+                key: `section-menu-${menu.id}`,
+                children: children
             }
         }
         return {
