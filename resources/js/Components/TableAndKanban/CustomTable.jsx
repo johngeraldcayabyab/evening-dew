@@ -13,7 +13,7 @@ import {AppContext} from "../../Contexts/AppContext"
 import BooleanTag from "../Typography/BooleanTag"
 import SequenceNumber from "../Typography/SequenceNumber"
 
-const CustomTable = (props) => {
+const CustomTable = () => {
     const appContext = useContext(AppContext);
     const listContext = useContext(TableContext);
     const manifest = listContext.manifest;
@@ -41,7 +41,7 @@ const CustomTable = (props) => {
             urlParams = {...urlParams, ...manifest.queryDefaults};
             listContext.tableActions.renderData(urlParams);
         }
-    }, [appContext.appState.appInitialLoad]);
+    }, [appContext.appState.appInitialLoad, manifest]);
 
     function getColumns() {
         let columns = state.columns;
@@ -234,7 +234,7 @@ const CustomTable = (props) => {
         childrenColumnName: 'test',
         onChange: onChange,
         size: 'small',
-        expandable: props.expandable,
+        expandable: false,
     };
 
     return (<Table {...tableProps}/>

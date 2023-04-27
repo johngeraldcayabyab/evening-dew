@@ -105,7 +105,7 @@ const CustomMenu = () => {
                 label: child.menu_id ?
                     <NavLink
                         // relative="route"
-                        reloadDocument={true}
+                        // reloadDocument={true}
                         to={child.menu.url}
                         onClick={() => {
                             resetBreadcrumbs(child.menu.url);
@@ -124,7 +124,7 @@ const CustomMenu = () => {
             label: menu.menu_id ?
                 <NavLink
                     // relative="route"
-                    reloadDocument={true}
+                    // reloadDocument={true}
                     to={menu.menu.url}>
                     {menu.label}
                 </NavLink>
@@ -147,7 +147,7 @@ const CustomMenu = () => {
             label:
                 <NavLink
                     // relative="route"
-                    reloadDocument={true}
+                    // reloadDocument={true}
                     to={appMenu.menu.url}
                 >
                     {appMenu.label}

@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import useFetchHook from "./useFetchHook";
 import {DELETE, GET, POST} from "../consts";
 import {getPayload, getPayloadModule, setPayload, setPayloadModule} from "../Helpers/localstorage";
@@ -12,18 +12,28 @@ const useListHook = (manifest) => {
         selectedRows: [],
         meta: {},
         params: {},
+        manifest: manifest,
         moduleName: manifest.moduleName,
     });
+
+    useEffect(() => {
+        console.log(manifest);
+        setTableState((prevState) => ({
+            ...prevState,
+            manifest: manifest
+        }))
+    }, [manifest]);
+
     const [tableActions] = useState({
         handleDelete: (id) => {
-            useFetch(`api/${manifest.moduleName}/${id}`, DELETE);
+            useFetch(`api/${tableState.manifest.moduleName}/${id}`, DELETE);
         },
         handleMassDelete: (ids) => {
             setTableState(state => ({
                 ...state,
                 loading: true,
             }));
-            useFetch(`api/${manifest.moduleName}/mass_destroy`, POST, {ids: ids}).then(() => {
+            useFetch(`api/${tableState.manifest.moduleName}/mass_destroy`, POST, {ids: ids}).then(() => {
                 tableActions.renderData(tableState.params);
             });
         },
@@ -36,12 +46,12 @@ const useListHook = (manifest) => {
             }
         },
         renderData: (params = {}) => {
-            if (manifest.moduleName === getPayloadModule()) {
+            if (tableState.manifest.moduleName === getPayloadModule()) {
                 params = {...getPayload(), ...params};
             }
             setPayload(params);
-            setPayloadModule(manifest.moduleName);
-            useFetch(`/api/${manifest.moduleName}`, GET, params).then((response) => {
+            setPayloadModule(tableState.manifest.moduleName);
+            useFetch(`/api/${tableState.manifest.moduleName}`, GET, params).then((response) => {
                 setTableState(state => ({
                     ...state,
                     initialLoad: false,
@@ -54,7 +64,7 @@ const useListHook = (manifest) => {
         }
     });
 
-    return [tableState, tableActions]
+    return [tableState, tableActions];
 };
 
 export default useListHook;
