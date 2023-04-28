@@ -80,7 +80,6 @@ const ContentContainer = () => {
             {appState.isLogin && <CustomMenu/>}
             <Content style={{marginTop: '50px', borderTop: 'none'}}>
                 <Outlet/>
-                {/*{props.children}*/}
             </Content>
         </Layout>
     )
