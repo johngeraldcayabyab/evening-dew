@@ -53,6 +53,7 @@ import {HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE} from "./consts";
 import FormGenerator from "./Components/Form/FormGenerator";
 import TableGenerator from "./Components/TableAndKanban/TableGenerator";
 import ErrorPage from "./Error";
+import TableGeneratorCustom from "./Components/TableAndKanban/TableGeneratorCustom"
 
 const manifests = [
     AccessRight,
@@ -118,7 +119,7 @@ manifests.forEach((manifest) => {
         const children = [{
             index: true,
             key: `${manifest.moduleName}-${manifest.displayName}-table`,
-            element: <TableGenerator {...manifest}/>,
+            element: <TableGeneratorCustom {...manifest}/>,
         }];
         manifestRoutes.forEach((route) => {
             if (route === HAS_FORM_UPDATE) {
@@ -152,7 +153,7 @@ manifests.forEach((manifest) => {
             index: true,
             key: `${manifest.moduleName}-${manifest.displayName}-table`,
             path: `/${manifest.displayName}`,
-            element: <TableGenerator {...manifest}/>
+            element: <TableGeneratorCustom {...manifest}/>
         });
     }
 })

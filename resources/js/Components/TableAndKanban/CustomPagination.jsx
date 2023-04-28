@@ -3,31 +3,31 @@ import {TableContext} from "../../Contexts/TableContext";
 import {useContext} from "react";
 
 const CustomPagination = () => {
-    const listContext = useContext(TableContext);
+    const tableContext = useContext(TableContext);
 
-    if (listContext.tableState.loading) {
-        return (
-            <Skeleton.Input
-                className={'ant-skeleton-element-custom'}
-                style={{display: 'block', width: '100%'}}
-                active={true}
-            />
-        );
+    if (tableContext.state.loading) {
+        return (<Skeleton.Input
+            className={'ant-skeleton-element-custom'}
+            style={{display: 'block', width: '100%'}}
+            active={true}
+        />);
     }
 
     return (
         <Pagination
             size={'small'}
-            current={listContext.tableState.meta ? listContext.tableState.meta.current_page : 1}
-            total={listContext.tableState.meta ? listContext.tableState.meta.total : 1}
+            current={tableContext.state.meta ? tableContext.state.meta.current_page : 1}
+            total={tableContext.state.meta ? tableContext.state.meta.total : 1}
             simple={true}
-            pageSize={listContext.tableState.meta ? listContext.tableState.meta.per_page : 20} // not respecting meta condition if null
+            pageSize={tableContext.state.meta ? tableContext.state.meta.per_page : 20} // not respecting meta condition if null
             showSizeChanger={false}
             showQuickJumper
-
             onChange={(page, pageSize) => {
-                listContext.tableState.params.page = page;
-                listContext.tableActions.renderData(listContext.tableState.params);
+                const params = {
+                    page: page,
+                    pageSize: pageSize
+                };
+                tableContext.render(params)
             }}
         />
     )

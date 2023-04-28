@@ -19,7 +19,7 @@ const CustomTable = () => {
     const manifest = listContext.manifest;
     const navigate = useNavigate();
     const [state, setState] = useState({
-        columns: listContext.columns
+        columns: manifest.table.columns
     });
 
     useEffect(() => {
@@ -33,19 +33,18 @@ const CustomTable = () => {
     useEffect(() => {
         if (!appContext.appState.appInitialLoad) {
             const selectedFields = [];
-            listContext.columns.forEach((column) => {
+            state.columns.forEach((column) => {
                 selectedFields.push(column.dataIndex);
             });
             let urlParams = getAllUrlParams();
             urlParams.selected_fields = selectedFields;
             urlParams = {...urlParams, ...manifest.queryDefaults};
-            listContext.tableActions.renderData(urlParams);
+            listContext.renderData(urlParams);
         }
     }, [appContext.appState.appInitialLoad, manifest]);
 
     function getColumns() {
         let columns = state.columns;
-
         columns = columns.map((column) => {
             if (column.hasOwnProperty('filter')) {
                 const filterType = generateColumnFilterByType(column);
@@ -74,7 +73,6 @@ const CustomTable = () => {
             }
             return column;
         });
-
         if (!isClickableRow() && isCreatableAndUpdatable()) {
             columns.push({
                 className: 'column-actions',
@@ -92,8 +90,7 @@ const CustomTable = () => {
                 }
             });
         }
-
-        if (listContext.columnSelection) {
+        if (listContext.manifest.table.columnSelection) {
             columns.push({
                 className: 'column-selection',
                 dataIndex: COLUMN_SELECTION,
@@ -106,8 +103,6 @@ const CustomTable = () => {
                 ),
             });
         }
-
-
         return columns.filter(column => {
             if (!column.hasOwnProperty('hidden')) {
                 return column;
@@ -215,7 +210,7 @@ const CustomTable = () => {
                 listContext.tableState.params[key] = filters[key];
             }
         }
-        listContext.tableActions.renderData(listContext.tableState.params);
+        listContext.renderData(listContext.tableState.params);
     }
 
     function isClickableRow() {
@@ -224,10 +219,10 @@ const CustomTable = () => {
 
     const tableProps = {
         className: 'custom-table',
-        rowSelection: listContext.tableActions.rowSelection,
+        rowSelection: listContext.rowSelection,
         loading: listContext.tableState.loading,
         dataSource: listContext.tableState.dataSource,
-        columns: getColumns(),
+        columns: manifest.table.columns,
         rowKey: 'id',
         onRow: onRow,
         pagination: false,
@@ -237,8 +232,9 @@ const CustomTable = () => {
         expandable: false,
     };
 
-    return (<Table {...tableProps}/>
-    )
+    console.log(tableProps)
+
+    return (<Table {...tableProps}/>)
 };
 
 export default CustomTable;

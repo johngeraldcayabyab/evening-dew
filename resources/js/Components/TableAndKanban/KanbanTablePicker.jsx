@@ -5,17 +5,17 @@ import {useContext} from "react";
 import {KANBAN, TABLE} from "../../consts";
 
 const KanbanTablePicker = () => {
-    const listContext = useContext(TableContext);
+    const tableContext = useContext(TableContext);
     return (
         <>
-            <Button size={'small'} onClick={() => {
-                listContext.setDataState((prevState) => ({
+            <Button disabled={true} size={'small'} onClick={() => {
+                tableContext.setState((prevState) => ({
                     ...prevState,
                     mode: KANBAN
                 }));
             }}><AppstoreOutlined/></Button>
             <Button size={'small'} onClick={() => {
-                listContext.setDataState((prevState) => ({
+                tableContext.setState((prevState) => ({
                     ...prevState,
                     mode: TABLE
                 }));

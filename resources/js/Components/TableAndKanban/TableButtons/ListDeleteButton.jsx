@@ -7,19 +7,18 @@ import {AppContext} from "../../../Contexts/AppContext"
 
 const ListDeleteButton = () => {
     const appContext = useContext(AppContext);
-    const listContext = useContext(TableContext);
-    if (!isShowButton(appContext, listContext.manifest.moduleName, DELETE_ACCESS)) {
+    const tableContext = useContext(TableContext);
+    if (!isShowButton(appContext, tableContext.manifest.moduleName, DELETE_ACCESS)) {
         return null;
     }
-
     return (
         <Menu.Item key={'deleter'}>
             <Popconfirm
                 title={`Are you sure you want to delete the selected items?`}
                 okText="Yes"
                 cancelText="No" onConfirm={() => {
-                let ids = listContext.tableState.selectedRows.map((row) => (row.id));
-                listContext.tableActions.handleMassDelete(ids);
+                let ids = tableContext.state.selectedRows.map((row) => (row.id));
+                tableContext.handleMassDelete(ids);
             }}
             >
                 Delete

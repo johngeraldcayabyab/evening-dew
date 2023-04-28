@@ -10,7 +10,7 @@ import {TableContext} from "../Contexts/TableContext";
 const CustomBreadcrumb = () => {
     const location = useLocation();
     const formContext = useContext(FormContext);
-    const listContext = useContext(TableContext);
+    const tableContext = useContext(TableContext);
     const [state, setState] = useState({
         breadcrumbs: [],
     });
@@ -29,13 +29,14 @@ const CustomBreadcrumb = () => {
                 breadcrumb.slug = 'New';
             }
         }
-        if (listContext.hasOwnProperty('tableState') && !listContext.tableState.initialLoad) {
-            breadcrumb.slug = titleCase(replaceUnderscoreWithSpace(listContext.tableState.moduleName));
+        if (tableContext.hasOwnProperty('state')) {
+            console.log(tableContext);
+            breadcrumb.slug = titleCase(replaceUnderscoreWithSpace(tableContext.manifest.displayName));
         }
         if (breadcrumb.slug) {
             setBreadcrumbsAndState(breadcrumbs, breadcrumb);
         }
-    }, [listContext.tableState, formContext.formState]);
+    }, [tableContext.tableState, formContext.formState]);
 
     function setBreadcrumbsAndState(breadcrumbs, newBreadcrumb) {
         let pathname = location.pathname;

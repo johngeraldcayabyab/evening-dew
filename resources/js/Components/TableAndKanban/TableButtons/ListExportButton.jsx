@@ -5,10 +5,10 @@ import {Link} from "react-router-dom";
 import {toQueryString} from "../../../Helpers/url";
 
 const ListExportButton = () => {
-    const listContext = useContext(TableContext);
-    const params = toQueryString(listContext.tableState.params);
-    const manifest = listContext.manifest;
-    const exportLink = listContext.exportLink ? `${listContext.exportLink}/?${params}` : `${manifest.moduleName}/export?${params}`;
+    const tableContext = useContext(TableContext);
+    const params = toQueryString(tableContext.state.params);
+    const manifest = tableContext.manifest;
+    const exportLink = tableContext.exportLink ? `${tableContext.exportLink}/?${params}` : `${manifest.moduleName}/export?${params}`;
     return (
         <Menu.Item key={'exporter'}>
             <Popconfirm

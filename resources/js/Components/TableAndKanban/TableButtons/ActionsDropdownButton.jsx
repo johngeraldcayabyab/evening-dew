@@ -1,30 +1,55 @@
-import {Dropdown, Menu} from "antd";
+import {Dropdown, Menu, Popconfirm, Space} from "antd";
 import ListDeleteButton from "./ListDeleteButton";
 import {TableContext} from "../../../Contexts/TableContext";
-import {useContext} from "react";
+import React, {useContext} from "react";
 import ListExportButton from "./ListExportButton";
 
 const ActionsDropdownButton = () => {
-    const listContext = useContext(TableContext);
+    const tableContext = useContext(TableContext);
 
-    function handleMenuClick(e) {
+    return(
+        <Dropdown
+            menu={{
+                ,
+            }}
+        >
+            <a onClick={(e) => e.preventDefault()}>
+                <Space>
+                    Hover me
+                    <DownOutlined />
+                </Space>
+            </a>
+        </Dropdown>
+    )
 
-    }
+    // const menu = (
+    //     <Menu>
+    //         <ListDeleteButton/>
+    //         <ListExportButton/>
+    //     </Menu>
+    // );
 
-    const menu = (
-        <Menu onClick={handleMenuClick}>
-            <ListDeleteButton/>
-            <ListExportButton/>
-        </Menu>
-    );
-
-    if (listContext.tableState.selectedRows.length) {
-        return (
-            <Dropdown.Button overlay={menu}>Actions</Dropdown.Button>
-        )
-    } else {
-        return null;
-    }
+    // if (tableContext.state.selectedRows.length) {
+    //     return (
+    //         <Dropdown.Button menu={[
+    //             {
+    //                 key: 'delete',
+    //                 label: <Popconfirm
+    //                     title={`Are you sure you want to delete the selected items?`}
+    //                     okText="Yes"
+    //                     cancelText="No" onConfirm={() => {
+    //                     let ids = tableContext.state.selectedRows.map((row) => (row.id));
+    //                     tableContext.handleMassDelete(ids);
+    //                 }}
+    //                 >
+    //                     Delete
+    //                 </Popconfirm>
+    //             }
+    //         ]}>Actions</Dropdown.Button>
+    //     )
+    // } else {
+    //     return null;
+    // }
 }
 
 export default ActionsDropdownButton;
