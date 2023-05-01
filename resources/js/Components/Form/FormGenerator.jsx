@@ -38,7 +38,23 @@ const FormGenerator = (manifest) => {
             customQueries.push(object);
         }
     });
-    customQueries = customQueries.filter((value, index, self) => index === self.findIndex((t) => (t.place === value.place && t.name === value.name)));
+
+    /*
+    * TODO - t.place does not exist in manifest field
+    * */
+    // customQueries = customQueries.filter((value, index, self) =>
+    //     index === self.findIndex((t) => (t.place === value.place && t.name === value.name)));
+
+    customQueries = customQueries.filter((value, index, self) => {
+
+        if(value && value.place){
+           return  index === self.findIndex((t) => (t.place === value.place && t.name === value.name));
+        }
+        return value;
+
+    });
+
+
     customQueries.forEach((field) => {
         const fieldName = field.name.replace('_id', '');
         if (field.hasOwnProperty('listName')) {
