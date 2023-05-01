@@ -93,6 +93,7 @@ const manifest = {
             untaxedAmount: 0, tax: 0, total: 0,
         },
         pricelist: {
+            contactId:-1,
             id: -1
         }
     },
@@ -131,23 +132,17 @@ const manifest = {
     form: {
         afterRender: (formContext) => {
             const initialValues = formContext.formState.initialValues;
-            /*
-            * TODO - refactor chained promises to async await
-            * */
+
             if (initialValues.pricelist_id) {
                 formContext.useFetch(`/api/pricelists/${initialValues.pricelist_id}`, GET)
                     .then((response) => {
-                        return response;
-                    })
-                    .then((res) => {
-
                         formContext.setState((prevState) => ({
                             ...prevState,
                             pricelist: {
-                                id: res.id
+                                id: response.id
                             }
                         }));
-                    });
+                    })
 
             }
         },
@@ -329,6 +324,17 @@ const manifest = {
                     label: 'Customer',
                     query: {url: '/api/contacts', field: 'name'},
                     required: true,
+                    handleOnChange: (formContext) => {
+                        return (val) => {
+                            formContext.setState((prevState) => ({
+                                ...prevState,
+                                pricelist: {
+                                    id:prevState.pricelist.id,
+                                    contactId: val
+                                }
+                            }));
+                        }
+                    }
                 },
                 {
                     type: 'select',
@@ -341,6 +347,7 @@ const manifest = {
                             formContext.setState((prevState) => ({
                                 ...prevState,
                                 pricelist: {
+                                    contactId:prevState.pricelist.contactId,
                                     id: val
                                 }
                             }));
