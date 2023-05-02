@@ -187,10 +187,7 @@ const TableGeneratorCustom = (manifest) => {
                 dataIndex: COLUMN_SELECTION,
                 key: COLUMN_SELECTION,
                 title: (
-                    <ColumnSelectionFilter
-                        state={state}
-                        setState={setState}
-                    />
+                    <ColumnSelectionFilter/>
                 ),
             });
         }
