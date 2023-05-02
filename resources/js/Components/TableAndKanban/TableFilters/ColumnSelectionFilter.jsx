@@ -30,7 +30,7 @@ const ColumnSelectionFilter = () => {
     }
 
     const items = tableContext.state.columns.map((column) => {
-        if (column.key !== COLUMN_SELECTION) {
+        if (column.key !== COLUMN_SELECTION && column.key !== 'column_actions') {
             return ({
                 key: `${column.key}-column-item`,
                 label: (
@@ -38,9 +38,10 @@ const ColumnSelectionFilter = () => {
                         key={`${column.key}-column-item-checkbox`}
                         checked={!column.hidden}
                         onClick={() => {
+                            const columns = toggleColumn(column);
                             tableContext.setState(prevState => ({
                                 ...prevState,
-                                columns: toggleColumn(column)
+                                columns: columns
                             }));
                         }}>
                         {column.title}

@@ -46,7 +46,24 @@ const TableGeneratorCustom = (manifest) => {
     });
 
     useEffect(() => {
-        renderData();
+        let params = {};
+        if (manifest.moduleName === getPayloadModule()) {
+            params = {...getPayload(), ...params};
+        }
+        setPayload(params);
+        setPayloadModule(manifest.moduleName);
+        useFetch(`/api/${manifest.moduleName}`, GET, params).then((response) => {
+            setState(prevState => {
+                return {
+                    ...prevState,
+                    loading: false,
+                    dataSource: response.data,
+                    meta: response.meta,
+                    params: params,
+                    columns: manifest.table.columns
+                };
+            });
+        });
     }, [manifest]);
 
     function isCreatableAndUpdatable() {
@@ -108,7 +125,6 @@ const TableGeneratorCustom = (manifest) => {
                 dataSource: response.data,
                 meta: response.meta,
                 params: params,
-                columns: getColumns(manifest.table.columns),
             }));
         });
     }
@@ -287,7 +303,7 @@ const TableGeneratorCustom = (manifest) => {
                 }}
                 loading={state.loading}
                 dataSource={state.dataSource}
-                columns={state.columns}
+                columns={getColumns(state.columns)}
                 rowKey={'id'}
                 onRow={onRow}
                 pagination={false}
