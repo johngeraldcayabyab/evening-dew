@@ -14,7 +14,7 @@ const GlobalSearchFilter = () => {
                         params[`global_${column.dataIndex}`] = e.target.value;
                     }
                 });
-                tableContext.render(params);
+                tableContext.renderData(params);
             }}
         />
     )

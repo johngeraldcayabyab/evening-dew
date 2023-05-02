@@ -28,7 +28,7 @@ const TableGeneratorCustom = (manifest) => {
     });
 
     useEffect(() => {
-        render();
+        renderData();
     }, [manifest]);
 
     function isCreatableAndUpdatable() {
@@ -49,7 +49,7 @@ const TableGeneratorCustom = (manifest) => {
             loading: true,
         }))
         useFetch(`api/${manifest.moduleName}/mass_destroy`, POST, {ids: ids}).then(() => {
-            render(state.params);
+            renderData(state.params);
         });
     }
 
@@ -77,7 +77,7 @@ const TableGeneratorCustom = (manifest) => {
         };
     }
 
-    function render(params = {}) {
+    function renderData(params = {}) {
         if (manifest.moduleName === getPayloadModule()) {
             params = {...getPayload(), ...params};
         }
@@ -110,7 +110,7 @@ const TableGeneratorCustom = (manifest) => {
                 params[key] = filters[key];
             }
         }
-        render(params);
+        renderData(params);
     }
 
     return (

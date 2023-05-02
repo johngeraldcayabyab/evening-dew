@@ -27,7 +27,7 @@ const CustomPagination = () => {
                     page: page,
                     pageSize: pageSize
                 };
-                tableContext.render(params)
+                tableContext.renderData(params)
             }}
         />
     )
