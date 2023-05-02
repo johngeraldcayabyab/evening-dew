@@ -1,4 +1,4 @@
-import {GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, POST, TABLE} from "../../consts";
+import {DELETE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, POST, TABLE} from "../../consts";
 import React, {useContext, useEffect, useState} from "react";
 import {Col, Row, Table} from "antd";
 import useFetchHook from "../../Hooks/useFetchHook";
@@ -49,7 +49,7 @@ const TableGeneratorCustom = (manifest) => {
             loading: true,
         }))
         useFetch(`api/${manifest.moduleName}/mass_destroy`, POST, {ids: ids}).then(() => {
-            renderData(state.params);
+            render(state.params);
         });
     }
 

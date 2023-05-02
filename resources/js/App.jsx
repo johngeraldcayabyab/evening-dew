@@ -51,7 +51,6 @@ import Warehouse from "./Modules/WarehouseManifest";
 import Pricelist from "./Modules/PricelistManifest";
 import {HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE} from "./consts";
 import FormGenerator from "./Components/Form/FormGenerator";
-import TableGenerator from "./Components/TableAndKanban/TableGenerator";
 import ErrorPage from "./Error";
 import TableGeneratorCustom from "./Components/TableAndKanban/TableGeneratorCustom"
 
