@@ -30,7 +30,6 @@ const CustomBreadcrumb = () => {
             }
         }
         if (tableContext.hasOwnProperty('state')) {
-            console.log(tableContext);
             breadcrumb.slug = titleCase(replaceUnderscoreWithSpace(tableContext.manifest.displayName));
         }
         if (breadcrumb.slug) {

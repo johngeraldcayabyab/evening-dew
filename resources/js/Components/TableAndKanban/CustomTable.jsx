@@ -232,8 +232,6 @@ const CustomTable = () => {
         expandable: false,
     };
 
-    console.log(tableProps)
-
     return (<Table {...tableProps}/>)
 };
 

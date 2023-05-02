@@ -1,10 +1,20 @@
-import {DELETE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, POST, TABLE} from "../../consts";
+import {
+    COLUMN_SELECTION,
+    DATE_RANGE,
+    DELETE,
+    GET,
+    HAS_FORM_CREATE,
+    HAS_FORM_UPDATE,
+    POST,
+    SEARCH, SELECT,
+    TABLE
+} from "../../consts";
 import React, {useContext, useEffect, useState} from "react";
-import {Col, Row, Table} from "antd";
+import {Button, Col, Row, Table} from "antd";
 import useFetchHook from "../../Hooks/useFetchHook";
 import {getPayload, getPayloadModule, setPayload, setPayloadModule} from "../../Helpers/localstorage";
 import {AppContext} from "../../Contexts/AppContext";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import ControlPanel from "../ControlPanel"
 import CustomBreadcrumb from "../CustomBreadcrumb"
@@ -13,6 +23,13 @@ import GlobalSearchFilter from "./TableFilters/GlobalSearchFilter"
 import TableCreateButton from "./TableButtons/TableCreateButton"
 import ActionsDropdownButton from "./TableButtons/ActionsDropdownButton"
 import KanbanTablePicker from "./KanbanTablePicker"
+import BooleanTag from "../Typography/BooleanTag"
+import SequenceNumber from "../Typography/SequenceNumber"
+import {EyeOutlined, SearchOutlined} from "@ant-design/icons"
+import ColumnSelectionFilter from "./TableFilters/ColumnSelectionFilter"
+import SearchFilter from "./TableFilters/SearchFilter"
+import DateRangeFilter from "./TableFilters/DateRangeFilter"
+import SelectFilter from "./TableFilters/SelectFilter"
 
 const TableGeneratorCustom = (manifest) => {
     const appContext = useContext(AppContext);
@@ -25,6 +42,7 @@ const TableGeneratorCustom = (manifest) => {
         selectedRows: [],
         meta: {},
         params: {},
+        columns: []
     });
 
     useEffect(() => {
@@ -90,6 +108,7 @@ const TableGeneratorCustom = (manifest) => {
                 dataSource: response.data,
                 meta: response.meta,
                 params: params,
+                columns: getColumns(manifest.table.columns),
             }));
         });
     }
@@ -113,12 +132,137 @@ const TableGeneratorCustom = (manifest) => {
         renderData(params);
     }
 
+    function getColumns(columns) {
+        let newColumns = columns;
+        newColumns = newColumns.map((column) => {
+            if (column.hasOwnProperty('filter')) {
+                const filterType = generateColumnFilterByType(column);
+                if (filterType) {
+                    column = {...column, ...filterType};
+                }
+            }
+            if (column.hasOwnProperty('booleanTagRender')) {
+                column['render'] = (text, record) => {
+                    return (
+                        <BooleanTag
+                            text={text}
+                            record={record}
+                            field={column.dataIndex}
+                            tags={column.booleanTagRender}
+                        />
+                    )
+                }
+            }
+            if (column.hasOwnProperty('sequenceNumberRender')) {
+                column['render'] = (text, record) => {
+                    return (<SequenceNumber
+                        text={text}
+                        record={record}
+                        field={column.dataIndex}
+                    />)
+                }
+            }
+            return column;
+        });
+        if (!isClickableRow() && isCreatableAndUpdatable()) {
+            newColumns.push({
+                className: 'column-actions',
+                dataIndex: 'column_actions',
+                key: 'column_actions',
+                title: 'Actions',
+                render: (text, record) => {
+                    return (
+                        <Button type="primary" size={'small'}>
+                            <Link to={`/${manifest.displayName}/${record.id}`}>
+                                <EyeOutlined/>
+                            </Link>
+                        </Button>
+                    )
+                }
+            });
+        }
+        if (manifest.table.columnSelection) {
+            newColumns.push({
+                className: 'column-selection',
+                dataIndex: COLUMN_SELECTION,
+                key: COLUMN_SELECTION,
+                title: (
+                    <ColumnSelectionFilter
+                        state={state}
+                        setState={setState}
+                    />
+                ),
+            });
+        }
+        newColumns = newColumns.filter(column => {
+            if (!column.hasOwnProperty('hidden')) {
+                return column;
+            }
+        });
+        return newColumns;
+    }
+
+    function generateColumnFilterByType(column) {
+        const dataIndex = column.dataIndex;
+        const filterType = column.filter;
+        if (filterType === SEARCH) {
+            return {
+                filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => {
+                    return (
+                        <SearchFilter
+                            dataIndex={dataIndex}
+                            setSelectedKeys={setSelectedKeys}
+                            selectedKeys={selectedKeys}
+                            confirm={confirm}
+                            clearFilters={clearFilters}
+                        />
+                    )
+                },
+                filterIcon: filtered => <SearchOutlined style={{color: filtered ? '#1890ff' : undefined}}/>,
+            }
+        }
+        if (filterType === DATE_RANGE) {
+            return {
+                filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => {
+                    return (
+                        <DateRangeFilter
+                            dataIndex={dataIndex}
+                            setSelectedKeys={setSelectedKeys}
+                            selectedKeys={selectedKeys}
+                            confirm={confirm}
+                            clearFilters={clearFilters}
+                        />
+                    )
+                },
+                filterIcon: filtered => <SearchOutlined style={{color: filtered ? '#1890ff' : undefined}}/>,
+            }
+        }
+        if (filterType === SELECT) {
+            return {
+                filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => {
+                    return (
+                        <SelectFilter
+                            dataIndex={dataIndex}
+                            setSelectedKeys={setSelectedKeys}
+                            selectedKeys={selectedKeys}
+                            confirm={confirm}
+                            clearFilters={clearFilters}
+                            options={column.options}
+                        />
+                    )
+                },
+                filterIcon: filtered => <SearchOutlined style={{color: filtered ? '#1890ff' : undefined}}/>,
+            }
+        }
+        return null;
+    }
+
     return (
         <TableContextProvider value={{
             manifest: manifest,
             state: state,
             setState: setState,
-            render: render,
+            renderData: renderData,
             handleDelete: handleDelete,
             handleMassDelete: handleMassDelete
         }}>
@@ -146,7 +290,7 @@ const TableGeneratorCustom = (manifest) => {
                 }}
                 loading={state.loading}
                 dataSource={state.dataSource}
-                columns={manifest.table.columns}
+                columns={state.columns}
                 rowKey={'id'}
                 onRow={onRow}
                 pagination={false}
