@@ -23,7 +23,7 @@ const CustomBreadcrumb = () => {
             slug: null,
         };
         if (formContext.hasOwnProperty('formState') && !formContext.formState.initialLoad) {
-            if (formContext.formState.id) {
+            if (formContext.state.id) {
                 breadcrumb.slug = formContext.formState.initialValues.slug;
             } else {
                 breadcrumb.slug = 'New';
