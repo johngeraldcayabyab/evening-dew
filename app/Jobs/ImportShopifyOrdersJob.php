@@ -141,7 +141,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 $shippingMethod = Transfer::DELIVERY;
                 $vehicleType = SalesOrder::MOTORCYCLE;
 
-                $pickupLocation = '';
+                $pickupLocation = null;
 
                 if (isset($order['shipping_lines']) && isset($order['shipping_lines'][0])) {
                     $shippingLineCode = $order['shipping_lines'][0]['code'];
