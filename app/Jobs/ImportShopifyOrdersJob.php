@@ -141,12 +141,15 @@ class ImportShopifyOrdersJob implements ShouldQueue
                 $shippingMethod = Transfer::DELIVERY;
                 $vehicleType = SalesOrder::MOTORCYCLE;
 
+                $pickupLocation = '';
+
                 if (isset($order['shipping_lines']) && isset($order['shipping_lines'][0])) {
                     $shippingLineCode = $order['shipping_lines'][0]['code'];
                     $shippingLineDiscountedPrice = $order['shipping_lines'][0]['discounted_price'];
                     if (in_array($shippingLineCode, ['Taste&Tell Mnl', 'Taste & Tell SM North EDSA']) && !(int)$shippingLineDiscountedPrice) {
                         $shippingMethod = Transfer::PICKUP;
                         $vehicleType = null;
+                        $pickupLocation = $shippingLineCode;
                     }
                 }
 
@@ -173,6 +176,7 @@ class ImportShopifyOrdersJob implements ShouldQueue
                     'select_time' => $selectTime,
                     'created_at' => $shopifyCreatedAt,
                     'updated_at' => $shopifyCreatedAt,
+                    'pickup_location' => $pickupLocation
                 ]);
 
                 $subtotal = 0;
