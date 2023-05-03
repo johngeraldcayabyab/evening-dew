@@ -4,13 +4,13 @@ import useFetchHook from "./useFetchHook";
 import {GET, POST, PUT} from "../consts";
 import {formatInitialValuesDatetimeToMoment} from "../Helpers/object";
 // import moment from "moment";
-import {AppContext} from "../Contexts/AppContext"
+import {AppContext} from "../Contexts/AppContext";
 
 
 const useFormHook = (id, form, manifest, getInitialValues = false) => {
     const appContext = useContext(AppContext);
     const useFetch = useFetchHook();
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const [formState, setFormState] = useState({
         id: id,
@@ -86,9 +86,9 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
                 if (headerLocation) {
                     let locationId = headerLocation.split('/').pop();
                     if (parseInt(locationId)) {
-                        history.push(`/${manifest.displayName}/${locationId}`);
+                        navigate(`/${manifest.displayName}/${locationId}`);
                     } else {
-                        history.push(`/${manifest.displayName}`);
+                        navigate(`/${manifest.displayName}`);
                     }
                 }
             }).catch((responseErr) => {
