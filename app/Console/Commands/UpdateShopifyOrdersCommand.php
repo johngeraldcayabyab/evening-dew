@@ -44,13 +44,14 @@ class UpdateShopifyOrdersCommand extends Command
             foreach ($orders as $order) {
                 $shopifyOrderNumber = 'SP/' . $order['order_number'];
                 $salesOrder = SalesOrder::where('number', $shopifyOrderNumber)->first();
-                if ($salesOrder) {
+                if ($salesOrder && $salesOrder->pickup_location === null) {
                     if (isset($order['shipping_lines']) && isset($order['shipping_lines'][0])) {
                         $shippingLineCode = $order['shipping_lines'][0]['code'];
                         $shippingLineDiscountedPrice = $order['shipping_lines'][0]['discounted_price'];
                         if (in_array($shippingLineCode, ['Taste&Tell Mnl', 'Taste & Tell SM North EDSA']) && !(int)$shippingLineDiscountedPrice) {
                             $salesOrder->pickup_location = $shippingLineCode;
                             $salesOrder->save();
+                            $this->log("Shopify sales order updated {$shopifyOrderNumber} $shippingLineCode");
                         }
                     }
                 }
