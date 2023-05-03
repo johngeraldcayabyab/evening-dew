@@ -22,7 +22,10 @@ const FormGenerator = (manifest) => {
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, manifest.form.initialValue);
     const useFetch = useFetchHook();
-    const [state, setState] = useState(manifest.initialState);
+    const [state, setState] = useState({
+        ...manifest.initialState,
+        id: id
+    });
     const navigate = useNavigate();
 
     let customQueries = [];
