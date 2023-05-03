@@ -22,7 +22,7 @@ class ProductController
         $model = $model->filterAndOrder($request, function ($query) use ($request) {
             if (Str::contains($request->selected_fields, 'slug') && !$request->id) {
                 $query = $query->where('product_category_id', '!=', 5);
-                $query = $query->where('prodcut_category_id', '!=', 6);
+                $query = $query->where('product_category_id', '!=', 6);
             }
             return $query;
         });
