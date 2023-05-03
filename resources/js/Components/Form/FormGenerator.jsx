@@ -23,7 +23,7 @@ const FormGenerator = (manifest) => {
     const [formState, formActions] = useFormHook(id, form, manifest, manifest.form.initialValue);
     const useFetch = useFetchHook();
     const [state, setState] = useState(manifest.initialState);
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     let customQueries = [];
     const options = {};
@@ -58,7 +58,7 @@ const FormGenerator = (manifest) => {
         options: options,
         state: state,
         setState: setState,
-        history: history
+        navigate: navigate
     };
 
     if (manifest.form.hasOwnProperty('onValuesChange')) {

@@ -20,7 +20,7 @@ const ContentContainer = () => {
 
     useEffect(() => {
         // window.Echo.channel('refresh-browser').listen('RefreshBrowserEvent', () => {
-        //     history.go(0);
+        //     navigate.go(0);
         // });
         if (!appState.isLogin) {
             if (!location.pathname.includes('login')) {

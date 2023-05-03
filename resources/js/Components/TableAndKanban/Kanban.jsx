@@ -11,7 +11,7 @@ const {Text} = Typography;
 
 const Kanban = () => {
     const listContext = useContext(TableContext);
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     useEffect(() => {
         return (() => {
@@ -70,7 +70,7 @@ const Kanban = () => {
                                 margin: '4px 8px',
                             }}
                             onClick={(event) => {
-                                history.push(`/${listContext.manifest.moduleName}/${data.id}`);
+                                navigate(`/${listContext.manifest.moduleName}/${data.id}`);
                             }}
                             onMouseEnter={(event) => {
                                 document.body.style.cursor = "pointer";
