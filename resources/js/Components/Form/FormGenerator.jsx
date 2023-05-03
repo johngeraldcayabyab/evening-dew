@@ -40,7 +40,8 @@ const FormGenerator = (manifest) => {
             customQueries.push(object);
         }
     });
-    customQueries = customQueries.filter((value, index, self) => index === self.findIndex((t) => (t.place === value.place && t.name === value.name)));
+
+
     customQueries.forEach((field) => {
         const fieldName = field.name.replace('_id', '');
         if (field.hasOwnProperty('listName')) {
