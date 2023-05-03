@@ -1,5 +1,5 @@
 import {Breadcrumb} from "antd";
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
 import {getBreadcrumbs, getClickedBreadcrumb, setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
@@ -94,30 +94,19 @@ const CustomBreadcrumb = () => {
         }));
     }
 
-    // <Title level={5} style={{display: 'inline-block'}}>
-    //     <Link key={breadcrumb.key} to={breadcrumb.link} onClick={() => {
-    //         setClickedBreadcrumb(breadcrumb);
-    //     }}>
-    //         {breadcrumb.slug}
-    //     </Link>
-    // </Title>
-
     function itemRender(route, params, items, paths) {
-        // return <Title level={5} style={{display: 'inline-block'}}>{item.title}</Title>
-        // const last = items.indexOf(item) === items.length - 1;
-        // return last ? <Title level={5} style={{display: 'inline-block'}}>{item.title}</Title> :
-        //     <Title level={5} style={{display: 'inline-block'}}><Link to={paths.join('/')}>{item.title}</Link></Title>;
+        return <Link to={route.link}>{route.title}</Link>;
     }
 
     const items = state.breadcrumbs.map((breadcrumb) => ({
-        href: breadcrumb.link,
+        link: breadcrumb.link,
         title: breadcrumb.slug,
         onClick: () => {
             setClickedBreadcrumb(breadcrumb);
         },
     }));
 
-    return <Breadcrumb items={items}/>
+    return <Breadcrumb items={items} itemRender={itemRender}/>
 };
 
 export default CustomBreadcrumb;
