@@ -15,9 +15,9 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
     const [formState, setFormState] = useState({
         initialLoad: true,
         initialValues: {},
-        loading: id && true,
+        loading: !!id,
         errors: {},
-        formDisabled: id && true,
+        formDisabled: !!id,
     });
 
     const [formActions] = useState({
