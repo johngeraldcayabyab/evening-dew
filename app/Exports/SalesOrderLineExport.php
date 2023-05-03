@@ -74,6 +74,7 @@ class SalesOrderLineExport implements FromQuery, ShouldAutoSize, WithMapping, Wi
             'Source Document',
             'Box Description',
             'Shipping Method',
+            'Pickup Location',
             'Time',
         ];
     }
