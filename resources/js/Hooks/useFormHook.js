@@ -18,7 +18,6 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
         loading: id && true,
         errors: {},
         formDisabled: id && true,
-        pathname: location.pathname,
     });
 
     const [formActions] = useState({
