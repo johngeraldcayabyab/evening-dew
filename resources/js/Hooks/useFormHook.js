@@ -13,7 +13,6 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
     const navigate = useNavigate();
 
     const [formState, setFormState] = useState({
-        id: id,
         backtrack: false,
         initialLoad: true,
         initialValues: {},
