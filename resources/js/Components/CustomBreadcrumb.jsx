@@ -94,19 +94,20 @@ const CustomBreadcrumb = () => {
         }));
     }
 
-    function itemRender(route, params, items, paths) {
-        return <Link to={route.link}>{route.title}</Link>;
-    }
+    // function itemRender(route, params, items, paths) {
+    //     return <Link to={route.link}>{route.title}</Link>;
+    // }
 
     const items = state.breadcrumbs.map((breadcrumb) => ({
-        link: breadcrumb.link,
-        title: breadcrumb.slug,
+        key: uuidv4(),
+        // link: breadcrumb.link,
+        title: <Link to={breadcrumb.link} reloadDocument={true}>{breadcrumb.slug}</Link>,
         onClick: () => {
             setClickedBreadcrumb(breadcrumb);
         },
     }));
 
-    return <Breadcrumb items={items} itemRender={itemRender}/>
+    return <Breadcrumb items={items}/>
 };
 
 export default CustomBreadcrumb;
