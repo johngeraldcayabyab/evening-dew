@@ -16,9 +16,6 @@ const FormItemDate = (props) => {
     const [formItemProps, fieldProps] = formItemFieldProps(props, {
         style: {width: "100%"},
         showTime: props.showTime ? props.showTime : false,
-        // format: {dateFormat},
-        // defaultValue={moment('2015/01/01', dateFormat)}
-        // defaultValue: moment('2022-03-31 09:04:06', dateFormat),
     });
 
     return (

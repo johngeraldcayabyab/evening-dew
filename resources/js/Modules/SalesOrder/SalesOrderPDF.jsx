@@ -1,9 +1,9 @@
 import {Button, Col, Divider, Image, Modal, Row, Space, Table} from 'antd';
 import React, {useContext, useState} from 'react';
-// import moment from "moment";
-import {insertDecimal} from "../../Helpers/string"
-import FormLabel from "../../Components/Typography/FormLabel"
-import {FormContext} from "../../Contexts/FormContext"
+import {insertDecimal} from "../../Helpers/string";
+import FormLabel from "../../Components/Typography/FormLabel";
+import {FormContext} from "../../Contexts/FormContext";
+import dayjs from "dayjs";
 
 const SalesOrderPDF = () => {
     const formContext = useContext(FormContext);
@@ -34,9 +34,9 @@ const SalesOrderPDF = () => {
     };
 
     function dateFormat(object) {
-        // if (moment(object, 'YYYY-MM-DD').isValid()) {
-        //     return moment(object).format('YYYY-MM-DD');
-        // }
+        if (dayjs(object, 'YYYY-MM-DD').isValid()) {
+            return dayjs(object).format('YYYY-MM-DD');
+        }
         return 'test';
     }
 

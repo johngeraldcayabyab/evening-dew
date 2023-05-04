@@ -1,5 +1,5 @@
-// import moment from 'moment';
 import {DATE_FORMAT} from "../consts";
+import dayjs from "dayjs"
 
 export const cleanObject = (obj) => {
     for (let propName in obj) {
@@ -24,20 +24,20 @@ export const loopThroughObjRecurs = (obj, propExec) => {
     }
 }
 
-export const formatInitialValuesDatetimeToMoment = (obj) => {
-    // for (let k in obj) {
-    //     if (typeof obj[k] == "object" && obj[k] !== null)
-    //         formatInitialValuesDatetimeToMoment(obj[k]);
-    //     else {
-    //         if (moment(obj[k], DATE_FORMAT, true).isValid()) {
-    //             obj[k] = formatToMoment(obj[k]);
-    //         }
-    //     }
-    // }
+export const formatInitialValuesDatetimeToDayjs = (obj) => {
+    for (let k in obj) {
+        if (typeof obj[k] == "object" && obj[k] !== null)
+            formatInitialValuesDatetimeToDayjs(obj[k]);
+        else {
+            if (dayjs(obj[k], DATE_FORMAT, true).isValid()) {
+                obj[k] = formatToDayjs(obj[k]);
+            }
+        }
+    }
 }
 
-export const formatToMoment = (obj) => {
-    // return moment(obj, DATE_FORMAT);
+export const formatToDayjs = (obj) => {
+    return dayjs(obj, DATE_FORMAT);
 }
 
 export const isShowButton = (appContext, moduleName, access) => {

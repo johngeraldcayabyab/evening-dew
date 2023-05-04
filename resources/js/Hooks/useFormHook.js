@@ -2,9 +2,9 @@ import {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import useFetchHook from "./useFetchHook";
 import {GET, POST, PUT} from "../consts";
-import {formatInitialValuesDatetimeToMoment} from "../Helpers/object";
-// import moment from "moment";
+import {formatInitialValuesDatetimeToDayjs} from "../Helpers/object";
 import {AppContext} from "../Contexts/AppContext";
+import dayjs from "dayjs"
 
 
 const useFormHook = (id, form, manifest, getInitialValues = false) => {
@@ -52,9 +52,9 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
 
             for (let key in values) {
                 if (values.hasOwnProperty(key)) {
-                    // if (values[key] instanceof moment) {
-                    //     values[key] = values[key].format('YYYY-MM-DD HH:mm:ss');
-                    // }
+                    if (values[key] instanceof dayjs) {
+                        values[key] = values[key].format('YYYY-MM-DD HH:mm:ss');
+                    }
                 }
             }
 
@@ -124,7 +124,7 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
         if (formState.initialLoad) {
             newState.initialLoad = false;
         }
-        formatInitialValuesDatetimeToMoment(response);
+        formatInitialValuesDatetimeToDayjs(response);
         form.setFieldsValue(response);
         setFormState(state => ({
             ...state,
