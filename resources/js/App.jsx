@@ -121,21 +121,21 @@ manifests.forEach((manifest) => {
     if (isRouteLength3 || hasTableAndCreate || hasTableAndUpdate) {
         const children = [{
             index: true,
-            key: `${manifest.moduleName}-${manifest.displayName}-table`,
-            element: <TableGeneratorCustom {...manifest}/>,
+            key: `${manifest.moduleName}-${manifest.displayName}`,
+            element: <TableGeneratorCustom {...manifest} key={`${manifest.moduleName}-${manifest.displayName}-table`}/>,
         }];
         manifestRoutes.forEach((route) => {
             if (route === HAS_FORM_UPDATE) {
                 children.push({
                     key: `${manifest.moduleName}-${manifest.displayName}-update`,
                     path: `:id`,
-                    element: <FormGenerator {...manifest}/>
+                    element: <FormGenerator {...manifest} key={`${manifest.moduleName}-${manifest.displayName}-update-form`}/>
                 });
             } else if (route === HAS_FORM_CREATE) {
                 children.push({
                     key: `${manifest.moduleName}-${manifest.displayName}-create`,
                     path: `create`,
-                    element: <FormGenerator {...manifest}/>
+                    element: <FormGenerator {...manifest} key={`${manifest.moduleName}-${manifest.displayName}-create-form`}/>
                 });
             }
         });
@@ -149,14 +149,14 @@ manifests.forEach((manifest) => {
             index: true,
             key: `${manifest.moduleName}-${manifest.displayName}-create`,
             path: `/${manifest.displayName}`,
-            element: <FormGenerator {...manifest}/>
+            element: <FormGenerator {...manifest} key={`${manifest.moduleName}-${manifest.displayName}-create-form`}/>
         });
     } else if (manifestRoutes.length === 1 && manifestRoutes.includes(HAS_TABLE)) {
         routes.push({
             index: true,
-            key: `${manifest.moduleName}-${manifest.displayName}-table`,
+            key: `${manifest.moduleName}-${manifest.displayName}`,
             path: `/${manifest.displayName}`,
-            element: <TableGeneratorCustom {...manifest}/>
+            element: <TableGeneratorCustom {...manifest} key={`${manifest.moduleName}-${manifest.displayName}-table`}/>
         });
     }
 })
