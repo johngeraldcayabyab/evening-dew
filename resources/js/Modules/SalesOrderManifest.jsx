@@ -224,22 +224,35 @@ const manifest = {
             }
             isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'product_id', (line, allValues) => {
 
-                async function useFetchAsync() {
-                    return formContext.useFetch(`/api/pricelists/${formContext.state.pricelist.id}/products/${line.product_id}`, GET);
+                async function useFetchAsync(url) {
+                    return formContext.useFetch(url, GET);
                 }
+
+                function setPricelistPrice(res){
+                    return res && res.unit_price ? res.unit_price : -1;
+                }
+
 
                 formContext.useFetch(`/api/products/${line.product_id}`, GET).then(async (response) => {
 
-                    const isPricelistSet = formContext.state.pricelist.id && formContext.state.pricelist.id !== -1;
                     let pricelistPrice = -1;
+                    let contactPricelistPrice=-1
+
+                    const isPricelistSet = formContext.state.pricelist.id && formContext.state.pricelist.id !== -1;
+                    const isContactPricelistSet = formContext.state.pricelist.contactId && formContext.state.pricelist.contactId !== -1;
 
                     if (isPricelistSet) {
-
-                        const res = await useFetchAsync();
-                        if (res && res.unit_price) {
-                            pricelistPrice = res.unit_price;
-                        }
+                        const res = await useFetchAsync(`/api/pricelists/${formContext.state.pricelist.id}/products/${line.product_id}`);
+                        pricelistPrice = setPricelistPrice(res);
                     }
+                    else if(isContactPricelistSet){
+                        const contact = await useFetchAsync(`/api/contacts/${formContext.state.pricelist.contactId}`);
+                         if(contact && contact['pricelist_id'] && contact['pricelist_id']!==-1){
+                             const res = await useFetchAsync(`/api/pricelists/${contact['pricelist_id']}/products/${line.product_id}`);
+                             contactPricelistPrice = setPricelistPrice(res);
+                         }
+                    }
+
 
                     const salesOrderLines = allValues.sales_order_lines;
                     salesOrderLines[line.key] = {
@@ -247,7 +260,8 @@ const manifest = {
                         description: response.sales_description,
                         quantity: 1,
                         measurement_id: response.sales_measurement_id,
-                        unit_price: isPricelistSet && pricelistPrice !== -1 ? pricelistPrice : response.sales_price,
+                        unit_price: isPricelistSet && pricelistPrice !== -1 ? pricelistPrice :
+                            contactPricelistPrice && contactPricelistPrice!==-1 ? contactPricelistPrice:response.sales_price,
                     };
                     formContext.form.setFieldsValue({
                         sales_order_lines: salesOrderLines
