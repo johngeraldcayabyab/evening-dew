@@ -41,9 +41,10 @@ const CreateInvoiceButton = () => {
         <div key={'create-invoice-button'}>
             <Button
                 htmlType={"button"}
-                type={"ghost"}
+                type={"primary"}
                 size={'default'}
                 onClick={showModal}
+                ghost
             >
                 Create Invoice
             </Button>

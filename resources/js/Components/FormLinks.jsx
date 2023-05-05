@@ -35,8 +35,9 @@ const FormLinks = () => {
                         to={`/${link.module}?${link.param}=${initialValues[link.value]}`}>
                         <Button
                             htmlType={"button"}
-                            type={"ghost"}
+                            type={"primary"}
                             size={'default'}
+                            ghost
                         >
                             {labelizer(link.label)}
                         </Button>
@@ -47,8 +48,9 @@ const FormLinks = () => {
                 <Button
                     key={uuidv4()}
                     htmlType={"button"}
-                    type={"ghost"}
+                    type={"primary"}
                     size={'default'}
+                    ghost
                 >
                     {labelizer(link.label)}
                 </Button>

@@ -114,7 +114,7 @@ const manifest = {
         {
             value: 'cancelled',
             title: 'Cancelled',
-            type: 'ghost',
+            type: 'primary',
             label: 'Cancel',
             status: {draft: 'wait', done: 'wait', cancelled: 'finish'},
             visibility: {draft: 'visible', done: 'hidden', cancelled: 'hidden'},
