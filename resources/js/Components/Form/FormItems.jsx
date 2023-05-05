@@ -15,8 +15,6 @@ import {VISIBILITY_CREATED, VISIBILITY_CREATING} from "../../consts"
 import FormItemStatus from "../FormItem/FormItemStatus"
 import FormItemDate from "../FormItem/FormItemDate"
 
-const {TabPane} = Tabs;
-
 const FormItems = () => {
     const formContext = useContext(FormContext);
     const options = formContext.options;
@@ -26,7 +24,7 @@ const FormItems = () => {
     function generateItemText(field) {
         return (
             <FormItemText
-                key={field.key ? field.key:field.name}
+                key={field.key ? field.key : field.name}
                 {...field}
             />
         )
