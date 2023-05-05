@@ -52,7 +52,7 @@ import Pricelist from "./Modules/PricelistManifest";
 import {HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE} from "./consts";
 import FormGenerator from "./Components/Form/FormGenerator";
 import ErrorPage from "./Error";
-import TableGeneratorCustom from "./Components/TableAndKanban/TableGeneratorCustom"
+import TableGenerator from "./Components/TableAndKanban/TableGenerator"
 
 const manifests = [
     AccessRight,
@@ -122,7 +122,7 @@ manifests.forEach((manifest) => {
         const children = [{
             index: true,
             key: `${manifest.moduleName}-${manifest.displayName}`,
-            element: <TableGeneratorCustom {...manifest} key={`${manifest.moduleName}-${manifest.displayName}-table`}/>,
+            element: <TableGenerator {...manifest} key={`${manifest.moduleName}-${manifest.displayName}-table`}/>,
         }];
         manifestRoutes.forEach((route) => {
             if (route === HAS_FORM_UPDATE) {
@@ -156,7 +156,7 @@ manifests.forEach((manifest) => {
             index: true,
             key: `${manifest.moduleName}-${manifest.displayName}`,
             path: `/${manifest.displayName}`,
-            element: <TableGeneratorCustom {...manifest} key={`${manifest.moduleName}-${manifest.displayName}-table`}/>
+            element: <TableGenerator {...manifest} key={`${manifest.moduleName}-${manifest.displayName}-table`}/>
         });
     }
 })
