@@ -12,9 +12,5 @@
 <div id="root">
 </div>
 
-{{--<script type="application/javascript" src="{{ mix('/js/manifest.js') }}"></script>--}}
-{{--<script type="application/javascript" src="{{ mix('/js/vendor.js') }}"></script>--}}
-{{--<script type="application/javascript" src="{{ mix('/js/App.jsx') }}"></script>--}}
-
 </body>
 </html>
