@@ -68,7 +68,7 @@ const manifest = {
                                 return (e)=>{
                                     if(e.target.value){
                                         const productPath = "/products/" + e.target.value;
-                                        formContext.history.push(productPath);
+                                        formContext.navigate(productPath);
                                     }
 
                                 }

@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom"
+import {useParams, useNavigate} from "react-router-dom"
 import {Form} from "antd"
 import useFormHook from "../../Hooks/useFormHook"
 import {FormContextProvider} from "../../Contexts/FormContext";
@@ -16,15 +16,17 @@ import FormLinks from "../FormLinks";
 import useFetchHook from "../../Hooks/useFetchHook"
 import StatusBar from "../StatusBar"
 import {loopThroughObjRecurs} from "../../Helpers/object"
-import { useHistory } from "react-router-dom";
 
 const FormGenerator = (manifest) => {
     let {id} = useParams();
     const [form] = Form.useForm();
     const [formState, formActions] = useFormHook(id, form, manifest, manifest.form.initialValue);
     const useFetch = useFetchHook();
-    const [state, setState] = useState(manifest.initialState);
-    const history  = useHistory();
+    const [state, setState] = useState({
+        ...manifest.initialState,
+        id: id
+    });
+    const navigate = useNavigate();
 
     let customQueries = [];
     const options = {};
@@ -60,8 +62,7 @@ const FormGenerator = (manifest) => {
         options: options,
         state: state,
         setState: setState,
-        //Deprecated as of react router 6. Use navigate instead
-        history:history
+        navigate: navigate
     };
 
     if (manifest.form.hasOwnProperty('onValuesChange')) {

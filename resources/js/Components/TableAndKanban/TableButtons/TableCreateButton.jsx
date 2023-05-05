@@ -8,8 +8,8 @@ import {AppContext} from "../../../Contexts/AppContext"
 
 const TableCreateButton = () => {
     const appContext = useContext(AppContext);
-    const listContext = useContext(TableContext);
-    const manifest = listContext.manifest;
+    const tableContext = useContext(TableContext);
+    const manifest = tableContext.manifest;
     if (!isShowButton(appContext, manifest.moduleName, CREATE_ACCESS)) {
         return null;
     }

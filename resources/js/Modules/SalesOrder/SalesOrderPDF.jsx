@@ -1,9 +1,9 @@
 import {Button, Col, Divider, Image, Modal, Row, Space, Table} from 'antd';
 import React, {useContext, useState} from 'react';
-import moment from "moment";
-import {insertDecimal} from "../../Helpers/string"
-import FormLabel from "../../Components/Typography/FormLabel"
-import {FormContext} from "../../Contexts/FormContext"
+import {insertDecimal} from "../../Helpers/string";
+import FormLabel from "../../Components/Typography/FormLabel";
+import {FormContext} from "../../Contexts/FormContext";
+import dayjs from "dayjs";
 
 const SalesOrderPDF = () => {
     const formContext = useContext(FormContext);
@@ -33,11 +33,11 @@ const SalesOrderPDF = () => {
         setIsModalVisible(false);
     };
 
-    function momentFormat(object) {
-        if (moment(object, 'YYYY-MM-DD').isValid()) {
-            return moment(object).format('YYYY-MM-DD');
+    function dateFormat(object) {
+        if (dayjs(object, 'YYYY-MM-DD').isValid()) {
+            return dayjs(object).format('YYYY-MM-DD');
         }
-        return null;
+        return 'test';
     }
 
     return (<>
@@ -74,9 +74,9 @@ const SalesOrderPDF = () => {
                 </Col>
                 <Col span={12} style={{textAlign: 'right'}}>
                     <p key={'invoice-date'} style={{marginBottom: '0px'}}><b>INVOICE
-                        DATE:</b> {momentFormat(initialValues.quotation_date)}</p>
+                        DATE:</b> {dateFormat(initialValues.quotation_date)}</p>
                     <p key={'shipping-date'} style={{marginBottom: '0px'}}><b>SHIPPING
-                        DATE:</b> {momentFormat(initialValues.shipping_date)}</p>
+                        DATE:</b> {dateFormat(initialValues.shipping_date)}</p>
                     <p key={'select-time'} style={{marginBottom: '0px'}}><b>Time:</b> 11:11PM</p>
                 </Col>
             </Row>

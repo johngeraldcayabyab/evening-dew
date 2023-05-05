@@ -1,10 +1,7 @@
-import {Button, DatePicker, Input, Space} from "antd";
-import {replaceUnderscoreWithSpace, titleCase} from "../../../Helpers/string";
+import {Button, DatePicker, Space} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
-import moment from "moment";
 
 const {RangePicker} = DatePicker;
-
 const dateFormat = 'YYYY/MM/DD';
 
 const DateRangeFilter = (props) => {
@@ -17,7 +14,6 @@ const DateRangeFilter = (props) => {
                     return props.setSelectedKeys(`${date1},${date2}`);
                 }}
                 style={{marginBottom: 8, display: 'block'}}
-                // defaultValue={[moment('2015/01/01', dateFormat), moment('2015/01/01', dateFormat)]}
                 format={dateFormat}
             />
             <Space>

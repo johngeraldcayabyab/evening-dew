@@ -1,25 +1,23 @@
 import {useContext, useEffect, useState} from "react";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import useFetchHook from "./useFetchHook";
 import {GET, POST, PUT} from "../consts";
-import {formatInitialValuesDatetimeToMoment} from "../Helpers/object";
-import moment from "moment";
-import {AppContext} from "../Contexts/AppContext"
+import {formatInitialValuesDatetimeToDayjs} from "../Helpers/object";
+import {AppContext} from "../Contexts/AppContext";
+import dayjs from "dayjs"
+
 
 const useFormHook = (id, form, manifest, getInitialValues = false) => {
     const appContext = useContext(AppContext);
     const useFetch = useFetchHook();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [formState, setFormState] = useState({
-        id: id,
-        backtrack: false,
         initialLoad: true,
         initialValues: {},
-        loading: id && true,
+        loading: !!id,
         errors: {},
-        formDisabled: id && true,
-        pathname: location.pathname,
+        formDisabled: !!id,
     });
 
     const [formActions] = useState({
@@ -54,7 +52,7 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
 
             for (let key in values) {
                 if (values.hasOwnProperty(key)) {
-                    if (values[key] instanceof moment) {
+                    if (values[key] instanceof dayjs) {
                         values[key] = values[key].format('YYYY-MM-DD HH:mm:ss');
                     }
                 }
@@ -85,9 +83,9 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
                 if (headerLocation) {
                     let locationId = headerLocation.split('/').pop();
                     if (parseInt(locationId)) {
-                        history.push(`/${manifest.displayName}/${locationId}`);
+                        navigate(`/${manifest.displayName}/${locationId}`);
                     } else {
-                        history.push(`/${manifest.displayName}`);
+                        navigate(`/${manifest.displayName}`);
                     }
                 }
             }).catch((responseErr) => {
@@ -126,7 +124,7 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
         if (formState.initialLoad) {
             newState.initialLoad = false;
         }
-        formatInitialValuesDatetimeToMoment(response);
+        formatInitialValuesDatetimeToDayjs(response);
         form.setFieldsValue(response);
         setFormState(state => ({
             ...state,

@@ -30,7 +30,7 @@ const manifest = {
                 sorter: true,
                 filter: SEARCH,
                 render: (text, record) => {
-                    return record.account_holder.name;
+                    return record.account_holder ? record.account_holder.name : null;
                 },
                 isGlobalSearch: true,
                 hidden: true,
@@ -42,7 +42,7 @@ const manifest = {
                 sorter: true,
                 filter: SEARCH,
                 render: (text, record) => {
-                    return record.bank.name;
+                    return record.bank ? record.bank.name : null;
                 },
                 isGlobalSearch: true,
             },

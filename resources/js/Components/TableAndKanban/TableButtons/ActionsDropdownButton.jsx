@@ -1,26 +1,49 @@
-import {Dropdown, Menu} from "antd";
-import ListDeleteButton from "./ListDeleteButton";
+import {Button, Dropdown, Popconfirm} from "antd";
 import {TableContext} from "../../../Contexts/TableContext";
-import {useContext} from "react";
-import ListExportButton from "./ListExportButton";
+import React, {useContext} from "react";
+import {DownOutlined} from "@ant-design/icons";
+import {toQueryString} from "../../../Helpers/url";
+import {Link} from "react-router-dom";
 
 const ActionsDropdownButton = () => {
-    const listContext = useContext(TableContext);
+    const tableContext = useContext(TableContext);
+    const params = toQueryString(tableContext.state.params);
+    const exportLink = tableContext.exportLink ? `${tableContext.exportLink}/?${params}` : `${tableContext.manifest.moduleName}/export?${params}`;
+    const items = [
+        {
+            key: 'delete',
+            label: <Popconfirm
+                title={`Are you sure you want to delete the selected items?`}
+                okText="Yes"
+                cancelText="No" onConfirm={() => {
+                let ids = tableContext.state.selectedRows.map((row) => (row.id));
+                tableContext.handleMassDelete(ids);
+            }}
+            >
+                Delete
+            </Popconfirm>
+        },
+        {
+            key: 'export',
+            label: <Popconfirm
+                title={`Are you sure you want to export these items?`}
+                okText={
+                    <Link to={exportLink} target="_blank" rel="noopener noreferrer">
+                        Yes
+                    </Link>
+                }
+                cancelText="No"
+            >
+                Export
+            </Popconfirm>
+        }
+    ];
 
-    function handleMenuClick(e) {
-
-    }
-
-    const menu = (
-        <Menu onClick={handleMenuClick}>
-            <ListDeleteButton/>
-            <ListExportButton/>
-        </Menu>
-    );
-
-    if (listContext.tableState.selectedRows.length) {
+    if (tableContext.state.selectedRows.length) {
         return (
-            <Dropdown.Button overlay={menu}>Actions</Dropdown.Button>
+            <Dropdown menu={{items}}>
+                <Button>Actions <DownOutlined/></Button>
+            </Dropdown>
         )
     } else {
         return null;

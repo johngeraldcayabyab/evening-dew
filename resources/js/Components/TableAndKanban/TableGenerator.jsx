@@ -1,4 +1,3 @@
-import useListHook from "../../Hooks/useListHook"
 import {TableContextProvider} from "../../Contexts/TableContext"
 import ControlPanel from "../ControlPanel"
 import CustomBreadcrumb from "../CustomBreadcrumb"
@@ -7,14 +6,58 @@ import TableCreateButton from "./TableButtons/TableCreateButton"
 import ActionsDropdownButton from "./TableButtons/ActionsDropdownButton"
 import CustomPagination from "./CustomPagination"
 import CustomTable from "./CustomTable"
-import {KANBAN, TABLE} from "../../consts"
+import {DELETE, GET, KANBAN, POST, TABLE} from "../../consts"
 import {useState} from "react"
 import {Col, Row} from "antd"
 import KanbanTablePicker from "./KanbanTablePicker"
 import Kanban from "./Kanban"
+import useFetchHook from "../../Hooks/useFetchHook"
+import {getPayload, getPayloadModule, setPayload, setPayloadModule} from "../../Helpers/localstorage"
 
 const TableGenerator = (manifest) => {
-    const [tableState, tableActions] = useListHook(manifest);
+    const useFetch = useFetchHook();
+    const [tableState, setTableState] = useState({
+        initialLoad: true,
+        loading: true,
+        dataSource: [],
+        selectedRows: [],
+        meta: {},
+        params: {},
+    });
+
+    function handleDelete(id) {
+        useFetch(`api/${manifest.moduleName}/${id}`, DELETE);
+    }
+
+    function handleMassDelete(ids) {
+        setTableState(state => ({
+            ...state,
+            loading: true,
+        }));
+        useFetch(`api/${manifest.moduleName}/mass_destroy`, POST, {ids: ids}).then(() => {
+            renderData(tableState.params);
+        });
+    }
+
+    function renderData(params = {}) {
+        if (manifest.moduleName === getPayloadModule()) {
+            params = {...getPayload(), ...params};
+        }
+        setPayload(params);
+        setPayloadModule(manifest.moduleName);
+        useFetch(`/api/${manifest.moduleName}`, GET, params).then((response) => {
+            setTableState(prevState => ({
+                ...prevState,
+                initialLoad: false,
+                loading: false,
+                dataSource: response.data,
+                meta: response.meta,
+                params: params,
+            }));
+        });
+    }
+
+
     const [dataState, setDataState] = useState({
         mode: TABLE
     });
@@ -22,10 +65,19 @@ const TableGenerator = (manifest) => {
         <TableContextProvider value={{
             manifest: manifest,
             tableState: tableState,
-            tableActions: tableActions,
-            ...manifest.table,
             dataState: dataState,
             setDataState: setDataState,
+            handleDelete: handleDelete,
+            handleMassDelete: handleMassDelete,
+            renderData: renderData,
+            rowSelection: {
+                onChange: (selectedRowKeys, selectedRows) => {
+                    setTableState(state => ({
+                        ...state,
+                        selectedRows: selectedRows
+                    }));
+                }
+            },
         }}>
             <ControlPanel
                 topColOneLeft={<CustomBreadcrumb/>}

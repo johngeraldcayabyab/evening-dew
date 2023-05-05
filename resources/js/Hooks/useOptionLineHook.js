@@ -117,9 +117,9 @@ const useOptionLineHook = (url, tableField, lineName, customParams = null) => {
                 }
             }
         },
-        addSelf: (key, formState) => {
-            if (formState.id) {
-                if (!formState.initialLoad && !formState.initialValues[lineName][key]) {
+        addSelf: (key, formContext) => {
+            if (formContext.state.id) {
+                if (!formContext.formState.initialLoad && !formContext.formState.initialValues[lineName][key]) {
                     optionActions.getOptions(null, key);
                 }
             } else {
@@ -137,7 +137,7 @@ const useOptionLineHook = (url, tableField, lineName, customParams = null) => {
                 optionsLoading: optionsLoading,
             }));
         },
-        aggregate: (lineOptions, fieldKey, formState) => {
+        aggregate: (lineOptions, fieldKey, formContext) => {
             fieldKey = parseInt(fieldKey);
             return {
                 value: lineOptions.values[fieldKey],
@@ -149,7 +149,7 @@ const useOptionLineHook = (url, tableField, lineName, customParams = null) => {
                 onSearch: (search) => lineOptions.onSearch(search, fieldKey),
                 onClear: () => lineOptions.onClear(fieldKey),
                 onPopupScroll: (event) => lineOptions.onPopupScroll(event, fieldKey),
-                addSelf: () => lineOptions.addSelf(fieldKey, formState),
+                addSelf: () => lineOptions.addSelf(fieldKey, formContext),
                 removeSelf: () => lineOptions.removeSelf(fieldKey),
             }
         },

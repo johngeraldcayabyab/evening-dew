@@ -6,27 +6,27 @@ import useFetchHook from "../Hooks/useFetchHook";
 import {getCookie} from "../Helpers/cookie";
 import {GET} from "../consts";
 import {reset} from "../Helpers/reset";
-import {useHistory, useLocation} from "react-router";
+import {useNavigate, useLocation, Outlet} from "react-router-dom";
 import {AppContext} from "../Contexts/AppContext"
 
-const ContentContainer = (props) => {
+const ContentContainer = () => {
     const appContext = useContext(AppContext);
     const appState = appContext.appState;
     const setAppState = appContext.setAppState;
     const location = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const useFetch = useFetchHook();
 
     useEffect(() => {
         // window.Echo.channel('refresh-browser').listen('RefreshBrowserEvent', () => {
-        //     history.go(0);
+        //     navigate.go(0);
         // });
         if (!appState.isLogin) {
             if (!location.pathname.includes('login')) {
                 reset();
                 message.warning('Please login first!'); // this thing does nothing because the state isnt fixed
-                history.push('/login');
+                navigate('/login');
             }
             return;
         }
@@ -79,7 +79,7 @@ const ContentContainer = (props) => {
         <Layout style={{height: '100%', background: '#f6f7fa'}}>
             {appState.isLogin && <CustomMenu/>}
             <Content style={{marginTop: '50px', borderTop: 'none'}}>
-                {props.children}
+                <Outlet/>
             </Content>
         </Layout>
     )

@@ -1,6 +1,6 @@
 import {Button, Table} from "antd";
 import React, {useContext, useEffect, useState} from "react";
-import {Link, useHistory} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {EyeOutlined, SearchOutlined} from "@ant-design/icons";
 import {TableContext} from "../../Contexts/TableContext";
 import SearchFilter from "./TableFilters/SearchFilter.jsx";
@@ -13,13 +13,13 @@ import {AppContext} from "../../Contexts/AppContext"
 import BooleanTag from "../Typography/BooleanTag"
 import SequenceNumber from "../Typography/SequenceNumber"
 
-const CustomTable = (props) => {
+const CustomTable = () => {
     const appContext = useContext(AppContext);
     const listContext = useContext(TableContext);
     const manifest = listContext.manifest;
-    const history = useHistory();
+    const navigate = useNavigate();
     const [state, setState] = useState({
-        columns: listContext.columns
+        columns: manifest.table.columns
     });
 
     useEffect(() => {
@@ -33,19 +33,18 @@ const CustomTable = (props) => {
     useEffect(() => {
         if (!appContext.appState.appInitialLoad) {
             const selectedFields = [];
-            listContext.columns.forEach((column) => {
+            state.columns.forEach((column) => {
                 selectedFields.push(column.dataIndex);
             });
             let urlParams = getAllUrlParams();
             urlParams.selected_fields = selectedFields;
             urlParams = {...urlParams, ...manifest.queryDefaults};
-            listContext.tableActions.renderData(urlParams);
+            listContext.renderData(urlParams);
         }
-    }, [appContext.appState.appInitialLoad]);
+    }, [appContext.appState.appInitialLoad, manifest]);
 
     function getColumns() {
         let columns = state.columns;
-
         columns = columns.map((column) => {
             if (column.hasOwnProperty('filter')) {
                 const filterType = generateColumnFilterByType(column);
@@ -74,7 +73,6 @@ const CustomTable = (props) => {
             }
             return column;
         });
-
         if (!isClickableRow() && isCreatableAndUpdatable()) {
             columns.push({
                 className: 'column-actions',
@@ -92,8 +90,7 @@ const CustomTable = (props) => {
                 }
             });
         }
-
-        if (listContext.columnSelection) {
+        if (listContext.manifest.table.columnSelection) {
             columns.push({
                 className: 'column-selection',
                 dataIndex: COLUMN_SELECTION,
@@ -106,8 +103,6 @@ const CustomTable = (props) => {
                 ),
             });
         }
-
-
         return columns.filter(column => {
             if (!column.hasOwnProperty('hidden')) {
                 return column;
@@ -181,7 +176,7 @@ const CustomTable = (props) => {
         return {
             onClick: event => {
                 if (isClickableRow() && isCreatableAndUpdatable()) {
-                    history.push(`/${manifest.displayName}/${record.id}`);
+                    navigate(`/${manifest.displayName}/${record.id}`);
                 }
             },
             onDoubleClick: event => {
@@ -215,7 +210,7 @@ const CustomTable = (props) => {
                 listContext.tableState.params[key] = filters[key];
             }
         }
-        listContext.tableActions.renderData(listContext.tableState.params);
+        listContext.renderData(listContext.tableState.params);
     }
 
     function isClickableRow() {
@@ -224,21 +219,20 @@ const CustomTable = (props) => {
 
     const tableProps = {
         className: 'custom-table',
-        rowSelection: listContext.tableActions.rowSelection,
+        rowSelection: listContext.rowSelection,
         loading: listContext.tableState.loading,
         dataSource: listContext.tableState.dataSource,
-        columns: getColumns(),
+        columns: manifest.table.columns,
         rowKey: 'id',
         onRow: onRow,
         pagination: false,
         childrenColumnName: 'test',
         onChange: onChange,
         size: 'small',
-        expandable: props.expandable,
+        expandable: false,
     };
 
-    return (<Table {...tableProps}/>
-    )
+    return (<Table {...tableProps}/>)
 };
 
 export default CustomTable;

@@ -1,8 +1,6 @@
 import {Breadcrumb} from "antd";
-import {useLocation} from "react-router";
+import {Link, useLocation} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
-import {Link} from "react-router-dom";
-import Title from "antd/lib/typography/Title";
 import {getBreadcrumbs, getClickedBreadcrumb, setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import {objectHasValue} from "../Helpers/object";
@@ -12,7 +10,7 @@ import {TableContext} from "../Contexts/TableContext";
 const CustomBreadcrumb = () => {
     const location = useLocation();
     const formContext = useContext(FormContext);
-    const listContext = useContext(TableContext);
+    const tableContext = useContext(TableContext);
     const [state, setState] = useState({
         breadcrumbs: [],
     });
@@ -25,19 +23,19 @@ const CustomBreadcrumb = () => {
             slug: null,
         };
         if (formContext.hasOwnProperty('formState') && !formContext.formState.initialLoad) {
-            if (formContext.formState.id) {
+            if (formContext.state.id) {
                 breadcrumb.slug = formContext.formState.initialValues.slug;
             } else {
                 breadcrumb.slug = 'New';
             }
         }
-        if (listContext.hasOwnProperty('tableState') && !listContext.tableState.initialLoad) {
-            breadcrumb.slug = titleCase(replaceUnderscoreWithSpace(listContext.tableState.moduleName));
+        if (tableContext.hasOwnProperty('state')) {
+            breadcrumb.slug = titleCase(replaceUnderscoreWithSpace(tableContext.manifest.displayName));
         }
         if (breadcrumb.slug) {
             setBreadcrumbsAndState(breadcrumbs, breadcrumb);
         }
-    }, [listContext.tableState, formContext.formState]);
+    }, [tableContext.tableState, formContext.formState]);
 
     function setBreadcrumbsAndState(breadcrumbs, newBreadcrumb) {
         let pathname = location.pathname;
@@ -96,27 +94,20 @@ const CustomBreadcrumb = () => {
         }));
     }
 
-    return (
-        <Breadcrumb>
-            {state.breadcrumbs.map((breadcrumb) => {
-                return (
-                    <Breadcrumb.Item key={breadcrumb.key}>
-                        <Title level={5} style={{display: 'inline-block'}}>
-                            <Link key={breadcrumb.key} to={breadcrumb.link} onClick={() => {
-                                setClickedBreadcrumb(breadcrumb);
-                            }}>
-                                {breadcrumb.slug}
-                            </Link>
-                        </Title>
-                    </Breadcrumb.Item>
-                )
-            })}
-            {!state.breadcrumbs.length ? <Breadcrumb.Item><Title level={5} style={{
-                display: 'inline-block',
-                visibility: 'hidden'
-            }}>placeholder for UX</Title></Breadcrumb.Item> : null}
-        </Breadcrumb>
-    )
+    // function itemRender(route, params, items, paths) {
+    //     return <Link to={route.link}>{route.title}</Link>;
+    // }
+
+    const items = state.breadcrumbs.map((breadcrumb) => ({
+        key: uuidv4(),
+        // link: breadcrumb.link,
+        title: <Link to={breadcrumb.link} reloadDocument={true}>{breadcrumb.slug}</Link>,
+        onClick: () => {
+            setClickedBreadcrumb(breadcrumb);
+        },
+    }));
+
+    return <Breadcrumb items={items}/>
 };
 
 export default CustomBreadcrumb;

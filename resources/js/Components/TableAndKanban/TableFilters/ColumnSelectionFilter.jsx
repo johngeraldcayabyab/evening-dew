@@ -1,24 +1,23 @@
-import {Button, Checkbox, Dropdown, Menu} from "antd";
-import React, {useState} from "react";
+import {Button, Checkbox, Dropdown} from "antd";
+import React, {useContext, useState} from "react";
 import {COLUMN_SELECTION} from "../../../consts";
 import {MoreOutlined} from "@ant-design/icons";
+import {TableContext} from "../../../Contexts/TableContext"
 
-const ColumnSelectionFilter = (props) => {
+const ColumnSelectionFilter = () => {
     const [open, setOpen] = useState(false);
-    const columns = props.state.columns;
-
-    function handleMenuClick(e) {
+    const tableContext = useContext(TableContext);
+    const handleMenuClick = (e) => {
         if (e.key === '3') {
             setOpen(false);
         }
-    }
-
-    function handleOnOpenChange(flag) {
+    };
+    const handleOpenChange = (flag) => {
         setOpen(flag);
-    }
+    };
 
     function toggleColumn(column) {
-        return columns.map((newColumn) => {
+        return tableContext.state.columns.map((newColumn) => {
             if (column.dataIndex === newColumn.dataIndex) {
                 if (newColumn.hasOwnProperty('hidden')) {
                     delete newColumn.hidden;
@@ -30,8 +29,8 @@ const ColumnSelectionFilter = (props) => {
         });
     }
 
-    const menuItems = columns.map((column) => {
-        if (column.key !== COLUMN_SELECTION) {
+    const items = tableContext.state.columns.map((column) => {
+        if (column.key !== COLUMN_SELECTION && column.key !== 'column_actions') {
             return ({
                 key: `${column.key}-column-item`,
                 label: (
@@ -39,9 +38,10 @@ const ColumnSelectionFilter = (props) => {
                         key={`${column.key}-column-item-checkbox`}
                         checked={!column.hidden}
                         onClick={() => {
-                            props.setState(prevState => ({
+                            const columns = toggleColumn(column);
+                            tableContext.setState(prevState => ({
                                 ...prevState,
-                                columns: toggleColumn(column)
+                                columns: columns
                             }));
                         }}>
                         {column.title}
@@ -51,25 +51,20 @@ const ColumnSelectionFilter = (props) => {
         }
     });
 
-    const menu = (
-        <Menu
-            onClick={handleMenuClick}
-            items={menuItems}
-        />
-    );
-
     return (
         <Dropdown
-            menu={menu}
-            size={'small'}
-            onOpenChange={handleOnOpenChange}
+            menu={{
+                items,
+                onClick: handleMenuClick,
+            }}
+            onOpenChange={handleOpenChange}
             open={open}
         >
             <Button size={'small'} type={'text'} onClick={(e) => e.preventDefault()}>
                 <MoreOutlined style={{color: 'grey', fontSize: '15px'}}/>
             </Button>
         </Dropdown>
-    )
+    );
 };
 
 export default ColumnSelectionFilter;

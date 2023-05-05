@@ -132,7 +132,7 @@ class MenuSeeder extends Seeder
             ],
             [
                 'label' => 'Regions',
-                'url' => '/Regions',
+                'url' => '/regions',
             ],
             [
                 'label' => 'Sales Orders',

@@ -1,7 +1,7 @@
 import {Avatar, Card, Space, Spin, Typography} from "antd";
 import {useContext, useEffect} from "react";
 import {TableContext} from "../../Contexts/TableContext";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {getAllUrlParams} from "../../Helpers/url";
 import {uuidv4} from "../../Helpers/string";
 
@@ -11,7 +11,7 @@ const {Text} = Typography;
 
 const Kanban = () => {
     const listContext = useContext(TableContext);
-    const history = useHistory();
+    const navigate = useNavigate();
 
     useEffect(() => {
         return (() => {
@@ -23,7 +23,7 @@ const Kanban = () => {
         const selectedFields = listContext.kanban.selected_fields;
         const urlParams = getAllUrlParams();
         urlParams.selected_fields = selectedFields;
-        listContext.tableActions.renderData(urlParams);
+        listContext.renderData(urlParams);
     }, []);
 
     const hiddenDrag = [];
@@ -70,7 +70,7 @@ const Kanban = () => {
                                 margin: '4px 8px',
                             }}
                             onClick={(event) => {
-                                history.push(`/${listContext.manifest.moduleName}/${data.id}`);
+                                navigate(`/${listContext.manifest.moduleName}/${data.id}`);
                             }}
                             onMouseEnter={(event) => {
                                 document.body.style.cursor = "pointer";

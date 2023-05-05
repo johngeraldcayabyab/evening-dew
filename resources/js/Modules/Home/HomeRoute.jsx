@@ -1,20 +1,16 @@
-import {Redirect, Route, Switch} from "react-router-dom";
+import {Navigate, Route} from "react-router-dom";
 import React from "react";
 import manifest from "./home_manifest.json";
-import {uuidv4} from "../../Helpers/string";
 import Home from "./Home";
-
 
 const HomeRoute = () => {
     const displayName = manifest.displayName;
-    return (<Switch>
-            <Route exact key={uuidv4()} path={`/`}>
-                <Redirect to={`/${displayName}`}/>
-            </Route>
-            <Route exact key={uuidv4()} path={`/${displayName}`}
-                   render={props => <Home key={props.location.key}/>}
-            />
-        </Switch>);
+    return (
+        <>
+            <Route key={'root'} path={`/`} element={<Navigate to={`/${displayName}`}/>}/>
+            <Route key={'/home'} path={`/${displayName}`} element={<Home/>}/>
+        </>
+    );
 };
 
 export default HomeRoute;

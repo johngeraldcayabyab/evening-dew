@@ -2,10 +2,9 @@ import React, {useContext, useEffect, useState} from "react";
 import {Header} from "antd/lib/layout/layout";
 import {Menu, message, Spin} from "antd";
 import {AppstoreOutlined} from "@ant-design/icons";
-import {Link} from "react-router-dom";
 import useFetchHook from "../Hooks/useFetchHook";
 import {POST} from "../consts";
-import {useHistory, useLocation} from "react-router";
+import {Link, useLocation, useNavigate, Navigate, NavLink} from "react-router-dom";
 import {setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import AvatarUser from "./AvatarUser";
@@ -33,7 +32,7 @@ const CustomMenu = () => {
         appMenu: [],
         appMenuChildren: [],
     });
-    const history = useHistory();
+    const navigate = useNavigate();
 
     function getRootIndex(appMenu = [], value) {
         value = '/' + value.split('/')[1];
@@ -96,30 +95,43 @@ const CustomMenu = () => {
             }));
             message.success('Logged Out!');
             reset();
-            history.push('/login');
+            navigate('/login');
         });
     }
 
     const sectionMenu = state.appMenuChildren ? state.appMenuChildren.map((menu) => {
         if (menu.children.length) {
-            return {
-                label: menu.label,
-                key: `section-menu-${menu.id}`,
-                children: menu.children.map((child) => ({
-                    label: child.menu_id ? <Link
+            const children = menu.children.map((child) => ({
+                label: child.menu_id ?
+                    <NavLink
+                        // relative="route"
+                        // reloadDocument={true}
                         to={child.menu.url}
                         onClick={() => {
                             resetBreadcrumbs(child.menu.url);
                         }}>
                         {child.label}
-                    </Link> : child.label, key: `section-menu-child-${child.id}`
-                }))
+                    </NavLink>
+                    : child.label, key: `section-menu-child-${child.id}`
+            }));
+            return {
+                label: menu.label,
+                key: `section-menu-${menu.id}`,
+                children: children
             }
         }
         return {
-            label: menu.menu_id ? <Link to={menu.menu.url}>{menu.label}</Link> : menu.label,
+            label: menu.menu_id ?
+                <NavLink
+                    // relative="route"
+                    // reloadDocument={true}
+                    to={menu.menu.url}>
+                    {menu.label}
+                </NavLink>
+                : menu.label,
             key: `section-menu-${menu.id}`,
             onClick: () => {
+                navigate(menu.menu.url);
                 resetBreadcrumbs(menu.menu.url);
             }
         }
@@ -132,7 +144,14 @@ const CustomMenu = () => {
         key: 'app-menu',
         icon: <AppstoreOutlined/>,
         children: state.appMenu.map((appMenu) => ({
-            label: <Link to={appMenu.menu.url}>{appMenu.label}</Link>,
+            label:
+                <NavLink
+                    // relative="route"
+                    // reloadDocument={true}
+                    to={appMenu.menu.url}
+                >
+                    {appMenu.label}
+                </NavLink>,
             key: `app-menu-${appMenu.id}`,
             onClick: () => {
                 const index = state.appMenu.findIndex(m => m.id === appMenu.id);
