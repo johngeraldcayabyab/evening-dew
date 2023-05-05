@@ -1,20 +1,12 @@
-import {TimePicker, Form} from "antd";
+import {Form, TimePicker} from "antd";
 import React, {useContext} from "react";
 import CustomInputSkeleton from "../CustomInputSkeleton";
-import {formItemFieldProps} from "../../Helpers/form";
 import {FormContext} from "../../Contexts/FormContext";
-
-const dateFormat = 'YYYY-MM-DD HH:mm:ss';
+import useFieldHook from "../../Hooks/useFieldHook"
 
 const FormItemTime = (props) => {
     const formContext = useContext(FormContext);
-
-    // if (objectHasValue(props.initialValues)) {
-    //     // props.initialValues.
-    //     // getOptions(getQueryFromInitialValue());
-    // }
-
-    const [formItemProps, fieldProps] = formItemFieldProps(props, {
+    const [formItemProps, fieldProps] = useFieldHook(props, {
         style: {width: "100%"},
     });
 

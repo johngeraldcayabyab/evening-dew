@@ -1,11 +1,11 @@
-import {formItemFieldProps} from "../../Helpers/form";
 import {Form, Input} from "antd";
 import React, {useContext} from "react";
 import {FormContext} from "../../Contexts/FormContext";
+import useFieldHook from "../../Hooks/useFieldHook"
 
 const FormItemStatus = (props) => {
     const formContext = useContext(FormContext);
-    const [formItemProps, fieldProps] = formItemFieldProps(props, {
+    const [formItemProps, fieldProps] = useFieldHook(props, {
         disabled: true,
         style: {display: 'none', position: 'absolute'} // turn this off for debugging purposes
     });

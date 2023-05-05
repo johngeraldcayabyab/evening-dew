@@ -1,9 +1,9 @@
 import {Form, Select, Tag} from "antd";
 import {useContext, useEffect, useState} from "react";
 import CustomInputSkeleton from "../CustomInputSkeleton";
-import {formItemFieldProps} from "../../Helpers/form";
 import {FormContext} from "../../Contexts/FormContext";
 import CustomDropdownMenu from "../CustomDropdownMenu";
+import useFieldHook from "../../Hooks/useFieldHook"
 
 const FormItemSelect = (props) => {
     const [state, setState] = useState({
@@ -73,7 +73,7 @@ const FormItemSelect = (props) => {
         }
     }
 
-    const [formItemProps, fieldProps] = formItemFieldProps(props, specialFieldProps);
+    const [formItemProps, fieldProps] = useFieldHook(props, specialFieldProps);
 
     function isLoading() {
         if (formContext.formState.loading) {

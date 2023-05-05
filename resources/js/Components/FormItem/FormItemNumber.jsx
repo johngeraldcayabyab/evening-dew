@@ -1,12 +1,12 @@
 import {Form, InputNumber} from "antd";
 import React, {useContext} from "react";
 import CustomInputSkeleton from "../CustomInputSkeleton";
-import {formItemFieldProps} from "../../Helpers/form";
 import {FormContext} from "../../Contexts/FormContext";
+import useFieldHook from "../../Hooks/useFieldHook"
 
 const FormItemNumber = (props) => {
     const formContext = useContext(FormContext);
-    const [formItemProps, fieldProps] = formItemFieldProps(props, {
+    const [formItemProps, fieldProps] = useFieldHook(props, {
         style: {width: "100%"},
         step: props.step,
         min: props.min,
