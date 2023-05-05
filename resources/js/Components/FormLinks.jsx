@@ -32,6 +32,7 @@ const FormLinks = () => {
                 return (
                     <Link
                         key={uuidv4()}
+                        reloadDocument={true}
                         to={`/${link.module}?${link.param}=${initialValues[link.value]}`}>
                         <Button
                             htmlType={"button"}
