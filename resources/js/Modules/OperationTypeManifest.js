@@ -117,13 +117,11 @@ const manifest = {
                     label: 'Type Of Operation',
                     required: true,
                     options: [
-                        [
                             {value: 'receipt', label: 'Receipt'},
                             {value: 'delivery', label: 'Delivery'},
                             {value: 'internal', label: 'Internal'},
                             {value: 'manufacturing', label: 'Manufacturing'},
                             {value: 'adjustment', label: 'Adjustment'},
-                        ]
                     ]
                 },
                 {
