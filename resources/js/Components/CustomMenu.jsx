@@ -89,7 +89,6 @@ const CustomMenu = () => {
                 isLogin: false,
                 accessRights: false,
                 userEmail: false,
-                globalSetting: {},
                 user: {},
                 appInitialLoad: true,
             }));

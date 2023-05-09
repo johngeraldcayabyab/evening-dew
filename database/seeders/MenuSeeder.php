@@ -71,10 +71,6 @@ class MenuSeeder extends Seeder
                 'url' => '/delivery_fees',
             ],
             [
-                'label' => 'Global Settings',
-                'url' => '/global_settings',
-            ],
-            [
                 'label' => 'Groups',
                 'url' => '/groups',
             ],

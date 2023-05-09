@@ -12,5 +12,4 @@ export const reset = () => {
 
     localStorage.removeItem("user");
     localStorage.removeItem("accessRights");
-    localStorage.removeItem("globalSetting");
 }

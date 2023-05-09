@@ -14,7 +14,6 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             CourierSeeder::class,
             CurrencySeeder::class,
-            GlobalSettingSeeder::class,
             JournalSeeder::class,
             LocationSeeder::class,
             MeasurementCategorySeeder::class,

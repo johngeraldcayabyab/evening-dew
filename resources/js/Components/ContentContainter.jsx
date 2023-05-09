@@ -32,14 +32,12 @@ const ContentContainer = () => {
         }
         const user = localStorage.getItem("user");
         const accessRights = localStorage.getItem("accessRights");
-        const globalSetting = localStorage.getItem("globalSetting");
-        if (user && accessRights && globalSetting) {
+        if (user && accessRights) {
             setAppState(prevState => ({
                 ...prevState,
                 isLogin: getCookie('Authorization'),
                 user: JSON.parse(user),
                 accessRights: JSON.parse(accessRights),
-                globalSetting: JSON.parse(globalSetting),
                 appInitialLoad: false,
             }));
             return;
@@ -59,19 +57,17 @@ const ContentContainer = () => {
                 });
                 accessRights = accessRights.filter((v, i, a) => a.findIndex(v2 => (v2.name === v.name)) === i);
             }
-            useFetch(`/api/global_settings/initial_values`, GET).then((globalSettingResponse) => {
-                localStorage.setItem("user", JSON.stringify(user));
-                localStorage.setItem("accessRights", JSON.stringify(accessRights));
-                localStorage.setItem("globalSetting", JSON.stringify(globalSettingResponse));
-                setAppState(prevState => ({
-                    ...prevState,
-                    isLogin: getCookie('Authorization'),
-                    user: user,
-                    accessRights: accessRights,
-                    globalSetting: globalSettingResponse,
-                    appInitialLoad: false,
-                }));
-            });
+
+            localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("accessRights", JSON.stringify(accessRights));
+            setAppState(prevState => ({
+                ...prevState,
+                isLogin: getCookie('Authorization'),
+                user: user,
+                accessRights: accessRights,
+                appInitialLoad: false,
+            }));
+
         });
     }, [appState.isLogin]);
 

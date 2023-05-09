@@ -23,7 +23,6 @@ import Country from "./Modules/CountryManifest";
 import Courier from "./Modules/CourierManifest";
 import Currency from "./Modules/CurrencyManifest";
 import DeliveryFee from "./Modules/DeliveryFeeManifest";
-import GlobalSetting from "./Modules/GlobalSettingManifest";
 import Group from "./Modules/GroupManifest";
 import Invoice from "./Modules/InvoiceManifest";
 import Journal from "./Modules/JournalManifest";
@@ -70,7 +69,6 @@ const manifests = [
     Courier,
     Currency,
     DeliveryFee,
-    GlobalSetting,
     Group,
     Invoice,
     Journal,
@@ -174,7 +172,6 @@ const App = () => {
         userEmail: getCookie('userEmail'),
         appInitialLoad: true,
         user: {},
-        globalSetting: {},
     });
     return (
         <AppContextProvider
