@@ -15,7 +15,7 @@ import {Button, Col, Row, Table} from "antd";
 import useFetchHook from "../../Hooks/useFetchHook";
 import {getPayload, getPayloadModule, setPayload, setPayloadModule} from "../../Helpers/localstorage";
 import {AppContext} from "../../Contexts/AppContext";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate, useLoaderData} from "react-router-dom";
 import {TableContextProvider} from "../../Contexts/TableContext";
 import ControlPanel from "../ControlPanel"
 import CustomBreadcrumb from "../CustomBreadcrumb"
@@ -34,36 +34,26 @@ import SelectFilter from "./TableFilters/SelectFilter"
 
 const TableGenerator = (manifest) => {
     const appContext = useContext(AppContext);
+    const loader = useLoaderData();
     const useFetch = useFetchHook();
     const navigate = useNavigate();
     const [state, setState] = useState({
         mode: TABLE,
         loading: true,
-        dataSource: [],
+        dataSource: loader.data,
         selectedRows: [],
-        meta: {},
+        meta: loader.meta,
         params: {},
         columns: []
     });
 
     useEffect(() => {
-        let params = {};
-        if (manifest.moduleName === getPayloadModule()) {
-            params = {...getPayload(), ...params};
-        }
-        setPayload(params);
-        setPayloadModule(manifest.moduleName);
-        useFetch(`/api/${manifest.moduleName}`, GET, params).then((response) => {
-            setState(prevState => {
-                return {
-                    ...prevState,
-                    loading: false,
-                    dataSource: response.data,
-                    meta: response.meta,
-                    params: params,
-                    columns: manifest.table.columns
-                };
-            });
+        setState(prevState => {
+            return {
+                ...prevState,
+                loading: false,
+                columns: manifest.table.columns
+            };
         });
     }, [manifest]);
 
