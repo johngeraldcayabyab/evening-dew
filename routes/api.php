@@ -51,7 +51,7 @@ Route::group(['middleware' => ['api', 'cors']], function () {
     Route::post('/sanctum/token', [LoginController::class, 'authenticate']);
 });
 
-Route::group(['middleware' => ['api', 'cors', 'auth:sanctum']], function () {
+Route::group(['middleware' => ['api', 'cors']], function () {
     Router::generate(AccessRightController::class);
     Router::generate(ActivityLogController::class);
     Router::generate(AddressController::class);

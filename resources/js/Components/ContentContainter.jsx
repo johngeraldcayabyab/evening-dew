@@ -1,87 +1,26 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext} from "react";
 import {Content} from "antd/es/layout/layout";
 import CustomMenu from './CustomMenu';
-import {Layout, message} from "antd";
-import useFetchHook from "../Hooks/useFetchHook";
-import {getCookie} from "../Helpers/cookie";
-import {GET} from "../consts";
-import {reset} from "../Helpers/reset";
-import {useNavigate, useLocation, Outlet} from "react-router-dom";
-import {AppContext} from "../Contexts/AppContext"
+import {NavLink, Outlet} from "react-router-dom";
+import {AppContext} from "../Contexts/AppContext";
+import {Menu} from "antd";
+import {uuidv4} from "../Helpers/string";
 
 const ContentContainer = () => {
     const appContext = useContext(AppContext);
-    const appState = appContext.appState;
-    const setAppState = appContext.setAppState;
-    const location = useLocation();
-    const navigate = useNavigate();
 
-    const useFetch = useFetchHook();
-
-    useEffect(() => {
-        // window.Echo.channel('refresh-browser').listen('RefreshBrowserEvent', () => {
-        //     navigate.go(0);
-        // });
-        if (!appState.isLogin) {
-            if (!location.pathname.includes('login')) {
-                reset();
-                message.warning('Please login first!'); // this thing does nothing because the state isnt fixed
-                navigate('/login');
-            }
-            return;
-        }
-        const user = localStorage.getItem("user");
-        const accessRights = localStorage.getItem("accessRights");
-        const globalSetting = localStorage.getItem("globalSetting");
-        if (user && accessRights && globalSetting) {
-            setAppState(prevState => ({
-                ...prevState,
-                isLogin: getCookie('Authorization'),
-                user: JSON.parse(user),
-                accessRights: JSON.parse(accessRights),
-                globalSetting: JSON.parse(globalSetting),
-                appInitialLoad: false,
-            }));
-            return;
-        }
-        useFetch(`/api/users`, GET, {
-            email: getCookie('userEmail'),
-        }).then((userResponse) => {
-            const user = userResponse.data[0];
-            let accessRights = [];
-            const userGroupLines = user.user_group_lines;
-            if (userGroupLines && userGroupLines.length) {
-                userGroupLines.forEach(userGroupLine => {
-                    const group = userGroupLine.group;
-                    if (group && group.access_rights && group.access_rights.length) {
-                        accessRights = [...accessRights, ...group.access_rights];
-                    }
-                });
-                accessRights = accessRights.filter((v, i, a) => a.findIndex(v2 => (v2.name === v.name)) === i);
-            }
-            useFetch(`/api/global_settings/initial_values`, GET).then((globalSettingResponse) => {
-                localStorage.setItem("user", JSON.stringify(user));
-                localStorage.setItem("accessRights", JSON.stringify(accessRights));
-                localStorage.setItem("globalSetting", JSON.stringify(globalSettingResponse));
-                setAppState(prevState => ({
-                    ...prevState,
-                    isLogin: getCookie('Authorization'),
-                    user: user,
-                    accessRights: accessRights,
-                    globalSetting: globalSettingResponse,
-                    appInitialLoad: false,
-                }));
-            });
-        });
-    }, [appState.isLogin]);
+    const items = appContext.manifests.map(manifest => ({
+        label: <NavLink to={manifest.moduleName}>{manifest.moduleName}</NavLink>,
+        key: uuidv4()
+    }));
 
     return (
-        <Layout style={{height: '100%', background: '#f6f7fa'}}>
-            {appState.isLogin && <CustomMenu/>}
+        <>
             <Content style={{marginTop: '50px', borderTop: 'none'}}>
+                <Menu mode="horizontal" items={items}/>
                 <Outlet/>
             </Content>
-        </Layout>
+        </>
     )
 };
 
