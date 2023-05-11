@@ -31,6 +31,18 @@ class StockLocationQuantityController extends Controller
             ->whereNull("stock_source.deleted_at")
             ->sqlRaw();
         $rawQuery = "(($destinationRaw) - ($sourceRaw)) as quantity";
+
+        /*
+         * TODO - performance issue
+         *      - null parent location id check
+         * */
+        $locationName = Location::from('locations as l')
+            ->selectRaw('name')
+            ->where('l.id', 'locations.parent_location_id')
+            ->withTrashed()
+            ->whereNull("l.deleted_at")
+            ->sqlRaw();
+
         $stockLocationQuantity = StockMovement::from('stock_movements as stock_movement_quantity')
             ->selectRaw("
                 COUNT(stock_movement_quantity.product_id) as product_aggregate,
@@ -38,7 +50,7 @@ class StockLocationQuantityController extends Controller
                 product_id,
                 stock_movement_quantity.destination_location_id as location_id,
                 products.name as product_name,
-                locations.name as location_name,
+                CONCAT(COALESCE(($locationName),''),' / ' ,locations.name) as location_name,
                 $rawQuery"
             )
             ->leftJoin('products', 'products.id', '=', 'stock_movement_quantity.product_id')
