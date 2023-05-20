@@ -57,9 +57,29 @@ class PricelistController extends Controller
     }
 
 
-    /*
-     * TODO - add update
-     * */
+    public function update(PricelistRequest $request){
+        DB::transaction(function () use ($request) {
+
+            $data = $request->validated();
+            $priceList = Pricelist::find($request->input('id'));
+            $priceList->name = $request->input('name');
+
+            /*
+             * TODO - add delete for child model
+             * */
+            if (isset($data['customer_products_deleted'])) {
+                collect($data['customer_products_deleted'])->each(function($obj) use ($priceList) {
+
+                });
+            }
+
+            /*
+             * Todo - add update for child model
+             * */
+            $priceList->save();
+        });
+        return $this->responseUpdate();
+    }
 
     /**
      * @throws Throwable

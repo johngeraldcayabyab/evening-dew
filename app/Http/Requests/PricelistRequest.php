@@ -9,7 +9,8 @@ class PricelistRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required'],
+            'id' => 'nullable',
+            'name' => 'required',
             'customer_products.*.product_id' => ['required', 'numeric','distinct'],
             'customer_products.*.unit_price' => ['required', 'numeric']
         ];

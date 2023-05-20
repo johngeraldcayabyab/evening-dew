@@ -8,11 +8,10 @@ const manifest = {
     table: {
         columnSelection: true,
         columns: [{
-            title: 'ID',
+            title: 'Number',
             dataIndex: 'id',
             key: 'id',
-            sorter: true,
-            hidden: true,
+            sorter: true
         },
             {
                 title: 'Name',
@@ -43,9 +42,19 @@ const manifest = {
             col_1: [
                 {
                     type: 'text',
+                    name: 'id',
+                    label: 'Number',
+                    disabled: true,
+                    size: 'large',
+                },
+            ],
+        },
+        row_2: {
+            col_1: [
+                {
+                    type: 'text',
                     name: 'name',
                     label: 'Name',
-                    required: true,
                     size: 'large',
                 },
             ],
