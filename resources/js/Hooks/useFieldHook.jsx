@@ -21,8 +21,7 @@ const useFieldHook = (props, specialFieldProps = {}) => {
             style: {flex: '0 0 100%'}
         } : {span: 16},
     };
-
-    if (formState.errors[props.name]) {
+    if (formState.errors && formState.errors[props.name]) {
         formItemProps.validateStatus = 'error';
         formItemProps.help = formState.errors[props.name];
     }
@@ -50,7 +49,7 @@ const useFieldHook = (props, specialFieldProps = {}) => {
         formItemProps.wrapperCol = {span: 24};
         formItemProps.style = props.style;
         formItemProps.name = [props.groupName, props.name];
-        if (formContext.formState.errors[`${props.listName}.${props.fieldKey}.${props.name}`]) {
+        if (formContext.formState.errors && formContext.formState.errors[`${props.listName}.${props.fieldKey}.${props.name}`]) {
             formItemProps.validateStatus = 'error';
             formItemProps.help = formContext.formState.errors[`${props.listName}.${props.fieldKey}.${props.name}`];
         }

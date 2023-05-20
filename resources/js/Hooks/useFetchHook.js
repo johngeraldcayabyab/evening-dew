@@ -72,7 +72,8 @@ const useFetchHook = () => {
             } else if (error.status === 422) {
                 message.warning('The given data was invalid.');
             } else if (error.status === 500) {
-                error.json().then((body) => {
+                // https://github.com/johngeraldcayabyab/evening-dew/issues/17
+                error.clone().json().then((body) => {
                     message.error(body.message);
                 });
             }

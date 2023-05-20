@@ -17,7 +17,7 @@ const FormItemLineId = (props) => {
     };
 
     if (props.isListField) {
-        if (formContext.formState.errors[`${props.listName}.${props.fieldKey}.${props.name}`]) {
+        if (formContext.formState.errors && formContext.formState.errors[`${props.listName}.${props.fieldKey}.${props.name}`]) {
             formItemProps.validateStatus = 'error';
             formItemProps.help = formContext.formState.errors[`${props.listName}.${props.fieldKey}.${props.name}`];
         }

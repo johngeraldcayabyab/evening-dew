@@ -44,8 +44,6 @@ class PricelistController extends Controller
             $priceListData = Arr::except($data, ['customer_products']);
             $priceList = Pricelist::create($priceListData);
 
-            $this->checkForDuplicates($data['customer_products']);
-
             collect($data['customer_products'])->each(function ($obj) use ($priceList) {
                 $priceListProduct = new PricelistProduct();
                 $priceListProduct->product_id=$obj['product_id'];
@@ -87,20 +85,6 @@ class PricelistController extends Controller
 
         return PricelistProduct::where('pricelist_id', $priceListId)->where('product_id',$productId)->firstOrFail();
 
-    }
-
-    /**
-     * @param $customer_products
-     * @return void
-     */
-    private function checkForDuplicates($customer_products): void
-    {
-        $customerProductsStream = collect($customer_products);
-        $dups = $customerProductsStream->duplicates('product_id');
-
-        if (count($dups) > 0) {
-            abort(400, "Duplicate found in customer_products");
-        }
     }
 
 }

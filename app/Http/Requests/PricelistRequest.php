@@ -10,7 +10,7 @@ class PricelistRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'customer_products.*.product_id' => ['required', 'numeric'],
+            'customer_products.*.product_id' => ['required', 'numeric','distinct'],
             'customer_products.*.unit_price' => ['required', 'numeric']
         ];
     }
