@@ -32,7 +32,7 @@ fi
 composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev --no-progress --no-plugins --no-scripts --no-ansi
 npm install --production --omit=dev --prefer-offline --no-audit --progress=false
 npm install laravel-mix@latest
-npm run production
+npm run build
 # node modules is not needed in production
 rm -rf storage
 
