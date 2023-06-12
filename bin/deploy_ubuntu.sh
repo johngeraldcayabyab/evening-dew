@@ -100,11 +100,10 @@ ssh "${HOST_NAME}" "cd /var/www/projects/${HOST_NAME}; /usr/bin/php artisan even
 ssh "${HOST_NAME}" "cd /var/www/projects/${HOST_NAME}; /usr/bin/php artisan storage:link"
 ssh "${HOST_NAME}" "cd /var/www/projects/${HOST_NAME}; /usr/bin/php artisan optimize"
 ssh "${HOST_NAME}" "cd /var/www/projects/${HOST_NAME}; /usr/bin/php /opt/bitnami/php/bin/composer dump-autoload -o"
-ssh "${HOST_NAME}" "cd /var/www/projects/${HOST_NAME}; /usr/bin/php artisan migrate"
-#ssh "${HOST_NAME}" "cd /var/www/projects/${HOST_NAME}; /usr/bin/php artisan migrate --no-interaction --force"
+ssh "${HOST_NAME}" "cd /var/www/projects/${HOST_NAME}; /usr/bin/php artisan migrate --no-interaction --force"
 
 ssh "${HOST_NAME}" "sudo systemctl restart php8.2-fpm.service"
-#ssh "${HOST_NAME}" "sudo supervisorctl restart all"
+ssh "${HOST_NAME}" "sudo supervisorctl restart all"
 
 
 
