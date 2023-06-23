@@ -31,10 +31,10 @@ const manifest = {
                 sorter: true,
                 filter: SEARCH,
                 render: (text, record) => {
-                    if (record.product) {
-                        return record.product.name;
-                    }
-                    return '';
+                    // if (record.product) {
+                    //     return record.product_name;
+                    // }
+                    return record.product_name;
                 },
                 isGlobalSearch: true,
             },

@@ -12,10 +12,11 @@ const SalesOrderPDF = () => {
     const dataSource = initialValues.sales_order_lines ? initialValues.sales_order_lines.map((salesOrderLine) => {
         return {
             key: salesOrderLine.id,
-            product: salesOrderLine.product.name,
+            product: salesOrderLine.product_name,
             quantity: salesOrderLine.quantity,
             unit_price: '₱ ' + insertDecimal(salesOrderLine.unit_price),
-            subtotal: '₱ ' + insertDecimal(salesOrderLine.subtotal)
+            subtotal: '₱ ' + insertDecimal(salesOrderLine.subtotal),
+            avatar: salesOrderLine.avatar
         }
     }) : [];
 
@@ -102,6 +103,20 @@ const SalesOrderPDF = () => {
                     <Table
                         dataSource={dataSource}
                         columns={[
+                            {
+                                title: '',
+                                dataIndex: 'avatar',
+                                key: 'avatar',
+                                render: (data) => {
+                                    const imageSrc = data ?? '/images/no-image.jpg';
+                                    return (
+                                        <Image
+                                            width={100}
+                                            src={imageSrc}
+                                        />
+                                    )
+                                }
+                            },
                             {
                                 title: 'Product',
                                 dataIndex: 'product',
