@@ -9,13 +9,13 @@ const SalesOrderPDF = () => {
     const formContext = useContext(FormContext);
 
     const initialValues = formContext.formState.initialValues;
-    const dataSource = initialValues.sales_order_lines ? initialValues.sales_order_lines.map((salesOrderLines) => {
+    const dataSource = initialValues.sales_order_lines ? initialValues.sales_order_lines.map((salesOrderLine) => {
         return {
-            key: salesOrderLines.id,
-            product: salesOrderLines.product.name,
-            quantity: salesOrderLines.quantity,
-            unit_price: '₱ ' + insertDecimal(salesOrderLines.unit_price),
-            subtotal: '₱ ' + insertDecimal(salesOrderLines.subtotal)
+            key: salesOrderLine.id,
+            product: salesOrderLine.product.name,
+            quantity: salesOrderLine.quantity,
+            unit_price: '₱ ' + insertDecimal(salesOrderLine.unit_price),
+            subtotal: '₱ ' + insertDecimal(salesOrderLine.subtotal)
         }
     }) : [];
 
