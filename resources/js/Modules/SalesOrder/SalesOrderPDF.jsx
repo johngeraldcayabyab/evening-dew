@@ -4,6 +4,8 @@ import {insertDecimal} from "../../Helpers/string";
 import FormLabel from "../../Components/Typography/FormLabel";
 import {FormContext} from "../../Contexts/FormContext";
 import dayjs from "dayjs";
+import html2canvas from "html2canvas";
+import {jsPDF} from "jspdf";
 
 const SalesOrderPDF = () => {
     const formContext = useContext(FormContext);
@@ -109,107 +111,135 @@ const SalesOrderPDF = () => {
         return 'test';
     }
 
+    function downloadPdfDocument() {
+        const input = document.querySelector('.ant-modal-content');
+        const divHeight = input.clientHeight;
+        const divWidth = input.clientWidth;
+        const ratio = divHeight / divWidth;
+
+        html2canvas(input, {
+            scrollX: -window.scrollX,
+            scrollY: -window.scrollY,
+            windowWidth: document.documentElement.offsetWidth,
+            windowHeight: document.documentElement.offsetHeight
+        }).then((canvas) => {
+            const imgData = canvas.toDataURL('image/jpeg');
+            const pdfDOC = new jsPDF('P', 'pt', 'a4'); //  use a4 for smaller page
+            const width = pdfDOC.internal.pageSize.getWidth();
+            let height = pdfDOC.internal.pageSize.getHeight();
+            height = ratio * width;
+            pdfDOC.addImage(imgData, 'JPEG', 0, 0, width - 20, height - 10);
+            pdfDOC.save(`${initialValues.number}.pdf`);   //Download the rendered PDF.
+        });
+    }
+
     return (<>
-        <Button type="primary" onClick={showModal}>
-            View PDF
-        </Button>
+            <Button type="primary" onClick={showModal}>
+                View PDF
+            </Button>
 
-        <Modal
-            title={<b>ORDER # {initialValues.number}</b>}
-            open={isModalVisible}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            width={1000}
 
-            footer={[
-                <Button key="back" onClick={handleCancel}>
-                    Close
-                </Button>,
-            ]}
-        >
-            <Row gutter={2}>
-                <Col span={12}>
-                    <div className={'image-float-left'}>
-                        <Image
-                            width={100}
-                            src={company ? company.avatar : '/images/no-image.jpg'}
+            <Modal
+                title={<b>ORDER # {initialValues.number}</b>}
+                open={isModalVisible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                width={1000}
+
+                footer={[
+                    <Button key="back" onClick={handleCancel}>
+                        Close
+                    </Button>,
+                    <Button key={"download"} type={'button'} onClick={downloadPdfDocument}>Download Pdf</Button>
+                ]}
+            >
+
+                <Row gutter={2}>
+                    <Col span={12}>
+                        <div className={'image-float-left'}>
+                            <Image
+                                width={100}
+                                src={company ? company.avatar : '/images/no-image.jpg'}
+                            />
+                        </div>
+                        <Space direction="vertical" size={1}>
+                            <p style={{marginBottom: '0px'}}><b>COMPANY: {company ? company.name : 'Lorem Ipsum'}</b>
+                            </p>
+                            <p style={{marginBottom: '0px'}}>
+                                <b>MOBILE:</b> {company ? (company.contact.phone ? company.contact.phone : '+123123123123') : '+123123123123'}
+                            </p>
+                            <p style={{marginBottom: '0px'}}><b>EMAIL:</b> {company ? company.email : 'sample@emai.com'}
+                            </p>
+                        </Space>
+                    </Col>
+                    <Col span={12} style={{textAlign: 'right'}}>
+                        <p key={'invoice-date'} style={{marginBottom: '0px'}}><b>INVOICE
+                            DATE:</b> {dateFormat(initialValues.quotation_date)}</p>
+                        <p key={'shipping-date'} style={{marginBottom: '0px'}}><b>SHIPPING
+                            DATE:</b> {dateFormat(initialValues.shipping_date)}</p>
+                        {/*<p key={'select-time'} style={{marginBottom: '0px'}}><b>Time:</b> 11:11PM</p>*/}
+                    </Col>
+                </Row>
+
+                <Divider/>
+
+                <Row gutter={2}>
+                    <Col span={24}>
+                        <Space direction="vertical" size={1}>
+                            <p style={{marginBottom: '0px'}}><b>TO:</b></p>
+                            <p style={{marginBottom: '0px'}}>
+                                <b>{initialValues.customer ? initialValues.customer.name : ''}</b></p>
+                            <p style={{marginBottom: '0px'}}>{initialValues.delivery_address} {initialValues.delivery_city ? initialValues.delivery_city.name : ''}</p>
+                            <p style={{marginBottom: '0px'}}>{initialValues.customer ? initialValues.customer.phone : ''}</p>
+                        </Space>
+                    </Col>
+                </Row>
+
+                <Divider/>
+
+                <Row gutter={2}>
+                    <Col span={24}>
+                        <Table
+                            dataSource={dataSource}
+                            columns={filteredColumns}
+                            pagination={false}
+                            size={'small'}
                         />
-                    </div>
-                    <Space direction="vertical" size={1}>
-                        <p style={{marginBottom: '0px'}}><b>COMPANY: {company ? company.name : 'Lorem Ipsum'}</b></p>
-                        <p style={{marginBottom: '0px'}}>
-                            <b>MOBILE:</b> {company ? (company.contact.phone ? company.contact.phone : '+123123123123') : '+123123123123'}
-                        </p>
-                        <p style={{marginBottom: '0px'}}><b>EMAIL:</b> {company ? company.email : 'sample@emai.com'}</p>
-                    </Space>
-                </Col>
-                <Col span={12} style={{textAlign: 'right'}}>
-                    <p key={'invoice-date'} style={{marginBottom: '0px'}}><b>INVOICE
-                        DATE:</b> {dateFormat(initialValues.quotation_date)}</p>
-                    <p key={'shipping-date'} style={{marginBottom: '0px'}}><b>SHIPPING
-                        DATE:</b> {dateFormat(initialValues.shipping_date)}</p>
-                    {/*<p key={'select-time'} style={{marginBottom: '0px'}}><b>Time:</b> 11:11PM</p>*/}
-                </Col>
-            </Row>
 
-            <Divider/>
+                        <Divider/>
 
-            <Row gutter={2}>
-                <Col span={24}>
-                    <Space direction="vertical" size={1}>
-                        <p style={{marginBottom: '0px'}}><b>TO:</b></p>
-                        <p style={{marginBottom: '0px'}}>
-                            <b>{initialValues.customer ? initialValues.customer.name : ''}</b></p>
-                        <p style={{marginBottom: '0px'}}>{initialValues.delivery_address} {initialValues.delivery_city ? initialValues.delivery_city.name : ''}</p>
-                        <p style={{marginBottom: '0px'}}>{initialValues.customer ? initialValues.customer.phone : ''}</p>
-                    </Space>
-                </Col>
-            </Row>
-
-            <Divider/>
-
-            <Row gutter={2}>
-                <Col span={24}>
-                    <Table
-                        dataSource={dataSource}
-                        columns={filteredColumns}
-                        pagination={false}
-                        size={'small'}
-                    />
-
-                    <Divider/>
-
-                    <Table style={{width: '300px', float: 'right'}} dataSource={[
-                        {
-                            key: '1',
-                            label: 'Total:',
-                            value: `₱ ${insertDecimal(initialValues.subtotal)}`,
-                        },
-                    ]} columns={[
-                        {
-                            title: 'Label',
-                            dataIndex: 'label',
-                            key: 'label',
-                            align: 'right',
-                            render: (text, record) => {
-                                return (<FormLabel>{text}</FormLabel>)
-                            }
-                        },
-                        {
-                            title: 'Value',
-                            dataIndex: 'value',
-                            key: 'value',
-                            align: 'right',
-                        },
-                    ]}
-                           showHeader={false}
-                           pagination={false}
-                           size={'small'}
-                    />
-                </Col>
-            </Row>
-        </Modal>
-    </>)
+                        <Table style={{width: '300px', float: 'right'}} dataSource={[
+                            {
+                                key: '1',
+                                label: 'Total:',
+                                value: `₱ ${insertDecimal(initialValues.subtotal)}`,
+                            },
+                        ]} columns={[
+                            {
+                                title: 'Label',
+                                dataIndex: 'label',
+                                key: 'label',
+                                align: 'right',
+                                render: (text, record) => {
+                                    return (<FormLabel>{text}</FormLabel>)
+                                }
+                            },
+                            {
+                                title: 'Value',
+                                dataIndex: 'value',
+                                key: 'value',
+                                align: 'right',
+                            },
+                        ]}
+                               showHeader={false}
+                               pagination={false}
+                               size={'small'}
+                        />
+                    </Col>
+                </Row>
+            </Modal>
+        </>
+    )
 };
 
 export default SalesOrderPDF;
