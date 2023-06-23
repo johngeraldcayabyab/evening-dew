@@ -10,8 +10,8 @@ class OptionSeeder extends Seeder
     public function run(): void
     {
         Option::create([
-            'name' => 'sales_order_lines_show_product_image',
-            'value' => '1'
+            'name' => 'sales_order_lines_pdf_columns_view',
+            'value' => 'product,description,quantity,unit_price,subtotal,avatar'
         ]);
     }
 }

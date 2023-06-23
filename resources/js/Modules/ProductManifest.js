@@ -248,11 +248,17 @@ const manifest = {
                             type: 'textarea',
                             name: 'sales_description',
                             label: 'Sales Description',
+                            autoSize: {
+                                minRows: 5
+                            }
                         },
                         {
                             type: 'textarea',
                             name: 'purchase_description',
                             label: 'Purchase Description',
+                            autoSize: {
+                                minRows: 5
+                            }
                         },
                     ]
                 },

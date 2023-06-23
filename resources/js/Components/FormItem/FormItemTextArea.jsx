@@ -8,7 +8,11 @@ const {TextArea} = Input;
 
 const FormItemTextArea = (props) => {
     const formContext = useContext(FormContext);
-    const [formItemProps, fieldProps] = useFieldHook(props);
+    const specialFieldProps = {};
+    if (props.hasOwnProperty('autoSize')) {
+        specialFieldProps['autoSize'] = props.autoSize;
+    }
+    const [formItemProps, fieldProps] = useFieldHook(props, specialFieldProps);
 
     return (
         <Form.Item {...formItemProps}>
