@@ -16,6 +16,7 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CourierController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\DeliveryFeeController;
+use App\Http\Controllers\GlobalSettingController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\JournalController;
@@ -68,6 +69,7 @@ Route::group(['middleware' => ['api', 'cors', 'auth:sanctum']], function () {
     Router::generate(CourierController::class);
     Router::generate(CurrencyController::class);
     Router::generate(DeliveryFeeController::class);
+    Route::get('global_settings', [GlobalSettingController::class, 'index'])->name('global_settings.index');
     Router::generate(GroupController::class);
     Router::generate(InvoiceController::class);
     Router::generate(JournalController::class);

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             MeasurementSeeder::class,
             MenuSeeder::class,
             OperationTypeSeeder::class,
+            OptionSeeder::class,
             PaymentTermSeeder::class,
             ProductCategorySeeder::class,
             RegionSeeder::class,

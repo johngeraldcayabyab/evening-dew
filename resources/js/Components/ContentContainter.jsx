@@ -30,44 +30,49 @@ const ContentContainer = () => {
             }
             return;
         }
-        const user = localStorage.getItem("user");
-        const accessRights = localStorage.getItem("accessRights");
-        if (user && accessRights) {
+        const localStorageUser = localStorage.getItem("user");
+        const localStorageAccessRights = localStorage.getItem("accessRights");
+        const localStorageGlobalSettings = localStorage.getItem("globalSettings");
+        if (localStorageUser && localStorageAccessRights) {
             setAppState(prevState => ({
                 ...prevState,
                 isLogin: getCookie('Authorization'),
-                user: JSON.parse(user),
-                accessRights: JSON.parse(accessRights),
+                user: JSON.parse(localStorageUser),
+                accessRights: JSON.parse(localStorageAccessRights),
+                globalSettings: JSON.parse(localStorageGlobalSettings),
                 appInitialLoad: false,
             }));
             return;
         }
         useFetch(`/api/users`, GET, {
             email: getCookie('userEmail'),
-        }).then((userResponse) => {
-            const user = userResponse.data[0];
-            let accessRights = [];
-            const userGroupLines = user.user_group_lines;
-            if (userGroupLines && userGroupLines.length) {
-                userGroupLines.forEach(userGroupLine => {
-                    const group = userGroupLine.group;
-                    if (group && group.access_rights && group.access_rights.length) {
-                        accessRights = [...accessRights, ...group.access_rights];
-                    }
-                });
-                accessRights = accessRights.filter((v, i, a) => a.findIndex(v2 => (v2.name === v.name)) === i);
-            }
-
-            localStorage.setItem("user", JSON.stringify(user));
-            localStorage.setItem("accessRights", JSON.stringify(accessRights));
-            setAppState(prevState => ({
-                ...prevState,
-                isLogin: getCookie('Authorization'),
-                user: user,
-                accessRights: accessRights,
-                appInitialLoad: false,
-            }));
-
+        }).then(userResponse => {
+            useFetch(`/api/global_settings`, GET).then(globalSettings => {
+                console.log(globalSettings);
+                const user = userResponse.data[0];
+                let accessRights = [];
+                const userGroupLines = user.user_group_lines;
+                if (userGroupLines && userGroupLines.length) {
+                    userGroupLines.forEach(userGroupLine => {
+                        const group = userGroupLine.group;
+                        if (group && group.access_rights && group.access_rights.length) {
+                            accessRights = [...accessRights, ...group.access_rights];
+                        }
+                    });
+                    accessRights = accessRights.filter((v, i, a) => a.findIndex(v2 => (v2.name === v.name)) === i);
+                }
+                localStorage.setItem("user", JSON.stringify(user));
+                localStorage.setItem("accessRights", JSON.stringify(accessRights));
+                localStorage.setItem("globalSettings", JSON.stringify(globalSettings));
+                setAppState(prevState => ({
+                    ...prevState,
+                    isLogin: getCookie('Authorization'),
+                    user: user,
+                    accessRights: accessRights,
+                    globalSettings: globalSettings,
+                    appInitialLoad: false,
+                }));
+            });
         });
     }, [appState.isLogin]);
 

@@ -129,13 +129,15 @@ manifests.forEach((manifest) => {
                 children.push({
                     key: `${manifest.moduleName}-${manifest.displayName}-update`,
                     path: `:id`,
-                    element: <FormGenerator {...manifest} key={`${manifest.moduleName}-${manifest.displayName}-update-form`}/>
+                    element: <FormGenerator {...manifest}
+                                            key={`${manifest.moduleName}-${manifest.displayName}-update-form`}/>
                 });
             } else if (route === HAS_FORM_CREATE) {
                 children.push({
                     key: `${manifest.moduleName}-${manifest.displayName}-create`,
                     path: `create`,
-                    element: <FormGenerator {...manifest} key={`${manifest.moduleName}-${manifest.displayName}-create-form`}/>
+                    element: <FormGenerator {...manifest}
+                                            key={`${manifest.moduleName}-${manifest.displayName}-create-form`}/>
                 });
             }
         });
@@ -174,6 +176,7 @@ const App = () => {
         userEmail: getCookie('userEmail'),
         appInitialLoad: true,
         user: {},
+        globalSettings: {}
     });
     return (
         <AppContextProvider

@@ -7,15 +7,19 @@ import dayjs from "dayjs";
 
 const SalesOrderPDF = () => {
     const formContext = useContext(FormContext);
-
+    const globalSettings = JSON.parse(localStorage.getItem('globalSettings'));
+    const currency = globalSettings.hasOwnProperty('currency') ? globalSettings.currency : null;
+    const company = globalSettings.hasOwnProperty('company') ? globalSettings.company : null;
+    console.log(company);
+    const currencySymbol = `${currency.symbol ? currency.symbol : ''} `;
     const initialValues = formContext.formState.initialValues;
     const dataSource = initialValues.sales_order_lines ? initialValues.sales_order_lines.map((salesOrderLine) => {
         return {
             key: salesOrderLine.id,
             product: salesOrderLine.product_name,
             quantity: salesOrderLine.quantity,
-            unit_price: '₱ ' + insertDecimal(salesOrderLine.unit_price),
-            subtotal: '₱ ' + insertDecimal(salesOrderLine.subtotal),
+            unit_price: currencySymbol + insertDecimal(salesOrderLine.unit_price),
+            subtotal: currencySymbol + insertDecimal(salesOrderLine.subtotal),
             avatar: salesOrderLine.avatar
         }
     }) : [];
@@ -64,13 +68,13 @@ const SalesOrderPDF = () => {
                     <div className={'image-float-left'}>
                         <Image
                             width={100}
-                            src="/images/no-image.jpg"
+                            src= {company ? company.avatar : '/images/no-image.jpg'}
                         />
                     </div>
                     <Space direction="vertical" size={1}>
-                        <p style={{marginBottom: '0px'}}><b>COMPANY NAME</b></p>
-                        <p style={{marginBottom: '0px'}}><b>SMS/ VIBER:</b> 0912 999 7777</p>
-                        <p style={{marginBottom: '0px'}}><b>EMAIL:</b> company@gmail.com</p>
+                        <p style={{marginBottom: '0px'}}><b>Company: {company ? company.name : 'Lorem Ipsum'}</b></p>
+                        <p style={{marginBottom: '0px'}}><b>Mobile:</b> {company ? (company.contact.phone ? company.contact.phone : '+123123123123') : '+123123123123'}</p>
+                        <p style={{marginBottom: '0px'}}><b>EMAIL:</b> {company ? company.email : 'sample@emai.com'}</p>
                     </Space>
                 </Col>
                 <Col span={12} style={{textAlign: 'right'}}>
@@ -78,7 +82,7 @@ const SalesOrderPDF = () => {
                         DATE:</b> {dateFormat(initialValues.quotation_date)}</p>
                     <p key={'shipping-date'} style={{marginBottom: '0px'}}><b>SHIPPING
                         DATE:</b> {dateFormat(initialValues.shipping_date)}</p>
-                    <p key={'select-time'} style={{marginBottom: '0px'}}><b>Time:</b> 11:11PM</p>
+                    {/*<p key={'select-time'} style={{marginBottom: '0px'}}><b>Time:</b> 11:11PM</p>*/}
                 </Col>
             </Row>
 

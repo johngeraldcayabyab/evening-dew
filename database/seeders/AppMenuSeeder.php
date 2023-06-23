@@ -229,7 +229,7 @@ class AppMenuSeeder extends Seeder
                         ],
                     ],
                     [
-                        'label' => 'Options',
+                        'label' => 'Settings',
                         'menu_key' => 'App Menus',
                         'children' => [
                             [
