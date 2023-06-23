@@ -4,8 +4,7 @@ import {insertDecimal} from "../../Helpers/string";
 import FormLabel from "../../Components/Typography/FormLabel";
 import {FormContext} from "../../Contexts/FormContext";
 import dayjs from "dayjs";
-import html2canvas from "html2canvas";
-import {jsPDF} from "jspdf";
+import html2pdf from 'html2pdf.js'
 
 const SalesOrderPDF = () => {
     const formContext = useContext(FormContext);
@@ -113,24 +112,19 @@ const SalesOrderPDF = () => {
 
     function downloadPdfDocument() {
         const input = document.querySelector('.ant-modal-content');
-        const divHeight = input.clientHeight;
-        const divWidth = input.clientWidth;
-        const ratio = divHeight / divWidth;
-
-        html2canvas(input, {
-            scrollX: -window.scrollX,
-            scrollY: -window.scrollY,
-            windowWidth: document.documentElement.offsetWidth,
-            windowHeight: document.documentElement.offsetHeight
-        }).then((canvas) => {
-            const imgData = canvas.toDataURL('image/jpeg');
-            const pdfDOC = new jsPDF('P', 'pt', 'a4'); //  use a4 for smaller page
-            const width = pdfDOC.internal.pageSize.getWidth();
-            let height = pdfDOC.internal.pageSize.getHeight();
-            height = ratio * width;
-            pdfDOC.addImage(imgData, 'JPEG', 0, 0, width - 20, height - 10);
-            pdfDOC.save(`${initialValues.number}.pdf`);   //Download the rendered PDF.
-        });
+        document.querySelector('.ant-modal-close').style.visibility = 'hidden';
+        document.querySelector('.ant-modal-footer').style.visibility = 'hidden';
+        var opt = {
+            margin: 1,
+            filename: 'myfile.pdf',
+            image: {type: 'jpeg', quality: 0.98},
+            html2canvas: {scale: 2},
+            jsPDF: {unit: 'in', format: 'b4', orientation: 'portrait'}
+        };
+        html2pdf().set({
+            pagebreak: {mode: ['avoid-all', 'css', 'legacy']}
+        }).from(input).set(opt).save();
+        document.querySelector('.ant-modal-close').click();
     }
 
     return (<>
