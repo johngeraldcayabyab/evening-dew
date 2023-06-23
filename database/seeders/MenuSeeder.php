@@ -51,6 +51,10 @@ class MenuSeeder extends Seeder
                 'url' => '/cities',
             ],
             [
+                'label' => 'Companies',
+                'url' => '/companies',
+            ],
+            [
                 'label' => 'Contacts',
                 'url' => '/contacts',
             ],

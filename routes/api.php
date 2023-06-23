@@ -10,6 +10,7 @@ use App\Http\Controllers\BankController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\ChartOfAccountController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CourierController;
@@ -61,6 +62,7 @@ Route::group(['middleware' => ['api', 'cors', 'auth:sanctum']], function () {
     Router::generate(BankController::class);
     Router::generate(ChartOfAccountController::class);
     Router::generate(CityController::class);
+    Router::generate(CompanyController::class);
     Router::generate(ContactController::class);
     Router::generate(CountryController::class);
     Router::generate(CourierController::class);
@@ -95,6 +97,4 @@ Route::group(['middleware' => ['api', 'cors', 'auth:sanctum']], function () {
     Router::generate(WarehouseController::class);
     Router::generate(PricelistController::class);
     Route::get("pricelists/{priceListId}/products/{productId}", [PricelistController::class, 'get_pricelist_product_price']);
-
-
 });
