@@ -48,6 +48,7 @@ import Transfer from "./Modules/TransferManifest";
 import User from "./Modules/UserManifest";
 import Warehouse from "./Modules/WarehouseManifest";
 import Pricelist from "./Modules/PricelistManifest";
+import Company from "./Modules/CompanyManifest";
 import {HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE} from "./consts";
 import FormGenerator from "./Components/Form/FormGenerator";
 import ErrorPage from "./Error";
@@ -64,6 +65,7 @@ const manifests = [
     BankAccount,
     ChartOfAccount,
     City,
+    Company,
     Contact,
     Country,
     Courier,

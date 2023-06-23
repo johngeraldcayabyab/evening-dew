@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('tax_registry');
+            $table->string('tax_registry')->nullable();
             $table->string('avatar')->nullable();
             $table->unsignedInteger('contact_id')->nullable();
             $table->boolean('is_default')->default(false);
