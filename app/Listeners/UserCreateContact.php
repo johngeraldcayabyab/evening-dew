@@ -16,6 +16,8 @@ class UserCreateContact
             'email' => $user->email,
             'avatar' => $user->avatar,
         ]);
+        $user->contact_id = $contact->id;
+        $user->save();
         ContactCreated::dispatch($contact);
     }
 }

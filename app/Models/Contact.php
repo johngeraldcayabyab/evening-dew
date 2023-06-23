@@ -61,6 +61,16 @@ class Contact extends Model implements Sluggable
         return $this->hasMany(BankAccount::class);
     }
 
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
+
+    public function company()
+    {
+        return $this->hasOne(Company::class);
+    }
+
     public function slug()
     {
         return 'name';
