@@ -100,66 +100,6 @@ const manifest = {
     // ],
     form: {
         initialValue: true,
-        onValuesChange: (changedValues, allValues, formContext) => {
-            // isLineFieldExecute(changedValues, allValues, 'invoice_lines', 'product_id', (line, allValues) => {
-            //     formContext.useFetch(`/api/products/${line.product_id}`, GET).then((response) => {
-            //         const invoiceLines = allValues.invoice_lines;
-            //         invoiceLines[line.key] = {
-            //             ...invoiceLines[line.key],
-            //             description: response.sales_description,
-            //             quantity: 1,
-            //             unit_price: response.sales_price,
-            //         };
-            //         formContext.form.setFieldsValue({
-            //             invoice_lines: invoiceLines
-            //         });
-            //     });
-            // });
-            // isLineFieldExecute(changedValues, allValues, 'invoice_lines', 'quantity', (changedInvoiceLine, allValues) => {
-            //     const invoiceLines = allValues.invoice_lines;
-            //     let invoiceLine = invoiceLines[changedInvoiceLine.key];
-            //     if (changedInvoiceLine.hasOwnProperty('unit_price')) {
-            //         invoiceLine.subtotal = invoiceLine.quantity * changedInvoiceLine.unit_price;
-            //     } else if (changedInvoiceLine.hasOwnProperty('quantity')) {
-            //         invoiceLine.subtotal = changedInvoiceLine.quantity * invoiceLine.unit_price;
-            //     }
-            //     invoiceLines[changedInvoiceLine.key] = invoiceLine;
-            //     formContext.form.setFieldsValue({
-            //         invoice_lines: invoiceLines
-            //     });
-            //     const total = invoiceLines.map((invoiceLine) => (invoiceLine.subtotal)).reduce((total, subtotal) => (total + subtotal));
-            //     formContext.setState((prevState) => ({
-            //         ...prevState,
-            //         breakdown: {
-            //             untaxedAmount: total,
-            //             tax: 0,
-            //             total: total,
-            //         }
-            //     }));
-            // });
-            // isLineFieldExecute(changedValues, allValues, 'invoice_lines', 'unit_price', (changedInvoiceLine, allValues) => {
-            //     const invoiceLines = allValues.invoice_lines;
-            //     let invoiceLine = invoiceLines[changedInvoiceLine.key];
-            //     if (changedInvoiceLine.hasOwnProperty('unit_price')) {
-            //         invoiceLine.subtotal = invoiceLine.quantity * changedInvoiceLine.unit_price;
-            //     } else if (changedInvoiceLine.hasOwnProperty('quantity')) {
-            //         invoiceLine.subtotal = changedInvoiceLine.quantity * invoiceLine.unit_price;
-            //     }
-            //     invoiceLines[changedInvoiceLine.key] = invoiceLine;
-            //     formContext.form.setFieldsValue({
-            //         invoice_lines: invoiceLines
-            //     });
-            //     const total = invoiceLines.map((invoiceLine) => (invoiceLine.subtotal)).reduce((total, subtotal) => (total + subtotal));
-            //     formContext.setState((prevState) => ({
-            //         ...prevState,
-            //         breakdown: {
-            //             untaxedAmount: total,
-            //             tax: 0,
-            //             total: total,
-            //         }
-            //     }));
-            // });
-        },
         row_1: {
             col_1: [
                 {
