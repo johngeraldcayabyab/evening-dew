@@ -71,10 +71,6 @@ const FormGenerator = (manifest) => {
         navigate: navigate
     };
 
-    if (manifest.form.hasOwnProperty('onValuesChange')) {
-        formContextProviderValues['onValuesChange'] = manifest.form.onValuesChange;
-    }
-
     if (onChangeValuesFunctions.length) {
         formContextProviderValues['onChangeValuesFunctions'] = onChangeValuesFunctions;
     }

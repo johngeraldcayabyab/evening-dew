@@ -14,13 +14,6 @@ const CustomForm = (props) => {
             labelWrap={true}
             wrapperCol={{span: 16}}
             onValuesChange={(changedValues, allValues) => {
-                if (formContext.onValuesChange) {
-                    formContext.onValuesChange(
-                        changedValues,
-                        allValues,
-                        formContext
-                    );
-                }
                 if (formContext.onChangeValuesFunctions) {
                     formContext.onChangeValuesFunctions.forEach((onValueChange) => {
                         onValueChange(changedValues, allValues, formContext);
