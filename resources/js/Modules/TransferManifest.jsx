@@ -144,37 +144,6 @@ const manifest = {
     ],
     form: {
         initialValue: true,
-        onValuesChange: (changedValues, allValues, formContext) => {
-            if (changedValues.operation_type_id) {
-                formContext.useFetch(`/api/operations_types`, GET, {
-                    id: changedValues.operation_type_id
-                }).then((response) => {
-                    const data = response.data[0];
-                    let sourceLocationId = data.default_source_location_id;
-                    let destinationLocationId = data.default_destination_location_id;
-                    formContext.form.setFieldsValue({
-                        source_location_id: sourceLocationId,
-                        destination_location_id: destinationLocationId
-                    });
-                    formContext.options['source_location_id-options'].getOptions({id: sourceLocationId});
-                    formContext.options['destination_location_id-options'].getOptions({id: destinationLocationId});
-                });
-            }
-            isLineFieldExecute(changedValues, allValues, 'transfer_lines', 'product_id', (line, allValues) => {
-                formContext.useFetch(`/api/products/${line.product_id}`, GET).then((response) => {
-                    const transferLines = allValues.transfer_lines;
-                    transferLines[line.key] = {
-                        ...transferLines[line.key],
-                        measurement_id: response.measurement_id,
-                    };
-                    formContext.form.setFieldsValue({
-                        material_lines: transferLines
-                    });
-                    const persistedKey = getPersistedKey(line, formContext.options['measurement_id-lineOptions'].options)
-                    formContext.options['measurement_id-lineOptions'].getOptions(response.measurement.name, persistedKey);
-                });
-            });
-        },
         row_1: {
             col_1: [
                 {
@@ -204,6 +173,23 @@ const manifest = {
                     label: 'Operation Type',
                     query: {url: '/api/operations_types', field: 'name'},
                     required: true,
+                    onValueChange: (changedValues, allValues, formContext) => {
+                        if (changedValues.operation_type_id) {
+                            formContext.useFetch(`/api/operations_types`, GET, {
+                                id: changedValues.operation_type_id
+                            }).then((response) => {
+                                const data = response.data[0];
+                                let sourceLocationId = data.default_source_location_id;
+                                let destinationLocationId = data.default_destination_location_id;
+                                formContext.form.setFieldsValue({
+                                    source_location_id: sourceLocationId,
+                                    destination_location_id: destinationLocationId
+                                });
+                                formContext.options['source_location_id-options'].getOptions({id: sourceLocationId});
+                                formContext.options['destination_location_id-options'].getOptions({id: destinationLocationId});
+                            });
+                        }
+                    }
                 },
                 {
                     type: 'select',
@@ -259,6 +245,22 @@ const manifest = {
                             placeholder: 'Product',
                             query: {url: '/api/products', field: 'name'},
                             required: true,
+                            onValueChange: (changedValues, allValues, formContext) => {
+                                isLineFieldExecute(changedValues, allValues, 'transfer_lines', 'product_id', (line, allValues) => {
+                                    formContext.useFetch(`/api/products/${line.product_id}`, GET).then((response) => {
+                                        const transferLines = allValues.transfer_lines;
+                                        transferLines[line.key] = {
+                                            ...transferLines[line.key],
+                                            measurement_id: response.measurement_id,
+                                        };
+                                        formContext.form.setFieldsValue({
+                                            material_lines: transferLines
+                                        });
+                                        const persistedKey = getPersistedKey(line, formContext.options['measurement_id-lineOptions'].options)
+                                        formContext.options['measurement_id-lineOptions'].getOptions(response.measurement.name, persistedKey);
+                                    });
+                                });
+                            },
                             overrideDisabled: (formContext) => {
                                 return disableIfStatus(formContext.formState, 'done')
                             }
