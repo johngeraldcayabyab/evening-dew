@@ -54,22 +54,6 @@ const manifest = {
     },
     form: {
         initialValue: true,
-        onValuesChange: (changedValues, allValues, formContext) => {
-            isLineFieldExecute(changedValues, allValues, 'material_lines', 'product_id', (line, allValues) => {
-                formContext.useFetch(`/api/products/${line.product_id}`, GET).then((response) => {
-                    const materialLines = allValues.material_lines;
-                    materialLines[line.key] = {
-                        ...materialLines[line.key],
-                        measurement_id: response.measurement_id,
-                    };
-                    formContext.form.setFieldsValue({
-                        material_lines: materialLines
-                    });
-                    const persistedKey = getPersistedKey(line, formContext.options['measurement_id-lineOptions'].options)
-                    formContext.options['measurement_id-lineOptions'].getOptions(response.measurement.name, persistedKey);
-                });
-            });
-        },
         row_1: {
             col_1: [
                 {
@@ -119,6 +103,22 @@ const manifest = {
                             placeholder: 'Product',
                             query: {url: '/api/products', field: 'name'},
                             required: true,
+                            onValueChange: (changedValues, allValues, formContext) => {
+                                isLineFieldExecute(changedValues, allValues, 'material_lines', 'product_id', (line, allValues) => {
+                                    formContext.useFetch(`/api/products/${line.product_id}`, GET).then((response) => {
+                                        const materialLines = allValues.material_lines;
+                                        materialLines[line.key] = {
+                                            ...materialLines[line.key],
+                                            measurement_id: response.measurement_id,
+                                        };
+                                        formContext.form.setFieldsValue({
+                                            material_lines: materialLines
+                                        });
+                                        const persistedKey = getPersistedKey(line, formContext.options['measurement_id-lineOptions'].options)
+                                        formContext.options['measurement_id-lineOptions'].getOptions(response.measurement.name, persistedKey);
+                                    });
+                                });
+                            },
                         },
                         {
                             type: 'number',

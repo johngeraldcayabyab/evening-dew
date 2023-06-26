@@ -34,10 +34,6 @@ const manifest = {
     },
     form:{
         initialValue: false,
-        onValuesChange: (changedValues, allValues, formContext) => {
-
-
-        },
         row_1: {
             col_1: [
                 {
