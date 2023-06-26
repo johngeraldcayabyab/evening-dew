@@ -41,12 +41,12 @@ class Tax extends Model implements Sluggable
         return [self::SALES, self::PURCHASES, self::NONE];
     }
 
-    public function getScopes()
+    public static function getScopes()
     {
         return [self::GOODS, self::SERVICES, self::NONE];
     }
 
-    public function getComputations()
+    public static function getComputations()
     {
         return [self::FIXED, self::PERCENTAGE_OF_PRICE];
     }

@@ -14,8 +14,8 @@ return new class extends Migration {
             $table->string('scope');
             $table->string('computation');
             $table->double('amount');
-            $table->double('label_on_invoices');
-            $table->double('included_in_price')->default(true);
+            $table->string('label_on_invoices');
+            $table->boolean('included_in_price')->default(true);
             $table->unsignedInteger('chart_of_account_id');
             $table->softDeletes();
             $table->timestamps();

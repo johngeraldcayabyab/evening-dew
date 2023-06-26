@@ -49,6 +49,7 @@ import User from "./Modules/UserManifest";
 import Warehouse from "./Modules/WarehouseManifest";
 import Pricelist from "./Modules/PricelistManifest";
 import Company from "./Modules/CompanyManifest";
+import Tax from "./Modules/TaxManifest";
 import {HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE} from "./consts";
 import FormGenerator from "./Components/Form/FormGenerator";
 import ErrorPage from "./Error";
@@ -92,6 +93,7 @@ const manifests = [
     Source,
     StockLocationQuantity,
     StockMovement,
+    Tax,
     Transfer,
     User,
     Warehouse,
