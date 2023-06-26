@@ -40,6 +40,7 @@ use App\Http\Controllers\SequenceController;
 use App\Http\Controllers\SourceController;
 use App\Http\Controllers\StockLocationQuantityController;
 use App\Http\Controllers\StockMovementController;
+use App\Http\Controllers\TaxController;
 use App\Http\Controllers\TransferController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
@@ -93,6 +94,7 @@ Route::group(['middleware' => ['api', 'cors', 'auth:sanctum']], function () {
     Router::generate(SourceController::class);
     Route::get('/stock_location_quantity', [StockLocationQuantityController::class, 'index']);
     Router::generate(StockMovementController::class);
+    Router::generate(TaxController::class);
     Router::generate(TransferController::class);
     Route::post('uploads/images', [UploadController::class, 'image']);
     Router::generate(UserController::class);

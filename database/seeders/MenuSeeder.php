@@ -163,6 +163,10 @@ class MenuSeeder extends Seeder
                 'url' => '/stock_movements',
             ],
             [
+                'label' => 'Taxes',
+                'url' => '/taxes',
+            ],
+            [
                 'label' => 'Transfers',
                 'url' => '/transfers',
             ],

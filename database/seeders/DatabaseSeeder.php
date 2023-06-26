@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             CitySeeder::class,
             SequenceSeeder::class,
             SourceSeeder::class,
+            TaxSeeder::class,
             UserSeeder::class,
             GroupSeeder::class,
             WarehouseSeeder::class,

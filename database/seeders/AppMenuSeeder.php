@@ -170,6 +170,10 @@ class AppMenuSeeder extends Seeder
                                         'label' => 'Chart Of Accounts',
                                         'menu_key' => 'Chart Of Accounts',
                                     ],
+                                    [
+                                        'label' => 'Taxes',
+                                        'menu_key' => 'Taxes',
+                                    ],
                                 ]
                             ],
                         ],
