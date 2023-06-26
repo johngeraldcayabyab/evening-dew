@@ -15,11 +15,16 @@ const CustomForm = (props) => {
             wrapperCol={{span: 16}}
             onValuesChange={(changedValues, allValues) => {
                 if (formContext.onValuesChange) {
-                    return formContext.onValuesChange(
+                    formContext.onValuesChange(
                         changedValues,
                         allValues,
                         formContext
                     );
+                }
+                if (formContext.onChangeValuesFunctions) {
+                    formContext.onChangeValuesFunctions.forEach((onValueChange) => {
+                        onValueChange(changedValues, allValues, formContext);
+                    });
                 }
             }}
             className={'custom-form'}

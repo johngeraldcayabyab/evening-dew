@@ -30,6 +30,7 @@ const FormGenerator = (manifest) => {
 
     let customQueries = [];
     const options = {};
+    const onChangeValuesFunctions = [];
     loopThroughObjRecurs(manifest.form, (key, value, object) => {
         if (object.hasOwnProperty('fields')) {
             object.fields.map((lineField) => {
@@ -38,6 +39,9 @@ const FormGenerator = (manifest) => {
         }
         if (object.hasOwnProperty('query')) {
             customQueries.push(object);
+        }
+        if (object.hasOwnProperty('onValueChange')) {
+            onChangeValuesFunctions.push(object.onValueChange);
         }
     });
 
@@ -70,6 +74,11 @@ const FormGenerator = (manifest) => {
     if (manifest.form.hasOwnProperty('onValuesChange')) {
         formContextProviderValues['onValuesChange'] = manifest.form.onValuesChange;
     }
+
+    if (onChangeValuesFunctions.length) {
+        formContextProviderValues['onChangeValuesFunctions'] = onChangeValuesFunctions;
+    }
+
     /*
     * TODO - fix double rendering due to deps
     * */
