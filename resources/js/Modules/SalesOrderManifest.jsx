@@ -502,7 +502,7 @@ const manifest = {
                             type: 'select',
                             name: 'tax_id',
                             placeholder: 'Tax',
-                            query: {url: '/api/taxes', field: 'name'},
+                            query: {url: '/api/taxes', field: 'name', params: {type: 'sales'}},
                             required: true,
                             overrideDisabled: (formContext) => {
                                 return disableIfStatus(formContext.formState, 'done')

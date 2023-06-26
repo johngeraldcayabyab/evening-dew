@@ -44,10 +44,12 @@ const FormGenerator = (manifest) => {
 
     customQueries.forEach((field) => {
         const fieldName = field.name.replace('_id', '');
+        const query = field.query;
+        const params = query.hasOwnProperty('params') ? query.params : {};
         if (field.hasOwnProperty('listName')) {
-            options[`${field.name}-lineOptions`] = useOptionLineHook(field.query.url, `${fieldName}.${field.query.field}`, field.listName);
+            options[`${field.name}-lineOptions`] = useOptionLineHook(query.url, `${fieldName}.${query.field}`, field.listName, params);
         } else {
-            options[`${field.name}-options`] = useOptionHook(field.query.url, `${fieldName}.${field.query.field}`);
+            options[`${field.name}-options`] = useOptionHook(query.url, `${fieldName}.${query.field}`, params);
         }
     });
 
