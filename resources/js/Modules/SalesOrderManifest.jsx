@@ -93,7 +93,7 @@ const manifest = {
             untaxedAmount: 0, tax: 0, total: 0,
         },
         pricelist: {
-            contactId:-1,
+            contactId: -1,
             id: -1
         }
     },
@@ -228,7 +228,7 @@ const manifest = {
                     return formContext.useFetch(url, GET);
                 }
 
-                function setPricelistPrice(res){
+                function setPricelistPrice(res) {
                     return res && res.unit_price ? res.unit_price : -1;
                 }
 
@@ -236,7 +236,7 @@ const manifest = {
                 formContext.useFetch(`/api/products/${line.product_id}`, GET).then(async (response) => {
 
                     let pricelistPrice = -1;
-                    let contactPricelistPrice=-1
+                    let contactPricelistPrice = -1
 
                     const isPricelistSet = formContext.state.pricelist.id && formContext.state.pricelist.id !== -1;
                     const isContactPricelistSet = formContext.state.pricelist.contactId && formContext.state.pricelist.contactId !== -1;
@@ -244,13 +244,12 @@ const manifest = {
                     if (isPricelistSet) {
                         const res = await useFetchAsync(`/api/pricelists/${formContext.state.pricelist.id}/products/${line.product_id}`);
                         pricelistPrice = setPricelistPrice(res);
-                    }
-                    else if(isContactPricelistSet){
+                    } else if (isContactPricelistSet) {
                         const contact = await useFetchAsync(`/api/contacts/${formContext.state.pricelist.contactId}`);
-                         if(contact && contact['pricelist_id'] && contact['pricelist_id']!==-1){
-                             const res = await useFetchAsync(`/api/pricelists/${contact['pricelist_id']}/products/${line.product_id}`);
-                             contactPricelistPrice = setPricelistPrice(res);
-                         }
+                        if (contact && contact['pricelist_id'] && contact['pricelist_id'] !== -1) {
+                            const res = await useFetchAsync(`/api/pricelists/${contact['pricelist_id']}/products/${line.product_id}`);
+                            contactPricelistPrice = setPricelistPrice(res);
+                        }
                     }
 
 
@@ -261,7 +260,7 @@ const manifest = {
                         quantity: 1,
                         measurement_id: response.sales_measurement_id,
                         unit_price: isPricelistSet && pricelistPrice !== -1 ? pricelistPrice :
-                            contactPricelistPrice && contactPricelistPrice!==-1 ? contactPricelistPrice:response.sales_price,
+                            contactPricelistPrice && contactPricelistPrice !== -1 ? contactPricelistPrice : response.sales_price,
                     };
                     formContext.form.setFieldsValue({
                         sales_order_lines: salesOrderLines
@@ -343,7 +342,7 @@ const manifest = {
                             formContext.setState((prevState) => ({
                                 ...prevState,
                                 pricelist: {
-                                    id:prevState.pricelist.id,
+                                    id: prevState.pricelist.id,
                                     contactId: val
                                 }
                             }));
@@ -361,7 +360,7 @@ const manifest = {
                             formContext.setState((prevState) => ({
                                 ...prevState,
                                 pricelist: {
-                                    contactId:prevState.pricelist.contactId,
+                                    contactId: prevState.pricelist.contactId,
                                     id: val
                                 }
                             }));
@@ -448,7 +447,7 @@ const manifest = {
             tab_pane_1: {
                 name: "Order Lines",
                 form_line_1: {
-                    columns: ['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Shipping Date', 'Subtotal'],
+                    columns: ['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Shipping Date', 'Tax', 'Subtotal'],
                     listName: 'sales_order_lines',
                     fields: [
                         {
@@ -495,6 +494,16 @@ const manifest = {
                             type: 'date',
                             name: 'shipping_date',
                             placeholder: 'Shipping date',
+                            overrideDisabled: (formContext) => {
+                                return disableIfStatus(formContext.formState, 'done')
+                            }
+                        },
+                        {
+                            type: 'select',
+                            name: 'tax_id',
+                            placeholder: 'Tax',
+                            query: {url: '/api/taxes', field: 'name'},
+                            required: true,
                             overrideDisabled: (formContext) => {
                                 return disableIfStatus(formContext.formState, 'done')
                             }

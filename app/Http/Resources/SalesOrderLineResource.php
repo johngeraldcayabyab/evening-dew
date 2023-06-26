@@ -20,6 +20,7 @@ class SalesOrderLineResource extends JsonResource
             'quantity' => $this->quantity,
             'measurement_id' => $this->measurement_id,
             'unit_price' => $this->unit_price,
+            'tax_id' => $this->tax_id,
             'subtotal' => $this->subtotal,
             'shipping_date' => $this->shipping_date,
             'sales_order_id' => $this->sales_order_id,

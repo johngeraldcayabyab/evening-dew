@@ -48,6 +48,11 @@ class SalesOrderLine extends Model
         return $this->belongsTo(SalesOrder::class);
     }
 
+    public function tax()
+    {
+        return $this->belongsTo(Tax::class);
+    }
+
     public function scopeMassUpsert($query, $data, $parent)
     {
         $defaultMeasurement = Measurement::default();
@@ -63,6 +68,7 @@ class SalesOrderLine extends Model
                 'quantity' => $datum['quantity'],
                 'measurement_id' => $measurementId,
                 'unit_price' => $unitPrice,
+                'tax_id' => $datum['tax_id'] ?? null,
                 'subtotal' => $unitPrice * $datum['quantity'],
                 'shipping_date' => Carbon::parse($shippingDate)->format(SystemSetting::DATE_TIME_FORMAT),
                 'sales_order_id' => $parent->id,

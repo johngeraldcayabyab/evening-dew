@@ -17,6 +17,7 @@ class CreateSalesOrderLinesTable extends Migration
             $table->double('unit_price');
             $table->double('subtotal');
             $table->dateTime('shipping_date')->nullable();
+            $table->unsignedInteger('tax_id')->nullable();
             $table->unsignedInteger('sales_order_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
