@@ -84,7 +84,7 @@ ssh "${HOST_NAME}" "sudo find /opt/bitnami/projects/${HOST_NAME} -type d -exec c
 ssh "${HOST_NAME}" "sudo chown -R bitnami:daemon /opt/bitnami/projects/storage"
 ssh "${HOST_NAME}" "sudo chown -R bitnami:daemon /opt/bitnami/projects/${HOST_NAME}/bootstrap/cache"
 ssh "${HOST_NAME}" "sudo chmod -R 775 /opt/bitnami/projects/storage"
-ssh "${HOST_NAME}" "sudo chmod -R 755 /opt/bitnami/projects/${HOST_NAME}/bootstrap/cache"
+ssh "${HOST_NAME}" "sudo chmod -R 775 /opt/bitnami/projects/${HOST_NAME}/bootstrap/cache"
 
 
 ssh "${HOST_NAME}" "cd /opt/bitnami/projects/${HOST_NAME}; /opt/bitnami/php/bin/php artisan optimize:clear"

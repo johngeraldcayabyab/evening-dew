@@ -17,7 +17,8 @@
         "laravel/tinker": "^2.8",
         "maatwebsite/excel": "^3.1",
         "pusher/pusher-php-server": "^7.2",
-        "spatie/laravel-activitylog": "^4.0.0"
+        "spatie/laravel-activitylog": "^4.0.0",
+        "nunomaduro/collision": "^7.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",
@@ -26,7 +27,6 @@
         "laravel/envoy": "^2.8",
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^7.0",
         "phpunit/phpunit": "^10.0"
     },
     "autoload": {

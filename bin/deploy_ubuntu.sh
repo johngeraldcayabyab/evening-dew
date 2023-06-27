@@ -82,7 +82,7 @@ ssh "${HOST_NAME}" "sudo find /var/www/projects/${HOST_NAME} -type d -exec chmod
 ssh "${HOST_NAME}" "sudo chown -R ubuntu:daemon /var/www/projects/storage"
 ssh "${HOST_NAME}" "sudo chown -R ubuntu:daemon /var/www/projects/${HOST_NAME}/bootstrap/cache"
 ssh "${HOST_NAME}" "sudo chmod -R 775 /var/www/projects/storage"
-ssh "${HOST_NAME}" "sudo chmod -R 755 /var/www/projects/${HOST_NAME}/bootstrap/cache"
+ssh "${HOST_NAME}" "sudo chmod -R 775 /var/www/projects/${HOST_NAME}/bootstrap/cache"
 
 
 ssh "${HOST_NAME}" "cd /var/www/projects/${HOST_NAME}; /usr/bin/php artisan optimize:clear"
