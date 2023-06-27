@@ -41,7 +41,7 @@ const FormGenerator = (manifest) => {
             customQueries.push(object);
         }
         if (object.hasOwnProperty('onValueChange')) {
-            onChangeValuesFunctions.push(object.onValueChange);
+            onChangeValuesFunctions.push(object);
         }
     });
 

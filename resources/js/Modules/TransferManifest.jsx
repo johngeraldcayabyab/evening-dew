@@ -1,4 +1,4 @@
-import {getPersistedKey, isLineFieldExecute} from "../Helpers/form";
+import {getPersistedKey} from "../Helpers/form";
 import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 import {disableIfStatus} from "../Helpers/object";
 import Text from "antd/es/typography/Text";
@@ -174,21 +174,19 @@ const manifest = {
                     query: {url: '/api/operations_types', field: 'name'},
                     required: true,
                     onValueChange: (changedValues, values, formContext) => {
-                        if (changedValues.operation_type_id) {
-                            formContext.useFetch(`/api/operations_types`, GET, {
-                                id: changedValues.operation_type_id
-                            }).then((response) => {
-                                const data = response.data[0];
-                                let sourceLocationId = data.default_source_location_id;
-                                let destinationLocationId = data.default_destination_location_id;
-                                formContext.form.setFieldsValue({
-                                    source_location_id: sourceLocationId,
-                                    destination_location_id: destinationLocationId
-                                });
-                                formContext.options['source_location_id-options'].getOptions({id: sourceLocationId});
-                                formContext.options['destination_location_id-options'].getOptions({id: destinationLocationId});
+                        formContext.useFetch(`/api/operations_types`, GET, {
+                            id: changedValues.operation_type_id
+                        }).then((response) => {
+                            const data = response.data[0];
+                            let sourceLocationId = data.default_source_location_id;
+                            let destinationLocationId = data.default_destination_location_id;
+                            formContext.form.setFieldsValue({
+                                source_location_id: sourceLocationId,
+                                destination_location_id: destinationLocationId
                             });
-                        }
+                            formContext.options['source_location_id-options'].getOptions({id: sourceLocationId});
+                            formContext.options['destination_location_id-options'].getOptions({id: destinationLocationId});
+                        });
                     }
                 },
                 {
@@ -245,20 +243,18 @@ const manifest = {
                             placeholder: 'Product',
                             query: {url: '/api/products', field: 'name'},
                             required: true,
-                            onValueChange: (changedValues, values, formContext) => {
-                                isLineFieldExecute(changedValues, values, 'transfer_lines', 'product_id', (changedLine, allValues) => {
-                                    formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
-                                        const transferLines = allValues.transfer_lines;
-                                        transferLines[changedLine.key] = {
-                                            ...transferLines[changedLine.key],
-                                            measurement_id: response.measurement_id,
-                                        };
-                                        formContext.form.setFieldsValue({
-                                            material_lines: transferLines
-                                        });
-                                        const persistedKey = getPersistedKey(changedLine, formContext.options['measurement_id-lineOptions'].options)
-                                        formContext.options['measurement_id-lineOptions'].getOptions(response.measurement.name, persistedKey);
+                            onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
+                                formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
+                                    const transferLines = allValues.transfer_lines;
+                                    transferLines[changedLine.key] = {
+                                        ...transferLines[changedLine.key],
+                                        measurement_id: response.measurement_id,
+                                    };
+                                    formContext.form.setFieldsValue({
+                                        material_lines: transferLines
                                     });
+                                    const persistedKey = getPersistedKey(changedLine, formContext.options['measurement_id-lineOptions'].options)
+                                    formContext.options['measurement_id-lineOptions'].getOptions(response.measurement.name, persistedKey);
                                 });
                             },
                             overrideDisabled: (formContext) => {

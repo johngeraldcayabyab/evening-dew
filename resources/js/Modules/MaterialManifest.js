@@ -1,4 +1,4 @@
-import {getPersistedKey, isLineFieldExecute} from "../Helpers/form";
+import {getPersistedKey} from "../Helpers/form";
 import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 
 const manifest = {
@@ -103,20 +103,18 @@ const manifest = {
                             placeholder: 'Product',
                             query: {url: '/api/products', field: 'name'},
                             required: true,
-                            onValueChange: (changedValues, values, formContext) => {
-                                isLineFieldExecute(changedValues, values, 'material_lines', 'product_id', (changedLine, allValues) => {
-                                    formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
-                                        const materialLines = allValues.material_lines;
-                                        materialLines[changedLine.key] = {
-                                            ...materialLines[changedLine.key],
-                                            measurement_id: response.measurement_id,
-                                        };
-                                        formContext.form.setFieldsValue({
-                                            material_lines: materialLines
-                                        });
-                                        const persistedKey = getPersistedKey(changedLine, formContext.options['measurement_id-lineOptions'].options)
-                                        formContext.options['measurement_id-lineOptions'].getOptions(response.measurement.name, persistedKey);
+                            onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
+                                formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
+                                    const materialLines = allValues.material_lines;
+                                    materialLines[changedLine.key] = {
+                                        ...materialLines[changedLine.key],
+                                        measurement_id: response.measurement_id,
+                                    };
+                                    formContext.form.setFieldsValue({
+                                        material_lines: materialLines
                                     });
+                                    const persistedKey = getPersistedKey(changedLine, formContext.options['measurement_id-lineOptions'].options)
+                                    formContext.options['measurement_id-lineOptions'].getOptions(response.measurement.name, persistedKey);
                                 });
                             },
                         },

@@ -1,6 +1,6 @@
 import {disableIfStatus} from "../Helpers/object";
 import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
-import {getPersistedKey, isLineFieldExecute} from "../Helpers/form";
+import {getPersistedKey} from "../Helpers/form";
 import SalesOrderPDF from "./SalesOrder/SalesOrderPDF";
 import SalesOrderBreakDown from "./SalesOrder/SalesOrderBreakDown";
 import CreateInvoiceButton from "./SalesOrder/CreateInvoiceButton"
@@ -171,46 +171,44 @@ const manifest = {
                     query: {url: '/api/contacts', field: 'name'},
                     required: true,
                     onValueChange: (changedValues, values, formContext) => {
-                        if (changedValues.customer_id) {
-                            formContext.useFetch(`/api/addresses`, GET, {
-                                contact_id: changedValues.customer_id
-                            }).then((response) => {
-                                const data = response.data;
-                                let defaultAddress = data.find((address) => (address.type === 'default'));
-                                let invoiceAddress = data.find((address) => (address.type === 'invoice'));
-                                let deliveryAddress = data.find((address) => (address.type === 'delivery'));
-                                invoiceAddress = invoiceAddress ? invoiceAddress : defaultAddress;
-                                deliveryAddress = deliveryAddress ? deliveryAddress : defaultAddress;
-                                const invoiceCity = invoiceAddress.city;
-                                const deliveryCity = deliveryAddress.city;
-                                if (invoiceCity) {
-                                    formContext.options['invoice_city_id-options'].getOptions({id: invoiceCity.id});
-                                }
-                                if (deliveryCity) {
-                                    formContext.options['delivery_city_id-options'].getOptions({id: deliveryCity.id});
-                                }
-                                formContext.form.setFieldsValue({
-                                    invoice_phone: invoiceAddress.contact.phone,
-                                    delivery_phone: deliveryAddress.contact.phone,
-                                    invoice_address: invoiceAddress.address,
-                                    delivery_address: deliveryAddress.address,
-                                    invoice_city_id: invoiceCity ? invoiceCity.id : null,
-                                    delivery_city_id: deliveryCity ? deliveryCity.id : null,
-                                });
-                                // // invoiceCityOptions.getOptions({id: invoiceAddress.city.id});
-                                // // deliveryCityOptions.getOptions({id: deliveryAddress.city.id});
-                                // form.setFieldsValue({
-                                //     invoice_phone: defaultAddress.contact.phone,
-                                //     delivery_phone: defaultAddress.contact.phone,
-                                //     invoice_address: invoiceAddress.address,
-                                //     delivery_address: deliveryAddress.address,
-                                //     invoice_city_id: invoiceAddress.city.id,
-                                //     delivery_city_id: deliveryAddress.city.id,
-                                // });
-                                //
-                                // setDeliveryFeeByCity({delivery_city_id: deliveryAddress.city.id}, allValues);
+                        formContext.useFetch(`/api/addresses`, GET, {
+                            contact_id: changedValues.customer_id
+                        }).then((response) => {
+                            const data = response.data;
+                            let defaultAddress = data.find((address) => (address.type === 'default'));
+                            let invoiceAddress = data.find((address) => (address.type === 'invoice'));
+                            let deliveryAddress = data.find((address) => (address.type === 'delivery'));
+                            invoiceAddress = invoiceAddress ? invoiceAddress : defaultAddress;
+                            deliveryAddress = deliveryAddress ? deliveryAddress : defaultAddress;
+                            const invoiceCity = invoiceAddress.city;
+                            const deliveryCity = deliveryAddress.city;
+                            if (invoiceCity) {
+                                formContext.options['invoice_city_id-options'].getOptions({id: invoiceCity.id});
+                            }
+                            if (deliveryCity) {
+                                formContext.options['delivery_city_id-options'].getOptions({id: deliveryCity.id});
+                            }
+                            formContext.form.setFieldsValue({
+                                invoice_phone: invoiceAddress.contact.phone,
+                                delivery_phone: deliveryAddress.contact.phone,
+                                invoice_address: invoiceAddress.address,
+                                delivery_address: deliveryAddress.address,
+                                invoice_city_id: invoiceCity ? invoiceCity.id : null,
+                                delivery_city_id: deliveryCity ? deliveryCity.id : null,
                             });
-                        }
+                            // // invoiceCityOptions.getOptions({id: invoiceAddress.city.id});
+                            // // deliveryCityOptions.getOptions({id: deliveryAddress.city.id});
+                            // form.setFieldsValue({
+                            //     invoice_phone: defaultAddress.contact.phone,
+                            //     delivery_phone: defaultAddress.contact.phone,
+                            //     invoice_address: invoiceAddress.address,
+                            //     delivery_address: deliveryAddress.address,
+                            //     invoice_city_id: invoiceAddress.city.id,
+                            //     delivery_city_id: deliveryAddress.city.id,
+                            // });
+                            //
+                            // setDeliveryFeeByCity({delivery_city_id: deliveryAddress.city.id}, allValues);
+                        });
                     },
                     // handleOnChange: (formContext) => {
                     //     return (val) => {
@@ -311,39 +309,37 @@ const manifest = {
                     query: {url: '/api/cities', field: 'name'},
                     onValueChange: (changedValues, values, formContext) => {
                         const cityId = changedValues.delivery_city_id;
-                        if (cityId) {
-                            formContext.useFetch(`/api/cities/${cityId}`, GET).then((response) => {
-                                if (response.delivery_fee_lines.length) {
-                                    // console.log(response);
-                                    const product = response.delivery_fee_lines[0].product;
-                                    const deliveryFeeLineFee = response.delivery_fee_lines[0].fee;
-                                    let salesOrderLines = values.sales_order_lines;
-                                    const deliveryFeeData = {
-                                        product_id: product.id,
-                                        description: product.sales_description,
-                                        quantity: 1,
-                                        measurement_id: product.sales_measurement_id,
-                                        unit_price: deliveryFeeLineFee, //product unit
-                                        // unit_price: product.sales_price, // it's either this or this
-                                    };
-                                    if (salesOrderLines) {
-                                        salesOrderLines.push(deliveryFeeData);
-                                    } else {
-                                        salesOrderLines = [];
-                                        salesOrderLines.push(deliveryFeeData);
-                                    }
-                                    formContext.form.setFieldsValue({
-                                        sales_order_lines: salesOrderLines
-                                    });
-                                    if (formContext.options['product_id-lineOptions'].keys.length === 0) {
-                                        formContext.options['product_id-lineOptions'].getOptions(product.name, 0);
-                                    } else if (formContext.options['product_id-lineOptions'].keys.length > 0) {
-                                        const maxProductLineOptionKey = Math.max(...formContext.options['product_id-lineOptions'].keys);
-                                        formContext.options['product_id-lineOptions'].getOptions(product.name, maxProductLineOptionKey + 1);
-                                    }
+                        formContext.useFetch(`/api/cities/${cityId}`, GET).then((response) => {
+                            if (response.delivery_fee_lines.length) {
+                                // console.log(response);
+                                const product = response.delivery_fee_lines[0].product;
+                                const deliveryFeeLineFee = response.delivery_fee_lines[0].fee;
+                                let salesOrderLines = values.sales_order_lines;
+                                const deliveryFeeData = {
+                                    product_id: product.id,
+                                    description: product.sales_description,
+                                    quantity: 1,
+                                    measurement_id: product.sales_measurement_id,
+                                    unit_price: deliveryFeeLineFee, //product unit
+                                    // unit_price: product.sales_price, // it's either this or this
+                                };
+                                if (salesOrderLines) {
+                                    salesOrderLines.push(deliveryFeeData);
+                                } else {
+                                    salesOrderLines = [];
+                                    salesOrderLines.push(deliveryFeeData);
                                 }
-                            });
-                        }
+                                formContext.form.setFieldsValue({
+                                    sales_order_lines: salesOrderLines
+                                });
+                                if (formContext.options['product_id-lineOptions'].keys.length === 0) {
+                                    formContext.options['product_id-lineOptions'].getOptions(product.name, 0);
+                                } else if (formContext.options['product_id-lineOptions'].keys.length > 0) {
+                                    const maxProductLineOptionKey = Math.max(...formContext.options['product_id-lineOptions'].keys);
+                                    formContext.options['product_id-lineOptions'].getOptions(product.name, maxProductLineOptionKey + 1);
+                                }
+                            }
+                        });
                     }
                 },
                 {
@@ -367,47 +363,44 @@ const manifest = {
                             placeholder: 'Product',
                             query: {url: '/api/products', field: 'name'},
                             required: true,
-                            onValueChange: (changedValues, values, formContext) => {
-                                isLineFieldExecute(changedValues, values, 'sales_order_lines', 'product_id', (changedLine, allValues) => {
+                            onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
+                                async function useFetchAsync(url) {
+                                    return formContext.useFetch(url, GET);
+                                }
 
-                                    async function useFetchAsync(url) {
-                                        return formContext.useFetch(url, GET);
-                                    }
+                                function setPricelistPrice(res) {
+                                    return res && res.unit_price ? res.unit_price : -1;
+                                }
 
-                                    function setPricelistPrice(res) {
-                                        return res && res.unit_price ? res.unit_price : -1;
-                                    }
-
-                                    formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then(async (response) => {
-                                        let pricelistPrice = -1;
-                                        let contactPricelistPrice = -1
-                                        const isPricelistSet = formContext.state.pricelist.id && formContext.state.pricelist.id !== -1;
-                                        const isContactPricelistSet = formContext.state.pricelist.contactId && formContext.state.pricelist.contactId !== -1;
-                                        if (isPricelistSet) {
-                                            const res = await useFetchAsync(`/api/pricelists/${formContext.state.pricelist.id}/products/${changedLine.product_id}`);
-                                            pricelistPrice = setPricelistPrice(res);
-                                        } else if (isContactPricelistSet) {
-                                            const contact = await useFetchAsync(`/api/contacts/${formContext.state.pricelist.contactId}`);
-                                            if (contact && contact['pricelist_id'] && contact['pricelist_id'] !== -1) {
-                                                const res = await useFetchAsync(`/api/pricelists/${contact['pricelist_id']}/products/${changedLine.product_id}`);
-                                                contactPricelistPrice = setPricelistPrice(res);
-                                            }
+                                formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then(async (response) => {
+                                    let pricelistPrice = -1;
+                                    let contactPricelistPrice = -1
+                                    const isPricelistSet = formContext.state.pricelist.id && formContext.state.pricelist.id !== -1;
+                                    const isContactPricelistSet = formContext.state.pricelist.contactId && formContext.state.pricelist.contactId !== -1;
+                                    if (isPricelistSet) {
+                                        const res = await useFetchAsync(`/api/pricelists/${formContext.state.pricelist.id}/products/${changedLine.product_id}`);
+                                        pricelistPrice = setPricelistPrice(res);
+                                    } else if (isContactPricelistSet) {
+                                        const contact = await useFetchAsync(`/api/contacts/${formContext.state.pricelist.contactId}`);
+                                        if (contact && contact['pricelist_id'] && contact['pricelist_id'] !== -1) {
+                                            const res = await useFetchAsync(`/api/pricelists/${contact['pricelist_id']}/products/${changedLine.product_id}`);
+                                            contactPricelistPrice = setPricelistPrice(res);
                                         }
-                                        const salesOrderLines = allValues.sales_order_lines;
-                                        salesOrderLines[changedLine.key] = {
-                                            ...salesOrderLines[changedLine.key],
-                                            description: response.sales_description,
-                                            quantity: 1,
-                                            measurement_id: response.sales_measurement_id,
-                                            unit_price: isPricelistSet && pricelistPrice !== -1 ? pricelistPrice :
-                                                contactPricelistPrice && contactPricelistPrice !== -1 ? contactPricelistPrice : response.sales_price,
-                                        };
-                                        formContext.form.setFieldsValue({
-                                            sales_order_lines: salesOrderLines
-                                        });
-                                        const persistedKey = getPersistedKey(changedLine, formContext.options['measurement_id-lineOptions'].options);
-                                        formContext.options['measurement_id-lineOptions'].getOptions(response.sales_measurement.name, persistedKey);
+                                    }
+                                    const salesOrderLines = allValues.sales_order_lines;
+                                    salesOrderLines[changedLine.key] = {
+                                        ...salesOrderLines[changedLine.key],
+                                        description: response.sales_description,
+                                        quantity: 1,
+                                        measurement_id: response.sales_measurement_id,
+                                        unit_price: isPricelistSet && pricelistPrice !== -1 ? pricelistPrice :
+                                            contactPricelistPrice && contactPricelistPrice !== -1 ? contactPricelistPrice : response.sales_price,
+                                    };
+                                    formContext.form.setFieldsValue({
+                                        sales_order_lines: salesOrderLines
                                     });
+                                    const persistedKey = getPersistedKey(changedLine, formContext.options['measurement_id-lineOptions'].options);
+                                    formContext.options['measurement_id-lineOptions'].getOptions(response.sales_measurement.name, persistedKey);
                                 });
                             },
                             overrideDisabled: (formContext) => {
@@ -424,29 +417,27 @@ const manifest = {
                             name: 'quantity',
                             placeholder: 'Quantity',
                             required: true,
-                            onValueChange: (changedValues, values, formContext) => {
-                                isLineFieldExecute(changedValues, values, 'sales_order_lines', 'quantity', (changedLine, allValues) => {
-                                    const salesOrderLines = allValues.sales_order_lines;
-                                    let salesOrderLine = salesOrderLines[changedLine.key];
-                                    if (changedLine.hasOwnProperty('unit_price')) {
-                                        salesOrderLine.subtotal = salesOrderLine.quantity * changedLine.unit_price;
-                                    } else if (changedLine.hasOwnProperty('quantity')) {
-                                        salesOrderLine.subtotal = changedLine.quantity * salesOrderLine.unit_price;
-                                    }
-                                    salesOrderLines[changedLine.key] = salesOrderLine;
-                                    formContext.form.setFieldsValue({
-                                        sales_order_lines: salesOrderLines
-                                    });
-                                    const total = salesOrderLines.map((salesOrderLine) => (salesOrderLine.subtotal)).reduce((total, subtotal) => (total + subtotal));
-                                    formContext.setState((prevState) => ({
-                                        ...prevState,
-                                        breakdown: {
-                                            untaxedAmount: total,
-                                            tax: 0,
-                                            total: total,
-                                        }
-                                    }));
+                            onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
+                                const salesOrderLines = allValues.sales_order_lines;
+                                let salesOrderLine = salesOrderLines[changedLine.key];
+                                if (changedLine.hasOwnProperty('unit_price')) {
+                                    salesOrderLine.subtotal = salesOrderLine.quantity * changedLine.unit_price;
+                                } else if (changedLine.hasOwnProperty('quantity')) {
+                                    salesOrderLine.subtotal = changedLine.quantity * salesOrderLine.unit_price;
+                                }
+                                salesOrderLines[changedLine.key] = salesOrderLine;
+                                formContext.form.setFieldsValue({
+                                    sales_order_lines: salesOrderLines
                                 });
+                                const total = salesOrderLines.map((salesOrderLine) => (salesOrderLine.subtotal)).reduce((total, subtotal) => (total + subtotal));
+                                formContext.setState((prevState) => ({
+                                    ...prevState,
+                                    breakdown: {
+                                        untaxedAmount: total,
+                                        tax: 0,
+                                        total: total,
+                                    }
+                                }));
                             },
                             overrideDisabled: (formContext) => {
                                 return disableIfStatus(formContext.formState, 'done')
@@ -467,29 +458,27 @@ const manifest = {
                             name: 'unit_price',
                             placeholder: 'Unit Price',
                             required: true,
-                            onValueChange: (changedValues, values, formContext) => {
-                                isLineFieldExecute(changedValues, values, 'sales_order_lines', 'unit_price', (changedLine, allValues) => {
-                                    const salesOrderLines = allValues.sales_order_lines;
-                                    let salesOrderLine = salesOrderLines[changedLine.key];
-                                    if (changedLine.hasOwnProperty('unit_price')) {
-                                        salesOrderLine.subtotal = salesOrderLine.quantity * changedLine.unit_price;
-                                    } else if (changedLine.hasOwnProperty('quantity')) {
-                                        salesOrderLine.subtotal = changedLine.quantity * salesOrderLine.unit_price;
-                                    }
-                                    salesOrderLines[changedLine.key] = salesOrderLine;
-                                    formContext.form.setFieldsValue({
-                                        sales_order_lines: salesOrderLines
-                                    });
-                                    const total = salesOrderLines.map((salesOrderLine) => (salesOrderLine.subtotal)).reduce((total, subtotal) => (total + subtotal));
-                                    formContext.setState((prevState) => ({
-                                        ...prevState,
-                                        breakdown: {
-                                            untaxedAmount: total,
-                                            tax: 0,
-                                            total: total,
-                                        }
-                                    }));
+                            onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
+                                const salesOrderLines = allValues.sales_order_lines;
+                                let salesOrderLine = salesOrderLines[changedLine.key];
+                                if (changedLine.hasOwnProperty('unit_price')) {
+                                    salesOrderLine.subtotal = salesOrderLine.quantity * changedLine.unit_price;
+                                } else if (changedLine.hasOwnProperty('quantity')) {
+                                    salesOrderLine.subtotal = changedLine.quantity * salesOrderLine.unit_price;
+                                }
+                                salesOrderLines[changedLine.key] = salesOrderLine;
+                                formContext.form.setFieldsValue({
+                                    sales_order_lines: salesOrderLines
                                 });
+                                const total = salesOrderLines.map((salesOrderLine) => (salesOrderLine.subtotal)).reduce((total, subtotal) => (total + subtotal));
+                                formContext.setState((prevState) => ({
+                                    ...prevState,
+                                    breakdown: {
+                                        untaxedAmount: total,
+                                        tax: 0,
+                                        total: total,
+                                    }
+                                }));
                             }
                         },
                         {

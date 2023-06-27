@@ -1,6 +1,6 @@
 import {GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 import {disableIfStatus} from "../Helpers/object";
-import {getPersistedKey, isLineFieldExecute} from "../Helpers/form";
+import {getPersistedKey} from "../Helpers/form";
 
 const manifest = {
     moduleName: "purchases",
@@ -191,23 +191,21 @@ const manifest = {
                             placeholder: 'Product',
                             query: {url: '/api/products', field: 'name'},
                             required: true,
-                            onValueChange: (changedValues, values, formContext) => {
-                                isLineFieldExecute(changedValues, values, 'purchase_lines', 'product_id', (changedLine, allValues) => {
-                                    formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
-                                        const purchaseLines = allValues.purchase_lines;
-                                        purchaseLines[changedLine.key] = {
-                                            ...purchaseLines[changedLine.key],
-                                            description: response.purchase_description,
-                                            quantity: 1,
-                                            measurement_id: response.purchase_measurement_id,
-                                            unit_price: response.cost,
-                                        };
-                                        formContext.form.setFieldsValue({
-                                            purchase_lines: purchaseLines
-                                        });
-                                        const persistedKey = getPersistedKey(changedLine, formContext.options['measurement_id-lineOptions'].options);
-                                        formContext.options['measurement_id-lineOptions'].getOptions(response.purchase_measurement.name, persistedKey);
+                            onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
+                                formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
+                                    const purchaseLines = allValues.purchase_lines;
+                                    purchaseLines[changedLine.key] = {
+                                        ...purchaseLines[changedLine.key],
+                                        description: response.purchase_description,
+                                        quantity: 1,
+                                        measurement_id: response.purchase_measurement_id,
+                                        unit_price: response.cost,
+                                    };
+                                    formContext.form.setFieldsValue({
+                                        purchase_lines: purchaseLines
                                     });
+                                    const persistedKey = getPersistedKey(changedLine, formContext.options['measurement_id-lineOptions'].options);
+                                    formContext.options['measurement_id-lineOptions'].getOptions(response.purchase_measurement.name, persistedKey);
                                 });
                             },
                             overrideDisabled: (formContext) => {
@@ -224,29 +222,27 @@ const manifest = {
                             name: 'quantity',
                             placeholder: 'Quantity',
                             required: true,
-                            onValueChange: (changedValues, values, formContext) => {
-                                isLineFieldExecute(changedValues, values, 'purchase_lines', 'quantity', (changedLine, allValues) => {
-                                    const purchaseLines = allValues.purchase_lines;
-                                    let purchaseLine = purchaseLines[changedLine.key];
-                                    if (changedLine.hasOwnProperty('unit_price')) {
-                                        purchaseLine.subtotal = purchaseLine.quantity * changedLine.unit_price;
-                                    } else if (changedLine.hasOwnProperty('quantity')) {
-                                        purchaseLine.subtotal = changedLine.quantity * purchaseLine.unit_price;
-                                    }
-                                    purchaseLines[changedLine.key] = purchaseLine;
-                                    formContext.form.setFieldsValue({
-                                        purchase_lines: purchaseLines
-                                    });
-                                    const total = purchaseLines.map((purchaseLine) => (purchaseLine.subtotal)).reduce((total, subtotal) => (total + subtotal));
-                                    formContext.setState((prevState) => ({
-                                        ...prevState,
-                                        breakdown: {
-                                            untaxedAmount: total,
-                                            tax: 0,
-                                            total: total,
-                                        }
-                                    }));
+                            onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
+                                const purchaseLines = allValues.purchase_lines;
+                                let purchaseLine = purchaseLines[changedLine.key];
+                                if (changedLine.hasOwnProperty('unit_price')) {
+                                    purchaseLine.subtotal = purchaseLine.quantity * changedLine.unit_price;
+                                } else if (changedLine.hasOwnProperty('quantity')) {
+                                    purchaseLine.subtotal = changedLine.quantity * purchaseLine.unit_price;
+                                }
+                                purchaseLines[changedLine.key] = purchaseLine;
+                                formContext.form.setFieldsValue({
+                                    purchase_lines: purchaseLines
                                 });
+                                const total = purchaseLines.map((purchaseLine) => (purchaseLine.subtotal)).reduce((total, subtotal) => (total + subtotal));
+                                formContext.setState((prevState) => ({
+                                    ...prevState,
+                                    breakdown: {
+                                        untaxedAmount: total,
+                                        tax: 0,
+                                        total: total,
+                                    }
+                                }));
                             },
                             overrideDisabled: (formContext) => {
                                 return disableIfStatus(formContext.formState, 'done')
@@ -267,29 +263,27 @@ const manifest = {
                             name: 'unit_price',
                             placeholder: 'Unit Price',
                             required: true,
-                            onValueChange: (changedValues, values, formContext) => {
-                                isLineFieldExecute(changedValues, values, 'purchase_lines', 'unit_price', (changedLine, allValues) => {
-                                    const purchaseLines = allValues.purchase_lines;
-                                    let purchaseLine = purchaseLines[changedLine.key];
-                                    if (changedLine.hasOwnProperty('unit_price')) {
-                                        purchaseLine.subtotal = purchaseLine.quantity * changedLine.unit_price;
-                                    } else if (changedLine.hasOwnProperty('quantity')) {
-                                        purchaseLine.subtotal = changedLine.quantity * purchaseLine.unit_price;
-                                    }
-                                    purchaseLines[changedLine.key] = purchaseLine;
-                                    formContext.form.setFieldsValue({
-                                        purchase_lines: purchaseLines
-                                    });
-                                    const total = purchaseLines.map((purchaseLine) => (purchaseLine.subtotal)).reduce((total, subtotal) => (total + subtotal));
-                                    formContext.setState((prevState) => ({
-                                        ...prevState,
-                                        breakdown: {
-                                            untaxedAmount: total,
-                                            tax: 0,
-                                            total: total,
-                                        }
-                                    }));
+                            onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
+                                const purchaseLines = allValues.purchase_lines;
+                                let purchaseLine = purchaseLines[changedLine.key];
+                                if (changedLine.hasOwnProperty('unit_price')) {
+                                    purchaseLine.subtotal = purchaseLine.quantity * changedLine.unit_price;
+                                } else if (changedLine.hasOwnProperty('quantity')) {
+                                    purchaseLine.subtotal = changedLine.quantity * purchaseLine.unit_price;
+                                }
+                                purchaseLines[changedLine.key] = purchaseLine;
+                                formContext.form.setFieldsValue({
+                                    purchase_lines: purchaseLines
                                 });
+                                const total = purchaseLines.map((purchaseLine) => (purchaseLine.subtotal)).reduce((total, subtotal) => (total + subtotal));
+                                formContext.setState((prevState) => ({
+                                    ...prevState,
+                                    breakdown: {
+                                        untaxedAmount: total,
+                                        tax: 0,
+                                        total: total,
+                                    }
+                                }));
                             },
                         },
                         {

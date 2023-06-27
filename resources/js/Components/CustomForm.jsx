@@ -1,6 +1,7 @@
 import {Form} from "antd";
 import {useContext} from "react";
 import {FormContext} from "../Contexts/FormContext";
+import {isLineFieldExecute} from "../Helpers/form"
 
 const CustomForm = (props) => {
     const formContext = useContext(FormContext);
@@ -15,8 +16,16 @@ const CustomForm = (props) => {
             wrapperCol={{span: 16}}
             onValuesChange={(changedValues, values) => {
                 if (formContext.onChangeValuesFunctions) {
-                    formContext.onChangeValuesFunctions.forEach((onValueChange) => {
-                        onValueChange(changedValues, values, formContext);
+                    formContext.onChangeValuesFunctions.forEach((field) => {
+                        if (field.hasOwnProperty('listName')) {
+                            isLineFieldExecute(changedValues, values, field.listName, field.name, (changedLine, allValues) => {
+                                field.onValueChange(changedValues, values, formContext, changedLine, allValues);
+                            });
+                        } else {
+                            if (changedValues[field.name]) {
+                                field.onValueChange(changedValues, values, formContext);
+                            }
+                        }
                     });
                 }
             }}
