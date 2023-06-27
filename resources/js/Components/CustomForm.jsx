@@ -13,10 +13,10 @@ const CustomForm = (props) => {
             labelCol={{span: 8}}
             labelWrap={true}
             wrapperCol={{span: 16}}
-            onValuesChange={(changedValues, allValues) => {
+            onValuesChange={(changedValues, values) => {
                 if (formContext.onChangeValuesFunctions) {
                     formContext.onChangeValuesFunctions.forEach((onValueChange) => {
-                        onValueChange(changedValues, allValues, formContext);
+                        onValueChange(changedValues, values, formContext);
                     });
                 }
             }}
