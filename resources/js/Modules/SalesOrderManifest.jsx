@@ -93,7 +93,8 @@ const manifest = {
             untaxedAmount: 0, tax: 0, total: 0,
         },
         queries: {
-            taxes: {url: '/api/taxes', options: [], params: {type: 'sales'}}
+            taxes: {url: '/api/taxes', options: [], params: {type: 'sales'}},
+            measurements: {url: '/api/measurements', options: []}
         }
     },
     statuses: [
@@ -358,7 +359,7 @@ const manifest = {
                             type: 'select',
                             name: 'measurement_id',
                             placeholder: 'Measurement',
-                            query: {url: '/api/measurements', field: 'name'},
+                            optionsState: 'queries.measurements',
                             required: true,
                             overrideDisabled: (formContext) => {
                                 return disableIfStatus(formContext.formState, 'done')
@@ -386,7 +387,6 @@ const manifest = {
                             name: 'tax_id',
                             placeholder: 'Tax',
                             optionsState: 'queries.taxes',
-                            required: true,
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
                                 computeBreakDown(changedValues, values, formContext, changedLine, allValues);
                             },
