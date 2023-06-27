@@ -607,13 +607,13 @@ const manifest = {
             col_1: [
                 {
                     type: 'component',
-                    component: <SalesOrderPDF key={'companello'}/>
+                    component: <SalesOrderPDF key={'sales_order_pdf'}/>
                 },
             ],
             col_2: [
                 {
                     type: 'component',
-                    component: <SalesOrderBreakDown key={'companella'}/>
+                    component: <SalesOrderBreakDown key={'sales_order_breakdown'}/>
                 },
             ]
         }
