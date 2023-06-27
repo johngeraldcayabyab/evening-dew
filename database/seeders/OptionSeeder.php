@@ -11,7 +11,7 @@ class OptionSeeder extends Seeder
     {
         Option::create([
             'name' => 'sales_order_lines_pdf_columns_view',
-            'value' => 'product,description,quantity,unit_price,subtotal,avatar'
+            'value' => 'product,description,quantity,unit_price,tax,subtotal,avatar'
         ]);
     }
 }
