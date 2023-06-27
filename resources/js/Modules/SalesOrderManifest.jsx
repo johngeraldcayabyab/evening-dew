@@ -425,7 +425,7 @@ const manifest = {
                             name: 'shipping_date',
                             placeholder: 'Shipping date',
                             overrideDisabled: (formContext) => {
-                                return disableIfStatus(formContext.formState, 'done')
+                                return disableIfStatus(formContext.formState, 'done');
                             }
                         },
                         {
@@ -434,8 +434,11 @@ const manifest = {
                             placeholder: 'Tax',
                             query: {url: '/api/taxes', field: 'name', params: {type: 'sales'}},
                             required: true,
+                            onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
+                                computeBreakDown(changedValues, values, formContext, changedLine, allValues);
+                            },
                             overrideDisabled: (formContext) => {
-                                return disableIfStatus(formContext.formState, 'done')
+                                return disableIfStatus(formContext.formState, 'done');
                             }
                         },
                         {
@@ -549,6 +552,9 @@ const manifest = {
 };
 
 function computeBreakDown(changedValues, values, formContext, changedLine, allValues) {
+    //computation
+    //included_in_price
+    //amount
     const salesOrderLines = allValues.sales_order_lines;
     let salesOrderLine = salesOrderLines[changedLine.key];
     if (changedLine.hasOwnProperty('unit_price')) {
