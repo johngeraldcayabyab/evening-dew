@@ -65,7 +65,7 @@ const manifest = {
     },
     initialState: {
         breakdown: {
-            untaxedAmount: 0, tax: 0, total: 0,
+            taxableAmount: 0, taxAmount: 0, total: 0,
         }, queries: {
             taxes: {url: '/api/taxes', options: [], params: {type: 'sales'}},
             measurements: {url: '/api/measurements', options: []}
@@ -353,13 +353,11 @@ const manifest = {
 function computeBreakDown(changedValues, values, formContext, changedLine, allValues) {
     let taxableAmount = 0;
     let taxAmount = 0;
-    let totalAmount = 0;
-    //
+    let total = 0;
     const salesOrderLines = allValues.sales_order_lines;
-
     const salesOrderLinesComputation = salesOrderLines.map((salesOrderLine) => {
-        salesOrderLine.tax_amount = 0;
         salesOrderLine.taxable_amount = 0;
+        salesOrderLine.tax_amount = 0;
         salesOrderLine.subtotal = salesOrderLine.quantity * salesOrderLine.unit_price;
         if (salesOrderLine.tax_id) {
             const tax = getTax(salesOrderLine.tax_id, formContext.state.queries.taxes.options);
@@ -383,6 +381,17 @@ function computeBreakDown(changedValues, values, formContext, changedLine, allVa
         }
         return salesOrderLine;
     });
+    const breakDown = salesOrderLinesComputation.map((salesOrderLine) => ({
+        taxableAmount: salesOrderLine.taxable_amount,
+        taxAmount: salesOrderLine.tax_amount,
+        total: salesOrderLine.subtotal
+    })).reduce((salesOrderLine, preBreakDown) => ({
+        taxableAmount: salesOrderLine.taxableAmount + preBreakDown.taxableAmount,
+        taxAmount: salesOrderLine.taxAmount + preBreakDown.taxAmount,
+        total: salesOrderLine.total + preBreakDown.total
+    }));
+
+    console.log(breakDown);
 
     //computation
     //included_in_price
