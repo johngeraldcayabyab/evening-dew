@@ -173,7 +173,7 @@ const manifest = {
                     label: 'Operation Type',
                     query: {url: '/api/operations_types', field: 'name'},
                     required: true,
-                    onValueChange: (changedValues, allValues, formContext) => {
+                    onValueChange: (changedValues, values, formContext) => {
                         if (changedValues.operation_type_id) {
                             formContext.useFetch(`/api/operations_types`, GET, {
                                 id: changedValues.operation_type_id
@@ -245,18 +245,18 @@ const manifest = {
                             placeholder: 'Product',
                             query: {url: '/api/products', field: 'name'},
                             required: true,
-                            onValueChange: (changedValues, allValues, formContext) => {
-                                isLineFieldExecute(changedValues, allValues, 'transfer_lines', 'product_id', (line, allValues) => {
-                                    formContext.useFetch(`/api/products/${line.product_id}`, GET).then((response) => {
+                            onValueChange: (changedValues, values, formContext) => {
+                                isLineFieldExecute(changedValues, values, 'transfer_lines', 'product_id', (changedLine, allValues) => {
+                                    formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
                                         const transferLines = allValues.transfer_lines;
-                                        transferLines[line.key] = {
-                                            ...transferLines[line.key],
+                                        transferLines[changedLine.key] = {
+                                            ...transferLines[changedLine.key],
                                             measurement_id: response.measurement_id,
                                         };
                                         formContext.form.setFieldsValue({
                                             material_lines: transferLines
                                         });
-                                        const persistedKey = getPersistedKey(line, formContext.options['measurement_id-lineOptions'].options)
+                                        const persistedKey = getPersistedKey(changedLine, formContext.options['measurement_id-lineOptions'].options)
                                         formContext.options['measurement_id-lineOptions'].getOptions(response.measurement.name, persistedKey);
                                     });
                                 });

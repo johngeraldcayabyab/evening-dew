@@ -181,12 +181,12 @@ const manifest = {
                             placeholder: 'Product',
                             query: {url: '/api/products', field: 'name'},
                             required: true,
-                            onValueChange: (changedValues, allValues, formContext) => {
-                                isLineFieldExecute(changedValues, allValues, 'invoice_lines', 'product_id', (line, allValues) => {
-                                    formContext.useFetch(`/api/products/${line.product_id}`, GET).then((response) => {
+                            onValueChange: (changedValues, values, formContext) => {
+                                isLineFieldExecute(changedValues, values, 'invoice_lines', 'product_id', (changedLine, allValues) => {
+                                    formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
                                         const invoiceLines = allValues.invoice_lines;
-                                        invoiceLines[line.key] = {
-                                            ...invoiceLines[line.key],
+                                        invoiceLines[changedLine.key] = {
+                                            ...invoiceLines[changedLine.key],
                                             description: response.sales_description,
                                             quantity: 1,
                                             unit_price: response.sales_price,
@@ -211,16 +211,16 @@ const manifest = {
                             name: 'quantity',
                             placeholder: 'Quantity',
                             required: true,
-                            onValueChange: (changedValues, allValues, formContext) => {
-                                isLineFieldExecute(changedValues, allValues, 'invoice_lines', 'quantity', (changedInvoiceLine, allValues) => {
+                            onValueChange: (changedValues, values, formContext) => {
+                                isLineFieldExecute(changedValues, values, 'invoice_lines', 'quantity', (changedLine, allValues) => {
                                     const invoiceLines = allValues.invoice_lines;
-                                    let invoiceLine = invoiceLines[changedInvoiceLine.key];
-                                    if (changedInvoiceLine.hasOwnProperty('unit_price')) {
-                                        invoiceLine.subtotal = invoiceLine.quantity * changedInvoiceLine.unit_price;
-                                    } else if (changedInvoiceLine.hasOwnProperty('quantity')) {
-                                        invoiceLine.subtotal = changedInvoiceLine.quantity * invoiceLine.unit_price;
+                                    let invoiceLine = invoiceLines[changedLine.key];
+                                    if (changedLine.hasOwnProperty('unit_price')) {
+                                        invoiceLine.subtotal = invoiceLine.quantity * changedLine.unit_price;
+                                    } else if (changedLine.hasOwnProperty('quantity')) {
+                                        invoiceLine.subtotal = changedLine.quantity * invoiceLine.unit_price;
                                     }
-                                    invoiceLines[changedInvoiceLine.key] = invoiceLine;
+                                    invoiceLines[changedLine.key] = invoiceLine;
                                     formContext.form.setFieldsValue({
                                         invoice_lines: invoiceLines
                                     });
@@ -244,16 +244,16 @@ const manifest = {
                             name: 'unit_price',
                             placeholder: 'Unit Price',
                             required: true,
-                            onValueChange: (changedValues, allValues, formContext) => {
-                                isLineFieldExecute(changedValues, allValues, 'invoice_lines', 'unit_price', (changedInvoiceLine, allValues) => {
+                            onValueChange: (changedValues, values, formContext) => {
+                                isLineFieldExecute(changedValues, values, 'invoice_lines', 'unit_price', (changedLine, allValues) => {
                                     const invoiceLines = allValues.invoice_lines;
-                                    let invoiceLine = invoiceLines[changedInvoiceLine.key];
-                                    if (changedInvoiceLine.hasOwnProperty('unit_price')) {
-                                        invoiceLine.subtotal = invoiceLine.quantity * changedInvoiceLine.unit_price;
-                                    } else if (changedInvoiceLine.hasOwnProperty('quantity')) {
-                                        invoiceLine.subtotal = changedInvoiceLine.quantity * invoiceLine.unit_price;
+                                    let invoiceLine = invoiceLines[changedLine.key];
+                                    if (changedLine.hasOwnProperty('unit_price')) {
+                                        invoiceLine.subtotal = invoiceLine.quantity * changedLine.unit_price;
+                                    } else if (changedLine.hasOwnProperty('quantity')) {
+                                        invoiceLine.subtotal = changedLine.quantity * invoiceLine.unit_price;
                                     }
-                                    invoiceLines[changedInvoiceLine.key] = invoiceLine;
+                                    invoiceLines[changedLine.key] = invoiceLine;
                                     formContext.form.setFieldsValue({
                                         invoice_lines: invoiceLines
                                     });

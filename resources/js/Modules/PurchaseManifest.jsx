@@ -191,12 +191,12 @@ const manifest = {
                             placeholder: 'Product',
                             query: {url: '/api/products', field: 'name'},
                             required: true,
-                            onValueChange: (changedValues, allValues, formContext) => {
-                                isLineFieldExecute(changedValues, allValues, 'purchase_lines', 'product_id', (line, allValues) => {
-                                    formContext.useFetch(`/api/products/${line.product_id}`, GET).then((response) => {
+                            onValueChange: (changedValues, values, formContext) => {
+                                isLineFieldExecute(changedValues, values, 'purchase_lines', 'product_id', (changedLine, allValues) => {
+                                    formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
                                         const purchaseLines = allValues.purchase_lines;
-                                        purchaseLines[line.key] = {
-                                            ...purchaseLines[line.key],
+                                        purchaseLines[changedLine.key] = {
+                                            ...purchaseLines[changedLine.key],
                                             description: response.purchase_description,
                                             quantity: 1,
                                             measurement_id: response.purchase_measurement_id,
@@ -205,7 +205,7 @@ const manifest = {
                                         formContext.form.setFieldsValue({
                                             purchase_lines: purchaseLines
                                         });
-                                        const persistedKey = getPersistedKey(line, formContext.options['measurement_id-lineOptions'].options);
+                                        const persistedKey = getPersistedKey(changedLine, formContext.options['measurement_id-lineOptions'].options);
                                         formContext.options['measurement_id-lineOptions'].getOptions(response.purchase_measurement.name, persistedKey);
                                     });
                                 });
@@ -224,16 +224,16 @@ const manifest = {
                             name: 'quantity',
                             placeholder: 'Quantity',
                             required: true,
-                            onValueChange: (changedValues, allValues, formContext) => {
-                                isLineFieldExecute(changedValues, allValues, 'purchase_lines', 'quantity', (changedPurchaseLine, allValues) => {
+                            onValueChange: (changedValues, values, formContext) => {
+                                isLineFieldExecute(changedValues, values, 'purchase_lines', 'quantity', (changedLine, allValues) => {
                                     const purchaseLines = allValues.purchase_lines;
-                                    let purchaseLine = purchaseLines[changedPurchaseLine.key];
-                                    if (changedPurchaseLine.hasOwnProperty('unit_price')) {
-                                        purchaseLine.subtotal = purchaseLine.quantity * changedPurchaseLine.unit_price;
-                                    } else if (changedPurchaseLine.hasOwnProperty('quantity')) {
-                                        purchaseLine.subtotal = changedPurchaseLine.quantity * purchaseLine.unit_price;
+                                    let purchaseLine = purchaseLines[changedLine.key];
+                                    if (changedLine.hasOwnProperty('unit_price')) {
+                                        purchaseLine.subtotal = purchaseLine.quantity * changedLine.unit_price;
+                                    } else if (changedLine.hasOwnProperty('quantity')) {
+                                        purchaseLine.subtotal = changedLine.quantity * purchaseLine.unit_price;
                                     }
-                                    purchaseLines[changedPurchaseLine.key] = purchaseLine;
+                                    purchaseLines[changedLine.key] = purchaseLine;
                                     formContext.form.setFieldsValue({
                                         purchase_lines: purchaseLines
                                     });
@@ -267,16 +267,16 @@ const manifest = {
                             name: 'unit_price',
                             placeholder: 'Unit Price',
                             required: true,
-                            onValueChange: (changedValues, allValues, formContext) => {
-                                isLineFieldExecute(changedValues, allValues, 'purchase_lines', 'unit_price', (changedPurchaseLine, allValues) => {
+                            onValueChange: (changedValues, values, formContext) => {
+                                isLineFieldExecute(changedValues, values, 'purchase_lines', 'unit_price', (changedLine, allValues) => {
                                     const purchaseLines = allValues.purchase_lines;
-                                    let purchaseLine = purchaseLines[changedPurchaseLine.key];
-                                    if (changedPurchaseLine.hasOwnProperty('unit_price')) {
-                                        purchaseLine.subtotal = purchaseLine.quantity * changedPurchaseLine.unit_price;
-                                    } else if (changedPurchaseLine.hasOwnProperty('quantity')) {
-                                        purchaseLine.subtotal = changedPurchaseLine.quantity * purchaseLine.unit_price;
+                                    let purchaseLine = purchaseLines[changedLine.key];
+                                    if (changedLine.hasOwnProperty('unit_price')) {
+                                        purchaseLine.subtotal = purchaseLine.quantity * changedLine.unit_price;
+                                    } else if (changedLine.hasOwnProperty('quantity')) {
+                                        purchaseLine.subtotal = changedLine.quantity * purchaseLine.unit_price;
                                     }
-                                    purchaseLines[changedPurchaseLine.key] = purchaseLine;
+                                    purchaseLines[changedLine.key] = purchaseLine;
                                     formContext.form.setFieldsValue({
                                         purchase_lines: purchaseLines
                                     });

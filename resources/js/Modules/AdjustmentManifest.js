@@ -113,19 +113,19 @@ const manifest = {
                             placeholder: 'Product',
                             query: {url: '/api/products', field: 'name'},
                             required: true,
-                            onValueChange: (changedValues, allValues, formContext) => {
-                                isLineFieldExecute(changedValues, allValues, 'adjustment_lines', 'product_id', (line, allValues) => {
-                                    formContext.useFetch(`/api/products/${line.product_id}`, GET).then((response) => {
+                            onValueChange: (changedValues, values, formContext) => {
+                                isLineFieldExecute(changedValues, values, 'adjustment_lines', 'product_id', (changedLine, allValues) => {
+                                    formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
                                         const adjustmentLines = allValues.adjustment_lines;
-                                        adjustmentLines[line.key] = {
-                                            ...adjustmentLines[line.key],
+                                        adjustmentLines[changedLine.key] = {
+                                            ...adjustmentLines[changedLine.key],
                                             measurement_id: response.measurement_id,
                                             quantity_on_hand: parseFloatComma(response.quantity),
                                         };
                                         formContext.form.setFieldsValue({
                                             material_lines: adjustmentLines
                                         });
-                                        const persistedKey = getPersistedKey(line, formContext.options['measurement_id-lineOptions'].options)
+                                        const persistedKey = getPersistedKey(changedLine, formContext.options['measurement_id-lineOptions'].options)
                                         formContext.options['measurement_id-lineOptions'].getOptions(response.measurement.name, persistedKey);
                                     });
                                 });

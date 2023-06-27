@@ -170,7 +170,7 @@ const manifest = {
                     label: 'Customer',
                     query: {url: '/api/contacts', field: 'name'},
                     required: true,
-                    onValueChange: (changedValues, allValues, formContext) => {
+                    onValueChange: (changedValues, values, formContext) => {
                         if (changedValues.customer_id) {
                             formContext.useFetch(`/api/addresses`, GET, {
                                 contact_id: changedValues.customer_id
@@ -309,7 +309,7 @@ const manifest = {
                     name: 'delivery_city_id',
                     label: 'Delivery city',
                     query: {url: '/api/cities', field: 'name'},
-                    onValueChange: (changedValues, allValues, formContext) => {
+                    onValueChange: (changedValues, values, formContext) => {
                         const cityId = changedValues.delivery_city_id;
                         if (cityId) {
                             formContext.useFetch(`/api/cities/${cityId}`, GET).then((response) => {
@@ -317,7 +317,7 @@ const manifest = {
                                     // console.log(response);
                                     const product = response.delivery_fee_lines[0].product;
                                     const deliveryFeeLineFee = response.delivery_fee_lines[0].fee;
-                                    let salesOrderLines = allValues.sales_order_lines;
+                                    let salesOrderLines = values.sales_order_lines;
                                     const deliveryFeeData = {
                                         product_id: product.id,
                                         description: product.sales_description,
@@ -367,8 +367,8 @@ const manifest = {
                             placeholder: 'Product',
                             query: {url: '/api/products', field: 'name'},
                             required: true,
-                            onValueChange: (changedValues, allValues, formContext) => {
-                                isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'product_id', (line, allValues) => {
+                            onValueChange: (changedValues, values, formContext) => {
+                                isLineFieldExecute(changedValues, values, 'sales_order_lines', 'product_id', (changedLine, allValues) => {
 
                                     async function useFetchAsync(url) {
                                         return formContext.useFetch(url, GET);
@@ -378,24 +378,24 @@ const manifest = {
                                         return res && res.unit_price ? res.unit_price : -1;
                                     }
 
-                                    formContext.useFetch(`/api/products/${line.product_id}`, GET).then(async (response) => {
+                                    formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then(async (response) => {
                                         let pricelistPrice = -1;
                                         let contactPricelistPrice = -1
                                         const isPricelistSet = formContext.state.pricelist.id && formContext.state.pricelist.id !== -1;
                                         const isContactPricelistSet = formContext.state.pricelist.contactId && formContext.state.pricelist.contactId !== -1;
                                         if (isPricelistSet) {
-                                            const res = await useFetchAsync(`/api/pricelists/${formContext.state.pricelist.id}/products/${line.product_id}`);
+                                            const res = await useFetchAsync(`/api/pricelists/${formContext.state.pricelist.id}/products/${changedLine.product_id}`);
                                             pricelistPrice = setPricelistPrice(res);
                                         } else if (isContactPricelistSet) {
                                             const contact = await useFetchAsync(`/api/contacts/${formContext.state.pricelist.contactId}`);
                                             if (contact && contact['pricelist_id'] && contact['pricelist_id'] !== -1) {
-                                                const res = await useFetchAsync(`/api/pricelists/${contact['pricelist_id']}/products/${line.product_id}`);
+                                                const res = await useFetchAsync(`/api/pricelists/${contact['pricelist_id']}/products/${changedLine.product_id}`);
                                                 contactPricelistPrice = setPricelistPrice(res);
                                             }
                                         }
                                         const salesOrderLines = allValues.sales_order_lines;
-                                        salesOrderLines[line.key] = {
-                                            ...salesOrderLines[line.key],
+                                        salesOrderLines[changedLine.key] = {
+                                            ...salesOrderLines[changedLine.key],
                                             description: response.sales_description,
                                             quantity: 1,
                                             measurement_id: response.sales_measurement_id,
@@ -405,7 +405,7 @@ const manifest = {
                                         formContext.form.setFieldsValue({
                                             sales_order_lines: salesOrderLines
                                         });
-                                        const persistedKey = getPersistedKey(line, formContext.options['measurement_id-lineOptions'].options);
+                                        const persistedKey = getPersistedKey(changedLine, formContext.options['measurement_id-lineOptions'].options);
                                         formContext.options['measurement_id-lineOptions'].getOptions(response.sales_measurement.name, persistedKey);
                                     });
                                 });
@@ -424,16 +424,16 @@ const manifest = {
                             name: 'quantity',
                             placeholder: 'Quantity',
                             required: true,
-                            onValueChange: (changedValues, allValues, formContext) => {
-                                isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'quantity', (changedSalesOrderLine, allValues) => {
+                            onValueChange: (changedValues, values, formContext) => {
+                                isLineFieldExecute(changedValues, values, 'sales_order_lines', 'quantity', (changedLine, allValues) => {
                                     const salesOrderLines = allValues.sales_order_lines;
-                                    let salesOrderLine = salesOrderLines[changedSalesOrderLine.key];
-                                    if (changedSalesOrderLine.hasOwnProperty('unit_price')) {
-                                        salesOrderLine.subtotal = salesOrderLine.quantity * changedSalesOrderLine.unit_price;
-                                    } else if (changedSalesOrderLine.hasOwnProperty('quantity')) {
-                                        salesOrderLine.subtotal = changedSalesOrderLine.quantity * salesOrderLine.unit_price;
+                                    let salesOrderLine = salesOrderLines[changedLine.key];
+                                    if (changedLine.hasOwnProperty('unit_price')) {
+                                        salesOrderLine.subtotal = salesOrderLine.quantity * changedLine.unit_price;
+                                    } else if (changedLine.hasOwnProperty('quantity')) {
+                                        salesOrderLine.subtotal = changedLine.quantity * salesOrderLine.unit_price;
                                     }
-                                    salesOrderLines[changedSalesOrderLine.key] = salesOrderLine;
+                                    salesOrderLines[changedLine.key] = salesOrderLine;
                                     formContext.form.setFieldsValue({
                                         sales_order_lines: salesOrderLines
                                     });
@@ -467,16 +467,16 @@ const manifest = {
                             name: 'unit_price',
                             placeholder: 'Unit Price',
                             required: true,
-                            onValueChange: (changedValues, allValues, formContext) => {
-                                isLineFieldExecute(changedValues, allValues, 'sales_order_lines', 'unit_price', (changedSalesOrderLine, allValues) => {
+                            onValueChange: (changedValues, values, formContext) => {
+                                isLineFieldExecute(changedValues, values, 'sales_order_lines', 'unit_price', (changedLine, allValues) => {
                                     const salesOrderLines = allValues.sales_order_lines;
-                                    let salesOrderLine = salesOrderLines[changedSalesOrderLine.key];
-                                    if (changedSalesOrderLine.hasOwnProperty('unit_price')) {
-                                        salesOrderLine.subtotal = salesOrderLine.quantity * changedSalesOrderLine.unit_price;
-                                    } else if (changedSalesOrderLine.hasOwnProperty('quantity')) {
-                                        salesOrderLine.subtotal = changedSalesOrderLine.quantity * salesOrderLine.unit_price;
+                                    let salesOrderLine = salesOrderLines[changedLine.key];
+                                    if (changedLine.hasOwnProperty('unit_price')) {
+                                        salesOrderLine.subtotal = salesOrderLine.quantity * changedLine.unit_price;
+                                    } else if (changedLine.hasOwnProperty('quantity')) {
+                                        salesOrderLine.subtotal = changedLine.quantity * salesOrderLine.unit_price;
                                     }
-                                    salesOrderLines[changedSalesOrderLine.key] = salesOrderLine;
+                                    salesOrderLines[changedLine.key] = salesOrderLine;
                                     formContext.form.setFieldsValue({
                                         sales_order_lines: salesOrderLines
                                     });
