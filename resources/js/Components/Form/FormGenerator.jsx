@@ -85,7 +85,7 @@ const FormGenerator = (manifest) => {
         }
 
         if (!formState.initialLoad) {
-            if (manifest.initialState.hasOwnProperty('queries')) {
+            if (manifest.initialState && manifest.initialState.hasOwnProperty('queries')) {
                 const queries = manifest.initialState.queries;
                 for (let key in queries) {
                     if (queries.hasOwnProperty(key)) {
