@@ -395,26 +395,7 @@ const manifest = {
                             placeholder: 'Quantity',
                             required: true,
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
-                                const salesOrderLines = allValues.sales_order_lines;
-                                let salesOrderLine = salesOrderLines[changedLine.key];
-                                if (changedLine.hasOwnProperty('unit_price')) {
-                                    salesOrderLine.subtotal = salesOrderLine.quantity * changedLine.unit_price;
-                                } else if (changedLine.hasOwnProperty('quantity')) {
-                                    salesOrderLine.subtotal = changedLine.quantity * salesOrderLine.unit_price;
-                                }
-                                salesOrderLines[changedLine.key] = salesOrderLine;
-                                formContext.form.setFieldsValue({
-                                    sales_order_lines: salesOrderLines
-                                });
-                                const total = salesOrderLines.map((salesOrderLine) => (salesOrderLine.subtotal)).reduce((total, subtotal) => (total + subtotal));
-                                formContext.setState((prevState) => ({
-                                    ...prevState,
-                                    breakdown: {
-                                        untaxedAmount: total,
-                                        tax: 0,
-                                        total: total,
-                                    }
-                                }));
+                                computeBreakDown(changedValues, values, formContext, changedLine, allValues);
                             },
                             overrideDisabled: (formContext) => {
                                 return disableIfStatus(formContext.formState, 'done')
@@ -436,27 +417,8 @@ const manifest = {
                             placeholder: 'Unit Price',
                             required: true,
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
-                                const salesOrderLines = allValues.sales_order_lines;
-                                let salesOrderLine = salesOrderLines[changedLine.key];
-                                if (changedLine.hasOwnProperty('unit_price')) {
-                                    salesOrderLine.subtotal = salesOrderLine.quantity * changedLine.unit_price;
-                                } else if (changedLine.hasOwnProperty('quantity')) {
-                                    salesOrderLine.subtotal = changedLine.quantity * salesOrderLine.unit_price;
-                                }
-                                salesOrderLines[changedLine.key] = salesOrderLine;
-                                formContext.form.setFieldsValue({
-                                    sales_order_lines: salesOrderLines
-                                });
-                                const total = salesOrderLines.map((salesOrderLine) => (salesOrderLine.subtotal)).reduce((total, subtotal) => (total + subtotal));
-                                formContext.setState((prevState) => ({
-                                    ...prevState,
-                                    breakdown: {
-                                        untaxedAmount: total,
-                                        tax: 0,
-                                        total: total,
-                                    }
-                                }));
-                            }
+                                computeBreakDown(changedValues, values, formContext, changedLine, allValues);
+                            },
                         },
                         {
                             type: 'date',
@@ -585,5 +547,28 @@ const manifest = {
         }
     }
 };
+
+function computeBreakDown(changedValues, values, formContext, changedLine, allValues) {
+    const salesOrderLines = allValues.sales_order_lines;
+    let salesOrderLine = salesOrderLines[changedLine.key];
+    if (changedLine.hasOwnProperty('unit_price')) {
+        salesOrderLine.subtotal = salesOrderLine.quantity * changedLine.unit_price;
+    } else if (changedLine.hasOwnProperty('quantity')) {
+        salesOrderLine.subtotal = changedLine.quantity * salesOrderLine.unit_price;
+    }
+    salesOrderLines[changedLine.key] = salesOrderLine;
+    formContext.form.setFieldsValue({
+        sales_order_lines: salesOrderLines
+    });
+    const total = salesOrderLines.map((salesOrderLine) => (salesOrderLine.subtotal)).reduce((total, subtotal) => (total + subtotal));
+    formContext.setState((prevState) => ({
+        ...prevState,
+        breakdown: {
+            untaxedAmount: total,
+            tax: 0,
+            total: total,
+        }
+    }));
+}
 
 export default manifest;
