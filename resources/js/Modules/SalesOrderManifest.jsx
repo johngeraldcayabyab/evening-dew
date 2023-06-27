@@ -362,8 +362,8 @@ function computeBreakDown(changedValues, values, formContext, changedLine, allVa
         salesOrderLine.tax_amount = 0;
         salesOrderLine.taxable_amount = 0;
         if (salesOrderLine.tax_id) {
-            console.log(formContext);
-            // const tax = getTax(id, )
+            const tax = getTax(salesOrderLine.tax_id, formContext.state.queries.taxes);
+            console.log(tax);
         } else {
             salesOrderLine.subtotal = salesOrderLine.quantity * salesOrderLine.unit_price;
         }
@@ -398,7 +398,8 @@ function computeBreakDown(changedValues, values, formContext, changedLine, allVa
 }
 
 function getTax(id, taxes) {
-
+    console.log('tets');
+    // return taxes.find(tax => tax.id === id);
 }
 
 export default manifest;
