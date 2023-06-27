@@ -92,10 +92,6 @@ const manifest = {
         breakdown: {
             untaxedAmount: 0, tax: 0, total: 0,
         },
-        pricelist: {
-            contactId: -1,
-            id: -1
-        }
     },
     statuses: [
         {
@@ -130,22 +126,6 @@ const manifest = {
     ],
     customButtons: [<CreateInvoiceButton/>],
     form: {
-        afterRender: (formContext) => {
-            const initialValues = formContext.formState.initialValues;
-
-            if (initialValues.pricelist_id) {
-                formContext.useFetch(`/api/pricelists/${initialValues.pricelist_id}`, GET)
-                    .then((response) => {
-                        formContext.setState((prevState) => ({
-                            ...prevState,
-                            pricelist: {
-                                id: response.id
-                            }
-                        }));
-                    })
-
-            }
-        },
         initialValue: true,
         row_1: {
             col_1: [
@@ -210,35 +190,6 @@ const manifest = {
                             // setDeliveryFeeByCity({delivery_city_id: deliveryAddress.city.id}, allValues);
                         });
                     },
-                    // handleOnChange: (formContext) => {
-                    //     return (val) => {
-                    //         formContext.setState((prevState) => ({
-                    //             ...prevState,
-                    //             pricelist: {
-                    //                 id: prevState.pricelist.id,
-                    //                 contactId: val
-                    //             }
-                    //         }));
-                    //     }
-                    // }
-                },
-                {
-                    type: 'select',
-                    name: 'pricelist_id',
-                    label: 'Pricelist',
-                    query: {url: '/api/pricelists', field: 'name'},
-                    required: false,
-                    handleOnChange: (formContext) => {
-                        return (val) => {
-                            formContext.setState((prevState) => ({
-                                ...prevState,
-                                pricelist: {
-                                    contactId: prevState.pricelist.contactId,
-                                    id: val
-                                }
-                            }));
-                        }
-                    }
                 },
                 {
                     type: 'select',
