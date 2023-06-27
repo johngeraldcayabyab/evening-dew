@@ -1,4 +1,4 @@
-import {useParams, useNavigate} from "react-router-dom"
+import {useNavigate, useParams} from "react-router-dom"
 import {Form} from "antd"
 import useFormHook from "../../Hooks/useFormHook"
 import {FormContextProvider} from "../../Contexts/FormContext";
@@ -16,6 +16,7 @@ import FormLinks from "../FormLinks";
 import useFetchHook from "../../Hooks/useFetchHook"
 import StatusBar from "../StatusBar"
 import {loopThroughObjRecurs} from "../../Helpers/object"
+import {GET} from "../../consts"
 
 const FormGenerator = (manifest) => {
     let {id} = useParams();
@@ -81,6 +82,29 @@ const FormGenerator = (manifest) => {
     useEffect(() => {
         for (const option in options) {
             options[option].getInitialOptions(formState);
+        }
+
+        if (!formState.initialLoad) {
+            if (manifest.initialState.hasOwnProperty('queries')) {
+                const queries = manifest.initialState.queries;
+                for (let key in queries) {
+                    if (queries.hasOwnProperty(key)) {
+                        useFetch(queries[key].url, GET, queries[key].params).then(response => {
+                            const options = response.data.map((data) => ({
+                                ...data,
+                                value: data.id,
+                                label: data.slug
+                            }));
+                            const theState = state;
+                            state.queries[key].options = options;
+                            setState((prevState) => ({
+                                ...prevState,
+                                ...theState
+                            }))
+                        });
+                    }
+                }
+            }
         }
 
         // if (manifest && manifest.form && manifest.form.afterRender) {

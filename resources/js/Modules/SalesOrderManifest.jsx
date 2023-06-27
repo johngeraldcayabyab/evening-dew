@@ -92,6 +92,9 @@ const manifest = {
         breakdown: {
             untaxedAmount: 0, tax: 0, total: 0,
         },
+        queries: {
+            taxes: {url: '/api/taxes', options: [], params: {type: 'sales'}}
+        }
     },
     statuses: [
         {
@@ -262,7 +265,6 @@ const manifest = {
                         const cityId = changedValues.delivery_city_id;
                         formContext.useFetch(`/api/cities/${cityId}`, GET).then((response) => {
                             if (response.delivery_fee_lines.length) {
-                                // console.log(response);
                                 const product = response.delivery_fee_lines[0].product;
                                 const deliveryFeeLineFee = response.delivery_fee_lines[0].fee;
                                 let salesOrderLines = values.sales_order_lines;
@@ -383,7 +385,7 @@ const manifest = {
                             type: 'select',
                             name: 'tax_id',
                             placeholder: 'Tax',
-                            query: {url: '/api/taxes', field: 'name', params: {type: 'sales'}},
+                            optionsState: 'queries.taxes',
                             required: true,
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
                                 computeBreakDown(changedValues, values, formContext, changedLine, allValues);

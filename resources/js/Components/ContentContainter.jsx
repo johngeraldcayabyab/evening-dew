@@ -48,7 +48,6 @@ const ContentContainer = () => {
             email: getCookie('userEmail'),
         }).then(userResponse => {
             useFetch(`/api/global_settings`, GET).then(globalSettings => {
-                console.log(globalSettings);
                 const user = userResponse.data[0];
                 let accessRights = [];
                 const userGroupLines = user.user_group_lines;

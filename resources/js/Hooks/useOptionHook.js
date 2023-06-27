@@ -91,7 +91,7 @@ const useOptionHook = (url, tableField, customParams = null) => {
             }
         },
         onDropdownVisibleChange: (open) => {
-            // console.log(open);
+
         },
         getInitialOptions: (formState) => {
             if (!formState.initialLoad) {

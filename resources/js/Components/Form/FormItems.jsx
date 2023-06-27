@@ -77,6 +77,15 @@ const FormItems = () => {
                 />
             )
         }
+        if (field.optionsState) {
+            field.options = formContext.manifest.initialState.queries[field.optionsState.replace('queries.', '')].options;
+            return (
+                <FormItemSelect
+                    key={field.name}
+                    {...field}
+                />
+            )
+        }
         return (
             <FormItemSelect
                 key={field.name}

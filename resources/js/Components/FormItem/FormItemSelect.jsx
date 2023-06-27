@@ -87,11 +87,15 @@ const FormItemSelect = (props) => {
 
     useEffect(() => {
         if (props.listName) {
-            props.addSelf(props.fieldKey);
+            if (props.addSelf) {
+                props.addSelf(props.fieldKey);
+            }
         }
         return () => {
             if (props.listName) {
-                props.removeSelf(props.fieldKey);
+                if (props.removeSelf) {
+                    props.removeSelf(props.fieldKey);
+                }
             }
         };
     }, []);
