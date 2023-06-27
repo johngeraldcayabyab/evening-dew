@@ -5,26 +5,34 @@ import {useContext} from "react"
 
 const SalesOrderBreakDown = () => {
     const formContext = useContext(FormContext);
+
+    const dataSource = [
+        {
+            key: '1',
+            label: 'Taxable Amount:',
+            value: formContext.state.breakdown.taxableAmount,
+        },
+        {
+            key: '2',
+            label: 'Tax Amount:',
+            value: formContext.state.breakdown.taxAmount,
+
+        },
+        {
+            key: '3',
+            label: 'Discount:',
+            value: formContext.state.breakdown.discount,
+        },
+        {
+            key: '4',
+            label: 'Total:',
+            value: formContext.state.breakdown.total,
+        },
+    ];
+
     return (
         <Table
-            dataSource={[
-                {
-                    key: '1',
-                    label: 'Taxable Amount:',
-                    value: formContext.state.breakdown.taxableAmount,
-                },
-                {
-                    key: '2',
-                    label: 'Tax Amount:',
-                    value: formContext.state.breakdown.taxAmount,
-
-                },
-                {
-                    key: '3',
-                    label: 'Total:',
-                    value: formContext.state.breakdown.total,
-                },
-            ]}
+            dataSource={dataSource}
             columns={[
                 {
                     title: 'Label',

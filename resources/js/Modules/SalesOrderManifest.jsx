@@ -81,7 +81,7 @@ const manifest = {
     },
     initialState: {
         breakdown: {
-            taxableAmount: 0, taxAmount: 0, total: 0,
+            taxableAmount: 0, taxAmount: 0, discount: 0, total: 0,
         },
         queries: {
             taxes: {url: '/api/taxes', options: [], params: {type: 'sales'}},
@@ -409,6 +409,20 @@ const manifest = {
         row_4: {
             col_1: [
                 {
+                    type: 'select',
+                    name: 'discount_type',
+                    label: 'Discount Type',
+                    options: [
+                        {value: 'percentage', label: 'Percentage'},
+                        {value: 'fixed', label: 'Fixed'},
+                    ],
+                },
+                {
+                    type: 'number',
+                    name: 'discount_rate',
+                    label: 'Discount Rate',
+                },
+                {
                     type: 'component', component: <SalesOrderPDF key={'sales_order_pdf'}/>
                 },
             ],
@@ -452,15 +466,30 @@ function computeBreakDown(changedValues, values, formContext, changedLine, allVa
     const breakDown = salesOrderLinesComputation.map((salesOrderLine) => ({
         taxableAmount: salesOrderLine.taxable_amount,
         taxAmount: salesOrderLine.tax_amount,
+        discount: 0,
         total: salesOrderLine.subtotal
     })).reduce((salesOrderLine, preBreakDown) => ({
         taxableAmount: salesOrderLine.taxableAmount + preBreakDown.taxableAmount,
         taxAmount: salesOrderLine.taxAmount + preBreakDown.taxAmount,
+        discount: 0,
         total: salesOrderLine.total + preBreakDown.total
     }));
     formContext.form.setFieldsValue({
         sales_order_lines: salesOrderLinesComputation
     });
+
+    const discountType = allValues.discount_type;
+    const discountRate = allValues.discount_rate;
+
+    if (discountType === 'fixed' && discountRate) {
+        breakDown.discount = discountRate;
+        breakDown.total = breakDown.total - breakDown.discount;
+    } else if (discountType === 'percentage' && discountRate) {
+        breakDown.discount = (breakDown.total * discountRate) / 100;
+        breakDown.total = breakDown.total - breakDown.discount;
+    }
+
+
     formContext.setState((prevState) => ({
         ...prevState,
         breakdown: breakDown

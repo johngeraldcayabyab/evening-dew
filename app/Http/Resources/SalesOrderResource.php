@@ -37,6 +37,8 @@ class SalesOrderResource extends JsonResource
             'shipping_method' => $this->shipping_method,
             'select_time' => $this->select_time,
             'vehicle_type' => $this->vehicle_type,
+            'discount_type' => $this->discount_type,
+            'discount_rate' => $this->discount_rate,
             'subtotal' => $this->subtotal,
             'customer' => $this->customer,
             'courier' => $this->courier,

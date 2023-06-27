@@ -33,9 +33,17 @@ class SalesOrder extends Model implements Sluggable
     const DONE = 'done';
     const CANCELLED = 'cancelled';
 
+    const PERCENTAGE = 'percentage';
+    const FIXED = 'fixed';
+
     public static function getStatuses()
     {
         return [self::DRAFT, self::DONE, self::CANCELLED];
+    }
+
+    public static function getDiscountTypes()
+    {
+        return [self::PERCENTAGE, self::FIXED];
     }
 
     public function customer()

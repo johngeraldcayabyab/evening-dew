@@ -16,6 +16,7 @@ class SalesOrderRequest extends FormRequest
         $statuses = implode_types(SalesOrder::getStatuses());
         $shippingMethods = implode_types(Transfer::getShippingMethods());
         $invoiceTypes = implode_types(Invoice::getTypes());
+        $discountTypes = implode_types(SalesOrder::getDiscountTypes());
         return [
             'number' => 'required',
             'customer_id' => ['required', "exists:contacts,id"],
@@ -29,6 +30,8 @@ class SalesOrderRequest extends FormRequest
             'expiration_date' => ['nullable'],
             'quotation_date' => ['required'],
             'courier_id' => ['nullable', "exists:couriers,id"],
+            'discount_types' => ['nullable', "in:$discountTypes"],
+            'discount_rates' => ['nullable', "numeric"],
             'payment_term_id' => ['nullable', "exists:payment_terms,id"],
             'salesperson_id' => ['nullable', 'exists:users,id'],
             'source_id' => ['nullable', 'exists:sources,id'],
