@@ -351,9 +351,6 @@ const manifest = {
 };
 
 function computeBreakDown(changedValues, values, formContext, changedLine, allValues) {
-    let taxableAmount = 0;
-    let taxAmount = 0;
-    let total = 0;
     const salesOrderLines = allValues.sales_order_lines;
     const salesOrderLinesComputation = salesOrderLines.map((salesOrderLine) => {
         salesOrderLine.taxable_amount = 0;
@@ -390,32 +387,13 @@ function computeBreakDown(changedValues, values, formContext, changedLine, allVa
         taxAmount: salesOrderLine.taxAmount + preBreakDown.taxAmount,
         total: salesOrderLine.total + preBreakDown.total
     }));
-
-    console.log(breakDown);
-
-    //computation
-    //included_in_price
-    //amount
-    // const salesOrderLines = allValues.sales_order_lines;
-    // let salesOrderLine = salesOrderLines[changedLine.key];
-    // if (changedLine.hasOwnProperty('unit_price')) {
-    //     salesOrderLine.subtotal = salesOrderLine.quantity * changedLine.unit_price;
-    // } else if (changedLine.hasOwnProperty('quantity')) {
-    //     salesOrderLine.subtotal = changedLine.quantity * salesOrderLine.unit_price;
-    // }
-    // salesOrderLines[changedLine.key] = salesOrderLine;
-    // formContext.form.setFieldsValue({
-    //     sales_order_lines: salesOrderLines
-    // });
-    // const total = salesOrderLines.map((salesOrderLine) => (salesOrderLine.subtotal)).reduce((total, subtotal) => (total + subtotal));
-    // formContext.setState((prevState) => ({
-    //     ...prevState,
-    //     breakdown: {
-    //         untaxedAmount: total,
-    //         tax: 0,
-    //         total: total,
-    //     }
-    // }));
+    formContext.form.setFieldsValue({
+        sales_order_lines: salesOrderLinesComputation
+    });
+    formContext.setState((prevState) => ({
+        ...prevState,
+        breakdown: breakDown
+    }));
 }
 
 function getTax(id, taxes) {

@@ -10,13 +10,13 @@ const SalesOrderBreakDown = () => {
             dataSource={[
                 {
                     key: '1',
-                    label: 'Untaxed amount:',
-                    value: formContext.state.breakdown.untaxedAmount,
+                    label: 'Taxable Amount:',
+                    value: formContext.state.breakdown.taxableAmount,
                 },
                 {
                     key: '2',
-                    label: 'Taxed:',
-                    value: formContext.state.breakdown.tax,
+                    label: 'Tax Amount:',
+                    value: formContext.state.breakdown.taxAmount,
 
                 },
                 {
