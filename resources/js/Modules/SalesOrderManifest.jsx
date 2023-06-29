@@ -320,7 +320,7 @@ const manifest = {
                             placeholder: 'Quantity',
                             required: true,
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
-                                computeBreakDown(changedValues, values, formContext, changedLine, allValues);
+                                computeBreakDown(formContext, allValues);
                             },
                             overrideDisabled: (formContext) => {
                                 return disableIfStatus(formContext.formState, 'done')
@@ -342,7 +342,7 @@ const manifest = {
                             placeholder: 'Unit Price',
                             required: true,
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
-                                computeBreakDown(changedValues, values, formContext, changedLine, allValues);
+                                computeBreakDown(formContext, allValues);
                             },
                         },
                         {
@@ -359,7 +359,7 @@ const manifest = {
                             placeholder: 'Tax',
                             optionsState: 'queries.taxes',
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
-                                computeBreakDown(changedValues, values, formContext, changedLine, allValues);
+                                computeBreakDown(formContext, allValues);
                             },
                             overrideDisabled: (formContext) => {
                                 return disableIfStatus(formContext.formState, 'done');
@@ -490,7 +490,7 @@ const manifest = {
     }
 };
 
-function computeBreakDown(changedValues, values, formContext, changedLine, allValues) {
+function computeBreakDown(formContext, allValues) {
     const salesOrderLines = allValues.sales_order_lines;
     const salesOrderLinesComputation = salesOrderLines.map((salesOrderLine) => {
         salesOrderLine.taxable_amount = 0;
@@ -532,10 +532,8 @@ function computeBreakDown(changedValues, values, formContext, changedLine, allVa
     formContext.form.setFieldsValue({
         sales_order_lines: salesOrderLinesComputation
     });
-
     const discountType = allValues.discount_type;
     const discountRate = allValues.discount_rate;
-
     if (discountType === 'fixed' && discountRate) {
         breakDown.discount = discountRate;
         breakDown.total = breakDown.total - breakDown.discount;
@@ -543,8 +541,6 @@ function computeBreakDown(changedValues, values, formContext, changedLine, allVa
         breakDown.discount = (breakDown.total * discountRate) / 100;
         breakDown.total = breakDown.total - breakDown.discount;
     }
-
-
     formContext.setState((prevState) => ({
         ...prevState,
         breakdown: breakDown
