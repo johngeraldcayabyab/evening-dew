@@ -13,7 +13,11 @@ const manifest = {
         columnSelection: true,
         columns: [
             {
-                title: 'ID', dataIndex: 'id', key: 'id', sorter: true, hidden: true,
+                title: 'ID',
+                dataIndex: 'id',
+                key: 'id',
+                sorter: true,
+                hidden: true,
             },
             {
                 title: 'Number',
@@ -75,13 +79,20 @@ const manifest = {
                 filter: DATE_RANGE,
             },
             {
-                title: 'Created At', dataIndex: 'created_at', key: 'created_at', sorter: true, filter: DATE_RANGE,
+                title: 'Created At',
+                dataIndex: 'created_at',
+                key: 'created_at',
+                sorter: true,
+                filter: DATE_RANGE,
             },
         ]
     },
     initialState: {
         breakdown: {
-            taxableAmount: 0, taxAmount: 0, discount: 0, total: 0,
+            taxableAmount: 0,
+            taxAmount: 0,
+            discount: 0,
+            total: 0,
         },
         queries: {
             taxes: {url: '/api/taxes', options: [], params: {type: 'sales'}},
@@ -121,7 +132,8 @@ const manifest = {
                 {type: 'status', name: 'status',},
                 {type: 'text', name: 'number', label: 'Number', required: true, size: 'large',},
             ],
-        }, row_2: {
+        },
+        row_2: {
             col_1: [
                 {
                     type: 'select',
@@ -181,16 +193,32 @@ const manifest = {
                 },
             ],
             col_2: [
-                {type: 'date', name: 'shipping_date', label: 'Shipping date',},
-                {type: 'date', name: 'quotation_date', label: 'Quotation Date',},
-                {type: 'textarea', name: 'source_document', label: 'Source document',},
+                {
+                    type: 'date',
+                    name: 'shipping_date',
+                    label: 'Shipping date',
+                },
+                {
+                    type: 'date',
+                    name: 'quotation_date',
+                    label: 'Quotation Date',
+                },
+                {
+                    type: 'textarea',
+                    name: 'source_document',
+                    label: 'Source document',
+                },
             ],
-        }, divider_1: {
+        },
+        divider_1: {
             orientation: 'left', label: 'Addresses'
-        }, row_3: {
+        },
+        row_3: {
             col_1: [
                 {
-                    type: 'text', name: 'invoice_address', label: 'Invoice address',
+                    type: 'text',
+                    name: 'invoice_address',
+                    label: 'Invoice address',
                 },
                 {
                     type: 'select',
@@ -201,7 +229,8 @@ const manifest = {
                 {
                     type: 'text', name: 'invoice_phone', label: 'Invoice Phone',
                 },
-            ], col_2: [
+            ],
+            col_2: [
                 {
                     type: 'text', name: 'delivery_address', label: 'Delivery address',
                 },
@@ -256,31 +285,32 @@ const manifest = {
                 form_line_1: {
                     columns: ['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Shipping Date', 'Tax', 'Subtotal'],
                     listName: 'sales_order_lines',
-                    fields: [{
-                        type: 'select',
-                        name: 'product_id',
-                        placeholder: 'Product',
-                        query: {url: '/api/products', field: 'name'},
-                        required: true,
-                        onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
-                            formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
-                                const salesOrderLines = allValues.sales_order_lines;
-                                salesOrderLines[changedLine.key] = {
-                                    ...salesOrderLines[changedLine.key],
-                                    description: response.sales_description,
-                                    quantity: 1,
-                                    measurement_id: response.sales_measurement_id,
-                                    unit_price: response.sales_price,
-                                };
-                                formContext.form.setFieldsValue({
-                                    sales_order_lines: salesOrderLines
+                    fields: [
+                        {
+                            type: 'select',
+                            name: 'product_id',
+                            placeholder: 'Product',
+                            query: {url: '/api/products', field: 'name'},
+                            required: true,
+                            onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
+                                formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
+                                    const salesOrderLines = allValues.sales_order_lines;
+                                    salesOrderLines[changedLine.key] = {
+                                        ...salesOrderLines[changedLine.key],
+                                        description: response.sales_description,
+                                        quantity: 1,
+                                        measurement_id: response.sales_measurement_id,
+                                        unit_price: response.sales_price,
+                                    };
+                                    formContext.form.setFieldsValue({
+                                        sales_order_lines: salesOrderLines
+                                    });
                                 });
-                            });
+                            },
+                            overrideDisabled: (formContext) => {
+                                return disableIfStatus(formContext.formState, 'done')
+                            }
                         },
-                        overrideDisabled: (formContext) => {
-                            return disableIfStatus(formContext.formState, 'done')
-                        }
-                    },
                         {
                             type: 'text', name: 'description', placeholder: 'Description',
                         },
@@ -346,7 +376,10 @@ const manifest = {
                 row_1: {
                     col_1: [
                         {
-                            type: 'divider', name: 'divider_1', orientation: 'left', label: 'Sales'
+                            type: 'divider',
+                            name: 'divider_1',
+                            orientation: 'left',
+                            label: 'Sales'
                         },
                         {
                             type: 'select',
@@ -356,31 +389,51 @@ const manifest = {
                             required: true
                         },
                         {
-                            type: 'text', name: 'customer_reference', label: 'Customer Reference',
+                            type: 'text',
+                            name: 'customer_reference',
+                            label: 'Customer Reference',
                         },
                     ],
-                    col_2: [{
-                        type: 'divider', name: 'divider_1', orientation: 'left', label: 'Invoicing'
-                    },]
+                    col_2: [
+                        {
+                            type: 'divider',
+                            name: 'divider_1',
+                            orientation: 'left',
+                            label: 'Invoicing'
+                        },
+                    ]
                 },
                 rows_2: {
                     col_1: [
                         {
-                            type: 'divider', name: 'divider_1', orientation: 'left', label: 'Delivery'
+                            type: 'divider',
+                            name: 'divider_1',
+                            orientation: 'left',
+                            label: 'Delivery'
                         },
                         {
                             type: 'select',
                             name: 'shipping_policy',
                             label: 'Shipping Policy',
-                            options: [{
-                                value: 'as_soon_as_possible', label: 'As soon as possible'
-                            }, {value: 'when_all_products_are_ready', label: 'When all products are ready'},],
+                            options: [
+                                {
+                                    value: 'as_soon_as_possible',
+                                    label: 'As soon as possible'
+                                },
+                                {
+                                    value: 'when_all_products_are_ready',
+                                    label: 'When all products are ready'
+                                },
+                            ],
                             required: true
                         },
                     ],
                     col_2: [
                         {
-                            type: 'divider', name: 'divider_1', orientation: 'left', label: 'Tracking'
+                            type: 'divider',
+                            name: 'divider_1',
+                            orientation: 'left',
+                            label: 'Tracking'
                         },
                         {
                             type: 'select',
@@ -393,7 +446,9 @@ const manifest = {
                 row_3: {
                     col_1: [
                         {
-                            type: 'date', name: 'expiration_date', label: 'Expiration Date',
+                            type: 'date',
+                            name: 'expiration_date',
+                            label: 'Expiration Date',
                         },
                         {
                             type: 'select',
