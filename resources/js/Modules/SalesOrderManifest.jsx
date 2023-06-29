@@ -88,12 +88,6 @@ const manifest = {
         ]
     },
     initialState: {
-        breakdown: {
-            taxableAmount: 0,
-            taxAmount: 0,
-            discount: 0,
-            total: 0,
-        },
         queries: {
             taxes: {url: '/api/taxes', options: [], params: {type: 'sales'}},
             measurements: {url: '/api/measurements', options: []}
@@ -318,7 +312,7 @@ const manifest = {
                             placeholder: 'Quantity',
                             required: true,
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
-                                computeBreakDown(formContext, allValues);
+                                computeSubtotal(formContext, allValues);
                             },
                             overrideDisabled: (formContext) => disableIfStatus(formContext.formState, 'done')
                         },
@@ -349,7 +343,7 @@ const manifest = {
                             placeholder: 'Tax',
                             optionsState: 'queries.taxes',
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
-                                computeBreakDown(formContext, allValues);
+                                computeSubtotal(formContext, allValues);
                             },
                             overrideDisabled: (formContext) => disableIfStatus(formContext.formState, 'done')
                         },
@@ -478,7 +472,7 @@ const manifest = {
     }
 };
 
-function computeBreakDown(formContext, allValues) {
+function computeSubtotal(formContext, allValues) {
     const salesOrderLines = allValues.sales_order_lines;
     const salesOrderLinesComputation = salesOrderLines.map((salesOrderLine) => {
         salesOrderLine.taxable_amount = 0;
@@ -506,33 +500,9 @@ function computeBreakDown(formContext, allValues) {
         }
         return salesOrderLine;
     });
-    const breakDown = salesOrderLinesComputation.map((salesOrderLine) => ({
-        taxableAmount: salesOrderLine.taxable_amount,
-        taxAmount: salesOrderLine.tax_amount,
-        discount: 0,
-        total: salesOrderLine.subtotal
-    })).reduce((salesOrderLine, preBreakDown) => ({
-        taxableAmount: salesOrderLine.taxableAmount + preBreakDown.taxableAmount,
-        taxAmount: salesOrderLine.taxAmount + preBreakDown.taxAmount,
-        discount: 0,
-        total: salesOrderLine.total + preBreakDown.total
-    }));
     formContext.form.setFieldsValue({
         sales_order_lines: salesOrderLinesComputation
     });
-    const discountType = allValues.discount_type;
-    const discountRate = allValues.discount_rate;
-    if (discountType === 'fixed' && discountRate) {
-        breakDown.discount = discountRate;
-        breakDown.total = breakDown.total - breakDown.discount;
-    } else if (discountType === 'percentage' && discountRate) {
-        breakDown.discount = (breakDown.total * discountRate) / 100;
-        breakDown.total = breakDown.total - breakDown.discount;
-    }
-    formContext.setState((prevState) => ({
-        ...prevState,
-        breakdown: breakDown
-    }));
 }
 
 function getTax(id, taxes) {
