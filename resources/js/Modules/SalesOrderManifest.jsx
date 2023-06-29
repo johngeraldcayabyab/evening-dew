@@ -307,9 +307,7 @@ const manifest = {
                                     });
                                 });
                             },
-                            overrideDisabled: (formContext) => {
-                                return disableIfStatus(formContext.formState, 'done')
-                            }
+                            overrideDisabled: (formContext) => disableIfStatus(formContext.formState, 'done')
                         },
                         {
                             type: 'text', name: 'description', placeholder: 'Description',
@@ -322,9 +320,7 @@ const manifest = {
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
                                 computeBreakDown(formContext, allValues);
                             },
-                            overrideDisabled: (formContext) => {
-                                return disableIfStatus(formContext.formState, 'done')
-                            }
+                            overrideDisabled: (formContext) => disableIfStatus(formContext.formState, 'done')
                         },
                         {
                             type: 'select',
@@ -332,26 +328,20 @@ const manifest = {
                             placeholder: 'Measurement',
                             optionsState: 'queries.measurements',
                             required: true,
-                            overrideDisabled: (formContext) => {
-                                return disableIfStatus(formContext.formState, 'done')
-                            }
+                            overrideDisabled: (formContext) => disableIfStatus(formContext.formState, 'done')
                         },
                         {
                             type: 'number',
                             name: 'unit_price',
                             placeholder: 'Unit Price',
                             required: true,
-                            onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
-                                computeBreakDown(formContext, allValues);
-                            },
+                            overrideDisabled: (formContext) => disableIfStatus(formContext.formState, 'done')
                         },
                         {
                             type: 'date',
                             name: 'shipping_date',
                             placeholder: 'Shipping date',
-                            overrideDisabled: (formContext) => {
-                                return disableIfStatus(formContext.formState, 'done');
-                            }
+                            overrideDisabled: (formContext) => disableIfStatus(formContext.formState, 'done')
                         },
                         {
                             type: 'select',
@@ -361,9 +351,7 @@ const manifest = {
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
                                 computeBreakDown(formContext, allValues);
                             },
-                            overrideDisabled: (formContext) => {
-                                return disableIfStatus(formContext.formState, 'done');
-                            }
+                            overrideDisabled: (formContext) => disableIfStatus(formContext.formState, 'done')
                         },
                         {
                             type: 'number', name: 'subtotal', placeholder: 'Subtotal', overrideDisabled: true,
