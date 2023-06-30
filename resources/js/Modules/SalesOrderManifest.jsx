@@ -3,6 +3,7 @@ import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} fr
 import SalesOrderPDF from "./SalesOrder/SalesOrderPDF";
 import SalesOrderBreakDown from "./SalesOrder/SalesOrderBreakDown";
 import CreateInvoiceButton from "./SalesOrder/CreateInvoiceButton"
+import {computeTax, getTax} from "../Helpers/tax"
 
 const manifest = {
     moduleName: "sales_orders",
@@ -475,27 +476,13 @@ const manifest = {
 function computeSubtotal(formContext, allValues) {
     const salesOrderLines = allValues.sales_order_lines;
     const salesOrderLinesComputation = salesOrderLines.map((salesOrderLine) => {
-        salesOrderLine.taxable_amount = 0;
-        salesOrderLine.tax_amount = 0;
-        salesOrderLine.subtotal = salesOrderLine.quantity * salesOrderLine.unit_price;
-        if (salesOrderLine.tax_id) {
-            const tax = getTax(salesOrderLine.tax_id, formContext.state.queries.taxes.options);
-            if (tax.computation === 'fixed') {
-                salesOrderLine.tax_amount = tax.amount * salesOrderLine.quantity;
-                salesOrderLine.taxable_amount = salesOrderLine.subtotal;
-                if (tax.included_in_price) {
-                    salesOrderLine.taxable_amount = salesOrderLine.taxable_amount - salesOrderLine.tax_amount;
-                } else {
-                    salesOrderLine.subtotal = salesOrderLine.subtotal + salesOrderLine.tax_amount;
-                }
-            } else if (tax.computation === 'percentage_of_price') {
-                salesOrderLine.tax_amount = (salesOrderLine.subtotal * tax.amount) / 100;
-                salesOrderLine.taxable_amount = salesOrderLine.subtotal;
-                if (tax.included_in_price) {
-                    salesOrderLine.taxable_amount = salesOrderLine.taxable_amount - salesOrderLine.tax_amount;
-                } else {
-                    salesOrderLine.subtotal = salesOrderLine.subtotal + salesOrderLine.tax_amount;
-                }
+        if (salesOrderLine) {
+            salesOrderLine.taxable_amount = 0;
+            salesOrderLine.tax_amount = 0;
+            salesOrderLine.subtotal = salesOrderLine.quantity * salesOrderLine.unit_price;
+            if (salesOrderLine.tax_id) {
+                const tax = getTax(salesOrderLine.tax_id, formContext.state.queries.taxes.options);
+                salesOrderLine = computeTax(tax, salesOrderLine);
             }
         }
         return salesOrderLine;
@@ -503,10 +490,6 @@ function computeSubtotal(formContext, allValues) {
     formContext.form.setFieldsValue({
         sales_order_lines: salesOrderLinesComputation
     });
-}
-
-function getTax(id, taxes) {
-    return taxes.find(tax => tax.id === id);
 }
 
 export default manifest;

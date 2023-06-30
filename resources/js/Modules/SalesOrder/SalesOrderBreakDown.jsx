@@ -3,6 +3,7 @@ import FormLabel from "../../Components/Typography/FormLabel"
 import {Form, Table} from "antd"
 import {useContext} from "react"
 import {insertDecimal} from "../../Helpers/string"
+import {computeTax, getTax} from "../../Helpers/tax"
 
 const SalesOrderBreakDown = () => {
     const formContext = useContext(FormContext);
@@ -13,30 +14,14 @@ const SalesOrderBreakDown = () => {
     const currency = globalSettings.hasOwnProperty('currency') ? globalSettings.currency : null;
     const currencySymbol = `${currency.symbol ? currency.symbol : ''} `;
     const salesOrderLinesComputation = [];
-    salesOrderLines.forEach((salesOrderLine) => {
+    salesOrderLines.forEach((salesOrderLine, key) => {
         if (salesOrderLine) {
             salesOrderLine.taxable_amount = 0;
             salesOrderLine.tax_amount = 0;
             salesOrderLine.subtotal = salesOrderLine.quantity * salesOrderLine.unit_price;
             if (salesOrderLine.tax_id) {
                 const tax = getTax(salesOrderLine.tax_id, formContext.state.queries.taxes.options);
-                if (tax.computation === 'fixed') {
-                    salesOrderLine.tax_amount = tax.amount * salesOrderLine.quantity;
-                    salesOrderLine.taxable_amount = salesOrderLine.subtotal;
-                    if (tax.included_in_price) {
-                        salesOrderLine.taxable_amount = salesOrderLine.taxable_amount - salesOrderLine.tax_amount;
-                    } else {
-                        salesOrderLine.subtotal = salesOrderLine.subtotal + salesOrderLine.tax_amount;
-                    }
-                } else if (tax.computation === 'percentage_of_price') {
-                    salesOrderLine.tax_amount = (salesOrderLine.subtotal * tax.amount) / 100;
-                    salesOrderLine.taxable_amount = salesOrderLine.subtotal;
-                    if (tax.included_in_price) {
-                        salesOrderLine.taxable_amount = salesOrderLine.taxable_amount - salesOrderLine.tax_amount;
-                    } else {
-                        salesOrderLine.subtotal = salesOrderLine.subtotal + salesOrderLine.tax_amount;
-                    }
-                }
+                salesOrderLine = computeTax(tax, salesOrderLine);
             }
             salesOrderLinesComputation.push(salesOrderLine);
         }
@@ -62,14 +47,6 @@ const SalesOrderBreakDown = () => {
     } else if (discountType === 'percentage' && discountRate) {
         breakdown.discount = (breakdown.total * discountRate) / 100;
         breakdown.total = breakdown.total - breakdown.discount;
-    }
-
-
-    function getTax(id, taxes) {
-        if (taxes.length) {
-            return taxes.find(tax => tax.id === id);
-        }
-        return false;
     }
 
     const dataSource = [
