@@ -4,6 +4,7 @@ import SalesOrderPDF from "./SalesOrder/SalesOrderPDF";
 import SalesOrderBreakDown from "./SalesOrder/SalesOrderBreakDown";
 import CreateInvoiceButton from "./SalesOrder/CreateInvoiceButton"
 import {computeTax, getTax} from "../Helpers/tax"
+import {computeSalesOrderLineSubtotal} from "../Helpers/salesOrderLine"
 
 const manifest = {
     moduleName: "sales_orders",
@@ -330,6 +331,9 @@ const manifest = {
                             name: 'unit_price',
                             placeholder: 'Unit Price',
                             required: true,
+                            onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
+                                computeSubtotal(formContext, allValues);
+                            },
                             overrideDisabled: (formContext) => disableIfStatus(formContext.formState, 'done')
                         },
                         {
@@ -475,17 +479,9 @@ const manifest = {
 
 function computeSubtotal(formContext, allValues) {
     const salesOrderLines = allValues.sales_order_lines;
+    const taxes = formContext.state.queries.taxes.options;
     const salesOrderLinesComputation = salesOrderLines.map((salesOrderLine) => {
-        if (salesOrderLine) {
-            salesOrderLine.taxable_amount = 0;
-            salesOrderLine.tax_amount = 0;
-            salesOrderLine.subtotal = salesOrderLine.quantity * salesOrderLine.unit_price;
-            if (salesOrderLine.tax_id) {
-                const tax = getTax(salesOrderLine.tax_id, formContext.state.queries.taxes.options);
-                salesOrderLine = computeTax(tax, salesOrderLine);
-            }
-        }
-        return salesOrderLine;
+        return computeSalesOrderLineSubtotal(salesOrderLine, taxes);
     });
     formContext.form.setFieldsValue({
         sales_order_lines: salesOrderLinesComputation
