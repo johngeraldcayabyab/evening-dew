@@ -1,10 +1,11 @@
-import {Button, Col, Divider, Image, Modal, Row, Space, Table} from 'antd';
+import {Button, Col, Divider, Form, Image, Modal, Row, Space, Table} from 'antd';
 import React, {useContext, useState} from 'react';
 import {insertDecimal} from "../../Helpers/string";
 import FormLabel from "../../Components/Typography/FormLabel";
 import {FormContext} from "../../Contexts/FormContext";
 import dayjs from "dayjs";
 import html2pdf from 'html2pdf.js'
+import {computeTax, getTax} from "../../Helpers/tax"
 
 const SalesOrderPDF = () => {
     const formContext = useContext(FormContext);
@@ -14,7 +15,6 @@ const SalesOrderPDF = () => {
     const currencySymbol = `${currency.symbol ? currency.symbol : ''} `;
     const initialValues = formContext.formState.initialValues;
     const viewableColumns = globalSettings.hasOwnProperty('sales_order_lines_pdf_columns_view') ? globalSettings.sales_order_lines_pdf_columns_view.split(',') : null;
-
     const dataSource = initialValues.sales_order_lines ? initialValues.sales_order_lines.map((salesOrderLine) => {
         const data = {
             product: salesOrderLine.product_name,
@@ -32,6 +32,47 @@ const SalesOrderPDF = () => {
         });
         return filteredData
     }) : [];
+
+
+    const salesOrderLines = Form.useWatch('sales_order_lines', formContext.form) ?? [];
+    const discountRate = Form.useWatch('discount_rate', formContext.form) ?? 0;
+    const discountType = Form.useWatch('discount_type', formContext.form) ?? 0;
+    const salesOrderLinesComputation = [];
+    const taxes = formContext.state.queries.taxes.options;
+    salesOrderLines.forEach((salesOrderLine, key) => {
+        if (salesOrderLine) {
+            salesOrderLine.taxable_amount = 0;
+            salesOrderLine.tax_amount = 0;
+            salesOrderLine.subtotal = salesOrderLine.quantity * salesOrderLine.unit_price;
+            if (salesOrderLine.tax_id) {
+                const tax = getTax(salesOrderLine.tax_id, taxes);
+                salesOrderLine = computeTax(tax, salesOrderLine);
+            }
+            salesOrderLinesComputation.push(salesOrderLine);
+        }
+    });
+
+    let breakdown = salesOrderLinesComputation.map((salesOrderLine) => ({
+        taxableAmount: salesOrderLine.taxable_amount,
+        taxAmount: salesOrderLine.tax_amount,
+        discount: 0,
+        total: salesOrderLine.subtotal
+    }));
+    if (salesOrderLinesComputation.length) {
+        breakdown = breakdown.reduce((salesOrderLine, preBreakDown) => ({
+            taxableAmount: salesOrderLine.taxableAmount + preBreakDown.taxableAmount,
+            taxAmount: salesOrderLine.taxAmount + preBreakDown.taxAmount,
+            discount: 0,
+            total: salesOrderLine.total + preBreakDown.total
+        }))
+    }
+    if (discountType === 'fixed' && discountRate) {
+        breakdown.discount = discountRate;
+        breakdown.total = breakdown.total - breakdown.discount;
+    } else if (discountType === 'percentage' && discountRate) {
+        breakdown.discount = (breakdown.total * discountRate) / 100;
+        breakdown.total = breakdown.total - breakdown.discount;
+    }
 
     const columns = [
         {
@@ -127,11 +168,26 @@ const SalesOrderPDF = () => {
         document.querySelector('.ant-modal-close').click();
     }
 
-    const dataSource2 = [
+    const breakdownSource = [
         {
-            key: '1',
+            key: 'taxable_amount',
+            label: 'Taxable Amount:',
+            value: currencySymbol + insertDecimal(breakdown.taxableAmount ?? 0),
+        },
+        {
+            key: 'tax_amount',
+            label: 'Tax Amount:',
+            value: currencySymbol + insertDecimal(breakdown.taxAmount ?? 0),
+        },
+        {
+            key: 'discount',
+            label: 'Discount:',
+            value: currencySymbol + insertDecimal(breakdown.discount ?? 0),
+        },
+        {
+            key: 'total',
             label: 'Total:',
-            value: `${currencySymbol} ${insertDecimal(initialValues.subtotal)}`,
+            value: currencySymbol + insertDecimal(breakdown.total ?? 0),
         },
     ];
 
@@ -213,7 +269,7 @@ const SalesOrderPDF = () => {
 
                         <Table
                             style={{width: '300px', float: 'right'}}
-                            dataSource={dataSource2}
+                            dataSource={breakdownSource}
                             columns={[
                                 {
                                     title: 'Label',

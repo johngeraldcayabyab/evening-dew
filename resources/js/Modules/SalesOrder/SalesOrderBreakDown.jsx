@@ -50,7 +50,7 @@ const SalesOrderBreakDown = () => {
         breakdown.total = breakdown.total - breakdown.discount;
     }
 
-    const dataSource = [
+    const breakdownSource = [
         {
             key: 'taxable_amount',
             label: 'Taxable Amount:',
@@ -75,7 +75,7 @@ const SalesOrderBreakDown = () => {
 
     return (
         <Table
-            dataSource={dataSource}
+            dataSource={breakdownSource}
             columns={[
                 {
                     title: 'Label',
