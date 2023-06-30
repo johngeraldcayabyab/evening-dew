@@ -114,7 +114,7 @@ const SalesOrderPDF = () => {
         const input = document.querySelector('.ant-modal-content');
         document.querySelector('.ant-modal-close').style.visibility = 'hidden';
         document.querySelector('.ant-modal-footer').style.visibility = 'hidden';
-        var opt = {
+        const opt = {
             margin: 1,
             filename: 'myfile.pdf',
             image: {type: 'jpeg', quality: 0.98},
@@ -127,7 +127,16 @@ const SalesOrderPDF = () => {
         document.querySelector('.ant-modal-close').click();
     }
 
-    return (<>
+    const dataSource2 = [
+        {
+            key: '1',
+            label: 'Total:',
+            value: `${currencySymbol} ${insertDecimal(initialValues.subtotal)}`,
+        },
+    ];
+
+    return (
+        <>
             <Button type="primary" onClick={showModal}>
                 View PDF
             </Button>
@@ -202,32 +211,29 @@ const SalesOrderPDF = () => {
 
                         <Divider/>
 
-                        <Table style={{width: '300px', float: 'right'}} dataSource={[
-                            {
-                                key: '1',
-                                label: 'Total:',
-                                value: `₱ ${insertDecimal(initialValues.subtotal)}`,
-                            },
-                        ]} columns={[
-                            {
-                                title: 'Label',
-                                dataIndex: 'label',
-                                key: 'label',
-                                align: 'right',
-                                render: (text, record) => {
-                                    return (<FormLabel>{text}</FormLabel>)
-                                }
-                            },
-                            {
-                                title: 'Value',
-                                dataIndex: 'value',
-                                key: 'value',
-                                align: 'right',
-                            },
-                        ]}
-                               showHeader={false}
-                               pagination={false}
-                               size={'small'}
+                        <Table
+                            style={{width: '300px', float: 'right'}}
+                            dataSource={dataSource2}
+                            columns={[
+                                {
+                                    title: 'Label',
+                                    dataIndex: 'label',
+                                    key: 'label',
+                                    align: 'right',
+                                    render: (text, record) => {
+                                        return (<FormLabel>{text}</FormLabel>)
+                                    }
+                                },
+                                {
+                                    title: 'Value',
+                                    dataIndex: 'value',
+                                    key: 'value',
+                                    align: 'right',
+                                },
+                            ]}
+                            showHeader={false}
+                            pagination={false}
+                            size={'small'}
                         />
                     </Col>
                 </Row>
