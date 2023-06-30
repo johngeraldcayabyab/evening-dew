@@ -5,7 +5,7 @@ import {useContext} from "react"
 import {insertDecimal} from "../../Helpers/string"
 import {computeTax, getTax} from "../../Helpers/tax"
 
-const SalesOrderBreakDown = () => {
+const SalesOrderBreakDown = (props) => {
     const formContext = useContext(FormContext);
     const salesOrderLines = Form.useWatch('sales_order_lines', formContext.form) ?? [];
     const discountRate = Form.useWatch('discount_rate', formContext.form) ?? 0;
@@ -75,6 +75,7 @@ const SalesOrderBreakDown = () => {
 
     return (
         <Table
+            style={props.style}
             dataSource={breakdownSource}
             columns={[
                 {
