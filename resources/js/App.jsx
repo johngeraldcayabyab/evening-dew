@@ -192,6 +192,12 @@ const App = () => {
     )
 };
 
-const container = document.getElementById('root');
-const root = createRoot(container);
-root.render(<App/>);
+
+let container = null;
+document.addEventListener('DOMContentLoaded', function (event) {
+    if (!container) {
+        container = document.getElementById('root');
+        const root = createRoot(container)
+        root.render(<App/>);
+    }
+});

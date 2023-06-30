@@ -3,7 +3,6 @@ import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} fr
 import SalesOrderPDF from "./SalesOrder/SalesOrderPDF";
 import SalesOrderBreakDown from "./SalesOrder/SalesOrderBreakDown";
 import CreateInvoiceButton from "./SalesOrder/CreateInvoiceButton"
-import {computeTax, getTax} from "../Helpers/tax"
 import {computeSalesOrderLineSubtotal} from "../Helpers/salesOrderLine"
 
 const manifest = {
@@ -291,12 +290,15 @@ const manifest = {
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
                                 formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
                                     const salesOrderLines = allValues.sales_order_lines;
+                                    const quantity = 1;
+                                    const subtotal = parseFloat(response.sales_price) * quantity;
                                     salesOrderLines[changedLine.key] = {
                                         ...salesOrderLines[changedLine.key],
                                         description: response.sales_description,
                                         quantity: 1,
                                         measurement_id: response.sales_measurement_id,
                                         unit_price: response.sales_price,
+                                        subtotal: subtotal
                                     };
                                     formContext.form.setFieldsValue({
                                         sales_order_lines: salesOrderLines
