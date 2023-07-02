@@ -76,11 +76,11 @@ ssh "${HOST_NAME}" "sudo ln -nsf /var/www/projects/storage /var/www/projects/bui
 ssh "${HOST_NAME}" "sudo ln -nsf /var/www/projects/.env /var/www/projects/builds/${BUILD_FOLDER}/.env"
 ssh "${HOST_NAME}" "sudo ln -nsf /var/www/projects/builds/${BUILD_FOLDER} /var/www/projects/${HOST_NAME}"
 
-ssh "${HOST_NAME}" "sudo chown -R daemon:daemon /var/www/projects/${HOST_NAME}"
+ssh "${HOST_NAME}" "sudo chown -R www-data:www-data /var/www/projects/${HOST_NAME}"
 ssh "${HOST_NAME}" "sudo find /var/www/projects/${HOST_NAME} -type f -exec chmod 644 {} \;"
 ssh "${HOST_NAME}" "sudo find /var/www/projects/${HOST_NAME} -type d -exec chmod 755 {} \;"
-ssh "${HOST_NAME}" "sudo chown -R ubuntu:daemon /var/www/projects/storage"
-ssh "${HOST_NAME}" "sudo chown -R ubuntu:daemon /var/www/projects/${HOST_NAME}/bootstrap/cache"
+ssh "${HOST_NAME}" "sudo chown -R ubuntu:www-data /var/www/projects/storage"
+ssh "${HOST_NAME}" "sudo chown -R ubuntu:www-data /var/www/projects/${HOST_NAME}/bootstrap/cache"
 ssh "${HOST_NAME}" "sudo chmod -R 775 /var/www/projects/storage"
 ssh "${HOST_NAME}" "sudo chmod -R 775 /var/www/projects/${HOST_NAME}/bootstrap/cache"
 
