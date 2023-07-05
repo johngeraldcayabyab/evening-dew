@@ -51,22 +51,22 @@ const SalesOrderBreakDown = (props) => {
         {
             key: 'taxable_amount',
             label: 'Taxable Amount:',
-            value: toCurrency(breakdown.taxableAmount ?? 0),
+            value: toCurrency(breakdown.taxableAmount),
         },
         {
             key: 'tax_amount',
             label: 'Tax Amount:',
-            value: toCurrency(breakdown.taxAmount ?? 0),
+            value: toCurrency(breakdown.taxAmount),
         },
         {
             key: 'discount',
             label: 'Discount:',
-            value: toCurrency(breakdown.discount ?? 0),
+            value: toCurrency(breakdown.discount),
         },
         {
             key: 'total',
             label: 'Total:',
-            value: toCurrency(breakdown.total ?? 0),
+            value: toCurrency(breakdown.total),
         },
     ];
 

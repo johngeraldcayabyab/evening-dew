@@ -45,7 +45,7 @@ export const toCurrency = (num, position = 'left') => {
     const globalSettings = JSON.parse(localStorage.getItem('globalSettings'));
     const currency = globalSettings.hasOwnProperty('currency') ? globalSettings.currency : null;
     const symbol = `${currency.symbol ? currency.symbol : ''} `;
-    let money = (num).toLocaleString('en-US', {maximumFractionDigits: 2});
+    let money = (num ? num : 0).toLocaleString('en-US', {maximumFractionDigits: 2});
     if (symbol) {
         if (position === 'right') {
             return `${money} ${symbol}`;
