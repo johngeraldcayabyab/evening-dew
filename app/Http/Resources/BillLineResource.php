@@ -18,6 +18,7 @@ class BillLineResource extends JsonResource
             'unit_price' => $this->unit_price,
             'subtotal' => $this->subtotal,
             'chart_of_account_id' => $this->chart_of_account_id,
+            'tax_id' => $this->tax_id,
             'bill_id' => $this->bill_id,
             'product' => $this->product,
             'chart_of_account' => $this->chartOfAccount,

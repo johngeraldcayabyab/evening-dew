@@ -16,6 +16,7 @@ class InvoiceLineResource extends JsonResource
             'description' => $this->description,
             'quantity' => $this->quantity,
             'unit_price' => $this->unit_price,
+            'tax_id' => $this->tax_id,
             'subtotal' => $this->subtotal,
             'chart_of_account_id' => $this->chart_of_account_id,
             'invoice_id' => $this->invoice_id,

@@ -19,6 +19,7 @@ class PurchaseLineResource extends JsonResource
             'unit_price' => $this->unit_price,
             'subtotal' => $this->subtotal,
             'receiving_date' => $this->receiving_date,
+            'tax_id' => $this->tax_id,
             'purchase_id' => $this->purchase_id,
             'product' => $this->product,
             'measurement' => $this->measurement,
