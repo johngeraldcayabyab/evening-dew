@@ -1,4 +1,3 @@
-import {getPersistedKey} from "../Helpers/form";
 import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 import {parseFloatComma} from "../Helpers/string"
 import {disableIfStatus} from "../Helpers/object"
@@ -130,8 +129,6 @@ const manifest = {
                                     formContext.form.setFieldsValue({
                                         material_lines: adjustmentLines
                                     });
-                                    const persistedKey = getPersistedKey(changedLine, formContext.options['measurement_id-lineOptions'].options)
-                                    formContext.options['measurement_id-lineOptions'].getOptions(response.measurement.name, persistedKey);
                                 });
                             },
                         },

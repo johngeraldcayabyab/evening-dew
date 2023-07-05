@@ -1,6 +1,5 @@
 import {GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 import {disableIfStatus} from "../Helpers/object";
-import {getPersistedKey} from "../Helpers/form";
 
 const manifest = {
     moduleName: "purchases",
@@ -205,8 +204,6 @@ const manifest = {
                                     formContext.form.setFieldsValue({
                                         purchase_lines: purchaseLines
                                     });
-                                    const persistedKey = getPersistedKey(changedLine, formContext.options['measurement_id-lineOptions'].options);
-                                    formContext.options['measurement_id-lineOptions'].getOptions(response.purchase_measurement.name, persistedKey);
                                 });
                             },
                             overrideDisabled: (formContext) => {

@@ -119,6 +119,11 @@ const manifest = {
             },
         ]
     },
+    initialState: {
+        queries: {
+            measurements: {url: '/api/measurements', options: []}
+        }
+    },
     statuses: [
         {
             value: 'draft',
@@ -253,8 +258,6 @@ const manifest = {
                                     formContext.form.setFieldsValue({
                                         material_lines: transferLines
                                     });
-                                    const persistedKey = getPersistedKey(changedLine, formContext.options['measurement_id-lineOptions'].options)
-                                    formContext.options['measurement_id-lineOptions'].getOptions(response.measurement.name, persistedKey);
                                 });
                             },
                             overrideDisabled: (formContext) => {
@@ -279,11 +282,9 @@ const manifest = {
                             type: 'select',
                             name: 'measurement_id',
                             placeholder: 'Measurement',
-                            query: {url: '/api/measurements', field: 'name'},
+                            optionsState: 'queries.measurements',
                             required: true,
-                            overrideDisabled: (formContext) => {
-                                return disableIfStatus(formContext.formState, 'done')
-                            }
+                            overrideDisabled: (formContext) => disableIfStatus(formContext.formState, 'done')
                         },
                     ]
                 },
