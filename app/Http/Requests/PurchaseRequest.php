@@ -33,6 +33,7 @@ class PurchaseRequest extends FormRequest
             'purchase_lines.*.measurement_id' => ["nullable", "exists:measurements,id", new PurchaseSameMeasurementCategory],
             'purchase_lines.*.unit_price' => ['required', 'numeric'],
             'purchase_lines.*.receiving_date' => ['nullable'],
+            'purchase_lines.*.tax_id' => ['nullable', "exists:taxes,id"],
             'purchase_lines_deleted.*.id' => ['nullable', 'exists:purchase_lines,id'],
         ];
     }

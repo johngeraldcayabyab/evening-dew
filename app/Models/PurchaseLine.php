@@ -48,6 +48,11 @@ class PurchaseLine extends Model
         return $this->belongsTo(Purchase::class);
     }
 
+    public function tax()
+    {
+        return $this->belongsTo(Tax::class);
+    }
+
     public function scopeMassUpsert($query, $data, $parent)
     {
         $defaultMeasurement = Measurement::default();
@@ -65,6 +70,7 @@ class PurchaseLine extends Model
                 'unit_price' => $unitPrice,
                 'subtotal' => $unitPrice * $datum['quantity'],
                 'receiving_date' => Carbon::parse($receivingDate)->format(SystemSetting::DATE_TIME_FORMAT),
+                'tax_id' => $datum['tax_id'] ?? null,
                 'purchase_id' => $parent->id,
             ];
         })->toArray();

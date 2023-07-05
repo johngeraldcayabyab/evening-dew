@@ -18,6 +18,7 @@ class CreatePurchaseLinesTable extends Migration
             $table->double('subtotal');
             $table->dateTime('receiving_date')->nullable();
             $table->unsignedInteger('purchase_id')->nullable();
+            $table->unsignedInteger('tax_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

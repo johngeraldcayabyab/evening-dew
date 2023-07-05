@@ -79,8 +79,9 @@ const manifest = {
         ]
     },
     initialState: {
-        breakdown: {
-            untaxedAmount: 0, tax: 0, total: 0,
+        queries: {
+            taxes: {url: '/api/taxes', options: [], params: {type: 'purchases'}},
+            measurements: {url: '/api/measurements', options: []}
         }
     },
     statuses: [
@@ -182,7 +183,7 @@ const manifest = {
             tab_pane_1: {
                 name: "Order Lines",
                 form_line_1: {
-                    columns: ['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Shipping Date', 'Subtotal'],
+                    columns: ['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Shipping Date', 'Tax', 'Subtotal'],
                     listName: 'purchase_lines',
                     fields: [
                         {
@@ -252,11 +253,9 @@ const manifest = {
                             type: 'select',
                             name: 'measurement_id',
                             placeholder: 'Measurement',
-                            query: {url: '/api/measurements', field: 'name'},
+                            optionsState: 'queries.measurements',
                             required: true,
-                            overrideDisabled: (formContext) => {
-                                return disableIfStatus(formContext.formState, 'done')
-                            }
+                            overrideDisabled: (formContext) => disableIfStatus(formContext.formState, 'done')
                         },
                         {
                             type: 'number',
@@ -293,6 +292,16 @@ const manifest = {
                             overrideDisabled: (formContext) => {
                                 return disableIfStatus(formContext.formState, 'done')
                             }
+                        },
+                        {
+                            type: 'select',
+                            name: 'tax_id',
+                            placeholder: 'Tax',
+                            optionsState: 'queries.taxes',
+                            // onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
+                            //     computeSubtotal(formContext, allValues);
+                            // },
+                            overrideDisabled: (formContext) => disableIfStatus(formContext.formState, 'done')
                         },
                         {
                             type: 'number',
