@@ -87,6 +87,12 @@ const manifest = {
                     required: true,
                     size: 'large'
                 },
+                {
+                    type: 'text',
+                    name: 'address',
+                    label: 'Address',
+                    size: 'medium'
+                },
             ],
         },
         row_2: {
