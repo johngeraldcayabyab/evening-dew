@@ -25,10 +25,10 @@ git clone --depth 1 https://github.com/johngeraldcayabyab/evening-dew.git ./
 
 
 
-docker exec -it evening-dew-laravel.test-1 composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev --no-progress --no-plugins --no-scripts --no-ansi
-docker exec -it evening-dew-laravel.test-1 npm install --production --omit=dev --prefer-offline --no-audit --progress=false
-docker exec -it evening-dew-laravel.test-1 npm install laravel-mix@latest
-docker exec -it evening-dew-laravel.test-1 npm run build
+composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev --no-progress --no-plugins --no-scripts --no-ansi
+npm install --production --omit=dev --prefer-offline --no-audit --progress=false
+npm install laravel-mix@latest
+npm run build
 # node modules is not needed in production
 rm -rf storage
 
