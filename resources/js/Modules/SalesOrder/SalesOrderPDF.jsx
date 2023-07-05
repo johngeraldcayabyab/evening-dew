@@ -166,19 +166,24 @@ const SalesOrderPDF = () => {
                 <Divider/>
                 <Row gutter={2}>
                     <Col span={12}>
-                        <div className={'image-float-left'} style={{marginBottom: '5px'}}>
+                        <div style={{
+                            display: 'flex',
+                            alignContent: 'space-between'
+                        }}>
                             <Image
                                 width={100}
                                 src={company ? company.avatar : '/images/no-image.jpg'}
                             />
-                        </div>
-                        <div style={{float: 'left'}}>
-                            {/*<PdfLabel label={'Company'} value={company?.name}/>*/}
-                            {/*<PdfLabel label={'Address'} value={company?.contact?.address}/>*/}
-                            <PdfLabel label={'Tel No'} value={company?.contact?.phone}/>
-                            <PdfLabel label={'Mobile'} value={company?.contact?.mobile}/>
-                            <PdfLabel label={'Website'} value={company?.contact?.website}/>
-                            {/*<PdfLabel label={'Email'} value={company?.email}/>*/}
+                            <div style={{marginLeft: '10px'}}>
+                                {/*<PdfLabel label={'Company'} value={company?.name}/>*/}
+                                <PdfLabel label={'Showroom'} value={company?.contact?.address}/>
+                                <PdfLabel label={'Warehouse'} value={'243 DRAF Bldg., Diego Cera., Ave. E. Aldana LasPinas City'}/>
+                                <PdfLabel label={'Tel No'} value={company?.contact?.phone}/>
+                                <PdfLabel label={'Mobile'} value={company?.contact?.mobile}/>
+                                <PdfLabel label={'Website'} value={company?.contact?.website}/>
+                                {/*<PdfLabel label={'Email'} value={company?.email}/>*/}
+                            </div>
+
                         </div>
                     </Col>
                     <Col span={12} style={{textAlign: 'right'}}>
