@@ -16,6 +16,7 @@ class CreateBillLinesTable extends Migration
             $table->double('unit_price');
             $table->double('subtotal');
             $table->unsignedInteger('chart_of_account_id')->nullable();
+            $table->unsignedInteger('tax_id')->nullable();
             $table->unsignedInteger('bill_id')->nullable();
             $table->softDeletes();
             $table->timestamps();

@@ -66,8 +66,8 @@ const manifest = {
         ]
     },
     initialState: {
-        breakdown: {
-            untaxedAmount: 0, tax: 0, total: 0,
+        queries: {
+            taxes: {url: '/api/taxes', options: [], params: {type: 'purchases'}},
         }
     },
     statuses: [
@@ -182,7 +182,7 @@ const manifest = {
             tab_pane_1: {
                 name: "Bill Lines",
                 form_line_1: {
-                    columns: ['Product', 'Description', 'Quantity', 'Unit Price', 'Account', 'Subtotal'],
+                    columns: ['Product', 'Description', 'Quantity', 'Unit Price', 'Account', 'Tax', 'Subtotal'],
                     listName: 'bill_lines',
                     fields: [
                         {
@@ -223,6 +223,16 @@ const manifest = {
                             overrideDisabled: (formContext) => {
                                 return disableIfStatus(formContext.formState, 'done')
                             }
+                        },
+                        {
+                            type: 'select',
+                            name: 'tax_id',
+                            placeholder: 'Tax',
+                            optionsState: 'queries.taxes',
+                            // onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
+                            //     computeSubtotal(formContext, allValues);
+                            // },
+                            overrideDisabled: (formContext) => disableIfStatus(formContext.formState, 'done')
                         },
                         {
                             type: 'number',

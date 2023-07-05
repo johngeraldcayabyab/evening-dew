@@ -45,6 +45,11 @@ class BillLine extends Model
         return $this->belongsTo(Bill::class);
     }
 
+    public function tax()
+    {
+        return $this->belongsTo(Tax::class);
+    }
+
     public function scopeMassUpsert($query, $data, $bill)
     {
         $expenseAccount = $bill->journal->expenseChartOfAccount;
@@ -58,6 +63,7 @@ class BillLine extends Model
                 'unit_price' => $unitPrice,
                 'subtotal' => $unitPrice * $datum['quantity'],
                 'chart_of_account_id' => $datum['chart_of_account_id'] ?? $expenseAccount->id,
+                'tax_id' => $datum['tax_id'] ?? null,
                 'bill_id' => $bill->id,
             ];
         })->toArray();

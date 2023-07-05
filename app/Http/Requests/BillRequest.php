@@ -33,6 +33,7 @@ class BillRequest extends FormRequest
             'bill_lines.*.quantity' => ['required', 'numeric'],
             'bill_lines.*.unit_price' => ['required', 'numeric'],
             'bill_lines.*.chart_of_account_id' => ['nullable', 'exists:chart_of_accounts,id'],
+            'bill_lines.*.tax_id' => ['nullable', "exists:taxes,id"],
             'bill_lines_deleted.*.id' => ['nullable', 'exists:bill_lines,id'],
         ];
     }
