@@ -1,6 +1,6 @@
 import {Button, Col, Divider, Image, Modal, Row, Space, Table} from 'antd';
 import React, {useContext, useState} from 'react';
-import {insertDecimal} from "../../Helpers/string";
+import {toCurrency} from "../../Helpers/string";
 import {FormContext} from "../../Contexts/FormContext";
 import dayjs from "dayjs";
 import html2pdf from 'html2pdf.js'
@@ -10,9 +10,7 @@ import {getTax} from "../../Helpers/tax"
 const SalesOrderPDF = () => {
     const formContext = useContext(FormContext);
     const globalSettings = JSON.parse(localStorage.getItem('globalSettings'));
-    const currency = globalSettings.hasOwnProperty('currency') ? globalSettings.currency : null;
     const company = globalSettings.hasOwnProperty('company') ? globalSettings.company : null;
-    const currencySymbol = `${currency.symbol ? currency.symbol : ''} `;
     const initialValues = formContext.formState.initialValues;
     const viewableColumns = globalSettings.hasOwnProperty('sales_order_lines_pdf_columns_view') ? globalSettings.sales_order_lines_pdf_columns_view.split(',') : null;
     const taxes = formContext.state.queries.taxes.options;
@@ -21,8 +19,8 @@ const SalesOrderPDF = () => {
             product: salesOrderLine.product_name,
             description: salesOrderLine.description,
             quantity: salesOrderLine.quantity,
-            unit_price: currencySymbol + insertDecimal(salesOrderLine.unit_price),
-            subtotal: currencySymbol + insertDecimal(salesOrderLine.subtotal),
+            unit_price: toCurrency(salesOrderLine.unit_price),
+            subtotal: toCurrency(salesOrderLine.subtotal),
             avatar: salesOrderLine.avatar
         };
         const filteredData = {key: salesOrderLine.id};

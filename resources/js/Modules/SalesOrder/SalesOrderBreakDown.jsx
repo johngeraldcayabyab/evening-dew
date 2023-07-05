@@ -2,7 +2,7 @@ import {FormContext} from "../../Contexts/FormContext"
 import FormLabel from "../../Components/Typography/FormLabel"
 import {Form, Table} from "antd"
 import {useContext} from "react"
-import {insertDecimal} from "../../Helpers/string"
+import {toCurrency} from "../../Helpers/string"
 import {computeTax, getTax} from "../../Helpers/tax"
 
 const SalesOrderBreakDown = (props) => {
@@ -10,9 +10,6 @@ const SalesOrderBreakDown = (props) => {
     const salesOrderLines = Form.useWatch('sales_order_lines', formContext.form) ?? [];
     const discountRate = Form.useWatch('discount_rate', formContext.form) ?? 0;
     const discountType = Form.useWatch('discount_type', formContext.form) ?? 0;
-    const globalSettings = JSON.parse(localStorage.getItem('globalSettings'));
-    const currency = globalSettings.hasOwnProperty('currency') ? globalSettings.currency : null;
-    const currencySymbol = `${currency.symbol ? currency.symbol : ''} `;
     const salesOrderLinesComputation = [];
     const taxes = formContext.state.queries.taxes.options;
     salesOrderLines.forEach((salesOrderLine, key) => {
@@ -54,22 +51,22 @@ const SalesOrderBreakDown = (props) => {
         {
             key: 'taxable_amount',
             label: 'Taxable Amount:',
-            value: currencySymbol + insertDecimal(breakdown.taxableAmount ?? 0),
+            value: toCurrency(breakdown.taxableAmount ?? 0),
         },
         {
             key: 'tax_amount',
             label: 'Tax Amount:',
-            value: currencySymbol + insertDecimal(breakdown.taxAmount ?? 0),
+            value: toCurrency(breakdown.taxAmount ?? 0),
         },
         {
             key: 'discount',
             label: 'Discount:',
-            value: currencySymbol + insertDecimal(breakdown.discount ?? 0),
+            value: toCurrency(breakdown.discount ?? 0),
         },
         {
             key: 'total',
             label: 'Total:',
-            value: currencySymbol + insertDecimal(breakdown.total ?? 0),
+            value: toCurrency(breakdown.total ?? 0),
         },
     ];
 

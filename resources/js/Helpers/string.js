@@ -25,10 +25,6 @@ export const replaceUnderscoreWithSpace = (string) => {
     return string;
 };
 
-export const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
 export const parseFloatComma = (float) => {
     return parseFloat(float.replace(',', ''));
 }
@@ -45,8 +41,18 @@ export const updateKey = (name) => {
     return `${name}-${UPDATE}`;
 };
 
-export const insertDecimal = (num) => {
-    return (Math.round(num * 100) / 100).toFixed(2);
+export const toCurrency = (num, position = 'left') => {
+    const globalSettings = JSON.parse(localStorage.getItem('globalSettings'));
+    const currency = globalSettings.hasOwnProperty('currency') ? globalSettings.currency : null;
+    const symbol = `${currency.symbol ? currency.symbol : ''} `;
+    let money = (num).toLocaleString('en-US', {maximumFractionDigits: 2});
+    if (symbol) {
+        if (position === 'right') {
+            return `${money} ${symbol}`;
+        }
+        return `${symbol} ${money}`;
+    }
+    return money;
 }
 
 export const snakeToCamel = s => s.replace(/(_\w)/g, k => k[1].toUpperCase());
