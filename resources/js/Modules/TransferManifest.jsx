@@ -1,4 +1,3 @@
-import {getPersistedKey} from "../Helpers/form";
 import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 import {disableIfStatus} from "../Helpers/object";
 import Text from "antd/es/typography/Text";
@@ -121,7 +120,8 @@ const manifest = {
     },
     initialState: {
         queries: {
-            measurements: {url: '/api/measurements', options: []}
+            measurements: {url: '/api/measurements', options: []},
+            locations: {url: '/api/locations', options: []}
         }
     },
     statuses: [
@@ -189,8 +189,6 @@ const manifest = {
                                 source_location_id: sourceLocationId,
                                 destination_location_id: destinationLocationId
                             });
-                            formContext.options['source_location_id-options'].getOptions({id: sourceLocationId});
-                            formContext.options['destination_location_id-options'].getOptions({id: destinationLocationId});
                         });
                     }
                 },
@@ -198,13 +196,13 @@ const manifest = {
                     type: 'select',
                     name: 'source_location_id',
                     label: 'Source Location',
-                    query: {url: '/api/locations', field: 'name'},
+                    optionsState: 'queries.locations',
                 },
                 {
                     type: 'select',
                     name: 'destination_location_id',
                     label: 'Destination Location',
-                    query: {url: '/api/locations', field: 'name'},
+                    optionsState: 'queries.locations',
                 },
             ],
             col_2: [
