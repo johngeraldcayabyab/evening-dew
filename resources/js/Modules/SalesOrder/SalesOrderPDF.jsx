@@ -79,7 +79,6 @@ const SalesOrderPDF = () => {
             key: 'tax',
             align: 'right',
             render: (text, record) => {
-                console.log(record);
                 if (record.tax_id) {
                     const tax = getTax(record.tax_id, taxes);
                     return tax.label_on_invoice;
