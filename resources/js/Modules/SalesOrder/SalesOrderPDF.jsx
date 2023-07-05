@@ -162,31 +162,26 @@ const SalesOrderPDF = () => {
                     <Button key={"download"} type={'button'} onClick={downloadPdfDocument}>Download Pdf</Button>
                 ]}
             >
-
+                <Divider/>
                 <Row gutter={2}>
                     <Col span={12}>
-                        <div className={'image-float-left'}>
+                        <div className={'image-float-left'} style={{marginBottom:'5px'}}>
                             <Image
                                 width={100}
                                 src={company ? company.avatar : '/images/no-image.jpg'}
                             />
                         </div>
-                        <Space direction="vertical" size={1}>
-                            <p style={{marginBottom: '0px'}}><b>COMPANY: {company ? company.name : 'Lorem Ipsum'}</b>
-                            </p>
-                            <p style={{marginBottom: '0px'}}>
-                                <b>MOBILE:</b> {company ? (company.contact.phone ? company.contact.phone : '+123123123123') : '+123123123123'}
-                            </p>
-                            <p style={{marginBottom: '0px'}}><b>EMAIL:</b> {company ? company.email : 'sample@emai.com'}
-                            </p>
+                        <Space direction="vertical" size={'small'}>
+                            <p style={{marginTop: '0px', marginBottom: '0px'}}><b>COMPANY:</b> {company ? company.name : 'Lorem Ipsum'}</p>
+                            <p style={{marginTop: '0px', marginBottom: '0px'}}><b>TEL NO:</b> {company ? (company.contact.phone ? company.contact.phone : '+123123123123') : '+123123123123'}</p>
+                            <p style={{marginTop: '0px', marginBottom: '0px'}}><b>MOBILE:</b> {company ? (company.contact.mobile ? company.contact.mobile : '+123123123123') : '+123123123123'}</p>
+                            <p style={{marginTop: '0px', marginBottom: '0px'}}><b>WEBSITE:</b> {company ? (company.contact.website ? company.contact.website : 'www.sample.com') : 'www.sample.com'}</p>
+                            <p style={{marginTop: '0px', marginBottom: '0px'}}><b>EMAIL:</b> {company ? company.email : 'sample@emai.com'}</p>
                         </Space>
                     </Col>
                     <Col span={12} style={{textAlign: 'right'}}>
-                        <p key={'invoice-date'} style={{marginBottom: '0px'}}><b>INVOICE
-                            DATE:</b> {dateFormat(initialValues.quotation_date)}</p>
-                        <p key={'shipping-date'} style={{marginBottom: '0px'}}><b>SHIPPING
-                            DATE:</b> {dateFormat(initialValues.shipping_date)}</p>
-                        {/*<p key={'select-time'} style={{marginBottom: '0px'}}><b>Time:</b> 11:11PM</p>*/}
+                        <p style={{marginTop: '0px',marginBottom: '0px'}}><b>INVOICE DATE:</b> {dateFormat(initialValues.quotation_date)}</p>
+                        <p style={{marginTop: '0px',marginBottom: '0px'}}><b>SHIPPING DATE:</b> {dateFormat(initialValues.shipping_date)}</p>
                     </Col>
                 </Row>
 
@@ -195,11 +190,10 @@ const SalesOrderPDF = () => {
                 <Row gutter={2}>
                     <Col span={24}>
                         <Space direction="vertical" size={1}>
-                            <p style={{marginBottom: '0px'}}><b>TO:</b></p>
-                            <p style={{marginBottom: '0px'}}>
-                                <b>{initialValues.customer ? initialValues.customer.name : ''}</b></p>
-                            <p style={{marginBottom: '0px'}}>{initialValues.delivery_address} {initialValues.delivery_city ? initialValues.delivery_city.name : ''}</p>
-                            <p style={{marginBottom: '0px'}}>{initialValues.customer ? initialValues.customer.phone : ''}</p>
+                            <p style={{marginTop: '0px',marginBottom: '0px'}}><b>CUSTOMER:</b> {initialValues.customer ? initialValues.customer.name : ''}</p>
+                            <p style={{marginTop: '0px',marginBottom: '0px'}}><b>ADDRESS:</b> {initialValues.delivery_city ? initialValues.delivery_city.name : ''}</p>
+                            <p style={{marginTop: '0px', marginBottom: '0px'}}><b>TEL NO:</b> {initialValues.customer ? initialValues.customer.phone : ''}</p>
+                            <p style={{marginTop: '0px', marginBottom: '0px'}}><b>MOBILE:</b> {initialValues.customer ? initialValues.customer.mobile : ''}</p>
                         </Space>
                     </Col>
                 </Row>
