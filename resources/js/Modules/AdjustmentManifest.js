@@ -1,6 +1,7 @@
 import {getPersistedKey} from "../Helpers/form";
 import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 import {parseFloatComma} from "../Helpers/string"
+import {disableIfStatus} from "../Helpers/object"
 
 const manifest = {
     moduleName: "adjustments",
@@ -44,6 +45,11 @@ const manifest = {
                 filter: DATE_RANGE,
             },
         ]
+    },
+    initialState: {
+        queries: {
+            measurements: {url: '/api/measurements', options: []}
+        }
     },
     statuses: [
         {
@@ -133,8 +139,9 @@ const manifest = {
                             type: 'select',
                             name: 'measurement_id',
                             placeholder: 'Measurement',
-                            query: {url: '/api/measurements', field: 'name'},
+                            optionsState: 'queries.measurements',
                             required: true,
+                            overrideDisabled: (formContext) => disableIfStatus(formContext.formState, 'done')
                         },
                         {
                             type: 'number',
