@@ -173,16 +173,16 @@ const SalesOrderPDF = () => {
                             />
                         </div>
                         <div style={{float: 'left'}}>
-                            <PdfLabel label={'COMPANY'} value={company?.name}/>
-                            <PdfLabel label={'TEL NO'} value={company?.contact?.phone}/>
-                            <PdfLabel label={'MOBILE'} value={company?.contact?.mobile}/>
-                            <PdfLabel label={'WEBSITE'} value={company?.contact?.website}/>
-                            <PdfLabel label={'EMAIL'} value={company?.email}/>
+                            <PdfLabel label={'Company'} value={company?.name}/>
+                            <PdfLabel label={'Tel No'} value={company?.contact?.phone}/>
+                            <PdfLabel label={'Mobile'} value={company?.contact?.mobile}/>
+                            <PdfLabel label={'Website'} value={company?.contact?.website}/>
+                            <PdfLabel label={'Email'} value={company?.email}/>
                         </div>
                     </Col>
                     <Col span={12} style={{textAlign: 'right'}}>
-                        <PdfLabel label={'INVOICE DATE'} value={dateFormat(initialValues.quotation_date)}/>
-                        <PdfLabel label={'SHIPPING DATE'} value={dateFormat(initialValues.shipping_date)}/>
+                        <PdfLabel label={'Invoice Date'} value={dateFormat(initialValues.quotation_date)}/>
+                        <PdfLabel label={'Shipping Date'} value={dateFormat(initialValues.shipping_date)}/>
                     </Col>
                 </Row>
 
@@ -190,10 +190,10 @@ const SalesOrderPDF = () => {
 
                 <Row gutter={2}>
                     <Col span={24}>
-                        <PdfLabel label={'CUSTOMER'} value={initialValues?.customer?.name}/>
-                        <PdfLabel label={'ADDRESS'} value={initialValues?.delivery_city?.name}/>
-                        <PdfLabel label={'TEL NO'} value={initialValues?.customer?.phone}/>
-                        <PdfLabel label={'MOBILE'} value={initialValues?.customer?.mobile}/>
+                        <PdfLabel label={'Customer'} value={initialValues?.customer?.name}/>
+                        <PdfLabel label={'Address'} value={initialValues?.delivery_city?.name}/>
+                        <PdfLabel label={'Tell No'} value={initialValues?.customer?.phone}/>
+                        <PdfLabel label={'Mobile'} value={initialValues?.customer?.mobile}/>
                     </Col>
                 </Row>
 
