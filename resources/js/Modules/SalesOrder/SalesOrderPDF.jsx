@@ -173,11 +173,12 @@ const SalesOrderPDF = () => {
                             />
                         </div>
                         <div style={{float: 'left'}}>
-                            <PdfLabel label={'Company'} value={company?.name}/>
+                            {/*<PdfLabel label={'Company'} value={company?.name}/>*/}
+                            {/*<PdfLabel label={'Address'} value={company?.contact?.address}/>*/}
                             <PdfLabel label={'Tel No'} value={company?.contact?.phone}/>
                             <PdfLabel label={'Mobile'} value={company?.contact?.mobile}/>
                             <PdfLabel label={'Website'} value={company?.contact?.website}/>
-                            <PdfLabel label={'Email'} value={company?.email}/>
+                            {/*<PdfLabel label={'Email'} value={company?.email}/>*/}
                         </div>
                     </Col>
                     <Col span={12} style={{textAlign: 'right'}}>
