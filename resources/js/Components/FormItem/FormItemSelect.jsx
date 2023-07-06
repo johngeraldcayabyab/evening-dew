@@ -108,7 +108,9 @@ const FormItemSelect = (props) => {
                     {props.options && props.options.map((option) => {
                         return (
                             <Select.Option key={option.value} value={option.value}>
-                                {option.label} {option.tag ? <Tag color="processing">{option.tag}</Tag> : null}
+                                <span>
+                                    {option.label} {option.tag ? <Tag color="processing">{option.tag}</Tag> : null}
+                                </span>
                             </Select.Option>
                         )
                     })}
