@@ -81,7 +81,7 @@ ssh "${HOST_NAME}" "sudo chown -R ubuntu:www-data /var/www/projects/storage"
 ssh "${HOST_NAME}" "sudo chown -R ubuntu:www-data /var/www/projects/${HOST_NAME}/bootstrap/cache"
 ssh "${HOST_NAME}" "sudo chmod -R 775 /var/www/projects/storage"
 ssh "${HOST_NAME}" "sudo chmod -R 775 /var/www/projects/${HOST_NAME}/bootstrap/cache"
-
+ssh "${HOST_NAME}" "cd /var/www/projects/${HOST_NAME}; /usr/bin/php /usr/local/bin/composer dump-autoload -o"
 
 ssh "${HOST_NAME}" "cd /var/www/projects/${HOST_NAME}; /usr/bin/php artisan optimize:clear"
 ssh "${HOST_NAME}" "cd /var/www/projects/${HOST_NAME}; /usr/bin/php artisan clear-compiled"
@@ -97,7 +97,6 @@ ssh "${HOST_NAME}" "cd /var/www/projects/${HOST_NAME}; /usr/bin/php artisan view
 ssh "${HOST_NAME}" "cd /var/www/projects/${HOST_NAME}; /usr/bin/php artisan event:cache"
 ssh "${HOST_NAME}" "cd /var/www/projects/${HOST_NAME}; /usr/bin/php artisan storage:link"
 ssh "${HOST_NAME}" "cd /var/www/projects/${HOST_NAME}; /usr/bin/php artisan optimize"
-ssh "${HOST_NAME}" "cd /var/www/projects/${HOST_NAME}; /usr/bin/php /opt/bitnami/php/bin/composer dump-autoload -o"
 ssh "${HOST_NAME}" "cd /var/www/projects/${HOST_NAME}; /usr/bin/php artisan migrate --no-interaction --force"
 
 ssh "${HOST_NAME}" "sudo systemctl restart php8.2-fpm.service"
