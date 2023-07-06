@@ -6,7 +6,6 @@ const useFieldHook = (props, specialFieldProps = {}) => {
     const formContext = useContext(FormContext);
     const formState = formContext.formState;
     const formItemProps = {
-        label: props.label ? <FormLabel>{props.label}</FormLabel> : null,
         name: props.name,
         rules: [
             {
@@ -21,6 +20,11 @@ const useFieldHook = (props, specialFieldProps = {}) => {
             style: {flex: '0 0 100%'}
         } : {span: 16},
     };
+
+    if (props.label) {
+        formItemProps.label = <FormLabel>{props.label}</FormLabel>;
+    }
+
     if (formState.errors && formState.errors[props.name]) {
         formItemProps.validateStatus = 'error';
         formItemProps.help = formState.errors[props.name];

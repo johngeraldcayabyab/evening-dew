@@ -100,21 +100,19 @@ const FormItemSelect = (props) => {
         };
     }, []);
 
+    const options = props.options ? props.options.map((option) => {
+        if (option.tag) {
+            option.label = `${option.label} ${option.tag ? <Tag color="processing">{option.tag}</Tag> : null}`;
+        }
+        delete option.tag;
+        return option;
+    }) : [];
+
     return (
         <Form.Item {...formItemProps}>
             {isLoading() ?
                 <CustomInputSkeleton {...props}/> :
-                <Select {...fieldProps}>
-                    {props.options && props.options.map((option) => {
-                        return (
-                            <Select.Option key={option.value} value={option.value}>
-                                <span>
-                                    {option.label} {option.tag ? <Tag color="processing">{option.tag}</Tag> : null}
-                                </span>
-                            </Select.Option>
-                        )
-                    })}
-                </Select>
+                <Select {...fieldProps} options={options}/>
             }
         </Form.Item>
     )
