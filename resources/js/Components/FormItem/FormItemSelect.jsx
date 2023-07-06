@@ -110,10 +110,7 @@ const FormItemSelect = (props) => {
 
     return (
         <Form.Item {...formItemProps}>
-            {isLoading() ?
-                <CustomInputSkeleton {...props}/> :
-                <Select {...fieldProps} options={options}/>
-            }
+            {isLoading() ? <CustomInputSkeleton {...props}/> : <Select {...fieldProps} options={options}/>}
         </Form.Item>
     )
 }
