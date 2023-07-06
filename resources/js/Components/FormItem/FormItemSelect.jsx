@@ -15,7 +15,7 @@ const FormItemSelect = (props) => {
         showSearch: true,
         onSearch: props.onSearch,
         optionFilterProp: "children",
-        filterOption: [],
+        filterOption: false,
         onPopupScroll: props.onPopupScroll,
         listHeight: 150,
     };

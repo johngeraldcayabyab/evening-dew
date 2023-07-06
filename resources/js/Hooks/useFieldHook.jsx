@@ -59,25 +59,6 @@ const useFieldHook = (props, specialFieldProps = {}) => {
         }
     }
 
-
-    //Cannot spread the object directly to fieldsprops since antd automatically adds the synthetic events
-    const eventHandlers = Object.keys(props)
-        .filter(key => key.startsWith("handle"))
-        .reduce((accumulator, currentValue) => {
-            accumulator[currentValue] = props[currentValue];
-            return accumulator;
-        }, {});
-
-    Object.keys(eventHandlers).forEach(key => {
-        let eventHandler = key.substring(6, key.length);
-        eventHandler = eventHandler[0].toLowerCase() + eventHandler.substring(1, eventHandler.length);
-        //Do not override synthetic events if automatically added by antd
-        if (!fieldProps.hasOwnProperty(eventHandler)) {
-            fieldProps[eventHandler] = eventHandlers[key](formContext);
-        }
-
-    })
-
     return [formItemProps, fieldProps];
 };
 

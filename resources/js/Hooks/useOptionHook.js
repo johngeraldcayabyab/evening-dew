@@ -25,7 +25,6 @@ const useOptionHook = (url, tableField, customParams = null) => {
                     label: option.slug,
                     tag: option.tag,
                 }));
-                console.log(options);
                 setState((prevState) => ({
                     ...prevState,
                     options: options,
