@@ -131,6 +131,11 @@ const manifest = {
             }
         },
     ],
+    initialState: {
+        queries: {
+            measurements: {url: '/api/measurements', options: []}
+        }
+    },
     form: {
         initialValue: true,
         row_1: {
@@ -194,21 +199,21 @@ const manifest = {
                             type: 'select',
                             name: 'measurement_id',
                             label: 'Measurement',
-                            query: {url: '/api/measurements', field: 'name'},
+                            optionsState: 'queries.measurements',
                             required: true,
                         },
                         {
                             type: 'select',
                             name: 'purchase_measurement_id',
                             label: 'Purchase Measurement',
-                            query: {url: '/api/measurements', field: 'name'},
+                            optionsState: 'queries.measurements',
                             required: true,
                         },
                         {
                             type: 'select',
                             name: 'sales_measurement_id',
                             label: 'Sales Measurement',
-                            query: {url: '/api/measurements', field: 'name'},
+                            optionsState: 'queries.measurements',
                             required: true,
                         },
                     ],
