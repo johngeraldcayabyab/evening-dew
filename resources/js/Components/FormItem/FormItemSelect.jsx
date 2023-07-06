@@ -102,7 +102,7 @@ const FormItemSelect = (props) => {
 
     const options = props.options ? props.options.map((option) => {
         if (option.tag) {
-            option.label = `${option.label} ${option.tag ? <Tag color="processing">{option.tag}</Tag> : null}`;
+            option.label = <span>{option.label} {option.tag ? <Tag color="processing">{option.tag}</Tag> : ''}</span>;
         }
         delete option.tag;
         return option;
