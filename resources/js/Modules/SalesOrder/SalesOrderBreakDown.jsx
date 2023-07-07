@@ -8,10 +8,12 @@ import {computeDiscount, computeTax, getTax} from "../../Helpers/financial"
 const SalesOrderBreakDown = (props) => {
     const formContext = useContext(FormContext);
     const salesOrderLines = Form.useWatch('sales_order_lines', formContext.form) ?? [];
+    const globalSettings = JSON.parse(localStorage.getItem('globalSettings'));
     const discountRate = Form.useWatch('discount_rate', formContext.form) ?? 0;
     const discountType = Form.useWatch('discount_type', formContext.form) ?? 0;
     const salesOrderLinesComputation = [];
     const taxes = formContext.state.queries.taxes.options;
+    const viewableBreakdown = globalSettings.hasOwnProperty('sales_order_breakdown_view') ? globalSettings.sales_order_breakdown_view.split(',') : null;
     salesOrderLines.forEach((salesOrderLine, key) => {
         if (salesOrderLine) {
             salesOrderLine.taxable_amount = 0;
@@ -64,10 +66,18 @@ const SalesOrderBreakDown = (props) => {
         },
     ];
 
+    const filteredBreakdownSource = [];
+
+    breakdownSource.forEach(breakdownLine => {
+        if (viewableBreakdown.includes(breakdownLine.key)) {
+            filteredBreakdownSource.push(breakdownLine);
+        }
+    });
+
     return (
         <Table
             style={props.style}
-            dataSource={breakdownSource}
+            dataSource={filteredBreakdownSource}
             columns={[
                 {
                     title: 'Label',
