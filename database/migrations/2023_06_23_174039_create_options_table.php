@@ -12,7 +12,6 @@ class CreateOptionsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('value')->nullable();
-            $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
         });
