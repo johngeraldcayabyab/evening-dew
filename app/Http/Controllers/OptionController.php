@@ -21,9 +21,9 @@ class OptionController extends Controller
         return OptionResource::collection($model);
     }
 
-    public function show(Option $menu): JsonResponse
+    public function show(Option $option): JsonResponse
     {
-        return response()->json(new OptionResource($menu));
+        return response()->json(new OptionResource($option));
     }
 
     public function store(OptionRequest $request): JsonResponse
@@ -31,15 +31,15 @@ class OptionController extends Controller
         return $this->responseCreate(Option::create($request->validated()));
     }
 
-    public function update(OptionRequest $request, Option $menu): JsonResponse
+    public function update(OptionRequest $request, Option $option): JsonResponse
     {
-        $menu->update($request->validated());
+        $option->update($request->validated());
         return $this->responseUpdate();
     }
 
-    public function destroy(Option $menu): JsonResponse
+    public function destroy(Option $option): JsonResponse
     {
-        $menu->delete();
+        $option->delete();
         return $this->responseDelete();
     }
 
