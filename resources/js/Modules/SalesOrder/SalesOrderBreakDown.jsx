@@ -3,7 +3,7 @@ import FormLabel from "../../Components/Typography/FormLabel"
 import {Form, Table} from "antd"
 import {useContext} from "react"
 import {toCurrency} from "../../Helpers/string"
-import {computeTax, getTax} from "../../Helpers/financial"
+import {computeDiscount, computeTax, getTax} from "../../Helpers/financial"
 
 const SalesOrderBreakDown = (props) => {
     const formContext = useContext(FormContext);
@@ -39,13 +39,7 @@ const SalesOrderBreakDown = (props) => {
             total: salesOrderLine.total + preBreakDown.total
         }))
     }
-    if (discountType === 'fixed' && discountRate) {
-        breakdown.discount = discountRate;
-        breakdown.total = breakdown.total - breakdown.discount;
-    } else if (discountType === 'percentage' && discountRate) {
-        breakdown.discount = (breakdown.total * discountRate) / 100;
-        breakdown.total = breakdown.total - breakdown.discount;
-    }
+    breakdown = computeDiscount(discountType, discountRate, breakdown);
 
     const breakdownSource = [
         {
