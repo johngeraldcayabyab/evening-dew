@@ -1,4 +1,4 @@
-import {computeTax, getTax} from "./tax"
+import {computeTax, getTax} from "./financial"
 
 export const computeSalesOrderLineSubtotal = (salesOrderLine, taxes) => {
     if (salesOrderLine) {

@@ -5,7 +5,7 @@ import {FormContext} from "../../Contexts/FormContext";
 import dayjs from "dayjs";
 import html2pdf from 'html2pdf.js'
 import SalesOrderBreakDown from "./SalesOrderBreakDown"
-import {getTax} from "../../Helpers/tax"
+import {getTax} from "../../Helpers/financial"
 import PdfLabel from "../../Components/Pdf/PdfLabel";
 
 const SalesOrderPDF = () => {

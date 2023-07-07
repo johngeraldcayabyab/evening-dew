@@ -3,7 +3,7 @@ import FormLabel from "../../Components/Typography/FormLabel"
 import {Form, Table} from "antd"
 import {useContext} from "react"
 import {toCurrency} from "../../Helpers/string"
-import {computeTax, getTax} from "../../Helpers/tax"
+import {computeTax, getTax} from "../../Helpers/financial"
 
 const SalesOrderBreakDown = (props) => {
     const formContext = useContext(FormContext);
