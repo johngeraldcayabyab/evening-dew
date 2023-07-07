@@ -4,6 +4,7 @@ import SalesOrderPDF from "./SalesOrder/SalesOrderPDF";
 import SalesOrderBreakDown from "./SalesOrder/SalesOrderBreakDown";
 import CreateInvoiceButton from "./SalesOrder/CreateInvoiceButton"
 import {computeSalesOrderLineSubtotal} from "../Helpers/salesOrderLine"
+import {parseFloatComma} from "../Helpers/string";
 
 const manifest = {
     moduleName: "sales_orders",
@@ -297,7 +298,7 @@ const manifest = {
                                         description: response.sales_description,
                                         quantity: 1,
                                         measurement_id: response.sales_measurement_id,
-                                        unit_price: response.sales_price,
+                                        unit_price: parseFloatComma(response.sales_price),
                                         subtotal: subtotal
                                     };
                                     formContext.form.setFieldsValue({
