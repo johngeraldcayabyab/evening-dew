@@ -177,7 +177,6 @@ const SalesOrderPDF = () => {
                             <div style={{marginLeft: '10px'}}>
                                 {/*<PdfLabel label={'Company'} value={company?.name}/>*/}
                                 <PdfLabel label={'Showroom'} value={company?.contact?.address}/>
-                                <PdfLabel label={'Warehouse'} value={'243 DRAF Bldg., Diego Cera., Ave. E. Aldana LasPinas City'}/>
                                 <PdfLabel label={'Tel No'} value={company?.contact?.phone}/>
                                 <PdfLabel label={'Mobile'} value={company?.contact?.mobile}/>
                                 <PdfLabel label={'Website'} value={company?.contact?.website}/>
@@ -217,6 +216,12 @@ const SalesOrderPDF = () => {
                         <Divider/>
 
                         <SalesOrderBreakDown style={{width: '300px', float: 'right'}}/>
+                    </Col>
+                </Row>
+
+                <Row gutter={2}>
+                    <Col span={24}>
+                        <pre>{initialValues?.terms_and_conditions}</pre>
                     </Col>
                 </Row>
             </Modal>
