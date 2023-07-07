@@ -23,6 +23,7 @@ class CreatePurchasesTable extends Migration
             $table->unsignedInteger('payment_term_id')->nullable();
             $table->double('subtotal')->nullable()->default(0);
             $table->string('status')->nullable();
+            $table->longText('terms_and_conditions')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

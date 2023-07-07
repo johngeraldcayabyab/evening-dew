@@ -40,6 +40,7 @@ class SalesOrderResource extends JsonResource
             'discount_type' => $this->discount_type,
             'discount_rate' => $this->discount_rate,
             'subtotal' => $this->subtotal,
+            'terms_and_conditions' => $this->terms_and_conditions,
             'customer' => $this->customer,
             'courier' => $this->courier,
             'invoice_city' => $this->invoiceCity,

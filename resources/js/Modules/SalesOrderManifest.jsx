@@ -475,6 +475,18 @@ const manifest = {
                 {
                     type: 'component', component: <SalesOrderBreakDown key={'sales_order_breakdown'}/>
                 },
+            ],
+        },
+        row_5: {
+            col_1: [
+                {
+                    type: 'textarea',
+                    name: 'terms_and_conditions',
+                    placeholder: 'Terms and conditions...',
+                    autoSize: {
+                        minRows: 5
+                    }
+                },
             ]
         }
     }

@@ -26,6 +26,7 @@ class PurchaseRequest extends FormRequest
             'drop_ship_address_id' => ['nullable', 'exists:addresses,id'],
             'payment_term_id' => ['nullable', "exists:payment_terms,id"],
             'status' => ['nullable', "in:$statuses"],
+            'terms_and_conditions' => ['nullable', 'string'],
             'purchase_lines.*.id' => ['nullable', 'exists:purchase_lines,id'],
             'purchase_lines.*.product_id' => ['required', "exists:products,id"],
             'purchase_lines.*.description' => ['nullable'],

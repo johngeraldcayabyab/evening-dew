@@ -25,6 +25,7 @@ class PurchaseResource extends JsonResource
             'drop_ship_address_id' => $this->drop_ship_address_id,
             'payment_term_id' => $this->payment_term_id,
             'subtotal' => $this->subtotal,
+            'terms_and_conditions' => $this->terms_and_conditions,
             'status' => $this->status,
             'vendor' => $this->vendor,
             'currency' => $this->currency,

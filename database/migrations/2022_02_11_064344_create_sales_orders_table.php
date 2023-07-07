@@ -35,6 +35,7 @@ class CreateSalesOrdersTable extends Migration
             $table->string('discount_type')->nullable();
             $table->double('discount_rate')->nullable()->default(0);
             $table->double('subtotal')->nullable()->default(0);
+            $table->longText('terms_and_conditions')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
