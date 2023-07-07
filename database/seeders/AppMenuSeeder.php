@@ -272,6 +272,10 @@ class AppMenuSeeder extends Seeder
                                 'label' => 'Access Rights',
                                 'menu_key' => 'Access Rights',
                             ],
+                            [
+                                'label' => 'Options',
+                                'menu_key' => 'Options',
+                            ],
                         ],
                     ],
                 ],

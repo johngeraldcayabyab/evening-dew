@@ -115,6 +115,10 @@ class MenuSeeder extends Seeder
                 'url' => '/operations_types',
             ],
             [
+                'label' => 'Options',
+                'url' => '/options',
+            ],
+            [
                 'label' => 'Payments',
                 'url' => '/payments',
             ],
