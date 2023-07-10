@@ -165,7 +165,7 @@ const SalesOrderPDF = () => {
             >
                 <Divider/>
                 <Row gutter={2}>
-                    <Col span={12}>
+                    <Col span={18}>
                         <div style={{
                             display: 'flex',
                             alignContent: 'space-between'
@@ -185,9 +185,10 @@ const SalesOrderPDF = () => {
 
                         </div>
                     </Col>
-                    <Col span={12} style={{textAlign: 'right'}}>
+                    <Col span={6}>
                         <PdfLabel label={'Invoice Date'} value={dateFormat(initialValues.quotation_date)}/>
                         <PdfLabel label={'Shipping Date'} value={dateFormat(initialValues.shipping_date)}/>
+                        <PdfLabel label={'Payment Terms'} value={initialValues?.payment_term?.name}/>
                     </Col>
                 </Row>
 
@@ -222,6 +223,12 @@ const SalesOrderPDF = () => {
                 <Row gutter={2}>
                     <Col span={24}>
                         <pre>{initialValues?.terms_and_conditions}</pre>
+                    </Col>
+                </Row>
+                <Row gutter={2}>
+                    <Col span={24}>
+                        <p>Conforme: ________________________________</p>
+                        <p>Print Name / Signature / Date</p>
                     </Col>
                 </Row>
             </Modal>
