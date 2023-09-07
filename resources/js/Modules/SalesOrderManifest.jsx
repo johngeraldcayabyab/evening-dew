@@ -299,6 +299,7 @@ const manifest = {
                                         quantity: 1,
                                         measurement_id: response.sales_measurement_id,
                                         unit_price: parseFloatComma(response.sales_price),
+                                        product: {can_be_discounted: response.can_be_discounted},
                                         subtotal: subtotal
                                     };
                                     formContext.form.setFieldsValue({

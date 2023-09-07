@@ -30,12 +30,14 @@ export const computeTax = (tax, orderLine) => {
 export const computeDiscount = (discountType, discountRate, breakdown = {}) => {
     // there should be another option for discount calculation
     // where should it calculate the discount. the taxable amount or the total amount
+    let total_discountable = Math.abs(breakdown.total - breakdown.total_non_discountable);
     if (discountType === 'fixed' && discountRate) {
         breakdown.discount = discountRate;
-        breakdown.total = breakdown.total - breakdown.discount;
+        breakdown.total = total_discountable - breakdown.discount;
     } else if (discountType === 'percentage' && discountRate) {
-        breakdown.discount = (breakdown.total * discountRate) / 100;
-        breakdown.total = breakdown.total - breakdown.discount;
+        breakdown.discount = (total_discountable * discountRate) / 100;
+        breakdown.total = total_discountable - breakdown.discount;
     }
+    breakdown.total = breakdown.total + breakdown.total_non_discountable;
     return breakdown;
 }
