@@ -66,6 +66,7 @@ class ProductController extends Controller
             'product_type' => Product::STORABLE,
             'can_be_sold' => Product::DEFAULT_CAN_BE_SOLD,
             'can_be_purchased' => Product::DEFAULT_CAN_BE_PURCHASED,
+            'can_be_discounted' => Product::DEFAULT_CAN_BE_DISCOUNTED,
             'invoicing_policy' => Product::ORDERED_QUANTITIES,
             'sales_price' => Product::DEFAULT_SALES_PRICE,
             'cost' => Product::DEFAULT_COST,

@@ -34,6 +34,7 @@ class Product extends Model implements Sluggable
 
     const DEFAULT_CAN_BE_SOLD = true;
     const DEFAULT_CAN_BE_PURCHASED = true;
+    const DEFAULT_CAN_BE_DISCOUNTED = true;
 
     protected $table = 'products';
     protected $guarded = [];
