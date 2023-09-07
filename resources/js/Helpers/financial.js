@@ -28,6 +28,7 @@ export const computeTax = (tax, orderLine) => {
 
 
 export const computeDiscount = (discountType, discountRate, breakdown = {}) => {
+    console.log(breakdown);
     // there should be another option for discount calculation
     // where should it calculate the discount. the taxable amount or the total amount
     let total_discountable = Math.abs(breakdown.total - breakdown.total_non_discountable);
