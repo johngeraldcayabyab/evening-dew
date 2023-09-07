@@ -17,6 +17,7 @@ class ProductRequest extends FormRequest
             'product_type' => ['nullable', "in:$productTypes"], //required in front end
             'can_be_sold' => ['nullable'],
             'can_be_purchased' => ['nullable'],
+            'can_be_discounted' => ['nullable'],
             'invoicing_policy' => ['nullable', "in:$invoicingPolicies"], //required in front end
             'sales_price' => ['nullable', 'numeric'], //required in front end
             'cost' => ['nullable', 'numeric'], //required in front end

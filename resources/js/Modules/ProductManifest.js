@@ -167,6 +167,11 @@ const manifest = {
                     name: 'can_be_purchased',
                     label: 'Can be purchased',
                 },
+                {
+                    type: 'checkbox',
+                    name: 'can_be_discounted',
+                    label: 'Can be discounted',
+                },
             ],
         },
         tab_1: {
