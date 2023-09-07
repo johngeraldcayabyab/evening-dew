@@ -202,7 +202,7 @@ const SalesOrderPDF = () => {
                     <Col span={24}>
                         <PdfLabel label={'Customer'} value={initialValues?.customer?.name}/>
                         <PdfLabel label={'Address'} value={initialValues?.delivery_city?.name}/>
-                        <PdfLabel label={'Tell No'} value={initialValues?.customer?.phone}/>
+                        <PdfLabel label={'Tel No'} value={initialValues?.customer?.phone}/>
                         <PdfLabel label={'Mobile'} value={initialValues?.customer?.mobile}/>
                     </Col>
                 </Row>
