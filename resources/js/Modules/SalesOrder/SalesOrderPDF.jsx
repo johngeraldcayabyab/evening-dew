@@ -175,20 +175,24 @@ const SalesOrderPDF = () => {
                                 src={company ? company.avatar : '/images/no-image.jpg'}
                             />
                             <div style={{marginLeft: '10px'}}>
-                                {/*<PdfLabel label={'Company'} value={company?.name}/>*/}
                                 <PdfLabel label={'Showroom'} value={company?.contact?.address}/>
                                 <PdfLabel label={'Tel No'} value={company?.contact?.phone}/>
                                 <PdfLabel label={'Mobile'} value={company?.contact?.mobile}/>
                                 <PdfLabel label={'Website'} value={company?.contact?.website}/>
                                 {/*<PdfLabel label={'Email'} value={company?.email}/>*/}
                             </div>
-
                         </div>
                     </Col>
                     <Col span={6}>
                         <PdfLabel label={'Invoice Date'} value={dateFormat(initialValues.quotation_date)}/>
                         <PdfLabel label={'Shipping Date'} value={dateFormat(initialValues.shipping_date)}/>
                         <PdfLabel label={'Payment Terms'} value={initialValues?.payment_term?.name}/>
+                    </Col>
+                </Row>
+
+                <Row gutter={2}>
+                    <Col span={24}>
+                        <h4 style={{marginLeft: '10px'}}>{company?.name}</h4>
                     </Col>
                 </Row>
 
