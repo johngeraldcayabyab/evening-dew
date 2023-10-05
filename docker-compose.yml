@@ -11,8 +11,8 @@ services:
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
-            - '${APP_PORT:-8080}:80'
-            - '${VITE_PORT:-5174}:${VITE_PORT:-5173}'
+            - '8700:80'
+            - '${VITE_PORT:-5180}:${VITE_PORT:-5173}'
         environment:
             WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1

@@ -36,13 +36,19 @@ const SalesOrderBreakDown = (props) => {
         can_be_discounted: salesOrderLine.can_be_discounted
     }));
     if (salesOrderLinesComputation.length) {
-        breakdown = breakdown.reduce((salesOrderLine, preBreakDown) => ({
-            taxableAmount: salesOrderLine.taxableAmount + preBreakDown.taxableAmount,
-            taxAmount: salesOrderLine.taxAmount + preBreakDown.taxAmount,
-            discount: 0,
-            total: salesOrderLine.total + preBreakDown.total,
-            total_non_discountable: salesOrderLine.can_be_discounted ? salesOrderLine.total + preBreakDown.total : salesOrderLine.total
-        }));
+        breakdown = breakdown.reduce((salesOrderLine, preBreakDown) => {
+            const newTaxableAmount = salesOrderLine.taxableAmount + preBreakDown.taxableAmount;
+            const newTaxAmount = salesOrderLine.taxAmount + preBreakDown.taxAmount;
+            const newTotal = salesOrderLine.total + preBreakDown.total;
+            const newNonDiscountable = salesOrderLine.can_be_discounted ? salesOrderLine.total + preBreakDown.total : salesOrderLine.total;
+            return {
+                taxableAmount: newTaxableAmount,
+                taxAmount: newTaxAmount,
+                discount: 0,
+                total: newTotal,
+                total_non_discountable: newNonDiscountable
+            };
+        });
     }
     breakdown = computeDiscount(discountType, discountRate, breakdown);
 
