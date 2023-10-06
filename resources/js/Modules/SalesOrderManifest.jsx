@@ -303,7 +303,6 @@ const manifest = {
                                         product: {can_be_discounted: response.can_be_discounted},
                                         subtotal: subtotal
                                     };
-                                    console.log(salesOrderLines);
                                     formContext.form.setFieldsValue({
                                         sales_order_lines: salesOrderLines
                                     });
