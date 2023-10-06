@@ -31,28 +31,28 @@ const SalesOrderBreakDown = (props) => {
         can_be_discounted: salesOrderLineCompute.can_be_discounted
     }));
     const breakdownComputed = computeBreakdown(salesOrderLinesComputation, initialBreakdown);
-    const breakdownComputedWithDiscount = computeDiscount(discountType, discountRate, breakdownComputed);
+    // const breakdownComputedWithDiscount = computeDiscount(discountType, discountRate, breakdownComputed);
 
     const breakdownSource = [
         {
             key: 'taxable_amount',
             label: 'Taxable Amount:',
-            value: toCurrency(breakdownComputedWithDiscount.taxableAmount),
+            value: toCurrency(breakdownComputed.taxableAmount),
         },
         {
             key: 'tax_amount',
             label: 'Tax Amount:',
-            value: toCurrency(breakdownComputedWithDiscount.taxAmount),
+            value: toCurrency(breakdownComputed.taxAmount),
         },
         {
             key: 'discount',
             label: 'Discount:',
-            value: toCurrency(breakdownComputedWithDiscount.discount),
+            value: toCurrency(breakdownComputed.discount),
         },
         {
             key: 'total',
             label: 'Total:',
-            value: toCurrency(breakdownComputedWithDiscount.total),
+            value: toCurrency(breakdownComputed.total),
         },
     ];
 
