@@ -292,12 +292,12 @@ const manifest = {
                                 formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
                                     const salesOrderLines = allValues.sales_order_lines;
                                     const salesPrice = parseFloatComma(response.sales_price);
-                                    const quantity = 1;
-                                    const subtotal = salesPrice * quantity;
+                                    const defaultQuantity = 1;
+                                    const subtotal = salesPrice * defaultQuantity;
                                     salesOrderLines[changedLine.key] = {
                                         ...salesOrderLines[changedLine.key],
                                         description: response.sales_description,
-                                        quantity: 1,
+                                        quantity: defaultQuantity,
                                         measurement_id: response.sales_measurement_id,
                                         unit_price: salesPrice,
                                         product: {can_be_discounted: response.can_be_discounted},
