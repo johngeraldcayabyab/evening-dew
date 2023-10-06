@@ -4,6 +4,7 @@ import {Form, Table} from "antd"
 import {useContext} from "react"
 import {toCurrency} from "../../Helpers/string"
 import {computeDiscount, computeTax, getTax} from "../../Helpers/financial"
+import {computeSalesOrderLineSubtotal} from "../../Helpers/salesOrderLine"
 
 const SalesOrderBreakDown = (props) => {
     const formContext = useContext(FormContext);
@@ -11,20 +12,15 @@ const SalesOrderBreakDown = (props) => {
     const globalSettings = JSON.parse(localStorage.getItem('globalSettings'));
     const discountRate = Form.useWatch('discount_rate', formContext.form) ?? 0;
     const discountType = Form.useWatch('discount_type', formContext.form) ?? 0;
-    const salesOrderLinesComputation = [];
     const taxes = formContext.state.queries.taxes.options;
     const viewableBreakdown = globalSettings.hasOwnProperty('sales_order_breakdown_view') ? globalSettings.sales_order_breakdown_view.split(',') : null;
-    salesOrderLines.forEach((salesOrderLine, key) => {
+
+    const salesOrderLinesComputation = [];
+    salesOrderLines.forEach((salesOrderLine) => {
         if (salesOrderLine) {
-            salesOrderLine.taxable_amount = 0;
-            salesOrderLine.tax_amount = 0;
-            salesOrderLine.subtotal = salesOrderLine.quantity * salesOrderLine.unit_price;
-            salesOrderLine.can_be_discounted = salesOrderLine.product ? salesOrderLine.product.can_be_discounted : 1;
-            if (salesOrderLine.tax_id) {
-                const tax = getTax(salesOrderLine.tax_id, taxes);
-                salesOrderLine = computeTax(tax, salesOrderLine);
-            }
-            salesOrderLinesComputation.push(salesOrderLine);
+            const salesOrderLineCompute = computeSalesOrderLineSubtotal(salesOrderLine, taxes);
+            salesOrderLineCompute.can_be_discounted = salesOrderLine.product ? salesOrderLine.product.can_be_discounted : 1;
+            salesOrderLinesComputation.push(salesOrderLineCompute);
         }
     });
 
@@ -35,6 +31,7 @@ const SalesOrderBreakDown = (props) => {
         total: salesOrderLine.subtotal,
         can_be_discounted: salesOrderLine.can_be_discounted
     }));
+
     if (salesOrderLinesComputation.length) {
         breakdown = breakdown.reduce((salesOrderLine, preBreakDown) => {
             const newTaxableAmount = salesOrderLine.taxableAmount + preBreakDown.taxableAmount;
@@ -50,6 +47,7 @@ const SalesOrderBreakDown = (props) => {
             };
         });
     }
+
     breakdown = computeDiscount(discountType, discountRate, breakdown);
 
     const breakdownSource = [
