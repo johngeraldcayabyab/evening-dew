@@ -27,18 +27,32 @@ export const computeTax = (tax, orderLine) => {
 }
 
 
-export const computeDiscount = (discountType, discountRate, breakdown = {}) => {
-    console.log(breakdown);
+export const computeDiscount = (discountType, discountRate, breakdownComputed = {}) => {
+    // return breakdownComputed;
+
+
+    const discountedComputation = {
+        taxable_amount: breakdownComputed.taxableAmount, tax_amount: breakdownComputed.taxAmount, discount: 0, total: 0,
+    };
+
     // there should be another option for discount calculation
     // where should it calculate the discount. the taxable amount or the total amount
-    let total_discountable = Math.abs(breakdown.total - breakdown.total_non_discountable);
     if (discountType === 'fixed' && discountRate) {
-        breakdown.discount = discountRate;
-        breakdown.total = total_discountable - breakdown.discount;
+        console.log('fixed');
+        discountedComputation.discount = discountRate;
+        discountedComputation.total = breakdownComputed.totalDiscountable - discountedComputation.discount;
     } else if (discountType === 'percentage' && discountRate) {
-        breakdown.discount = (total_discountable * discountRate) / 100;
-        breakdown.total = total_discountable - breakdown.discount;
+        console.log('percentage');
+        discountedComputation.discount = (breakdownComputed.totalDiscountable * discountRate) / 100;
+        discountedComputation.total = breakdownComputed.totalDiscountable - discountedComputation.discount;
+    } else {
+        console.log('none');
+        discountedComputation.total = breakdownComputed.totalDiscountable;
     }
-    breakdown.total = breakdown.total + breakdown.total_non_discountable;
-    return breakdown;
+
+
+    discountedComputation.total = discountedComputation.total + breakdownComputed.totalNonDiscountable;
+
+    console.log(breakdownComputed, discountedComputation, [discountType, discountRate]);
+    return discountedComputation;
 }

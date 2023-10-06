@@ -17,42 +17,44 @@ const SalesOrderBreakDown = (props) => {
 
     const salesOrderLinesComputation = [];
     salesOrderLines.forEach((salesOrderLine) => {
-        if (salesOrderLine) {
+        if (salesOrderLine && salesOrderLine.quantity && salesOrderLine.unit_price) {
             const salesOrderLineCompute = computeSalesOrderLineSubtotal(salesOrderLine, taxes);
             salesOrderLineCompute.can_be_discounted = salesOrderLine.product ? salesOrderLine.product.can_be_discounted : 1;
             salesOrderLinesComputation.push(salesOrderLineCompute);
         }
     });
-    const initialBreakdown = salesOrderLinesComputation.map((salesOrderLineCompute) => ({
+    const salesOrderLinesComputedFormatted = salesOrderLinesComputation.map((salesOrderLineCompute) => ({
         taxableAmount: salesOrderLineCompute.taxable_amount,
         taxAmount: salesOrderLineCompute.tax_amount,
-        discount: 0,
         total: salesOrderLineCompute.subtotal,
         can_be_discounted: salesOrderLineCompute.can_be_discounted
     }));
-    const breakdownComputed = computeBreakdown(salesOrderLinesComputation, initialBreakdown);
-    // const breakdownComputedWithDiscount = computeDiscount(discountType, discountRate, breakdownComputed);
-
+    const breakdownComputed = computeBreakdown(salesOrderLinesComputedFormatted);
+    const breakdownComputedWithDiscount = computeDiscount(discountType, discountRate, breakdownComputed);
     const breakdownSource = [
         {
             key: 'taxable_amount',
             label: 'Taxable Amount:',
-            value: toCurrency(breakdownComputed.taxableAmount),
+            // value: 0,
+            value: toCurrency(breakdownComputedWithDiscount.taxableAmount),
         },
         {
             key: 'tax_amount',
             label: 'Tax Amount:',
-            value: toCurrency(breakdownComputed.taxAmount),
+            // value: 0,
+            value: toCurrency(breakdownComputedWithDiscount.taxAmount),
         },
         {
             key: 'discount',
             label: 'Discount:',
-            value: toCurrency(breakdownComputed.discount),
+            // value: 0,
+            value: toCurrency(breakdownComputedWithDiscount.discount),
         },
         {
             key: 'total',
             label: 'Total:',
-            value: toCurrency(breakdownComputed.total),
+            // value: 0,
+            value: toCurrency(breakdownComputedWithDiscount.total),
         },
     ];
 
@@ -92,23 +94,25 @@ const SalesOrderBreakDown = (props) => {
     )
 }
 
-function computeBreakdown(salesOrderLinesComputation, breakdown) {
-    if (salesOrderLinesComputation.length) {
-        return breakdown.reduce((salesOrderLine, preBreakDown) => {
-            const newTaxableAmount = salesOrderLine.taxableAmount + preBreakDown.taxableAmount;
-            const newTaxAmount = salesOrderLine.taxAmount + preBreakDown.taxAmount;
-            const newTotal = salesOrderLine.total + preBreakDown.total;
-            const newNonDiscountable = salesOrderLine.can_be_discounted ? salesOrderLine.total + preBreakDown.total : salesOrderLine.total;
-            return {
-                taxableAmount: newTaxableAmount,
-                taxAmount: newTaxAmount,
-                discount: 0,
-                total: newTotal,
-                total_non_discountable: newNonDiscountable
-            };
+function computeBreakdown(salesOrderLinesComputedFormatted) {
+    const breakdownInitial = {
+        taxableAmount: 0,
+        taxAmount: 0,
+        totalDiscountable: 0,
+        totalNonDiscountable: 0,
+    };
+    if (salesOrderLinesComputedFormatted.length) {
+        salesOrderLinesComputedFormatted.forEach(breakBot => {
+            breakdownInitial.taxableAmount = breakdownInitial.taxableAmount + breakBot.taxableAmount;
+            breakdownInitial.taxAmount = breakdownInitial.taxAmount + breakBot.taxAmount;
+            if (breakBot.can_be_discounted) {
+                breakdownInitial.totalDiscountable = breakdownInitial.totalDiscountable + breakBot.total;
+            } else {
+                breakdownInitial.totalNonDiscountable = breakdownInitial.totalNonDiscountable + breakBot.total;
+            }
         });
     }
-    return breakdown;
+    return breakdownInitial;
 }
 
 export default SalesOrderBreakDown;
