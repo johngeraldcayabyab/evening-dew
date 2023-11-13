@@ -63,10 +63,11 @@ const SalesOrderPDF = () => {
             width: 200
         },
         {
-            title: 'Quantity',
+            title: 'QTY',
             dataIndex: 'quantity',
             key: 'quantity',
             align: 'right',
+            width: 30
         },
         {
             title: 'Unit Price',
