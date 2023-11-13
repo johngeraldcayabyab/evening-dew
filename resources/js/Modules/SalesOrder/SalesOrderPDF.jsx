@@ -42,12 +42,12 @@ const SalesOrderPDF = () => {
                 const imageSrc = data ?? '/images/no-image.jpg';
                 return (
                     <Image
-                        width={100}
+                        width={90}
                         src={imageSrc}
                     />
                 )
             },
-            width: 100
+            width: 90
         },
         {
             title: 'Product',
@@ -195,6 +195,7 @@ const SalesOrderPDF = () => {
                         <PdfLabel label={'Invoice Date'} value={dateFormat(initialValues.quotation_date)}/>
                         <PdfLabel label={'Shipping Date'} value={dateFormat(initialValues.shipping_date)}/>
                         <PdfLabel label={'Payment Terms'} value={initialValues?.payment_term?.name}/>
+                        <PdfLabel label={'Contact Person'} value={initialValues?.salesperson?.name}/>
                     </Col>
                 </Row>
 
@@ -209,7 +210,8 @@ const SalesOrderPDF = () => {
                 <Row gutter={2}>
                     <Col span={18}>
                         <PdfLabel label={'Customer'} value={initialValues?.customer?.name}/>
-                        <PdfLabel label={'Address'} value={`${initialValues?.delivery_address} ${initialValues?.delivery_city?.name}`}/>
+                        <PdfLabel label={'Address'}
+                                  value={`${initialValues?.delivery_address} ${initialValues?.delivery_city?.name}`}/>
                     </Col>
                     <Col span={6}>
                         <PdfLabel label={'Tel No'} value={initialValues?.customer?.phone}/>

@@ -38,21 +38,16 @@ export const computeDiscount = (discountType, discountRate, breakdownComputed = 
     // there should be another option for discount calculation
     // where should it calculate the discount. the taxable amount or the total amount
     if (discountType === 'fixed' && discountRate) {
-        console.log('fixed');
         discountedComputation.discount = discountRate;
         discountedComputation.total = breakdownComputed.totalDiscountable - discountedComputation.discount;
     } else if (discountType === 'percentage' && discountRate) {
-        console.log('percentage');
         discountedComputation.discount = (breakdownComputed.totalDiscountable * discountRate) / 100;
         discountedComputation.total = breakdownComputed.totalDiscountable - discountedComputation.discount;
     } else {
-        console.log('none');
         discountedComputation.total = breakdownComputed.totalDiscountable;
     }
 
 
     discountedComputation.total = discountedComputation.total + breakdownComputed.totalNonDiscountable;
-
-    console.log(breakdownComputed, discountedComputation, [discountType, discountRate]);
     return discountedComputation;
 }
