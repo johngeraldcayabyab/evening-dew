@@ -206,9 +206,11 @@ const SalesOrderPDF = () => {
                 <Divider/>
 
                 <Row gutter={2}>
-                    <Col span={24}>
+                    <Col span={18}>
                         <PdfLabel label={'Customer'} value={initialValues?.customer?.name}/>
                         <PdfLabel label={'Address'} value={initialValues?.delivery_city?.name}/>
+                    </Col>
+                    <Col span={6}>
                         <PdfLabel label={'Tel No'} value={initialValues?.customer?.phone}/>
                         <PdfLabel label={'Mobile'} value={initialValues?.customer?.mobile}/>
                     </Col>
