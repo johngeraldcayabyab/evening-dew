@@ -33,7 +33,6 @@ const SalesOrderPDF = () => {
         return filteredData
     }) : [];
 
-
     const columns = [
         {
             title: '',
@@ -210,7 +209,7 @@ const SalesOrderPDF = () => {
                 <Row gutter={2}>
                     <Col span={18}>
                         <PdfLabel label={'Customer'} value={initialValues?.customer?.name}/>
-                        <PdfLabel label={'Address'} value={initialValues?.delivery_city?.name}/>
+                        <PdfLabel label={'Address'} value={`${initialValues?.delivery_address} ${initialValues?.delivery_city?.name}`}/>
                     </Col>
                     <Col span={6}>
                         <PdfLabel label={'Tel No'} value={initialValues?.customer?.phone}/>
