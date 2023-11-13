@@ -130,19 +130,22 @@ const SalesOrderPDF = () => {
         document.querySelector('.ant-modal-close').style.visibility = 'hidden';
         document.querySelector('.ant-modal-footer').style.visibility = 'hidden';
         const opt = {
-            margin: 1,
+            margin: .2,
             filename: initialValues.number,
             image: {type: 'jpeg', quality: 0.98},
             html2canvas: {scale: 2},
-            jsPDF: {unit: 'in', format: 'b4', orientation: 'portrait'}
+            jsPDF: {unit: 'in', format: 'b4', orientation: 'portrait'},
+            header: []
         };
         html2pdf().set({
             pagebreak: {mode: ['avoid-all', 'css', 'legacy']}
         }).from(input).set(opt).save();
-        document.querySelector('.ant-modal-close').click();
-        document.querySelector('.ant-modal-header').style.visibility = 'visible';
-        document.querySelector('.ant-modal-close').style.visibility = 'visible';
-        document.querySelector('.ant-modal-footer').style.visibility = 'visible';
+        setTimeout(() => {
+            document.querySelector('.ant-modal-close').click();
+            document.querySelector('.ant-modal-header').style.visibility = 'visible';
+            document.querySelector('.ant-modal-close').style.visibility = 'visible';
+            document.querySelector('.ant-modal-footer').style.visibility = 'visible';
+        }, 300);
     }
 
 
