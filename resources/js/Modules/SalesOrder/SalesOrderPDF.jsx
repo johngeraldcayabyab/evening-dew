@@ -47,7 +47,8 @@ const SalesOrderPDF = () => {
                         src={imageSrc}
                     />
                 )
-            }
+            },
+            width: 100
         },
         {
             title: 'Product',
