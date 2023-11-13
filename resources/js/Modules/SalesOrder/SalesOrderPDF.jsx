@@ -126,6 +126,7 @@ const SalesOrderPDF = () => {
 
     function downloadPdfDocument() {
         const input = document.querySelector('.ant-modal-content');
+        document.querySelector('.ant-modal-header').style.visibility = 'hidden';
         document.querySelector('.ant-modal-close').style.visibility = 'hidden';
         document.querySelector('.ant-modal-footer').style.visibility = 'hidden';
         const opt = {
@@ -139,6 +140,9 @@ const SalesOrderPDF = () => {
             pagebreak: {mode: ['avoid-all', 'css', 'legacy']}
         }).from(input).set(opt).save();
         document.querySelector('.ant-modal-close').click();
+        document.querySelector('.ant-modal-header').style.visibility = 'visible';
+        document.querySelector('.ant-modal-close').style.visibility = 'visible';
+        document.querySelector('.ant-modal-footer').style.visibility = 'visible';
     }
 
 
