@@ -128,10 +128,12 @@ const SalesOrderPDF = () => {
     function downloadPdfDocument() {
         const input = document.querySelector('.ant-modal-content');
         document.querySelector('.ant-modal-header').style.visibility = 'hidden';
+        document.querySelector('#head-divider').style.visibility = 'hidden';
+        document.querySelector('#order-number-header').style.visibility = 'visible';
         document.querySelector('.ant-modal-close').style.visibility = 'hidden';
         document.querySelector('.ant-modal-footer').style.visibility = 'hidden';
         const opt = {
-            margin: .2,
+            margin: .1,
             filename: initialValues.number,
             image: {type: 'jpeg', quality: 0.98},
             html2canvas: {scale: 2},
@@ -144,6 +146,8 @@ const SalesOrderPDF = () => {
         setTimeout(() => {
             document.querySelector('.ant-modal-close').click();
             document.querySelector('.ant-modal-header').style.visibility = 'visible';
+            document.querySelector('#head-divider').style.visibility = 'visible';
+            document.querySelector('#order-number-header').style.visibility = 'hidden';
             document.querySelector('.ant-modal-close').style.visibility = 'visible';
             document.querySelector('.ant-modal-footer').style.visibility = 'visible';
         }, 300);
@@ -171,7 +175,8 @@ const SalesOrderPDF = () => {
                     <Button key={"download"} type={'button'} onClick={downloadPdfDocument}>Download Pdf</Button>
                 ]}
             >
-                <Divider/>
+                <Divider id={'head-divider'}/>
+                <h4 id={'order-number-header'} style={{visibility: 'hidden'}}>ORDER # {initialValues.number}</h4>
                 <Row gutter={2}>
                     <Col span={18}>
                         <div style={{
