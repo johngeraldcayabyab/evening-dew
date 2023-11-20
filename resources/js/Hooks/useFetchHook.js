@@ -19,44 +19,13 @@ const useFetchHook = () => {
     const defaultHeaders = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
-        'Authorization': getCookie('Authorization')
+        'X-XSRF-TOKEN': getCookie('XSRF-TOKEN') || '',
+        'Authorization': getCookie('Authorization') || '',
     };
 
-    return (url, method, values = {}, withHeaders = false, customHeaders) => {
-        const fetchInit = {
-            headers: {
-                ...defaultHeaders, ...customHeaders,
-            }, signal, method: method,
-        };
-        if (method === GET) {
-            values = toQueryString(values);
-            url = `${url}?${values}`;
-        } else {
-            fetchInit.body = JSON.stringify(values);
-        }
-        return fetch(url, fetchInit).then((response) => {
-            if (response.ok) {
-                return response;
-            }
-            throw response;
-        }).then((responseOk) => {
-            const contentType = responseOk.headers.get('Content-Type');
-            if (contentType === 'text/html; charset=UTF-8') {
-                if (withHeaders) {
-                    return responseOk;
-                }
-                return responseOk.text();
-            } else if (contentType === 'application/json') {
-                if (withHeaders) {
-                    return responseOk;
-                }
-                return responseOk.json();
-            }
-            // for 204 response it has a blank content type. so for now return all the response
-            return responseOk;
-        }).catch((error) => {
-            if (error.status === 401) {
+    const handleErrors = (error) => {
+        switch (error.status) {
+            case 401:
                 appContext.setAppState(state => ({
                     ...state,
                     isLogin: false,
@@ -65,21 +34,60 @@ const useFetchHook = () => {
                     user: {},
                     appInitialLoad: true,
                 }));
-            } else if (error.status === 403) {
-                message.error('You cant do this action! Please ask your admin for permission');
-            } else if (error.status === 404) {
+                break;
+            case 403:
+                message.error('You can\'t do this action! Please ask your admin for permission');
+                break;
+            case 404:
                 message.error("This endpoint doesn't exist!");
-            } else if (error.status === 422) {
+                break;
+            case 422:
                 message.warning('The given data was invalid.');
-            } else if (error.status === 500) {
-                // https://github.com/johngeraldcayabyab/evening-dew/issues/17
+                break;
+            case 500:
                 error.clone().json().then((body) => {
                     message.error(body.message);
                 });
-            }
-            throw error;
-        });
-    }
+                break;
+            default:
+                break;
+        }
+        throw error;
+    };
+
+    return (url, method, values = {}, withHeaders = false, customHeaders) => {
+        const fetchInit = {
+            headers: {
+                ...defaultHeaders,
+                ...customHeaders,
+            },
+            signal,
+            method,
+        };
+        if (method === GET) {
+            values = toQueryString(values);
+            url = `${url}?${values}`;
+        } else {
+            fetchInit.body = JSON.stringify(values);
+        }
+        return fetch(url, fetchInit)
+            .then((response) => {
+                if (response.ok) {
+                    return response;
+                }
+                throw response;
+            })
+            .then((responseOk) => {
+                const contentType = responseOk.headers.get('Content-Type');
+                if (contentType === 'text/html; charset=UTF-8') {
+                    return withHeaders ? responseOk : responseOk.text();
+                } else if (contentType === 'application/json') {
+                    return withHeaders ? responseOk : responseOk.json();
+                }
+                return responseOk;
+            })
+            .catch(handleErrors);
+    };
 };
 
 export default useFetchHook;
