@@ -76,7 +76,7 @@ const ContentContainer = () => {
     }, [appState.isLogin]);
 
     return (
-        <Layout style={{height: '100%', background: '#f6f7fa'}}>
+        <Layout style={{height: '100%', background: 'white'}}>
             {appState.isLogin && <CustomMenu/>}
             <Content style={{marginTop: '50px', borderTop: 'none'}}>
                 <Outlet/>
