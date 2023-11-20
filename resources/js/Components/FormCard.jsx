@@ -1,13 +1,7 @@
 import {Card} from "antd";
 
 const FormCard = (props) => {
-    return (
-        <div style={{
-            backgroundImage: 'linear-gradient(rgba(204, 204, 204, 0.2) 0.1em, transparent 0.2em), linear-gradient(90deg, rgba(204, 204, 204, 0.2) 0.1em, transparent 0.1em)',
-            backgroundSize: '.4em 0.4em',
-            padding: '15px 0',
-            borderBottom: '1px solid #cccccc'
-        }}>
+    return (<div id={'form-card'}>
             <Card style={{
                 minWidth: '450px',
                 maxWidth: '1600px',
@@ -18,8 +12,7 @@ const FormCard = (props) => {
                 {props.children}
                 {/*{props.loading ? null : props.children}*/}
             </Card>
-        </div>
-    )
+        </div>)
 }
 
 export default FormCard;
