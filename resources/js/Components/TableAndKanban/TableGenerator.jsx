@@ -47,7 +47,12 @@ const TableGenerator = (manifest) => {
     });
 
     useEffect(() => {
-        let params = {};
+        const columnsGet = manifest.table.columns.map((columns) => {
+            return columns.dataIndex;
+        });
+        let params = {
+            selected_fields: columnsGet
+        };
         if (manifest.moduleName === getPayloadModule()) {
             params = {...getPayload(), ...params};
         }
