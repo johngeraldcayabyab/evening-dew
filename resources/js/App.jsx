@@ -40,7 +40,7 @@ import Purchase from "./Modules/PurchaseManifest";
 import Region from "./Modules/RegionManifest";
 import SalesOrder from "./Modules/SalesOrderManifest";
 import SalesOrderLine from "./Modules/SalesOrderLineManifest";
-import SalesSetting from "./Modules/SalesSetting";
+import SalesSetting from "./Modules/SalesSettingManifest";
 import Sequence from "./Modules/SequenceManifest";
 import Source from "./Modules/SourceManifest";
 import StockLocationQuantity from "./Modules/StockLocationQuantityManifest";
