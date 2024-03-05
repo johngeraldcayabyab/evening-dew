@@ -37,6 +37,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\SalesOrderLineController;
+use App\Http\Controllers\SalesSettingController;
 use App\Http\Controllers\SequenceController;
 use App\Http\Controllers\SourceController;
 use App\Http\Controllers\StockLocationQuantityController;
@@ -91,6 +92,7 @@ Route::group(['middleware' => ['api', 'cors', 'auth:sanctum']], function () {
     Route::get("sales_orders/sales_per_day", [SalesOrderController::class, 'sales_per_day']);
     Router::generate(SalesOrderController::class);
     Router::generate(SalesOrderLineController::class);
+    Router::generate(SalesSettingController::class);
     Router::generate(ProductController::class);
     Router::generate(SequenceController::class);
     Router::generate(SourceController::class);
