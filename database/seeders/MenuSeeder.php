@@ -151,6 +151,10 @@ class MenuSeeder extends Seeder
                 'url' => '/products',
             ],
             [
+                'label' => 'Sales Settings',
+                'url' => '/sales_settings',
+            ],
+            [
                 'label' => 'Sequences',
                 'url' => '/sequences',
             ],
