@@ -14,6 +14,7 @@ class SalesSettingResource extends JsonResource
         $slug = $this->slug();
         return $this->defaults($this, $request, [
             'name' => $this->name,
+            'generate_transfer_on_validate' => $this->generate_transfer_on_validate,
             'validate_transfer_on_validate' => $this->validate_transfer_on_validate,
             'company_id' => $this->company_id,
             'company' => $this->company,

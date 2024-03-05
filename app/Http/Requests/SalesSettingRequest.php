@@ -10,6 +10,7 @@ class SalesSettingRequest extends FormRequest
     {
         return [
             'name' => ['required'],
+            'generate_transfer_on_validate' => ['nullable'],
             'validate_transfer_on_validate' => ['nullable'],
             'company_id' => ['nullable', 'exists:companies,id'],
         ];

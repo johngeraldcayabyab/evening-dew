@@ -10,8 +10,9 @@ return new class extends Migration {
         Schema::create('sales_settings', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->boolean('generate_transfer_on_validate')->default(true);
             $table->boolean('validate_transfer_on_validate')->default(false);
-            $table->unsignedInteger('company_id')->nullable()->default(false);
+            $table->unsignedInteger('company_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

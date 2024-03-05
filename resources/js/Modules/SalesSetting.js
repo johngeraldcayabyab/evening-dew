@@ -58,6 +58,11 @@ const manifest = {
                 },
                 {
                     type: 'checkbox',
+                    name: 'generate_transfer_on_validate',
+                    label: 'Generate transfer on validate',
+                },
+                {
+                    type: 'checkbox',
                     name: 'validate_transfer_on_validate',
                     label: 'Validate transfer on validate',
                 },
