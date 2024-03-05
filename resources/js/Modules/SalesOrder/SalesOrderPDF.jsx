@@ -42,38 +42,39 @@ const SalesOrderPDF = () => {
                 const imageSrc = data ?? '/images/no-image.jpg';
                 return (
                     <Image
-                        width={90}
                         src={imageSrc}
                     />
                 )
             },
-            width: 90
+            width: '120px'
         },
         {
             title: 'Product',
             dataIndex: 'product',
             key: 'product',
             align: 'left',
+            width: '100px',
         },
         {
             title: 'Description',
             dataIndex: 'description',
             key: 'description',
             align: 'left',
-            width: 200
+            width: '350px'
         },
         {
             title: 'QTY',
             dataIndex: 'quantity',
             key: 'quantity',
             align: 'right',
-            width: 30
+            width: '30px'
         },
         {
             title: 'Unit Price',
             dataIndex: 'unit_price',
             key: 'unit_price',
             align: 'right',
+            width: '90px'
         },
         {
             title: 'Tax',
@@ -93,6 +94,7 @@ const SalesOrderPDF = () => {
             dataIndex: 'subtotal',
             key: 'subtotal',
             align: 'right',
+            width: '90px'
         },
     ];
 
