@@ -4,7 +4,9 @@ namespace App\Listeners;
 
 use App\Data\SystemSetting;
 use App\Events\SalesOrderValidated;
+use App\Events\TransferValidated;
 use App\Models\OperationType;
+use App\Models\SalesSetting;
 use App\Models\Transfer;
 use App\Models\TransferLine;
 use App\Services\MeasurementConversion;
@@ -13,6 +15,10 @@ class GenerateTransferFromValidatedSalesOrder
 {
     public function handle(SalesOrderValidated $event): void
     {
+        $salesSetting = SalesSetting::first();
+        if (!$salesSetting->generate_transfer_on_validate) {
+            return;
+        }
         $salesOrder = $event->salesOrder;
         if ($this->isTransferExist($salesOrder->number)) {
             return;
