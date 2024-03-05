@@ -27,7 +27,13 @@ class GenerateTransferFromValidatedSalesOrder
         if (!$operationTypeDelivery) {
             return;
         }
-        $this->createTransferAndLines($operationTypeDelivery, $salesOrder);
+        $transfer = $this->createTransferAndLines($operationTypeDelivery, $salesOrder);
+        if (!$salesSetting->validate_transfer_on_validate) {
+            return;
+        }
+        $transfer->status = Transfer::DONE;
+        $transfer->save();
+        TransferValidated::dispatch($transfer);
     }
 
     private function isTransferExist($sourceDocument)
