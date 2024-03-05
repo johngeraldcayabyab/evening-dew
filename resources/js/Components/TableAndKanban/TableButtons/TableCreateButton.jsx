@@ -14,6 +14,8 @@ const TableCreateButton = () => {
         return null;
     }
 
+    console.log(manifest);
+
     if (!manifest.routes.includes(HAS_FORM_CREATE)) {
         return null;
     }
