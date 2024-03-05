@@ -4,7 +4,7 @@ import {Menu, message, Spin} from "antd";
 import {AppstoreOutlined} from "@ant-design/icons";
 import useFetchHook from "../Hooks/useFetchHook";
 import {POST} from "../consts";
-import {Link, useLocation, useNavigate, Navigate, NavLink} from "react-router-dom";
+import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {setBreadcrumbs, setClickedBreadcrumb} from "../Helpers/breadcrumbs";
 import {replaceUnderscoreWithSpace, titleCase, uuidv4} from "../Helpers/string";
 import AvatarUser from "./AvatarUser";
@@ -103,8 +103,6 @@ const CustomMenu = () => {
             const children = menu.children.map((child) => ({
                 label: child.menu_id ?
                     <NavLink
-                        // relative="route"
-                        // reloadDocument={true}
                         to={child.menu.url}
                         onClick={() => {
                             resetBreadcrumbs(child.menu.url);
@@ -122,8 +120,6 @@ const CustomMenu = () => {
         return {
             label: menu.menu_id ?
                 <NavLink
-                    // relative="route"
-                    // reloadDocument={true}
                     to={menu.menu.url}>
                     {menu.label}
                 </NavLink>
@@ -145,8 +141,6 @@ const CustomMenu = () => {
         children: state.appMenu.map((appMenu) => ({
             label:
                 <NavLink
-                    // relative="route"
-                    // reloadDocument={true}
                     to={appMenu.menu.url}
                 >
                     {appMenu.label}
