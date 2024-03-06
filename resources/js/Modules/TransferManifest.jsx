@@ -1,6 +1,7 @@
 import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 import {disableIfStatus} from "../Helpers/object";
 import Text from "antd/es/typography/Text";
+import TransferPDF from "./Transfer/TransferPDF"
 
 const manifest = {
     moduleName: "transfers",
@@ -329,7 +330,15 @@ const manifest = {
                     ],
                 }
             }
-        }
+        },
+        divider_2: true,
+        row_4: {
+            col_1: [
+                {
+                    type: 'component', component: <TransferPDF key={'transfer_pdf'}/>
+                },
+            ],
+        },
     },
 };
 
