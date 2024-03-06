@@ -26,11 +26,6 @@ class SalesSetting extends Model implements Sluggable
     protected $guarded = [];
     protected static $logAttributes = ['*'];
 
-    public function referenceSequence()
-    {
-        return $this->belongsTo(Sequence::class, 'reference_sequence_id', 'id');
-    }
-
     public function company()
     {
         return $this->belongsTo(Company::class);
