@@ -26,34 +26,34 @@ const manifest = {
                 sequenceNumberRender: true,
                 isGlobalSearch: true,
             },
-            {
-                title: 'From',
-                dataIndex: 'source_location',
-                key: 'source_location',
-                sorter: true,
-                filter: SEARCH,
-                render: (text, record) => {
-                    if (record.source_location) {
-                        return record.source_location.parents;
-                    }
-                    return null;
-                },
-                isGlobalSearch: true,
-            },
-            {
-                title: 'To',
-                dataIndex: 'destination_location',
-                key: 'destination_location',
-                sorter: true,
-                filter: SEARCH,
-                render: (text, record) => {
-                    if (record.destination_location) {
-                        return record.destination_location.parents;
-                    }
-                    return null;
-                },
-                isGlobalSearch: true,
-            },
+            // {
+            //     title: 'From',
+            //     dataIndex: 'source_location',
+            //     key: 'source_location',
+            //     sorter: true,
+            //     filter: SEARCH,
+            //     render: (text, record) => {
+            //         if (record.source_location) {
+            //             return record.source_location.parents;
+            //         }
+            //         return null;
+            //     },
+            //     isGlobalSearch: true,
+            // },
+            // {
+            //     title: 'To',
+            //     dataIndex: 'destination_location',
+            //     key: 'destination_location',
+            //     sorter: true,
+            //     filter: SEARCH,
+            //     render: (text, record) => {
+            //         if (record.destination_location) {
+            //             return record.destination_location.parents;
+            //         }
+            //         return null;
+            //     },
+            //     isGlobalSearch: true,
+            // },
             {
                 title: 'Contact',
                 dataIndex: 'contact',

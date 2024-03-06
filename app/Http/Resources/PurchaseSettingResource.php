@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Http\Resources;
+
+use App\Traits\ResourceHelper;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class PurchaseSettingResource extends JsonResource
+{
+    use ResourceHelper;
+
+    public function toArray($request)
+    {
+        $slug = $this->slug();
+        return $this->defaults($this, $request, [
+            'name' => $this->name,
+            'generate_transfer_on_validate' => $this->generate_transfer_on_validate,
+            'validate_transfer_on_validate' => $this->validate_transfer_on_validate,
+            'company_id' => $this->company_id,
+            'company' => $this->company,
+            'slug' => $this->$slug,
+        ]);
+    }
+}

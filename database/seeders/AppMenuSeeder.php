@@ -190,6 +190,10 @@ class AppMenuSeeder extends Seeder
                                 'label' => 'Configurations',
                                 'children' => [
                                     [
+                                        'label' => 'Settings',
+                                        'menu_key' => 'purchase_settings',
+                                    ],
+                                    [
                                         'label' => 'Payment Terms',
                                         'menu_key' => 'Payment Terms',
                                     ],

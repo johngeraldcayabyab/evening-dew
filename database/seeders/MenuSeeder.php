@@ -135,6 +135,10 @@ class MenuSeeder extends Seeder
                 'url' => '/purchases',
             ],
             [
+                'label' => 'Purchase Settings',
+                'menu_key' => '/purchase_settings',
+            ],
+            [
                 'label' => 'Regions',
                 'url' => '/regions',
             ],
