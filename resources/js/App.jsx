@@ -37,6 +37,7 @@ import PaymentTerm from "./Modules/PaymentTermManifest";
 import Product from "./Modules/ProductManifest";
 import ProductCategory from "./Modules/ProductCategoryManifest";
 import Purchase from "./Modules/PurchaseManifest";
+import PurchaseSetting from "./Modules/PurchaseSettingManifest";
 import Region from "./Modules/RegionManifest";
 import SalesOrder from "./Modules/SalesOrderManifest";
 import SalesOrderLine from "./Modules/SalesOrderLineManifest";
@@ -89,6 +90,7 @@ const manifests = [
     Product,
     ProductCategory,
     Purchase,
+    PurchaseSetting,
     Region,
     SalesOrder,
     SalesOrderLine,
