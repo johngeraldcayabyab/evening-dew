@@ -24,9 +24,18 @@ class ProductCategory extends Model implements Sluggable
     use ModelHelperTrait;
     use NextAndPreviousRecordTrait;
 
+    const STANDARD_PRICE = 'standard_price';
+    const AVERAGE_COST = 'average_cost';
+    const FIRST_IN_FIRST_OUT = 'first_in_first_out';
+
     protected $table = 'product_categories';
     protected $guarded = [];
     protected static $logAttributes = ['*'];
+
+    public static function getCostingMethods()
+    {
+        return [self::STANDARD_PRICE, self::AVERAGE_COST, self::FIRST_IN_FIRST_OUT];
+    }
 
     public function parentProductCategory()
     {

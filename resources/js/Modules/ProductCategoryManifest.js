@@ -69,6 +69,26 @@ const manifest = {
                 },
             ]
         },
+        row_2: {
+            col_1: [
+                {
+                    type: 'divider',
+                    name: 'divider_1',
+                    orientation: 'left',
+                    label: 'Inventory valuation'
+                },
+                {
+                    type: 'select',
+                    name: 'costing_method',
+                    label: 'Costing Method',
+                    options: [
+                        {value: 'standard_price', label: 'Standard Price'},
+                        {value: 'average_cost', label: 'Average Cost'},
+                        {value: 'first_in_first_out', label: 'First In First Out'},
+                    ]
+                },
+            ]
+        },
     }
 };
 
