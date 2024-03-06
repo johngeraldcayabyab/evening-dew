@@ -4,7 +4,9 @@ namespace App\Listeners;
 
 use App\Data\SystemSetting;
 use App\Events\PurchaseValidated;
+use App\Events\TransferValidated;
 use App\Models\OperationType;
+use App\Models\PurchaseSetting;
 use App\Models\Transfer;
 use App\Models\TransferLine;
 use App\Services\MeasurementConversion;
@@ -13,12 +15,33 @@ class GenerateTransferFromValidatedPurchase
 {
     public function handle(PurchaseValidated $event)
     {
+        $purchaseSetting = PurchaseSetting::first();
+        if (!$purchaseSetting->generate_transfer_on_validate) {
+            return;
+        }
         $purchase = $event->purchase;
+        if ($this->isTransferExist($purchase->number)) {
+            return;
+        }
         $operationTypeReceipt = OperationType::defaultReceipt();
         if (!$operationTypeReceipt) {
             return;
         }
-        $this->createTransferAndLines($operationTypeReceipt, $purchase);
+        $transfer = $this->createTransferAndLines($operationTypeReceipt, $purchase);
+        if (!$purchaseSetting->validate_transfer_on_validate) {
+            return;
+        }
+        $transfer->status = Transfer::DONE;
+        $transfer->save();
+        TransferValidated::dispatch($transfer);
+    }
+
+    private function isTransferExist($sourceDocument)
+    {
+        if (Transfer::where('source_document', $sourceDocument)->first()) {
+            return true;
+        }
+        return false;
     }
 
     private function createTransferAndLines($operationType, $purchase)
