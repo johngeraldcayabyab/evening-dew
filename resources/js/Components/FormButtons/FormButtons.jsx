@@ -29,6 +29,10 @@ const FormButtons = () => {
         return formContext.id && !formContext.formState.formDisabled;
     }
 
+    function isEdit() {
+
+    }
+
     return (
         <Space size={'small'}>
             {
@@ -47,7 +51,12 @@ const FormButtons = () => {
                     {isCreating() && <DiscardCreateButton/>}
                 </>
             }
-            <CloneButton/>
+            {
+                isShowButton(appContext, manifest.moduleName, WRITE_ACCESS) &&
+                <>
+                    {(isViewing() || isEditing()) && <CloneButton/>}
+                </>
+            }
         </Space>
     )
 };
