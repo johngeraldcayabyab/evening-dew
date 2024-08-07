@@ -141,6 +141,9 @@ trait FilterTrait
             $to = Carbon::parse($dateRange[1]);
             return $query->whereBetween($field, [$from, $to]);
         }
+        if ($value === 'null') {
+            return $query;
+        }
         return $this->whereLike($query, $field, $value);
     }
 
