@@ -16,8 +16,8 @@ class UploadController extends Controller
             'uid' => Str::uuid(),
             'name' => $fileName,
             'status' => 'done',
-            'url' => asset("storage/images/${fileName}"),
-            'thumbUrl' => asset("storage/images/${fileName}"),
+            'url' => asset("storage/images/$fileName"),
+            'thumbUrl' => asset("storage/images/$fileName"),
         ]);
     }
 }
