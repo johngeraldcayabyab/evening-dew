@@ -36,4 +36,5 @@ export const VISIBILITY_CREATING = 'visibility_creating';
  */
 export const HAS_FORM_CREATE = 'has_form_create';
 export const HAS_FORM_UPDATE = 'has_form_update';
+export const HAS_FORM_CLONE = 'has_form_clone';
 export const HAS_TABLE = 'has_table';

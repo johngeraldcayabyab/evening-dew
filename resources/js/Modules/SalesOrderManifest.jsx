@@ -1,5 +1,5 @@
 import {disableIfStatus} from "../Helpers/object";
-import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
+import {DATE_RANGE, GET, HAS_FORM_CLONE, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 import SalesOrderPDF from "./SalesOrder/SalesOrderPDF";
 import SalesOrderBreakDown from "./SalesOrder/SalesOrderBreakDown";
 import CreateInvoiceButton from "./SalesOrder/CreateInvoiceButton"
@@ -10,7 +10,7 @@ const manifest = {
     moduleName: "sales_orders",
     displayName: "sales_orders",
     queryDefaults: {},
-    routes: [HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE],
+    routes: [HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, HAS_FORM_CLONE],
     table: {
         columnSelection: true,
         columns: [

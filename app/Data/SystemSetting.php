@@ -10,6 +10,7 @@ class SystemSetting
     const SLUG = 'slug';
     const SHOW = 'show';
     const UPDATE = 'update';
+    const CLONE = 'clone';
     const DESTROY = 'destroy';
     const MASS_DESTROY = 'mass_destroy';
     const STORE = 'store';

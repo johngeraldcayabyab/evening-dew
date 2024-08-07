@@ -25,6 +25,7 @@ class Router implements Generator
             $slug = SystemSetting::SLUG;
             $show = SystemSetting::SHOW;
             $update = SystemSetting::UPDATE;
+            $clone = SystemSetting::CLONE;
             $destroy = SystemSetting::DESTROY;
             $massDestroy = SystemSetting::MASS_DESTROY;
             $store = SystemSetting::STORE;
@@ -40,6 +41,9 @@ class Router implements Generator
             }
             if (self::findMethod($methods, SystemSetting::UPDATE, $controllerPath)) {
                 Route::put("/{{$singular}}", $update)->name("{$plural}.{$update}");
+            }
+            if (self::findMethod($methods, SystemSetting::CLONE, $controllerPath)) {
+                Route::post("/{{$singular}}/clone", $clone)->name("{$plural}.{$clone}");
             }
             if (self::findMethod($methods, SystemSetting::DESTROY, $controllerPath)) {
                 Route::delete("/{{$singular}}", $destroy)->name("{$plural}.{$massDestroy}");

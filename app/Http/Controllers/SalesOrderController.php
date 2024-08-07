@@ -122,4 +122,18 @@ class SalesOrderController extends Controller
             ->get();
         return $salesPerDay;
     }
+
+    public function clone(SalesOrder $salesOrder)
+    {
+        $salesOrderClone = $salesOrder->replicate();
+        $salesOrderClone->number = $salesOrder->number . ' Clone';
+        $salesOrderClone->status = SalesOrder::DRAFT;
+        $salesOrderClone->save();
+        foreach ($salesOrder->salesOrderLines as $line) {
+            $lineClone = $line->replicate();
+            $lineClone->sales_order_id = $salesOrderClone->id;
+            $lineClone->save();
+        }
+        return $this->responseCreate($salesOrderClone);
+    }
 }

@@ -10,6 +10,7 @@ import {FormContext} from "../../Contexts/FormContext"
 import {isShowButton} from "../../Helpers/object"
 import {CREATE_ACCESS, WRITE_ACCESS} from "../../consts"
 import {AppContext} from "../../Contexts/AppContext"
+import CloneButton from "./CloneButton"
 
 const FormButtons = () => {
     const appContext = useContext(AppContext);
@@ -46,6 +47,7 @@ const FormButtons = () => {
                     {isCreating() && <DiscardCreateButton/>}
                 </>
             }
+            <CloneButton/>
         </Space>
     )
 };

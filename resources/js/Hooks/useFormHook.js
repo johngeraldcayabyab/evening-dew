@@ -100,7 +100,27 @@ const useFormHook = (id, form, manifest, getInitialValues = false) => {
         },
         modalSubmit: () => {
             form.submit();
-        }
+        },
+        clone: () => {
+            setToLoading();
+            useFetch(`/api/${manifest.moduleName}/${id}/clone`, POST, {}, true).then((response) => {
+                setFormState(prevState => ({
+                    ...prevState,
+                    loading: false
+                }));
+                let headerLocation = response.headers.get('Location');
+                if (headerLocation) {
+                    let locationId = headerLocation.split('/').pop();
+                    if (parseInt(locationId)) {
+                        window.location.href = `/${manifest.displayName}/${locationId}`;
+                    } else {
+                        window.location.href = `/${manifest.displayName}`;
+                    }
+                }
+            }).catch((responseErr) => {
+                handleFormErrors(responseErr);
+            });
+        },
     });
 
     function setToLoading() {
