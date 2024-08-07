@@ -3,6 +3,8 @@
 use App\Http\Controllers\SalesOrderLineController;
 use Illuminate\Support\Facades\Route;
 
+dd(\App\Models\Address::with('city')->find(20));
+
 /**
  * Exports
  */

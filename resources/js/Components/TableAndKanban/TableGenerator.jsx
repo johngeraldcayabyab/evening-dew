@@ -50,12 +50,24 @@ const TableGenerator = (manifest) => {
         const columnsGet = manifest.table.columns.map((columns) => {
             return columns.dataIndex;
         });
+
+        const url = window.location.href;
+        const encodedSourceDocument = new URL(url).searchParams.get("source_document");
+        const originalSourceDocument = decodeURIComponent(encodedSourceDocument);
+        console.log(originalSourceDocument);
+
+
         let params = {
             selected_fields: columnsGet
         };
         if (manifest.moduleName === getPayloadModule()) {
             params = {...getPayload(), ...params};
         }
+
+        if(originalSourceDocument){
+            params.source_document = originalSourceDocument;
+        }
+
         setPayload(params);
         setPayloadModule(manifest.moduleName);
         useFetch(`/api/${manifest.moduleName}`, GET, params).then((response) => {
