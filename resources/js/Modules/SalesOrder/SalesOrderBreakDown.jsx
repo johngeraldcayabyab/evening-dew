@@ -31,6 +31,19 @@ const SalesOrderBreakDown = (props) => {
     }));
     const breakdownComputed = computeBreakdown(salesOrderLinesComputedFormatted);
     const breakdownComputedWithDiscount = computeDiscount(discountType, discountRate, breakdownComputed);
+
+
+    // const breakdownComputedWithOrderLinesDiscount = breakdownComputedWithDiscount;
+
+
+    // const totalLineDiscounts = salesOrderLines.reduce((total, salesOrderLine) => {
+    //     return total + computeLineDiscount(salesOrderLine);
+    // }, 0);
+    //
+    //
+    // console.log(breakdownComputedWithDiscount, totalLineDiscounts);
+
+
     const breakdownSource = [
         {
             key: 'taxable_amount',

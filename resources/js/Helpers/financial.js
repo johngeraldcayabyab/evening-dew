@@ -26,6 +26,25 @@ export const computeTax = (tax, orderLine) => {
     return orderLine;
 }
 
+export const computeLineDiscount = (line) => {
+    const computation = {
+        subtotal: line.subtotal,
+        discount: 0
+    };
+    const discountType = line.discount_type;
+    const discountRate = parseFloat(line.discount_rate);
+    if (discountType && discountRate) {
+        if (discountType === 'fixed') {
+            computation.discount = discountRate;
+            computation.subtotal = computation.subtotal - discountRate;
+        } else if (discountType === 'percentage') {
+            computation.discount = (computation.subtotal * discountRate) / 100;
+            computation.subtotal = computation.subtotal - computation.discount;
+        }
+    }
+    return computation;
+}
+
 
 export const computeDiscount = (discountType, discountRate, breakdownComputed = {}) => {
     const discountedComputation = {
