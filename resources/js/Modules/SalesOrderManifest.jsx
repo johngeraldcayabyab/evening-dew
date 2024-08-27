@@ -279,7 +279,7 @@ const manifest = {
             tab_pane_1: {
                 name: "Order Lines",
                 form_line_1: {
-                    columns: ['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Shipping Date', 'Tax', 'Subtotal'],
+                    columns: ['Product', 'Description', 'Quantity', 'Measurement', 'Unit Price', 'Shipping Date', 'Tax', 'Discount Type', 'Discount Rate', 'Subtotal'],
                     listName: 'sales_order_lines',
                     fields: [
                         {
@@ -311,7 +311,9 @@ const manifest = {
                             overrideDisabled: (formContext) => disableIfStatus(formContext.formState, 'done')
                         },
                         {
-                            type: 'text', name: 'description', placeholder: 'Description',
+                            type: 'text',
+                            name: 'description',
+                            placeholder: 'Description',
                         },
                         {
                             type: 'number',
@@ -358,7 +360,29 @@ const manifest = {
                             overrideDisabled: (formContext) => disableIfStatus(formContext.formState, 'done')
                         },
                         {
-                            type: 'number', name: 'subtotal', placeholder: 'Subtotal', overrideDisabled: true,
+                            type: 'select',
+                            name: 'discount_type',
+                            placeholder: 'Discount Type',
+                            options: [
+                                {value: 'percentage', label: 'Percentage'},
+                                {value: 'fixed', label: 'Fixed'},
+                            ],
+                            overrideDisabled: (formContext) => disableIfStatus(formContext.formState, 'done'),
+                        },
+                        {
+                            type: 'number',
+                            name: 'discount_rate',
+                            placeholder: 'Discount Rate',
+                            onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
+                                computeSubtotal(formContext, allValues);
+                            },
+                            overrideDisabled: (formContext) => disableIfStatus(formContext.formState, 'done')
+                        },
+                        {
+                            type: 'number',
+                            name: 'subtotal',
+                            placeholder: 'Subtotal',
+                            overrideDisabled: true,
                         },
                     ]
                 },

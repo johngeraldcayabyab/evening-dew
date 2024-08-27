@@ -28,11 +28,11 @@ export const computeTax = (tax, orderLine) => {
 
 
 export const computeDiscount = (discountType, discountRate, breakdownComputed = {}) => {
-    // return breakdownComputed;
-
-
     const discountedComputation = {
-        taxable_amount: breakdownComputed.taxableAmount, tax_amount: breakdownComputed.taxAmount, discount: 0, total: 0,
+        taxable_amount: breakdownComputed.taxableAmount,
+        tax_amount: breakdownComputed.taxAmount,
+        discount: 0,
+        total: 0,
     };
 
     // there should be another option for discount calculation

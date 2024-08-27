@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Invoice;
 use App\Models\SalesOrder;
+use App\Models\SalesOrderLine;
 use App\Models\Transfer;
 use App\Rules\SalesOrderSameMeasurementCategory;
 use Illuminate\Foundation\Http\FormRequest;
@@ -17,6 +18,7 @@ class SalesOrderRequest extends FormRequest
         $shippingMethods = implode_types(Transfer::getShippingMethods());
         $invoiceTypes = implode_types(Invoice::getTypes());
         $discountTypes = implode_types(SalesOrder::getDiscountTypes());
+        $lineDiscountTypes = implode_types(SalesOrderLine::getDiscountTypes());
         return [
             'number' => 'required',
             'customer_id' => ['required', "exists:contacts,id"],
@@ -51,6 +53,8 @@ class SalesOrderRequest extends FormRequest
             'sales_order_lines.*.unit_price' => ['required', 'numeric'],
             'sales_order_lines.*.shipping_date' => ['nullable'],
             'sales_order_lines.*.tax_id' => ['nullable', "exists:taxes,id"],
+            'sales_order_lines.*.discount_type' => ['nullable', "in:$lineDiscountTypes"],
+            'sales_order_lines.*.discount_rate' => ['required', 'numeric'],
             'sales_order_lines_deleted.*.id' => ['nullable', 'exists:sales_order_lines,id'],
             'invoice_type' => ['nullable', "in:$invoiceTypes"]
         ];
