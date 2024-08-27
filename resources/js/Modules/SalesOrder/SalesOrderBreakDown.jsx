@@ -3,7 +3,7 @@ import FormLabel from "../../Components/Typography/FormLabel"
 import {Form, Table} from "antd"
 import {useContext} from "react"
 import {toCurrency} from "../../Helpers/string"
-import {computeDiscount, computeTax, getTax} from "../../Helpers/financial"
+import {computeDiscount} from "../../Helpers/financial"
 import {computeSalesOrderLineSubtotal} from "../../Helpers/salesOrderLine"
 
 const SalesOrderBreakDown = (props) => {
@@ -35,25 +35,21 @@ const SalesOrderBreakDown = (props) => {
         {
             key: 'taxable_amount',
             label: 'Taxable Amount:',
-            // value: 0,
             value: toCurrency(breakdownComputedWithDiscount.taxableAmount),
         },
         {
             key: 'tax_amount',
             label: 'Tax Amount:',
-            // value: 0,
             value: toCurrency(breakdownComputedWithDiscount.taxAmount),
         },
         {
             key: 'discount',
             label: 'Discount:',
-            // value: 0,
             value: toCurrency(breakdownComputedWithDiscount.discount),
         },
         {
             key: 'total',
             label: 'Total:',
-            // value: 0,
             value: toCurrency(breakdownComputedWithDiscount.total),
         },
     ];
