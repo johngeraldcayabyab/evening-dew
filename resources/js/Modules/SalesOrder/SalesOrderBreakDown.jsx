@@ -3,7 +3,7 @@ import FormLabel from "../../Components/Typography/FormLabel"
 import {Form, Table} from "antd"
 import {useContext} from "react"
 import {toCurrency} from "../../Helpers/string"
-import {computeDiscount} from "../../Helpers/financial"
+import {computeDiscount, computeLineDiscount} from "../../Helpers/financial"
 import {computeSalesOrderLineSubtotal} from "../../Helpers/salesOrderLine"
 
 const SalesOrderBreakDown = (props) => {
@@ -33,15 +33,15 @@ const SalesOrderBreakDown = (props) => {
     const breakdownComputedWithDiscount = computeDiscount(discountType, discountRate, breakdownComputed);
 
 
-    // const breakdownComputedWithOrderLinesDiscount = breakdownComputedWithDiscount;
-
-
-    // const totalLineDiscounts = salesOrderLines.reduce((total, salesOrderLine) => {
-    //     return total + computeLineDiscount(salesOrderLine);
-    // }, 0);
-    //
-    //
-    // console.log(breakdownComputedWithDiscount, totalLineDiscounts);
+    if (salesOrderLines && salesOrderLines.length) {
+        let totalLineDiscounts = 0;
+        salesOrderLines.forEach(salesOrderLine => {
+            if (salesOrderLine) {
+                totalLineDiscounts += computeLineDiscount(salesOrderLine).discount;
+            }
+        });
+        breakdownComputedWithDiscount.discount = breakdownComputedWithDiscount.discount + totalLineDiscounts;
+    }
 
 
     const breakdownSource = [
