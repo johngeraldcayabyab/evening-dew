@@ -66,7 +66,10 @@ const manifest = {
                 sorter: true,
                 filter: SEARCH,
                 render: (text, record) => {
-                    return record.chart_of_account.code;
+                    if(record.chart_of_account){
+                        return record.chart_of_account.code;
+                    }
+                    return '';
                 },
                 isGlobalSearch: true,
             },
