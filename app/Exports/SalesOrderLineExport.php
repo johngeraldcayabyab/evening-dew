@@ -2,7 +2,6 @@
 
 namespace App\Exports;
 
-use App\Models\SalesOrder;
 use App\Models\SalesOrderLine;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\Exportable;

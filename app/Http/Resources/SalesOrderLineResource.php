@@ -25,6 +25,8 @@ class SalesOrderLineResource extends JsonResource
             'shipping_date' => $this->shipping_date,
             'sales_order_id' => $this->sales_order_id,
             'product' => $this->product,
+            'discount_type' => $this->discount_type,
+            'discount_rate' => $this->discount_rate,
             'sales_order' => $this->salesOrder,
         ]);
     }

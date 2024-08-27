@@ -33,6 +33,14 @@ class SalesOrderLine extends Model
         'subtotal' => 'double',
     ];
 
+    const PERCENTAGE = 'percentage';
+    const FIXED = 'fixed';
+
+    public static function getDiscountTypes()
+    {
+        return [self::PERCENTAGE, self::FIXED];
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class);
@@ -71,6 +79,8 @@ class SalesOrderLine extends Model
                 'tax_id' => $datum['tax_id'] ?? null,
                 'subtotal' => $unitPrice * $datum['quantity'],
                 'shipping_date' => Carbon::parse($shippingDate)->format(SystemSetting::DATE_TIME_FORMAT),
+                'discount_type' => $datum['discount_type'] ?? null,
+                'discount_rate' => $datum['discount_rate'] ?? null,
                 'sales_order_id' => $parent->id,
             ];
         })->toArray();
