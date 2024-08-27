@@ -54,7 +54,7 @@ class SalesOrderRequest extends FormRequest
             'sales_order_lines.*.shipping_date' => ['nullable'],
             'sales_order_lines.*.tax_id' => ['nullable', "exists:taxes,id"],
             'sales_order_lines.*.discount_type' => ['nullable', "in:$lineDiscountTypes"],
-            'sales_order_lines.*.discount_rate' => ['required', 'numeric'],
+            'sales_order_lines.*.discount_rate' => ['nullable', 'numeric'],
             'sales_order_lines_deleted.*.id' => ['nullable', 'exists:sales_order_lines,id'],
             'invoice_type' => ['nullable', "in:$invoiceTypes"]
         ];
