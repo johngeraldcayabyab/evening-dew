@@ -11,7 +11,15 @@ export const computeSalesOrderLineSubtotal = (salesOrderLine, taxes) => {
                 salesOrderLine = computeTax(tax, salesOrderLine);
             }
         }
-
+        const discountType = salesOrderLine.discount_type;
+        const discountRate = parseFloat(salesOrderLine.discount_rate);
+        if (discountType && discountRate) {
+            if (discountType === 'fixed') {
+                salesOrderLine.subtotal = salesOrderLine.subtotal - discountRate;
+            } else if (discountType === 'percentage') {
+                salesOrderLine.subtotal = salesOrderLine.subtotal - ((salesOrderLine.subtotal * discountRate) / 100);
+            }
+        }
     }
     return salesOrderLine;
 }
