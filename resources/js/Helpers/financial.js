@@ -29,8 +29,8 @@ export const computeTax = (tax, orderLine) => {
 
 export const computeDiscount = (discountType, discountRate, breakdownComputed = {}) => {
     const discountedComputation = {
-        taxable_amount: breakdownComputed.taxableAmount,
-        tax_amount: breakdownComputed.taxAmount,
+        taxable_amount: breakdownComputed.taxable_amount,
+        tax_amount: breakdownComputed.tax_amount,
         discount: 0,
         total: 0,
     };
@@ -39,15 +39,15 @@ export const computeDiscount = (discountType, discountRate, breakdownComputed = 
     // where should it calculate the discount. the taxable amount or the total amount
     if (discountType === 'fixed' && discountRate) {
         discountedComputation.discount = discountRate;
-        discountedComputation.total = breakdownComputed.totalDiscountable - discountedComputation.discount;
+        discountedComputation.total = breakdownComputed.total_discountable - discountedComputation.discount;
     } else if (discountType === 'percentage' && discountRate) {
-        discountedComputation.discount = (breakdownComputed.totalDiscountable * discountRate) / 100;
-        discountedComputation.total = breakdownComputed.totalDiscountable - discountedComputation.discount;
+        discountedComputation.discount = (breakdownComputed.total_discountable * discountRate) / 100;
+        discountedComputation.total = breakdownComputed.total_discountable - discountedComputation.discount;
     } else {
-        discountedComputation.total = breakdownComputed.totalDiscountable;
+        discountedComputation.total = breakdownComputed.total_discountable;
     }
 
 
-    discountedComputation.total = discountedComputation.total + breakdownComputed.totalNonDiscountable;
+    discountedComputation.total = discountedComputation.total + breakdownComputed.total_non_discountable;
     return discountedComputation;
 }

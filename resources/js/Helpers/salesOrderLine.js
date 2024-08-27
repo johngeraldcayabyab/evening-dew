@@ -11,6 +11,7 @@ export const computeSalesOrderLineSubtotal = (salesOrderLine, taxes) => {
                 salesOrderLine = computeTax(tax, salesOrderLine);
             }
         }
+
     }
     return salesOrderLine;
 }

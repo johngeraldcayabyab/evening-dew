@@ -24,8 +24,8 @@ const SalesOrderBreakDown = (props) => {
         }
     });
     const salesOrderLinesComputedFormatted = salesOrderLinesComputation.map((salesOrderLineCompute) => ({
-        taxableAmount: salesOrderLineCompute.taxable_amount,
-        taxAmount: salesOrderLineCompute.tax_amount,
+        taxable_amount: salesOrderLineCompute.taxable_amount,
+        tax_amount: salesOrderLineCompute.tax_amount,
         total: salesOrderLineCompute.subtotal,
         can_be_discounted: salesOrderLineCompute.can_be_discounted
     }));
@@ -35,12 +35,12 @@ const SalesOrderBreakDown = (props) => {
         {
             key: 'taxable_amount',
             label: 'Taxable Amount:',
-            value: toCurrency(breakdownComputedWithDiscount.taxableAmount),
+            value: toCurrency(breakdownComputedWithDiscount.taxable_amount),
         },
         {
             key: 'tax_amount',
             label: 'Tax Amount:',
-            value: toCurrency(breakdownComputedWithDiscount.taxAmount),
+            value: toCurrency(breakdownComputedWithDiscount.tax_amount),
         },
         {
             key: 'discount',
@@ -92,19 +92,19 @@ const SalesOrderBreakDown = (props) => {
 
 function computeBreakdown(salesOrderLinesComputedFormatted) {
     const breakdownInitial = {
-        taxableAmount: 0,
-        taxAmount: 0,
-        totalDiscountable: 0,
-        totalNonDiscountable: 0,
+        taxable_amount: 0,
+        tax_amount: 0,
+        total_discountable: 0,
+        total_non_discountable: 0,
     };
     if (salesOrderLinesComputedFormatted.length) {
         salesOrderLinesComputedFormatted.forEach(breakBot => {
-            breakdownInitial.taxableAmount = breakdownInitial.taxableAmount + breakBot.taxableAmount;
-            breakdownInitial.taxAmount = breakdownInitial.taxAmount + breakBot.taxAmount;
+            breakdownInitial.taxable_amount = breakdownInitial.taxable_amount + breakBot.taxable_amount;
+            breakdownInitial.tax_amount = breakdownInitial.tax_amount + breakBot.tax_amount;
             if (breakBot.can_be_discounted) {
-                breakdownInitial.totalDiscountable = breakdownInitial.totalDiscountable + breakBot.total;
+                breakdownInitial.total_discountable = breakdownInitial.total_discountable + breakBot.total;
             } else {
-                breakdownInitial.totalNonDiscountable = breakdownInitial.totalNonDiscountable + breakBot.total;
+                breakdownInitial.total_non_discountable = breakdownInitial.total_non_discountable + breakBot.total;
             }
         });
     }
