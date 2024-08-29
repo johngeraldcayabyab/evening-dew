@@ -41,6 +41,13 @@ export const updateKey = (name) => {
     return `${name}-${UPDATE}`;
 };
 
+export const percentageOrCurrency = (discountType, discountRate) => {
+    if (discountType === 'percentage') {
+        return `${discountRate}%`;
+    }
+    return toCurrency(discountRate);
+}
+
 export const toCurrency = (num, position = 'left') => {
     const globalSettings = JSON.parse(localStorage.getItem('globalSettings'));
     const currency = globalSettings.hasOwnProperty('currency') ? globalSettings.currency : null;

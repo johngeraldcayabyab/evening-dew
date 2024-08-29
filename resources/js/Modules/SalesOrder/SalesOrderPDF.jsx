@@ -1,6 +1,6 @@
-import {Button, Col, Divider, Image, Modal, Row, Space, Table} from 'antd';
+import {Button, Col, Divider, Image, Modal, Row, Table} from 'antd';
 import React, {useContext, useState} from 'react';
-import {toCurrency} from "../../Helpers/string";
+import {percentageOrCurrency, toCurrency} from "../../Helpers/string";
 import {FormContext} from "../../Contexts/FormContext";
 import dayjs from "dayjs";
 import html2pdf from 'html2pdf.js'
@@ -21,6 +21,7 @@ const SalesOrderPDF = () => {
             description: salesOrderLine.description,
             quantity: salesOrderLine.quantity,
             unit_price: toCurrency(salesOrderLine.unit_price),
+            discount_rate: percentageOrCurrency(salesOrderLine.discount_type, salesOrderLine.discount_rate),
             subtotal: toCurrency(salesOrderLine.subtotal),
             avatar: salesOrderLine.avatar
         };
@@ -88,6 +89,13 @@ const SalesOrderPDF = () => {
                 }
                 return false;
             },
+        },
+        {
+            title: 'Discount',
+            dataIndex: 'discount_rate',
+            key: 'discount_rate',
+            align: 'right',
+            width: '90px'
         },
         {
             title: 'Subtotal',
