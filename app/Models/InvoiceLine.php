@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Financial;
 use App\Traits\AutoLogTrait;
 use App\Traits\FilterTrait;
 use App\Traits\ModelHelperTrait;
@@ -55,13 +56,16 @@ class InvoiceLine extends Model
         $incomeAccount = $invoice->journal->incomeChartOfAccount;
         $lines = collect($data)->map(function ($datum) use ($invoice, $incomeAccount) {
             $unitPrice = (float)str_replace(',', '', $datum['unit_price']);
+            $computation = Financial::computeInvoiceLineSubtotal($datum);
             return [
                 'id' => $datum['id'] ?? null,
                 'product_id' => $datum['product_id'],
                 'description' => $datum['description'] ?? null,
                 'quantity' => $datum['quantity'],
                 'unit_price' => $unitPrice,
-                'subtotal' => $unitPrice * $datum['quantity'],
+                'taxable_amount' => $computation['taxable_amount'],
+                'tax_amount' => $computation['tax_amount'],
+                'subtotal' => $computation['subtotal'],
                 'chart_of_account_id' => $datum['chart_of_account_id'] ?? $incomeAccount->id,
                 'tax_id' => $datum['tax_id'] ?? null,
                 'invoice_id' => $invoice->id,

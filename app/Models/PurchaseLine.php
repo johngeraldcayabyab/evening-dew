@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Data\SystemSetting;
+use App\Services\Financial;
 use App\Traits\AutoLogTrait;
 use App\Traits\FilterTrait;
 use App\Traits\ModelHelperTrait;
@@ -61,6 +62,7 @@ class PurchaseLine extends Model
             $unitPrice = (float)str_replace(',', '', $datum['unit_price']);
             $measurementId = $datum['measurement_id'] ?? $measurementId;
             $receivingDate = $datum['receiving_date'] ?? $parent->shipping_date;
+            $computation = Financial::computePurchaseLineSubtotal($datum);
             return [
                 'id' => $datum['id'] ?? null,
                 'product_id' => $datum['product_id'],
@@ -68,7 +70,9 @@ class PurchaseLine extends Model
                 'quantity' => $datum['quantity'],
                 'measurement_id' => $measurementId,
                 'unit_price' => $unitPrice,
-                'subtotal' => $unitPrice * $datum['quantity'],
+                'taxable_amount' => $computation['taxable_amount'],
+                'tax_amount' => $computation['tax_amount'],
+                'subtotal' => $computation['subtotal'],
                 'receiving_date' => Carbon::parse($receivingDate)->format(SystemSetting::DATE_TIME_FORMAT),
                 'tax_id' => $datum['tax_id'] ?? null,
                 'purchase_id' => $parent->id,
