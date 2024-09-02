@@ -6,9 +6,9 @@ export const getTax = (id, taxes) => {
 }
 
 export const computeTax = (tax, orderLine) => {
+    orderLine.taxable_amount = orderLine.subtotal;
     if (tax.computation === 'fixed') {
-        orderLine.tax_amount = tax.amount * orderLine.quantity;
-        orderLine.taxable_amount = orderLine.subtotal;
+        orderLine.tax_amount = tax.amount;
         if (tax.included_in_price) {
             orderLine.taxable_amount = orderLine.taxable_amount - orderLine.tax_amount;
         } else {
@@ -16,7 +16,6 @@ export const computeTax = (tax, orderLine) => {
         }
     } else if (tax.computation === 'percentage_of_price') {
         orderLine.tax_amount = (orderLine.subtotal * tax.amount) / 100;
-        orderLine.taxable_amount = orderLine.subtotal;
         if (tax.included_in_price) {
             orderLine.taxable_amount = orderLine.taxable_amount - orderLine.tax_amount;
         } else {
