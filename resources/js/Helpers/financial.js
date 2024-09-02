@@ -32,14 +32,15 @@ export const computeLineDiscount = (line) => {
     };
     const discountType = line.discount_type;
     const discountRate = parseFloat(line.discount_rate);
-    if (discountType && discountRate) {
-        if (discountType === 'fixed') {
-            computation.discount = discountRate;
-            computation.subtotal = computation.subtotal - discountRate;
-        } else if (discountType === 'percentage') {
-            computation.discount = (computation.subtotal * discountRate) / 100;
-            computation.subtotal = computation.subtotal - computation.discount;
-        }
+    if (!discountType || !discountRate) {
+        return computation;
+    }
+    if (discountType === 'fixed') {
+        computation.discount = discountRate;
+        computation.subtotal = computation.subtotal - discountRate;
+    } else if (discountType === 'percentage') {
+        computation.discount = (computation.subtotal * discountRate) / 100;
+        computation.subtotal = computation.subtotal - computation.discount;
     }
     return computation;
 }
@@ -52,9 +53,6 @@ export const computeDiscount = (discountType, discountRate, breakdownComputed = 
         discount: 0,
         total: 0,
     };
-
-    // there should be another option for discount calculation
-    // where should it calculate the discount. the taxable amount or the total amount
     if (discountType === 'fixed' && discountRate) {
         discountedComputation.discount = discountRate;
         discountedComputation.total = breakdownComputed.total_discountable - discountedComputation.discount;
