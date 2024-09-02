@@ -62,8 +62,6 @@ export const computeDiscount = (discountType, discountRate, breakdownComputed = 
     } else {
         discountedComputation.total = breakdownComputed.total_discountable;
     }
-
-
     discountedComputation.total = discountedComputation.total + breakdownComputed.total_non_discountable;
     return discountedComputation;
 }
