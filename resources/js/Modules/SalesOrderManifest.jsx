@@ -3,8 +3,8 @@ import {DATE_RANGE, GET, HAS_FORM_CLONE, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_T
 import SalesOrderPDF from "./SalesOrder/SalesOrderPDF";
 import SalesOrderBreakDown from "./SalesOrder/SalesOrderBreakDown";
 import CreateInvoiceButton from "./SalesOrder/CreateInvoiceButton"
-import {computeSalesOrderLineSubtotal} from "../Helpers/salesOrderLine"
 import {parseFloatComma} from "../Helpers/string";
+import {computeSalesOrderLineSubtotal} from "../Helpers/financial"
 
 const manifest = {
     moduleName: "sales_orders",
