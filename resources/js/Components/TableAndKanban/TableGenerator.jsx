@@ -63,7 +63,7 @@ const TableGenerator = (manifest) => {
             params = {...getPayload(), ...params};
         }
 
-        if(originalSourceDocument){
+        if (originalSourceDocument) {
             params.source_document = originalSourceDocument;
         }
 

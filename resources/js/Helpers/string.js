@@ -1,4 +1,5 @@
 import {CREATE, LIST, UPDATE} from "../consts";
+import {getGlobalSettings} from "./localstorage"
 
 export const uuidv4 = () => {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -49,7 +50,7 @@ export const percentageOrCurrency = (discountType, discountRate) => {
 }
 
 export const toCurrency = (num, position = 'left') => {
-    const globalSettings = JSON.parse(localStorage.getItem('globalSettings'));
+    const globalSettings = getGlobalSettings();
     const currency = globalSettings.hasOwnProperty('currency') ? globalSettings.currency : null;
     const symbol = `${currency.symbol ? currency.symbol : ''} `;
     let money = (num ? num : 0).toLocaleString('en-US', {maximumFractionDigits: 2});

@@ -33,6 +33,10 @@ export const setPayload = (payload) => {
     localStorage.setItem("payload", JSON.stringify(payload));
 };
 
+export const getGlobalSettings = () => {
+    return JSON.parse(localStorage.getItem('globalSettings'));
+};
+
 // export const getClickedBreadcrumb = () => {
 //     let clickedBreadcrumb = {};
 //     if (localStorage.getItem("clicked_breadcrumb")) {

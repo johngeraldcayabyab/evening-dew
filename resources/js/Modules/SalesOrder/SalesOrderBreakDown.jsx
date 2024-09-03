@@ -4,11 +4,12 @@ import {Form, Table} from "antd"
 import {useContext} from "react"
 import {toCurrency} from "../../Helpers/string"
 import {computeDiscount, computeLineDiscount, computeSalesOrderLineSubtotal} from "../../Helpers/financial"
+import {getGlobalSettings} from "../../Helpers/localstorage"
 
 const SalesOrderBreakDown = (props) => {
     const formContext = useContext(FormContext);
     const salesOrderLines = Form.useWatch('sales_order_lines', formContext.form) ?? [];
-    const globalSettings = JSON.parse(localStorage.getItem('globalSettings'));
+    const globalSettings = getGlobalSettings();
     const discountRate = Form.useWatch('discount_rate', formContext.form) ?? 0;
     const discountType = Form.useWatch('discount_type', formContext.form) ?? 0;
     const taxes = formContext.state.queries.taxes.options;
