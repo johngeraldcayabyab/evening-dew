@@ -29,6 +29,7 @@ export const computeTax = (tax, orderLine, salesOrderComputationSettings) => {
 }
 
 export const computeLineDiscount = (line, salesOrderComputationSettings) => {
+    const discountComputationOrder = salesOrderComputationSettings.salesOrderDiscountComputationOrder;
     const computation = {
         subtotal: line.subtotal,
         discount: 0
@@ -39,10 +40,26 @@ export const computeLineDiscount = (line, salesOrderComputationSettings) => {
         return computation;
     }
     if (discountType === 'fixed') {
-        computation.discount = discountRate;
-        computation.subtotal = computation.subtotal - discountRate;
+        if (discountComputationOrder === 'subtotal') {
+            computation.discount = discountRate;
+            console.log(1);
+        } else if (discountComputationOrder === 'unit_price') {
+            for (let i = 0; i < line.quantity; i++) {
+                computation.discount += line.discount_rate;
+            }
+            console.log(2);
+        }
+        computation.subtotal = computation.subtotal - computation.discount;
     } else if (discountType === 'percentage') {
-        computation.discount = (computation.subtotal * discountRate) / 100;
+        if (discountComputationOrder === 'subtotal') {
+            computation.discount = (computation.subtotal * discountRate) / 100;
+            console.log(3);
+        } else if (discountComputationOrder === 'unit_price') {
+            for (let i = 0; i < line.quantity; i++) {
+                computation.discount += (line.unit_price * discountRate) / 100;
+            }
+            console.log(4);
+        }
         computation.subtotal = computation.subtotal - computation.discount;
     }
     return computation;

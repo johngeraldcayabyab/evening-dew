@@ -43,7 +43,7 @@ const SalesOrderBreakDown = (props) => {
         let totalLineDiscounts = 0;
         salesOrderLines.forEach(salesOrderLine => {
             if (salesOrderLine) {
-                totalLineDiscounts += computeLineDiscount(salesOrderLine).discount;
+                totalLineDiscounts += computeLineDiscount(salesOrderLine, salesOrderComputationSettings).discount;
             }
         });
         breakdownComputedWithDiscount.discount = breakdownComputedWithDiscount.discount + totalLineDiscounts;
