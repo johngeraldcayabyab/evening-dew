@@ -54,7 +54,6 @@ const TableGenerator = (manifest) => {
         const url = window.location.href;
         const encodedSourceDocument = new URL(url).searchParams.get("source_document");
         const originalSourceDocument = decodeURIComponent(encodedSourceDocument);
-        console.log(originalSourceDocument);
 
 
         let params = {
