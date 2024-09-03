@@ -15,7 +15,8 @@ export const reset = () => {
     localStorage.removeItem("globalSettings");
 }
 
-export const resetThenRedirect = () => {
+export const resetThenRedirect = (message) => {
     reset();
+    console.log(message);
     window.location.replace("/login");
 }

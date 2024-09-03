@@ -3,7 +3,12 @@ import FormLabel from "../../Components/Typography/FormLabel"
 import {Form, Table} from "antd"
 import {useContext} from "react"
 import {toCurrency} from "../../Helpers/string"
-import {computeDiscount, computeLineDiscount, computeSalesOrderLineSubtotal} from "../../Helpers/financial"
+import {
+    computeDiscount,
+    computeLineDiscount,
+    computeSalesOrderLineSubtotal,
+    getSalesOrderComputationSettings
+} from "../../Helpers/financial"
 import {getGlobalSettings} from "../../Helpers/localstorage"
 
 const SalesOrderBreakDown = (props) => {
@@ -16,9 +21,10 @@ const SalesOrderBreakDown = (props) => {
     const viewableBreakdown = globalSettings.hasOwnProperty('sales_order_breakdown_view') ? globalSettings.sales_order_breakdown_view.split(',') : null;
 
     const salesOrderLinesComputation = [];
+    const salesOrderComputationSettings = getSalesOrderComputationSettings();
     salesOrderLines.forEach((salesOrderLine) => {
         if (salesOrderLine && salesOrderLine.quantity && salesOrderLine.unit_price) {
-            const salesOrderLineCompute = computeSalesOrderLineSubtotal(salesOrderLine, taxes);
+            const salesOrderLineCompute = computeSalesOrderLineSubtotal(salesOrderLine, taxes, salesOrderComputationSettings);
             salesOrderLineCompute.can_be_discounted = salesOrderLine.product ? salesOrderLine.product.can_be_discounted : 1;
             salesOrderLinesComputation.push(salesOrderLineCompute);
         }

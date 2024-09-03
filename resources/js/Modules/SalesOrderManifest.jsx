@@ -4,7 +4,7 @@ import SalesOrderPDF from "./SalesOrder/SalesOrderPDF";
 import SalesOrderBreakDown from "./SalesOrder/SalesOrderBreakDown";
 import CreateInvoiceButton from "./SalesOrder/CreateInvoiceButton"
 import {parseFloatComma} from "../Helpers/string";
-import {computeSalesOrderLineSubtotal} from "../Helpers/financial"
+import {computeSalesOrderLineSubtotal, getSalesOrderComputationSettings} from "../Helpers/financial"
 
 const manifest = {
     moduleName: "sales_orders",
@@ -521,8 +521,9 @@ const manifest = {
 function computeSubtotal(formContext, allValues) {
     const salesOrderLines = allValues.sales_order_lines;
     const taxes = formContext.state.queries.taxes.options;
+    const salesOrderComputationSettings = getSalesOrderComputationSettings();
     const salesOrderLinesComputation = salesOrderLines.map((salesOrderLine) => {
-        return computeSalesOrderLineSubtotal(salesOrderLine, taxes);
+        return computeSalesOrderLineSubtotal(salesOrderLine, taxes, salesOrderComputationSettings);
     });
     formContext.form.setFieldsValue({
         sales_order_lines: salesOrderLinesComputation

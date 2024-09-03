@@ -1,5 +1,5 @@
-import {getGlobalSettings} from "./localstorage"
 import {resetThenRedirect} from "./reset"
+import {getGlobalSettings} from "./localstorage"
 
 export const getTax = (id, taxes) => {
     if (taxes.length) {
@@ -8,7 +8,7 @@ export const getTax = (id, taxes) => {
     return false;
 }
 
-export const computeTax = (tax, orderLine) => {
+export const computeTax = (tax, orderLine, salesOrderComputationSettings) => {
     orderLine.taxable_amount = orderLine.subtotal;
     if (tax.computation === 'fixed') {
         orderLine.tax_amount = tax.amount;
@@ -28,7 +28,7 @@ export const computeTax = (tax, orderLine) => {
     return orderLine;
 }
 
-export const computeLineDiscount = (line) => {
+export const computeLineDiscount = (line, salesOrderComputationSettings) => {
     const computation = {
         subtotal: line.subtotal,
         discount: 0
@@ -69,22 +69,32 @@ export const computeDiscount = (discountType, discountRate, breakdownComputed = 
     return discountedComputation;
 }
 
-export const computeSalesOrderLineSubtotal = (salesOrderLine, taxes) => {
-    const globalSettings = getGlobalSettings();
+export const computeSalesOrderLineSubtotal = (salesOrderLine, taxes, salesOrderComputationSettings) => {
     if (!salesOrderLine || !salesOrderLine.quantity || !salesOrderLine.unit_price) {
         return salesOrderLine;
-    }
-    const salesOrderComputationOrder = globalSettings.hasOwnProperty('sales_order_computation_order') ? globalSettings.sales_order_computation_order : null;
-    if (!salesOrderComputationOrder) {
-        resetThenRedirect();
     }
     salesOrderLine.taxable_amount = 0;
     salesOrderLine.tax_amount = 0;
     salesOrderLine.subtotal = salesOrderLine.quantity * salesOrderLine.unit_price;
-    salesOrderLine.subtotal = computeLineDiscount(salesOrderLine).subtotal;
+    salesOrderLine.subtotal = computeLineDiscount(salesOrderLine, salesOrderComputationSettings).subtotal;
     if (salesOrderLine.tax_id) {
         const tax = getTax(salesOrderLine.tax_id, taxes);
-        salesOrderLine = computeTax(tax, salesOrderLine);
+        salesOrderLine = computeTax(tax, salesOrderLine, salesOrderComputationSettings);
     }
     return salesOrderLine;
+}
+
+export const getSalesOrderComputationSettings = () => {
+    const globalSettings = getGlobalSettings();
+    const salesOrderComputationOrder = globalSettings.hasOwnProperty('sales_order_computation_order') ? globalSettings.sales_order_computation_order : null;
+    const salesOrderTaxComputationOrder = globalSettings.hasOwnProperty('sales_order_tax_computation_order') ? globalSettings.sales_order_tax_computation_order : null;
+    const salesOrderDiscountComputationOrder = globalSettings.hasOwnProperty('sales_order_discount_computation_order') ? globalSettings.sales_order_discount_computation_order : null;
+    if (!salesOrderComputationOrder || !salesOrderTaxComputationOrder || !salesOrderDiscountComputationOrder) {
+        resetThenRedirect('sales order computation has not been initialized');
+    }
+    return {
+        salesOrderComputationOrder: salesOrderComputationOrder,
+        salesOrderTaxComputationOrder: salesOrderTaxComputationOrder,
+        salesOrderDiscountComputationOrder: salesOrderDiscountComputationOrder,
+    };
 }
