@@ -14,3 +14,8 @@ export const reset = () => {
     localStorage.removeItem("accessRights");
     localStorage.removeItem("globalSettings");
 }
+
+export const resetThenRedirect = () => {
+    reset();
+    window.location.replace("/login");
+}

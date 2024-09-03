@@ -1,3 +1,6 @@
+import {getGlobalSettings} from "./localstorage"
+import {resetThenRedirect} from "./reset"
+
 export const getTax = (id, taxes) => {
     if (taxes.length) {
         return taxes.find(tax => tax.id === id);
@@ -67,8 +70,13 @@ export const computeDiscount = (discountType, discountRate, breakdownComputed = 
 }
 
 export const computeSalesOrderLineSubtotal = (salesOrderLine, taxes) => {
+    const globalSettings = getGlobalSettings();
     if (!salesOrderLine || !salesOrderLine.quantity || !salesOrderLine.unit_price) {
         return salesOrderLine;
+    }
+    const salesOrderComputationOrder = globalSettings.hasOwnProperty('sales_order_computation_order') ? globalSettings.sales_order_computation_order : null;
+    if (!salesOrderComputationOrder) {
+        resetThenRedirect();
     }
     salesOrderLine.taxable_amount = 0;
     salesOrderLine.tax_amount = 0;
