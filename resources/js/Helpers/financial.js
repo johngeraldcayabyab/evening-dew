@@ -8,24 +8,54 @@ export const getTax = (id, taxes) => {
     return false;
 }
 
-export const computeTax = (tax, orderLine, salesOrderComputationSettings) => {
-    orderLine.taxable_amount = orderLine.subtotal;
+export const computeTax = (tax, line, salesOrderComputationSettings) => {
+    const taxComputationOrder = salesOrderComputationSettings.salesOrderTaxComputationOrder;
+    line.taxable_amount = line.subtotal;
     if (tax.computation === 'fixed') {
-        orderLine.tax_amount = tax.amount;
-        if (tax.included_in_price) {
-            orderLine.taxable_amount = orderLine.taxable_amount - orderLine.tax_amount;
-        } else {
-            orderLine.subtotal = orderLine.subtotal + orderLine.tax_amount;
+        if (taxComputationOrder === 'subtotal') {
+            line.tax_amount = tax.amount;
+            if (tax.included_in_price) {
+                line.taxable_amount = line.taxable_amount - line.tax_amount;
+            } else {
+                line.subtotal = line.subtotal + line.tax_amount;
+            }
+        } else if (taxComputationOrder === 'unit_price') {
+            line.tax_amount = 0;
+            for (let i = 0; i < line.quantity; i++) {
+                if (tax.included_in_price) {
+                    line.taxable_amount -= tax.amount;
+                } else {
+                    line.tax_amount += tax.amount;
+                }
+            }
+            if (!tax.included_in_price) {
+                line.subtotal = line.subtotal + line.tax_amount;
+            }
         }
     } else if (tax.computation === 'percentage_of_price') {
-        orderLine.tax_amount = (orderLine.subtotal * tax.amount) / 100;
-        if (tax.included_in_price) {
-            orderLine.taxable_amount = orderLine.taxable_amount - orderLine.tax_amount;
-        } else {
-            orderLine.subtotal = orderLine.subtotal + orderLine.tax_amount;
+        if (taxComputationOrder === 'subtotal') {
+            line.tax_amount = (line.subtotal * tax.amount) / 100;
+            if (tax.included_in_price) {
+                line.taxable_amount = line.taxable_amount - line.tax_amount;
+            } else {
+                line.subtotal = line.subtotal + line.tax_amount;
+            }
+        } else if (taxComputationOrder === 'unit_price') {
+            line.tax_amount = 0;
+            for (let i = 0; i < line.quantity; i++) {
+                const unitTaxAmount = (line.unit_price * tax.amount) / 100;
+                if (tax.included_in_price) {
+                    line.taxable_amount -= unitTaxAmount;
+                } else {
+                    line.tax_amount += unitTaxAmount;
+                }
+            }
+            if (!tax.included_in_price) {
+                line.subtotal = line.subtotal + line.tax_amount;
+            }
         }
     }
-    return orderLine;
+    return line;
 }
 
 export const computeLineDiscount = (line, salesOrderComputationSettings) => {
@@ -42,23 +72,19 @@ export const computeLineDiscount = (line, salesOrderComputationSettings) => {
     if (discountType === 'fixed') {
         if (discountComputationOrder === 'subtotal') {
             computation.discount = discountRate;
-            console.log(1);
         } else if (discountComputationOrder === 'unit_price') {
             for (let i = 0; i < line.quantity; i++) {
                 computation.discount += line.discount_rate;
             }
-            console.log(2);
         }
         computation.subtotal = computation.subtotal - computation.discount;
     } else if (discountType === 'percentage') {
         if (discountComputationOrder === 'subtotal') {
             computation.discount = (computation.subtotal * discountRate) / 100;
-            console.log(3);
         } else if (discountComputationOrder === 'unit_price') {
             for (let i = 0; i < line.quantity; i++) {
                 computation.discount += (line.unit_price * discountRate) / 100;
             }
-            console.log(4);
         }
         computation.subtotal = computation.subtotal - computation.discount;
     }
