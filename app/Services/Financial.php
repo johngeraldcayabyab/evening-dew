@@ -9,37 +9,33 @@ class Financial
 {
     public static function computeInvoiceLineSubtotal($invoiceLine)
     {
+        $computationSettings = Option::getComputationSettings('invoice');
         if (!$invoiceLine || !$invoiceLine['quantity'] || !$invoiceLine['unit_price']) {
             return $invoiceLine;
         }
         $invoiceLine['taxable_amount'] = 0;
         $invoiceLine['tax_amount'] = 0;
         $invoiceLine['subtotal'] = $invoiceLine['quantity'] * $invoiceLine['unit_price'];
-        if (isset($invoiceLine['tax_id']) && $invoiceLine['tax_id']) {
-            $tax = Tax::find($invoiceLine['tax_id']);
-            $invoiceLine = self::computeTax($tax, $invoiceLine);
-        }
+        $invoiceLine = self::computeTax($invoiceLine, $computationSettings);
         return $invoiceLine;
     }
 
     public static function computePurchaseLineSubtotal($purchaseLine)
     {
+        $computationSettings = Option::getComputationSettings('purchase');
         if (!$purchaseLine || !$purchaseLine['quantity'] || !$purchaseLine['unit_price']) {
             return $purchaseLine;
         }
         $purchaseLine['taxable_amount'] = 0;
         $purchaseLine['tax_amount'] = 0;
         $purchaseLine['subtotal'] = $purchaseLine['quantity'] * $purchaseLine['unit_price'];
-        if (isset($purchaseLine['tax_id']) && $purchaseLine['tax_id']) {
-            $tax = Tax::find($purchaseLine['tax_id']);
-            $purchaseLine = self::computeTax($tax, $purchaseLine);
-        }
+        $purchaseLine = self::computeTax($purchaseLine, $computationSettings);
         return $purchaseLine;
     }
 
     public static function computeSalesOrderLineSubtotal($salesOrderLine)
     {
-        $salesOrderComputationSettings = Option::getSalesOrderComputationSettings();
+        $computationSettings = Option::getComputationSettings('sales_order');
         if (!$salesOrderLine || !$salesOrderLine['quantity'] || !$salesOrderLine['unit_price']) {
             return $salesOrderLine;
         }
@@ -47,15 +43,16 @@ class Financial
         $salesOrderLine['tax_amount'] = 0;
         $salesOrderLine['subtotal'] = $salesOrderLine['quantity'] * $salesOrderLine['unit_price'];
         $salesOrderLine['subtotal'] = self::computeLineDiscount($salesOrderLine)['subtotal'];
-        if (isset($salesOrderLine['tax_id']) && $salesOrderLine['tax_id']) {
-            $tax = Tax::find($salesOrderLine['tax_id']);
-            $salesOrderLine = self::computeTax($tax, $salesOrderLine);
-        }
+        $salesOrderLine = self::computeTax($salesOrderLine, $computationSettings);
         return $salesOrderLine;
     }
 
-    public static function computeTax($tax, $orderLine)
+    public static function computeTax($orderLine, $computationSettings)
     {
+        if (!isset($orderLine['tax_id']) || $orderLine['tax_id']) {
+            return $orderLine;
+        }
+        $tax = Tax::find($orderLine['tax_id']);
         $orderLine['taxable_amount'] = $orderLine['subtotal'];
         if ($tax->computation === 'fixed') {
             $orderLine['tax_amount'] = $tax->amount;

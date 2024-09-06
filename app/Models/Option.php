@@ -31,15 +31,17 @@ class Option extends Model implements Sluggable
         return 'name';
     }
 
-    public static function getSalesOrderComputationSettings()
+    public static function getComputationSettings($module)
     {
         $formattedData = Option::whereIn('name', [
-            'sales_order_computation_order',
-            'sales_order_tax_computation_order',
-            'sales_order_discount_computation_order'
+            "{$module}_computation_order",
+            "{$module}_tax_computation_order",
+            "{$module}_discount_computation_order"
         ])->get()->pluck('value', 'name')->toArray();
-        return collect($formattedData)->map(function ($value) {
-            return $value === 'unit_price' ? 'unit' : $value;
+
+        $prefix = "{$module}_";
+        return collect($formattedData)->mapWithKeys(function ($value, $key) use ($prefix) {
+            return [str_replace($prefix, '', $key) => $value];
         })->toArray();
     }
 }
