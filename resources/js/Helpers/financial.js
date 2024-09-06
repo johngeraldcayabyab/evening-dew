@@ -13,6 +13,9 @@ export const computeTax = (taxes, line, salesOrderComputationSettings) => {
     if (line.tax_id) {
         return line;
     }
+    if (!tax) {
+        return line;
+    }
     const taxComputationOrder = salesOrderComputationSettings.salesOrderTaxComputationOrder;
     line.taxable_amount = line.subtotal;
     if (tax.computation === 'fixed') {
@@ -123,10 +126,10 @@ export const computeSalesOrderLineSubtotal = (salesOrderLine, taxes, salesOrderC
     salesOrderLine.taxable_amount = 0;
     salesOrderLine.tax_amount = 0;
     salesOrderLine.subtotal = salesOrderLine.quantity * salesOrderLine.unit_price;
-    if (salesOrderComputationSettings.sales_order_computation_order === 'discount') {
+    if (salesOrderComputationSettings.salesOrderComputationOrder === 'discount') {
         salesOrderLine.subtotal = computeLineDiscount(salesOrderLine, salesOrderComputationSettings).subtotal;
         salesOrderLine = computeTax(taxes, salesOrderLine, salesOrderComputationSettings);
-    } else if (salesOrderComputationSettings.sales_order_computation_order === 'tax') {
+    } else if (salesOrderComputationSettings.salesOrderComputationOrder === 'tax') {
         salesOrderLine = computeTax(taxes, salesOrderLine, salesOrderComputationSettings);
         salesOrderLine.subtotal = computeLineDiscount(salesOrderLine, salesOrderComputationSettings).subtotal;
     }
