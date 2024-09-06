@@ -42,38 +42,74 @@ class Financial
         $salesOrderLine['taxable_amount'] = 0;
         $salesOrderLine['tax_amount'] = 0;
         $salesOrderLine['subtotal'] = $salesOrderLine['quantity'] * $salesOrderLine['unit_price'];
-        $salesOrderLine['subtotal'] = self::computeLineDiscount($salesOrderLine)['subtotal'];
-        $salesOrderLine = self::computeTax($salesOrderLine, $computationSettings);
+        if ($computationSettings['computation_order'] === 'discount') {
+            $salesOrderLine['subtotal'] = self::computeLineDiscount($salesOrderLine, $computationSettings)['subtotal'];
+            $salesOrderLine = self::computeTax($salesOrderLine, $computationSettings);
+        } else if ($computationSettings['computation_order'] === 'tax') {
+            $salesOrderLine = self::computeTax($salesOrderLine, $computationSettings);
+            $salesOrderLine['subtotal'] = self::computeLineDiscount($salesOrderLine, $computationSettings)['subtotal'];
+        }
         return $salesOrderLine;
     }
 
-    public static function computeTax($orderLine, $computationSettings)
+    public static function computeTax($line, $computationSettings)
     {
-        if (!isset($orderLine['tax_id']) || $orderLine['tax_id']) {
-            return $orderLine;
+        if (!isset($line['tax_id']) || $line['tax_id']) {
+            return $line;
         }
-        $tax = Tax::find($orderLine['tax_id']);
-        $orderLine['taxable_amount'] = $orderLine['subtotal'];
+        $tax = Tax::find($line['tax_id']);
+        $taxComputationOrder = $computationSettings['tax_computation_order'];
+        $line['taxable_amount'] = $line['subtotal'];
         if ($tax->computation === 'fixed') {
-            $orderLine['tax_amount'] = $tax->amount;
-            if ($tax->included_in_price) {
-                $orderLine['taxable_amount'] = $orderLine['taxable_amount'] - $orderLine['tax_amount'];
-            } else {
-                $orderLine['subtotal'] = $orderLine['subtotal'] + $orderLine['tax_amount'];
+            if ($taxComputationOrder === 'subtotal') {
+                $line['tax_amount'] = $tax->amount;
+                if ($tax->included_in_price) {
+                    $line['taxable_amount'] = $line['taxable_amount'] - $line['tax_amount'];
+                } else {
+                    $line['subtotal'] = $line['subtotal'] + $line['tax_amount'];
+                }
+            } else if ($taxComputationOrder === 'unit_price') {
+                $line['tax_amount'] = 0;
+                for ($i = 0; $i < $line['quantity']; $i++) {
+                    if ($tax->included_in_price) {
+                        $line['taxable_amount'] -= $tax->amount;
+                    } else {
+                        $line['tax_amount'] += $tax->amount;
+                    }
+                }
+                if (!$tax->included_in_price) {
+                    $line['subtotal'] += $line['tax_amount'];
+                }
             }
         } else if ($tax->computation === 'percentage_of_price') {
-            $orderLine['tax_amount'] = ($orderLine['subtotal'] * $tax->amount) / 100;
-            if ($tax->included_in_price) {
-                $orderLine['taxable_amount'] = $orderLine['taxable_amount'] - $orderLine['tax_amount'];
-            } else {
-                $orderLine['subtotal'] = $orderLine['subtotal'] + $orderLine['tax_amount'];
+            if ($taxComputationOrder === 'subtotal') {
+                $line['tax_amount'] = ($line['subtotal'] * $tax->amount) / 100;
+                if ($tax->included_in_price) {
+                    $line['taxable_amount'] = $line['taxable_amount'] - $line['tax_amount'];
+                } else {
+                    $line['subtotal'] = $line['subtotal'] + $line['tax_amount'];
+                }
+            } else if ($taxComputationOrder === 'unit_price') {
+                $line['tax_amount'] = 0;
+                for ($i = 0; $i < $line['quantity']; $i++) {
+                    $unitTaxAmount = ($line['unit_price'] * $tax->amount) / 100;
+                    if ($tax->included_in_price) {
+                        $line['taxable_amount'] -= $unitTaxAmount;
+                    } else {
+                        $line['tax_amount'] += $unitTaxAmount;
+                    }
+                }
+                if (!$tax->included_in_price) {
+                    $line['subtotal'] += $line['tax_amount'];
+                }
             }
         }
-        return $orderLine;
+        return $line;
     }
 
-    public static function computeLineDiscount($line)
+    public static function computeLineDiscount($line, $computationSettings)
     {
+        $discountComputationOrder = $computationSettings['discount_computation_order'];
         $computation = [
             'subtotal' => $line['subtotal'],
             'discount' => 0
@@ -87,10 +123,22 @@ class Financial
             return $computation;
         }
         if ($discountType === 'fixed') {
-            $computation['discount'] = $discountRate;
+            if ($discountComputationOrder === 'subtotal') {
+                $computation['discount'] = $discountRate;
+            } else if ($discountComputationOrder === 'unit_price') {
+                for ($i = 0; $i < $line['quantity']; $i++) {
+                    $computation['discount'] += $line['discount_rate'];
+                }
+            }
             $computation['subtotal'] = $computation['subtotal'] - $discountRate;
         } else if ($discountType === 'percentage') {
-            $computation['discount'] = ($computation['subtotal'] * $discountRate) / 100;
+            if ($discountComputationOrder === 'subtotal') {
+                $computation['discount'] = ($computation['subtotal'] * $discountRate) / 100;
+            } else if ($discountComputationOrder === 'unit_price') {
+                for ($i = 0; $i < $line['quantity']; $i++) {
+                    $computation['discount'] += ($line['unit_price'] * $discountRate) / 100;
+                }
+            }
             $computation['subtotal'] = $computation['subtotal'] - $computation['discount'];
         }
         return $computation;

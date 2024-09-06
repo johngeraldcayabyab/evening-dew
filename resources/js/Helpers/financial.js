@@ -65,7 +65,8 @@ export const computeTax = (taxes, line, salesOrderComputationSettings) => {
 export const computeLineDiscount = (line, salesOrderComputationSettings) => {
     const discountComputationOrder = salesOrderComputationSettings.salesOrderDiscountComputationOrder;
     const computation = {
-        subtotal: line.subtotal, discount: 0
+        subtotal: line.subtotal,
+        discount: 0
     };
     const discountType = line.discount_type;
     const discountRate = parseFloat(line.discount_rate);
