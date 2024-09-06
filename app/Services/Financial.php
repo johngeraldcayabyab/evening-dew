@@ -58,6 +58,9 @@ class Financial
             return $line;
         }
         $tax = Tax::find($line['tax_id']);
+        if (!$tax) {
+            return $line;
+        }
         $taxComputationOrder = $computationSettings['tax_computation_order'];
         $line['taxable_amount'] = $line['subtotal'];
         if ($tax->computation === 'fixed') {
