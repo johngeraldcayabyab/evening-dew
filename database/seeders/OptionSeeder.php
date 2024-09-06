@@ -26,7 +26,7 @@ class OptionSeeder extends Seeder
          */
         Option::create([
             'name' => 'sales_order_computation_order',
-            'value' => 'discount|tax' // if you want to change the order, put the tax first tax|discount
+            'value' => 'discount' // if you want to change the order, put the tax first tax|discount
         ]);
         Option::create([
             'name' => 'sales_order_tax_computation_order',
@@ -38,7 +38,7 @@ class OptionSeeder extends Seeder
         ]);
         Option::create([
             'name' => 'purchase_computation_order',
-            'value' => 'discount|tax' // if you want to change the order, put the tax first tax|discount
+            'value' => 'discount' // if you want to change the order, put the tax first tax|discount
         ]);
         Option::create([
             'name' => 'purchase_tax_computation_order',
@@ -50,7 +50,7 @@ class OptionSeeder extends Seeder
         ]);
         Option::create([
             'name' => 'invoice_computation_order',
-            'value' => 'discount|tax' // if you want to change the order, put the tax first tax|discount
+            'value' => 'discount' // if you want to change the order, put the tax first tax|discount
         ]);
         Option::create([
             'name' => 'invoice_tax_computation_order',
