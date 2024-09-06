@@ -2,6 +2,7 @@ import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} fr
 import {disableIfStatus} from "../Helpers/object";
 import Text from "antd/es/typography/Text";
 import TransferPDF from "./Transfer/TransferPDF"
+import {updateFormLines} from "../Helpers/form"
 
 const manifest = {
     moduleName: "transfers",
@@ -249,17 +250,8 @@ const manifest = {
                             required: true,
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
                                 formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
-                                    const lines = allValues.transfer_lines;
-                                    const updatedLine = {
-                                        ...lines[changedLine.key],
+                                    updateFormLines(formContext, changedLine, allValues, 'transfer_lines', {
                                         measurement_id: response.measurement_id,
-                                    };
-                                    const updatedLines = {
-                                        ...lines,
-                                        [changedLine.key]: updatedLine
-                                    };
-                                    formContext.form.setFieldsValue({
-                                        material_lines: updatedLines
                                     });
                                 });
                             },

@@ -1,6 +1,7 @@
 import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 import {parseFloatComma} from "../Helpers/string"
 import {disableIfStatus} from "../Helpers/object"
+import {updateFormLines} from "../Helpers/form"
 
 const manifest = {
     moduleName: "adjustments",
@@ -120,18 +121,9 @@ const manifest = {
                             required: true,
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
                                 formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
-                                    const lines = allValues.adjustment_lines;
-                                    const updatedLine = {
-                                        ...lines[changedLine.key],
+                                    updateFormLines(formContext, changedLine, allValues, 'adjustment_lines', {
                                         measurement_id: response.measurement_id,
                                         quantity_on_hand: parseFloatComma(response.quantity),
-                                    };
-                                    const updatedLines = {
-                                        ...lines,
-                                        [changedLine.key]: updatedLine
-                                    };
-                                    formContext.form.setFieldsValue({
-                                        material_lines: updatedLines
                                     });
                                 });
                             },

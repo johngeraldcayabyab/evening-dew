@@ -1,5 +1,6 @@
 import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 import {disableIfStatus} from "../Helpers/object";
+import {updateFormLines} from "../Helpers/form"
 
 const manifest = {
     moduleName: "invoices",
@@ -182,19 +183,10 @@ const manifest = {
                             required: true,
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
                                 formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
-                                    const lines = allValues.invoice_lines;
-                                    const updatedLine = {
-                                        ...lines[changedLine.key],
+                                    updateFormLines(formContext, changedLine, allValues, 'invoice_lines', {
                                         description: response.sales_description,
                                         quantity: 1,
                                         unit_price: response.sales_price,
-                                    };
-                                    const updatedLines = {
-                                        ...lines,
-                                        [changedLine.key]: updatedLine
-                                    }
-                                    formContext.form.setFieldsValue({
-                                        invoice_lines: updatedLines
                                     });
                                 });
                             },

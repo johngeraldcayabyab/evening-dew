@@ -1,4 +1,4 @@
-import {getPersistedKey} from "../Helpers/form";
+import {getPersistedKey, updateFormLines} from "../Helpers/form";
 import {DATE_RANGE, GET, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
 
 const manifest = {
@@ -105,17 +105,8 @@ const manifest = {
                             required: true,
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
                                 formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
-                                    const lines = allValues.material_lines;
-                                    const updatedLine = {
-                                        ...lines[changedLine.key],
+                                    updateFormLines(formContext, changedLine, allValues, 'material_lines', {
                                         measurement_id: response.measurement_id,
-                                    }
-                                    const updatedLines = {
-                                        ...lines,
-                                        [changedLine.key]: updatedLine
-                                    }
-                                    formContext.form.setFieldsValue({
-                                        material_lines: updatedLines
                                     });
                                     const persistedKey = getPersistedKey(changedLine, formContext.options['measurement_id-lineOptions'].options)
                                     formContext.options['measurement_id-lineOptions'].getOptions(response.measurement.name, persistedKey);
