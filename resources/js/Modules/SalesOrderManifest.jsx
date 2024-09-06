@@ -4,7 +4,8 @@ import SalesOrderPDF from "./SalesOrder/SalesOrderPDF";
 import SalesOrderBreakDown from "./SalesOrder/SalesOrderBreakDown";
 import CreateInvoiceButton from "./SalesOrder/CreateInvoiceButton"
 import {parseFloatComma} from "../Helpers/string";
-import {computeSalesOrderLineSubtotal, getComputationSettings} from "../Helpers/financial"
+import {computeSalesOrderLineSubtotal} from "../Helpers/financial"
+import {getComputationSettings} from "../Helpers/settings"
 
 const manifest = {
     moduleName: "sales_orders",

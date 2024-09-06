@@ -1,6 +1,3 @@
-import {resetThenRedirect} from "./reset"
-import {getGlobalSettings} from "./settings"
-
 export const getTax = (id, taxes) => {
     if (taxes.length) {
         return taxes.find(tax => tax.id === id);
@@ -138,17 +135,3 @@ export const computeSalesOrderLineSubtotal = (salesOrderLine, taxes, salesOrderC
     return salesOrderLine;
 }
 
-export const getComputationSettings = (module) => {
-    const globalSettings = getGlobalSettings();
-    const salesOrderComputationOrder = globalSettings.hasOwnProperty(`${module}_computation_order`) ? globalSettings[`${module}_computation_order`] : null;
-    const salesOrderTaxComputationOrder = globalSettings.hasOwnProperty(`${module}_tax_computation_order`) ? globalSettings[`${module}_tax_computation_order`] : null;
-    const salesOrderDiscountComputationOrder = globalSettings.hasOwnProperty(`${module}_discount_computation_order`) ? globalSettings[`${module}_discount_computation_order`] : null;
-    if (!salesOrderComputationOrder || !salesOrderTaxComputationOrder || !salesOrderDiscountComputationOrder) {
-        resetThenRedirect('sales order computation has not been initialized');
-    }
-    return {
-        salesOrderComputationOrder: salesOrderComputationOrder,
-        salesOrderTaxComputationOrder: salesOrderTaxComputationOrder,
-        salesOrderDiscountComputationOrder: salesOrderDiscountComputationOrder,
-    };
-}

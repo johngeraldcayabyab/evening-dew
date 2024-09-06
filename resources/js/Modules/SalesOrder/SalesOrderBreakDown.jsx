@@ -6,10 +6,9 @@ import {toCurrency} from "../../Helpers/string"
 import {
     computeDiscount,
     computeLineDiscount,
-    computeSalesOrderLineSubtotal,
-    getComputationSettings
+    computeSalesOrderLineSubtotal
 } from "../../Helpers/financial"
-import {getGlobalSettings} from "../../Helpers/settings"
+import {getComputationSettings, getGlobalSettings} from "../../Helpers/settings"
 
 const SalesOrderBreakDown = (props) => {
     const formContext = useContext(FormContext);
