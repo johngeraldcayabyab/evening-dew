@@ -105,15 +105,11 @@ export const payloadMaker = (params, customParams, tableField) => {
 
 export const updateFormLines = (formContext, changedLine, allValues, listName, updatedValues) => {
     const lines = allValues[listName];
-    const updatedLine = {
+    lines[changedLine.key] = {
         ...lines[changedLine.key],
         ...updatedValues
     };
-    const updatedLines = {
-        ...lines,
-        [changedLine.key]: updatedLine
-    };
     const fieldsValue = {};
-    fieldsValue[listName] = updatedLines;
+    fieldsValue[listName] = lines;
     formContext.form.setFieldsValue(fieldsValue);
 }
