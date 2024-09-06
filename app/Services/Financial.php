@@ -43,11 +43,11 @@ class Financial
         $salesOrderLine['tax_amount'] = 0;
         $salesOrderLine['subtotal'] = $salesOrderLine['quantity'] * $salesOrderLine['unit_price'];
         if ($computationSettings['computation_order'] === 'discount') {
-            $salesOrderLine['subtotal'] = self::computeLineDiscount($salesOrderLine, $computationSettings)['subtotal'];
+            $salesOrderLine = self::computeLineDiscount($salesOrderLine, $computationSettings);
             $salesOrderLine = self::computeTax($salesOrderLine, $computationSettings);
         } else if ($computationSettings['computation_order'] === 'tax') {
             $salesOrderLine = self::computeTax($salesOrderLine, $computationSettings);
-            $salesOrderLine['subtotal'] = self::computeLineDiscount($salesOrderLine, $computationSettings)['subtotal'];
+            $salesOrderLine = self::computeLineDiscount($salesOrderLine, $computationSettings);
         }
         return $salesOrderLine;
     }
@@ -120,7 +120,7 @@ class Financial
             'discount' => 0
         ];
         if (!isset($line['discount_type']) || !isset($line['discount_rate'])) {
-            return $computation;
+            return $line;
         }
         $discountType = $line['discount_type'];
         $discountRate = (float)$line['discount_rate'];
@@ -146,6 +146,7 @@ class Financial
             }
             $computation['subtotal'] = $computation['subtotal'] - $computation['discount'];
         }
+        $line['subtotal'] = $computation['subtotal'];
         return $computation;
     }
 }

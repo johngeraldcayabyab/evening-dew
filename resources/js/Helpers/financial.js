@@ -73,7 +73,7 @@ export const computeLineDiscount = (line, salesOrderComputationSettings) => {
     const discountType = line.discount_type;
     const discountRate = parseFloat(line.discount_rate);
     if (!discountType || !discountRate) {
-        return computation;
+        return line;
     }
     if (discountType === 'fixed') {
         if (discountComputationOrder === 'subtotal') {
@@ -94,6 +94,7 @@ export const computeLineDiscount = (line, salesOrderComputationSettings) => {
         }
         computation.subtotal = computation.subtotal - computation.discount;
     }
+    line.subtotal = computation.subtotal;
     return computation;
 }
 
@@ -126,11 +127,11 @@ export const computeSalesOrderLineSubtotal = (salesOrderLine, taxes, salesOrderC
     salesOrderLine.tax_amount = 0;
     salesOrderLine.subtotal = salesOrderLine.quantity * salesOrderLine.unit_price;
     if (salesOrderComputationSettings.salesOrderComputationOrder === 'discount') {
-        salesOrderLine.subtotal = computeLineDiscount(salesOrderLine, salesOrderComputationSettings).subtotal;
+        salesOrderLine = computeLineDiscount(salesOrderLine, salesOrderComputationSettings);
         salesOrderLine = computeTax(taxes, salesOrderLine, salesOrderComputationSettings);
     } else if (salesOrderComputationSettings.salesOrderComputationOrder === 'tax') {
         salesOrderLine = computeTax(taxes, salesOrderLine, salesOrderComputationSettings);
-        salesOrderLine.subtotal = computeLineDiscount(salesOrderLine, salesOrderComputationSettings).subtotal;
+        salesOrderLine = computeLineDiscount(salesOrderLine, salesOrderComputationSettings);
     }
     return salesOrderLine;
 }
