@@ -7,7 +7,7 @@ import {
     computeDiscount,
     computeLineDiscount,
     computeSalesOrderLineSubtotal,
-    getSalesOrderComputationSettings
+    getComputationSettings
 } from "../../Helpers/financial"
 import {getGlobalSettings} from "../../Helpers/localstorage"
 
@@ -21,7 +21,7 @@ const SalesOrderBreakDown = (props) => {
     const viewableBreakdown = globalSettings.hasOwnProperty('sales_order_breakdown_view') ? globalSettings.sales_order_breakdown_view.split(',') : null;
 
     const salesOrderLinesComputation = [];
-    const salesOrderComputationSettings = getSalesOrderComputationSettings();
+    const salesOrderComputationSettings = getComputationSettings('sales_order');
     salesOrderLines.forEach((salesOrderLine) => {
         if (salesOrderLine && salesOrderLine.quantity && salesOrderLine.unit_price) {
             const salesOrderLineCompute = computeSalesOrderLineSubtotal(salesOrderLine, taxes, salesOrderComputationSettings);

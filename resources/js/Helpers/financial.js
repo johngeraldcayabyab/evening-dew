@@ -133,11 +133,11 @@ export const computeSalesOrderLineSubtotal = (salesOrderLine, taxes, salesOrderC
     return salesOrderLine;
 }
 
-export const getSalesOrderComputationSettings = () => {
+export const getComputationSettings = (module) => {
     const globalSettings = getGlobalSettings();
-    const salesOrderComputationOrder = globalSettings.hasOwnProperty('sales_order_computation_order') ? globalSettings.sales_order_computation_order : null;
-    const salesOrderTaxComputationOrder = globalSettings.hasOwnProperty('sales_order_tax_computation_order') ? globalSettings.sales_order_tax_computation_order : null;
-    const salesOrderDiscountComputationOrder = globalSettings.hasOwnProperty('sales_order_discount_computation_order') ? globalSettings.sales_order_discount_computation_order : null;
+    const salesOrderComputationOrder = globalSettings.hasOwnProperty(`${module}_computation_order`) ? globalSettings[`${module}_computation_order`] : null;
+    const salesOrderTaxComputationOrder = globalSettings.hasOwnProperty(`${module}_tax_computation_order`) ? globalSettings[`${module}_tax_computation_order`] : null;
+    const salesOrderDiscountComputationOrder = globalSettings.hasOwnProperty(`${module}_discount_computation_order`) ? globalSettings[`${module}_discount_computation_order`] : null;
     if (!salesOrderComputationOrder || !salesOrderTaxComputationOrder || !salesOrderDiscountComputationOrder) {
         resetThenRedirect('sales order computation has not been initialized');
     }
