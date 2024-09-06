@@ -3,21 +3,16 @@ import FormLabel from "../../Components/Typography/FormLabel"
 import {Form, Table} from "antd"
 import {useContext} from "react"
 import {toCurrency} from "../../Helpers/string"
-import {
-    computeDiscount,
-    computeLineDiscount,
-    computeSalesOrderLineSubtotal
-} from "../../Helpers/financial"
-import {getComputationSettings, getGlobalSettings} from "../../Helpers/settings"
+import {computeDiscount, computeLineDiscount, computeSalesOrderLineSubtotal} from "../../Helpers/financial"
+import {getBreakdownView, getComputationSettings} from "../../Helpers/settings"
 
 const SalesOrderBreakDown = (props) => {
     const formContext = useContext(FormContext);
+    const viewableBreakdown = getBreakdownView('sales_order');
     const salesOrderLines = Form.useWatch('sales_order_lines', formContext.form) ?? [];
-    const globalSettings = getGlobalSettings();
     const discountRate = Form.useWatch('discount_rate', formContext.form) ?? 0;
     const discountType = Form.useWatch('discount_type', formContext.form) ?? 0;
     const taxes = formContext.state.queries.taxes.options;
-    const viewableBreakdown = globalSettings.hasOwnProperty('sales_order_breakdown_view') ? globalSettings.sales_order_breakdown_view.split(',') : null;
 
     const salesOrderLinesComputation = [];
     const salesOrderComputationSettings = getComputationSettings('sales_order');

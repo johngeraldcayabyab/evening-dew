@@ -12,8 +12,8 @@ import {getColumnsView, getCompany} from "../../Helpers/settings"
 const SalesOrderPDF = () => {
     const formContext = useContext(FormContext);
     const company = getCompany();
-    const initialValues = formContext.formState.initialValues;
     const viewableColumns = getColumnsView('sales_order_lines_pdf');
+    const initialValues = formContext.formState.initialValues;
     const taxes = formContext.state.queries.taxes.options;
     const dataSource = initialValues.sales_order_lines ? initialValues.sales_order_lines.map((salesOrderLine) => {
         const data = {
