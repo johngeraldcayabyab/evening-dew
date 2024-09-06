@@ -193,16 +193,20 @@ const manifest = {
                             required: true,
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
                                 formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
-                                    const purchaseLines = allValues.purchase_lines;
-                                    purchaseLines[changedLine.key] = {
-                                        ...purchaseLines[changedLine.key],
+                                    const lines = allValues.purchase_lines;
+                                    const updatedLine = {
+                                        ...lines[changedLine.key],
                                         description: response.purchase_description,
                                         quantity: 1,
                                         measurement_id: response.purchase_measurement_id,
                                         unit_price: response.cost,
+                                    }
+                                    const updatedLines = {
+                                        ...lines,
+                                        [changedLine.key]: updatedLine
                                     };
                                     formContext.form.setFieldsValue({
-                                        purchase_lines: purchaseLines
+                                        purchase_lines: updatedLines
                                     });
                                 });
                             },

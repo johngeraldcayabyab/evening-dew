@@ -105,13 +105,17 @@ const manifest = {
                             required: true,
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
                                 formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
-                                    const materialLines = allValues.material_lines;
-                                    materialLines[changedLine.key] = {
-                                        ...materialLines[changedLine.key],
+                                    const lines = allValues.material_lines;
+                                    const updatedLine = {
+                                        ...lines[changedLine.key],
                                         measurement_id: response.measurement_id,
-                                    };
+                                    }
+                                    const updatedLines = {
+                                        ...lines,
+                                        [changedLine.key]: updatedLine
+                                    }
                                     formContext.form.setFieldsValue({
-                                        material_lines: materialLines
+                                        material_lines: updatedLines
                                     });
                                     const persistedKey = getPersistedKey(changedLine, formContext.options['measurement_id-lineOptions'].options)
                                     formContext.options['measurement_id-lineOptions'].getOptions(response.measurement.name, persistedKey);

@@ -249,13 +249,17 @@ const manifest = {
                             required: true,
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
                                 formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
-                                    const transferLines = allValues.transfer_lines;
-                                    transferLines[changedLine.key] = {
-                                        ...transferLines[changedLine.key],
+                                    const lines = allValues.transfer_lines;
+                                    const updatedLine = {
+                                        ...lines[changedLine.key],
                                         measurement_id: response.measurement_id,
                                     };
+                                    const updatedLines = {
+                                        ...lines,
+                                        [changedLine.key]: updatedLine
+                                    };
                                     formContext.form.setFieldsValue({
-                                        material_lines: transferLines
+                                        material_lines: updatedLines
                                     });
                                 });
                             },

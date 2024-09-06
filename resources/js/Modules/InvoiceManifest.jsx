@@ -182,15 +182,19 @@ const manifest = {
                             required: true,
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
                                 formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
-                                    const invoiceLines = allValues.invoice_lines;
-                                    invoiceLines[changedLine.key] = {
-                                        ...invoiceLines[changedLine.key],
+                                    const lines = allValues.invoice_lines;
+                                    const updatedLine = {
+                                        ...lines[changedLine.key],
                                         description: response.sales_description,
                                         quantity: 1,
                                         unit_price: response.sales_price,
                                     };
+                                    const updatedLines = {
+                                        ...lines,
+                                        [changedLine.key]: updatedLine
+                                    }
                                     formContext.form.setFieldsValue({
-                                        invoice_lines: invoiceLines
+                                        invoice_lines: updatedLines
                                     });
                                 });
                             },

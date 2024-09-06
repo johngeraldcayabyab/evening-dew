@@ -291,12 +291,12 @@ const manifest = {
                             required: true,
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
                                 formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
-                                    const salesOrderLines = allValues.sales_order_lines;
+                                    const lines = allValues.sales_order_lines;
                                     const salesPrice = parseFloatComma(response.sales_price);
                                     const defaultQuantity = 1;
                                     const subtotal = salesPrice * defaultQuantity;
-                                    salesOrderLines[changedLine.key] = {
-                                        ...salesOrderLines[changedLine.key],
+                                    const updatedLine = {
+                                        ...lines[changedLine.key],
                                         description: response.sales_description,
                                         quantity: defaultQuantity,
                                         measurement_id: response.sales_measurement_id,
@@ -304,8 +304,12 @@ const manifest = {
                                         product: {can_be_discounted: response.can_be_discounted},
                                         subtotal: subtotal
                                     };
+                                    const updateLines = {
+                                        ...lines,
+                                        [changedLine.key]: updatedLine
+                                    };
                                     formContext.form.setFieldsValue({
-                                        sales_order_lines: salesOrderLines
+                                        sales_order_lines: updateLines
                                     });
                                 });
                             },

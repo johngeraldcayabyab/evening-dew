@@ -120,14 +120,18 @@ const manifest = {
                             required: true,
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
                                 formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
-                                    const adjustmentLines = allValues.adjustment_lines;
-                                    adjustmentLines[changedLine.key] = {
-                                        ...adjustmentLines[changedLine.key],
+                                    const lines = allValues.adjustment_lines;
+                                    const updatedLine = {
+                                        ...lines[changedLine.key],
                                         measurement_id: response.measurement_id,
                                         quantity_on_hand: parseFloatComma(response.quantity),
                                     };
+                                    const updatedLines = {
+                                        ...lines,
+                                        [changedLine.key]: updatedLine
+                                    };
                                     formContext.form.setFieldsValue({
-                                        material_lines: adjustmentLines
+                                        material_lines: updatedLines
                                     });
                                 });
                             },
