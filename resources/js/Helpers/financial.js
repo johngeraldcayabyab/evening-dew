@@ -9,10 +9,10 @@ export const getTax = (id, taxes) => {
 }
 
 export const computeTax = (taxes, line, salesOrderComputationSettings) => {
-    const tax = getTax(line.tax_id, taxes);
-    if (line.tax_id) {
+    if (!line.tax_id) {
         return line;
     }
+    const tax = getTax(line.tax_id, taxes);
     if (!tax) {
         return line;
     }
@@ -30,6 +30,7 @@ export const computeTax = (taxes, line, salesOrderComputationSettings) => {
             line.tax_amount = 0;
             for (let i = 0; i < line.quantity; i++) {
                 if (tax.included_in_price) {
+                    line.tax_amount += tax.amount;
                     line.taxable_amount -= tax.amount;
                 } else {
                     line.tax_amount += tax.amount;
@@ -52,6 +53,7 @@ export const computeTax = (taxes, line, salesOrderComputationSettings) => {
             for (let i = 0; i < line.quantity; i++) {
                 const unitTaxAmount = (line.unit_price * tax.amount) / 100;
                 if (tax.included_in_price) {
+                    line.tax_amount += unitTaxAmount;
                     line.taxable_amount -= unitTaxAmount;
                 } else {
                     line.tax_amount += unitTaxAmount;
