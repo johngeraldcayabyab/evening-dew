@@ -75,6 +75,7 @@ class Financial
                 $line['tax_amount'] = 0;
                 for ($i = 0; $i < $line['quantity']; $i++) {
                     if ($tax->included_in_price) {
+                        $line['tax_amount'] += $tax->amount;
                         $line['taxable_amount'] -= $tax->amount;
                     } else {
                         $line['tax_amount'] += $tax->amount;
@@ -97,6 +98,7 @@ class Financial
                 for ($i = 0; $i < $line['quantity']; $i++) {
                     $unitTaxAmount = ($line['unit_price'] * $tax->amount) / 100;
                     if ($tax->included_in_price) {
+                        $line['tax_amount'] += $unitTaxAmount;
                         $line['taxable_amount'] -= $unitTaxAmount;
                     } else {
                         $line['tax_amount'] += $unitTaxAmount;
