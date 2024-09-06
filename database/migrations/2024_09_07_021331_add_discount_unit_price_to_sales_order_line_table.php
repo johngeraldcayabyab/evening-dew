@@ -8,14 +8,14 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('sales_order_lines', function (Blueprint $table) {
-            $table->double('discount_unit_price')->nullable()->default(0)->after('unit_price');
+            $table->double('discounted_unit_price')->nullable()->default(0)->after('unit_price');
         });
     }
 
     public function down(): void
     {
         Schema::table('sales_order_lines', function (Blueprint $table) {
-            $table->dropColumn('discount_unit_price');
+            $table->dropColumn('discounted_unit_price');
         });
     }
 };
