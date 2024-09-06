@@ -18,3 +18,13 @@ export const getComputationSettings = (module) => {
         salesOrderDiscountComputationOrder: salesOrderDiscountComputationOrder,
     };
 }
+
+export const getCompany = () => {
+    const globalSettings = getGlobalSettings();
+    return globalSettings.hasOwnProperty('company') ? globalSettings.company : null;
+}
+
+export const getColumnsView = (viewType) => {
+    const globalSettings = getGlobalSettings();
+    return globalSettings.hasOwnProperty(`${viewType}_columns_view`) ? globalSettings[`${viewType}_columns_view`].split(',') : null;
+}

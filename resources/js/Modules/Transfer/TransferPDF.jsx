@@ -4,14 +4,13 @@ import {FormContext} from "../../Contexts/FormContext";
 import dayjs from "dayjs";
 import html2pdf from 'html2pdf.js'
 import PdfLabel from "../../Components/Pdf/PdfLabel";
-import {getGlobalSettings} from "../../Helpers/settings"
+import {getColumnsView, getCompany} from "../../Helpers/settings"
 
 const TransferPDF = () => {
     const formContext = useContext(FormContext);
-    const globalSettings = getGlobalSettings();
-    const company = globalSettings.hasOwnProperty('company') ? globalSettings.company : null;
+    const company = getCompany();
     const initialValues = formContext.formState.initialValues;
-    const viewableColumns = globalSettings.hasOwnProperty('transfer_lines_pdf_columns_view') ? globalSettings.transfer_lines_pdf_columns_view.split(',') : null;
+    const viewableColumns = getColumnsView('transfer_lines_pdf');
     const dataSource = initialValues.transfer_lines ? initialValues.transfer_lines.map((transferLine) => {
         const data = {
             product: transferLine.product.name,

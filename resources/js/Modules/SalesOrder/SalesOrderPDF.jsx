@@ -7,14 +7,13 @@ import html2pdf from 'html2pdf.js'
 import SalesOrderBreakDown from "./SalesOrderBreakDown"
 import {getTax} from "../../Helpers/financial"
 import PdfLabel from "../../Components/Pdf/PdfLabel";
-import {getGlobalSettings} from "../../Helpers/settings"
+import {getColumnsView, getCompany} from "../../Helpers/settings"
 
 const SalesOrderPDF = () => {
     const formContext = useContext(FormContext);
-    const globalSettings = getGlobalSettings();
-    const company = globalSettings.hasOwnProperty('company') ? globalSettings.company : null;
+    const company = getCompany();
     const initialValues = formContext.formState.initialValues;
-    const viewableColumns = globalSettings.hasOwnProperty('sales_order_lines_pdf_columns_view') ? globalSettings.sales_order_lines_pdf_columns_view.split(',') : null;
+    const viewableColumns = getColumnsView('sales_order_lines_pdf');
     const taxes = formContext.state.queries.taxes.options;
     const dataSource = initialValues.sales_order_lines ? initialValues.sales_order_lines.map((salesOrderLine) => {
         const data = {
