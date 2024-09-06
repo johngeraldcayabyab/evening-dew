@@ -2,23 +2,24 @@
 
 namespace App\Services;
 
+use App\Models\Option;
 use App\Models\Tax;
 
 class Financial
 {
-    public static function computeInvoiceLineSubtotal($purchaseLine)
+    public static function computeInvoiceLineSubtotal($invoiceLine)
     {
-        if (!$purchaseLine || !$purchaseLine['quantity'] || !$purchaseLine['unit_price']) {
-            return $purchaseLine;
+        if (!$invoiceLine || !$invoiceLine['quantity'] || !$invoiceLine['unit_price']) {
+            return $invoiceLine;
         }
-        $purchaseLine['taxable_amount'] = 0;
-        $purchaseLine['tax_amount'] = 0;
-        $purchaseLine['subtotal'] = $purchaseLine['quantity'] * $purchaseLine['unit_price'];
-        if (isset($purchaseLine['tax_id']) && $purchaseLine['tax_id']) {
-            $tax = Tax::find($purchaseLine['tax_id']);
-            $purchaseLine = self::computeTax($tax, $purchaseLine);
+        $invoiceLine['taxable_amount'] = 0;
+        $invoiceLine['tax_amount'] = 0;
+        $invoiceLine['subtotal'] = $invoiceLine['quantity'] * $invoiceLine['unit_price'];
+        if (isset($invoiceLine['tax_id']) && $invoiceLine['tax_id']) {
+            $tax = Tax::find($invoiceLine['tax_id']);
+            $invoiceLine = self::computeTax($tax, $invoiceLine);
         }
-        return $purchaseLine;
+        return $invoiceLine;
     }
 
     public static function computePurchaseLineSubtotal($purchaseLine)
@@ -38,6 +39,7 @@ class Financial
 
     public static function computeSalesOrderLineSubtotal($salesOrderLine)
     {
+        $salesOrderComputationSettings = Option::getSalesOrderComputationSettings();
         if (!$salesOrderLine || !$salesOrderLine['quantity'] || !$salesOrderLine['unit_price']) {
             return $salesOrderLine;
         }

@@ -30,4 +30,16 @@ class Option extends Model implements Sluggable
     {
         return 'name';
     }
+
+    public static function getSalesOrderComputationSettings()
+    {
+        $formattedData = Option::whereIn('name', [
+            'sales_order_computation_order',
+            'sales_order_tax_computation_order',
+            'sales_order_discount_computation_order'
+        ])->get()->pluck('value', 'name')->toArray();
+        return collect($formattedData)->map(function ($value) {
+            return $value === 'unit_price' ? 'unit' : $value;
+        })->toArray();
+    }
 }
