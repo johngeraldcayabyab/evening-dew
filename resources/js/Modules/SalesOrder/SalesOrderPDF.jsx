@@ -7,7 +7,7 @@ import html2pdf from 'html2pdf.js'
 import SalesOrderBreakDown from "./SalesOrderBreakDown"
 import {getTax} from "../../Helpers/financial"
 import PdfLabel from "../../Components/Pdf/PdfLabel";
-import {getGlobalSettings} from "../../Helpers/localstorage"
+import {getGlobalSettings} from "../../Helpers/settings"
 
 const SalesOrderPDF = () => {
     const formContext = useContext(FormContext);

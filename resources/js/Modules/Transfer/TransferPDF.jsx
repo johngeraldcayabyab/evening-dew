@@ -4,7 +4,7 @@ import {FormContext} from "../../Contexts/FormContext";
 import dayjs from "dayjs";
 import html2pdf from 'html2pdf.js'
 import PdfLabel from "../../Components/Pdf/PdfLabel";
-import {getGlobalSettings} from "../../Helpers/localstorage"
+import {getGlobalSettings} from "../../Helpers/settings"
 
 const TransferPDF = () => {
     const formContext = useContext(FormContext);

@@ -9,7 +9,7 @@ import {
     computeSalesOrderLineSubtotal,
     getComputationSettings
 } from "../../Helpers/financial"
-import {getGlobalSettings} from "../../Helpers/localstorage"
+import {getGlobalSettings} from "../../Helpers/settings"
 
 const SalesOrderBreakDown = (props) => {
     const formContext = useContext(FormContext);

@@ -1,5 +1,5 @@
 import {CREATE, LIST, UPDATE} from "../consts";
-import {getGlobalSettings} from "./localstorage"
+import {getGlobalSettings} from "./settings"
 
 export const uuidv4 = () => {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

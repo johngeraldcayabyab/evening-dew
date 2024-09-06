@@ -1,5 +1,5 @@
 import {resetThenRedirect} from "./reset"
-import {getGlobalSettings} from "./localstorage"
+import {getGlobalSettings} from "./settings"
 
 export const getTax = (id, taxes) => {
     if (taxes.length) {
