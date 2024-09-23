@@ -46,16 +46,16 @@ class SalesOrderController extends Controller
             SalesOrderLine::massUpsert($salesOrderLinesData, $salesOrder);
             $salesOrder->load('salesOrderLines');
             $lineSubtotal = Arr::pluck($salesOrder->salesOrderLines, 'subtotal');
-            $subTotal = collect($lineSubtotal)->sum();
+            $subtotal = collect($lineSubtotal)->sum();
             $discountType = $salesOrder->discount_type;
             $discountRate = $salesOrder->discount_rate;
             if ($discountType === 'fixed' && $discountRate) {
-                $subTotal -= $discountRate;
+                $subtotal -= $discountRate;
             } else if ($discountType === 'percentage' && $discountRate) {
-                $discount = ($subTotal * $discountRate) / 100;
-                $subTotal -= $discount;
+                $discount = ($subtotal * $discountRate) / 100;
+                $subtotal -= $discount;
             }
-            $salesOrder->subtotal = $subTotal;
+            $salesOrder->subtotal = $subtotal;
             $salesOrder->save();
         }
         if ($salesOrder->status === SalesOrder::DONE) {
@@ -74,16 +74,16 @@ class SalesOrderController extends Controller
             SalesOrderLine::massUpsert($salesOrderLinesData, $salesOrder);
             $salesOrder->load('salesOrderLines');
             $lineSubtotal = Arr::pluck($salesOrder->salesOrderLines, 'subtotal');
-            $subTotal = collect($lineSubtotal)->sum();
+            $subtotal = collect($lineSubtotal)->sum();
             $discountType = $salesOrder->discount_type;
             $discountRate = $salesOrder->discount_rate;
             if ($discountType === 'fixed' && $discountRate) {
-                $subTotal -= $discountRate;
+                $subtotal -= $discountRate;
             } else if ($discountType === 'percentage' && $discountRate) {
-                $discount = ($subTotal * $discountRate) / 100;
-                $subTotal -= $discount;
+                $discount = ($subtotal * $discountRate) / 100;
+                $subtotal -= $discount;
             }
-            $salesOrder->subtotal = $subTotal;
+            $salesOrder->subtotal = $subtotal;
             $salesOrder->save();
         }
         if (isset($data['sales_order_lines_deleted'])) {
