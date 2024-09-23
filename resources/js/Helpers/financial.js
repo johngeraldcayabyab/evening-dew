@@ -41,23 +41,24 @@ export const computeLineDiscount = (line) => {
     const discountType = line.discount_type;
     const discountRate = parseFloat(line.discount_rate);
     if (!discountType || !discountRate) {
-        return line;
+        return {
+            ...line,
+            ...computation
+        };
     }
     if (discountType === 'fixed') {
         computation.discounted_unit_price -= line.discount_rate;
-        for (let i = 0; i < line.quantity; i++) {
-            computation.discount += line.discount_rate;
-        }
-        computation.subtotal = computation.subtotal - computation.discount;
+        computation.discount = line.discount_rate * line.quantity;
+        computation.subtotal -= computation.discount;
     } else if (discountType === 'percentage') {
-        computation.discounted_unit_price = (line.unit_price * discountRate) / 100;
-        for (let i = 0; i < line.quantity; i++) {
-            computation.discount += (line.unit_price * discountRate) / 100;
-        }
-        computation.subtotal = computation.subtotal - computation.discount;
+        computation.discounted_unit_price -= (line.unit_price * discountRate) / 100;
+        computation.discount = (line.unit_price * discountRate / 100) * line.quantity;
+        computation.subtotal -= computation.discount;
     }
-    line.subtotal = computation.subtotal;
-    return line;
+    return {
+        ...line,
+        ...computation
+    };
 }
 
 export const computeSalesOrderLineSubtotal = (salesOrderLine, taxes) => {
