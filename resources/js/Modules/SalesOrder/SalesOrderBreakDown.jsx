@@ -14,7 +14,6 @@ const SalesOrderBreakDown = (props) => {
     // const taxes = formContext.state.queries.taxes.options;
 
     // const salesOrderLinesComputation = [];
-    // const salesOrderComputationSettings = getComputationSettings('sales_order');
     // salesOrderLines.forEach((salesOrderLine) => {
     //     if (salesOrderLine && salesOrderLine.quantity && salesOrderLine.unit_price) {
     //         const salesOrderLineCompute = computeSalesOrderLineSubtotal(salesOrderLine, taxes, salesOrderComputationSettings);

@@ -5,7 +5,6 @@ import SalesOrderBreakDown from "./SalesOrder/SalesOrderBreakDown";
 import CreateInvoiceButton from "./SalesOrder/CreateInvoiceButton"
 import {parseFloatComma} from "../Helpers/string";
 import {computeSalesOrderLineSubtotal} from "../Helpers/financial"
-import {getComputationSettings} from "../Helpers/settings"
 import {updateFormLines} from "../Helpers/form"
 
 const manifest = {
@@ -364,6 +363,9 @@ const manifest = {
                                 {value: 'percentage', label: 'Percentage'},
                                 {value: 'fixed', label: 'Fixed'},
                             ],
+                            onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
+                                computeSubtotal(formContext, allValues);
+                            },
                             overrideDisabled: (formContext) => disableIfStatus(formContext.formState, 'done'),
                         },
                         {
@@ -518,9 +520,8 @@ const manifest = {
 function computeSubtotal(formContext, allValues) {
     const salesOrderLines = allValues.sales_order_lines;
     const taxes = formContext.state.queries.taxes.options;
-    const salesOrderComputationSettings = getComputationSettings('sales_order');
     const salesOrderLinesComputation = salesOrderLines.map((salesOrderLine) => {
-        return computeSalesOrderLineSubtotal(salesOrderLine, taxes, salesOrderComputationSettings);
+        return computeSalesOrderLineSubtotal(salesOrderLine, taxes);
     });
     formContext.form.setFieldsValue({
         sales_order_lines: salesOrderLinesComputation
