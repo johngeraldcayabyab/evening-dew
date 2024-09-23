@@ -21,6 +21,7 @@ const SalesOrderPDF = () => {
             description: salesOrderLine.description,
             quantity: salesOrderLine.quantity,
             unit_price: toCurrency(salesOrderLine.unit_price),
+            discounted_unit_price: toCurrency(salesOrderLine.discounted_unit_price),
             discount_rate: percentageOrCurrency(salesOrderLine.discount_type, salesOrderLine.discount_rate),
             subtotal: toCurrency(salesOrderLine.subtotal),
             avatar: salesOrderLine.avatar
