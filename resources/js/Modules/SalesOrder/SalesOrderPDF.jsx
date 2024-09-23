@@ -47,21 +47,21 @@ const SalesOrderPDF = () => {
                     />
                 )
             },
-            width: '120px'
+            width: '110px'
         },
         {
             title: 'Product',
             dataIndex: 'product',
             key: 'product',
             align: 'left',
-            width: '100px',
+            width: '90px',
         },
         {
             title: 'Description',
             dataIndex: 'description',
             key: 'description',
             align: 'left',
-            width: '350px'
+            width: '340px'
         },
         {
             title: 'QTY',
@@ -75,7 +75,7 @@ const SalesOrderPDF = () => {
             dataIndex: 'unit_price',
             key: 'unit_price',
             align: 'right',
-            width: '90px'
+            width: '80px'
         },
         {
             title: 'Tax',
@@ -91,18 +91,25 @@ const SalesOrderPDF = () => {
             },
         },
         {
+            title: '(Disc) Unit Price',
+            dataIndex: 'discounted_unit_price',
+            key: 'discounted_unit_price',
+            align: 'right',
+            width: '60px'
+        },
+        {
             title: 'Discount',
             dataIndex: 'discount_rate',
             key: 'discount_rate',
             align: 'right',
-            width: '90px'
+            width: '80px'
         },
         {
             title: 'Subtotal',
             dataIndex: 'subtotal',
             key: 'subtotal',
             align: 'right',
-            width: '90px'
+            width: '80px'
         },
     ];
 
