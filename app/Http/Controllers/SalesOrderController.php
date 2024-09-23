@@ -44,6 +44,19 @@ class SalesOrderController extends Controller
         if (isset($data['sales_order_lines'])) {
             $salesOrderLinesData = $data['sales_order_lines'];
             SalesOrderLine::massUpsert($salesOrderLinesData, $salesOrder);
+            $salesOrder->load('salesOrderLines');
+            $lineSubtotal = Arr::pluck($salesOrder->salesOrderLines, 'subtotal');
+            $subTotal = collect($lineSubtotal)->sum();
+            $discountType = $salesOrder->discount_type;
+            $discountRate = $salesOrder->discount_rate;
+            if ($discountType === 'fixed' && $discountRate) {
+                $subTotal -= $discountRate;
+            } else if ($discountType === 'percentage' && $discountRate) {
+                $discount = ($subTotal * $discountRate) / 100;
+                $subTotal -= $discount;
+            }
+            $salesOrder->subtotal = $subTotal;
+            $salesOrder->save();
         }
         if ($salesOrder->status === SalesOrder::DONE) {
             SalesOrderValidated::dispatch($salesOrder);
@@ -59,6 +72,19 @@ class SalesOrderController extends Controller
         if (isset($data['sales_order_lines'])) {
             $salesOrderLinesData = $data['sales_order_lines'];
             SalesOrderLine::massUpsert($salesOrderLinesData, $salesOrder);
+            $salesOrder->load('salesOrderLines');
+            $lineSubtotal = Arr::pluck($salesOrder->salesOrderLines, 'subtotal');
+            $subTotal = collect($lineSubtotal)->sum();
+            $discountType = $salesOrder->discount_type;
+            $discountRate = $salesOrder->discount_rate;
+            if ($discountType === 'fixed' && $discountRate) {
+                $subTotal -= $discountRate;
+            } else if ($discountType === 'percentage' && $discountRate) {
+                $discount = ($subTotal * $discountRate) / 100;
+                $subTotal -= $discount;
+            }
+            $salesOrder->subtotal = $subTotal;
+            $salesOrder->save();
         }
         if (isset($data['sales_order_lines_deleted'])) {
             SalesOrderLine::massDelete(collect($data['sales_order_lines_deleted'])->pluck('id'));

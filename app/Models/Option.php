@@ -30,18 +30,4 @@ class Option extends Model implements Sluggable
     {
         return 'name';
     }
-
-    public static function getComputationSettings($module)
-    {
-        $formattedData = Option::whereIn('name', [
-            "{$module}_computation_order",
-            "{$module}_tax_computation_order",
-            "{$module}_discount_computation_order"
-        ])->get()->pluck('value', 'name')->toArray();
-
-        $prefix = "{$module}_";
-        return collect($formattedData)->mapWithKeys(function ($value, $key) use ($prefix) {
-            return [str_replace($prefix, '', $key) => $value];
-        })->toArray();
-    }
 }

@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Arr;
 
 class SalesOrderLine extends Model
 {
@@ -78,6 +77,7 @@ class SalesOrderLine extends Model
                 'quantity' => $datum['quantity'],
                 'measurement_id' => $measurementId,
                 'unit_price' => $unitPrice,
+                'discounted_unit_price' => $computation['discounted_unit_price'],
                 'tax_id' => $datum['tax_id'] ?? null,
                 'taxable_amount' => $computation['taxable_amount'],
                 'tax_amount' => $computation['tax_amount'],
@@ -89,10 +89,6 @@ class SalesOrderLine extends Model
             ];
         })->toArray();
         $query->upsert($lines, ['id']);
-        $lineSubtotal = Arr::pluck($lines, 'subtotal');
-        $subTotal = collect($lineSubtotal)->sum();
-        $parent->subtotal = $subTotal;
-        $parent->save();
         return $query;
     }
 }
