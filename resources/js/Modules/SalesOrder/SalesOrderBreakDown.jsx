@@ -12,7 +12,7 @@ const SalesOrderBreakDown = (props) => {
     const discountRate = Form.useWatch('discount_rate', formContext.form) ?? 0;
     const discountType = Form.useWatch('discount_type', formContext.form) ?? 0;
 
-    const breakdownComputedWithDiscount = {
+    const breakdownComputation = {
         discount: 0,
         taxable_amount: 0,
         tax_amount: 0,
@@ -24,40 +24,48 @@ const SalesOrderBreakDown = (props) => {
             return;
         }
         if (salesOrderLine.discount) {
-            breakdownComputedWithDiscount.discount += salesOrderLine.discount;
+            breakdownComputation.discount += salesOrderLine.discount;
         }
         if (salesOrderLine.taxable_amount) {
-            breakdownComputedWithDiscount.taxable_amount += salesOrderLine.taxable_amount;
+            breakdownComputation.taxable_amount += salesOrderLine.taxable_amount;
         }
         if (salesOrderLine.tax_amount) {
-            breakdownComputedWithDiscount.tax_amount += salesOrderLine.tax_amount;
+            breakdownComputation.tax_amount += salesOrderLine.tax_amount;
         }
         if (salesOrderLine.subtotal) {
-            breakdownComputedWithDiscount.subtotal += salesOrderLine.subtotal;
+            breakdownComputation.subtotal += salesOrderLine.subtotal;
         }
         console.log(salesOrderLine);
     });
+
+    if (discountType === 'fixed' && discountRate) {
+        breakdownComputation.discount += discountRate;
+        breakdownComputation.subtotal -= discountRate;
+    } else if (discountType === 'percentage' && discountRate) {
+        breakdownComputation.discount = (breakdownComputation.subtotal * discountRate) / 100;
+        breakdownComputation.subtotal -= breakdownComputation.discount;
+    }
 
     const breakdownSource = [
         {
             key: 'discount',
             label: 'Discount:',
-            value: toCurrency(breakdownComputedWithDiscount.discount),
+            value: toCurrency(breakdownComputation.discount),
         },
         {
             key: 'taxable_amount',
             label: 'Taxable Amount:',
-            value: toCurrency(breakdownComputedWithDiscount.taxable_amount),
+            value: toCurrency(breakdownComputation.taxable_amount),
         },
         {
             key: 'tax_amount',
             label: 'Tax Amount:',
-            value: toCurrency(breakdownComputedWithDiscount.tax_amount),
+            value: toCurrency(breakdownComputation.tax_amount),
         },
         {
             key: 'total',
             label: 'Total:',
-            value: toCurrency(breakdownComputedWithDiscount.subtotal),
+            value: toCurrency(breakdownComputation.subtotal),
         },
     ];
 
@@ -96,26 +104,5 @@ const SalesOrderBreakDown = (props) => {
         />
     )
 }
-
-// function computeBreakdown(salesOrderLinesComputedFormatted) {
-//     const breakdownInitial = {
-//         taxable_amount: 0,
-//         tax_amount: 0,
-//         total_discountable: 0,
-//         total_non_discountable: 0,
-//     };
-//     if (salesOrderLinesComputedFormatted.length) {
-//         salesOrderLinesComputedFormatted.forEach(breakBot => {
-//             breakdownInitial.taxable_amount = breakdownInitial.taxable_amount + breakBot.taxable_amount;
-//             breakdownInitial.tax_amount = breakdownInitial.tax_amount + breakBot.tax_amount;
-//             if (breakBot.can_be_discounted) {
-//                 breakdownInitial.total_discountable = breakdownInitial.total_discountable + breakBot.total;
-//             } else {
-//                 breakdownInitial.total_non_discountable = breakdownInitial.total_non_discountable + breakBot.total;
-//             }
-//         });
-//     }
-//     return breakdownInitial;
-// }
 
 export default SalesOrderBreakDown;

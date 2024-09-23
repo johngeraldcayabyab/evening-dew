@@ -72,24 +72,3 @@ export const computeSalesOrderLineSubtotal = (salesOrderLine, taxes) => {
     salesOrderLine = computeTax(taxes, salesOrderLine);
     return salesOrderLine;
 }
-
-
-export const computeDiscount = (discountType, discountRate, breakdownComputed = {}) => {
-    const discountedComputation = {
-        taxable_amount: breakdownComputed.taxable_amount,
-        tax_amount: breakdownComputed.tax_amount,
-        discount: 0,
-        total: 0,
-    };
-    if (discountType === 'fixed' && discountRate) {
-        discountedComputation.discount = discountRate;
-        discountedComputation.total = breakdownComputed.total_discountable - discountedComputation.discount;
-    } else if (discountType === 'percentage' && discountRate) {
-        discountedComputation.discount = (breakdownComputed.total_discountable * discountRate) / 100;
-        discountedComputation.total = breakdownComputed.total_discountable - discountedComputation.discount;
-    } else {
-        discountedComputation.total = breakdownComputed.total_discountable;
-    }
-    discountedComputation.total = discountedComputation.total + breakdownComputed.total_non_discountable;
-    return discountedComputation;
-}
