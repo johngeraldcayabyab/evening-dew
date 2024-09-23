@@ -35,7 +35,6 @@ const SalesOrderBreakDown = (props) => {
         if (salesOrderLine.subtotal) {
             breakdownComputation.subtotal += salesOrderLine.subtotal;
         }
-        console.log(salesOrderLine);
     });
 
     if (discountType === 'fixed' && discountRate) {

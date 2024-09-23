@@ -78,6 +78,7 @@ class SalesOrderLine extends Model
                 'measurement_id' => $measurementId,
                 'unit_price' => $unitPrice,
                 'discounted_unit_price' => $computation['discounted_unit_price'],
+                'discount' => $computation['discount'],
                 'tax_id' => $datum['tax_id'] ?? null,
                 'taxable_amount' => $computation['taxable_amount'],
                 'tax_amount' => $computation['tax_amount'],
