@@ -8,10 +8,19 @@ export const TableModal = (props) => {
     const manifest = props.selectProps.query.manifest;
     manifest.returnRecordValue = (record, rowIndex) => {
         if (record && record.id) {
-            formContext.options[`${props.selectProps.name}-options`].getOptions({id: record.id});
             const values = {};
             values[props.selectProps.name] = record.id;
-            formContext.form.setFieldsValue(values);
+            if (props.selectProps.isListField) {
+                formContext.options[`${props.selectProps.name}-lineOptions`].getOptions({id: record.id}, props.selectProps.groupName);
+                const listValues = formContext.form.getFieldsValue()[props.selectProps.listName];
+                listValues[props.selectProps.groupName] = values
+                const formLineUpdatedValues = {};
+                formLineUpdatedValues[props.selectProps.listName] = listValues;
+                formContext.form.setFieldsValue(formLineUpdatedValues);
+            } else {
+                formContext.options[`${props.selectProps.name}-options`].getOptions({id: record.id});
+                formContext.form.setFieldsValue(values);
+            }
         }
         handleOk();
     };
