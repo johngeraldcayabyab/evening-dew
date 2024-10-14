@@ -62,6 +62,7 @@ const FormItemSelect = (props) => {
                         menu={menu}
                         {...props.dropdownRender}
                         selectRef={selectRef}
+                        selectProps={props}
                     />
                 )
             }
@@ -71,6 +72,7 @@ const FormItemSelect = (props) => {
                         menu={menu}
                         {...props.optionAggregate.aggregate(props.optionAggregate, props.fieldKey, formContext)}
                         selectRef={selectRef}
+                        selectProps={props}
                     />
                 )
             }
@@ -114,7 +116,8 @@ const FormItemSelect = (props) => {
 
     return (
         <Form.Item {...formItemProps}>
-            {isLoading() ? <CustomInputSkeleton {...props}/> : <Select {...fieldProps} options={options} ref={selectRef}/>}
+            {isLoading() ? <CustomInputSkeleton {...props}/> :
+                <Select {...fieldProps} options={options} ref={selectRef}/>}
         </Form.Item>
     )
 }

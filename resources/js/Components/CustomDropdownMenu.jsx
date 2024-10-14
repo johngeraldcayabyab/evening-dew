@@ -24,10 +24,14 @@ const CustomDropdownMenu = (props) => {
                             <PlusOutlined/> Create
                         </Typography.Link>
                     </Space>
-                    <Divider style={{margin: '8px 0'}}/>
-                    <Space align="center" style={{padding: '0 8px 4px'}}>
-                        <TableModal {...props}/>
-                    </Space>
+                    {props.selectProps.query.manifest &&
+                        <>
+                            <Divider style={{margin: '8px 0'}}/>
+                            <Space align="center" style={{padding: '0 8px 4px'}}>
+                                <TableModal {...props}/>
+                            </Space>
+                        </>
+                    }
                 </>
             }
         </>

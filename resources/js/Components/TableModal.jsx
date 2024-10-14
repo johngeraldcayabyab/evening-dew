@@ -1,7 +1,10 @@
 import {Button, Modal} from "antd"
 import {useState} from "react"
+import TableGenerator from "./TableAndKanban/TableGenerator"
 
 export const TableModal = (props) => {
+    const manifest = props.selectProps.query.manifest;
+    console.log(manifest);
     const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [modalText, setModalText] = useState('Content of the modal');
@@ -34,8 +37,9 @@ export const TableModal = (props) => {
                 onOk={handleOk}
                 confirmLoading={confirmLoading}
                 onCancel={handleCancel}
+                width={800}
             >
-                <p>{modalText}</p>
+                <TableGenerator {...manifest}/>
             </Modal>
         </>
     );
