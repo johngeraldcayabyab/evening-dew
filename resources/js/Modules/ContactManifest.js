@@ -1,5 +1,4 @@
 import {DATE_RANGE, HAS_FORM_CREATE, HAS_FORM_UPDATE, HAS_TABLE, SEARCH} from "../consts";
-import CityManifest from "./CityManifest"
 
 const manifest = {
     moduleName: "contacts",
@@ -117,7 +116,7 @@ const manifest = {
                     name: 'city_id',
                     label: 'City',
                     query: {
-                        url: '/api/cities', field: 'name', manifest: CityManifest
+                        url: '/api/cities', field: 'name'
                     },
                 },
                 {
