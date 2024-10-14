@@ -1,12 +1,19 @@
 import {Button, Modal} from "antd"
-import {useState} from "react"
+import {useContext, useState} from "react"
 import TableGenerator from "./TableAndKanban/TableGenerator"
+import {FormContext} from "../Contexts/FormContext"
 
 export const TableModal = (props) => {
+    const formContext = useContext(FormContext);
     const manifest = props.selectProps.query.manifest;
     manifest.returnRecordValue = (record, rowIndex) => {
+        if (record && record.id) {
+            formContext.options[`${props.selectProps.name}-options`].getOptions({id: record.id});
+            const values = {};
+            values[props.selectProps.name] = record.id;
+            formContext.form.setFieldsValue(values);
+        }
         handleOk();
-        console.log(record, rowIndex);
     };
     const [open, setOpen] = useState(false);
     const showModal = () => {

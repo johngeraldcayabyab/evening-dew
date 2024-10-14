@@ -6,6 +6,8 @@ import CreateInvoiceButton from "./SalesOrder/CreateInvoiceButton"
 import {parseFloatComma} from "../Helpers/string";
 import {computeSalesOrderLineSubtotal} from "../Helpers/financial"
 import {updateFormLines} from "../Helpers/form"
+import ProductManifest from "./ProductManifest"
+import CityManifest from "./CityManifest"
 
 const manifest = {
     moduleName: "sales_orders",
@@ -221,7 +223,7 @@ const manifest = {
                     type: 'select',
                     name: 'invoice_city_id',
                     label: 'Invoice city',
-                    query: {url: '/api/cities', field: 'name'},
+                    query: {url: '/api/cities', field: 'name', manifest: CityManifest},
                 },
                 {
                     type: 'text', name: 'invoice_phone', label: 'Invoice Phone',
@@ -287,7 +289,7 @@ const manifest = {
                             type: 'select',
                             name: 'product_id',
                             placeholder: 'Product',
-                            query: {url: '/api/products', field: 'name'},
+                            query: {url: '/api/products', field: 'name', manifest: ProductManifest},
                             required: true,
                             onValueChange: (changedValues, values, formContext, changedLine, allValues) => {
                                 formContext.useFetch(`/api/products/${changedLine.product_id}`, GET).then((response) => {
