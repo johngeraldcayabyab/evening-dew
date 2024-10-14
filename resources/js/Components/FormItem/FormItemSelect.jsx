@@ -49,6 +49,7 @@ const FormItemSelect = (props) => {
                 fields[props.name] = null;
                 formContext.form.setFieldsValue(fields);
             }
+            setState({ isClear: false });
         }
     }, [state.isClear]);
 
