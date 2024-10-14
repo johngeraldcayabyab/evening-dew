@@ -83,6 +83,8 @@ const TableGenerator = (manifest) => {
         });
     }, [manifest]);
 
+    const isRecordValueReturnable = manifest.returnRecordValue; // Or pass it as a prop
+
     function isCreatableAndUpdatable() {
         return !!(manifest.routes.includes(HAS_FORM_UPDATE) || manifest.routes.includes(HAS_FORM_CREATE));
     }
@@ -108,8 +110,12 @@ const TableGenerator = (manifest) => {
     function onRow(record, rowIndex) {
         return {
             onClick: event => {
-                if (isClickableRow() && isCreatableAndUpdatable()) {
-                    navigate(`/${manifest.displayName}/${record.id}`);
+                if (!isRecordValueReturnable) {
+                    if (isClickableRow() && isCreatableAndUpdatable()) {
+                        navigate(`/${manifest.displayName}/${record.id}`);
+                    }
+                } else {
+                    isRecordValueReturnable(record, rowIndex);
                 }
             },
             onDoubleClick: event => {
@@ -122,7 +128,7 @@ const TableGenerator = (manifest) => {
                 }
             },
             onMouseLeave: event => {
-                if (isClickableRow() && isCreatableAndUpdatable()) {
+                if (isClickableRow() && isCreatableAndUpdatable() && !isRecordValueReturnable) {
                     document.body.style.cursor = "default";
                 }
             },

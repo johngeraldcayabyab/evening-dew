@@ -4,10 +4,11 @@ import TableGenerator from "./TableAndKanban/TableGenerator"
 
 export const TableModal = (props) => {
     const manifest = props.selectProps.query.manifest;
-    console.log(manifest);
+    manifest.returnRecordValue = (record, rowIndex) => {
+        handleOk();
+        console.log(record, rowIndex);
+    };
     const [open, setOpen] = useState(false);
-    const [confirmLoading, setConfirmLoading] = useState(false);
-    const [modalText, setModalText] = useState('Content of the modal');
     const showModal = () => {
         if (props.selectRef.current) {
             props.selectRef.current.focus();
@@ -16,12 +17,7 @@ export const TableModal = (props) => {
         setOpen(true);
     };
     const handleOk = () => {
-        setModalText('The modal will be closed after two seconds');
-        setConfirmLoading(true);
-        setTimeout(() => {
-            setOpen(false);
-            setConfirmLoading(false);
-        }, 2000);
+        setOpen(false);
     };
     const handleCancel = () => {
         setOpen(false);
@@ -35,7 +31,6 @@ export const TableModal = (props) => {
                 title="Search "
                 open={open}
                 onOk={handleOk}
-                confirmLoading={confirmLoading}
                 onCancel={handleCancel}
                 width={800}
             >
