@@ -1,11 +1,12 @@
 import {Form, Select, Tag} from "antd";
-import {useContext, useEffect, useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import CustomInputSkeleton from "../CustomInputSkeleton";
 import {FormContext} from "../../Contexts/FormContext";
 import CustomDropdownMenu from "../CustomDropdownMenu";
 import useFieldHook from "../../Hooks/useFieldHook"
 
 const FormItemSelect = (props) => {
+    const selectRef = useRef(null);
     const [state, setState] = useState({
         isClear: false
     });
@@ -49,7 +50,7 @@ const FormItemSelect = (props) => {
                 fields[props.name] = null;
                 formContext.form.setFieldsValue(fields);
             }
-            setState({ isClear: false });
+            setState({isClear: false});
         }
     }, [state.isClear]);
 
@@ -60,6 +61,7 @@ const FormItemSelect = (props) => {
                     <CustomDropdownMenu
                         menu={menu}
                         {...props.dropdownRender}
+                        selectRef={selectRef}
                     />
                 )
             }
@@ -68,6 +70,7 @@ const FormItemSelect = (props) => {
                     <CustomDropdownMenu
                         menu={menu}
                         {...props.optionAggregate.aggregate(props.optionAggregate, props.fieldKey, formContext)}
+                        selectRef={selectRef}
                     />
                 )
             }
@@ -111,7 +114,7 @@ const FormItemSelect = (props) => {
 
     return (
         <Form.Item {...formItemProps}>
-            {isLoading() ? <CustomInputSkeleton {...props}/> : <Select {...fieldProps} options={options}/>}
+            {isLoading() ? <CustomInputSkeleton {...props}/> : <Select {...fieldProps} options={options} ref={selectRef}/>}
         </Form.Item>
     )
 }

@@ -1,9 +1,10 @@
-import {Button, Divider, Input, Space, Typography} from "antd";
+import {Divider, Input, Space, Typography} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
 import React, {useContext} from "react"
 import {isShowButton} from "../Helpers/object"
 import {CREATE_ACCESS} from "../consts"
 import {AppContext} from "../Contexts/AppContext"
+import {TableModal} from "./TableModal"
 
 const CustomDropdownMenu = (props) => {
     const appContext = useContext(AppContext);
@@ -23,18 +24,10 @@ const CustomDropdownMenu = (props) => {
                             <PlusOutlined/> Create
                         </Typography.Link>
                     </Space>
-                    {/*<Divider style={{margin: '8px 0'}}/>*/}
-                    {/*<Space align="center" style={{padding: '0 8px 4px'}}>*/}
-                    {/*    <Button*/}
-                    {/*        type={"link"}*/}
-                    {/*        size={'default'}*/}
-                    {/*        // onClick={() => {*/}
-                    {/*        //     formContext.formActions.toggleEditMode();*/}
-                    {/*        // }}*/}
-                    {/*    >*/}
-                    {/*        Search more...*/}
-                    {/*    </Button>*/}
-                    {/*</Space>*/}
+                    <Divider style={{margin: '8px 0'}}/>
+                    <Space align="center" style={{padding: '0 8px 4px'}}>
+                        <TableModal {...props}/>
+                    </Space>
                 </>
             }
         </>
