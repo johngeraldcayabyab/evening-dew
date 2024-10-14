@@ -126,37 +126,31 @@ const FormItems = () => {
             return null;
         }
         return fields.map((field) => {
-            if (field.type === 'text') {
-                return generateItemText(field);
+            switch (field.type) {
+                case 'text':
+                    return generateItemText(field);
+                case 'textarea':
+                    return generateTextArea(field);
+                case 'number':
+                    return generateItemNumber(field);
+                case 'checkbox':
+                    return generateCheckbox(field);
+                case 'select':
+                    return generateSelect(field);
+                case 'upload':
+                    return generateUpload(field);
+                case 'status':
+                    return generateStatus(field);
+                case 'date':
+                    return generateDate(field);
+                case 'divider':
+                    return generateDivider(field, field.name);
+                case 'component':
+                    return field.component;
+                default:
+                    console.warn(`Unsupported field type: ${field.type}`);
+                    return <div key={field.name}>Unsupported field: {field.type}</div>;
             }
-            if (field.type === 'textarea') {
-                return generateTextArea(field);
-            }
-            if (field.type === 'number') {
-                return generateItemNumber(field);
-            }
-            if (field.type === 'checkbox') {
-                return generateCheckbox(field);
-            }
-            if (field.type === 'select') {
-                return generateSelect(field);
-            }
-            if (field.type === 'upload') {
-                return generateUpload(field);
-            }
-            if (field.type === 'status') {
-                return generateStatus(field);
-            }
-            if (field.type === 'date') {
-                return generateDate(field);
-            }
-            if (field.type === 'divider') {
-                return generateDivider(field, field.name);
-            }
-            if (field.type === 'component') {
-                return field.component;
-            }
-            return null;
         });
     }
 
