@@ -9,7 +9,8 @@ import {createRoot} from 'react-dom/client';
 import ErrorPage from "./Error";
 import {generateRoutesFromManifests} from "./RoutesManifest"
 import {Provider} from "react-redux"
-import store from './redux/store'
+import store, {persistor} from './redux/store'
+import {PersistGate} from "redux-persist/integration/react"
 
 
 const App = () => {
@@ -49,7 +50,9 @@ document.addEventListener('DOMContentLoaded', function (event) {
         const root = createRoot(container)
         root.render(
             <Provider store={store}>
-                <App/>
+                <PersistGate loading={null} persistor={persistor}>
+                    <App/>
+                </PersistGate>
             </Provider>
         );
     }
