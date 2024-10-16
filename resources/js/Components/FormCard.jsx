@@ -8,9 +8,9 @@ const FormCard = (props) => {
 
     return (<div id={'form-card'}>
 
-        <h1>Count: {count}</h1>
-        <button onClick={() => dispatch(increment())}>Increment</button>
-        <button onClick={() => dispatch(decrement())}>Decrement</button>
+        {/*<h1>Count: {count}</h1>*/}
+        {/*<button onClick={() => dispatch(increment())}>Increment</button>*/}
+        {/*<button onClick={() => dispatch(decrement())}>Decrement</button>*/}
 
         <Card style={{
             minWidth: '450px',

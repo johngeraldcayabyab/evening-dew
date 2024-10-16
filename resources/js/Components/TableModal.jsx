@@ -9,17 +9,23 @@ export const TableModal = (props) => {
     manifest.returnRecordValue = (record, rowIndex) => {
         if (record && record.id) {
             const values = {};
+            const allValues = formContext.form.getFieldsValue();
             values[props.selectProps.name] = record.id;
             if (props.selectProps.isListField) {
                 formContext.options[`${props.selectProps.name}-lineOptions`].getOptions({id: record.id}, props.selectProps.groupName);
-                const listValues = formContext.form.getFieldsValue()[props.selectProps.listName];
+                const listValues = allValues[props.selectProps.listName];
                 listValues[props.selectProps.groupName] = values
-                const formLineUpdatedValues = {};
-                formLineUpdatedValues[props.selectProps.listName] = listValues;
-                formContext.form.setFieldsValue(formLineUpdatedValues);
+                const changedValues = {};
+                changedValues[props.selectProps.listName] = listValues;
+                formContext.form.setFieldsValue(changedValues);
+                const changedLine = {};
+                changedLine.key = props.selectProps.groupName;
+                changedLine[props.selectProps.name] = record.id;
+                props.selectProps.onValueChange(changedValues, allValues, formContext, changedLine, allValues);
             } else {
                 formContext.options[`${props.selectProps.name}-options`].getOptions({id: record.id});
                 formContext.form.setFieldsValue(values);
+                props.selectProps.onValueChange(values, allValues, formContext);
             }
         }
         handleOk();

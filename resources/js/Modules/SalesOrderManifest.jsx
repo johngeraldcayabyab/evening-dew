@@ -7,7 +7,6 @@ import {parseFloatComma} from "../Helpers/string";
 import {computeSalesOrderLineSubtotal} from "../Helpers/financial"
 import {updateFormLines} from "../Helpers/form"
 import ProductManifest from "./ProductManifest"
-import CityManifest from "./CityManifest"
 
 const manifest = {
     moduleName: "sales_orders",
@@ -223,7 +222,7 @@ const manifest = {
                     type: 'select',
                     name: 'invoice_city_id',
                     label: 'Invoice city',
-                    query: {url: '/api/cities', field: 'name', manifest: CityManifest},
+                    query: {url: '/api/cities', field: 'name'},
                 },
                 {
                     type: 'text', name: 'invoice_phone', label: 'Invoice Phone',
